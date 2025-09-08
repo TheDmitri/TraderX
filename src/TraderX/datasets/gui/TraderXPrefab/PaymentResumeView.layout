@@ -1,0 +1,154 @@
+PanelWidgetClass PaymentResume {
+ ignorepointer 1
+ position 0.018 0.012
+ size 470 92
+ hexactpos 0
+ vexactpos 0
+ hexactsize 1
+ vexactsize 1
+ scriptclass "PaymentResumeViewController"
+ {
+  TextWidgetClass PaymentAmount {
+   ignorepointer 1
+   color 0.6078 0.651 0.2314 1
+   size 0.09 0.391
+   halign right_ref
+   hexactpos 0
+   vexactpos 0
+   hexactsize 0
+   vexactsize 0
+   scriptclass "ViewBinding"
+   text "To pay: 13,350"
+   font "TraderX/datasets/fonts/RobotoCondensedVF28"
+   "size to text h" 1
+   "text valign" center
+   {
+    ScriptParamsClass {
+     Binding_Name "payment_amount"
+    }
+   }
+  }
+  PanelWidgetClass PanelWidget5 {
+   ignorepointer 1
+   color 0.3608 0.3686 0.3882 1
+   position 0 0.14
+   size 0.36 0.45
+   halign right_ref
+   valign bottom_ref
+   hexactpos 0
+   vexactpos 0
+   hexactsize 0
+   vexactsize 0
+   style DA_Smooth_Small_10px
+   {
+    ButtonWidgetClass ButtonWidget0 {
+     size 1 1.001
+     halign center_ref
+     valign center_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     scriptclass "ViewBinding"
+     style Empty
+     {
+      ScriptParamsClass {
+       Relay_Command "OnPurchaseExecute"
+      }
+     }
+    }
+    TextWidgetClass TextWidget4 {
+     ignorepointer 1
+     color 0.6078 0.651 0.2314 1
+     position 0 0
+     size 1 1.001
+     halign center_ref
+     valign center_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     text "Purchase"
+     font "TraderX/datasets/fonts/RobotoCondensedVF22"
+     "text halign" center
+     "text valign" center
+    }
+   }
+  }
+  ImageWidgetClass StockLabel15 {
+   ignorepointer 1
+   position 0.37 0.38
+   size 24 24
+   halign right_ref
+   valign bottom_ref
+   hexactpos 0
+   vexactpos 0
+   hexactsize 1
+   vexactsize 1
+   imageTexture "{F77C0332737AE964}TraderX/datasets/icons/bank.edds"
+   mode blend
+   "src alpha" 1
+   "stretch mode" stretch_w_h
+   filter 1
+  }
+  ImageWidgetClass StockLabel16 {
+   ignorepointer 1
+   position 0.37 0.09
+   size 24 24
+   halign right_ref
+   valign bottom_ref
+   hexactpos 0
+   vexactpos 0
+   hexactsize 1
+   vexactsize 1
+   imageTexture "{9A6BCBE7CD6ECE8F}TraderX/datasets/icons/wallet.edds"
+   mode blend
+   "src alpha" 1
+   "stretch mode" stretch_w_h
+   filter 1
+  }
+  TextWidgetClass WalletAccount {
+   ignorepointer 1
+   position 0.44 0.09
+   size 48 24
+   halign right_ref
+   valign bottom_ref
+   hexactpos 0
+   vexactpos 0
+   hexactsize 1
+   vexactsize 1
+   scriptclass "ViewBinding"
+   text "34,000"
+   font "TraderX/datasets/fonts/RobotoCondensedVF22"
+   "size to text h" 1
+   "text valign" center
+   {
+    ScriptParamsClass {
+     Binding_Name "wallet_account"
+    }
+   }
+  }
+  TextWidgetClass BankAccount {
+   clipchildren 0
+   ignorepointer 1
+   position 0.44 0.38
+   size 48 24
+   halign right_ref
+   valign bottom_ref
+   hexactpos 0
+   vexactpos 0
+   hexactsize 1
+   vexactsize 1
+   scriptclass "ViewBinding"
+   text "132,000,000"
+   font "TraderX/datasets/fonts/RobotoCondensedVF22"
+   "size to text h" 1
+   "text valign" center
+   {
+    ScriptParamsClass {
+     Binding_Name "bank_account"
+    }
+   }
+  }
+ }
+}

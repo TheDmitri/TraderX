@@ -1,0 +1,146 @@
+FrameWidgetClass rootFrame {
+ color 0.1922 0.1922 0.1922 1
+ size 600 600
+ halign center_ref
+ valign center_ref
+ hexactpos 1
+ vexactpos 1
+ hexactsize 1
+ vexactsize 1
+ {
+  PanelWidgetClass PanelWidget0 {
+   ignorepointer 1
+   color 0.1922 0.1922 0.1922 1
+   size 1 1
+   halign center_ref
+   valign center_ref
+   hexactpos 1
+   vexactpos 1
+   hexactsize 0
+   vexactsize 0
+   style rover_sim_colorable
+   {
+    GridSpacerWidgetClass GridSpacerWidget0 {
+     ignorepointer 1
+     size 48 48
+     halign center_ref
+     valign center_ref
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     Padding 15
+     Margin 0
+     "Size To Content H" 1
+     "Size To Content V" 1
+     Columns 1
+     Rows 6
+     {
+      ButtonWidgetClass ButtonWidget0 {
+       color 0.1608 0.3961 0.1961 1
+       position 0 0
+       size 223.27301 48
+       halign center_ref
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style DA_Smooth5px_Colored
+       text "Test Button"
+       font "gui/fonts/etelkatextpro16"
+      }
+      ButtonWidgetClass ButtonWidget1 {
+       color 0.1608 0.3961 0.1961 1
+       position 0 0
+       size 223.27301 48
+       halign center_ref
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style DA_Smooth5px_ColoredStr
+       text "Test Button"
+       font "gui/fonts/etelkatextpro16"
+      }
+      ButtonWidgetClass ButtonWidget2 {
+       color 0.1608 0.3961 0.1961 1
+       position 0 0
+       size 223.27301 48
+       halign center_ref
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style DA_Smooth10px_Colored
+       text "Test Button"
+       font "gui/fonts/etelkatextpro16"
+      }
+      ButtonWidgetClass ButtonWidget3 {
+       color 0.1608 0.3961 0.1961 1
+       position 0 0
+       size 223.27301 48
+       halign center_ref
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style DA_Smooth10px_ColoredStr
+       text "Test Button"
+       font "gui/fonts/etelkatextpro16"
+      }
+      ButtonWidgetClass ButtonWidget4 {
+       color 0.1608 0.3961 0.1961 1
+       position 0 0
+       size 223.27301 48
+       halign center_ref
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style DA_Squad_Colored
+       text "Test Button"
+       font "gui/fonts/etelkatextpro16"
+      }
+      ButtonWidgetClass ButtonWidget5 {
+       color 0.1608 0.3961 0.1961 1
+       position 0 0
+       size 223.27301 48
+       halign center_ref
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style DA_Squad_ColoredStr
+       text "Test Button"
+       font "gui/fonts/etelkatextpro16"
+      }
+     }
+    }
+    ButtonWidgetClass ButtonWidget6 {
+     color 0.5686 0.1569 0.1569 1
+     position 449.88898 181.88901
+     size 54 54
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style DA_Circle50px
+     text "No"
+     font "gui/fonts/etelkatextpro16"
+    }
+    ButtonWidgetClass ButtonWidget7 {
+     color 0.1608 0.3961 0.1961 1
+     position 434.96298 281.04001
+     size 106 109
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style DA_Circle100px
+     text "Yes"
+     font "gui/fonts/etelkatextpro22"
+    }
+   }
+  }
+ }
+}

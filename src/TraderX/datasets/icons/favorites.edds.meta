@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{E5C544235D511900}TraderX/datasets/icons/favorites.edds"
+ Author "thedmitri"
+ ChangeDate -825560937
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "favorites.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

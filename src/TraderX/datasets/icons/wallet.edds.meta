@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{9A6BCBE7CD6ECE8F}TraderX/datasets/icons/wallet.edds"
+ Author "thedmitri"
+ ChangeDate 1044115607
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "wallet.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

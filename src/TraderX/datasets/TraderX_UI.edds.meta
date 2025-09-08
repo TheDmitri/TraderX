@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{5A58D607A987DA3E}TraderX/datasets/TraderX_UI.edds"
+ Author "dmitri"
+ ChangeDate -967560424
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "TraderX_UI.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

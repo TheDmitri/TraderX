@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{F2AB2CFE8A56E885}TraderX/datasets/images/car.edds"
+ Author "dmitri"
+ ChangeDate 308441889
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "car.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

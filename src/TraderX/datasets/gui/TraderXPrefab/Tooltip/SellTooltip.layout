@@ -1,0 +1,426 @@
+PanelWidgetClass SellTooltip {
+ color 0.6863 0.7373 0.2196 1
+ position 30 30
+ size 500 180
+ hexactpos 1
+ vexactpos 1
+ hexactsize 1
+ vexactsize 1
+ priority 999
+ scriptclass "SellTooltipViewController"
+ style TP_BackgroundStroke
+ {
+  PanelWidgetClass PanelWidget4 {
+   clipchildren 1
+   inheritalpha 0
+   ignorepointer 1
+   color 0.1137 0.1137 0.1137 1
+   position 0 0
+   size 0.985 0.96
+   halign center_ref
+   valign center_ref
+   hexactpos 0
+   vexactpos 0
+   hexactsize 0
+   vexactsize 0
+   priority 1
+   style DA_Smooth_Small_5px
+   {
+    GridSpacerWidgetClass GridSpacerWidget3 {
+     ignorepointer 1
+     color 0.6863 0.7373 0.2196 1
+     size 1 0.82
+     halign center_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     style Empty
+     Margin 0
+     "Size To Content H" 1
+     Columns 2
+     Rows 1
+     {
+      PanelWidgetClass PanelWidget2 {
+       ignorepointer 1
+       position 10 10
+       size 0.98 0.511
+       hexactpos 1
+       vexactpos 1
+       hexactsize 0
+       vexactsize 0
+       {
+        TextWidgetClass TextWidget8 {
+         ignorepointer 1
+         color 0.6039 0.8039 0.1961 1
+         position 0.03 0.04
+         size 0.95 0.14
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         text "#tpm_product_description"
+         font "TraderX/datasets/fonts/RobotoCondensedVF14"
+         "text valign" center
+        }
+        RichTextWidgetClass RichTextWidget0 {
+         ignorepointer 1
+         position 0.03 0.164
+         size 0.95 0.72
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         scriptclass "ViewBinding"
+         text "Selective-fire assault rifle fed from a detachable magazine. Export version of modernized KA-74M with compatible "\
+         "attachments. Uses 5.56x45mm rounds."
+         font "TraderX/datasets/fonts/RobotoCondensedVF12"
+         "exact text" 1
+         wrap 1
+         {
+          ScriptParamsClass {
+           Binding_Name "product_description"
+          }
+         }
+        }
+        TextWidgetClass TextWidget0 {
+         ignorepointer 1
+         color 0.6039 0.8039 0.1961 1
+         position 0.03 0.9
+         size 0.95 0.1
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         text "#tpm_hierarchy"
+         font "TraderX/datasets/fonts/RobotoCondensedVF14"
+         "text valign" center
+        }
+       }
+      }
+      GridSpacerWidgetClass gridManual {
+       ignorepointer 1
+       position 10 9
+       size 255 84
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       Padding 5
+       Margin 10
+       Columns 1
+       {
+        PanelWidgetClass leftRightClickPanel {
+         visible 1
+         ignorepointer 1
+         position 10 10
+         size 48 48
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         {
+          ImageWidgetClass ImageWidget5 {
+           ignorepointer 1
+           position 0.06 0.02
+           size 27 36
+           hexactpos 0
+           vexactpos 0
+           hexactsize 1
+           vexactsize 1
+           imageTexture "{6C7D1C7762DD33AC}TraderX/datasets/icons/left_right_click.edds"
+           mode blend
+           "src alpha" 1
+           "stretch mode" stretch_w_h
+          }
+          TextWidgetClass TextWidget6 {
+           ignorepointer 1
+           color 0.702 0.4392 0.5098 1
+           position 0 0
+           size 0.8 0.5
+           halign right_ref
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           text "#tpm_left_click_select"
+           font "TraderX/datasets/fonts/RobotoCondensedVF14"
+           "text valign" center
+          }
+          TextWidgetClass TextWidget9 {
+           ignorepointer 1
+           color 0.6039 0.8039 0.1961 1
+           position 0 0.5
+           size 0.8 0.5
+           halign right_ref
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           text "#tpm_right_click_sell_all"
+           font "TraderX/datasets/fonts/RobotoCondensedVF14"
+           "text valign" center
+          }
+         }
+        }
+        PanelWidgetClass quickSellPanel {
+         visible 0
+         ignorepointer 1
+         position 0 0
+         size 48 48
+         halign center_ref
+         valign center_ref
+         hexactpos 0
+         vexactpos 0
+         hexactsize 1
+         vexactsize 1
+         {
+          ImageWidgetClass ImageWidget0 {
+           ignorepointer 1
+           position 0.06 0.02
+           size 27 36
+           hexactpos 0
+           vexactpos 0
+           hexactsize 1
+           vexactsize 1
+           imageTexture "{DDA9824C883AF229}TraderX/datasets/icons/left_click.edds"
+           mode blend
+           "src alpha" 1
+           "stretch mode" none
+          }
+          RichTextWidgetClass TextWidget1 {
+           ignorepointer 1
+           position 0 0
+           size 0.8 1
+           halign right_ref
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           text "#tpm_double_left_click_quick_sell"
+           font "TraderX/datasets/fonts/RobotoCondensedVF12"
+           "exact text" 1
+           "text valign" center
+           wrap 1
+           "condense whitespace" 1
+          }
+         }
+        }
+        PanelWidgetClass shiftLeftClickPanel {
+         visible 1
+         ignorepointer 1
+         position 10 10
+         size 48 48
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         {
+          ImageWidgetClass ImageWidget1 {
+           ignorepointer 1
+           position 0.03 0
+           size 42 36
+           hexactpos 0
+           vexactpos 0
+           hexactsize 1
+           vexactsize 1
+           imageTexture "{A5CBBB1EB4974989}TraderX/datasets/icons/shift.edds"
+           mode blend
+           "src alpha" 1
+           "stretch mode" stretch_w_h
+          }
+          TextWidgetClass TextWidget3 {
+           ignorepointer 1
+           position 0.2 0
+           size 0.091 1
+           valign center_ref
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           text "+"
+           font "TraderX/datasets/fonts/RobotoCondensedVF22"
+           "text halign" center
+           "text valign" center
+          }
+          ImageWidgetClass ImageWidget2 {
+           ignorepointer 1
+           position 0.29 0.02
+           size 27 36
+           hexactpos 0
+           vexactpos 0
+           hexactsize 1
+           vexactsize 1
+           imageTexture "{DDA9824C883AF229}TraderX/datasets/icons/left_click.edds"
+           mode blend
+           "src alpha" 1
+           "stretch mode" stretch_w_h
+          }
+          RichTextWidgetClass TextWidget5 {
+           ignorepointer 1
+           position 0 0
+           size 0.57 1
+           halign right_ref
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           text "#tpm_shift_left_click_add #tpm_selection_with_attachments"
+           font "TraderX/datasets/fonts/RobotoCondensedVF12"
+           "exact text" 1
+           wrap 1
+          }
+         }
+        }
+        PanelWidgetClass shiftRightPanel {
+         visible 1
+         ignorepointer 1
+         position 10 10
+         size 48 48
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         {
+          ImageWidgetClass ImageWidget3 {
+           ignorepointer 1
+           position 0.03 0
+           size 42 36
+           hexactpos 0
+           vexactpos 0
+           hexactsize 1
+           vexactsize 1
+           imageTexture "{A5CBBB1EB4974989}TraderX/datasets/icons/shift.edds"
+           mode blend
+           "src alpha" 1
+           "stretch mode" stretch_w_h
+          }
+          TextWidgetClass TextWidget4 {
+           ignorepointer 1
+           position 0.2 0
+           size 0.091 1
+           valign center_ref
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           text "+"
+           font "TraderX/datasets/fonts/RobotoCondensedVF22"
+           "text halign" center
+           "text valign" center
+          }
+          ImageWidgetClass ImageWidget4 {
+           ignorepointer 1
+           position 0.29 0.02
+           size 27 36
+           hexactpos 0
+           vexactpos 0
+           hexactsize 1
+           vexactsize 1
+           imageTexture "{88205B22C7208A52}TraderX/datasets/icons/right_click.edds"
+           mode blend
+           "src alpha" 1
+           "stretch mode" stretch_w_h
+          }
+          RichTextWidgetClass TextWidget7 {
+           ignorepointer 1
+           position 0 0
+           size 0.57 1
+           halign right_ref
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           text "#tpm_shift_right_click_selection"
+           font "TraderX/datasets/fonts/RobotoCondensedVF12"
+           "exact text" 1
+           wrap 1
+          }
+         }
+        }
+        PanelWidgetClass manualModePanel {
+         visible 0
+         ignorepointer 1
+         position 10 10
+         size 48 48
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         {
+          RichTextWidgetClass TextWidget2 {
+           ignorepointer 1
+           position 0 0
+           size 1 1
+           halign center_ref
+           valign center_ref
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           text "#tpm_check_other_sell_abilities"
+           font "TraderX/datasets/fonts/RobotoCondensedVF12"
+           "exact text" 1
+           "text halign" center
+           "text valign" center
+           wrap 1
+           "condense whitespace" 1
+           "strip newlines" 1
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+    PanelWidgetClass PanelWidget6 {
+     ignorepointer 1
+     color 0.6863 0.7373 0.2196 1
+     position -0.0375 0
+     size 2 105
+     halign center_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 1
+     vexactsize 1
+     style Outline
+    }
+    PanelWidgetClass PanelWidget0 {
+     ignorepointer 1
+     position 0 0
+     size 1 0.18
+     halign center_ref
+     valign bottom_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     {
+      RichTextWidgetClass RichTextWidget1 {
+       ignorepointer 1
+       position 0 0
+       size 0.97 1
+       halign center_ref
+       valign center_ref
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       scriptclass "ViewBinding"
+       font "TraderX/datasets/fonts/RobotoCondensedVF14"
+       "exact text" 1
+       wrap 1
+       "condense whitespace" 1
+       "strip newlines" 1
+       {
+        ScriptParamsClass {
+         Binding_Name "hierarchy"
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

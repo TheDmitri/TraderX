@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{EA2703575C6257F7}TraderX/datasets/icons/decroissant.edds"
+ Author "thedmitri"
+ ChangeDate -579080112
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "decroissant.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

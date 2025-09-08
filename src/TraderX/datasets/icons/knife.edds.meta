@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{935F4F9F14BBA8C3}TraderX/datasets/icons/knife.edds"
+ Author "thedmitri"
+ ChangeDate -1860505523
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "knife.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{EB726E14374FA5D6}TraderX/datasets/icons/bookmarkWhithe.edds"
+ Author "desktop-sph959j"
+ ChangeDate -1525010274
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "bookmarkWhithe.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

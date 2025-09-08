@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{E3DA8E178A59D710}TraderX/datasets/icons/Electronics.edds"
+ Author "thedmitri"
+ ChangeDate -686624691
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "Electronics.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

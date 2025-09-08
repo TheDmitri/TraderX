@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{5E0F823DA783BE90}TraderX/datasets/icons/market.edds"
+ Author "thedmitri"
+ ChangeDate 543420493
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "market.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{D80A5439EB4BACBD}TraderX/datasets/icons/home.edds"
+ Author "thedmitri"
+ ChangeDate 40104013
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "home.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

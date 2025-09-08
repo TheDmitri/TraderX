@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{C1279E7EE785F19F}TraderX/datasets/icons/stock.edds"
+ Author "thedmitri"
+ ChangeDate -1371180903
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "stock.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

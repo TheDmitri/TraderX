@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{EEA89E4B3EA0F32E}TraderX/datasets/icons/simpleCoins.edds"
+ Author "desktop-33c97jr"
+ ChangeDate 280654052
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "simpleCoins.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

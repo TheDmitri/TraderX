@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{51D23F7151357D28}TraderX/datasets/icons/fire_light.edds"
+ Author "thedmitri"
+ ChangeDate -418189235
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "fire_light.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{CF21CEF55C8BC02C}TraderX/datasets/icons/info.edds"
+ Author "desktop-33c97jr"
+ ChangeDate 1093284164
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "info.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

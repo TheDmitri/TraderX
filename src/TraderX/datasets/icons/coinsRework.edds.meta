@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{3A272A1979153CDF}TraderX/datasets/icons/coinsRework.edds"
+ Author "desktop-sph959j"
+ ChangeDate -461115237
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "coinsRework.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC { 
+  }
+ }
+}

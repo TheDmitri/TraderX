@@ -1,0 +1,582 @@
+PanelWidgetClass PurchasePageView {
+ visible 1
+ ignorepointer 1
+ color 0 0 0 0
+ position 0 0
+ size 1 1
+ halign center_ref
+ valign bottom_ref
+ hexactpos 0
+ vexactpos 0
+ hexactsize 0
+ vexactsize 0
+ scriptclass "PurchasePageViewController"
+ style DA_Smooth_Small_10px
+ {
+  PanelWidgetClass wSearchBar {
+   visible 1
+   ignorepointer 1
+   color 0.3294 0.3294 0.3294 1
+   position -0.18 0.0568
+   size 0.1935 0.0426
+   halign center_ref
+   hexactpos 0
+   vexactpos 0
+   hexactsize 0
+   vexactsize 0
+   style DA_Smooth5px_ColoredStr
+   {
+    EditBoxWidgetClass EditBoxWidget1 {
+     color 0.8471 0.8471 0.8471 1
+     position 0.05 -0.028
+     size 0.824 0.83
+     valign center_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     scriptclass "ViewBinding"
+     style No_Highlight
+     text "#tpm_search_products"
+     "Default text color" 0.8471 0.8471 0.8471 1
+     "Use default text" 1
+     "exact text" 1
+     font "TraderX/datasets/fonts/RobotoCondensedVF12"
+     "text color" 0.9961 0.9961 0.9961 1
+     {
+      ScriptParamsClass {
+       Binding_Name "search_keyword"
+       Two_Way_Binding 1
+      }
+     }
+    }
+    ImageWidgetClass ImageWidget5 {
+     ignorepointer 1
+     color 0.8471 0.8471 0.8471 1
+     position 0.02 0
+     size 0.084 0.755
+     halign right_ref
+     valign center_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     image0 ""
+     imageTexture "{F42AF1339263932B}TraderX/datasets/icons/search.edds"
+     mode additive
+     "src alpha" 1
+     "stretch mode" stretch_w_h
+     filter 0
+    }
+   }
+  }
+  PanelWidgetClass Background {
+   disabled 0
+   inheritalpha 0
+   ignorepointer 1
+   color 0.1882 0.1882 0.1882 1
+   position 0 0
+   size 1 0.87633
+   halign center_ref
+   valign bottom_ref
+   hexactpos 0
+   vexactpos 0
+   hexactsize 0
+   vexactsize 0
+   style blank
+   {
+    GridSpacerWidgetClass PanelWidget0 {
+     ignorepointer 1
+     size 1 1
+     halign center_ref
+     valign center_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     Margin 0
+     "Size To Content H" 1
+     Rows 1
+     {
+      PanelWidgetClass PlayerPreviewPanel {
+       visible 1
+       ignorepointer 1
+       color 0.1176 0.1176 0.1176 1
+       position 0.005 0
+       size 0.22 0.994
+       valign center_ref
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       scriptclass "PlayerPreviewController"
+       style TP_BackgroundStroke
+       {
+        PanelWidgetClass PanelWidget1 {
+         ignorepointer 1
+         color 0.1176 0.1176 0.1176 1
+         position 0 0.01283
+         size 0.939 0.89731
+         halign center_ref
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         style TP_BackgroundStroke
+         {
+          PlayerPreviewWidgetClass playerPreview {
+           ignorepointer 1
+           position 0 0
+           size 0.97 0.98
+           halign center_ref
+           valign center_ref
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+          }
+         }
+        }
+        ButtonWidgetClass stripBtn {
+         disabled 0
+         inheritalpha 1
+         color 0.9961 0.9961 0.9961 1
+         position 0.15 0.018
+         size 48 48
+         halign center_ref
+         valign bottom_ref
+         hexactpos 0
+         vexactpos 0
+         hexactsize 1
+         vexactsize 1
+         scriptclass "ViewBinding"
+         style TP_CardBtn
+         {
+          ImageWidgetClass ImageWidget2 {
+           visible 1
+           ignorepointer 1
+           color 0.8471 0.8471 0.8471 1
+           position 0 0
+           size 28 27
+           halign center_ref
+           valign center_ref
+           hexactpos 0
+           vexactpos 0
+           hexactsize 1
+           vexactsize 1
+           imageTexture "{13163EDFC11533D8}TraderX/datasets/images/t-shirt.edds"
+           mode blend
+           "src alpha" 1
+           "stretch mode" stretch_w_h
+          }
+         }
+         {
+          ScriptParamsClass {
+           Relay_Command "OnStripExecute"
+          }
+         }
+        }
+        ButtonWidgetClass resetBtn {
+         visible 1
+         disabled 0
+         color 0.9961 0.9961 0.9961 1
+         position -0.15 0.018
+         size 48 48
+         halign center_ref
+         valign bottom_ref
+         hexactpos 0
+         vexactpos 0
+         hexactsize 1
+         vexactsize 1
+         scriptclass "ViewBinding"
+         style TP_CardBtn
+         {
+          ImageWidgetClass ImageWidget1 {
+           inheritalpha 1
+           ignorepointer 1
+           color 0.8471 0.8471 0.8471 1
+           position 0 0
+           size 28 27
+           halign center_ref
+           valign center_ref
+           hexactpos 0
+           vexactpos 0
+           hexactsize 1
+           vexactsize 1
+           imageTexture "{D62D84087A79DD56}TraderX/datasets/images/refresh-page-option.edds"
+           mode blend
+           "src alpha" 1
+           "stretch mode" stretch_w_h
+          }
+         }
+         {
+          ScriptParamsClass {
+           Relay_Command "OnResetExecute"
+          }
+         }
+        }
+       }
+      }
+      PanelWidgetClass scrollPanel {
+       ignorepointer 0
+       position 0.008 0.01
+       size 0.53 0.048
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       {
+        ScrollWidgetClass scrollCategory {
+         ignorepointer 1
+         position 0 0.01
+         size 1 0.97696
+         halign center_ref
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         "Ignore invisible" 0
+         "Scrollbar V" 1
+         {
+          GridSpacerWidgetClass categoryGrid {
+           ignorepointer 0
+           position 0 0.00362
+           size 1 0.00638
+           halign center_ref
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           scriptclass "ViewBinding"
+           "Ignore invisible" 0
+           "Size To Content V" 1
+           Columns 1
+           Rows 100
+           {
+            ScriptParamsClass {
+             Binding_Name "category_card_list"
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+      PanelWidgetClass MiddlePanel {
+       ignorepointer 1
+       position 0 0
+       size 0.25 1
+       halign right_ref
+       valign center_ref
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       {
+        PanelWidgetClass PanelWidget3 {
+         ignorepointer 1
+         color 0.1176 0.1176 0.1176 1
+         position 0 0
+         size 1 1
+         halign center_ref
+         valign center_ref
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         style TP_BackgroundStroke
+         {
+          GridSpacerWidgetClass GridSpacerWidget1 {
+           ignorepointer 1
+           position 0 0.01
+           size 0.95 0.09926
+           halign center_ref
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           Margin 5
+           "Size To Content V" 1
+           Columns 1
+           {
+            GridSpacerWidgetClass CheckoutViewPanel {
+             ignorepointer 1
+             position 0 0.09
+             size 48 540
+             halign center_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 1
+             vexactsize 1
+             scriptclass "CheckoutViewController"
+             Padding 10
+             Margin 0
+             "Size To Content V" 1
+             Columns 1
+             Rows 2
+             {
+              PanelWidgetClass CheckOutView {
+               ignorepointer 1
+               color 0.1882 0.1882 0.1882 1
+               position 0 0
+               size 1 1.32
+               halign center_ref
+               hexactpos 0
+               vexactpos 0
+               hexactsize 0
+               vexactsize 0
+               scriptclass ""
+               style TP_BackgroundStroke
+               {
+                ScrollWidgetClass CheckoutScroll {
+                 ignorepointer 1
+                 position 0 0.12
+                 size 0.96 0.85
+                 halign center_ref
+                 hexactpos 0
+                 vexactpos 0
+                 hexactsize 0
+                 vexactsize 0
+                 "Scrollbar V" 1
+                 {
+                  GridSpacerWidgetClass checkoutGrid {
+                   ignorepointer 1
+                   position 0 0
+                   size 1 48
+                   halign center_ref
+                   hexactpos 1
+                   vexactpos 1
+                   hexactsize 0
+                   vexactsize 1
+                   scriptclass "ViewBinding"
+                   "Size To Content V" 1
+                   Columns 1
+                   Rows 50
+                   {
+                    ScriptParamsClass {
+                     Binding_Name "checkout_card_list"
+                    }
+                   }
+                  }
+                 }
+                }
+                TextWidgetClass TextWidget1 {
+                 ignorepointer 1
+                 color 0.8471 0.8471 0.8471 1
+                 position 0 0.03
+                 size 0.112 0.127
+                 halign center_ref
+                 hexactpos 0
+                 vexactpos 0
+                 hexactsize 0
+                 vexactsize 0
+                 text "#tpm_shopping_cart"
+                 font "TraderX/datasets/fonts/RobotoCondensedVF22"
+                 "exact text" 1
+                 "size to text h" 1
+                 "size to text v" 1
+                 "text halign" center
+                 "text valign" center
+                }
+               }
+              }
+              PanelWidgetClass PanelWidget2 {
+               ignorepointer 1
+               color 0.1804 0.1804 0.1804 1
+               position 10 10
+               size 48 48
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               style TP_BackgroundStroke
+               {
+                GridSpacerWidgetClass GridTotal {
+                 ignorepointer 1
+                 position 0.03 0
+                 size 48 48
+                 halign right_ref
+                 valign center_ref
+                 hexactpos 0
+                 vexactpos 0
+                 hexactsize 1
+                 vexactsize 1
+                 Padding 5
+                 "Size To Content H" 1
+                 "Size To Content V" 1
+                 Columns 2
+                 Rows 1
+                 {
+                  TextWidgetClass LabelTotal {
+                   ignorepointer 1
+                   color 0.8471 0.8471 0.8471 1
+                   size 17 48
+                   halign right_ref
+                   valign center_ref
+                   hexactpos 0
+                   vexactpos 0
+                   hexactsize 1
+                   vexactsize 1
+                   text "#tpm_to_pay"
+                   font "TraderX/datasets/fonts/RobotoCondensedVF22"
+                   "size to text h" 1
+                   "size to text v" 0
+                   "text halign" right
+                   "text valign" center
+                  }
+                  TextWidgetClass TextWidget0 {
+                   ignorepointer 1
+                   color 0.6039 0.8039 0.1961 1
+                   size 0.09 0.391
+                   halign right_ref
+                   hexactpos 0
+                   vexactpos 0
+                   hexactsize 0
+                   vexactsize 0
+                   scriptclass "ViewBinding"
+                   text "13,350"
+                   font "TraderX/datasets/fonts/RobotoCondensedVF22"
+                   "size to text h" 1
+                   "text valign" center
+                   {
+                    ScriptParamsClass {
+                     Binding_Name "total_amount"
+                    }
+                   }
+                  }
+                 }
+                }
+               }
+              }
+              PanelWidgetClass PaymentResume {
+               ignorepointer 1
+               position 0 0.7
+               size 1 0.3
+               halign center_ref
+               hexactpos 0
+               vexactpos 0
+               hexactsize 0
+               vexactsize 0
+               {
+                ImageWidgetClass StockLabel15 {
+                 visible 0
+                 ignorepointer 1
+                 position 0.37 0.38
+                 size 24 24
+                 halign right_ref
+                 valign bottom_ref
+                 hexactpos 0
+                 vexactpos 0
+                 hexactsize 1
+                 vexactsize 1
+                 imageTexture "{F77C0332737AE964}TraderX/datasets/icons/bank.edds"
+                 mode blend
+                 "src alpha" 1
+                 "stretch mode" stretch_w_h
+                 filter 1
+                }
+                ImageWidgetClass StockLabel16 {
+                 ignorepointer 1
+                 color 0.8471 0.8471 0.8471 1
+                 position 0.03 0.06
+                 size 24 24
+                 halign right_ref
+                 hexactpos 0
+                 vexactpos 0
+                 hexactsize 1
+                 vexactsize 1
+                 imageTexture "{9A6BCBE7CD6ECE8F}TraderX/datasets/icons/wallet.edds"
+                 mode blend
+                 "src alpha" 1
+                 "stretch mode" stretch_w_h
+                 filter 1
+                }
+                TextWidgetClass TextWidget5 {
+                 ignorepointer 1
+                 color 0.8471 0.8471 0.8471 1
+                 position 0.1 0.06
+                 size 48 24
+                 halign right_ref
+                 hexactpos 0
+                 vexactpos 0
+                 hexactsize 1
+                 vexactsize 1
+                 scriptclass "ViewBinding"
+                 text "34,000"
+                 font "TraderX/datasets/fonts/RobotoCondensedVF22"
+                 "size to text h" 1
+                 "text valign" center
+                 {
+                  ScriptParamsClass {
+                   Binding_Name "money_amount"
+                  }
+                 }
+                }
+                PanelWidgetClass PanelWidget5 {
+                 ignorepointer 1
+                 color 0.3608 0.3686 0.3882 1
+                 position 0 0.11
+                 size 0.94 0.3
+                 halign center_ref
+                 valign bottom_ref
+                 hexactpos 0
+                 vexactpos 0
+                 hexactsize 0
+                 vexactsize 0
+                 style blank
+                 {
+                  ButtonWidgetClass ButtonWidget14 {
+                   color 0.9961 0.9961 0.9961 1
+                   position 0 0
+                   size 1 1
+                   hexactpos 0
+                   vexactpos 0
+                   hexactsize 0
+                   vexactsize 0
+                   scriptclass "ViewBinding"
+                   style TP_PurchaseBtn
+                   {
+                    ScriptParamsClass {
+                     Relay_Command "OnCheckoutExecute"
+                    }
+                   }
+                  }
+                  TextWidgetClass TextWidget4 {
+                   ignorepointer 1
+                   color 0.9961 0.9961 0.9961 1
+                   position 0 0
+                   size 1 1
+                   hexactpos 0
+                   vexactpos 0
+                   hexactsize 0
+                   vexactsize 0
+                   userID 300
+                   scriptclass "ViewBinding"
+                   text "#tpm_purchase"
+                   font "TraderX/datasets/fonts/RobotoCondensedVF28"
+                   "text halign" center
+                   "text valign" center
+                   {
+                    ScriptParamsClass {
+                     Relay_Command "OnCheckoutExecute"
+                    }
+                   }
+                  }
+                 }
+                }
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

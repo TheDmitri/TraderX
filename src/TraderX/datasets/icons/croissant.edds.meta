@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{2E5FB39446D9A262}TraderX/datasets/icons/croissant.edds"
+ Author "thedmitri"
+ ChangeDate -813961136
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "croissant.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

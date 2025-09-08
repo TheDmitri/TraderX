@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{B0A63B18DEB02EAF}TraderX/datasets/icons/bags.edds"
+ Author "thedmitri"
+ ChangeDate -1022169011
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "bags.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

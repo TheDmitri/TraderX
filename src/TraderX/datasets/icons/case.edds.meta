@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{33DC2522C0A506DF}TraderX/datasets/icons/case.edds"
+ Author "desktop-sph959j"
+ ChangeDate -291245925
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "case.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

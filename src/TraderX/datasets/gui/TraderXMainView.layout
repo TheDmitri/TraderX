@@ -1,0 +1,219 @@
+PanelWidgetClass OutlineMainView1 {
+ ignorepointer 1
+ color 0 0 0 0.7843
+ position 0 0
+ size 0.96 0.92
+ halign center_ref
+ valign center_ref
+ hexactpos 0
+ vexactpos 0
+ hexactsize 0
+ vexactsize 0
+ scriptclass "TraderXMainViewController"
+ style DA_Smooth_Small_10px
+ {
+  PanelWidgetClass MainView {
+   ignorepointer 1
+   color 0 0 0 0.7843
+   position 0 0
+   size 1 1
+   halign center_ref
+   valign center_ref
+   hexactpos 0
+   vexactpos 0
+   hexactsize 0
+   vexactsize 0
+   style blank
+   {
+    PanelWidgetClass MainPageHeader {
+     ignorepointer 1
+     color 0.1176 0.1176 0.1176 1
+     position 0 0
+     size 1 0.125
+     halign center_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     style TP_BackgroundStroke
+     {
+      PanelWidgetClass TraderInfoPanel {
+       visible 1
+       ignorepointer 1
+       position 0.01 0
+       size 0.19453 0.59541
+       valign center_ref
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       {
+        ImageWidgetClass TraderIcon {
+         ignorepointer 1
+         position 0 -0.03
+         size 42 42
+         valign center_ref
+         hexactpos 0
+         vexactpos 0
+         hexactsize 1
+         vexactsize 1
+         image0 "set:tp_icons image:user"
+         imageTexture "{5E0F823DA783BE90}TraderX/datasets/icons/market.edds"
+         mode additive
+         "src alpha" 1
+         "stretch mode" stretch_w_h
+        }
+        TextWidgetClass TraderNameLabel {
+         ignorepointer 1
+         color 0.6078 0.651 0.2314 1
+         position 0.1361 -0.1809
+         size 0.21194 0.27106
+         valign center_ref
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         scriptclass "ViewBinding"
+         text "Marie"
+         font "TraderX/datasets/fonts/RobotoCondensedVF28"
+         "exact text" 1
+         "size to text h" 1
+         "size to text v" 1
+         {
+          ScriptParamsClass {
+           Binding_Name "trader_name"
+          }
+         }
+        }
+        TextWidgetClass TraderRole {
+         ignorepointer 1
+         color 0.8471 0.8471 0.8471 1
+         position 0.1349 0.5374
+         size 0.053 0.2086
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         scriptclass "ViewBinding"
+         text "Food Trader"
+         font "TraderX/datasets/fonts/RobotoCondensedVF12"
+         "size to text h" 1
+         {
+          ScriptParamsClass {
+           Binding_Name "trader_role"
+          }
+         }
+        }
+       }
+      }
+      GridSpacerWidgetClass navigationGrid {
+       ignorepointer 1
+       position 0.01 0
+       size 0.031 0.682
+       halign right_ref
+       valign center_ref
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       Padding 10
+       "Size To Content H" 1
+       "Size To Content V" 1
+       {
+        ButtonWidgetClass favBtn {
+         color 0.9961 0.9961 0.9961 1
+         position 0.27 0
+         size 140 50
+         halign right_ref
+         valign center_ref
+         hexactpos 0
+         vexactpos 0
+         hexactsize 1
+         vexactsize 1
+         userID 232
+         scriptclass "ViewBinding"
+         style TP_NavBtn
+         text "#tpm_favorites"
+         font "TraderX/datasets/fonts/RobotoCondensedVF14"
+         "text color" 0.6471 0.6471 0.6471 1
+         {
+          ScriptParamsClass {
+           Relay_Command "OnFavoriteExecute"
+          }
+         }
+        }
+        ButtonWidgetClass PurchaseBtn {
+         color 0.9961 0.9961 0.9961 1
+         position 0.15 0
+         size 140 50
+         halign right_ref
+         valign center_ref
+         hexactpos 0
+         vexactpos 0
+         hexactsize 1
+         vexactsize 1
+         userID 232
+         scriptclass "ViewBinding"
+         style TP_NavBtn
+         text "#tpm_purchase"
+         font "TraderX/datasets/fonts/RobotoCondensedVF14"
+         "text color" 0.6471 0.6471 0.6471 1
+         {
+          ScriptParamsClass {
+           Relay_Command "OnPurchaseExecute"
+          }
+         }
+        }
+        ButtonWidgetClass SellBtn {
+         color 0.9961 0.9961 0.9961 1
+         position 0.03 0
+         size 140 50
+         halign right_ref
+         valign center_ref
+         hexactpos 0
+         vexactpos 0
+         hexactsize 1
+         vexactsize 1
+         userID 232
+         scriptclass "ViewBinding"
+         style TP_NavBtn
+         text "#tpm_sell"
+         font "TraderX/datasets/fonts/RobotoCondensedVF14"
+         "text color" 0.6471 0.6471 0.6471 1
+         {
+          ScriptParamsClass {
+           Relay_Command "OnSellExecute"
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+    PanelWidgetClass MainPageContent {
+     disabled 0
+     clipchildren 1
+     inheritalpha 0
+     ignorepointer 1
+     ignoregloballv 0
+     keepsafezone 0
+     position 0 0
+     size 1 1
+     halign center_ref
+     valign bottom_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     priority 1
+     scriptclass "ViewBinding"
+     {
+      ScriptParamsClass {
+       Binding_Name "main_page_content"
+      }
+     }
+    }
+   }
+  }
+ }
+}

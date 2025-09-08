@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{7644834E7E6C6D34}TraderX/datasets/icons/person.edds"
+ Author "desktop-33c97jr"
+ ChangeDate -1735134950
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "person.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

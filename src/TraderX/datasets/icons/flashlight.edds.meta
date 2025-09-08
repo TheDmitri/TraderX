@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{119D0F10508E8B41}TraderX/datasets/icons/flashlight.edds"
+ Author "thedmitri"
+ ChangeDate -2095386547
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "flashlight.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

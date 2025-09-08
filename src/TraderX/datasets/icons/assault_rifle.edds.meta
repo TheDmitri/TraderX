@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{5B9F9FAACFF81EAC}TraderX/datasets/icons/assault_rifle.edds"
+ Author "desktop-sph959j"
+ ChangeDate 1016328344
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "assault_rifle.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

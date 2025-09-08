@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{A5D75A7E21286F0F}TraderX_GUI/gui/Data/resources.png"
+ Author "malinin"
+ ChangeDate 1109438268
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "resources.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

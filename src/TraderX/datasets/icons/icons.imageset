@@ -1,0 +1,164 @@
+ImageSetClass {
+ Name "tp_icons"
+ RefSize 160 192
+ Textures {
+  ImageSetTextureClass {
+   mpix 1
+   path "{24DB1AACE0C5BEA6}TraderX/datasets/icons/icons.edds"
+  }
+ }
+ Images {
+  ImageSetDefClass filter {
+   Name "filter"
+   Pos 0 0
+   Size 32 32
+   Flags 0
+  }
+  ImageSetDefClass network {
+   Name "network"
+   Pos 32 0
+   Size 32 32
+   Flags 0
+  }
+  ImageSetDefClass trash {
+   Name "trash"
+   Pos 64 0
+   Size 32 32
+   Flags 0
+  }
+  ImageSetDefClass warning {
+   Name "warning"
+   Pos 96 0
+   Size 32 32
+   Flags 0
+  }
+  ImageSetDefClass user {
+   Name "user"
+   Pos 128 0
+   Size 32 32
+   Flags 0
+  }
+  ImageSetDefClass group {
+   Name "group"
+   Pos 128 32
+   Size 32 32
+   Flags 0
+  }
+  ImageSetDefClass announcement {
+   Name "announcement"
+   Pos 96 32
+   Size 32 32
+   Flags 0
+  }
+  ImageSetDefClass cart {
+   Name "cart"
+   Pos 96 64
+   Size 32 32
+   Flags 0
+  }
+  ImageSetDefClass shield {
+   Name "shield"
+   Pos 64 64
+   Size 32 32
+   Flags 0
+  }
+  ImageSetDefClass search {
+   Name "search"
+   Pos 0 32
+   Size 32 32
+   Flags 0
+  }
+  ImageSetDefClass home {
+   Name "home"
+   Pos 0 64
+   Size 32 32
+   Flags 0
+  }
+  ImageSetDefClass shirt {
+   Name "shirt"
+   Pos 0 96
+   Size 32 31
+   Flags 0
+  }
+  ImageSetDefClass back {
+   Name "back"
+   Pos 32 96
+   Size 32 31
+   Flags 0
+  }
+  ImageSetDefClass check {
+   Name "check"
+   Pos 96 96
+   Size 32 32
+   Flags 0
+  }
+  ImageSetDefClass message {
+   Name "message"
+   Pos 128 96
+   Size 32 32
+   Flags 0
+  }
+  ImageSetDefClass refresh {
+   Name "refresh"
+   Pos 0 127
+   Size 32 34
+   Flags 0
+  }
+  ImageSetDefClass favFull {
+   Name "favFull"
+   Pos 0 161
+   Size 32 31
+   Flags 0
+  }
+  ImageSetDefClass favEmpty {
+   Name "favEmpty"
+   Pos 32 161
+   Size 32 31
+   Flags 0
+  }
+  ImageSetDefClass add {
+   Name "add"
+   Pos 96 128
+   Size 32 32
+   Flags 0
+  }
+  ImageSetDefClass edit {
+   Name "edit"
+   Pos 128 128
+   Size 32 32
+   Flags 0
+  }
+  ImageSetDefClass options {
+   Name "options"
+   Pos 32 32
+   Size 32 32
+   Flags 0
+  }
+  ImageSetDefClass circle {
+   Name "circle"
+   Pos 64 160
+   Size 32 32
+   Flags 0
+  }
+  ImageSetDefClass wrench {
+   Name "wrench"
+   Pos 32 64
+   Size 32 32
+   Flags 0
+  }
+  ImageSetDefClass palette {
+   Name "palette"
+   Pos 32 127
+   Size 32 32
+   Flags 0
+  }
+  ImageSetDefClass star {
+   Name "star"
+   Pos 128 160
+   Size 32 32
+   Flags 0
+  }
+ }
+ Groups {
+ }
+}

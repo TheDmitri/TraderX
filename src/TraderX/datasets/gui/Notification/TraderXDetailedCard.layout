@@ -1,0 +1,56 @@
+PanelWidgetClass DetailsCard {
+ ignorepointer 1
+ position 10 10
+ size 48 28
+ hexactpos 1
+ vexactpos 1
+ hexactsize 1
+ vexactsize 1
+ priority 1000
+ {
+  PanelWidgetClass PanelWidget3 {
+   ignorepointer 1
+   color 0.5451 0.5451 0.5451 1
+   position 0 0
+   size 1 0.1
+   halign center_ref
+   valign bottom_ref
+   hexactpos 0
+   vexactpos 0
+   hexactsize 0
+   vexactsize 0
+   style rover_sim_colorable
+  }
+  TextWidgetClass contentText {
+   ignorepointer 1
+   position 0 0
+   size 0.5 1
+   valign center_ref
+   hexactpos 0
+   vexactpos 0
+   hexactsize 0
+   vexactsize 0
+   scriptclass ""
+   text "#tpm_akm"
+   font "TraderX/datasets/fonts/RobotoCondensedVF14"
+   "exact text" 1
+   "text valign" center
+  }
+  TextWidgetClass statusText {
+   ignorepointer 1
+   position 0 0
+   size 0.5 1
+   halign right_ref
+   valign center_ref
+   hexactpos 0
+   vexactpos 0
+   hexactsize 0
+   vexactsize 0
+   text "#tpm_failed"
+   font "TraderX/datasets/fonts/RobotoCondensedVF14"
+   "exact text" 1
+   "text halign" right
+   "text valign" center
+  }
+ }
+}

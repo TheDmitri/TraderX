@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{1EDD7328031797C6}TraderX/datasets/icons/allStock.edds"
+ Author "desktop-33c97jr"
+ ChangeDate -1286311709
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "allStock.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

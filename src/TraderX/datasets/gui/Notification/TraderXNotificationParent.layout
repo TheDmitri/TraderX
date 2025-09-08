@@ -1,0 +1,35 @@
+FrameWidgetClass rootFrame {
+ ignorepointer 1
+ size 1 1
+ halign center_ref
+ valign center_ref
+ hexactpos 0
+ vexactpos 0
+ hexactsize 0
+ vexactsize 0
+ scriptclass "NotificationContainerViewController"
+ {
+  GridSpacerWidgetClass NotificationContainer {
+   ignorepointer 1
+   position 60 32
+   size 0.5585 0.2482
+   halign right_ref
+   hexactpos 1
+   vexactpos 1
+   hexactsize 0
+   vexactsize 0
+   scriptclass "ViewBinding"
+   Padding 5
+   Margin 5
+   "Size To Content H" 1
+   "Size To Content V" 1
+   Columns 1
+   Rows 10
+   {
+    ScriptParamsClass {
+     Binding_Name "notifications"
+    }
+   }
+  }
+ }
+}

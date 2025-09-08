@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{64CDC8C6FD2822FC}TraderX/datasets/images/notification_ui.edds"
+ Author "desktop-33c97jr"
+ ChangeDate -2023034256
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "notification_ui.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

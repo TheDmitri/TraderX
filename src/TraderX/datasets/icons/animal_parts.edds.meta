@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{0E56A51B71ADFB4B}TraderX/datasets/icons/animal_parts.edds"
+ Author "thedmitri"
+ ChangeDate -1357713331
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "animal_parts.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

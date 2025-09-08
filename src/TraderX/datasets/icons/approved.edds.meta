@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{4CA65B40503D9726}TraderX/datasets/icons/approved.edds"
+ Author "desktop-sph959j"
+ ChangeDate -1855115113
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "approved.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

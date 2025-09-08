@@ -1,0 +1,38 @@
+FrameWidgetClass rootFrame {
+ size 600 600
+ halign center_ref
+ valign center_ref
+ hexactpos 1
+ vexactpos 1
+ hexactsize 1
+ vexactsize 1
+ {
+  PanelWidgetClass PanelWidget0 {
+   ignorepointer 1
+   size 1 1
+   halign center_ref
+   valign center_ref
+   hexactpos 1
+   vexactpos 1
+   hexactsize 0
+   vexactsize 0
+   style rover_sim_blackbox
+   {
+    TextListboxWidgetClass TextListboxWidget0 {
+     color 0.2588 0.3647 0.6863 1
+     position 69.7058 33.0499
+     size 489.38199 521.367
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style DA_Smooth
+     "title visible" 1
+     colums "#col;13;#col;14;#col;12"
+     "highlight row" 1
+     font "gui/fonts/metronlight16"
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{F42AF1339263932B}TraderX/datasets/icons/search.edds"
+ Author "thedmitri"
+ ChangeDate -589565875
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "search.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

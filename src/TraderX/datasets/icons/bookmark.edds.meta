@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{CEBB4F823145CF99}TraderX/datasets/icons/bookmark.png"
+ Author "desktop-33c97jr"
+ ChangeDate 2009772277
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "bookmark.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

@@ -1,0 +1,274 @@
+FrameWidgetClass rootFrame {
+ position 151.392 0
+ size 902.78406 600
+ halign center_ref
+ valign center_ref
+ hexactpos 1
+ vexactpos 1
+ hexactsize 1
+ vexactsize 1
+ {
+  PanelWidgetClass PanelWidget0 {
+   ignorepointer 1
+   position 49.5755 0
+   size 1.1653 1
+   halign center_ref
+   valign center_ref
+   hexactpos 1
+   vexactpos 1
+   hexactsize 0
+   vexactsize 0
+   style rover_sim_blackbox
+   {
+    CheckBoxWidgetClass CheckBoxWidget0 {
+     color 0.2588 0.3647 0.6863 1
+     position 57.7953 51.3994
+     size 203.85701 48
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style DA_Squad
+     text "Test Checkbox"
+     font "gui/fonts/metron22"
+    }
+    ProgressBarWidgetClass ProgressBarWidget0 {
+     ignorepointer 1
+     color 0.2588 0.3647 0.6863 1
+     position 67.5492 378.48398
+     size 379.94699 30
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style DA_Smooth
+    }
+    ProgressBarWidgetClass ProgressBarWidget1 {
+     ignorepointer 1
+     color 0.2588 0.3647 0.6863 1
+     position 66.3433 339.03799
+     size 379.94699 30
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style DA_Squad
+    }
+    ProgressBarWidgetClass ProgressBarWidget2 {
+     ignorepointer 1
+     color 0.2588 0.3647 0.6863 1
+     position 66.3433 417.931
+     size 379.94699 30
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style DA_Round
+    }
+    CheckBoxWidgetClass CheckBoxWidget1 {
+     color 0.2588 0.3647 0.6863 1
+     position 59.0012 103.64
+     size 203.85701 48
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style DA_Squad1
+     text "Test Checkbox"
+     font "gui/fonts/metron22"
+    }
+    CheckBoxWidgetClass CheckBoxWidget2 {
+     color 0.2588 0.3647 0.6863 1
+     position 59.0012 155.88101
+     size 203.85701 48
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style DA_Round
+     text "Test Checkbox"
+     font "gui/fonts/metron22"
+    }
+    CheckBoxWidgetClass CheckBoxWidget3 {
+     color 0.2588 0.3647 0.6863 1
+     position 273.68698 52.4655
+     size 203.85701 48
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style DA_Squad
+     text "Test Checkbox"
+     font "gui/fonts/metron22"
+     checked 1
+    }
+    CheckBoxWidgetClass CheckBoxWidget4 {
+     color 0.2588 0.3647 0.6863 1
+     position 276.09799 104.70599
+     size 203.85701 48
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style DA_Squad1
+     text "Test Checkbox"
+     font "gui/fonts/metron22"
+     checked 1
+    }
+    CheckBoxWidgetClass CheckBoxWidget5 {
+     color 0.2588 0.3647 0.6863 1
+     position 277.30399 156.94699
+     size 203.85701 48
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style DA_Round
+     text "Test Checkbox"
+     font "gui/fonts/metron22"
+     checked 1
+    }
+    CheckBoxWidgetClass CheckBoxWidget6 {
+     color 0.2588 0.3647 0.6863 1
+     position 57.7953 213.453
+     size 203.85701 48
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style DA_Round1
+     text "Test Checkbox"
+     font "gui/fonts/metron22"
+    }
+    CheckBoxWidgetClass CheckBoxWidget7 {
+     color 0.2588 0.3647 0.6863 1
+     position 276.09799 214.519
+     size 203.85701 48
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style DA_Round1
+     text "Test Checkbox"
+     font "gui/fonts/metron22"
+     checked 1
+    }
+    EditBoxWidgetClass EditBoxWidget0 {
+     color 0.2588 0.3647 0.6863 1
+     position 163.231 461.418
+     size 244.864 35.2063
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style DA_Squad
+     text "43543534"
+     "limit visible" 0
+     "Use default text" 0
+     font "gui/fonts/metronlight48"
+    }
+    EditBoxWidgetClass EditBoxWidget1 {
+     color 0.2588 0.3647 0.6863 1
+     position 164.597 500.88098
+     size 246.07001 34.1402
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style DA_Smooth
+     text "5466544645"
+     font "gui/fonts/metronlight58"
+    }
+    ProgressBarWidgetClass ProgressBarWidget3 {
+     ignorepointer 1
+     color 0.2588 0.3647 0.6863 1
+     position 460.45697 416.83899
+     size 86.27229 22
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style DA_Round
+    }
+    SliderWidgetClass SliderWidget0 {
+     color 0.2588 0.3647 0.6863 1
+     position 552.65594 55.3828
+     size 302.80798 23.4788
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style DA_SquadSlider
+     vertical 0
+     flipped 0
+     "draw marker" 1
+     "listen to input" 1
+    }
+    SliderWidgetClass SliderWidget1 {
+     color 0.2588 0.3647 0.6863 1
+     position 552.65594 87.367
+     size 302.80798 23.4788
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style DA_SmoothSlider
+     vertical 0
+     flipped 0
+     "draw marker" 1
+     "listen to input" 1
+    }
+    SliderWidgetClass SliderWidget2 {
+     color 0.2588 0.3647 0.6863 1
+     position 552.65594 119.35101
+     size 302.80798 23.4788
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style DA_RoundSlider
+     vertical 0
+     flipped 0
+     "draw marker" 1
+     "listen to input" 1
+    }
+    XComboBoxWidgetClass XComboBoxWidget1 {
+     color 0.2588 0.3647 0.6863 1
+     position 567.508 318.12201
+     size 278.28601 48
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style DA_Smooth
+     font "gui/fonts/metronlight22"
+     items "12;123"
+    }
+    XComboBoxWidgetClass XComboBoxWidget2 {
+     color 0.2588 0.3647 0.6863 1
+     position 567.508 262.68298
+     size 278.28601 48
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style DA_Squad
+     font "gui/fonts/metronlight22"
+     items "12;123"
+    }
+    XComboBoxWidgetClass XComboBoxWidget0 {
+     color 0.2588 0.3647 0.6863 1
+     position 566.44202 199.78101
+     size 278.28601 48
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style DA_Simple
+     font "gui/fonts/metronlight22"
+     items "12;123"
+    }
+   }
+  }
+ }
+}

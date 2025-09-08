@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{92C2C260EEC3A36B}TraderX/datasets/icons/edit.edds"
+ Author "desktop-33c97jr"
+ ChangeDate -1420611259
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "edit.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

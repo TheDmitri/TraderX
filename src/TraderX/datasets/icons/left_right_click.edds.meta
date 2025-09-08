@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{6C7D1C7762DD33AC}TraderX/datasets/icons/left_right_click.png"
+ Author "desktop-33c97jr"
+ ChangeDate 1948922099
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "left_right_click.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

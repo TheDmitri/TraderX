@@ -1,0 +1,165 @@
+FrameWidgetClass rootFrame {
+ position 0 0
+ size 1 1
+ halign center_ref
+ valign center_ref
+ hexactpos 0
+ vexactpos 0
+ hexactsize 0
+ vexactsize 0
+ priority 999
+ scriptclass "ModalConfirmationViewController"
+ {
+  PanelWidgetClass PanelWidget0 {
+   ignorepointer 1
+   color 0.1804 0.1804 0.1804 1
+   position 0 0
+   size 0.26 0.16
+   halign center_ref
+   valign center_ref
+   hexactpos 0
+   vexactpos 0
+   hexactsize 0
+   vexactsize 0
+   style RoundedPanel_Colorable
+   {
+    RichTextWidgetClass textContent {
+     ignorepointer 1
+     position 0 -0.06
+     size 0.927 0.332
+     halign center_ref
+     valign center_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     scriptclass "ViewBinding"
+     text "Do you really want to remove this member ? I mean, he is such a nice guy, why would you remove it ?"
+     font "TraderX/datasets/fonts/RobotoCondensedVF14"
+     "exact text" 1
+     "text halign" center
+     "text valign" center
+     wrap 1
+     "condense whitespace" 1
+     "strip newlines" 1
+     {
+      ScriptParamsClass {
+       Binding_Name "content"
+      }
+     }
+    }
+    TextWidgetClass title {
+     ignorepointer 1
+     position 0 0.05
+     size 0.137 0.222
+     halign center_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     scriptclass "ViewBinding"
+     text "#tpm_confirmation"
+     font "TraderX/datasets/fonts/RobotoCondensedVF22"
+     "size to text h" 1
+     "text halign" center
+     "text valign" center
+     {
+      ScriptParamsClass {
+       Binding_Name "title"
+      }
+     }
+    }
+    ButtonWidgetClass confirmBtn {
+     color 0.9961 0.9961 0.9961 1
+     position 0.04 0.08
+     size 0.25 0.2
+     halign right_ref
+     valign bottom_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     userID 333
+     scriptclass "ViewBinding"
+     style TP_PurchaseBtn
+     {
+      TextWidgetClass TextWidget10 {
+       inheritalpha 1
+       ignorepointer 1
+       color 1 1 1 0.7059
+       size 1 1
+       halign center_ref
+       valign center_ref
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       userID 333
+       scriptclass "ViewBinding"
+       text "#tpm_confirm"
+       font "TraderX/datasets/fonts/RobotoCondensedVF16"
+       "exact text" 1
+       "text halign" center
+       "text valign" center
+       {
+        ScriptParamsClass {
+         Relay_Command "OnConfirmExecute"
+        }
+       }
+      }
+     }
+     {
+      ScriptParamsClass {
+       Relay_Command "OnConfirmExecute"
+      }
+     }
+    }
+    ButtonWidgetClass cancelBtn {
+     color 0.9961 0.9961 0.9961 1
+     position 0.32 0.08
+     size 0.25 0.2
+     halign right_ref
+     valign bottom_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     userID 333
+     scriptclass "ViewBinding"
+     style TP_CardBtn
+     {
+      TextWidgetClass TextWidget11 {
+       inheritalpha 1
+       ignorepointer 1
+       color 1 1 1 0.7059
+       size 1 1
+       halign center_ref
+       valign center_ref
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       userID 333
+       scriptclass "ViewBinding"
+       text "#tpm_cancel"
+       font "TraderX/datasets/fonts/RobotoCondensedVF16"
+       "exact text" 1
+       "text halign" center
+       "text valign" center
+       {
+        ScriptParamsClass {
+         Relay_Command "OnCancelExecute"
+        }
+       }
+      }
+     }
+     {
+      ScriptParamsClass {
+       Relay_Command "OnCancelExecute"
+      }
+     }
+    }
+   }
+  }
+ }
+}

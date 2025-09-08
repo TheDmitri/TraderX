@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{57A15A6E5673172D}TraderX/datasets/icons/ready-stock.edds"
+ Author "desktop-33c97jr"
+ ChangeDate 649752804
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "ready-stock.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

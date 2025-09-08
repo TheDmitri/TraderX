@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{7DB24EE0EBA05946}TraderX/datasets/icons/checkout.edds"
+ Author "thedmitri"
+ ChangeDate -854871913
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "checkout.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

@@ -1,0 +1,545 @@
+ImageSetClass {
+ Name "NewImageSet0"
+ RefSize 280 131
+ Textures {
+  ImageSetTextureClass {
+   mpix 1
+   path "{5A58D607A987DA3E}TraderX/datasets/TraderX_UI.edds"
+  }
+ }
+ Images {
+ }
+ Groups {
+  ImageSetGroupClass NavBtnNormal {
+   Name "NavBtnNormal"
+   Images {
+    ImageSetDefClass tlc_1 {
+     Name "tlc_1"
+     Pos 0 12
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass blc_1 {
+     Name "blc_1"
+     Pos 0 49
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass trc_1 {
+     Name "trc_1"
+     Pos 37 12
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass brc_1 {
+     Name "brc_1"
+     Pos 37 49
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass lc_1 {
+     Name "lc_1"
+     Pos 0 17
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass rc_1 {
+     Name "rc_1"
+     Pos 37 17
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass bc_1 {
+     Name "bc_1"
+     Pos 5 49
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass tc_1 {
+     Name "tc_1"
+     Pos 5 12
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass c_1 {
+     Name "c_1"
+     Pos 5 17
+     Size 32 32
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass NavBtnHover {
+   Name "NavBtnHover"
+   Images {
+    ImageSetDefClass tlc_2 {
+     Name "tlc_2"
+     Pos 45 12
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass blc_2 {
+     Name "blc_2"
+     Pos 45 49
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass trc_2 {
+     Name "trc_2"
+     Pos 82 12
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass brc_2 {
+     Name "brc_2"
+     Pos 82 49
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass lc_2 {
+     Name "lc_2"
+     Pos 45 17
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass rc_2 {
+     Name "rc_2"
+     Pos 82 17
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass bc_2 {
+     Name "bc_2"
+     Pos 50 49
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass tc_2 {
+     Name "tc_2"
+     Pos 50 12
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass c_2 {
+     Name "c_2"
+     Pos 50 17
+     Size 32 32
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass NavBtnActive {
+   Name "NavBtnActive"
+   Images {
+    ImageSetDefClass tlc_3 {
+     Name "tlc_3"
+     Pos 90 12
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass blc_3 {
+     Name "blc_3"
+     Pos 90 49
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass trc_3 {
+     Name "trc_3"
+     Pos 127 12
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass brc_3 {
+     Name "brc_3"
+     Pos 127 49
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass lc_3 {
+     Name "lc_3"
+     Pos 90 17
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass rc_3 {
+     Name "rc_3"
+     Pos 127 17
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass bc_3 {
+     Name "bc_3"
+     Pos 95 49
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass tc_3 {
+     Name "tc_3"
+     Pos 95 12
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass c_3 {
+     Name "c_3"
+     Pos 95 17
+     Size 32 32
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass CardNormal {
+   Name "CardNormal"
+   Images {
+    ImageSetDefClass tlc_4 {
+     Name "tlc_4"
+     Pos 144 12
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass blc_4 {
+     Name "blc_4"
+     Pos 144 49
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass trc_4 {
+     Name "trc_4"
+     Pos 181 12
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass brc_4 {
+     Name "brc_4"
+     Pos 181 49
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass lc_4 {
+     Name "lc_4"
+     Pos 144 17
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass rc_4 {
+     Name "rc_4"
+     Pos 181 17
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass bc_4 {
+     Name "bc_4"
+     Pos 149 49
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass tc_4 {
+     Name "tc_4"
+     Pos 149 12
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass c_4 {
+     Name "c_4"
+     Pos 149 17
+     Size 32 32
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass CardSelected {
+   Name "CardSelected"
+   Images {
+    ImageSetDefClass tlc_5 {
+     Name "tlc_5"
+     Pos 191 12
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass blc_5 {
+     Name "blc_5"
+     Pos 191 49
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass trc_5 {
+     Name "trc_5"
+     Pos 228 12
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass brc_5 {
+     Name "brc_5"
+     Pos 228 49
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass lc_5 {
+     Name "lc_5"
+     Pos 191 17
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass rc_5 {
+     Name "rc_5"
+     Pos 228 17
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass bc_5 {
+     Name "bc_5"
+     Pos 196 49
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass tc_5 {
+     Name "tc_5"
+     Pos 196 12
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass c_5 {
+     Name "c_5"
+     Pos 196 17
+     Size 32 32
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass CardHover {
+   Name "CardHover"
+   Images {
+    ImageSetDefClass tlc_6 {
+     Name "tlc_6"
+     Pos 238 11
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass blc_6 {
+     Name "blc_6"
+     Pos 238 48
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass trc_6 {
+     Name "trc_6"
+     Pos 275 11
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass brc_6 {
+     Name "brc_6"
+     Pos 275 48
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass lc_6 {
+     Name "lc_6"
+     Pos 238 16
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass rc_6 {
+     Name "rc_6"
+     Pos 275 16
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass bc_6 {
+     Name "bc_6"
+     Pos 243 48
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass tc_6 {
+     Name "tc_6"
+     Pos 243 11
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass c_6 {
+     Name "c_6"
+     Pos 243 16
+     Size 32 32
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass PurchaseBtnNormal {
+   Name "PurchaseBtnNormal"
+   Images {
+    ImageSetDefClass tlc_7 {
+     Name "tlc_7"
+     Pos 0 72
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass blc_7 {
+     Name "blc_7"
+     Pos 0 109
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass trc_7 {
+     Name "trc_7"
+     Pos 37 72
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass brc_7 {
+     Name "brc_7"
+     Pos 37 109
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass lc_7 {
+     Name "lc_7"
+     Pos 0 77
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass rc_7 {
+     Name "rc_7"
+     Pos 37 77
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass bc_7 {
+     Name "bc_7"
+     Pos 5 109
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass tc_7 {
+     Name "tc_7"
+     Pos 5 72
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass c_7 {
+     Name "c_7"
+     Pos 5 77
+     Size 32 32
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass PurchaseBtnHover {
+   Name "PurchaseBtnHover"
+   Images {
+    ImageSetDefClass tlc_8 {
+     Name "tlc_8"
+     Pos 45 72
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass blc_8 {
+     Name "blc_8"
+     Pos 45 109
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass trc_8 {
+     Name "trc_8"
+     Pos 82 72
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass brc_8 {
+     Name "brc_8"
+     Pos 82 109
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass lc_8 {
+     Name "lc_8"
+     Pos 45 77
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass rc_8 {
+     Name "rc_8"
+     Pos 82 77
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass bc_8 {
+     Name "bc_8"
+     Pos 50 109
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass tc_8 {
+     Name "tc_8"
+     Pos 50 72
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass c_8 {
+     Name "c_8"
+     Pos 50 77
+     Size 32 32
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Background_Test {
+   Name "Background_Test"
+   Images {
+    ImageSetDefClass tlc_9 {
+     Name "tlc_9"
+     Pos 144 73
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass blc_9 {
+     Name "blc_9"
+     Pos 144 110
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass trc_9 {
+     Name "trc_9"
+     Pos 181 73
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass brc_9 {
+     Name "brc_9"
+     Pos 181 110
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass lc_9 {
+     Name "lc_9"
+     Pos 144 78
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass rc_9 {
+     Name "rc_9"
+     Pos 181 78
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass bc_9 {
+     Name "bc_9"
+     Pos 149 110
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass tc_9 {
+     Name "tc_9"
+     Pos 149 73
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass c_9 {
+     Name "c_9"
+     Pos 149 78
+     Size 32 32
+     Flags 0
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{1DFC5145FCB993CD}TraderX/datasets/icons/unapproved.edds"
+ Author "desktop-sph959j"
+ ChangeDate -2085801833
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "unapproved.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

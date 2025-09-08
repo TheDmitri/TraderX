@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{D62D84087A79DD56}TraderX/datasets/images/refresh-page-option.edds"
+ Author "desktop-33c97jr"
+ ChangeDate 690827839
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "refresh-page-option.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

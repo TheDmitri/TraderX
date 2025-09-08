@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{A932AF89D228ED45}TraderX/datasets/icons/favoriteEmpty.edds"
+ Author "thedmitri"
+ ChangeDate -578654128
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "favoriteEmpty.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

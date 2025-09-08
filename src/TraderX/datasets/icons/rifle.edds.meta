@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{E1A403E96FE8D30E}TraderX/datasets/icons/rifle.edds"
+ Author "desktop-sph959j"
+ ChangeDate -1158942568
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "rifle.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

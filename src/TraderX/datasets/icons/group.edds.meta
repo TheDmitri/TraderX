@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{80D51A6B3574DF44}TraderX/datasets/icons/group.edds"
+ Author "desktop-33c97jr"
+ ChangeDate 816001349
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "group.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

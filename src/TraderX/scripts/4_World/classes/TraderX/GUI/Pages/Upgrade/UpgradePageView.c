@@ -1,0 +1,4 @@
+class UpgradePageView: ScriptViewTemplate<UpgradePageViewController>
+{
+    
+}

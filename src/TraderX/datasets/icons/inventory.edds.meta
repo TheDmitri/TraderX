@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{CFC789662E7BF149}TraderX/datasets/icons/inventory.edds"
+ Author "thedmitri"
+ ChangeDate 274985037
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "inventory.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

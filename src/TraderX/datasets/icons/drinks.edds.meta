@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{71020DF91E4BBDC2}TraderX/datasets/icons/drinks.edds"
+ Author "thedmitri"
+ ChangeDate -518328243
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "drinks.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

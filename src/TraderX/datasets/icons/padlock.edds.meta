@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{C18A99B5F1E1343B}TraderX/datasets/icons/padlock.edds"
+ Author "desktop-33c97jr"
+ ChangeDate -268128025
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "padlock.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

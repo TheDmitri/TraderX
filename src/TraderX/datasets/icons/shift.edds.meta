@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{A5CBBB1EB4974989}TraderX/datasets/icons/shift.png"
+ Author "desktop-33c97jr"
+ ChangeDate 1618620659
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "shift.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

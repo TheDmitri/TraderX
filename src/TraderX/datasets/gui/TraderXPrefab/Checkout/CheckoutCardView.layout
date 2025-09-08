@@ -1,0 +1,182 @@
+GridSpacerWidgetClass checkoutCard {
+ position 0 0
+ size 1 50
+ halign center_ref
+ hexactpos 0
+ vexactpos 0
+ hexactsize 0
+ vexactsize 1
+ scriptclass "CheckoutCardViewController"
+ "Size To Content H" 1
+ "Size To Content V" 1
+ Columns 1
+ Rows 2
+ {
+  PanelWidgetClass CheckoutCardView {
+   ignorepointer 1
+   color 0.1098 0.1098 0.1098 1
+   position 0 0
+   size 1 1
+   halign center_ref
+   valign center_ref
+   hexactpos 0
+   vexactpos 0
+   hexactsize 0
+   vexactsize 0
+   scriptclass ""
+   style blank
+   {
+    ButtonWidgetClass checkoutCardBtn {
+     position 0 0
+     size 1 1
+     halign center_ref
+     valign center_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     style Empty
+     {
+      TextWidgetClass productPriceText {
+       disabled 0
+       inheritalpha 0
+       ignorepointer 1
+       color 0.9961 0.9961 0.9961 1
+       position 0.02 0
+       size 0.05 1
+       halign right_ref
+       valign center_ref
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       scriptclass "ViewBinding"
+       text "12,600,000"
+       font "TraderX/datasets/fonts/RobotoCondensedVF14"
+       "size to text h" 1
+       "text valign" center
+       {
+        ScriptParamsClass {
+         Binding_Name "product_price_text"
+        }
+       }
+      }
+      TextWidgetClass productNameText {
+       ignorepointer 1
+       color 0.9961 0.9961 0.9961 1
+       position 0.02 0
+       size 0.6 1
+       valign center_ref
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       scriptclass "ViewBinding"
+       text "Purchase"
+       font "TraderX/datasets/fonts/RobotoCondensedVF14"
+       "text valign" center
+       {
+        ScriptParamsClass {
+         Binding_Name "product_name_text"
+        }
+       }
+      }
+      GridSpacerWidgetClass GridSpacerWidget0 {
+       ignorepointer 1
+       position 0.16 -0.03
+       size 0.049 1.607
+       halign center_ref
+       valign center_ref
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       Padding 10
+       Margin 0
+       "Size To Content H" 1
+       "Size To Content V" 1
+       Rows 1
+       {
+        ButtonWidgetClass btnMinus {
+         color 0.9961 0.9961 0.9961 1
+         position 0 0
+         size 42 39
+         halign center_ref
+         valign center_ref
+         hexactpos 0
+         vexactpos 0
+         hexactsize 1
+         vexactsize 1
+         scriptclass "ViewBinding"
+         style TP_NavBtn
+         text "#tpm_minus_symbol"
+         font "gui/fonts/etelkatextpro22"
+         {
+          ScriptParamsClass {
+           Relay_Command "OnMinusExecute"
+          }
+         }
+        }
+        TextWidgetClass productQtyText {
+         ignorepointer 1
+         color 0.9961 0.9961 0.9961 1
+         position 0.505 0
+         size 2 42
+         valign center_ref
+         hexactpos 0
+         vexactpos 0
+         hexactsize 1
+         vexactsize 1
+         scriptclass "ViewBinding"
+         text "+1"
+         font "TraderX/datasets/fonts/RobotoCondensedVF14"
+         "exact text" 1
+         "size to text h" 1
+         "text valign" center
+         {
+          ScriptParamsClass {
+           Binding_Name "product_quantity_text"
+          }
+         }
+        }
+        ButtonWidgetClass btnPlus {
+         color 0.9961 0.9961 0.9961 1
+         position 0 0
+         size 42 39
+         halign center_ref
+         valign center_ref
+         hexactpos 0
+         vexactpos 0
+         hexactsize 1
+         vexactsize 1
+         scriptclass "ViewBinding"
+         style TP_NavBtn
+         text "#tpm_plus_symbol"
+         font "gui/fonts/etelkatextpro22"
+         {
+          ScriptParamsClass {
+           Relay_Command "OnPlusExecute"
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+    PanelWidgetClass PanelWidget4 {
+     ignorepointer 1
+     color 0.1176 0.1176 0.1176 1
+     position 0 0
+     size 1 0.1
+     halign center_ref
+     valign bottom_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     style rover_sim_colorable
+    }
+   }
+  }
+ }
+}

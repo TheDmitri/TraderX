@@ -1,0 +1,4 @@
+class DropBagPageView: ScriptViewTemplate<DropBagPageViewController>
+{
+    
+}

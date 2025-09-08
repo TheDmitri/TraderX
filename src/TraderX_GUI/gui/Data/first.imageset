@@ -1,0 +1,1496 @@
+ImageSetClass {
+ Name "PanelsButtons"
+ RefSize 614 396
+ Textures {
+  ImageSetTextureClass {
+   mpix 1
+   path "{A5D75A7E21286F0F}TraderX_GUI/gui/Data/resources.edds"
+  }
+ }
+ Images {
+  ImageSetDefClass arrow_left {
+   Name "arrow_left"
+   Pos 443 216
+   Size 25 14
+   Flags 0
+  }
+  ImageSetDefClass arrow_right {
+   Name "arrow_right"
+   Pos 413 216
+   Size 25 14
+   Flags 0
+  }
+  ImageSetDefClass scrollbar_top_norm {
+   Name "scrollbar_top_norm"
+   Pos 432 239
+   Size 10 5
+   Flags 0
+  }
+  ImageSetDefClass scrollbar_top_h {
+   Name "scrollbar_top_h"
+   Pos 443 239
+   Size 10 5
+   Flags 0
+  }
+  ImageSetDefClass scrollbar_center_norm {
+   Name "scrollbar_center_norm"
+   Pos 432 244
+   Size 10 2
+   Flags 0
+  }
+  ImageSetDefClass scrollbar_center_h {
+   Name "scrollbar_center_h"
+   Pos 443 244
+   Size 10 2
+   Flags 0
+  }
+  ImageSetDefClass scrollbar_down_norm {
+   Name "scrollbar_down_norm"
+   Pos 443 246
+   Size 10 5
+   Flags 0
+  }
+  ImageSetDefClass scrollbar_down_h {
+   Name "scrollbar_down_h"
+   Pos 432 246
+   Size 10 5
+   Flags 0
+  }
+  ImageSetDefClass eva {
+   Name "eva"
+   Pos 456 238
+   Size 3 3
+   Flags 0
+  }
+  ImageSetDefClass eva2 {
+   Name "eva2"
+   Pos 460 240
+   Size 10 10
+   Flags 0
+  }
+ }
+ Groups {
+  ImageSetGroupClass Squad_Big {
+   Name "Squad_Big"
+   Images {
+    ImageSetDefClass sq_big_luc {
+     Name "sq_big_luc"
+     Pos 3 108
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sq_big_ldc {
+     Name "sq_big_ldc"
+     Pos 3 198
+     Size 10 17
+     Flags 0
+    }
+    ImageSetDefClass sq_big_l {
+     Name "sq_big_l"
+     Pos 3 118
+     Size 10 80
+     Flags 0
+    }
+    ImageSetDefClass sq_big_u {
+     Name "sq_big_u"
+     Pos 13 108
+     Size 80 10
+     Flags 0
+    }
+    ImageSetDefClass sq_big_d {
+     Name "sq_big_d"
+     Pos 13 198
+     Size 80 17
+     Flags 0
+    }
+    ImageSetDefClass sq_big_c {
+     Name "sq_big_c"
+     Pos 13 118
+     Size 80 80
+     Flags 0
+    }
+    ImageSetDefClass sq_big_ruc {
+     Name "sq_big_ruc"
+     Pos 93 108
+     Size 16 10
+     Flags 0
+    }
+    ImageSetDefClass sq_big_r {
+     Name "sq_big_r"
+     Pos 93 118
+     Size 16 80
+     Flags 0
+    }
+    ImageSetDefClass sq_big_rdc {
+     Name "sq_big_rdc"
+     Pos 93 198
+     Size 16 17
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Squad_Big_Stroke {
+   Name "Squad_Big_Stroke"
+   Images {
+    ImageSetDefClass sq_str_big_luc {
+     Name "sq_str_big_luc"
+     Pos 106 108
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sq_str_big_ruc {
+     Name "sq_str_big_ruc"
+     Pos 196 108
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sq_str_big_ldc {
+     Name "sq_str_big_ldc"
+     Pos 106 198
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sq_str_big_rdc {
+     Name "sq_str_big_rdc"
+     Pos 196 198
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sq_str_big_center {
+     Name "sq_str_big_center"
+     Pos 116 118
+     Size 80 80
+     Flags 0
+    }
+    ImageSetDefClass sq_str_big_l {
+     Name "sq_str_big_l"
+     Pos 106 118
+     Size 10 80
+     Flags 0
+    }
+    ImageSetDefClass sq_str_big_r {
+     Name "sq_str_big_r"
+     Pos 196 118
+     Size 10 80
+     Flags 0
+    }
+    ImageSetDefClass sq_str_big_t {
+     Name "sq_str_big_t"
+     Pos 116 108
+     Size 80 10
+     Flags 0
+    }
+    ImageSetDefClass sq_str_big_d {
+     Name "sq_str_big_d"
+     Pos 116 198
+     Size 80 10
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Squad_Big_Stroke1 {
+   Name "Squad_Big_Stroke1"
+   Images {
+    ImageSetDefClass sq_str1_big_luc {
+     Name "sq_str1_big_luc"
+     Pos 209 108
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sq_str1_big_ruc {
+     Name "sq_str1_big_ruc"
+     Pos 299 108
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sq_str1_big_t {
+     Name "sq_str1_big_t"
+     Pos 219 108
+     Size 80 10
+     Flags 0
+    }
+    ImageSetDefClass sq_str1_big_l {
+     Name "sq_str1_big_l"
+     Pos 209 118
+     Size 10 80
+     Flags 0
+    }
+    ImageSetDefClass sq_str1_big_ldc {
+     Name "sq_str1_big_ldc"
+     Pos 209 198
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sq_str1_big_rdc {
+     Name "sq_str1_big_rdc"
+     Pos 299 198
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sq_str1_big_r {
+     Name "sq_str1_big_r"
+     Pos 299 118
+     Size 10 80
+     Flags 0
+    }
+    ImageSetDefClass sq_str1_big_d {
+     Name "sq_str1_big_d"
+     Pos 219 198
+     Size 80 10
+     Flags 0
+    }
+    ImageSetDefClass sq_str1_big_center {
+     Name "sq_str1_big_center"
+     Pos 219 118
+     Size 80 80
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Smooth_Big {
+   Name "Smooth_Big"
+   Images {
+    ImageSetDefClass sm_big_luc {
+     Name "sm_big_luc"
+     Pos 3 3
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sm_big_ruc {
+     Name "sm_big_ruc"
+     Pos 93 3
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sm_big_dlc {
+     Name "sm_big_dlc"
+     Pos 3 93
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sm_big_drc {
+     Name "sm_big_drc"
+     Pos 93 93
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sm_big_r {
+     Name "sm_big_r"
+     Pos 93 13
+     Size 13 80
+     Flags 0
+    }
+    ImageSetDefClass sm_big_l {
+     Name "sm_big_l"
+     Pos 3 13
+     Size 10 80
+     Flags 0
+    }
+    ImageSetDefClass sm_big_u {
+     Name "sm_big_u"
+     Pos 13 3
+     Size 80 10
+     Flags 0
+    }
+    ImageSetDefClass sm_big_center {
+     Name "sm_big_center"
+     Pos 13 13
+     Size 80 80
+     Flags 0
+    }
+    ImageSetDefClass sm_big_d {
+     Name "sm_big_d"
+     Pos 13 93
+     Size 80 13
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Smooth_Big_Stroke {
+   Name "Smooth_Big_Stroke"
+   Images {
+    ImageSetDefClass sm_str_big_luc {
+     Name "sm_str_big_luc"
+     Pos 106 3
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sm_str_big_ldc {
+     Name "sm_str_big_ldc"
+     Pos 106 93
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sm_str_big_ruc {
+     Name "sm_str_big_ruc"
+     Pos 196 3
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sm_str_big_rdc {
+     Name "sm_str_big_rdc"
+     Pos 196 93
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sm_str_big_l {
+     Name "sm_str_big_l"
+     Pos 106 13
+     Size 10 80
+     Flags 0
+    }
+    ImageSetDefClass sm_str_big_u {
+     Name "sm_str_big_u"
+     Pos 116 3
+     Size 80 10
+     Flags 0
+    }
+    ImageSetDefClass sm_str_big_r {
+     Name "sm_str_big_r"
+     Pos 196 13
+     Size 10 80
+     Flags 0
+    }
+    ImageSetDefClass sm_str_big_d {
+     Name "sm_str_big_d"
+     Pos 116 93
+     Size 80 10
+     Flags 0
+    }
+    ImageSetDefClass sm_str_big_center {
+     Name "sm_str_big_center"
+     Pos 116 13
+     Size 80 80
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Smooth_Big_Stroke1 {
+   Name "Smooth_Big_Stroke1"
+   Images {
+    ImageSetDefClass sm_str1_big_ruc {
+     Name "sm_str1_big_ruc"
+     Pos 209 3
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sm_str1_big_rdc {
+     Name "sm_str1_big_rdc"
+     Pos 209 93
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sm_str1_big_rruc {
+     Name "sm_str1_big_rruc"
+     Pos 299 3
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sm_str1_big_rrdc {
+     Name "sm_str1_big_rrdc"
+     Pos 299 93
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sm_str1_big_d {
+     Name "sm_str1_big_d"
+     Pos 219 93
+     Size 80 10
+     Flags 0
+    }
+    ImageSetDefClass sm_str1_big_r {
+     Name "sm_str1_big_r"
+     Pos 299 13
+     Size 10 80
+     Flags 0
+    }
+    ImageSetDefClass sm_str1_big_l {
+     Name "sm_str1_big_l"
+     Pos 209 13
+     Size 10 80
+     Flags 0
+    }
+    ImageSetDefClass sm_str1_big_t {
+     Name "sm_str1_big_t"
+     Pos 219 3
+     Size 80 10
+     Flags 0
+    }
+    ImageSetDefClass sm_str1_big_center {
+     Name "sm_str1_big_center"
+     Pos 219 13
+     Size 80 80
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Smooth_Small_10px {
+   Name "Smooth_Small_10px"
+   Images {
+    ImageSetDefClass sm_small_luc {
+     Name "sm_small_luc"
+     Pos 312 3
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sm_small_ldc {
+     Name "sm_small_ldc"
+     Pos 312 43
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sm_small_ruc {
+     Name "sm_small_ruc"
+     Pos 352 3
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sm_small_rdc {
+     Name "sm_small_rdc"
+     Pos 352 43
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sm_small_u {
+     Name "sm_small_u"
+     Pos 322 3
+     Size 30 10
+     Flags 0
+    }
+    ImageSetDefClass sm_small_d {
+     Name "sm_small_d"
+     Pos 322 43
+     Size 30 10
+     Flags 0
+    }
+    ImageSetDefClass sm_small_l {
+     Name "sm_small_l"
+     Pos 312 13
+     Size 10 30
+     Flags 0
+    }
+    ImageSetDefClass sm_small_r {
+     Name "sm_small_r"
+     Pos 352 13
+     Size 10 30
+     Flags 0
+    }
+    ImageSetDefClass sm_small_c {
+     Name "sm_small_c"
+     Pos 322 13
+     Size 30 30
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Smooth_Small_5px {
+   Name "Smooth_Small_5px"
+   Images {
+    ImageSetDefClass sm_small5_luc {
+     Name "sm_small5_luc"
+     Pos 312 56
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass sm_small5_ldc {
+     Name "sm_small5_ldc"
+     Pos 312 101
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass sm_small5_ruc {
+     Name "sm_small5_ruc"
+     Pos 357 56
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass sm_small5_rdc {
+     Name "sm_small5_rdc"
+     Pos 357 101
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass sm_small5_d {
+     Name "sm_small5_d"
+     Pos 317 101
+     Size 40 5
+     Flags 0
+    }
+    ImageSetDefClass sm_small5_l {
+     Name "sm_small5_l"
+     Pos 312 61
+     Size 5 40
+     Flags 0
+    }
+    ImageSetDefClass sm_small5_r {
+     Name "sm_small5_r"
+     Pos 357 61
+     Size 5 40
+     Flags 0
+    }
+    ImageSetDefClass sm_small5_u {
+     Name "sm_small5_u"
+     Pos 317 56
+     Size 40 5
+     Flags 0
+    }
+    ImageSetDefClass sm_small5_c {
+     Name "sm_small5_c"
+     Pos 317 61
+     Size 40 40
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Smooth_Small_10px_Stroke {
+   Name "Smooth_Small_10px_Stroke"
+   Images {
+    ImageSetDefClass sm_str_small10_luc {
+     Name "sm_str_small10_luc"
+     Pos 365 3
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sm_str_small10_ldc {
+     Name "sm_str_small10_ldc"
+     Pos 365 43
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sm_str_small10_ruc {
+     Name "sm_str_small10_ruc"
+     Pos 405 3
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sm_str_small10_rdc {
+     Name "sm_str_small10_rdc"
+     Pos 405 43
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sm_str_small10_l {
+     Name "sm_str_small10_l"
+     Pos 365 13
+     Size 10 30
+     Flags 0
+    }
+    ImageSetDefClass sm_str_small10_r {
+     Name "sm_str_small10_r"
+     Pos 405 13
+     Size 10 30
+     Flags 0
+    }
+    ImageSetDefClass sm_str_small10_u {
+     Name "sm_str_small10_u"
+     Pos 375 3
+     Size 30 10
+     Flags 0
+    }
+    ImageSetDefClass sm_str_small10_d {
+     Name "sm_str_small10_d"
+     Pos 375 43
+     Size 30 10
+     Flags 0
+    }
+    ImageSetDefClass sm_str_small10_ce {
+     Name "sm_str_small10_ce"
+     Pos 375 13
+     Size 30 30
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Smooth_Small_10px_Stroke1 {
+   Name "Smooth_Small_10px_Stroke1"
+   Images {
+    ImageSetDefClass sm_str1_small10_luc {
+     Name "sm_str1_small10_luc"
+     Pos 418 4
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sm_str1_small10_ldc {
+     Name "sm_str1_small10_ldc"
+     Pos 418 44
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sm_str1_small10_ruc {
+     Name "sm_str1_small10_ruc"
+     Pos 458 4
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sm_str1_small10_rdc {
+     Name "sm_str1_small10_rdc"
+     Pos 458 44
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass sm_str1_small10_l {
+     Name "sm_str1_small10_l"
+     Pos 418 14
+     Size 10 30
+     Flags 0
+    }
+    ImageSetDefClass sm_str1_small10_r {
+     Name "sm_str1_small10_r"
+     Pos 458 14
+     Size 10 30
+     Flags 0
+    }
+    ImageSetDefClass sm_str1_small10_u {
+     Name "sm_str1_small10_u"
+     Pos 428 4
+     Size 30 10
+     Flags 0
+    }
+    ImageSetDefClass sm_str1_small10_d {
+     Name "sm_str1_small10_d"
+     Pos 428 44
+     Size 30 10
+     Flags 0
+    }
+    ImageSetDefClass sm_str1_small10_c {
+     Name "sm_str1_small10_c"
+     Pos 428 14
+     Size 30 30
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Smooth_Small_5px_Stroke {
+   Name "Smooth_Small_5px_Stroke"
+   Images {
+    ImageSetDefClass sm_str_small5_luc {
+     Name "sm_str_small5_luc"
+     Pos 365 56
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass sm_str_small5_ldc {
+     Name "sm_str_small5_ldc"
+     Pos 365 101
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass sm_str_small5_ruc {
+     Name "sm_str_small5_ruc"
+     Pos 410 56
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass sm_str_small5_rdc {
+     Name "sm_str_small5_rdc"
+     Pos 410 101
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass sm_str_small5_r {
+     Name "sm_str_small5_r"
+     Pos 410 61
+     Size 5 40
+     Flags 0
+    }
+    ImageSetDefClass sm_str_small5_l {
+     Name "sm_str_small5_l"
+     Pos 365 61
+     Size 5 40
+     Flags 0
+    }
+    ImageSetDefClass sm_str_small5_u {
+     Name "sm_str_small5_u"
+     Pos 370 56
+     Size 40 5
+     Flags 0
+    }
+    ImageSetDefClass sm_str_small5_d {
+     Name "sm_str_small5_d"
+     Pos 370 101
+     Size 40 5
+     Flags 0
+    }
+    ImageSetDefClass sm_str_small5_c {
+     Name "sm_str_small5_c"
+     Pos 370 61
+     Size 40 40
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Smooth_Small_5px_Stroke1 {
+   Name "Smooth_Small_5px_Stroke1"
+   Images {
+    ImageSetDefClass sm_str1_small5_luc {
+     Name "sm_str1_small5_luc"
+     Pos 418 56
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass sm_str1_small5_ldc {
+     Name "sm_str1_small5_ldc"
+     Pos 418 101
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass sm_str1_small5_ruc {
+     Name "sm_str1_small5_ruc"
+     Pos 463 56
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass sm_str1_small5_rdc {
+     Name "sm_str1_small5_rdc"
+     Pos 463 101
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass sm_str1_small5_r {
+     Name "sm_str1_small5_r"
+     Pos 463 61
+     Size 5 40
+     Flags 0
+    }
+    ImageSetDefClass sm_str1_small5_l {
+     Name "sm_str1_small5_l"
+     Pos 418 61
+     Size 5 40
+     Flags 0
+    }
+    ImageSetDefClass sm_str1_small5_u {
+     Name "sm_str1_small5_u"
+     Pos 423 56
+     Size 40 5
+     Flags 0
+    }
+    ImageSetDefClass sm_str1_small5_d {
+     Name "sm_str1_small5_d"
+     Pos 423 101
+     Size 40 5
+     Flags 0
+    }
+    ImageSetDefClass sm_str1_small5_center {
+     Name "sm_str1_small5_center"
+     Pos 423 61
+     Size 40 40
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Squad_Small {
+   Name "Squad_Small"
+   Images {
+    ImageSetDefClass sq_small_ruc {
+     Name "sq_small_ruc"
+     Pos 357 109
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass sq_small_rdc {
+     Name "sq_small_rdc"
+     Pos 357 154
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass sq_small_luc {
+     Name "sq_small_luc"
+     Pos 312 109
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass sq_small_ldc {
+     Name "sq_small_ldc"
+     Pos 312 154
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass sq_small_u {
+     Name "sq_small_u"
+     Pos 317 109
+     Size 40 5
+     Flags 0
+    }
+    ImageSetDefClass sq_small_d {
+     Name "sq_small_d"
+     Pos 317 154
+     Size 40 5
+     Flags 0
+    }
+    ImageSetDefClass sq_small_l {
+     Name "sq_small_l"
+     Pos 312 114
+     Size 5 40
+     Flags 0
+    }
+    ImageSetDefClass sq_small_r {
+     Name "sq_small_r"
+     Pos 357 114
+     Size 5 40
+     Flags 0
+    }
+    ImageSetDefClass sq_small_center {
+     Name "sq_small_center"
+     Pos 317 114
+     Size 40 40
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Squad_Small_Stroke {
+   Name "Squad_Small_Stroke"
+   Images {
+    ImageSetDefClass sq_str_small_luc {
+     Name "sq_str_small_luc"
+     Pos 365 109
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass sq_str_small_ldc {
+     Name "sq_str_small_ldc"
+     Pos 365 154
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass sq_str_small_rdc {
+     Name "sq_str_small_rdc"
+     Pos 410 154
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass sq_str_small_ruc {
+     Name "sq_str_small_ruc"
+     Pos 410 109
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass sq_str_small_u {
+     Name "sq_str_small_u"
+     Pos 370 109
+     Size 40 5
+     Flags 0
+    }
+    ImageSetDefClass sq_str_small_d {
+     Name "sq_str_small_d"
+     Pos 370 154
+     Size 40 5
+     Flags 0
+    }
+    ImageSetDefClass sq_str_small_l {
+     Name "sq_str_small_l"
+     Pos 365 114
+     Size 5 40
+     Flags 0
+    }
+    ImageSetDefClass sq_str_small_r {
+     Name "sq_str_small_r"
+     Pos 410 114
+     Size 5 40
+     Flags 0
+    }
+    ImageSetDefClass sq_str_small_center {
+     Name "sq_str_small_center"
+     Pos 370 114
+     Size 40 40
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Squad_Small_Stroke1 {
+   Name "Squad_Small_Stroke1"
+   Images {
+    ImageSetDefClass sq_str1_small_luc {
+     Name "sq_str1_small_luc"
+     Pos 418 109
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass sq_str1_small_ldc {
+     Name "sq_str1_small_ldc"
+     Pos 418 154
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass sq_str1_small_ruc {
+     Name "sq_str1_small_ruc"
+     Pos 463 109
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass sq_str1_small_rdc {
+     Name "sq_str1_small_rdc"
+     Pos 463 154
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass sq_str1_small_u {
+     Name "sq_str1_small_u"
+     Pos 423 109
+     Size 40 5
+     Flags 0
+    }
+    ImageSetDefClass sq_str1_small_d {
+     Name "sq_str1_small_d"
+     Pos 423 154
+     Size 40 5
+     Flags 0
+    }
+    ImageSetDefClass sq_str1_small_l {
+     Name "sq_str1_small_l"
+     Pos 418 114
+     Size 5 40
+     Flags 0
+    }
+    ImageSetDefClass sq_str1_small_r {
+     Name "sq_str1_small_r"
+     Pos 463 114
+     Size 5 40
+     Flags 0
+    }
+    ImageSetDefClass sq_str1_small_center {
+     Name "sq_str1_small_center"
+     Pos 423 114
+     Size 40 40
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Checkbox {
+   Name "Checkbox"
+   Images {
+    ImageSetDefClass cbm {
+     Name "cbm"
+     Pos 338 163
+     Size 22 22
+     Flags 0
+    }
+    ImageSetDefClass cbs {
+     Name "cbs"
+     Pos 365 163
+     Size 22 22
+     Flags 0
+    }
+    ImageSetDefClass cbm1 {
+     Name "cbm1"
+     Pos 390 163
+     Size 22 22
+     Flags 0
+    }
+    ImageSetDefClass cbr {
+     Name "cbr"
+     Pos 443 163
+     Size 22 22
+     Flags 0
+    }
+    ImageSetDefClass cbrm {
+     Name "cbrm"
+     Pos 419 163
+     Size 22 22
+     Flags 0
+    }
+    ImageSetDefClass cbrm1 {
+     Name "cbrm1"
+     Pos 419 187
+     Size 22 22
+     Flags 0
+    }
+    ImageSetDefClass cbmmdwadw1 {
+     Name "cbmmdwadw1"
+     Pos 338 187
+     Size 22 22
+     Flags 0
+    }
+    ImageSetDefClass cbmmdwadw2 {
+     Name "cbmmdwadw2"
+     Pos 390 187
+     Size 22 22
+     Flags 0
+    }
+    ImageSetDefClass cbmmdwadw3 {
+     Name "cbmmdwadw3"
+     Pos 365 187
+     Size 22 22
+     Flags 0
+    }
+    ImageSetDefClass cbmmdwadw4 {
+     Name "cbmmdwadw4"
+     Pos 443 187
+     Size 22 22
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass progressbar1 {
+   Name "progressbar1"
+   Images {
+    ImageSetDefClass sqpr_lc {
+     Name "sqpr_lc"
+     Pos 472 163
+     Size 3 3
+     Flags 0
+    }
+    ImageSetDefClass sqpr_ldc {
+     Name "sqpr_ldc"
+     Pos 472 180
+     Size 3 3
+     Flags 0
+    }
+    ImageSetDefClass sqpr_ruc {
+     Name "sqpr_ruc"
+     Pos 499 163
+     Size 3 3
+     Flags 0
+    }
+    ImageSetDefClass sqpr_rdc {
+     Name "sqpr_rdc"
+     Pos 499 180
+     Size 3 3
+     Flags 0
+    }
+    ImageSetDefClass sqpr_r {
+     Name "sqpr_r"
+     Pos 499 166
+     Size 3 14
+     Flags 0
+    }
+    ImageSetDefClass sqpr_l {
+     Name "sqpr_l"
+     Pos 472 166
+     Size 3 14
+     Flags 0
+    }
+    ImageSetDefClass sqpr_u {
+     Name "sqpr_u"
+     Pos 475 163
+     Size 24 3
+     Flags 0
+    }
+    ImageSetDefClass sqpr_d {
+     Name "sqpr_d"
+     Pos 475 180
+     Size 24 3
+     Flags 0
+    }
+    ImageSetDefClass sqpr_ce {
+     Name "sqpr_ce"
+     Pos 475 166
+     Size 24 14
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass pr2 {
+   Name "pr2"
+   Images {
+    ImageSetDefClass sqpr1_luc {
+     Name "sqpr1_luc"
+     Pos 506 163
+     Size 3 3
+     Flags 0
+    }
+    ImageSetDefClass sqpr1_ldc {
+     Name "sqpr1_ldc"
+     Pos 506 180
+     Size 3 3
+     Flags 0
+    }
+    ImageSetDefClass sqpr1_l {
+     Name "sqpr1_l"
+     Pos 506 166
+     Size 3 14
+     Flags 0
+    }
+    ImageSetDefClass sqpr1_ruc {
+     Name "sqpr1_ruc"
+     Pos 533 163
+     Size 3 3
+     Flags 0
+    }
+    ImageSetDefClass sqpr1_rdc {
+     Name "sqpr1_rdc"
+     Pos 533 180
+     Size 3 3
+     Flags 0
+    }
+    ImageSetDefClass sqpr1_d {
+     Name "sqpr1_d"
+     Pos 509 180
+     Size 24 3
+     Flags 0
+    }
+    ImageSetDefClass sqpr1_ce {
+     Name "sqpr1_ce"
+     Pos 509 166
+     Size 24 14
+     Flags 0
+    }
+    ImageSetDefClass sqpr1_r {
+     Name "sqpr1_r"
+     Pos 533 166
+     Size 3 14
+     Flags 0
+    }
+    ImageSetDefClass sqpr1_t {
+     Name "sqpr1_t"
+     Pos 509 163
+     Size 24 3
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass pr3 {
+   Name "pr3"
+   Images {
+    ImageSetDefClass pbf_luc {
+     Name "pbf_luc"
+     Pos 539 164
+     Size 3 3
+     Flags 0
+    }
+    ImageSetDefClass pbf_ldc {
+     Name "pbf_ldc"
+     Pos 539 179
+     Size 3 3
+     Flags 0
+    }
+    ImageSetDefClass pbf_l {
+     Name "pbf_l"
+     Pos 539 167
+     Size 3 12
+     Flags 0
+    }
+    ImageSetDefClass pbf_t {
+     Name "pbf_t"
+     Pos 542 164
+     Size 22 3
+     Flags 0
+    }
+    ImageSetDefClass pbf_d {
+     Name "pbf_d"
+     Pos 542 179
+     Size 22 3
+     Flags 0
+    }
+    ImageSetDefClass pbf_ce {
+     Name "pbf_ce"
+     Pos 542 167
+     Size 22 12
+     Flags 0
+    }
+    ImageSetDefClass pbf_r {
+     Name "pbf_r"
+     Pos 564 167
+     Size 3 12
+     Flags 0
+    }
+    ImageSetDefClass pbf_ruc {
+     Name "pbf_ruc"
+     Pos 564 164
+     Size 3 3
+     Flags 0
+    }
+    ImageSetDefClass pbf_rdc {
+     Name "pbf_rdc"
+     Pos 564 179
+     Size 3 3
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Progressbar2 {
+   Name "Progressbar2"
+   Images {
+    ImageSetDefClass pbs_r {
+     Name "pbs_r"
+     Pos 499 190
+     Size 3 14
+     Flags 0
+    }
+    ImageSetDefClass pbs_l {
+     Name "pbs_l"
+     Pos 472 190
+     Size 3 14
+     Flags 0
+    }
+    ImageSetDefClass pbs_ruc {
+     Name "pbs_ruc"
+     Pos 499 187
+     Size 3 3
+     Flags 0
+    }
+    ImageSetDefClass pbs_rdc {
+     Name "pbs_rdc"
+     Pos 499 204
+     Size 3 3
+     Flags 0
+    }
+    ImageSetDefClass pbs_ldc {
+     Name "pbs_ldc"
+     Pos 472 204
+     Size 3 3
+     Flags 0
+    }
+    ImageSetDefClass pbs_luc {
+     Name "pbs_luc"
+     Pos 472 187
+     Size 3 3
+     Flags 0
+    }
+    ImageSetDefClass pbs_ce {
+     Name "pbs_ce"
+     Pos 475 190
+     Size 24 14
+     Flags 0
+    }
+    ImageSetDefClass pbs_t {
+     Name "pbs_t"
+     Pos 475 187
+     Size 24 3
+     Flags 0
+    }
+    ImageSetDefClass pbs_d {
+     Name "pbs_d"
+     Pos 475 204
+     Size 24 3
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Progressbar4 {
+   Name "Progressbar4"
+   Images {
+    ImageSetDefClass pbt_r {
+     Name "pbt_r"
+     Pos 533 190
+     Size 3 14
+     Flags 0
+    }
+    ImageSetDefClass pbt_ruc {
+     Name "pbt_ruc"
+     Pos 533 187
+     Size 3 3
+     Flags 0
+    }
+    ImageSetDefClass pbt_rdc {
+     Name "pbt_rdc"
+     Pos 533 204
+     Size 3 3
+     Flags 0
+    }
+    ImageSetDefClass pbt_t {
+     Name "pbt_t"
+     Pos 509 187
+     Size 24 3
+     Flags 0
+    }
+    ImageSetDefClass pbt_c {
+     Name "pbt_c"
+     Pos 509 190
+     Size 24 14
+     Flags 0
+    }
+    ImageSetDefClass pbt_d {
+     Name "pbt_d"
+     Pos 509 204
+     Size 24 3
+     Flags 0
+    }
+    ImageSetDefClass pbt_l {
+     Name "pbt_l"
+     Pos 506 190
+     Size 3 14
+     Flags 0
+    }
+    ImageSetDefClass pbt_luc {
+     Name "pbt_luc"
+     Pos 506 187
+     Size 3 3
+     Flags 0
+    }
+    ImageSetDefClass pbt_ldc {
+     Name "pbt_ldc"
+     Pos 506 204
+     Size 3 3
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Progressbar5 {
+   Name "Progressbar5"
+   Images {
+    ImageSetDefClass prcircle_luc {
+     Name "prcircle_luc"
+     Pos 472 209
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass prcircle_ldc {
+     Name "prcircle_ldc"
+     Pos 472 219
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass prcircle_l {
+     Name "prcircle_l"
+     Pos 472 218
+     Size 10 1
+     Flags 0
+    }
+    ImageSetDefClass prcircle_u {
+     Name "prcircle_u"
+     Pos 482 209
+     Size 9 9
+     Flags 0
+    }
+    ImageSetDefClass prcircle_d {
+     Name "prcircle_d"
+     Pos 482 219
+     Size 9 10
+     Flags 0
+    }
+    ImageSetDefClass prcircle_c {
+     Name "prcircle_c"
+     Pos 482 218
+     Size 9 1
+     Flags 0
+    }
+    ImageSetDefClass prcircle_ruc {
+     Name "prcircle_ruc"
+     Pos 491 209
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass prcircle_rdc {
+     Name "prcircle_rdc"
+     Pos 491 219
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass prcircle_r {
+     Name "prcircle_r"
+     Pos 491 218
+     Size 10 1
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass prgb6 {
+   Name "prgb6"
+   Images {
+    ImageSetDefClass smprgb_luc {
+     Name "smprgb_luc"
+     Pos 539 188
+     Size 3 3
+     Flags 0
+    }
+    ImageSetDefClass smprgb_ldc {
+     Name "smprgb_ldc"
+     Pos 539 203
+     Size 3 3
+     Flags 0
+    }
+    ImageSetDefClass smprgb_l {
+     Name "smprgb_l"
+     Pos 539 191
+     Size 3 12
+     Flags 0
+    }
+    ImageSetDefClass smprgb_u {
+     Name "smprgb_u"
+     Pos 542 188
+     Size 22 3
+     Flags 0
+    }
+    ImageSetDefClass smprgb_c {
+     Name "smprgb_c"
+     Pos 542 191
+     Size 22 12
+     Flags 0
+    }
+    ImageSetDefClass smprgb_d {
+     Name "smprgb_d"
+     Pos 542 203
+     Size 22 3
+     Flags 0
+    }
+    ImageSetDefClass smprgb_r {
+     Name "smprgb_r"
+     Pos 564 191
+     Size 3 12
+     Flags 0
+    }
+    ImageSetDefClass smprgb_rdc {
+     Name "smprgb_rdc"
+     Pos 564 203
+     Size 3 3
+     Flags 0
+    }
+    ImageSetDefClass smprgb_ruc {
+     Name "smprgb_ruc"
+     Pos 564 188
+     Size 3 3
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass prb7 {
+   Name "prb7"
+   Images {
+    ImageSetDefClass pb7_luc {
+     Name "pb7_luc"
+     Pos 538 209
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass pb7_l {
+     Name "pb7_l"
+     Pos 538 218
+     Size 10 1
+     Flags 0
+    }
+    ImageSetDefClass pb7_ldc {
+     Name "pb7_ldc"
+     Pos 538 219
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass pb7_t {
+     Name "pb7_t"
+     Pos 548 209
+     Size 8 9
+     Flags 0
+    }
+    ImageSetDefClass pb7_c {
+     Name "pb7_c"
+     Pos 548 217
+     Size 8 3
+     Flags 0
+    }
+    ImageSetDefClass pb7_r {
+     Name "pb7_r"
+     Pos 556 218
+     Size 10 1
+     Flags 0
+    }
+    ImageSetDefClass pb7_d {
+     Name "pb7_d"
+     Pos 548 218
+     Size 8 11
+     Flags 0
+    }
+    ImageSetDefClass pb7_rdc {
+     Name "pb7_rdc"
+     Pos 556 219
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass pb7_ruc {
+     Name "pb7_ruc"
+     Pos 556 209
+     Size 10 10
+     Flags 0
+    }
+   }
+  }
+ }
+}

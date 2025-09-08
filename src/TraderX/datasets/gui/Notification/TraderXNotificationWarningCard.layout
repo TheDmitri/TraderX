@@ -1,0 +1,246 @@
+GridSpacerWidgetClass MainPanel {
+ visible 1
+ disabled 0
+ inheritalpha 0
+ ignorepointer 1
+ keepsafezone 1
+ color 0.9961 0.9961 0.9961 1
+ position 0 0
+ size 461.92996 128
+ halign right_ref
+ hexactpos 0
+ vexactpos 0
+ hexactsize 1
+ vexactsize 1
+ fixaspect outside
+ priority 1000
+ scriptclass "NotificationCardViewController"
+ style Corny_Rect_Side_Orange
+ Margin 0
+ "Size To Content V" 1
+ Columns 1
+ {
+  PanelWidgetClass PanelWidget0 {
+   ignorepointer 1
+   position 10 10
+   size 48 34
+   hexactpos 1
+   vexactpos 1
+   hexactsize 1
+   vexactsize 1
+   {
+    TextWidgetClass NotificationTitle {
+     ignorepointer 1
+     position 0.02 0
+     size 0.9 0.8
+     valign bottom_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     scriptclass "ViewBinding"
+     text "#tpm_transaction_notification"
+     font "TraderX/datasets/fonts/RobotoCondensedVF28"
+     "exact text" 1
+     "text valign" center
+     {
+      ScriptParamsClass {
+       Binding_Name "notification_title"
+      }
+     }
+    }
+    ButtonWidgetClass CloseButton {
+     visible 1
+     position 0.02 0.18
+     size 19 19
+     halign right_ref
+     valign bottom_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 1
+     vexactsize 1
+     scriptclass "ViewBinding"
+     style Empty
+     text "#tpm_close_symbol"
+     text_offset 2 0
+     font "TraderX/datasets/fonts/RobotoCondensedVF28"
+     {
+      ScriptParamsClass {
+       Relay_Command "OnCloseExecute"
+      }
+     }
+    }
+   }
+  }
+  GridSpacerWidgetClass NotificationContent {
+   ignorepointer 1
+   keepsafezone 1
+   position 0 0.329
+   size 434 14
+   halign center_ref
+   hexactpos 0
+   vexactpos 0
+   hexactsize 1
+   vexactsize 1
+   Margin 8
+   "Size To Content V" 1
+   Columns 1
+   Rows 1
+   {
+    RichTextWidgetClass transactionResultText {
+     visible 1
+     clipchildren 1
+     ignorepointer 1
+     keepsafezone 1
+     color 0.8392 0.8392 0.8392 1
+     position 10 10
+     size 48 42.64
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     scaled 1
+     draggable 1
+     scriptclass "ViewBinding"
+     text "#tpm_purchase_success_message"
+     font "TraderX/datasets/fonts/RobotoCondensedVF22"
+     "exact text" 1
+     "text valign" center
+     wrap 1
+     "condense whitespace" 1
+     "strip newlines" 1
+     {
+      ScriptParamsClass {
+       Binding_Name "transaction_result_text"
+      }
+     }
+    }
+    GridSpacerWidgetClass GridSpacerWidget0 {
+     ignorepointer 1
+     position 10 10
+     size 48 48
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     Margin 0
+     "Size To Content V" 1
+     Columns 1
+     Rows 2
+     {
+      PanelWidgetClass detailsPanel {
+       visible 1
+       ignorepointer 1
+       position 10 10
+       size 48 28
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       {
+        RichTextWidgetClass RichTextWidget0 {
+         ignorepointer 1
+         color 0.549 0.549 0.549 1
+         position 0 0
+         size 0.88 1
+         valign center_ref
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         scriptclass "ViewBinding"
+         text "#tpm_show_details"
+         "text valign" center
+         {
+          ScriptParamsClass {
+           Binding_Name "details_text"
+          }
+         }
+        }
+        ButtonWidgetClass ButtonWidget0 {
+         position 0 0
+         size 1 1
+         halign right_ref
+         valign center_ref
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         scriptclass "ViewBinding"
+         style Empty
+         {
+          ImageWidgetClass ImageWidget0 {
+           ignorepointer 1
+           color 0.549 0.549 0.549 1
+           position 0.01 0
+           size 22 17
+           halign right_ref
+           valign center_ref
+           hexactpos 0
+           vexactpos 0
+           hexactsize 1
+           vexactsize 1
+           image0 "set:ccgui_enforce image:CrScrollV"
+           mode blend
+           "src alpha" 1
+           "flip v" 1
+          }
+         }
+         {
+          ScriptParamsClass {
+           Relay_Command "OnDetailsExecute"
+          }
+         }
+        }
+       }
+      }
+      GridSpacerWidgetClass detailsGrid {
+       visible 0
+       ignorepointer 1
+       position 10 10
+       size 48 48
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       scriptclass "ViewBinding"
+       "Size To Content V" 1
+       Columns 1
+       Rows 50
+       {
+        ScriptParamsClass {
+         Binding_Name "notification_details_list"
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+  PanelWidgetClass PanelWidget1 {
+   ignorepointer 1
+   size 48 3
+   halign center_ref
+   valign bottom_ref
+   hexactpos 0
+   vexactpos 0
+   hexactsize 1
+   vexactsize 1
+   {
+    PanelWidgetClass notificationProgressBar {
+     ignorepointer 1
+     color 0.9529 0.6118 0.0706 1
+     position 0.01 0
+     size 0.98 1
+     halign right_ref
+     valign bottom_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     style rover_sim_colorable
+    }
+   }
+  }
+ }
+}

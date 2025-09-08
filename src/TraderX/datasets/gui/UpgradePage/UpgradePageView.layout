@@ -1,0 +1,3691 @@
+PanelWidgetClass UpgradePageView {
+ visible 1
+ ignorepointer 1
+ color 0 0 0 0
+ position 0.0004 0
+ size 1 0.9
+ halign center_ref
+ valign bottom_ref
+ hexactpos 0
+ vexactpos 0
+ hexactsize 0
+ vexactsize 0
+ scriptclass "UpgradePageViewController"
+ style DA_Smooth_Small_10px
+ {
+  PanelWidgetClass Background {
+   disabled 0
+   inheritalpha 0
+   ignorepointer 1
+   color 0.1882 0.1882 0.1882 1
+   position 0.02 0.15
+   size 0.96 0.82
+   hexactpos 0
+   vexactpos 0
+   hexactsize 0
+   vexactsize 0
+   style DA_Smooth_Small_10px
+   {
+    PanelWidgetClass LeftPanel {
+     ignorepointer 1
+     position 0.01 0
+     size 0.78 1
+     valign center_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     {
+      PanelWidgetClass SubLeftPanel {
+       ignorepointer 1
+       position 0 0
+       size 0.7 1
+       valign center_ref
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       {
+        TextWidgetClass TextWidget0 {
+         ignorepointer 1
+         position 0.01 0.015
+         size 0.05 0.04752
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         text "#tpm_select_item_slot"
+         font "TraderX/datasets/fonts/RobotoCondensedVF28"
+         "size to text h" 1
+         "size to text v" 0
+         "text valign" center
+        }
+        PanelWidgetClass SlotNavigation {
+         ignorepointer 1
+         color 0.298 0.3294 0.4118 1
+         position 0 0.07
+         size 0.98 0.1
+         halign center_ref
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         style DA_Smooth_Small_10px
+         {
+          PanelWidgetClass SubSlotCategory {
+           ignorepointer 1
+           color 0.1137 0.1137 0.1137 1
+           position 0 0
+           size 0.215 1
+           valign center_ref
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           style DA_Smooth_Small_10px_Stroke
+          }
+          GridSpacerWidgetClass GridSpacerWidget0 {
+           ignorepointer 1
+           position 0 0
+           size 1 1
+           halign center_ref
+           valign center_ref
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           Columns 14
+           Rows 1
+           {
+            ButtonWidgetClass ButtonWidget0 {
+             size 0.051 0.668
+             halign center_ref
+             valign center_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             style Empty
+             {
+              ImageWidgetClass ImageWidget1 {
+               ignorepointer 1
+               color 0.5451 0.5608 0.6039 1
+               size 48 48
+               halign center_ref
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:dayz_inventory image:hands"
+               mode additive
+               "src alpha" 1
+              }
+             }
+            }
+            ButtonWidgetClass ButtonWidget1 {
+             size 0.051 0.668
+             halign center_ref
+             valign center_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             style Empty
+             {
+              ImageWidgetClass ImageWidget2 {
+               ignorepointer 1
+               color 0.5451 0.5608 0.6039 1
+               size 48 48
+               halign center_ref
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:dayz_inventory image:shoulderright"
+               mode additive
+               "src alpha" 1
+              }
+             }
+            }
+            ButtonWidgetClass ButtonWidget2 {
+             size 0.051 0.668
+             halign center_ref
+             valign center_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             style Empty
+             {
+              ImageWidgetClass ImageWidget3 {
+               ignorepointer 1
+               color 0.5451 0.5608 0.6039 1
+               size 48 48
+               halign center_ref
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:dayz_inventory image:shoulderright"
+               mode additive
+               "src alpha" 1
+              }
+             }
+            }
+            ButtonWidgetClass ButtonWidget3 {
+             size 0.051 0.668
+             halign center_ref
+             valign center_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             style Empty
+             {
+              ImageWidgetClass ImageWidget4 {
+               ignorepointer 1
+               color 0.5451 0.5608 0.6039 1
+               size 48 48
+               halign center_ref
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:dayz_inventory image:vest"
+               mode additive
+               "src alpha" 1
+              }
+             }
+            }
+            ButtonWidgetClass ButtonWidget4 {
+             size 0.051 0.668
+             halign center_ref
+             valign center_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             style Empty
+             {
+              ImageWidgetClass ImageWidget6 {
+               ignorepointer 1
+               color 0.5451 0.5608 0.6039 1
+               size 48 48
+               halign center_ref
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:dayz_inventory image:body"
+               mode additive
+               "src alpha" 1
+              }
+             }
+            }
+            ButtonWidgetClass ButtonWidget5 {
+             size 0.051 0.668
+             halign center_ref
+             valign center_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             style Empty
+             {
+              ImageWidgetClass ImageWidget7 {
+               ignorepointer 1
+               color 0.5451 0.5608 0.6039 1
+               size 48 48
+               halign center_ref
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:dayz_inventory image:hips"
+               mode additive
+               "src alpha" 1
+              }
+             }
+            }
+            ButtonWidgetClass ButtonWidget6 {
+             size 0.051 0.668
+             halign center_ref
+             valign center_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             style Empty
+             {
+              ImageWidgetClass ImageWidget8 {
+               ignorepointer 1
+               color 0.5451 0.5608 0.6039 1
+               size 48 48
+               halign center_ref
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:dayz_inventory image:legs"
+               mode additive
+               "src alpha" 1
+              }
+             }
+            }
+            ButtonWidgetClass ButtonWidget7 {
+             size 0.051 0.668
+             halign center_ref
+             valign center_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             style Empty
+             {
+              ImageWidgetClass ImageWidget9 {
+               ignorepointer 1
+               color 0.5451 0.5608 0.6039 1
+               size 48 48
+               halign center_ref
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:dayz_inventory image:back"
+               mode additive
+               "src alpha" 1
+              }
+             }
+            }
+            ButtonWidgetClass ButtonWidget8 {
+             size 0.051 0.668
+             halign center_ref
+             valign center_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             style Empty
+             {
+              ImageWidgetClass ImageWidget10 {
+               ignorepointer 1
+               color 0.5451 0.5608 0.6039 1
+               size 48 48
+               halign center_ref
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:dayz_inventory image:headgear"
+               mode additive
+               "src alpha" 1
+              }
+             }
+            }
+            ButtonWidgetClass ButtonWidget9 {
+             size 0.051 0.668
+             halign center_ref
+             valign center_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             style Empty
+             {
+              ImageWidgetClass ImageWidget11 {
+               ignorepointer 1
+               color 0.5451 0.5608 0.6039 1
+               size 48 48
+               halign center_ref
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:dayz_inventory image:mask"
+               mode additive
+               "src alpha" 1
+              }
+             }
+            }
+            ButtonWidgetClass ButtonWidget10 {
+             size 0.051 0.668
+             halign center_ref
+             valign center_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             style Empty
+             {
+              ImageWidgetClass ImageWidget12 {
+               ignorepointer 1
+               color 0.5451 0.5608 0.6039 1
+               size 48 48
+               halign center_ref
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:dayz_inventory image:eyewear"
+               mode additive
+               "src alpha" 1
+              }
+             }
+            }
+            ButtonWidgetClass ButtonWidget11 {
+             size 0.051 0.668
+             halign center_ref
+             valign center_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             style Empty
+             {
+              ImageWidgetClass ImageWidget13 {
+               ignorepointer 1
+               color 0.5451 0.5608 0.6039 1
+               size 48 48
+               halign center_ref
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:dayz_inventory image:gloves"
+               mode additive
+               "src alpha" 1
+              }
+             }
+            }
+            ButtonWidgetClass ButtonWidget12 {
+             size 0.051 0.668
+             halign center_ref
+             valign center_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             style Empty
+             {
+              ImageWidgetClass ImageWidget14 {
+               ignorepointer 1
+               color 0.5451 0.5608 0.6039 1
+               size 48 48
+               halign center_ref
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:dayz_inventory image:feet"
+               mode additive
+               "src alpha" 1
+              }
+             }
+            }
+            ButtonWidgetClass ButtonWidget13 {
+             size 0.051 0.668
+             halign center_ref
+             valign center_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             style Empty
+             {
+              ImageWidgetClass ImageWidget15 {
+               ignorepointer 1
+               color 0.5451 0.5608 0.6039 1
+               size 48 48
+               halign center_ref
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:dayz_inventory image:armband"
+               mode additive
+               "src alpha" 1
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+        PanelWidgetClass ItemPreviewCardLarge {
+         ignorepointer 1
+         color 0.3333 0.3529 0.3961 1
+         position 0.01 0.18
+         size 0.7 0.35
+         halign right_ref
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         style DA_Smooth_Small_10px
+         {
+          PanelWidgetClass PanelWidget1 {
+           ignorepointer 1
+           position 0 0
+           size 1 0.15
+           halign center_ref
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           {
+            ImageWidgetClass ImageWidget16 {
+             ignorepointer 1
+             position 0.01 0
+             size 0.04 0.7
+             valign center_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+            }
+            TextWidgetClass TextWidget1 {
+             ignorepointer 1
+             position 0.01 0
+             size 0.072 1
+             halign right_ref
+             valign center_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             text "KA-101"
+             font "TraderX/datasets/fonts/RobotoCondensedVF22"
+             "size to text h" 1
+             "size to text v" 0
+             "text halign" right
+             "text valign" center
+            }
+           }
+          }
+          GridSpacerWidgetClass attachmentGrid {
+           ignorepointer 1
+           position 0 0
+           size 1 0.172
+           halign center_ref
+           valign bottom_ref
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           Columns 9
+           Rows 1
+           {
+            ButtonWidgetClass ButtonWidget15 {
+             size 0.051 0.668
+             halign center_ref
+             valign center_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             style Empty
+             {
+              ImageWidgetClass ImageWidget0 {
+               ignorepointer 1
+               color 0.5451 0.5608 0.6039 1
+               size 48 48
+               halign center_ref
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:dayz_inventory image:shoulderright"
+               mode additive
+               "src alpha" 1
+              }
+             }
+            }
+            ButtonWidgetClass ButtonWidget16 {
+             visible 1
+             size 0.051 0.668
+             halign center_ref
+             valign center_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             style Empty
+             {
+              ImageWidgetClass ImageWidget18 {
+               ignorepointer 1
+               color 0.5451 0.5608 0.6039 1
+               size 48 48
+               halign center_ref
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:dayz_inventory image:shoulderright"
+               mode additive
+               "src alpha" 1
+              }
+             }
+            }
+            ButtonWidgetClass ButtonWidget17 {
+             visible 1
+             size 0.051 0.668
+             halign center_ref
+             valign center_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             style Empty
+             {
+              ImageWidgetClass ImageWidget19 {
+               ignorepointer 1
+               color 0.5451 0.5608 0.6039 1
+               size 48 48
+               halign center_ref
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:dayz_inventory image:shoulderright"
+               mode additive
+               "src alpha" 1
+              }
+             }
+            }
+            ButtonWidgetClass ButtonWidget18 {
+             size 0.051 0.668
+             halign center_ref
+             valign center_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             style Empty
+             {
+              ImageWidgetClass ImageWidget20 {
+               ignorepointer 1
+               color 0.5451 0.5608 0.6039 1
+               size 48 48
+               halign center_ref
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:dayz_inventory image:shoulderright"
+               mode additive
+               "src alpha" 1
+              }
+             }
+            }
+            ButtonWidgetClass ButtonWidget19 {
+             size 0.051 0.668
+             halign center_ref
+             valign center_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             style Empty
+             {
+              ImageWidgetClass ImageWidget21 {
+               ignorepointer 1
+               color 0.5451 0.5608 0.6039 1
+               size 48 48
+               halign center_ref
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:dayz_inventory image:shoulderright"
+               mode additive
+               "src alpha" 1
+              }
+             }
+            }
+            ButtonWidgetClass ButtonWidget22 {
+             size 0.051 0.668
+             halign center_ref
+             valign center_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             style Empty
+             {
+              ImageWidgetClass ImageWidget22 {
+               ignorepointer 1
+               color 0.5451 0.5608 0.6039 1
+               size 48 48
+               halign center_ref
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:dayz_inventory image:shoulderright"
+               mode additive
+               "src alpha" 1
+              }
+             }
+            }
+            ButtonWidgetClass ButtonWidget23 {
+             size 0.051 0.668
+             halign center_ref
+             valign center_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             style Empty
+             {
+              ImageWidgetClass ImageWidget23 {
+               ignorepointer 1
+               color 0.5451 0.5608 0.6039 1
+               size 48 48
+               halign center_ref
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:dayz_inventory image:shoulderright"
+               mode additive
+               "src alpha" 1
+              }
+             }
+            }
+            ButtonWidgetClass ButtonWidget24 {
+             size 0.051 0.668
+             halign center_ref
+             valign center_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             style Empty
+             {
+              ImageWidgetClass ImageWidget24 {
+               ignorepointer 1
+               color 0.5451 0.5608 0.6039 1
+               size 48 48
+               halign center_ref
+               valign center_ref
+               hexactpos 1
+               vexactpos 1
+               hexactsize 1
+               vexactsize 1
+               image0 "set:dayz_inventory image:shoulderright"
+               mode additive
+               "src alpha" 1
+              }
+             }
+            }
+            ButtonWidgetClass ButtonWidget25 {
+             size 0.051 0.668
+             halign center_ref
+             valign center_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             style Empty
+             {
+              PanelWidgetClass PanelWidget4 {
+               ignorepointer 1
+               color 0.251 0.2706 0.302 1
+               size 0.601 0.76
+               halign center_ref
+               valign center_ref
+               hexactpos 0
+               vexactpos 0
+               hexactsize 0
+               vexactsize 0
+               style DA_Smooth_Small_5px
+               {
+                TextWidgetClass TextWidget7 {
+                 ignorepointer 1
+                 position 0.05 0
+                 size 0.82 1
+                 halign center_ref
+                 valign center_ref
+                 hexactpos 0
+                 vexactpos 0
+                 hexactsize 0
+                 vexactsize 0
+                 style Normal
+                 text "#tpm_next_arrow"
+                 font "TraderX/datasets/fonts/RobotoCondensedVF28"
+                 "exact text" 1
+                 "text halign" center
+                 "text valign" center
+                }
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+        PanelWidgetClass PanelWidget2 {
+         ignorepointer 1
+         position 0.01 0.18
+         size 0.27 0.35
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         {
+          CheckBoxWidgetClass CheckBoxWidget0 {
+           color 0.6 0.6118 0.6039 1
+           position 0.039 0.032
+           size 0.813 0.145
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           style DA_Squad1
+           text "#tpm_repair_to_pristine"
+           font "TraderX/datasets/fonts/RobotoCondensedVF16"
+          }
+          CheckBoxWidgetClass CheckBoxWidget1 {
+           color 0.6 0.6118 0.6039 1
+           position 0.039 0.262
+           size 0.813 0.145
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           style DA_Round1
+           text "#tpm_select_variant"
+           font "TraderX/datasets/fonts/RobotoCondensedVF16"
+          }
+          CheckBoxWidgetClass CheckBoxWidget2 {
+           color 0.6 0.6118 0.6039 1
+           position 0.039 0.402
+           size 0.813 0.145
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           style DA_Round1
+           text "#tpm_upgrade_item_only"
+           font "TraderX/datasets/fonts/RobotoCondensedVF16"
+          }
+          PanelWidgetClass ProductDescriptionPanel {
+           ignorepointer 1
+           color 0.1137 0.1137 0.1137 1
+           position 0 0
+           size 1 0.431
+           halign center_ref
+           valign bottom_ref
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           style DA_Smooth_Small_5px
+           {
+            TextWidgetClass TextWidget2 {
+             ignorepointer 1
+             color 0.6078 0.651 0.2314 1
+             position 0.04 0.04
+             size 0.93 0.15
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             text "#tpm_product_description"
+             font "TraderX/datasets/fonts/RobotoCondensedVF14"
+            }
+            RichTextWidgetClass RichTextWidget0 {
+             ignorepointer 1
+             position 0.03071 0.19
+             size 0.93533 0.75
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             text "Kobra Optics system is developped by Staroy Manfactura in relation to best optics design for COB."
+             font "TraderX/datasets/fonts/RobotoCondensedVF12"
+             "exact text" 1
+             wrap 1
+             "condense whitespace" 1
+             "strip newlines" 1
+            }
+           }
+          }
+         }
+        }
+        ScrollWidgetClass ScrollWidget0 {
+         ignorepointer 1
+         position 0 0
+         size 0.98 0.46
+         halign center_ref
+         valign bottom_ref
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         "Scrollbar V" 1
+         {
+          GridSpacerWidgetClass CategoryCardMediumView {
+           ignorepointer 1
+           position 0 0
+           size 1 1
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           priority 1
+           scriptclass "CategoryCardViewController"
+           style Colorable
+           "Size To Content V" 1
+           Columns 1
+           Rows 2
+           {
+            PanelWidgetClass CategoryCardPanel {
+             visible 1
+             ignorepointer 1
+             color 0.3333 0.3529 0.3961 1
+             size 1 62
+             halign center_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 1
+             style DA_Smooth_Small_10px
+             {
+              ButtonWidgetClass BttnCategory {
+               visible 1
+               disabled 1
+               clipchildren 0
+               ignorepointer 0
+               color 0.8627 0.8627 0.8627 1
+               size 1 1
+               halign center_ref
+               valign center_ref
+               hexactpos 0
+               vexactpos 0
+               hexactsize 0
+               vexactsize 0
+               userID 20062003
+               scriptclass "ViewBinding"
+               style Empty
+               {
+                PanelWidgetClass GridCategory {
+                 visible 1
+                 ignorepointer 1
+                 color 0.5882 0.6 0.6275 1
+                 position 0 0
+                 size 1 1
+                 hexactpos 0
+                 vexactpos 0
+                 hexactsize 0
+                 vexactsize 0
+                 style blank
+                 "no focus" 0
+                 {
+                  ImageWidgetClass CategoryIcon {
+                   ignorepointer 1
+                   position 0.015 0
+                   size 48 48
+                   valign center_ref
+                   hexactpos 0
+                   vexactpos 0
+                   hexactsize 1
+                   vexactsize 1
+                   imageTexture "{E1A403E96FE8D30E}TraderX/datasets/icons/rifle.edds"
+                   mode blend
+                   "src alpha" 1
+                   "clamp mode" wrap
+                   "stretch mode" stretch_w_h
+                  }
+                  TextWidgetClass CategoryName {
+                   visible 1
+                   ignorepointer 1
+                   color 0.6078 0.651 0.2314 1
+                   position 0.075 -0.006
+                   size 0.55 0.9057
+                   valign center_ref
+                   hexactpos 0
+                   vexactpos 0
+                   hexactsize 0
+                   vexactsize 0
+                   priority 1
+                   scriptclass ""
+                   style Normal
+                   text "Category Name"
+                   font "TraderX/datasets/fonts/RobotoCondensedVF28"
+                   "exact text" 0
+                   "text halign" left
+                   "text valign" center
+                  }
+                  GridSpacerWidgetClass DropdownParentPanel {
+                   visible 1
+                   ignorepointer 1
+                   position 0 0
+                   size 0.555 1
+                   halign right_ref
+                   valign center_ref
+                   hexactpos 0
+                   vexactpos 0
+                   hexactsize 0
+                   vexactsize 0
+                   Padding 15
+                   Margin 10
+                   "Size To Content H" 1
+                   Columns 2
+                   Rows 1
+                   {
+                    ButtonWidgetClass ButtonWidget21 {
+                     color 0.251 0.2706 0.302 1
+                     position 0.02 0
+                     size 0.328 0.7
+                     halign right_ref
+                     valign center_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 0
+                     vexactsize 0
+                     style DA_Smooth10px_Colored
+                     {
+                      TextWidgetClass DropdownText3 {
+                       clipchildren 1
+                       ignorepointer 1
+                       color 0.7137 0.7137 0.7137 1
+                       position 0 0
+                       size 0.62 1
+                       valign center_ref
+                       hexactpos 0
+                       vexactpos 0
+                       hexactsize 0
+                       vexactsize 0
+                       scaled 1
+                       scriptclass "ViewBinding"
+                       style Normal
+                       text "#tpm_sort_by"
+                       font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                       "text color" 0.5569 0.5569 0.5569 1
+                       "text offset" 10 0
+                       "exact text" 0
+                       "size to text h" 0
+                       "size to text v" 0
+                       "text valign" center
+                       {
+                        ScriptParamsClass {
+                         Binding_Name "Value"
+                        }
+                       }
+                      }
+                      ImageWidgetClass DropdownExpandIcon3 {
+                       visible 1
+                       clipchildren 1
+                       inheritalpha 1
+                       ignorepointer 1
+                       color 0.9961 0.9961 0.9961 1
+                       position 0.07 0
+                       size 30 30
+                       halign right_ref
+                       valign center_ref
+                       hexactpos 0
+                       vexactpos 0
+                       hexactsize 1
+                       vexactsize 1
+                       image0 ""
+                       imageTexture "{2E5FB39446D9A262}TraderX/datasets/icons/croissant.edds"
+                       mode blend
+                       "src alpha" 1
+                       "stretch mode" stretch_w_h
+                       "flip v" 1
+                       filter 1
+                      }
+                     }
+                    }
+                    ButtonWidgetClass ButtonWidget20 {
+                     color 0.251 0.2706 0.302 1
+                     position 0.02 0
+                     size 0.328 0.75
+                     halign right_ref
+                     valign center_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 0
+                     vexactsize 0
+                     style DA_Smooth10px_Colored
+                     {
+                      TextWidgetClass DropdownText0 {
+                       clipchildren 1
+                       ignorepointer 1
+                       color 0.7137 0.7137 0.7137 1
+                       position 0 0
+                       size 0.62 1
+                       valign center_ref
+                       hexactpos 0
+                       vexactpos 0
+                       hexactsize 0
+                       vexactsize 0
+                       scaled 1
+                       scriptclass "ViewBinding"
+                       style Normal
+                       text "Collapse"
+                       font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                       "text color" 0.5569 0.5569 0.5569 1
+                       "text offset" 10 0
+                       "exact text" 0
+                       "size to text h" 0
+                       "size to text v" 0
+                       "text valign" center
+                       {
+                        ScriptParamsClass {
+                         Binding_Name "Value"
+                        }
+                       }
+                      }
+                      ImageWidgetClass DropdownExpandIcon0 {
+                       visible 1
+                       clipchildren 1
+                       inheritalpha 1
+                       ignorepointer 1
+                       color 0.9961 0.9961 0.9961 1
+                       position 0.07 0
+                       size 30 21
+                       halign right_ref
+                       valign center_ref
+                       hexactpos 0
+                       vexactpos 0
+                       hexactsize 1
+                       vexactsize 1
+                       image0 "set:ccgui_enforce image:CrScrollV"
+                       mode blend
+                       "src alpha" 1
+                       "stretch mode" stretch_w_h
+                       "flip v" 1
+                       filter 1
+                      }
+                     }
+                    }
+                   }
+                  }
+                 }
+                }
+               }
+               {
+                ScriptParamsClass {
+                }
+               }
+              }
+             }
+            }
+            GridSpacerWidgetClass itemCardGrid {
+             ignorepointer 1
+             size 1 56
+             halign center_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 1
+             Padding 8
+             Margin 8
+             "Size To Content V" 1
+             Columns 4
+             Rows 100
+             {
+              PanelWidgetClass AttachmentRootFrame0 {
+               disabled 1
+               color 0.6078 0.651 0.2314 1
+               position 0 0
+               size 0.2 230
+               hexactpos 0
+               vexactpos 0
+               hexactsize 0
+               vexactsize 1
+               style DA_Smooth_Small_10px
+               {
+                ButtonWidgetClass SelectAttachmentButton0 {
+                 position 0 0
+                 size 0.96 0.96
+                 halign center_ref
+                 valign center_ref
+                 hexactpos 0
+                 vexactpos 0
+                 hexactsize 0
+                 vexactsize 0
+                 {
+                  PanelWidgetClass AttachmentContent0 {
+                   visible 1
+                   disabled 0
+                   ignorepointer 1
+                   color 0.4588 0.302 0.3412 1
+                   size 1 1
+                   halign center_ref
+                   valign center_ref
+                   hexactpos 0
+                   vexactpos 0
+                   hexactsize 0
+                   vexactsize 0
+                   style DA_Smooth_Small_5px
+                   {
+                    ItemPreviewWidgetClass ItemCardPreview0 {
+                     ignorepointer 1
+                     position 0 -0.03747
+                     size 0.92 0.63686
+                     halign center_ref
+                     valign center_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 0
+                     vexactsize 0
+                    }
+                    ButtonWidgetClass FavButton0 {
+                     position 0.04 0.03
+                     size 40 40
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 1
+                     vexactsize 1
+                     style Empty
+                     {
+                      ImageWidgetClass FavButtonImage0 {
+                       visible 0
+                       ignorepointer 1
+                       color 0.9961 0.9961 0.9961 1
+                       position 0 0
+                       size 1 1
+                       halign center_ref
+                       valign center_ref
+                       hexactpos 0
+                       vexactpos 0
+                       hexactsize 0
+                       vexactsize 0
+                       imageTexture "{A5C670900AFF66C8}TraderX/datasets/icons/favorites_full.edds"
+                       mode blend
+                       "src alpha" 1
+                       "stretch mode" stretch_w_h
+                       filter 0
+                      }
+                      ImageWidgetClass UnfavButtonImage0 {
+                       visible 1
+                       ignorepointer 1
+                       color 0.9961 0.9961 0.9961 1
+                       position 0 0
+                       size 1 1
+                       halign center_ref
+                       valign center_ref
+                       hexactpos 0
+                       vexactpos 0
+                       hexactsize 0
+                       vexactsize 0
+                       imageTexture "{E5C544235D511900}TraderX/datasets/icons/favorites.edds"
+                       mode blend
+                       "src alpha" 1
+                       "stretch mode" stretch_w_h
+                       filter 0
+                      }
+                     }
+                    }
+                    ImageWidgetClass StockLabel0 {
+                     ignorepointer 1
+                     position 0.04 0.16
+                     size 40 40
+                     valign bottom_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 1
+                     vexactsize 1
+                     imageTexture "{9E335E96F97BDD75}TraderX/datasets/icons/stockSimple.edds"
+                     mode blend
+                     "src alpha" 1
+                     "stretch mode" stretch_w_h
+                     filter 1
+                    }
+                    TextWidgetClass StockValue0 {
+                     ignorepointer 1
+                     position 0.04 0.03
+                     size 0.229 0.142
+                     valign bottom_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 0
+                     vexactsize 0
+                     text "0/15"
+                     font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                     "exact text" 1
+                     "size to text h" 1
+                     "text valign" center
+                    }
+                    ImageWidgetClass PriceLabel0 {
+                     ignorepointer 1
+                     position 0.04 0.16
+                     size 40 40
+                     halign right_ref
+                     valign bottom_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 1
+                     vexactsize 1
+                     imageTexture "{FB2C48871C16EB6C}TraderX/datasets/icons/coins.edds"
+                     mode blend
+                     "src alpha" 1
+                     "clamp mode" clamp
+                     "stretch mode" fit_h_center
+                     filter 0
+                    }
+                    TextWidgetClass PriceValue1 {
+                     ignorepointer 1
+                     position 0.04 0.03
+                     size 0.229 0.142
+                     halign right_ref
+                     valign bottom_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 0
+                     vexactsize 0
+                     text "5.000.000"
+                     font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                     "exact text" 1
+                     "size to text h" 1
+                     "text halign" right
+                     "text valign" center
+                    }
+                    ImageWidgetClass Selected0 {
+                     visible 0
+                     ignorepointer 1
+                     position -0.01 0.02
+                     size 40 40
+                     halign center_ref
+                     valign bottom_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 1
+                     vexactsize 1
+                     imageTexture "{4CA65B40503D9726}TraderX/datasets/icons/approved.edds"
+                     mode blend
+                     "src alpha" 1
+                     "stretch mode" stretch_w_h
+                     filter 1
+                    }
+                    ImageWidgetClass UnSelected0 {
+                     visible 1
+                     disabled 0
+                     ignorepointer 1
+                     position -0.01 0.02
+                     size 40 40
+                     halign center_ref
+                     valign bottom_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 1
+                     vexactsize 1
+                     imageTexture "{1DFC5145FCB993CD}TraderX/datasets/icons/unapproved.edds"
+                     mode blend
+                     "src alpha" 1
+                     "stretch mode" stretch_w_h
+                     filter 1
+                    }
+                    TextWidgetClass PriceValue2 {
+                     ignorepointer 1
+                     position 0.04 0.01
+                     size 0.229 0.142
+                     halign right_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 0
+                     vexactsize 0
+                     text "Kobra Optic"
+                     font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                     "exact text" 1
+                     "size to text h" 1
+                     "text halign" right
+                     "text valign" center
+                    }
+                   }
+                  }
+                 }
+                }
+               }
+              }
+              PanelWidgetClass AttachmentRootFrame1 {
+               visible 1
+               disabled 0
+               color 0.6078 0.651 0.2314 1
+               position 0 0
+               size 0.2 230
+               hexactpos 0
+               vexactpos 0
+               hexactsize 0
+               vexactsize 1
+               style DA_Smooth_Small_10px
+               {
+                ButtonWidgetClass SelectAttachmentButton1 {
+                 position 0 0
+                 size 0.96 0.96
+                 halign center_ref
+                 valign center_ref
+                 hexactpos 0
+                 vexactpos 0
+                 hexactsize 0
+                 vexactsize 0
+                 {
+                  PanelWidgetClass AttachmentContent1 {
+                   visible 1
+                   disabled 0
+                   ignorepointer 1
+                   color 0.4588 0.302 0.3412 1
+                   size 1 1
+                   halign center_ref
+                   valign center_ref
+                   hexactpos 0
+                   vexactpos 0
+                   hexactsize 0
+                   vexactsize 0
+                   style DA_Smooth_Small_5px
+                   {
+                    ItemPreviewWidgetClass ItemCardPreview1 {
+                     ignorepointer 1
+                     position 0 -0.03747
+                     size 0.92 0.63686
+                     halign center_ref
+                     valign center_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 0
+                     vexactsize 0
+                    }
+                    ButtonWidgetClass FavButton1 {
+                     position 0.04 0.03
+                     size 40 40
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 1
+                     vexactsize 1
+                     style Empty
+                     {
+                      ImageWidgetClass FavButtonImage1 {
+                       visible 0
+                       ignorepointer 1
+                       color 0.9961 0.9961 0.9961 1
+                       position 0 0
+                       size 1 1
+                       halign center_ref
+                       valign center_ref
+                       hexactpos 0
+                       vexactpos 0
+                       hexactsize 0
+                       vexactsize 0
+                       imageTexture "{A5C670900AFF66C8}TraderX/datasets/icons/favorites_full.edds"
+                       mode blend
+                       "src alpha" 1
+                       "stretch mode" stretch_w_h
+                       filter 0
+                      }
+                      ImageWidgetClass UnfavButtonImage1 {
+                       visible 1
+                       ignorepointer 1
+                       color 0.9961 0.9961 0.9961 1
+                       position 0 0
+                       size 1 1
+                       halign center_ref
+                       valign center_ref
+                       hexactpos 0
+                       vexactpos 0
+                       hexactsize 0
+                       vexactsize 0
+                       imageTexture "{E5C544235D511900}TraderX/datasets/icons/favorites.edds"
+                       mode blend
+                       "src alpha" 1
+                       "stretch mode" stretch_w_h
+                       filter 0
+                      }
+                     }
+                    }
+                    ImageWidgetClass StockLabel1 {
+                     ignorepointer 1
+                     position 0.04 0.16
+                     size 40 40
+                     valign bottom_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 1
+                     vexactsize 1
+                     imageTexture "{9E335E96F97BDD75}TraderX/datasets/icons/stockSimple.edds"
+                     mode blend
+                     "src alpha" 1
+                     "stretch mode" stretch_w_h
+                     filter 1
+                    }
+                    TextWidgetClass StockValue1 {
+                     ignorepointer 1
+                     position 0.04 0.03
+                     size 0.229 0.142
+                     valign bottom_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 0
+                     vexactsize 0
+                     text "0/15"
+                     font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                     "exact text" 1
+                     "size to text h" 1
+                     "text valign" center
+                    }
+                    ImageWidgetClass PriceLabel1 {
+                     ignorepointer 1
+                     position 0.04 0.16
+                     size 40 40
+                     halign right_ref
+                     valign bottom_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 1
+                     vexactsize 1
+                     imageTexture "{FB2C48871C16EB6C}TraderX/datasets/icons/coins.edds"
+                     mode blend
+                     "src alpha" 1
+                     "clamp mode" clamp
+                     "stretch mode" fit_h_center
+                     filter 0
+                    }
+                    TextWidgetClass PriceValue0 {
+                     ignorepointer 1
+                     position 0.04 0.03
+                     size 0.229 0.142
+                     halign right_ref
+                     valign bottom_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 0
+                     vexactsize 0
+                     text "5.000.000"
+                     font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                     "exact text" 1
+                     "size to text h" 1
+                     "text halign" right
+                     "text valign" center
+                    }
+                    ImageWidgetClass Selected1 {
+                     visible 1
+                     ignorepointer 1
+                     position -0.01 0.02
+                     size 40 40
+                     halign center_ref
+                     valign bottom_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 1
+                     vexactsize 1
+                     imageTexture "{4CA65B40503D9726}TraderX/datasets/icons/approved.edds"
+                     mode blend
+                     "src alpha" 1
+                     "stretch mode" stretch_w_h
+                     filter 1
+                    }
+                    ImageWidgetClass UnSelected1 {
+                     visible 0
+                     disabled 0
+                     ignorepointer 1
+                     position -0.01 0.02
+                     size 40 40
+                     halign center_ref
+                     valign bottom_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 1
+                     vexactsize 1
+                     imageTexture "{1DFC5145FCB993CD}TraderX/datasets/icons/unapproved.edds"
+                     mode blend
+                     "src alpha" 1
+                     "stretch mode" stretch_w_h
+                     filter 1
+                    }
+                    TextWidgetClass PriceValue3 {
+                     ignorepointer 1
+                     position 0.04 0.01
+                     size 0.229 0.142
+                     halign right_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 0
+                     vexactsize 0
+                     text "Kobra Optic"
+                     font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                     "exact text" 1
+                     "size to text h" 1
+                     "text halign" right
+                     "text valign" center
+                    }
+                   }
+                  }
+                 }
+                }
+               }
+              }
+              PanelWidgetClass AttachmentRootFrame2 {
+               disabled 1
+               color 0.6078 0.651 0.2314 1
+               position 0 0
+               size 0.2 230
+               hexactpos 0
+               vexactpos 0
+               hexactsize 0
+               vexactsize 1
+               style DA_Smooth_Small_10px
+               {
+                ButtonWidgetClass SelectAttachmentButton2 {
+                 position 0 0
+                 size 0.96 0.96
+                 halign center_ref
+                 valign center_ref
+                 hexactpos 0
+                 vexactpos 0
+                 hexactsize 0
+                 vexactsize 0
+                 {
+                  PanelWidgetClass AttachmentContent2 {
+                   visible 1
+                   disabled 0
+                   ignorepointer 1
+                   color 0.3333 0.3529 0.3961 1
+                   size 1 1
+                   halign center_ref
+                   valign center_ref
+                   hexactpos 0
+                   vexactpos 0
+                   hexactsize 0
+                   vexactsize 0
+                   style DA_Smooth_Small_5px
+                   {
+                    ItemPreviewWidgetClass ItemCardPreview2 {
+                     ignorepointer 1
+                     position 0 -0.03747
+                     size 0.92 0.63686
+                     halign center_ref
+                     valign center_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 0
+                     vexactsize 0
+                    }
+                    ButtonWidgetClass FavButton2 {
+                     position 0.04 0.03
+                     size 40 40
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 1
+                     vexactsize 1
+                     style Empty
+                     {
+                      ImageWidgetClass FavButtonImage2 {
+                       visible 0
+                       ignorepointer 1
+                       color 0.9961 0.9961 0.9961 1
+                       position 0 0
+                       size 1 1
+                       halign center_ref
+                       valign center_ref
+                       hexactpos 0
+                       vexactpos 0
+                       hexactsize 0
+                       vexactsize 0
+                       imageTexture "{A5C670900AFF66C8}TraderX/datasets/icons/favorites_full.edds"
+                       mode blend
+                       "src alpha" 1
+                       "stretch mode" stretch_w_h
+                       filter 0
+                      }
+                      ImageWidgetClass UnfavButtonImage2 {
+                       visible 1
+                       ignorepointer 1
+                       color 0.9961 0.9961 0.9961 1
+                       position 0 0
+                       size 1 1
+                       halign center_ref
+                       valign center_ref
+                       hexactpos 0
+                       vexactpos 0
+                       hexactsize 0
+                       vexactsize 0
+                       imageTexture "{E5C544235D511900}TraderX/datasets/icons/favorites.edds"
+                       mode blend
+                       "src alpha" 1
+                       "stretch mode" stretch_w_h
+                       filter 0
+                      }
+                     }
+                    }
+                    ImageWidgetClass StockLabel2 {
+                     ignorepointer 1
+                     position 0.04 0.16
+                     size 40 40
+                     valign bottom_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 1
+                     vexactsize 1
+                     imageTexture "{9E335E96F97BDD75}TraderX/datasets/icons/stockSimple.edds"
+                     mode blend
+                     "src alpha" 1
+                     "stretch mode" stretch_w_h
+                     filter 1
+                    }
+                    TextWidgetClass StockValue2 {
+                     ignorepointer 1
+                     position 0.04 0.03
+                     size 0.229 0.142
+                     valign bottom_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 0
+                     vexactsize 0
+                     text "0/15"
+                     font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                     "exact text" 1
+                     "size to text h" 1
+                     "text valign" center
+                    }
+                    ImageWidgetClass PriceLabel2 {
+                     ignorepointer 1
+                     position 0.04 0.16
+                     size 40 40
+                     halign right_ref
+                     valign bottom_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 1
+                     vexactsize 1
+                     imageTexture "{FB2C48871C16EB6C}TraderX/datasets/icons/coins.edds"
+                     mode blend
+                     "src alpha" 1
+                     "clamp mode" clamp
+                     "stretch mode" fit_h_center
+                     filter 0
+                    }
+                    TextWidgetClass PriceValue4 {
+                     ignorepointer 1
+                     position 0.04 0.03
+                     size 0.229 0.142
+                     halign right_ref
+                     valign bottom_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 0
+                     vexactsize 0
+                     text "5.000.000"
+                     font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                     "exact text" 1
+                     "size to text h" 1
+                     "text halign" right
+                     "text valign" center
+                    }
+                    ImageWidgetClass Selected2 {
+                     visible 0
+                     ignorepointer 1
+                     position -0.01 0.02
+                     size 40 40
+                     halign center_ref
+                     valign bottom_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 1
+                     vexactsize 1
+                     imageTexture "{4CA65B40503D9726}TraderX/datasets/icons/approved.edds"
+                     mode blend
+                     "src alpha" 1
+                     "stretch mode" stretch_w_h
+                     filter 1
+                    }
+                    ImageWidgetClass UnSelected2 {
+                     visible 1
+                     disabled 0
+                     ignorepointer 1
+                     position -0.01 0.02
+                     size 40 40
+                     halign center_ref
+                     valign bottom_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 1
+                     vexactsize 1
+                     imageTexture "{1DFC5145FCB993CD}TraderX/datasets/icons/unapproved.edds"
+                     mode blend
+                     "src alpha" 1
+                     "stretch mode" stretch_w_h
+                     filter 1
+                    }
+                    TextWidgetClass PriceValue5 {
+                     ignorepointer 1
+                     position 0.04 0.01
+                     size 0.229 0.142
+                     halign right_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 0
+                     vexactsize 0
+                     text "Kobra Optic"
+                     font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                     "exact text" 1
+                     "size to text h" 1
+                     "text halign" right
+                     "text valign" center
+                    }
+                   }
+                  }
+                 }
+                }
+               }
+              }
+              PanelWidgetClass AttachmentRootFrame3 {
+               disabled 1
+               color 0.6078 0.651 0.2314 1
+               position 0 0
+               size 0.2 230
+               hexactpos 0
+               vexactpos 0
+               hexactsize 0
+               vexactsize 1
+               style DA_Smooth_Small_10px
+               {
+                ButtonWidgetClass SelectAttachmentButton3 {
+                 position 0 0
+                 size 0.96 0.96
+                 halign center_ref
+                 valign center_ref
+                 hexactpos 0
+                 vexactpos 0
+                 hexactsize 0
+                 vexactsize 0
+                 {
+                  PanelWidgetClass AttachmentContent3 {
+                   visible 1
+                   disabled 0
+                   ignorepointer 1
+                   color 0.3333 0.3529 0.3961 1
+                   size 1 1
+                   halign center_ref
+                   valign center_ref
+                   hexactpos 0
+                   vexactpos 0
+                   hexactsize 0
+                   vexactsize 0
+                   style DA_Smooth_Small_5px
+                   {
+                    ItemPreviewWidgetClass ItemCardPreview3 {
+                     ignorepointer 1
+                     position 0 -0.03747
+                     size 0.92 0.63686
+                     halign center_ref
+                     valign center_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 0
+                     vexactsize 0
+                    }
+                    ButtonWidgetClass FavButton3 {
+                     position 0.04 0.03
+                     size 40 40
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 1
+                     vexactsize 1
+                     style Empty
+                     {
+                      ImageWidgetClass FavButtonImage3 {
+                       visible 0
+                       ignorepointer 1
+                       color 0.9961 0.9961 0.9961 1
+                       position 0 0
+                       size 1 1
+                       halign center_ref
+                       valign center_ref
+                       hexactpos 0
+                       vexactpos 0
+                       hexactsize 0
+                       vexactsize 0
+                       imageTexture "{A5C670900AFF66C8}TraderX/datasets/icons/favorites_full.edds"
+                       mode blend
+                       "src alpha" 1
+                       "stretch mode" stretch_w_h
+                       filter 0
+                      }
+                      ImageWidgetClass UnfavButtonImage3 {
+                       visible 1
+                       ignorepointer 1
+                       color 0.9961 0.9961 0.9961 1
+                       position 0 0
+                       size 1 1
+                       halign center_ref
+                       valign center_ref
+                       hexactpos 0
+                       vexactpos 0
+                       hexactsize 0
+                       vexactsize 0
+                       imageTexture "{E5C544235D511900}TraderX/datasets/icons/favorites.edds"
+                       mode blend
+                       "src alpha" 1
+                       "stretch mode" stretch_w_h
+                       filter 0
+                      }
+                     }
+                    }
+                    ImageWidgetClass StockLabel3 {
+                     ignorepointer 1
+                     position 0.04 0.16
+                     size 40 40
+                     valign bottom_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 1
+                     vexactsize 1
+                     imageTexture "{9E335E96F97BDD75}TraderX/datasets/icons/stockSimple.edds"
+                     mode blend
+                     "src alpha" 1
+                     "stretch mode" stretch_w_h
+                     filter 1
+                    }
+                    TextWidgetClass StockValue3 {
+                     ignorepointer 1
+                     position 0.04 0.03
+                     size 0.229 0.142
+                     valign bottom_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 0
+                     vexactsize 0
+                     text "0/15"
+                     font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                     "exact text" 1
+                     "size to text h" 1
+                     "text valign" center
+                    }
+                    ImageWidgetClass PriceLabel3 {
+                     ignorepointer 1
+                     position 0.04 0.16
+                     size 40 40
+                     halign right_ref
+                     valign bottom_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 1
+                     vexactsize 1
+                     imageTexture "{FB2C48871C16EB6C}TraderX/datasets/icons/coins.edds"
+                     mode blend
+                     "src alpha" 1
+                     "clamp mode" clamp
+                     "stretch mode" fit_h_center
+                     filter 0
+                    }
+                    TextWidgetClass PriceValue6 {
+                     ignorepointer 1
+                     position 0.04 0.03
+                     size 0.229 0.142
+                     halign right_ref
+                     valign bottom_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 0
+                     vexactsize 0
+                     text "5.000.000"
+                     font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                     "exact text" 1
+                     "size to text h" 1
+                     "text halign" right
+                     "text valign" center
+                    }
+                    ImageWidgetClass Selected3 {
+                     visible 0
+                     ignorepointer 1
+                     position -0.01 0.02
+                     size 40 40
+                     halign center_ref
+                     valign bottom_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 1
+                     vexactsize 1
+                     imageTexture "{4CA65B40503D9726}TraderX/datasets/icons/approved.edds"
+                     mode blend
+                     "src alpha" 1
+                     "stretch mode" stretch_w_h
+                     filter 1
+                    }
+                    ImageWidgetClass UnSelected3 {
+                     visible 1
+                     disabled 0
+                     ignorepointer 1
+                     position -0.01 0.02
+                     size 40 40
+                     halign center_ref
+                     valign bottom_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 1
+                     vexactsize 1
+                     imageTexture "{1DFC5145FCB993CD}TraderX/datasets/icons/unapproved.edds"
+                     mode blend
+                     "src alpha" 1
+                     "stretch mode" stretch_w_h
+                     filter 1
+                    }
+                    TextWidgetClass PriceValue7 {
+                     ignorepointer 1
+                     position 0.04 0.01
+                     size 0.229 0.142
+                     halign right_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 0
+                     vexactsize 0
+                     text "Kobra Optic"
+                     font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                     "exact text" 1
+                     "size to text h" 1
+                     "text halign" right
+                     "text valign" center
+                    }
+                   }
+                  }
+                 }
+                }
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+      PanelWidgetClass PanelWidget0 {
+       ignorepointer 1
+       position 0 0
+       size 0.3 1
+       halign right_ref
+       valign center_ref
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       {
+        PanelWidgetClass PanelWidget3 {
+         ignorepointer 1
+         color 0.2392 0.2471 0.2588 1
+         position 0 0
+         size 1 0.97
+         halign center_ref
+         valign center_ref
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         style DA_Smooth_Small_10px
+         {
+          GridSpacerWidgetClass GridSpacerWidget1 {
+           ignorepointer 1
+           position 0 0
+           size 1 0.069
+           halign center_ref
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           "Size To Content V" 1
+           Columns 1
+           {
+            GridSpacerWidgetClass categorySmallView {
+             position 0 0
+             size 1 0.063
+             halign center_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             "Size To Content V" 1
+             Columns 1
+             Rows 2
+             {
+              PanelWidgetClass CategoryCardPanel0 {
+               visible 1
+               ignorepointer 1
+               color 0.3333 0.3529 0.3961 1
+               position 0 0
+               size 1 50
+               halign center_ref
+               valign center_ref
+               hexactpos 0
+               vexactpos 0
+               hexactsize 0
+               vexactsize 1
+               style DA_Smooth_Small_10px
+               {
+                ButtonWidgetClass BttnCategory0 {
+                 visible 1
+                 disabled 1
+                 clipchildren 0
+                 ignorepointer 0
+                 color 0.8627 0.8627 0.8627 1
+                 size 1 1
+                 halign center_ref
+                 valign center_ref
+                 hexactpos 0
+                 vexactpos 0
+                 hexactsize 0
+                 vexactsize 0
+                 userID 20062003
+                 scriptclass "ViewBinding"
+                 style Empty
+                 {
+                  PanelWidgetClass GridCategory0 {
+                   visible 1
+                   ignorepointer 1
+                   color 0.3333 0.3529 0.3961 1
+                   position 0 0
+                   size 1 1
+                   hexactpos 0
+                   vexactpos 0
+                   hexactsize 0
+                   vexactsize 0
+                   style blank
+                   "no focus" 0
+                   {
+                    TextWidgetClass CategoryName0 {
+                     visible 1
+                     ignorepointer 1
+                     color 0.6078 0.651 0.2314 1
+                     position 0.0245 -0.006
+                     size 0.36628 0.9057
+                     valign center_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 0
+                     vexactsize 0
+                     priority 1
+                     scriptclass ""
+                     style Normal
+                     text "Purchase"
+                     font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                     "exact text" 0
+                     "text halign" left
+                     "text valign" center
+                    }
+                    ButtonWidgetClass ButtonWidget26 {
+                     color 0.251 0.2706 0.302 1
+                     position 0.02 0
+                     size 0.328 0.75
+                     halign right_ref
+                     valign center_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 0
+                     vexactsize 0
+                     style DA_Smooth10px_Colored
+                     {
+                      TextWidgetClass DropdownText1 {
+                       clipchildren 1
+                       ignorepointer 1
+                       color 0.7137 0.7137 0.7137 1
+                       position 0 0
+                       size 0.62 1
+                       valign center_ref
+                       hexactpos 0
+                       vexactpos 0
+                       hexactsize 0
+                       vexactsize 0
+                       scaled 1
+                       scriptclass "ViewBinding"
+                       style Normal
+                       text "#tpm_sort_by"
+                       font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                       "text color" 0.5569 0.5569 0.5569 1
+                       "text offset" 10 0
+                       "exact text" 0
+                       "size to text h" 0
+                       "size to text v" 0
+                       "text valign" center
+                       {
+                        ScriptParamsClass {
+                         Binding_Name "Value"
+                        }
+                       }
+                      }
+                      ImageWidgetClass DropdownExpandIcon1 {
+                       visible 1
+                       clipchildren 1
+                       inheritalpha 1
+                       ignorepointer 1
+                       color 0.9961 0.9961 0.9961 1
+                       position 0.07 0
+                       size 30 30
+                       halign right_ref
+                       valign center_ref
+                       hexactpos 0
+                       vexactpos 0
+                       hexactsize 1
+                       vexactsize 1
+                       image0 ""
+                       imageTexture "{2E5FB39446D9A262}TraderX/datasets/icons/croissant.edds"
+                       mode blend
+                       "src alpha" 1
+                       "stretch mode" stretch_w_h
+                       "flip v" 1
+                       filter 1
+                      }
+                     }
+                    }
+                   }
+                  }
+                 }
+                 {
+                  ScriptParamsClass {
+                  }
+                 }
+                }
+               }
+              }
+              ScrollWidgetClass scrollCategorySmall {
+               ignorepointer 1
+               position 0.023 0.179
+               size 48 145
+               hexactpos 0
+               vexactpos 0
+               hexactsize 1
+               vexactsize 1
+               "Scrollbar V" 1
+               {
+                GridSpacerWidgetClass gridCategorySmall {
+                 ignorepointer 1
+                 position 0 0
+                 size 1 48
+                 halign center_ref
+                 hexactpos 0
+                 vexactpos 0
+                 hexactsize 0
+                 vexactsize 1
+                 Padding 7
+                 Margin 5
+                 "Size To Content V" 1
+                 {
+                  PanelWidgetClass ItemCardSmallView {
+                   visible 1
+                   color 0.6078 0.651 0.2314 1
+                   position 0 -0.00036
+                   size 250 130
+                   hexactpos 0
+                   vexactpos 0
+                   hexactsize 1
+                   vexactsize 1
+                   scriptclass ""
+                   style DA_Smooth_Small_10px
+                   {
+                    PanelWidgetClass ItemCardContent9 {
+                     visible 1
+                     disabled 0
+                     ignorepointer 1
+                     color 0.3333 0.3529 0.3961 1
+                     size 0.96 0.96
+                     halign center_ref
+                     valign center_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 0
+                     vexactsize 0
+                     style DA_Smooth_Small_5px
+                     {
+                      PanelWidgetClass OutOfStockPanel9 {
+                       visible 1
+                       disabled 1
+                       ignorepointer 1
+                       color 0.702 0.5098 0.5608 1
+                       position 0 0
+                       size 1 1
+                       halign center_ref
+                       valign center_ref
+                       hexactpos 0
+                       vexactpos 0
+                       hexactsize 0
+                       vexactsize 0
+                       priority 1
+                       style DA_Smooth_Small_5px
+                       {
+                        ItemPreviewWidgetClass ItemCardPreview9 {
+                         ignorepointer 1
+                         position 0 -0.03747
+                         size 0.92 0.63686
+                         halign center_ref
+                         valign center_ref
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 0
+                         vexactsize 0
+                        }
+                        ImageWidgetClass Health9 {
+                         visible 0
+                         clipchildren 0
+                         inheritalpha 0
+                         ignorepointer 1
+                         color 0 1 0 1
+                         position 0.8901 0.19764
+                         size 0.0463 0.0573
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 0
+                         vexactsize 0
+                         image0 "set:dayz_gui image:circle"
+                         mode additive
+                         "src alpha" 1
+                         "clamp mode" clamp
+                         "stretch mode" stretch_w_h
+                         filter 1
+                        }
+                        ButtonWidgetClass ButtonWidget27 {
+                         position 0.04 0.03
+                         size 24 24
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 1
+                         vexactsize 1
+                         style Empty
+                         {
+                          ImageWidgetClass ImageWidget17 {
+                           ignorepointer 1
+                           color 0.9961 0.9961 0.9961 1
+                           position 0 0
+                           size 24 24
+                           halign center_ref
+                           valign center_ref
+                           hexactpos 0
+                           vexactpos 0
+                           hexactsize 1
+                           vexactsize 1
+                           imageTexture "{E5C544235D511900}TraderX/datasets/icons/favorites.edds"
+                           mode blend
+                           "src alpha" 1
+                           "stretch mode" stretch_w_h
+                           filter 0
+                          }
+                         }
+                        }
+                        ImageWidgetClass StockLabel9 {
+                         ignorepointer 1
+                         position 0.04 0.6
+                         size 24 24
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 1
+                         vexactsize 1
+                         imageTexture "{9E335E96F97BDD75}TraderX/datasets/icons/stockSimple.edds"
+                         mode blend
+                         "src alpha" 1
+                         "stretch mode" stretch_w_h
+                         filter 1
+                        }
+                        TextWidgetClass StockValue9 {
+                         ignorepointer 1
+                         position 0.04 0.05
+                         size 0.229 0.142
+                         valign bottom_ref
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 0
+                         vexactsize 0
+                         text "0/15"
+                         font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                         "exact text" 1
+                         "size to text h" 1
+                         "text valign" center
+                        }
+                        ImageWidgetClass PriceLabel9 {
+                         ignorepointer 1
+                         position 0.04 0.6
+                         size 24 24
+                         halign right_ref
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 1
+                         vexactsize 1
+                         imageTexture "{FB2C48871C16EB6C}TraderX/datasets/icons/coins.edds"
+                         mode blend
+                         "src alpha" 1
+                         "clamp mode" wrap
+                         "stretch mode" stretch_w_h
+                         filter 1
+                        }
+                        TextWidgetClass PriceValue9 {
+                         ignorepointer 1
+                         position 0.04 0.05
+                         size 0.229 0.142
+                         halign right_ref
+                         valign bottom_ref
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 0
+                         vexactsize 0
+                         text "5.000.000"
+                         font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                         "exact text" 1
+                         "size to text h" 1
+                         "text halign" right
+                         "text valign" center
+                        }
+                       }
+                      }
+                     }
+                    }
+                   }
+                  }
+                  PanelWidgetClass ItemCardSmallView0 {
+                   visible 1
+                   color 0.6078 0.651 0.2314 1
+                   position 0 -0.00036
+                   size 250 130
+                   hexactpos 0
+                   vexactpos 0
+                   hexactsize 1
+                   vexactsize 1
+                   scriptclass ""
+                   style DA_Smooth_Small_10px
+                   {
+                    PanelWidgetClass ItemCardContent10 {
+                     visible 1
+                     disabled 0
+                     ignorepointer 1
+                     color 0.3333 0.3529 0.3961 1
+                     size 0.96 0.96
+                     halign center_ref
+                     valign center_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 0
+                     vexactsize 0
+                     style DA_Smooth_Small_5px
+                     {
+                      PanelWidgetClass OutOfStockPanel10 {
+                       visible 1
+                       disabled 1
+                       ignorepointer 1
+                       color 0.702 0.5098 0.5608 1
+                       position 0 0
+                       size 1 1
+                       halign center_ref
+                       valign center_ref
+                       hexactpos 0
+                       vexactpos 0
+                       hexactsize 0
+                       vexactsize 0
+                       priority 1
+                       style DA_Smooth_Small_5px
+                       {
+                        ItemPreviewWidgetClass ItemCardPreview10 {
+                         ignorepointer 1
+                         position 0 -0.03747
+                         size 0.92 0.63686
+                         halign center_ref
+                         valign center_ref
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 0
+                         vexactsize 0
+                        }
+                        ImageWidgetClass Health10 {
+                         visible 0
+                         clipchildren 0
+                         inheritalpha 0
+                         ignorepointer 1
+                         color 0 1 0 1
+                         position 0.8901 0.19764
+                         size 0.0463 0.0573
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 0
+                         vexactsize 0
+                         image0 "set:dayz_gui image:circle"
+                         mode additive
+                         "src alpha" 1
+                         "clamp mode" clamp
+                         "stretch mode" stretch_w_h
+                         filter 1
+                        }
+                        ButtonWidgetClass ButtonWidget28 {
+                         position 0.04 0.03
+                         size 24 24
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 1
+                         vexactsize 1
+                         style Empty
+                         {
+                          ImageWidgetClass ImageWidget27 {
+                           ignorepointer 1
+                           color 0.9961 0.9961 0.9961 1
+                           position 0 0
+                           size 24 24
+                           halign center_ref
+                           valign center_ref
+                           hexactpos 0
+                           vexactpos 0
+                           hexactsize 1
+                           vexactsize 1
+                           imageTexture "{E5C544235D511900}TraderX/datasets/icons/favorites.edds"
+                           mode blend
+                           "src alpha" 1
+                           "stretch mode" stretch_w_h
+                           filter 0
+                          }
+                         }
+                        }
+                        ImageWidgetClass StockLabel10 {
+                         ignorepointer 1
+                         position 0.04 0.6
+                         size 24 24
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 1
+                         vexactsize 1
+                         imageTexture "{9E335E96F97BDD75}TraderX/datasets/icons/stockSimple.edds"
+                         mode blend
+                         "src alpha" 1
+                         "stretch mode" stretch_w_h
+                         filter 1
+                        }
+                        TextWidgetClass StockValue10 {
+                         ignorepointer 1
+                         position 0.04 0.05
+                         size 0.229 0.142
+                         valign bottom_ref
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 0
+                         vexactsize 0
+                         text "0/15"
+                         font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                         "exact text" 1
+                         "size to text h" 1
+                         "text valign" center
+                        }
+                        ImageWidgetClass PriceLabel10 {
+                         ignorepointer 1
+                         position 0.04 0.6
+                         size 24 24
+                         halign right_ref
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 1
+                         vexactsize 1
+                         imageTexture "{FB2C48871C16EB6C}TraderX/datasets/icons/coins.edds"
+                         mode blend
+                         "src alpha" 1
+                         "clamp mode" wrap
+                         "stretch mode" stretch_w_center
+                         filter 0
+                        }
+                        TextWidgetClass PriceValue10 {
+                         ignorepointer 1
+                         position 0.04 0.05
+                         size 0.229 0.142
+                         halign right_ref
+                         valign bottom_ref
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 0
+                         vexactsize 0
+                         text "5.000.000"
+                         font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                         "exact text" 1
+                         "size to text h" 1
+                         "text halign" right
+                         "text valign" center
+                        }
+                       }
+                      }
+                     }
+                    }
+                   }
+                  }
+                  PanelWidgetClass ItemCardSmallView1 {
+                   visible 1
+                   color 0.6078 0.651 0.2314 1
+                   position 0 -0.00036
+                   size 250 130
+                   hexactpos 0
+                   vexactpos 0
+                   hexactsize 1
+                   vexactsize 1
+                   scriptclass ""
+                   style DA_Smooth_Small_10px
+                   {
+                    PanelWidgetClass ItemCardContent11 {
+                     visible 1
+                     disabled 0
+                     ignorepointer 1
+                     color 0.3333 0.3529 0.3961 1
+                     size 0.96 0.96
+                     halign center_ref
+                     valign center_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 0
+                     vexactsize 0
+                     style DA_Smooth_Small_5px
+                     {
+                      PanelWidgetClass OutOfStockPanel11 {
+                       visible 1
+                       disabled 1
+                       ignorepointer 1
+                       color 0.702 0.5098 0.5608 1
+                       position 0 0
+                       size 1 1
+                       halign center_ref
+                       valign center_ref
+                       hexactpos 0
+                       vexactpos 0
+                       hexactsize 0
+                       vexactsize 0
+                       priority 1
+                       style DA_Smooth_Small_5px
+                       {
+                        ItemPreviewWidgetClass ItemCardPreview11 {
+                         ignorepointer 1
+                         position 0 -0.03747
+                         size 0.92 0.63686
+                         halign center_ref
+                         valign center_ref
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 0
+                         vexactsize 0
+                        }
+                        ImageWidgetClass Health11 {
+                         visible 0
+                         clipchildren 0
+                         inheritalpha 0
+                         ignorepointer 1
+                         color 0 1 0 1
+                         position 0.8901 0.19764
+                         size 0.0463 0.0573
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 0
+                         vexactsize 0
+                         image0 "set:dayz_gui image:circle"
+                         mode additive
+                         "src alpha" 1
+                         "clamp mode" clamp
+                         "stretch mode" stretch_w_h
+                         filter 1
+                        }
+                        ButtonWidgetClass ButtonWidget29 {
+                         position 0.04 0.03
+                         size 24 24
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 1
+                         vexactsize 1
+                         style Empty
+                         {
+                          ImageWidgetClass ImageWidget28 {
+                           ignorepointer 1
+                           color 0.9961 0.9961 0.9961 1
+                           position 0 0
+                           size 24 24
+                           halign center_ref
+                           valign center_ref
+                           hexactpos 0
+                           vexactpos 0
+                           hexactsize 1
+                           vexactsize 1
+                           imageTexture "{E5C544235D511900}TraderX/datasets/icons/favorites.edds"
+                           mode blend
+                           "src alpha" 1
+                           "stretch mode" stretch_w_h
+                           filter 0
+                          }
+                         }
+                        }
+                        ImageWidgetClass StockLabel11 {
+                         ignorepointer 1
+                         position 0.04 0.6
+                         size 24 24
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 1
+                         vexactsize 1
+                         imageTexture "{9E335E96F97BDD75}TraderX/datasets/icons/stockSimple.edds"
+                         mode blend
+                         "src alpha" 1
+                         "stretch mode" stretch_w_h
+                         filter 1
+                        }
+                        TextWidgetClass StockValue11 {
+                         ignorepointer 1
+                         position 0.04 0.05
+                         size 0.229 0.142
+                         valign bottom_ref
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 0
+                         vexactsize 0
+                         text "0/15"
+                         font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                         "exact text" 1
+                         "size to text h" 1
+                         "text valign" center
+                        }
+                        ImageWidgetClass PriceLabel11 {
+                         ignorepointer 1
+                         position 0.04 0.6
+                         size 24 24
+                         halign right_ref
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 1
+                         vexactsize 1
+                         imageTexture "{FB2C48871C16EB6C}TraderX/datasets/icons/coins.edds"
+                         mode blend
+                         "src alpha" 1
+                         "clamp mode" wrap
+                         "stretch mode" stretch_w_center
+                         filter 0
+                        }
+                        TextWidgetClass PriceValue11 {
+                         ignorepointer 1
+                         position 0.04 0.05
+                         size 0.229 0.142
+                         halign right_ref
+                         valign bottom_ref
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 0
+                         vexactsize 0
+                         text "5.000.000"
+                         font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                         "exact text" 1
+                         "size to text h" 1
+                         "text halign" right
+                         "text valign" center
+                        }
+                       }
+                      }
+                     }
+                    }
+                   }
+                  }
+                 }
+                }
+               }
+              }
+             }
+            }
+            GridSpacerWidgetClass rootFrame0 {
+             position 0 0
+             size 1 0.063
+             halign center_ref
+             hexactpos 0
+             vexactpos 0
+             hexactsize 0
+             vexactsize 0
+             "Size To Content V" 1
+             Columns 1
+             Rows 2
+             {
+              PanelWidgetClass CategoryCardPanel1 {
+               visible 1
+               ignorepointer 1
+               color 0.3333 0.3529 0.3961 1
+               position 0 0
+               size 1 50
+               halign center_ref
+               valign center_ref
+               hexactpos 0
+               vexactpos 0
+               hexactsize 0
+               vexactsize 1
+               style DA_Smooth_Small_10px
+               {
+                ButtonWidgetClass BttnCategory1 {
+                 visible 1
+                 disabled 1
+                 clipchildren 0
+                 ignorepointer 0
+                 color 0.8627 0.8627 0.8627 1
+                 size 1 1
+                 halign center_ref
+                 valign center_ref
+                 hexactpos 0
+                 vexactpos 0
+                 hexactsize 0
+                 vexactsize 0
+                 userID 20062003
+                 scriptclass "ViewBinding"
+                 style Empty
+                 {
+                  PanelWidgetClass GridCategory1 {
+                   visible 1
+                   ignorepointer 1
+                   color 0.3333 0.3529 0.3961 1
+                   position 0 0
+                   size 1 1
+                   hexactpos 0
+                   vexactpos 0
+                   hexactsize 0
+                   vexactsize 0
+                   style blank
+                   "no focus" 0
+                   {
+                    TextWidgetClass CategoryName1 {
+                     visible 1
+                     ignorepointer 1
+                     color 0.6078 0.651 0.2314 1
+                     position 0.0245 -0.006
+                     size 0.36628 0.9057
+                     valign center_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 0
+                     vexactsize 0
+                     priority 1
+                     scriptclass ""
+                     style Normal
+                     text "Replace and Sell"
+                     font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                     "exact text" 0
+                     "text halign" left
+                     "text valign" center
+                    }
+                    ButtonWidgetClass ButtonWidget210 {
+                     color 0.251 0.2706 0.302 1
+                     position 0.02 0
+                     size 0.328 0.75
+                     halign right_ref
+                     valign center_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 0
+                     vexactsize 0
+                     style DA_Smooth10px_Colored
+                     {
+                      TextWidgetClass DropdownText2 {
+                       clipchildren 1
+                       ignorepointer 1
+                       color 0.7137 0.7137 0.7137 1
+                       position 0 0
+                       size 0.62 1
+                       valign center_ref
+                       hexactpos 0
+                       vexactpos 0
+                       hexactsize 0
+                       vexactsize 0
+                       scaled 1
+                       scriptclass "ViewBinding"
+                       style Normal
+                       text "#tpm_sort_by"
+                       font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                       "text color" 0.5569 0.5569 0.5569 1
+                       "text offset" 10 0
+                       "exact text" 0
+                       "size to text h" 0
+                       "size to text v" 0
+                       "text valign" center
+                       {
+                        ScriptParamsClass {
+                         Binding_Name "Value"
+                        }
+                       }
+                      }
+                      ImageWidgetClass DropdownExpandIcon2 {
+                       visible 1
+                       clipchildren 1
+                       inheritalpha 1
+                       ignorepointer 1
+                       color 0.9961 0.9961 0.9961 1
+                       position 0.07 0
+                       size 30 30
+                       halign right_ref
+                       valign center_ref
+                       hexactpos 0
+                       vexactpos 0
+                       hexactsize 1
+                       vexactsize 1
+                       image0 ""
+                       imageTexture "{2E5FB39446D9A262}TraderX/datasets/icons/croissant.edds"
+                       mode blend
+                       "src alpha" 1
+                       "stretch mode" stretch_w_h
+                       "flip v" 1
+                       filter 1
+                      }
+                     }
+                    }
+                   }
+                  }
+                 }
+                 {
+                  ScriptParamsClass {
+                  }
+                 }
+                }
+               }
+              }
+              ScrollWidgetClass scrollCategorySmall0 {
+               ignorepointer 1
+               position 0.023 0.179
+               size 48 145
+               hexactpos 0
+               vexactpos 0
+               hexactsize 1
+               vexactsize 1
+               "Scrollbar V" 1
+               {
+                GridSpacerWidgetClass gridCategorySmall0 {
+                 ignorepointer 1
+                 position 0 0
+                 size 1 48
+                 halign center_ref
+                 hexactpos 0
+                 vexactpos 0
+                 hexactsize 0
+                 vexactsize 1
+                 Padding 7
+                 Margin 5
+                 "Size To Content V" 1
+                 {
+                  PanelWidgetClass ItemCardSmallView2 {
+                   visible 1
+                   color 0.6078 0.651 0.2314 1
+                   position 0 -0.00036
+                   size 250 130
+                   hexactpos 0
+                   vexactpos 0
+                   hexactsize 1
+                   vexactsize 1
+                   scriptclass ""
+                   style DA_Smooth_Small_10px
+                   {
+                    PanelWidgetClass ItemCardContent12 {
+                     visible 1
+                     disabled 0
+                     ignorepointer 1
+                     color 0.3333 0.3529 0.3961 1
+                     size 0.96 0.96
+                     halign center_ref
+                     valign center_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 0
+                     vexactsize 0
+                     style DA_Smooth_Small_5px
+                     {
+                      PanelWidgetClass OutOfStockPanel12 {
+                       visible 1
+                       disabled 1
+                       ignorepointer 1
+                       color 0.702 0.5098 0.5608 1
+                       position 0 0
+                       size 1 1
+                       halign center_ref
+                       valign center_ref
+                       hexactpos 0
+                       vexactpos 0
+                       hexactsize 0
+                       vexactsize 0
+                       priority 1
+                       style DA_Smooth_Small_5px
+                       {
+                        ItemPreviewWidgetClass ItemCardPreview12 {
+                         ignorepointer 1
+                         position 0 -0.03747
+                         size 0.92 0.63686
+                         halign center_ref
+                         valign center_ref
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 0
+                         vexactsize 0
+                        }
+                        ImageWidgetClass Health12 {
+                         visible 0
+                         clipchildren 0
+                         inheritalpha 0
+                         ignorepointer 1
+                         color 0 1 0 1
+                         position 0.8901 0.19764
+                         size 0.0463 0.0573
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 0
+                         vexactsize 0
+                         image0 "set:dayz_gui image:circle"
+                         mode additive
+                         "src alpha" 1
+                         "clamp mode" clamp
+                         "stretch mode" stretch_w_h
+                         filter 1
+                        }
+                        ButtonWidgetClass ButtonWidget211 {
+                         position 0.04 0.03
+                         size 24 24
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 1
+                         vexactsize 1
+                         style Empty
+                         {
+                          ImageWidgetClass ImageWidget29 {
+                           ignorepointer 1
+                           color 0.9961 0.9961 0.9961 1
+                           position 0 0
+                           size 24 24
+                           halign center_ref
+                           valign center_ref
+                           hexactpos 0
+                           vexactpos 0
+                           hexactsize 1
+                           vexactsize 1
+                           imageTexture "{E5C544235D511900}TraderX/datasets/icons/favorites.edds"
+                           mode blend
+                           "src alpha" 1
+                           "stretch mode" stretch_w_h
+                           filter 0
+                          }
+                         }
+                        }
+                        ImageWidgetClass StockLabel12 {
+                         ignorepointer 1
+                         position 0.04 0.6
+                         size 24 24
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 1
+                         vexactsize 1
+                         imageTexture "{9E335E96F97BDD75}TraderX/datasets/icons/stockSimple.edds"
+                         mode blend
+                         "src alpha" 1
+                         "stretch mode" stretch_w_h
+                         filter 1
+                        }
+                        TextWidgetClass StockValue12 {
+                         ignorepointer 1
+                         position 0.04 0.05
+                         size 0.229 0.142
+                         valign bottom_ref
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 0
+                         vexactsize 0
+                         text "0/15"
+                         font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                         "exact text" 1
+                         "size to text h" 1
+                         "text valign" center
+                        }
+                        ImageWidgetClass PriceLabel12 {
+                         ignorepointer 1
+                         position 0.04 0.6
+                         size 24 24
+                         halign right_ref
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 1
+                         vexactsize 1
+                         imageTexture "{FB2C48871C16EB6C}TraderX/datasets/icons/coins.edds"
+                         mode blend
+                         "src alpha" 1
+                         "clamp mode" wrap
+                         "stretch mode" stretch_w_center
+                         filter 0
+                        }
+                        TextWidgetClass PriceValue12 {
+                         ignorepointer 1
+                         position 0.04 0.05
+                         size 0.229 0.142
+                         halign right_ref
+                         valign bottom_ref
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 0
+                         vexactsize 0
+                         text "5.000.000"
+                         font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                         "exact text" 1
+                         "size to text h" 1
+                         "text halign" right
+                         "text valign" center
+                        }
+                       }
+                      }
+                     }
+                    }
+                   }
+                  }
+                  PanelWidgetClass ItemCardSmallView3 {
+                   visible 1
+                   color 0.6078 0.651 0.2314 1
+                   position 0 -0.00036
+                   size 250 130
+                   hexactpos 0
+                   vexactpos 0
+                   hexactsize 1
+                   vexactsize 1
+                   scriptclass ""
+                   style DA_Smooth_Small_10px
+                   {
+                    PanelWidgetClass ItemCardContent13 {
+                     visible 1
+                     disabled 0
+                     ignorepointer 1
+                     color 0.3333 0.3529 0.3961 1
+                     size 0.96 0.96
+                     halign center_ref
+                     valign center_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 0
+                     vexactsize 0
+                     style DA_Smooth_Small_5px
+                     {
+                      PanelWidgetClass OutOfStockPanel13 {
+                       visible 1
+                       disabled 1
+                       ignorepointer 1
+                       color 0.702 0.5098 0.5608 1
+                       position 0 0
+                       size 1 1
+                       halign center_ref
+                       valign center_ref
+                       hexactpos 0
+                       vexactpos 0
+                       hexactsize 0
+                       vexactsize 0
+                       priority 1
+                       style DA_Smooth_Small_5px
+                       {
+                        ItemPreviewWidgetClass ItemCardPreview13 {
+                         ignorepointer 1
+                         position 0 -0.03747
+                         size 0.92 0.63686
+                         halign center_ref
+                         valign center_ref
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 0
+                         vexactsize 0
+                        }
+                        ImageWidgetClass Health13 {
+                         visible 0
+                         clipchildren 0
+                         inheritalpha 0
+                         ignorepointer 1
+                         color 0 1 0 1
+                         position 0.8901 0.19764
+                         size 0.0463 0.0573
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 0
+                         vexactsize 0
+                         image0 "set:dayz_gui image:circle"
+                         mode additive
+                         "src alpha" 1
+                         "clamp mode" clamp
+                         "stretch mode" stretch_w_h
+                         filter 1
+                        }
+                        ButtonWidgetClass ButtonWidget212 {
+                         position 0.04 0.03
+                         size 24 24
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 1
+                         vexactsize 1
+                         style Empty
+                         {
+                          ImageWidgetClass ImageWidget210 {
+                           ignorepointer 1
+                           color 0.9961 0.9961 0.9961 1
+                           position 0 0
+                           size 24 24
+                           halign center_ref
+                           valign center_ref
+                           hexactpos 0
+                           vexactpos 0
+                           hexactsize 1
+                           vexactsize 1
+                           imageTexture "{E5C544235D511900}TraderX/datasets/icons/favorites.edds"
+                           mode blend
+                           "src alpha" 1
+                           "stretch mode" stretch_w_h
+                           filter 0
+                          }
+                         }
+                        }
+                        ImageWidgetClass StockLabel13 {
+                         ignorepointer 1
+                         position 0.04 0.6
+                         size 24 24
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 1
+                         vexactsize 1
+                         imageTexture "{9E335E96F97BDD75}TraderX/datasets/icons/stockSimple.edds"
+                         mode blend
+                         "src alpha" 1
+                         "stretch mode" stretch_w_h
+                         filter 1
+                        }
+                        TextWidgetClass StockValue13 {
+                         ignorepointer 1
+                         position 0.04 0.05
+                         size 0.229 0.142
+                         valign bottom_ref
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 0
+                         vexactsize 0
+                         text "0/15"
+                         font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                         "exact text" 1
+                         "size to text h" 1
+                         "text valign" center
+                        }
+                        ImageWidgetClass PriceLabel13 {
+                         ignorepointer 1
+                         position 0.04 0.6
+                         size 24 24
+                         halign right_ref
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 1
+                         vexactsize 1
+                         imageTexture "{FB2C48871C16EB6C}TraderX/datasets/icons/coins.edds"
+                         mode blend
+                         "src alpha" 1
+                         "clamp mode" wrap
+                         "stretch mode" stretch_w_center
+                         filter 0
+                        }
+                        TextWidgetClass PriceValue13 {
+                         ignorepointer 1
+                         position 0.04 0.05
+                         size 0.229 0.142
+                         halign right_ref
+                         valign bottom_ref
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 0
+                         vexactsize 0
+                         text "5.000.000"
+                         font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                         "exact text" 1
+                         "size to text h" 1
+                         "text halign" right
+                         "text valign" center
+                        }
+                       }
+                      }
+                     }
+                    }
+                   }
+                  }
+                  PanelWidgetClass ItemCardSmallView4 {
+                   visible 1
+                   color 0.6078 0.651 0.2314 1
+                   position 0 -0.00036
+                   size 250 130
+                   hexactpos 0
+                   vexactpos 0
+                   hexactsize 1
+                   vexactsize 1
+                   scriptclass ""
+                   style DA_Smooth_Small_10px
+                   {
+                    PanelWidgetClass ItemCardContent14 {
+                     visible 1
+                     disabled 0
+                     ignorepointer 1
+                     color 0.3333 0.3529 0.3961 1
+                     size 0.96 0.96
+                     halign center_ref
+                     valign center_ref
+                     hexactpos 0
+                     vexactpos 0
+                     hexactsize 0
+                     vexactsize 0
+                     style DA_Smooth_Small_5px
+                     {
+                      PanelWidgetClass OutOfStockPanel14 {
+                       visible 1
+                       disabled 1
+                       ignorepointer 1
+                       color 0.702 0.5098 0.5608 1
+                       position 0 0
+                       size 1 1
+                       halign center_ref
+                       valign center_ref
+                       hexactpos 0
+                       vexactpos 0
+                       hexactsize 0
+                       vexactsize 0
+                       priority 1
+                       style DA_Smooth_Small_5px
+                       {
+                        ItemPreviewWidgetClass ItemCardPreview14 {
+                         ignorepointer 1
+                         position 0 -0.03747
+                         size 0.92 0.63686
+                         halign center_ref
+                         valign center_ref
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 0
+                         vexactsize 0
+                        }
+                        ImageWidgetClass Health14 {
+                         visible 0
+                         clipchildren 0
+                         inheritalpha 0
+                         ignorepointer 1
+                         color 0 1 0 1
+                         position 0.8901 0.19764
+                         size 0.0463 0.0573
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 0
+                         vexactsize 0
+                         image0 "set:dayz_gui image:circle"
+                         mode additive
+                         "src alpha" 1
+                         "clamp mode" clamp
+                         "stretch mode" stretch_w_h
+                         filter 1
+                        }
+                        ButtonWidgetClass ButtonWidget213 {
+                         position 0.04 0.03
+                         size 24 24
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 1
+                         vexactsize 1
+                         style Empty
+                         {
+                          ImageWidgetClass ImageWidget211 {
+                           ignorepointer 1
+                           color 0.9961 0.9961 0.9961 1
+                           position 0 0
+                           size 24 24
+                           halign center_ref
+                           valign center_ref
+                           hexactpos 0
+                           vexactpos 0
+                           hexactsize 1
+                           vexactsize 1
+                           imageTexture "{E5C544235D511900}TraderX/datasets/icons/favorites.edds"
+                           mode blend
+                           "src alpha" 1
+                           "stretch mode" stretch_w_h
+                           filter 0
+                          }
+                         }
+                        }
+                        ImageWidgetClass StockLabel14 {
+                         ignorepointer 1
+                         position 0.04 0.6
+                         size 24 24
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 1
+                         vexactsize 1
+                         imageTexture "{9E335E96F97BDD75}TraderX/datasets/icons/stockSimple.edds"
+                         mode blend
+                         "src alpha" 1
+                         "stretch mode" stretch_w_h
+                         filter 1
+                        }
+                        TextWidgetClass StockValue14 {
+                         ignorepointer 1
+                         position 0.04 0.05
+                         size 0.229 0.142
+                         valign bottom_ref
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 0
+                         vexactsize 0
+                         text "0/15"
+                         font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                         "exact text" 1
+                         "size to text h" 1
+                         "text valign" center
+                        }
+                        ImageWidgetClass PriceLabel14 {
+                         ignorepointer 1
+                         position 0.04 0.6
+                         size 24 24
+                         halign right_ref
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 1
+                         vexactsize 1
+                         imageTexture "{FB2C48871C16EB6C}TraderX/datasets/icons/coins.edds"
+                         mode blend
+                         "src alpha" 1
+                         "clamp mode" wrap
+                         "stretch mode" stretch_w_center
+                         filter 0
+                        }
+                        TextWidgetClass PriceValue14 {
+                         ignorepointer 1
+                         position 0.04 0.05
+                         size 0.229 0.142
+                         halign right_ref
+                         valign bottom_ref
+                         hexactpos 0
+                         vexactpos 0
+                         hexactsize 0
+                         vexactsize 0
+                         text "5.000.000"
+                         font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                         "exact text" 1
+                         "size to text h" 1
+                         "text halign" right
+                         "text valign" center
+                        }
+                       }
+                      }
+                     }
+                    }
+                   }
+                  }
+                 }
+                }
+               }
+              }
+             }
+            }
+            PanelWidgetClass CheckOutView {
+             ignorepointer 1
+             color 0.1882 0.1882 0.1882 1
+             position 10 10
+             size 570 242
+             hexactpos 1
+             vexactpos 1
+             hexactsize 1
+             vexactsize 1
+             style DA_Smooth_Small_10px
+             {
+              ScrollWidgetClass CheckoutScroll {
+               ignorepointer 1
+               position 0 0.03
+               size 0.96 0.75
+               halign center_ref
+               valign bottom_ref
+               hexactpos 0
+               vexactpos 0
+               hexactsize 0
+               vexactsize 0
+               "Scrollbar V" 1
+               {
+                GridSpacerWidgetClass checkoutGrid {
+                 ignorepointer 1
+                 position 0 0
+                 size 1 48
+                 halign center_ref
+                 hexactpos 1
+                 vexactpos 1
+                 hexactsize 0
+                 vexactsize 1
+                 "Size To Content V" 1
+                 Columns 1
+                 Rows 50
+                }
+               }
+              }
+              ImageWidgetClass ProductNameIcon {
+               ignorepointer 1
+               color 0.6078 0.651 0.2314 1
+               position 0.04 0.03
+               size 32 32
+               hexactpos 0
+               vexactpos 0
+               hexactsize 1
+               vexactsize 1
+               imageTexture "{7DB24EE0EBA05946}TraderX/datasets/icons/checkout.edds"
+               mode additive
+               "src alpha" 1
+               "stretch mode" stretch_w_h
+               filter 0
+              }
+              ImageWidgetClass ProductQtyIcon {
+               ignorepointer 1
+               color 0.6078 0.651 0.2314 1
+               position 0.49 0.03
+               size 32 32
+               hexactpos 0
+               vexactpos 0
+               hexactsize 1
+               vexactsize 1
+               imageTexture "{53E46FDDEA64DA5A}TraderX/datasets/icons/quantity.edds"
+               mode additive
+               "src alpha" 1
+               "stretch mode" stretch_w_h
+               filter 0
+              }
+              ImageWidgetClass ProductPriceIcon {
+               ignorepointer 1
+               color 0.6078 0.651 0.2314 1
+               position 0.87 0.03
+               size 32 32
+               hexactpos 0
+               vexactpos 0
+               hexactsize 1
+               vexactsize 1
+               imageTexture "{FB2C48871C16EB6C}TraderX/datasets/icons/coins.edds"
+               mode additive
+               "src alpha" 1
+               "clamp mode" invalid
+               "stretch mode" stretch_w_h
+               filter 0
+              }
+             }
+            }
+            PanelWidgetClass PaymentResume {
+             ignorepointer 1
+             position 0.018 0.012
+             size 48 92
+             hexactpos 0
+             vexactpos 0
+             hexactsize 1
+             vexactsize 1
+             {
+              TextWidgetClass TextWidget3 {
+               ignorepointer 1
+               color 0.6078 0.651 0.2314 1
+               size 0.09 0.391
+               halign right_ref
+               hexactpos 0
+               vexactpos 0
+               hexactsize 0
+               vexactsize 0
+               text "To pay: 13,350"
+               font "TraderX/datasets/fonts/RobotoCondensedVF28"
+               "size to text h" 1
+               "text valign" center
+              }
+              PanelWidgetClass PanelWidget5 {
+               ignorepointer 1
+               color 0.3608 0.3686 0.3882 1
+               position 0 0.14
+               size 0.36 0.45
+               halign right_ref
+               valign bottom_ref
+               hexactpos 0
+               vexactpos 0
+               hexactsize 0
+               vexactsize 0
+               style DA_Smooth_Small_10px
+               {
+                ButtonWidgetClass ButtonWidget14 {
+                 size 1 1.001
+                 halign center_ref
+                 valign center_ref
+                 hexactpos 0
+                 vexactpos 0
+                 hexactsize 0
+                 vexactsize 0
+                 style Empty
+                }
+                TextWidgetClass TextWidget4 {
+                 ignorepointer 1
+                 color 0.6078 0.651 0.2314 1
+                 position 0 0
+                 size 1 1.001
+                 halign center_ref
+                 valign center_ref
+                 hexactpos 0
+                 vexactpos 0
+                 hexactsize 0
+                 vexactsize 0
+                 text "#tpm_purchase"
+                 font "TraderX/datasets/fonts/RobotoCondensedVF22"
+                 "text halign" center
+                 "text valign" center
+                }
+               }
+              }
+              ImageWidgetClass StockLabel15 {
+               ignorepointer 1
+               position 0.37 0.38
+               size 24 24
+               halign right_ref
+               valign bottom_ref
+               hexactpos 0
+               vexactpos 0
+               hexactsize 1
+               vexactsize 1
+               imageTexture "{F77C0332737AE964}TraderX/datasets/icons/bank.edds"
+               mode blend
+               "src alpha" 1
+               "stretch mode" stretch_w_h
+               filter 1
+              }
+              ImageWidgetClass StockLabel16 {
+               ignorepointer 1
+               position 0.37 0.09
+               size 24 24
+               halign right_ref
+               valign bottom_ref
+               hexactpos 0
+               vexactpos 0
+               hexactsize 1
+               vexactsize 1
+               imageTexture "{9A6BCBE7CD6ECE8F}TraderX/datasets/icons/wallet.edds"
+               mode blend
+               "src alpha" 1
+               "stretch mode" stretch_w_h
+               filter 1
+              }
+              TextWidgetClass TextWidget5 {
+               ignorepointer 1
+               position 0.44 0.09
+               size 48 24
+               halign right_ref
+               valign bottom_ref
+               hexactpos 0
+               vexactpos 0
+               hexactsize 1
+               vexactsize 1
+               text "34,000"
+               font "TraderX/datasets/fonts/RobotoCondensedVF22"
+               "size to text h" 1
+               "text valign" center
+              }
+              TextWidgetClass TextWidget6 {
+               ignorepointer 1
+               position 0.44 0.38
+               size 48 24
+               halign right_ref
+               valign bottom_ref
+               hexactpos 0
+               vexactpos 0
+               hexactsize 1
+               vexactsize 1
+               text "132,000,000"
+               font "TraderX/datasets/fonts/RobotoCondensedVF22"
+               "size to text h" 1
+               "text valign" center
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+  PanelWidgetClass wSearchBar {
+   visible 1
+   ignorepointer 1
+   color 0.3333 0.3529 0.3961 0.7804
+   position 0.02 0.0446
+   size 0.1935 0.0426
+   hexactpos 0
+   vexactpos 0
+   hexactsize 0
+   vexactsize 0
+   style DA_Smooth_Small_5px
+   {
+    EditBoxWidgetClass EditBoxWidget1 {
+     color 0.9961 0.9961 0.9961 1
+     position 0.03 0
+     size 0.834 0.83
+     valign center_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     style No_Highlight
+     text "search"
+     "Default text color" 0.9961 0.9961 0.9961 1
+     "Use default text" 1
+     "exact text" 1
+     font "TraderX/datasets/fonts/RobotoCondensedVF28"
+     "text color" 0.9961 0.9961 0.9961 1
+    }
+    ImageWidgetClass ImageWidget5 {
+     ignorepointer 1
+     color 0.9961 0.9961 0.9961 1
+     position 0.02 0
+     size 0.084 0.755
+     halign right_ref
+     valign center_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     imageTexture "{F42AF1339263932B}TraderX/datasets/icons/search.edds"
+     mode blend
+     "src alpha" 1
+     "stretch mode" stretch_w_h
+    }
+   }
+  }
+ }
+}

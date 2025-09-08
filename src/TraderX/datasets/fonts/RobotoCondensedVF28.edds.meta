@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{18F0D5660914C451}TraderX/datasets/fonts/RobotoCondensedVF28.edds"
+ Author "dmitri"
+ ChangeDate 993260312
+ Configurations {
+  TGAResourceClass PC {
+   SourceFile "RobotoCondensedVF28.tga"
+  }
+  TGAResourceClass XBOX_ONE : PC {
+  }
+  TGAResourceClass PS4 : PC {
+  }
+  TGAResourceClass LINUX : PC {
+  }
+ }
+}

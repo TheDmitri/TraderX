@@ -1,0 +1,32 @@
+PanelWidgetClass PanelShadowRoot {
+ visible 1
+ color 0.0588 0.0588 0.0588 0.9804
+ position 0 0
+ size 2580.81006 102.08
+ hexactpos 0
+ vexactpos 0
+ hexactsize 1
+ vexactsize 1
+ scriptclass "TestViewController"
+ style blank
+ {
+  ButtonWidgetClass ButtonWidget0 {
+   color 0.1529 0.1529 0.1529 1
+   position 0 0
+   size 1 1
+   halign center_ref
+   valign center_ref
+   hexactpos 0
+   vexactpos 0
+   hexactsize 0
+   vexactsize 0
+   scriptclass "ViewBinding"
+   style DA_Smooth5px_Colored
+   {
+    ScriptParamsClass {
+     Relay_Command "OnTestButtonClick"
+    }
+   }
+  }
+ }
+}

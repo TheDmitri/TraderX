@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{F77C0332737AE964}TraderX/datasets/icons/bank.edds"
+ Author "thedmitri"
+ ChangeDate 607907991
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "bank.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

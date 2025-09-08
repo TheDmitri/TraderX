@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{01E18912659F4F02}TraderX/datasets/icons/wall-clock.edds"
+ Author "desktop-33c97jr"
+ ChangeDate 1252208965
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "wall-clock.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

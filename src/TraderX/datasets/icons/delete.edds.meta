@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{8193CC0211B1BEA7}TraderX/datasets/icons/delete.edds"
+ Author "desktop-33c97jr"
+ ChangeDate -715968187
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "delete.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

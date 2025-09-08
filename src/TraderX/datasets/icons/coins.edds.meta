@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{FB2C48871C16EB6C}TraderX/datasets/icons/coins.edds"
+ Author "thedmitri"
+ ChangeDate 731197593
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "coins.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

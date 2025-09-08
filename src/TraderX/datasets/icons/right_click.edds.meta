@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{88205B22C7208A52}TraderX/datasets/icons/right_click.png"
+ Author "desktop-33c97jr"
+ ChangeDate 876228851
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "right_click.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

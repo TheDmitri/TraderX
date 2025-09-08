@@ -1,0 +1,250 @@
+ImageSetClass {
+ Name "notification_ui"
+ RefSize 233 83
+ Textures {
+  ImageSetTextureClass {
+   mpix 1
+   path "{64CDC8C6FD2822FC}TraderX/datasets/images/notification_ui.edds"
+  }
+ }
+ Images {
+ }
+ Groups {
+  ImageSetGroupClass Corny_Rect_Red_Side {
+   Name "Corny_Rect_Red_Side"
+   Images {
+    ImageSetDefClass red_top {
+     Name "red_top"
+     Pos 32 20
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass red_bottom {
+     Name "red_bottom"
+     Pos 32 57
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass red_right {
+     Name "red_right"
+     Pos 64 25
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass red_left {
+     Name "red_left"
+     Pos 27 25
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass red_top_left {
+     Name "red_top_left"
+     Pos 27 20
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass red_top_right {
+     Name "red_top_right"
+     Pos 64 20
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass red_bottom_left {
+     Name "red_bottom_left"
+     Pos 27 57
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass red_bottom_right {
+     Name "red_bottom_right"
+     Pos 64 57
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass red_center {
+     Name "red_center"
+     Pos 32 25
+     Size 32 32
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Corny_Rect_Orange_Side {
+   Name "Corny_Rect_Orange_Side"
+   Images {
+    ImageSetDefClass orange_top {
+     Name "orange_top"
+     Pos 88 20
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass orange_bottom {
+     Name "orange_bottom"
+     Pos 88 57
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass orange_right {
+     Name "orange_right"
+     Pos 120 25
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass orange_left {
+     Name "orange_left"
+     Pos 83 25
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass orange_top_left {
+     Name "orange_top_left"
+     Pos 83 20
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass orange_top_right {
+     Name "orange_top_right"
+     Pos 120 20
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass orange_bottom_left {
+     Name "orange_bottom_left"
+     Pos 83 57
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass orange_bottom_right {
+     Name "orange_bottom_right"
+     Pos 120 57
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass orange_center {
+     Name "orange_center"
+     Pos 88 25
+     Size 32 32
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Corny_Rect_Blue_Side {
+   Name "Corny_Rect_Blue_Side"
+   Images {
+    ImageSetDefClass blue_top {
+     Name "blue_top"
+     Pos 144 20
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass blue_bottom {
+     Name "blue_bottom"
+     Pos 144 57
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass blue_right {
+     Name "blue_right"
+     Pos 176 25
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass blue_left {
+     Name "blue_left"
+     Pos 139 25
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass blue_top_left {
+     Name "blue_top_left"
+     Pos 139 20
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass blue_top_right {
+     Name "blue_top_right"
+     Pos 176 20
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass blue_bottom_left {
+     Name "blue_bottom_left"
+     Pos 139 57
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass blue_bottom_right {
+     Name "blue_bottom_right"
+     Pos 176 57
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass blue_center {
+     Name "blue_center"
+     Pos 144 25
+     Size 32 32
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Corny_Rect_Green_Side {
+   Name "Corny_Rect_Green_Side"
+   Images {
+    ImageSetDefClass green_top {
+     Name "green_top"
+     Pos 193 20
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass green_bottom {
+     Name "green_bottom"
+     Pos 193 57
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass green_right {
+     Name "green_right"
+     Pos 225 25
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass green_left {
+     Name "green_left"
+     Pos 188 25
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass green_top_left {
+     Name "green_top_left"
+     Pos 188 20
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass green_top_right {
+     Name "green_top_right"
+     Pos 225 20
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass green_bottom_left {
+     Name "green_bottom_left"
+     Pos 188 57
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass green_bottom_right {
+     Name "green_bottom_right"
+     Pos 225 57
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass green_center {
+     Name "green_center"
+     Pos 193 25
+     Size 32 32
+     Flags 0
+    }
+   }
+  }
+ }
+}

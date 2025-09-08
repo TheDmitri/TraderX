@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{1C54D2EEF450CDA2}TraderX/datasets/icons/stockpile.edds"
+ Author "thedmitri"
+ ChangeDate 390787223
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "stockpile.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

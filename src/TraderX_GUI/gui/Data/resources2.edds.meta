@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{8EB840E950CB6FFF}TraderX_GUI/gui/Data/resources2.edds"
+ Author "dmitri"
+ ChangeDate 173191893
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "resources2.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

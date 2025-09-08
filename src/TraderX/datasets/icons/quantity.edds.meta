@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{53E46FDDEA64DA5A}TraderX/datasets/icons/quantity.edds"
+ Author "thedmitri"
+ ChangeDate -1693208425
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "quantity.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

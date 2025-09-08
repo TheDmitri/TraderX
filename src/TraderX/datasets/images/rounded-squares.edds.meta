@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{D5BED29ED5684139}TraderX/datasets/images/rounded-squares.edds"
+ Author "desktop-33c97jr"
+ ChangeDate 1602597438
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "rounded-squares.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

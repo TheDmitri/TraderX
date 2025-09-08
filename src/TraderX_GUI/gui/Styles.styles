@@ -1,0 +1,2324 @@
+<WidgetStyles>
+    <Widget Name="PanelWidget">
+        <Style Name="DA_Squad" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="sq_big_d" />
+                <Item Name="Center" Image="sq_big_c" />
+                <Item Name="Left" Image="sq_big_l" />
+                <Item Name="LeftBottom" Image="sq_big_ldc" />
+                <Item Name="LeftTop" Image="sq_big_luc" />
+                <Item Name="Right" Image="sq_big_r" />
+                <Item Name="RightBottom" Image="sq_big_rdc" />
+                <Item Name="RightTop" Image="sq_big_ruc" />
+                <Item Name="Top" Image="sq_big_u" />
+            </State>
+        </Style>
+        <Style Name="DA_Squad_Stroke" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="sq_str_big_d" />
+                <Item Name="Center" Image="sq_str_big_center" />
+                <Item Name="Left" Image="sq_str_big_l" />
+                <Item Name="LeftBottom" Image="sq_str_big_ldc" />
+                <Item Name="LeftTop" Image="sq_str_big_luc" />
+                <Item Name="Right" Image="sq_str_big_r" />
+                <Item Name="RightBottom" Image="sq_str_big_rdc" />
+                <Item Name="RightTop" Image="sq_str_big_ruc" />
+                <Item Name="Top" Image="sq_str_big_t" />
+            </State>
+        </Style>
+        <Style Name="DA_Squad_Stroke1" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="sq_str1_big_d" />
+                <Item Name="Center" Image="sq_str1_big_center" />
+                <Item Name="Left" Image="sq_str1_big_l" />
+                <Item Name="LeftBottom" Image="sq_str1_big_ldc" />
+                <Item Name="LeftTop" Image="sq_str1_big_luc" />
+                <Item Name="Right" Image="sq_str1_big_r" />
+                <Item Name="RightBottom" Image="sq_str1_big_rdc" />
+                <Item Name="RightTop" Image="sq_str1_big_ruc" />
+                <Item Name="Top" Image="sq_str1_big_t" />
+            </State>
+        </Style>
+        <Style Name="DA_Squad_Small" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="sq_small_d" />
+                <Item Name="Center" Image="sq_small_center" />
+                <Item Name="Left" Image="sq_small_l" />
+                <Item Name="LeftBottom" Image="sq_small_ldc" />
+                <Item Name="LeftTop" Image="sq_small_luc" />
+                <Item Name="Right" Image="sq_small_r" />
+                <Item Name="RightBottom" Image="sq_small_rdc" />
+                <Item Name="RightTop" Image="sq_small_ruc" />
+                <Item Name="Top" Image="sq_small_u" />
+            </State>
+        </Style>
+        <Style Name="DA_Squad_Small_Stroke" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="sq_str_small_d" />
+                <Item Name="Center" Image="sq_str_small_center" />
+                <Item Name="Left" Image="sq_str_small_l" />
+                <Item Name="LeftBottom" Image="sq_str_small_ldc" />
+                <Item Name="LeftTop" Image="sq_str_small_luc" />
+                <Item Name="Right" Image="sq_str_small_r" />
+                <Item Name="RightBottom" Image="sq_str_small_rdc" />
+                <Item Name="RightTop" Image="sq_str_small_ruc" />
+                <Item Name="Top" Image="sq_str_small_u" />
+            </State>
+        </Style>
+        <Style Name="DA_Squad_Small_Stroke1" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="sq_str1_small_d" />
+                <Item Name="Center" Image="sq_str1_small_center" />
+                <Item Name="Left" Image="sq_str1_small_l" />
+                <Item Name="LeftBottom" Image="sq_str1_small_ldc" />
+                <Item Name="LeftTop" Image="sq_str1_small_luc" />
+                <Item Name="Right" Image="sq_str1_small_r" />
+                <Item Name="RightBottom" Image="sq_str1_small_rdc" />
+                <Item Name="RightTop" Image="sq_str1_small_ruc" />
+                <Item Name="Top" Image="sq_str1_small_u" />
+            </State>
+        </Style>
+        <Style Name="DA_Smooth_Big" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="sm_big_d" />
+                <Item Name="Center" Image="sm_big_center" />
+                <Item Name="Left" Image="sm_big_l" />
+                <Item Name="LeftBottom" Image="sm_big_dlc" />
+                <Item Name="LeftTop" Image="sm_big_luc" />
+                <Item Name="Right" Image="sm_big_r" />
+                <Item Name="RightBottom" Image="sm_big_drc" />
+                <Item Name="RightTop" Image="sm_big_ruc" />
+                <Item Name="Top" Image="sm_big_u" />
+            </State>
+        </Style>
+        <Style Name="DA_Smooth_Big_Stroke" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="sm_str_big_d" />
+                <Item Name="Center" Image="sm_str_big_center" />
+                <Item Name="Left" Image="sm_str_big_l" />
+                <Item Name="LeftBottom" Image="sm_str_big_ldc" />
+                <Item Name="LeftTop" Image="sm_str_big_luc" />
+                <Item Name="Right" Image="sm_str_big_r" />
+                <Item Name="RightBottom" Image="sm_str_big_rdc" />
+                <Item Name="RightTop" Image="sm_str_big_ruc" />
+                <Item Name="Top" Image="sm_str_big_u" />
+            </State>
+        </Style>
+        <Style Name="DA_Smooth_Big_Stroke1" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="sm_str1_big_d" />
+                <Item Name="Center" Image="sm_str1_big_center" />
+                <Item Name="Left" Image="sm_str1_big_l" />
+                <Item Name="LeftBottom" Image="sm_str1_big_rdc" />
+                <Item Name="LeftTop" Image="sm_str1_big_ruc" />
+                <Item Name="Right" Image="sm_str1_big_r" />
+                <Item Name="RightBottom" Image="sm_str1_big_rrdc" />
+                <Item Name="RightTop" Image="sm_str1_big_rruc" />
+                <Item Name="Top" Image="sm_str1_big_t" />
+            </State>
+        </Style>
+        <Style Name="DA_Smooth_Small_10px" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="sm_small_d" />
+                <Item Name="Center" Image="sm_small_c" />
+                <Item Name="Left" Image="sm_small_l" />
+                <Item Name="LeftBottom" Image="sm_small_ldc" />
+                <Item Name="LeftTop" Image="sm_small_luc" />
+                <Item Name="Right" Image="sm_small_r" />
+                <Item Name="RightBottom" Image="sm_small_rdc" />
+                <Item Name="RightTop" Image="sm_small_ruc" />
+                <Item Name="Top" Image="sm_small_u" />
+            </State>
+        </Style>
+        <Style Name="DA_Smooth_Small_10px_Stroke" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="sm_str_small10_d" />
+                <Item Name="Center" Image="sm_str_small10_ce" />
+                <Item Name="Left" Image="sm_str_small10_l" />
+                <Item Name="LeftBottom" Image="sm_str_small10_ldc" />
+                <Item Name="LeftTop" Image="sm_str_small10_luc" />
+                <Item Name="Right" Image="sm_str_small10_r" />
+                <Item Name="RightBottom" Image="sm_str_small10_rdc" />
+                <Item Name="RightTop" Image="sm_str_small10_ruc" />
+                <Item Name="Top" Image="sm_str_small10_u" />
+            </State>
+        </Style>
+        <Style Name="DA_Smooth_Small_10px_Stroke1" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="17">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="sm_str1_small10_d" />
+                <Item Name="Center" Image="sm_str1_small10_c" />
+                <Item Name="Left" Image="sm_str1_small10_l" />
+                <Item Name="LeftBottom" Image="sm_str1_small10_ldc" />
+                <Item Name="LeftTop" Image="sm_str1_small10_luc" />
+                <Item Name="Right" Image="sm_str1_small10_r" />
+                <Item Name="RightBottom" Image="sm_str1_small10_rdc" />
+                <Item Name="RightTop" Image="sm_str1_small10_ruc" />
+                <Item Name="Top" Image="sm_str1_small10_u" />
+            </State>
+        </Style>
+        <Style Name="DA_Smooth_Small_5px" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="sm_small5_d" />
+                <Item Name="Center" Image="sm_small5_c" />
+                <Item Name="Left" Image="sm_small5_l" />
+                <Item Name="LeftBottom" Image="sm_small5_ldc" />
+                <Item Name="LeftTop" Image="sm_small5_luc" />
+                <Item Name="Right" Image="sm_small5_r" />
+                <Item Name="RightBottom" Image="sm_small5_rdc" />
+                <Item Name="RightTop" Image="sm_small5_ruc" />
+                <Item Name="Top" Image="sm_small5_u" />
+            </State>
+        </Style>
+        <Style Name="DA_Smooth_Small_5px_Stroke" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="sm_str_small5_d" />
+                <Item Name="Center" Image="sm_str_small5_c" />
+                <Item Name="Left" Image="sm_str_small5_l" />
+                <Item Name="LeftBottom" Image="sm_str_small5_ldc" />
+                <Item Name="LeftTop" Image="sm_str_small5_luc" />
+                <Item Name="Right" Image="sm_str_small5_r" />
+                <Item Name="RightBottom" Image="sm_str_small5_rdc" />
+                <Item Name="RightTop" Image="sm_str_small5_ruc" />
+                <Item Name="Top" Image="sm_str_small5_u" />
+            </State>
+        </Style>
+        <Style Name="DA_Smooth_Small_5px_Stroke1" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="sm_str1_small5_d" />
+                <Item Name="Center" Image="sm_str1_small5_center" />
+                <Item Name="Left" Image="sm_str1_small5_l" />
+                <Item Name="LeftBottom" Image="sm_str1_small5_ldc" />
+                <Item Name="LeftTop" Image="sm_str1_small5_luc" />
+                <Item Name="Right" Image="sm_str1_small5_r" />
+                <Item Name="RightBottom" Image="sm_str1_small5_rdc" />
+                <Item Name="RightTop" Image="sm_str1_small5_ruc" />
+                <Item Name="Top" Image="sm_str1_small5_u" />
+            </State>
+        </Style>
+        <Style Name="Corny_Square_Shadow_5px" Font="gui/fonts/AmorSerifPro-Bold" ImageSet="CornyPanelsButton" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="side_bottom" />
+                <Item Name="Center" Image="center" />
+                <Item Name="Left" Image="side_left" />
+                <Item Name="LeftBottom" Image="bottom_left_corner" />
+                <Item Name="LeftTop" Image="top_left_corner" />
+                <Item Name="Right" Image="side_right" />
+                <Item Name="RightBottom" Image="bottom_right_corner" />
+                <Item Name="RightTop" Image="top_right_corner" />
+                <Item Name="Top" Image="side_top" />
+            </State>
+        </Style>
+        <Style Name="Corny_Square_Shadow_10px" Font="gui/fonts/AmorSerifPro-Bold" ImageSet="CornyPanelsButton" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="side_bottom_10px" />
+                <Item Name="Center" Image="center_10px" />
+                <Item Name="Left" Image="side_left_10px" />
+                <Item Name="LeftBottom" Image="right_left_corner_10px" />
+                <Item Name="LeftTop" Image="top_left_corner_10px" />
+                <Item Name="Right" Image="side_right_10px" />
+                <Item Name="RightBottom" Image="bottom_right_corner_10px" />
+                <Item Name="RightTop" Image="top_right_corner_10px" />
+                <Item Name="Top" Image="side_top_10px" />
+            </State>
+        </Style>
+        <Style Name="DA_Smooth5px_Colored" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Focus">
+                <Item Name="Bottom" Image="sm_small5_d" />
+                <Item Name="Center" Image="sm_small5_c" />
+                <Item Name="Left" Image="sm_small5_l" />
+                <Item Name="LeftBottom" Image="sm_small5_ldc" />
+                <Item Name="LeftTop" Image="sm_small5_luc" />
+                <Item Name="Right" Image="sm_small5_r" />
+                <Item Name="RightBottom" Image="sm_small5_rdc" />
+                <Item Name="RightTop" Image="sm_small5_ruc" />
+                <Item Name="Top" Image="sm_small5_u" />
+            </State>
+            <State Name="Highlight">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="sm_small5_d" />
+                <Item Name="Center" Image="sm_small5_c" />
+                <Item Name="Left" Image="sm_small5_l" />
+                <Item Name="LeftBottom" Image="sm_small5_ldc" />
+                <Item Name="LeftTop" Image="sm_small5_luc" />
+                <Item Name="Right" Image="sm_small5_r" />
+                <Item Name="RightBottom" Image="sm_small5_rdc" />
+                <Item Name="RightTop" Image="sm_small5_ruc" />
+                <Item Name="Top" Image="sm_small5_u" />
+            </State>
+            <State Name="Pushed">
+                <Item Name="Bottom" Image="sm_small5_d" />
+                <Item Name="Center" Image="sm_small5_c" />
+                <Item Name="Left" Image="sm_small5_l" />
+                <Item Name="LeftBottom" Image="sm_small5_ldc" />
+                <Item Name="LeftTop" Image="sm_small5_luc" />
+                <Item Name="Right" Image="sm_small5_r" />
+                <Item Name="RightBottom" Image="sm_small5_rdc" />
+                <Item Name="RightTop" Image="sm_small5_ruc" />
+                <Item Name="Top" Image="sm_small5_u" />
+            </State>
+        </Style>
+        <Style Name="DA_Smooth5px_ColoredStr" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Focus">
+                <Item Name="Bottom" Image="sm_str1_small5_d" />
+                <Item Name="Center" Image="sm_str1_small5_center" />
+                <Item Name="Left" Image="sm_str1_small5_l" />
+                <Item Name="LeftBottom" Image="sm_str1_small5_ldc" />
+                <Item Name="LeftTop" Image="sm_str1_small5_luc" />
+                <Item Name="Right" Image="sm_str1_small5_r" />
+                <Item Name="RightBottom" Image="sm_str1_small5_rdc" />
+                <Item Name="RightTop" Image="sm_str1_small5_ruc" />
+                <Item Name="Top" Image="sm_str1_small5_u" />
+            </State>
+            <State Name="Highlight">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="sm_str_small5_d" />
+                <Item Name="Center" Image="sm_str_small5_c" />
+                <Item Name="Left" Image="sm_str_small5_l" />
+                <Item Name="LeftBottom" Image="sm_str_small5_ldc" />
+                <Item Name="LeftTop" Image="sm_str_small5_luc" />
+                <Item Name="Right" Image="sm_str_small5_r" />
+                <Item Name="RightBottom" Image="sm_str_small5_rdc" />
+                <Item Name="RightTop" Image="sm_str_small5_ruc" />
+                <Item Name="Top" Image="sm_str_small5_u" />
+            </State>
+            <State Name="Pushed">
+                <Item Name="Bottom" Image="sm_small5_d" />
+                <Item Name="Center" Image="sm_small5_c" />
+                <Item Name="Left" Image="sm_small5_l" />
+                <Item Name="LeftBottom" Image="sm_small5_ldc" />
+                <Item Name="LeftTop" Image="sm_small5_luc" />
+                <Item Name="Right" Image="sm_small5_r" />
+                <Item Name="RightBottom" Image="sm_small5_rdc" />
+                <Item Name="RightTop" Image="sm_small5_ruc" />
+                <Item Name="Top" Image="sm_small5_u" />
+            </State>
+        </Style>
+        <Style Name="DA_Smooth10px_Colored" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Focus">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Highlight">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="sm_small_d" />
+                <Item Name="Center" Image="sm_small_c" />
+                <Item Name="Left" Image="sm_small_l" />
+                <Item Name="LeftBottom" Image="sm_small_ldc" />
+                <Item Name="LeftTop" Image="sm_small_luc" />
+                <Item Name="Right" Image="sm_small_r" />
+                <Item Name="RightBottom" Image="sm_small_rdc" />
+                <Item Name="RightTop" Image="sm_small_ruc" />
+                <Item Name="Top" Image="sm_small_u" />
+            </State>
+            <State Name="Pushed">
+                <Item Name="Bottom" Image="sm_small_d" />
+                <Item Name="Center" Image="sm_small_c" />
+                <Item Name="Left" Image="sm_small_l" />
+                <Item Name="LeftBottom" Image="sm_small_ldc" />
+                <Item Name="LeftTop" Image="sm_small_luc" />
+                <Item Name="Right" Image="sm_small_r" />
+                <Item Name="RightBottom" Image="sm_small_rdc" />
+                <Item Name="RightTop" Image="sm_small_ruc" />
+                <Item Name="Top" Image="sm_small_u" />
+            </State>
+        </Style>
+        <Style Name="DA_Smooth10px_ColoredStr" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Focus">
+                <Item Name="Bottom" Image="sm_str1_small10_d" />
+                <Item Name="Center" Image="sm_str1_small10_c" />
+                <Item Name="Left" Image="sm_str1_small10_l" />
+                <Item Name="LeftBottom" Image="sm_str1_small10_ldc" />
+                <Item Name="LeftTop" Image="sm_str1_small10_luc" />
+                <Item Name="Right" Image="sm_str1_small10_r" />
+                <Item Name="RightBottom" Image="sm_str1_small10_rdc" />
+                <Item Name="RightTop" Image="sm_str1_small10_ruc" />
+                <Item Name="Top" Image="sm_str1_small10_u" />
+            </State>
+            <State Name="Highlight">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="sm_str_small10_d" />
+                <Item Name="Center" Image="sm_str_small10_ce" />
+                <Item Name="Left" Image="sm_str_small10_l" />
+                <Item Name="LeftBottom" Image="sm_str_small10_ldc" />
+                <Item Name="LeftTop" Image="sm_str_small10_luc" />
+                <Item Name="Right" Image="sm_str_small10_r" />
+                <Item Name="RightBottom" Image="sm_str_small10_rdc" />
+                <Item Name="RightTop" Image="sm_str_small10_ruc" />
+                <Item Name="Top" Image="sm_str_small10_u" />
+            </State>
+            <State Name="Pushed">
+                <Item Name="Bottom" Image="sm_small_d" />
+                <Item Name="Center" Image="sm_small_c" />
+                <Item Name="Left" Image="sm_small_l" />
+                <Item Name="LeftBottom" Image="sm_small_ldc" />
+                <Item Name="LeftTop" Image="sm_small_luc" />
+                <Item Name="Right" Image="sm_small_r" />
+                <Item Name="RightBottom" Image="sm_small_rdc" />
+                <Item Name="RightTop" Image="sm_small_ruc" />
+                <Item Name="Top" Image="sm_small_u" />
+            </State>
+        </Style>
+        <Style Name="DA_Squad_Colored" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Focus">
+                <Item Name="Bottom" Image="sq_small_d" />
+                <Item Name="Center" Image="sq_small_center" />
+                <Item Name="Left" Image="sq_small_l" />
+                <Item Name="LeftBottom" Image="sq_small_ldc" />
+                <Item Name="LeftTop" Image="sq_small_luc" />
+                <Item Name="Right" Image="sq_small_r" />
+                <Item Name="RightBottom" Image="sq_small_rdc" />
+                <Item Name="RightTop" Image="sq_small_ruc" />
+                <Item Name="Top" Image="sq_small_u" />
+            </State>
+            <State Name="Highlight">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="sq_small_d" />
+                <Item Name="Center" Image="sq_small_center" />
+                <Item Name="Left" Image="sq_small_l" />
+                <Item Name="LeftBottom" Image="sq_small_ldc" />
+                <Item Name="LeftTop" Image="sq_small_luc" />
+                <Item Name="Right" Image="sq_small_r" />
+                <Item Name="RightBottom" Image="sq_small_rdc" />
+                <Item Name="RightTop" Image="sq_small_ruc" />
+                <Item Name="Top" Image="sq_small_u" />
+            </State>
+            <State Name="Pushed">
+                <Item Name="Bottom" Image="sq_small_d" />
+                <Item Name="Center" Image="sq_small_center" />
+                <Item Name="Left" Image="sq_small_l" />
+                <Item Name="LeftBottom" Image="sq_small_ldc" />
+                <Item Name="LeftTop" Image="sq_small_luc" />
+                <Item Name="Right" Image="sq_small_r" />
+                <Item Name="RightBottom" Image="sq_small_rdc" />
+                <Item Name="RightTop" Image="sq_small_ruc" />
+                <Item Name="Top" Image="sq_small_u" />
+            </State>
+        </Style>
+        <Style Name="DA_Squad_ColoredStr" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Focus">
+                <Item Name="Bottom" Image="sq_str1_small_d" />
+                <Item Name="Center" Image="sq_str1_small_center" />
+                <Item Name="Left" Image="sq_str1_small_l" />
+                <Item Name="LeftBottom" Image="sq_str1_small_ldc" />
+                <Item Name="LeftTop" Image="sq_str1_small_luc" />
+                <Item Name="Right" Image="sq_str1_small_r" />
+                <Item Name="RightBottom" Image="sq_str1_small_rdc" />
+                <Item Name="RightTop" Image="sq_str1_small_ruc" />
+                <Item Name="Top" Image="sq_str1_small_u" />
+            </State>
+            <State Name="Highlight">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="sq_str_small_d" />
+                <Item Name="Center" Image="sq_str_small_center" />
+                <Item Name="Left" Image="sq_str_small_l" />
+                <Item Name="LeftBottom" Image="sq_str_small_ldc" />
+                <Item Name="LeftTop" Image="sq_str_small_luc" />
+                <Item Name="Right" Image="sq_str_small_r" />
+                <Item Name="RightBottom" Image="sq_str_small_rdc" />
+                <Item Name="RightTop" Image="sq_str_small_ruc" />
+                <Item Name="Top" Image="sq_str_small_u" />
+            </State>
+            <State Name="Pushed">
+                <Item Name="Bottom" Image="sq_small_d" />
+                <Item Name="Center" Image="sq_small_center" />
+                <Item Name="Left" Image="sq_small_l" />
+                <Item Name="LeftBottom" Image="sq_small_ldc" />
+                <Item Name="LeftTop" Image="sq_small_luc" />
+                <Item Name="Right" Image="sq_small_r" />
+                <Item Name="RightBottom" Image="sq_small_rdc" />
+                <Item Name="RightTop" Image="sq_small_ruc" />
+                <Item Name="Top" Image="sq_small_u" />
+            </State>
+        </Style>
+        <Style Name="DA_Circle50px" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Focus">
+                <Item Name="Bottom" Image="1" />
+                <Item Name="Center" Image="Circle_Small3" />
+                <Item Name="Left" Image="1" />
+                <Item Name="LeftBottom" Image="1" />
+                <Item Name="LeftTop" Image="1" />
+                <Item Name="Right" Image="1" />
+                <Item Name="RightBottom" Image="1" />
+                <Item Name="RightTop" Image="1" />
+                <Item Name="Top" Image="1" />
+            </State>
+            <State Name="Highlight">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="1" />
+                <Item Name="Center" Image="Circle_Small2" />
+                <Item Name="Left" Image="1" />
+                <Item Name="LeftBottom" Image="1" />
+                <Item Name="LeftTop" Image="1" />
+                <Item Name="Right" Image="1" />
+                <Item Name="RightBottom" Image="1" />
+                <Item Name="RightTop" Image="1" />
+                <Item Name="Top" Image="1" />
+            </State>
+            <State Name="Pushed">
+                <Item Name="Bottom" Image="1" />
+                <Item Name="Center" Image="Circle_Small" />
+                <Item Name="Left" Image="1" />
+                <Item Name="LeftBottom" Image="1" />
+                <Item Name="LeftTop" Image="1" />
+                <Item Name="Right" Image="1" />
+                <Item Name="RightBottom" Image="1" />
+                <Item Name="RightTop" Image="1" />
+                <Item Name="Top" Image="1" />
+            </State>
+        </Style>
+        <Style Name="DA_Circle100px" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Focus">
+                <Item Name="Bottom" Image="1" />
+                <Item Name="Center" Image="Circle2_Stroke100" />
+                <Item Name="Left" Image="1" />
+                <Item Name="LeftBottom" Image="1" />
+                <Item Name="LeftTop" Image="1" />
+                <Item Name="Right" Image="1" />
+                <Item Name="RightBottom" Image="1" />
+                <Item Name="RightTop" Image="1" />
+                <Item Name="Top" Image="1" />
+            </State>
+            <State Name="Highlight">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="1" />
+                <Item Name="Center" Image="Circle1_Stroke100" />
+                <Item Name="Left" Image="1" />
+                <Item Name="LeftBottom" Image="1" />
+                <Item Name="LeftTop" Image="1" />
+                <Item Name="Right" Image="1" />
+                <Item Name="RightBottom" Image="1" />
+                <Item Name="RightTop" Image="1" />
+                <Item Name="Top" Image="1" />
+            </State>
+            <State Name="Pushed">
+                <Item Name="Bottom" Image="1" />
+                <Item Name="Center" Image="Circle100" />
+                <Item Name="Left" Image="1" />
+                <Item Name="LeftBottom" Image="1" />
+                <Item Name="LeftTop" Image="1" />
+                <Item Name="Right" Image="1" />
+                <Item Name="RightBottom" Image="1" />
+                <Item Name="RightTop" Image="1" />
+                <Item Name="Top" Image="1" />
+            </State>
+        </Style>
+    </Widget>
+    <Widget Name="ButtonWidget">
+        <Style Name="DA_Smooth5px_Colored" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Focus">
+                <Item Name="Bottom" Image="sm_small5_d" />
+                <Item Name="Center" Image="sm_small5_c" />
+                <Item Name="Left" Image="sm_small5_l" />
+                <Item Name="LeftBottom" Image="sm_small5_ldc" />
+                <Item Name="LeftTop" Image="sm_small5_luc" />
+                <Item Name="Right" Image="sm_small5_r" />
+                <Item Name="RightBottom" Image="sm_small5_rdc" />
+                <Item Name="RightTop" Image="sm_small5_ruc" />
+                <Item Name="Top" Image="sm_small5_u" />
+            </State>
+            <State Name="Highlight">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="sm_small5_d" />
+                <Item Name="Center" Image="sm_small5_c" />
+                <Item Name="Left" Image="sm_small5_l" />
+                <Item Name="LeftBottom" Image="sm_small5_ldc" />
+                <Item Name="LeftTop" Image="sm_small5_luc" />
+                <Item Name="Right" Image="sm_small5_r" />
+                <Item Name="RightBottom" Image="sm_small5_rdc" />
+                <Item Name="RightTop" Image="sm_small5_ruc" />
+                <Item Name="Top" Image="sm_small5_u" />
+            </State>
+            <State Name="Pushed">
+                <Item Name="Bottom" Image="sm_small5_d" />
+                <Item Name="Center" Image="sm_small5_c" />
+                <Item Name="Left" Image="sm_small5_l" />
+                <Item Name="LeftBottom" Image="sm_small5_ldc" />
+                <Item Name="LeftTop" Image="sm_small5_luc" />
+                <Item Name="Right" Image="sm_small5_r" />
+                <Item Name="RightBottom" Image="sm_small5_rdc" />
+                <Item Name="RightTop" Image="sm_small5_ruc" />
+                <Item Name="Top" Image="sm_small5_u" />
+            </State>
+        </Style>
+        <Style Name="DA_Smooth5px_ColoredStr" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Focus">
+                <Item Name="Bottom" Image="sm_str1_small5_d" />
+                <Item Name="Center" Image="sm_str1_small5_center" />
+                <Item Name="Left" Image="sm_str1_small5_l" />
+                <Item Name="LeftBottom" Image="sm_str1_small5_ldc" />
+                <Item Name="LeftTop" Image="sm_str1_small5_luc" />
+                <Item Name="Right" Image="sm_str1_small5_r" />
+                <Item Name="RightBottom" Image="sm_str1_small5_rdc" />
+                <Item Name="RightTop" Image="sm_str1_small5_ruc" />
+                <Item Name="Top" Image="sm_str1_small5_u" />
+            </State>
+            <State Name="Highlight">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="sm_str_small5_d" />
+                <Item Name="Center" Image="sm_str_small5_c" />
+                <Item Name="Left" Image="sm_str_small5_l" />
+                <Item Name="LeftBottom" Image="sm_str_small5_ldc" />
+                <Item Name="LeftTop" Image="sm_str_small5_luc" />
+                <Item Name="Right" Image="sm_str_small5_r" />
+                <Item Name="RightBottom" Image="sm_str_small5_rdc" />
+                <Item Name="RightTop" Image="sm_str_small5_ruc" />
+                <Item Name="Top" Image="sm_str_small5_u" />
+            </State>
+            <State Name="Pushed">
+                <Item Name="Bottom" Image="sm_small5_d" />
+                <Item Name="Center" Image="sm_small5_c" />
+                <Item Name="Left" Image="sm_small5_l" />
+                <Item Name="LeftBottom" Image="sm_small5_ldc" />
+                <Item Name="LeftTop" Image="sm_small5_luc" />
+                <Item Name="Right" Image="sm_small5_r" />
+                <Item Name="RightBottom" Image="sm_small5_rdc" />
+                <Item Name="RightTop" Image="sm_small5_ruc" />
+                <Item Name="Top" Image="sm_small5_u" />
+            </State>
+        </Style>
+        <Style Name="DA_Smooth10px_Colored" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Focus">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Highlight">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="sm_small_d" />
+                <Item Name="Center" Image="sm_small_c" />
+                <Item Name="Left" Image="sm_small_l" />
+                <Item Name="LeftBottom" Image="sm_small_ldc" />
+                <Item Name="LeftTop" Image="sm_small_luc" />
+                <Item Name="Right" Image="sm_small_r" />
+                <Item Name="RightBottom" Image="sm_small_rdc" />
+                <Item Name="RightTop" Image="sm_small_ruc" />
+                <Item Name="Top" Image="sm_small_u" />
+            </State>
+            <State Name="Pushed">
+                <Item Name="Bottom" Image="sm_small_d" />
+                <Item Name="Center" Image="sm_small_c" />
+                <Item Name="Left" Image="sm_small_l" />
+                <Item Name="LeftBottom" Image="sm_small_ldc" />
+                <Item Name="LeftTop" Image="sm_small_luc" />
+                <Item Name="Right" Image="sm_small_r" />
+                <Item Name="RightBottom" Image="sm_small_rdc" />
+                <Item Name="RightTop" Image="sm_small_ruc" />
+                <Item Name="Top" Image="sm_small_u" />
+            </State>
+        </Style>
+        <Style Name="DA_Smooth10px_ColoredStr" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Focus">
+                <Item Name="Bottom" Image="sm_str1_small10_d" />
+                <Item Name="Center" Image="sm_str1_small10_c" />
+                <Item Name="Left" Image="sm_str1_small10_l" />
+                <Item Name="LeftBottom" Image="sm_str1_small10_ldc" />
+                <Item Name="LeftTop" Image="sm_str1_small10_luc" />
+                <Item Name="Right" Image="sm_str1_small10_r" />
+                <Item Name="RightBottom" Image="sm_str1_small10_rdc" />
+                <Item Name="RightTop" Image="sm_str1_small10_ruc" />
+                <Item Name="Top" Image="sm_str1_small10_u" />
+            </State>
+            <State Name="Highlight">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="sm_str_small10_d" />
+                <Item Name="Center" Image="sm_str_small10_ce" />
+                <Item Name="Left" Image="sm_str_small10_l" />
+                <Item Name="LeftBottom" Image="sm_str_small10_ldc" />
+                <Item Name="LeftTop" Image="sm_str_small10_luc" />
+                <Item Name="Right" Image="sm_str_small10_r" />
+                <Item Name="RightBottom" Image="sm_str_small10_rdc" />
+                <Item Name="RightTop" Image="sm_str_small10_ruc" />
+                <Item Name="Top" Image="sm_str_small10_u" />
+            </State>
+            <State Name="Pushed">
+                <Item Name="Bottom" Image="sm_small_d" />
+                <Item Name="Center" Image="sm_small_c" />
+                <Item Name="Left" Image="sm_small_l" />
+                <Item Name="LeftBottom" Image="sm_small_ldc" />
+                <Item Name="LeftTop" Image="sm_small_luc" />
+                <Item Name="Right" Image="sm_small_r" />
+                <Item Name="RightBottom" Image="sm_small_rdc" />
+                <Item Name="RightTop" Image="sm_small_ruc" />
+                <Item Name="Top" Image="sm_small_u" />
+            </State>
+        </Style>
+        <Style Name="DA_Squad_Colored" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Focus">
+                <Item Name="Bottom" Image="sq_small_d" />
+                <Item Name="Center" Image="sq_small_center" />
+                <Item Name="Left" Image="sq_small_l" />
+                <Item Name="LeftBottom" Image="sq_small_ldc" />
+                <Item Name="LeftTop" Image="sq_small_luc" />
+                <Item Name="Right" Image="sq_small_r" />
+                <Item Name="RightBottom" Image="sq_small_rdc" />
+                <Item Name="RightTop" Image="sq_small_ruc" />
+                <Item Name="Top" Image="sq_small_u" />
+            </State>
+            <State Name="Highlight">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="sq_small_d" />
+                <Item Name="Center" Image="sq_small_center" />
+                <Item Name="Left" Image="sq_small_l" />
+                <Item Name="LeftBottom" Image="sq_small_ldc" />
+                <Item Name="LeftTop" Image="sq_small_luc" />
+                <Item Name="Right" Image="sq_small_r" />
+                <Item Name="RightBottom" Image="sq_small_rdc" />
+                <Item Name="RightTop" Image="sq_small_ruc" />
+                <Item Name="Top" Image="sq_small_u" />
+            </State>
+            <State Name="Pushed">
+                <Item Name="Bottom" Image="sq_small_d" />
+                <Item Name="Center" Image="sq_small_center" />
+                <Item Name="Left" Image="sq_small_l" />
+                <Item Name="LeftBottom" Image="sq_small_ldc" />
+                <Item Name="LeftTop" Image="sq_small_luc" />
+                <Item Name="Right" Image="sq_small_r" />
+                <Item Name="RightBottom" Image="sq_small_rdc" />
+                <Item Name="RightTop" Image="sq_small_ruc" />
+                <Item Name="Top" Image="sq_small_u" />
+            </State>
+        </Style>
+        <Style Name="DA_Squad_ColoredStr" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Focus">
+                <Item Name="Bottom" Image="sq_str1_small_d" />
+                <Item Name="Center" Image="sq_str1_small_center" />
+                <Item Name="Left" Image="sq_str1_small_l" />
+                <Item Name="LeftBottom" Image="sq_str1_small_ldc" />
+                <Item Name="LeftTop" Image="sq_str1_small_luc" />
+                <Item Name="Right" Image="sq_str1_small_r" />
+                <Item Name="RightBottom" Image="sq_str1_small_rdc" />
+                <Item Name="RightTop" Image="sq_str1_small_ruc" />
+                <Item Name="Top" Image="sq_str1_small_u" />
+            </State>
+            <State Name="Highlight">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="sq_str_small_d" />
+                <Item Name="Center" Image="sq_str_small_center" />
+                <Item Name="Left" Image="sq_str_small_l" />
+                <Item Name="LeftBottom" Image="sq_str_small_ldc" />
+                <Item Name="LeftTop" Image="sq_str_small_luc" />
+                <Item Name="Right" Image="sq_str_small_r" />
+                <Item Name="RightBottom" Image="sq_str_small_rdc" />
+                <Item Name="RightTop" Image="sq_str_small_ruc" />
+                <Item Name="Top" Image="sq_str_small_u" />
+            </State>
+            <State Name="Pushed">
+                <Item Name="Bottom" Image="sq_small_d" />
+                <Item Name="Center" Image="sq_small_center" />
+                <Item Name="Left" Image="sq_small_l" />
+                <Item Name="LeftBottom" Image="sq_small_ldc" />
+                <Item Name="LeftTop" Image="sq_small_luc" />
+                <Item Name="Right" Image="sq_small_r" />
+                <Item Name="RightBottom" Image="sq_small_rdc" />
+                <Item Name="RightTop" Image="sq_small_ruc" />
+                <Item Name="Top" Image="sq_small_u" />
+            </State>
+        </Style>
+        <Style Name="DA_Circle50px" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Focus">
+                <Item Name="Bottom" Image="1" />
+                <Item Name="Center" Image="Circle_Small3" />
+                <Item Name="Left" Image="1" />
+                <Item Name="LeftBottom" Image="1" />
+                <Item Name="LeftTop" Image="1" />
+                <Item Name="Right" Image="1" />
+                <Item Name="RightBottom" Image="1" />
+                <Item Name="RightTop" Image="1" />
+                <Item Name="Top" Image="1" />
+            </State>
+            <State Name="Highlight">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="1" />
+                <Item Name="Center" Image="Circle_Small2" />
+                <Item Name="Left" Image="1" />
+                <Item Name="LeftBottom" Image="1" />
+                <Item Name="LeftTop" Image="1" />
+                <Item Name="Right" Image="1" />
+                <Item Name="RightBottom" Image="1" />
+                <Item Name="RightTop" Image="1" />
+                <Item Name="Top" Image="1" />
+            </State>
+            <State Name="Pushed">
+                <Item Name="Bottom" Image="1" />
+                <Item Name="Center" Image="Circle_Small" />
+                <Item Name="Left" Image="1" />
+                <Item Name="LeftBottom" Image="1" />
+                <Item Name="LeftTop" Image="1" />
+                <Item Name="Right" Image="1" />
+                <Item Name="RightBottom" Image="1" />
+                <Item Name="RightTop" Image="1" />
+                <Item Name="Top" Image="1" />
+            </State>
+        </Style>
+        <Style Name="DA_Circle100px" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Focus">
+                <Item Name="Bottom" Image="1" />
+                <Item Name="Center" Image="Circle2_Stroke100" />
+                <Item Name="Left" Image="1" />
+                <Item Name="LeftBottom" Image="1" />
+                <Item Name="LeftTop" Image="1" />
+                <Item Name="Right" Image="1" />
+                <Item Name="RightBottom" Image="1" />
+                <Item Name="RightTop" Image="1" />
+                <Item Name="Top" Image="1" />
+            </State>
+            <State Name="Highlight">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="1" />
+                <Item Name="Center" Image="Circle1_Stroke100" />
+                <Item Name="Left" Image="1" />
+                <Item Name="LeftBottom" Image="1" />
+                <Item Name="LeftTop" Image="1" />
+                <Item Name="Right" Image="1" />
+                <Item Name="RightBottom" Image="1" />
+                <Item Name="RightTop" Image="1" />
+                <Item Name="Top" Image="1" />
+            </State>
+            <State Name="Pushed">
+                <Item Name="Bottom" Image="1" />
+                <Item Name="Center" Image="Circle100" />
+                <Item Name="Left" Image="1" />
+                <Item Name="LeftBottom" Image="1" />
+                <Item Name="LeftTop" Image="1" />
+                <Item Name="Right" Image="1" />
+                <Item Name="RightBottom" Image="1" />
+                <Item Name="RightTop" Image="1" />
+                <Item Name="Top" Image="1" />
+            </State>
+        </Style>
+        <Style Name="Corny_Btn_Green" Font="gui/fonts/AmorSerifPro-Bold" ImageSet="CornyPanelsButton" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="side_bottom_green_d" />
+                <Item Name="Center" Image="center_green_d" />
+                <Item Name="Left" Image="side_left_green_d" />
+                <Item Name="LeftBottom" Image="bottom_left_corner_green_d" />
+                <Item Name="LeftTop" Image="top_left_corner_green_d" />
+                <Item Name="Right" Image="side_right_green_d" />
+                <Item Name="RightBottom" Image="bottom_right_corner_green_d" />
+                <Item Name="RightTop" Image="top_right_corner_green_d" />
+                <Item Name="Top" Image="side_top_green_d" />
+            </State>
+            <State Name="Focus">
+                <Item Name="Bottom" Image="side_bottom_green_f" />
+                <Item Name="Center" Image="center_green_f" />
+                <Item Name="Left" Image="side_left_green_f" />
+                <Item Name="LeftBottom" Image="bottom_left_corner_green_f" />
+                <Item Name="LeftTop" Image="top_left_corner_green_f" />
+                <Item Name="Right" Image="side_right_green_f" />
+                <Item Name="RightBottom" Image="bottom_right_corner_green_f" />
+                <Item Name="RightTop" Image="top_right_corner_green_f" />
+                <Item Name="Top" Image="side_top_green_f" />
+            </State>
+            <State Name="Highlight">
+                <Item Name="Bottom" Image="side_bottom_green_h" />
+                <Item Name="Center" Image="center_green_h" />
+                <Item Name="Left" Image="side_left_green_h" />
+                <Item Name="LeftBottom" Image="bottom_left_corner_green_h" />
+                <Item Name="LeftTop" Image="top_left_corner_green_h" />
+                <Item Name="Right" Image="side_right_green_h" />
+                <Item Name="RightBottom" Image="bottom_right_corner_green_h" />
+                <Item Name="RightTop" Image="top_right_corner_green_h" />
+                <Item Name="Top" Image="side_top_green_h" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="side_bottom_green_n" />
+                <Item Name="Center" Image="center_green_n" />
+                <Item Name="Left" Image="side_left_green_n" />
+                <Item Name="LeftBottom" Image="bottom_left_corner_green_n" />
+                <Item Name="LeftTop" Image="top_left_corner_green_n" />
+                <Item Name="Right" Image="side_right_green_n" />
+                <Item Name="RightBottom" Image="bottom_right_corner_green_n" />
+                <Item Name="RightTop" Image="top_right_corner_green_n" />
+                <Item Name="Top" Image="side_top_green_n" />
+            </State>
+            <State Name="Pushed">
+                <Item Name="Bottom" Image="side_bottom_green_f" />
+                <Item Name="Center" Image="center_green_f" />
+                <Item Name="Left" Image="side_left_green_f" />
+                <Item Name="LeftBottom" Image="bottom_left_corner_green_f" />
+                <Item Name="LeftTop" Image="top_left_corner_green_f" />
+                <Item Name="Right" Image="side_right_green_f" />
+                <Item Name="RightBottom" Image="bottom_right_corner_green_f" />
+                <Item Name="RightTop" Image="top_right_corner_green_f" />
+                <Item Name="Top" Image="side_top_green_f" />
+            </State>
+        </Style>
+        <Style Name="Corny_Btn_Red" Font="gui/fonts/AmorSerifPro-Bold" ImageSet="CornyPanelsButton" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="side_bottom_red_d" />
+                <Item Name="Center" Image="center_red_d" />
+                <Item Name="Left" Image="side_left_red_d" />
+                <Item Name="LeftBottom" Image="bottom_left_corner_red_d" />
+                <Item Name="LeftTop" Image="top_left_corner_red_d" />
+                <Item Name="Right" Image="side_right_red_d" />
+                <Item Name="RightBottom" Image="bottom_right_corner_red_d" />
+                <Item Name="RightTop" Image="top_right_corner_red_d" />
+                <Item Name="Top" Image="side_top_red_d" />
+            </State>
+            <State Name="Focus">
+                <Item Name="Bottom" Image="side_bottom_red_f" />
+                <Item Name="Center" Image="center_red_f" />
+                <Item Name="Left" Image="side_left_red_f" />
+                <Item Name="LeftBottom" Image="bottom_left_corner_red_f" />
+                <Item Name="LeftTop" Image="top_left_corner_red_f" />
+                <Item Name="Right" Image="side_right_red_f" />
+                <Item Name="RightBottom" Image="bottom_right_corner_red_f" />
+                <Item Name="RightTop" Image="top_right_corner_red_f" />
+                <Item Name="Top" Image="side_top_red_f" />
+            </State>
+            <State Name="Highlight">
+                <Item Name="Bottom" Image="side_bottom_red_h" />
+                <Item Name="Center" Image="center_red_h" />
+                <Item Name="Left" Image="side_left_red_h" />
+                <Item Name="LeftBottom" Image="bottom_left_corner_red_h" />
+                <Item Name="LeftTop" Image="top_left_corner_red_h" />
+                <Item Name="Right" Image="side_right_red_h" />
+                <Item Name="RightBottom" Image="bottom_right_corner_red_h" />
+                <Item Name="RightTop" Image="top_right_corner_red_h" />
+                <Item Name="Top" Image="side_top_red_h" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="side_bottom_red_n" />
+                <Item Name="Center" Image="center_red_n" />
+                <Item Name="Left" Image="side_left_red_n" />
+                <Item Name="LeftBottom" Image="bottom_left_corner_red_n" />
+                <Item Name="LeftTop" Image="top_left_corner_red_n" />
+                <Item Name="Right" Image="side_right_red_n" />
+                <Item Name="RightBottom" Image="bottom_right_corner_red_n" />
+                <Item Name="RightTop" Image="top_right_corner_red_n" />
+                <Item Name="Top" Image="side_top_red_n" />
+            </State>
+            <State Name="Pushed">
+                <Item Name="Bottom" Image="side_bottom_red_f" />
+                <Item Name="Center" Image="center_red_f" />
+                <Item Name="Left" Image="side_left_red_f" />
+                <Item Name="LeftBottom" Image="bottom_left_corner_red_f" />
+                <Item Name="LeftTop" Image="top_left_corner_red_f" />
+                <Item Name="Right" Image="side_right_red_f" />
+                <Item Name="RightBottom" Image="bottom_right_corner_red_f" />
+                <Item Name="RightTop" Image="top_right_corner_red_f" />
+                <Item Name="Top" Image="side_top_red_f" />
+            </State>
+        </Style>
+        <Style Name="Corny_Btn_Blue" Font="gui/fonts/AmorSerifPro-Bold" ImageSet="CornyPanelsButton" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="side_bottom_blue_d" />
+                <Item Name="Center" Image="center_blue_d" />
+                <Item Name="Left" Image="side_left_blue_d" />
+                <Item Name="LeftBottom" Image="bottom_left_corner_blue_d" />
+                <Item Name="LeftTop" Image="top_left_corner_blue_d" />
+                <Item Name="Right" Image="side_right_blue_d" />
+                <Item Name="RightBottom" Image="bottom_right_corner_blue_d" />
+                <Item Name="RightTop" Image="top_right_corner_blue_d" />
+                <Item Name="Top" Image="side_top_blue_d" />
+            </State>
+            <State Name="Focus">
+                <Item Name="Bottom" Image="side_bottom_blue_f" />
+                <Item Name="Center" Image="center_blue_f" />
+                <Item Name="Left" Image="side_left_blue_f" />
+                <Item Name="LeftBottom" Image="bottom_left_corner_blue_f" />
+                <Item Name="LeftTop" Image="top_left_corner_blue_f" />
+                <Item Name="Right" Image="side_right_blue_f" />
+                <Item Name="RightBottom" Image="bottom_right_corner_blue_f" />
+                <Item Name="RightTop" Image="top_right_corner_blue_f" />
+                <Item Name="Top" Image="side_top_blue_f" />
+            </State>
+            <State Name="Highlight">
+                <Item Name="Bottom" Image="side_bottom_blue_h" />
+                <Item Name="Center" Image="center_blue_h" />
+                <Item Name="Left" Image="side_left_blue_h" />
+                <Item Name="LeftBottom" Image="bottom_left_corner_blue_h" />
+                <Item Name="LeftTop" Image="top_left_corner_blue_h" />
+                <Item Name="Right" Image="side_right_blue_h" />
+                <Item Name="RightBottom" Image="bottom_right_corner_blue_h" />
+                <Item Name="RightTop" Image="top_right_corner_blue_h" />
+                <Item Name="Top" Image="side_top_blue_h" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="side_bottom_blue_n" />
+                <Item Name="Center" Image="center_blue_n" />
+                <Item Name="Left" Image="side_left_blue_n" />
+                <Item Name="LeftBottom" Image="bottom_left_corner_blue_n" />
+                <Item Name="LeftTop" Image="top_left_corner_blue_n" />
+                <Item Name="Right" Image="side_right_blue_n" />
+                <Item Name="RightBottom" Image="bottom_right_corner_blue_n" />
+                <Item Name="RightTop" Image="top_right_corner_blue_n" />
+                <Item Name="Top" Image="side_top_blue_n" />
+            </State>
+            <State Name="Pushed">
+                <Item Name="Bottom" Image="side_bottom_blue_f" />
+                <Item Name="Center" Image="center_blue_f" />
+                <Item Name="Left" Image="side_left_blue_f" />
+                <Item Name="LeftBottom" Image="bottom_left_corner_blue_f" />
+                <Item Name="LeftTop" Image="top_left_corner_blue_f" />
+                <Item Name="Right" Image="side_right_blue_f" />
+                <Item Name="RightBottom" Image="bottom_right_corner_blue_f" />
+                <Item Name="RightTop" Image="top_right_corner_blue_f" />
+                <Item Name="Top" Image="side_top_blue_f" />
+            </State>
+        </Style>
+        <Style Name="Corny_Shadow_10px" Font="gui/fonts/7segment22" ImageSet="CornyPanelsButton" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="side_bottom_10px" />
+                <Item Name="Center" Image="center_10px" />
+                <Item Name="Left" Image="side_left_10px" />
+                <Item Name="LeftBottom" Image="right_left_corner_10px" />
+                <Item Name="LeftTop" Image="top_left_corner_10px" />
+                <Item Name="Right" Image="side_right_10px" />
+                <Item Name="RightBottom" Image="bottom_right_corner_10px" />
+                <Item Name="RightTop" Image="top_right_corner_10px" />
+                <Item Name="Top" Image="side_top_10px" />
+            </State>
+            <State Name="Focus">
+                <Item Name="Bottom" Image="side_bottom_10px" />
+                <Item Name="Center" Image="center_10px" />
+                <Item Name="Left" Image="side_left_10px" />
+                <Item Name="LeftBottom" Image="right_left_corner_10px" />
+                <Item Name="LeftTop" Image="top_left_corner_10px" />
+                <Item Name="Right" Image="side_right_10px" />
+                <Item Name="RightBottom" Image="bottom_right_corner_10px" />
+                <Item Name="RightTop" Image="top_right_corner_10px" />
+                <Item Name="Top" Image="side_top_10px" />
+            </State>
+            <State Name="Highlight">
+                <Item Name="Bottom" Image="side_bottom_10px" />
+                <Item Name="Center" Image="center_10px" />
+                <Item Name="Left" Image="side_left_10px" />
+                <Item Name="LeftBottom" Image="right_left_corner_10px" />
+                <Item Name="LeftTop" Image="top_left_corner_10px" />
+                <Item Name="Right" Image="side_right_10px" />
+                <Item Name="RightBottom" Image="bottom_right_corner_10px" />
+                <Item Name="RightTop" Image="top_right_corner_10px" />
+                <Item Name="Top" Image="side_top_10px" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="side_bottom_10px" />
+                <Item Name="Center" Image="center_10px" />
+                <Item Name="Left" Image="side_left_10px" />
+                <Item Name="LeftBottom" Image="right_left_corner_10px" />
+                <Item Name="LeftTop" Image="top_left_corner_10px" />
+                <Item Name="Right" Image="side_right_10px" />
+                <Item Name="RightBottom" Image="bottom_right_corner_10px" />
+                <Item Name="RightTop" Image="top_right_corner_10px" />
+                <Item Name="Top" Image="side_top_10px" />
+            </State>
+            <State Name="Pushed">
+                <Item Name="Bottom" Image="side_bottom_10px" />
+                <Item Name="Center" Image="center_10px" />
+                <Item Name="Left" Image="side_left_10px" />
+                <Item Name="LeftBottom" Image="right_left_corner_10px" />
+                <Item Name="LeftTop" Image="top_left_corner_10px" />
+                <Item Name="Right" Image="side_right_10px" />
+                <Item Name="RightBottom" Image="bottom_right_corner_10px" />
+                <Item Name="RightTop" Image="top_right_corner_10px" />
+                <Item Name="Top" Image="side_top_10px" />
+            </State>
+        </Style>
+        <Style Name="Corny_Shadow_5px" Font="gui/fonts/7segment22" ImageSet="CornyPanelsButton" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="bottom_ss" />
+                <Item Name="Center" Image="center_ss" />
+                <Item Name="Left" Image="leftside_ss" />
+                <Item Name="LeftBottom" Image="bottomleft_ss" />
+                <Item Name="LeftTop" Image="topleft_ss" />
+                <Item Name="Right" Image="right_ss" />
+                <Item Name="RightBottom" Image="bottomright_ss" />
+                <Item Name="RightTop" Image="topright_ss" />
+                <Item Name="Top" Image="top_ss" />
+            </State>
+            <State Name="Focus">
+                <Item Name="Bottom" Image="bottom_ss" />
+                <Item Name="Center" Image="center_ss" />
+                <Item Name="Left" Image="leftside_ss" />
+                <Item Name="LeftBottom" Image="bottomleft_ss" />
+                <Item Name="LeftTop" Image="topleft_ss" />
+                <Item Name="Right" Image="right_ss" />
+                <Item Name="RightBottom" Image="bottomright_ss" />
+                <Item Name="RightTop" Image="topright_ss" />
+                <Item Name="Top" Image="top_ss" />
+            </State>
+            <State Name="Highlight">
+                <Item Name="Bottom" Image="bottom_ss" />
+                <Item Name="Center" Image="center_ss" />
+                <Item Name="Left" Image="leftside_ss" />
+                <Item Name="LeftBottom" Image="bottomleft_ss" />
+                <Item Name="LeftTop" Image="topleft_ss" />
+                <Item Name="Right" Image="right_ss" />
+                <Item Name="RightBottom" Image="bottomright_ss" />
+                <Item Name="RightTop" Image="topright_ss" />
+                <Item Name="Top" Image="top_ss" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="bottom_ss" />
+                <Item Name="Center" Image="center_ss" />
+                <Item Name="Left" Image="leftside_ss" />
+                <Item Name="LeftBottom" Image="bottomleft_ss" />
+                <Item Name="LeftTop" Image="topleft_ss" />
+                <Item Name="Right" Image="right_ss" />
+                <Item Name="RightBottom" Image="bottomright_ss" />
+                <Item Name="RightTop" Image="topright_ss" />
+                <Item Name="Top" Image="top_ss" />
+            </State>
+            <State Name="Pushed">
+                <Item Name="Bottom" Image="bottom_ss" />
+                <Item Name="Center" Image="center_ss" />
+                <Item Name="Left" Image="leftside_ss" />
+                <Item Name="LeftBottom" Image="bottomleft_ss" />
+                <Item Name="LeftTop" Image="topleft_ss" />
+                <Item Name="Right" Image="right_ss" />
+                <Item Name="RightBottom" Image="bottomright_ss" />
+                <Item Name="RightTop" Image="topright_ss" />
+                <Item Name="Top" Image="top_ss" />
+            </State>
+        </Style>
+    </Widget>
+    <Widget Name="CheckBoxWidget">
+        <Style Name="DA_Squad" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="CheckBox" Image="" />
+            </State>
+            <State Name="Highlight">
+                <Item Name="CheckBox" Image="cbs" />
+            </State>
+            <State Name="Mark">
+                <Item Name="CheckBox" Image="cbmmdwadw1" />
+            </State>
+            <State Name="Normal">
+                <Item Name="CheckBox" Image="cbs" />
+            </State>
+        </Style>
+        <Style Name="DA_Squad1" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="CheckBox" Image="" />
+            </State>
+            <State Name="Highlight">
+                <Item Name="CheckBox" Image="cbs" />
+            </State>
+            <State Name="Mark">
+                <Item Name="CheckBox" Image="cbmmdwadw3" />
+            </State>
+            <State Name="Normal">
+                <Item Name="CheckBox" Image="cbs" />
+            </State>
+        </Style>
+        <Style Name="DA_Round" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="CheckBox" Image="" />
+            </State>
+            <State Name="Highlight">
+                <Item Name="CheckBox" Image="cbr" />
+            </State>
+            <State Name="Mark">
+                <Item Name="CheckBox" Image="cbmmdwadw2" />
+            </State>
+            <State Name="Normal">
+                <Item Name="CheckBox" Image="cbr" />
+            </State>
+        </Style>
+        <Style Name="DA_Round1" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="CheckBox" Image="" />
+            </State>
+            <State Name="Highlight">
+                <Item Name="CheckBox" Image="cbr" />
+            </State>
+            <State Name="Mark">
+                <Item Name="CheckBox" Image="cbmmdwadw4" />
+            </State>
+            <State Name="Normal">
+                <Item Name="CheckBox" Image="cbr" />
+            </State>
+        </Style>
+    </Widget>
+    <Widget Name="EditBoxWidget">
+        <Style Name="DA_Squad" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Focus">
+                <Item Name="Bottom" Image="sqpr1_d" />
+                <Item Name="Center" Image="sqpr1_ce" />
+                <Item Name="Left" Image="sqpr1_l" />
+                <Item Name="LeftBottom" Image="sqpr1_ldc" />
+                <Item Name="LeftTop" Image="sqpr1_luc" />
+                <Item Name="Right" Image="sqpr1_r" />
+                <Item Name="RightBottom" Image="sqpr1_rdc" />
+                <Item Name="RightTop" Image="sqpr1_ruc" />
+                <Item Name="Top" Image="sqpr1_t" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="sqpr_d" />
+                <Item Name="Center" Image="sqpr_ce" />
+                <Item Name="Left" Image="sqpr_l" />
+                <Item Name="LeftBottom" Image="sqpr_ldc" />
+                <Item Name="LeftTop" Image="sqpr_lc" />
+                <Item Name="Right" Image="sqpr_r" />
+                <Item Name="RightBottom" Image="sqpr_rdc" />
+                <Item Name="RightTop" Image="sqpr_ruc" />
+                <Item Name="Top" Image="sqpr_u" />
+            </State>
+        </Style>
+        <Style Name="DA_Smooth" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Focus">
+                <Item Name="Bottom" Image="pbt_d" />
+                <Item Name="Center" Image="pbt_c" />
+                <Item Name="Left" Image="pbt_l" />
+                <Item Name="LeftBottom" Image="pbt_ldc" />
+                <Item Name="LeftTop" Image="pbt_luc" />
+                <Item Name="Right" Image="pbt_r" />
+                <Item Name="RightBottom" Image="pbt_rdc" />
+                <Item Name="RightTop" Image="pbt_ruc" />
+                <Item Name="Top" Image="pbt_t" />
+            </State>
+            <State Name="Normal">
+                <Item Name="Bottom" Image="pbs_d" />
+                <Item Name="Center" Image="pbs_ce" />
+                <Item Name="Left" Image="pbs_l" />
+                <Item Name="LeftBottom" Image="pbs_ldc" />
+                <Item Name="LeftTop" Image="pbs_luc" />
+                <Item Name="Right" Image="pbs_r" />
+                <Item Name="RightBottom" Image="pbs_rdc" />
+                <Item Name="RightTop" Image="pbs_ruc" />
+                <Item Name="Top" Image="pbs_t" />
+            </State>
+        </Style>
+    </Widget>
+    <Widget Name="ProgressBarWidget">
+        <Style Name="DA_Smooth" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="BarBottom" Image="" />
+                <Item Name="BarCenter" Image="" />
+                <Item Name="BarLeft" Image="" />
+                <Item Name="BarLeftBottom" Image="" />
+                <Item Name="BarLeftTop" Image="" />
+                <Item Name="BarRight" Image="" />
+                <Item Name="BarRightBottom" Image="" />
+                <Item Name="BarRightTop" Image="" />
+                <Item Name="BarTop" Image="" />
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="BarBottom" Image="smprgb_d" />
+                <Item Name="BarCenter" Image="smprgb_c" />
+                <Item Name="BarLeft" Image="smprgb_l" />
+                <Item Name="BarLeftBottom" Image="smprgb_ldc" />
+                <Item Name="BarLeftTop" Image="smprgb_luc" />
+                <Item Name="BarRight" Image="smprgb_r" />
+                <Item Name="BarRightBottom" Image="smprgb_rdc" />
+                <Item Name="BarRightTop" Image="smprgb_ruc" />
+                <Item Name="BarTop" Image="smprgb_u" />
+                <Item Name="Bottom" Image="pbs_d" />
+                <Item Name="Center" Image="pbs_ce" />
+                <Item Name="Left" Image="pbs_l" />
+                <Item Name="LeftBottom" Image="pbs_ldc" />
+                <Item Name="LeftTop" Image="pbs_luc" />
+                <Item Name="Right" Image="pbs_r" />
+                <Item Name="RightBottom" Image="pbs_rdc" />
+                <Item Name="RightTop" Image="pbs_ruc" />
+                <Item Name="Top" Image="pbs_t" />
+            </State>
+        </Style>
+        <Style Name="DA_Squad" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="BarBottom" Image="" />
+                <Item Name="BarCenter" Image="" />
+                <Item Name="BarLeft" Image="" />
+                <Item Name="BarLeftBottom" Image="" />
+                <Item Name="BarLeftTop" Image="" />
+                <Item Name="BarRight" Image="" />
+                <Item Name="BarRightBottom" Image="" />
+                <Item Name="BarRightTop" Image="" />
+                <Item Name="BarTop" Image="" />
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="BarBottom" Image="pbf_d" />
+                <Item Name="BarCenter" Image="pbf_ce" />
+                <Item Name="BarLeft" Image="pbf_l" />
+                <Item Name="BarLeftBottom" Image="pbf_ldc" />
+                <Item Name="BarLeftTop" Image="pbf_luc" />
+                <Item Name="BarRight" Image="pbf_r" />
+                <Item Name="BarRightBottom" Image="pbf_rdc" />
+                <Item Name="BarRightTop" Image="pbf_ruc" />
+                <Item Name="BarTop" Image="pbf_t" />
+                <Item Name="Bottom" Image="sqpr_d" />
+                <Item Name="Center" Image="sqpr_ce" />
+                <Item Name="Left" Image="sqpr_l" />
+                <Item Name="LeftBottom" Image="sqpr_ldc" />
+                <Item Name="LeftTop" Image="sqpr_lc" />
+                <Item Name="Right" Image="sqpr_r" />
+                <Item Name="RightBottom" Image="sqpr_rdc" />
+                <Item Name="RightTop" Image="sqpr_ruc" />
+                <Item Name="Top" Image="sqpr_u" />
+            </State>
+        </Style>
+        <Style Name="DA_Round" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="BarBottom" Image="" />
+                <Item Name="BarCenter" Image="" />
+                <Item Name="BarLeft" Image="" />
+                <Item Name="BarLeftBottom" Image="" />
+                <Item Name="BarLeftTop" Image="" />
+                <Item Name="BarRight" Image="" />
+                <Item Name="BarRightBottom" Image="" />
+                <Item Name="BarRightTop" Image="" />
+                <Item Name="BarTop" Image="" />
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="BarBottom" Image="pb7_d" />
+                <Item Name="BarCenter" Image="pb7_c" />
+                <Item Name="BarLeft" Image="pb7_l" />
+                <Item Name="BarLeftBottom" Image="pb7_ldc" />
+                <Item Name="BarLeftTop" Image="pb7_luc" />
+                <Item Name="BarRight" Image="pb7_r" />
+                <Item Name="BarRightBottom" Image="pb7_rdc" />
+                <Item Name="BarRightTop" Image="pb7_ruc" />
+                <Item Name="BarTop" Image="pb7_t" />
+                <Item Name="Bottom" Image="prcircle_d" />
+                <Item Name="Center" Image="prcircle_c" />
+                <Item Name="Left" Image="prcircle_l" />
+                <Item Name="LeftBottom" Image="prcircle_ldc" />
+                <Item Name="LeftTop" Image="prcircle_luc" />
+                <Item Name="Right" Image="prcircle_r" />
+                <Item Name="RightBottom" Image="prcircle_rdc" />
+                <Item Name="RightTop" Image="prcircle_ruc" />
+                <Item Name="Top" Image="prcircle_u" />
+            </State>
+        </Style>
+    </Widget>
+    <Widget Name="SliderWidget">
+        <Style Name="DA_SquadSlider" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="BarBottom" Image="" />
+                <Item Name="BarCenter" Image="" />
+                <Item Name="BarLeft" Image="" />
+                <Item Name="BarLeftBottom" Image="" />
+                <Item Name="BarLeftTop" Image="" />
+                <Item Name="BarRight" Image="" />
+                <Item Name="BarRightBottom" Image="" />
+                <Item Name="BarRightTop" Image="" />
+                <Item Name="BarTop" Image="" />
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Focus">
+                <Item Name="BarBottom" Image="pbf_d" />
+                <Item Name="BarCenter" Image="pbf_ce" />
+                <Item Name="BarLeft" Image="pbf_l" />
+                <Item Name="BarLeftBottom" Image="pbf_ldc" />
+                <Item Name="BarLeftTop" Image="pbf_luc" />
+                <Item Name="BarRight" Image="pbf_r" />
+                <Item Name="BarRightBottom" Image="pbf_rdc" />
+                <Item Name="BarRightTop" Image="pbf_ruc" />
+                <Item Name="BarTop" Image="pbf_t" />
+                <Item Name="Bottom" Image="sqpr1_d" />
+                <Item Name="Center" Image="sqpr1_ce" />
+                <Item Name="Left" Image="sqpr1_l" />
+                <Item Name="LeftBottom" Image="sqpr1_ldc" />
+                <Item Name="LeftTop" Image="sqpr1_luc" />
+                <Item Name="Right" Image="sqpr1_r" />
+                <Item Name="RightBottom" Image="sqpr1_rdc" />
+                <Item Name="RightTop" Image="sqpr1_ruc" />
+                <Item Name="Top" Image="sqpr1_t" />
+            </State>
+            <State Name="Normal">
+                <Item Name="BarBottom" Image="pbf_d" />
+                <Item Name="BarCenter" Image="pbf_ce" />
+                <Item Name="BarLeft" Image="pbf_l" />
+                <Item Name="BarLeftBottom" Image="pbf_ldc" />
+                <Item Name="BarLeftTop" Image="pbf_luc" />
+                <Item Name="BarRight" Image="pbf_r" />
+                <Item Name="BarRightBottom" Image="pbf_rdc" />
+                <Item Name="BarRightTop" Image="pbf_ruc" />
+                <Item Name="BarTop" Image="pbf_t" />
+                <Item Name="Bottom" Image="sqpr_d" />
+                <Item Name="Center" Image="sqpr_ce" />
+                <Item Name="Left" Image="sqpr_l" />
+                <Item Name="LeftBottom" Image="sqpr_ldc" />
+                <Item Name="LeftTop" Image="sqpr_lc" />
+                <Item Name="Right" Image="sqpr_r" />
+                <Item Name="RightBottom" Image="sqpr_rdc" />
+                <Item Name="RightTop" Image="sqpr_ruc" />
+                <Item Name="Top" Image="sqpr_u" />
+            </State>
+        </Style>
+        <Style Name="DA_SmoothSlider" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="BarBottom" Image="" />
+                <Item Name="BarCenter" Image="" />
+                <Item Name="BarLeft" Image="" />
+                <Item Name="BarLeftBottom" Image="" />
+                <Item Name="BarLeftTop" Image="" />
+                <Item Name="BarRight" Image="" />
+                <Item Name="BarRightBottom" Image="" />
+                <Item Name="BarRightTop" Image="" />
+                <Item Name="BarTop" Image="" />
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Focus">
+                <Item Name="BarBottom" Image="smprgb_d" />
+                <Item Name="BarCenter" Image="smprgb_c" />
+                <Item Name="BarLeft" Image="smprgb_l" />
+                <Item Name="BarLeftBottom" Image="smprgb_ldc" />
+                <Item Name="BarLeftTop" Image="smprgb_luc" />
+                <Item Name="BarRight" Image="smprgb_r" />
+                <Item Name="BarRightBottom" Image="smprgb_rdc" />
+                <Item Name="BarRightTop" Image="smprgb_ruc" />
+                <Item Name="BarTop" Image="smprgb_u" />
+                <Item Name="Bottom" Image="pbt_d" />
+                <Item Name="Center" Image="pbt_c" />
+                <Item Name="Left" Image="pbt_l" />
+                <Item Name="LeftBottom" Image="pbt_ldc" />
+                <Item Name="LeftTop" Image="pbt_luc" />
+                <Item Name="Right" Image="pbt_r" />
+                <Item Name="RightBottom" Image="pbt_rdc" />
+                <Item Name="RightTop" Image="pbt_ruc" />
+                <Item Name="Top" Image="pbt_t" />
+            </State>
+            <State Name="Normal">
+                <Item Name="BarBottom" Image="smprgb_d" />
+                <Item Name="BarCenter" Image="smprgb_c" />
+                <Item Name="BarLeft" Image="smprgb_l" />
+                <Item Name="BarLeftBottom" Image="smprgb_ldc" />
+                <Item Name="BarLeftTop" Image="smprgb_luc" />
+                <Item Name="BarRight" Image="smprgb_r" />
+                <Item Name="BarRightBottom" Image="smprgb_rdc" />
+                <Item Name="BarRightTop" Image="smprgb_ruc" />
+                <Item Name="BarTop" Image="smprgb_u" />
+                <Item Name="Bottom" Image="pbs_d" />
+                <Item Name="Center" Image="pbs_ce" />
+                <Item Name="Left" Image="pbs_l" />
+                <Item Name="LeftBottom" Image="pbs_ldc" />
+                <Item Name="LeftTop" Image="pbs_luc" />
+                <Item Name="Right" Image="pbs_r" />
+                <Item Name="RightBottom" Image="pbs_rdc" />
+                <Item Name="RightTop" Image="pbs_ruc" />
+                <Item Name="Top" Image="pbs_t" />
+            </State>
+        </Style>
+        <Style Name="DA_RoundSlider" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="BarBottom" Image="" />
+                <Item Name="BarCenter" Image="" />
+                <Item Name="BarLeft" Image="" />
+                <Item Name="BarLeftBottom" Image="" />
+                <Item Name="BarLeftTop" Image="" />
+                <Item Name="BarRight" Image="" />
+                <Item Name="BarRightBottom" Image="" />
+                <Item Name="BarRightTop" Image="" />
+                <Item Name="BarTop" Image="" />
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Focus">
+                <Item Name="BarBottom" Image="pb7_d" />
+                <Item Name="BarCenter" Image="pb7_c" />
+                <Item Name="BarLeft" Image="pb7_l" />
+                <Item Name="BarLeftBottom" Image="pb7_ldc" />
+                <Item Name="BarLeftTop" Image="pb7_luc" />
+                <Item Name="BarRight" Image="pb7_r" />
+                <Item Name="BarRightBottom" Image="pb7_rdc" />
+                <Item Name="BarRightTop" Image="pb7_ruc" />
+                <Item Name="BarTop" Image="pb7_t" />
+                <Item Name="Bottom" Image="prcircle_d" />
+                <Item Name="Center" Image="prcircle_c" />
+                <Item Name="Left" Image="prcircle_l" />
+                <Item Name="LeftBottom" Image="prcircle_ldc" />
+                <Item Name="LeftTop" Image="prcircle_luc" />
+                <Item Name="Right" Image="prcircle_r" />
+                <Item Name="RightBottom" Image="prcircle_rdc" />
+                <Item Name="RightTop" Image="prcircle_ruc" />
+                <Item Name="Top" Image="prcircle_u" />
+            </State>
+            <State Name="Normal">
+                <Item Name="BarBottom" Image="pb7_d" />
+                <Item Name="BarCenter" Image="pb7_c" />
+                <Item Name="BarLeft" Image="pb7_l" />
+                <Item Name="BarLeftBottom" Image="pb7_ldc" />
+                <Item Name="BarLeftTop" Image="pb7_luc" />
+                <Item Name="BarRight" Image="pb7_r" />
+                <Item Name="BarRightBottom" Image="pb7_rdc" />
+                <Item Name="BarRightTop" Image="pb7_ruc" />
+                <Item Name="BarTop" Image="pb7_t" />
+                <Item Name="Bottom" Image="prcircle_d" />
+                <Item Name="Center" Image="prcircle_c" />
+                <Item Name="Left" Image="prcircle_l" />
+                <Item Name="LeftBottom" Image="prcircle_ldc" />
+                <Item Name="LeftTop" Image="prcircle_luc" />
+                <Item Name="Right" Image="prcircle_r" />
+                <Item Name="RightBottom" Image="prcircle_rdc" />
+                <Item Name="RightTop" Image="prcircle_ruc" />
+                <Item Name="Top" Image="prcircle_u" />
+            </State>
+        </Style>
+    </Widget>
+    <Widget Name="XComboBoxWidget">
+        <Style Name="DA_Simple" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="13">
+            <State Name="Disabled">
+                <Item Name="ArrowLeft" Image="arrow_right" />
+                <Item Name="ArrowRight" Image="arrow_left" />
+                <Item Name="Bottom" Image="empty" />
+                <Item Name="Center" Image="empty" />
+                <Item Name="Left" Image="empty" />
+                <Item Name="LeftBottom" Image="empty" />
+                <Item Name="LeftTop" Image="empty" />
+                <Item Name="Right" Image="empty" />
+                <Item Name="RightBottom" Image="empty" />
+                <Item Name="RightTop" Image="empty" />
+                <Item Name="Top" Image="empty" />
+            </State>
+            <State Name="Focus">
+                <Item Name="ArrowLeft" Image="arrow_right" />
+                <Item Name="ArrowRight" Image="arrow_left" />
+                <Item Name="Bottom" Image="empty" />
+                <Item Name="Center" Image="empty" />
+                <Item Name="Left" Image="empty" />
+                <Item Name="LeftBottom" Image="empty" />
+                <Item Name="LeftTop" Image="empty" />
+                <Item Name="Right" Image="empty" />
+                <Item Name="RightBottom" Image="empty" />
+                <Item Name="RightTop" Image="empty" />
+                <Item Name="Top" Image="empty" />
+            </State>
+            <State Name="Highlight">
+                <Item Name="ArrowLeft" Image="arrow_right" />
+                <Item Name="ArrowRight" Image="arrow_left" />
+                <Item Name="Bottom" Image="empty" />
+                <Item Name="Center" Image="empty" />
+                <Item Name="Left" Image="empty" />
+                <Item Name="LeftBottom" Image="empty" />
+                <Item Name="LeftTop" Image="empty" />
+                <Item Name="Right" Image="empty" />
+                <Item Name="RightBottom" Image="empty" />
+                <Item Name="RightTop" Image="empty" />
+                <Item Name="Top" Image="empty" />
+            </State>
+            <State Name="Normal">
+                <Item Name="ArrowLeft" Image="arrow_right" />
+                <Item Name="ArrowRight" Image="arrow_left" />
+                <Item Name="Bottom" Image="empty" />
+                <Item Name="Center" Image="empty" />
+                <Item Name="Left" Image="empty" />
+                <Item Name="LeftBottom" Image="empty" />
+                <Item Name="LeftTop" Image="empty" />
+                <Item Name="Right" Image="empty" />
+                <Item Name="RightBottom" Image="empty" />
+                <Item Name="RightTop" Image="empty" />
+                <Item Name="Top" Image="empty" />
+            </State>
+        </Style>
+        <Style Name="DA_Squad" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="ArrowLeft" Image="arrow_right" />
+                <Item Name="ArrowRight" Image="arrow_left" />
+                <Item Name="Bottom" Image="1" />
+                <Item Name="Center" Image="1" />
+                <Item Name="Left" Image="1" />
+                <Item Name="LeftBottom" Image="1" />
+                <Item Name="LeftTop" Image="1" />
+                <Item Name="Right" Image="1" />
+                <Item Name="RightBottom" Image="1" />
+                <Item Name="RightTop" Image="1" />
+                <Item Name="Top" Image="1" />
+            </State>
+            <State Name="Focus">
+                <Item Name="ArrowLeft" Image="arrow_right" />
+                <Item Name="ArrowRight" Image="arrow_left" />
+                <Item Name="Bottom" Image="sqpr1_d" />
+                <Item Name="Center" Image="sqpr1_ce" />
+                <Item Name="Left" Image="sqpr1_l" />
+                <Item Name="LeftBottom" Image="sqpr1_ldc" />
+                <Item Name="LeftTop" Image="sqpr1_luc" />
+                <Item Name="Right" Image="sqpr1_r" />
+                <Item Name="RightBottom" Image="sqpr1_rdc" />
+                <Item Name="RightTop" Image="sqpr1_ruc" />
+                <Item Name="Top" Image="sqpr1_t" />
+            </State>
+            <State Name="Highlight">
+                <Item Name="ArrowLeft" Image="arrow_right" />
+                <Item Name="ArrowRight" Image="arrow_left" />
+                <Item Name="Bottom" Image="sqpr1_d" />
+                <Item Name="Center" Image="sqpr1_ce" />
+                <Item Name="Left" Image="sqpr1_l" />
+                <Item Name="LeftBottom" Image="sqpr1_ldc" />
+                <Item Name="LeftTop" Image="sqpr1_luc" />
+                <Item Name="Right" Image="sqpr1_r" />
+                <Item Name="RightBottom" Image="sqpr1_rdc" />
+                <Item Name="RightTop" Image="sqpr1_ruc" />
+                <Item Name="Top" Image="sqpr1_t" />
+            </State>
+            <State Name="Normal">
+                <Item Name="ArrowLeft" Image="arrow_right" />
+                <Item Name="ArrowRight" Image="arrow_left" />
+                <Item Name="Bottom" Image="sqpr_d" />
+                <Item Name="Center" Image="sqpr_ce" />
+                <Item Name="Left" Image="sqpr_l" />
+                <Item Name="LeftBottom" Image="sqpr_ldc" />
+                <Item Name="LeftTop" Image="sqpr_lc" />
+                <Item Name="Right" Image="sqpr_r" />
+                <Item Name="RightBottom" Image="sqpr_rdc" />
+                <Item Name="RightTop" Image="sqpr_ruc" />
+                <Item Name="Top" Image="sqpr1_t" />
+            </State>
+        </Style>
+        <Style Name="DA_Smooth" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="ArrowLeft" Image="arrow_right" />
+                <Item Name="ArrowRight" Image="arrow_left" />
+                <Item Name="Bottom" Image="1" />
+                <Item Name="Center" Image="1" />
+                <Item Name="Left" Image="1" />
+                <Item Name="LeftBottom" Image="1" />
+                <Item Name="LeftTop" Image="1" />
+                <Item Name="Right" Image="1" />
+                <Item Name="RightBottom" Image="1" />
+                <Item Name="RightTop" Image="1" />
+                <Item Name="Top" Image="1" />
+            </State>
+            <State Name="Focus">
+                <Item Name="ArrowLeft" Image="arrow_right" />
+                <Item Name="ArrowRight" Image="arrow_left" />
+                <Item Name="Bottom" Image="pbt_d" />
+                <Item Name="Center" Image="pbt_c" />
+                <Item Name="Left" Image="pbt_l" />
+                <Item Name="LeftBottom" Image="pbt_ldc" />
+                <Item Name="LeftTop" Image="pbt_luc" />
+                <Item Name="Right" Image="pbt_r" />
+                <Item Name="RightBottom" Image="pbt_rdc" />
+                <Item Name="RightTop" Image="pbt_ruc" />
+                <Item Name="Top" Image="pbt_t" />
+            </State>
+            <State Name="Highlight">
+                <Item Name="ArrowLeft" Image="" />
+                <Item Name="ArrowRight" Image="" />
+                <Item Name="Bottom" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="Left" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="Right" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="Top" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="ArrowLeft" Image="arrow_right" />
+                <Item Name="ArrowRight" Image="arrow_left" />
+                <Item Name="Bottom" Image="pbs_d" />
+                <Item Name="Center" Image="pbs_ce" />
+                <Item Name="Left" Image="pbs_l" />
+                <Item Name="LeftBottom" Image="pbs_ldc" />
+                <Item Name="LeftTop" Image="pbs_luc" />
+                <Item Name="Right" Image="pbs_r" />
+                <Item Name="RightBottom" Image="pbs_rdc" />
+                <Item Name="RightTop" Image="pbs_ruc" />
+                <Item Name="Top" Image="pbs_t" />
+            </State>
+        </Style>
+    </Widget>
+    <Widget Name="TextListboxWidget">
+        <Style Name="DA_Smooth" Font="gui/fonts/amorserifpro-bold" ImageSet="PanelsButtons" Color="0">
+            <State Name="Disabled">
+                <Item Name="BottomCenter" Image="" />
+                <Item Name="BottomSeparator" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="HeaderBottomCenter" Image="" />
+                <Item Name="HeaderCenter" Image="" />
+                <Item Name="HeaderLeftBottom" Image="" />
+                <Item Name="HeaderLeftCenter" Image="" />
+                <Item Name="HeaderLeftTop" Image="" />
+                <Item Name="HeaderRightBottom" Image="" />
+                <Item Name="HeaderRightCenter" Image="" />
+                <Item Name="HeaderRightTop" Image="" />
+                <Item Name="HeaderTopCenter" Image="" />
+                <Item Name="Highlight" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftCenter" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="LeftTopWithTitle" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightCenter" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="RightTopWithTitle" Image="" />
+                <Item Name="ScrollBarBottom" Image="" />
+                <Item Name="ScrollBarCenter" Image="" />
+                <Item Name="ScrollBarTop" Image="" />
+                <Item Name="Separator" Image="" />
+                <Item Name="TitleCenter" Image="" />
+                <Item Name="TitleCenterSeparator" Image="" />
+                <Item Name="TitleLeftCenter" Image="" />
+                <Item Name="TitleRightCenter" Image="" />
+                <Item Name="TopCenter" Image="" />
+                <Item Name="TopSeparator" Image="" />
+            </State>
+            <State Name="Focus">
+                <Item Name="BottomCenter" Image="" />
+                <Item Name="BottomSeparator" Image="" />
+                <Item Name="Center" Image="" />
+                <Item Name="HeaderBottomCenter" Image="" />
+                <Item Name="HeaderCenter" Image="" />
+                <Item Name="HeaderLeftBottom" Image="" />
+                <Item Name="HeaderLeftCenter" Image="" />
+                <Item Name="HeaderLeftTop" Image="" />
+                <Item Name="HeaderRightBottom" Image="" />
+                <Item Name="HeaderRightCenter" Image="" />
+                <Item Name="HeaderRightTop" Image="" />
+                <Item Name="HeaderTopCenter" Image="" />
+                <Item Name="Highlight" Image="" />
+                <Item Name="LeftBottom" Image="" />
+                <Item Name="LeftCenter" Image="" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="LeftTopWithTitle" Image="" />
+                <Item Name="RightBottom" Image="" />
+                <Item Name="RightCenter" Image="" />
+                <Item Name="RightTop" Image="" />
+                <Item Name="RightTopWithTitle" Image="" />
+                <Item Name="ScrollBarBottom" Image="" />
+                <Item Name="ScrollBarCenter" Image="" />
+                <Item Name="ScrollBarTop" Image="" />
+                <Item Name="Separator" Image="" />
+                <Item Name="TitleCenter" Image="" />
+                <Item Name="TitleCenterSeparator" Image="" />
+                <Item Name="TitleLeftCenter" Image="" />
+                <Item Name="TitleRightCenter" Image="" />
+                <Item Name="TopCenter" Image="" />
+                <Item Name="TopSeparator" Image="" />
+            </State>
+            <State Name="Normal">
+                <Item Name="BottomCenter" Image="eva2" />
+                <Item Name="BottomSeparator" Image="eva" />
+                <Item Name="Center" Image="eva" />
+                <Item Name="HeaderBottomCenter" Image="" />
+                <Item Name="HeaderCenter" Image="eva" />
+                <Item Name="HeaderLeftBottom" Image="eva2" />
+                <Item Name="HeaderLeftCenter" Image="" />
+                <Item Name="HeaderLeftTop" Image="" />
+                <Item Name="HeaderRightBottom" Image="eva2" />
+                <Item Name="HeaderRightCenter" Image="eva2" />
+                <Item Name="HeaderRightTop" Image="" />
+                <Item Name="HeaderTopCenter" Image="eva" />
+                <Item Name="Highlight" Image="sqpr1_ce" />
+                <Item Name="LeftBottom" Image="eva2" />
+                <Item Name="LeftCenter" Image="eva2" />
+                <Item Name="LeftTop" Image="" />
+                <Item Name="LeftTopWithTitle" Image="" />
+                <Item Name="RightBottom" Image="eva2" />
+                <Item Name="RightCenter" Image="eva2" />
+                <Item Name="RightTop" Image="eva2" />
+                <Item Name="RightTopWithTitle" Image="" />
+                <Item Name="ScrollBarBottom" Image="scrollbar_down_h" />
+                <Item Name="ScrollBarCenter" Image="scrollbar_center_norm" />
+                <Item Name="ScrollBarTop" Image="scrollbar_top_norm" />
+                <Item Name="Separator" Image="eva" />
+                <Item Name="TitleCenter" Image="" />
+                <Item Name="TitleCenterSeparator" Image="" />
+                <Item Name="TitleLeftCenter" Image="" />
+                <Item Name="TitleRightCenter" Image="" />
+                <Item Name="TopCenter" Image="" />
+                <Item Name="TopSeparator" Image="" />
+            </State>
+        </Style>
+    </Widget>
+</WidgetStyles>

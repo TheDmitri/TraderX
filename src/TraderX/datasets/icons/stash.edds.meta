@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{AA75A0E558340467}TraderX/datasets/icons/stash.edds"
+ Author "desktop-33c97jr"
+ ChangeDate -2021887773
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "stash.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

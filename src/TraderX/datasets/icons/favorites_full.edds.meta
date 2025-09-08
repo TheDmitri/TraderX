@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{69DD13041B496BB2}TraderX/datasets/icons/favorites_full.edds"
+ Author "thedmitri"
+ ChangeDate -1093472105
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "favorites_full.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

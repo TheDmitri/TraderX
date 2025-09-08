@@ -1,0 +1,909 @@
+ImageSetClass {
+ Name "CornyPanelsButton"
+ RefSize 614 396
+ Textures {
+  ImageSetTextureClass {
+   mpix 1
+   path "{8EB840E950CB6FFF}TraderX_GUI/gui/Data/resources2.edds"
+  }
+ }
+ Images {
+  ImageSetDefClass top_ss {
+   Name "top_ss"
+   Pos 396 213
+   Size 33 5
+   Flags 0
+  }
+  ImageSetDefClass center_ss {
+   Name "center_ss"
+   Pos 396 218
+   Size 33 33
+   Flags 0
+  }
+ }
+ Groups {
+  ImageSetGroupClass Corny_Square_Shadow_10px {
+   Name "Corny_Square_Shadow_10px"
+   Images {
+    ImageSetDefClass top_left_corner_10px {
+     Name "top_left_corner_10px"
+     Pos 139 270
+     Size 10 10
+     Flags 0
+    }
+    ImageSetDefClass right_left_corner_10px {
+     Name "right_left_corner_10px"
+     Pos 139 363
+     Size 10 14
+     Flags 0
+    }
+    ImageSetDefClass top_right_corner_10px {
+     Name "top_right_corner_10px"
+     Pos 233 270
+     Size 14 10
+     Flags 0
+    }
+    ImageSetDefClass bottom_right_corner_10px {
+     Name "bottom_right_corner_10px"
+     Pos 233 363
+     Size 14 14
+     Flags 0
+    }
+    ImageSetDefClass side_left_10px {
+     Name "side_left_10px"
+     Pos 139 280
+     Size 10 83
+     Flags 0
+    }
+    ImageSetDefClass side_right_10px {
+     Name "side_right_10px"
+     Pos 233 280
+     Size 14 83
+     Flags 0
+    }
+    ImageSetDefClass side_top_10px {
+     Name "side_top_10px"
+     Pos 149 270
+     Size 84 10
+     Flags 0
+    }
+    ImageSetDefClass side_bottom_10px {
+     Name "side_bottom_10px"
+     Pos 149 363
+     Size 84 14
+     Flags 0
+    }
+    ImageSetDefClass center_10px {
+     Name "center_10px"
+     Pos 149 280
+     Size 84 83
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Corny_Square_Shadow_15px {
+   Name "Corny_Square_Shadow_15px"
+   Images {
+   }
+  }
+  ImageSetGroupClass Corny_Square_Shadow_20px {
+   Name "Corny_Square_Shadow_20px"
+   Images {
+   }
+  }
+  ImageSetGroupClass Corny_Square_Shadow_5px {
+   Name "Corny_Square_Shadow_5px"
+   Images {
+    ImageSetDefClass top_left_corner {
+     Name "top_left_corner"
+     Pos 19 270
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass bottom_left_corner {
+     Name "bottom_left_corner"
+     Pos 19 367
+     Size 5 11
+     Flags 0
+    }
+    ImageSetDefClass top_right_corner {
+     Name "top_right_corner"
+     Pos 117 270
+     Size 9 5
+     Flags 0
+    }
+    ImageSetDefClass bottom_right_corner {
+     Name "bottom_right_corner"
+     Pos 117 367
+     Size 9 11
+     Flags 0
+    }
+    ImageSetDefClass side_left {
+     Name "side_left"
+     Pos 19 275
+     Size 5 92
+     Flags 0
+    }
+    ImageSetDefClass side_top {
+     Name "side_top"
+     Pos 24 270
+     Size 93 5
+     Flags 0
+    }
+    ImageSetDefClass side_right {
+     Name "side_right"
+     Pos 117 275
+     Size 9 92
+     Flags 0
+    }
+    ImageSetDefClass side_bottom {
+     Name "side_bottom"
+     Pos 24 367
+     Size 93 11
+     Flags 0
+    }
+    ImageSetDefClass center {
+     Name "center"
+     Pos 24 275
+     Size 93 92
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Corny_Btn_Red {
+   Name "Corny_Btn_Red"
+   Images {
+    ImageSetDefClass top_left_corner_red_n {
+     Name "top_left_corner_red_n"
+     Pos 18 168
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass top_right_corner_red_n {
+     Name "top_right_corner_red_n"
+     Pos 55 168
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass bottom_left_corner_red_n {
+     Name "bottom_left_corner_red_n"
+     Pos 18 205
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass bottom_right_corner_red_n {
+     Name "bottom_right_corner_red_n"
+     Pos 55 205
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass side_left_red_n {
+     Name "side_left_red_n"
+     Pos 18 173
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass side_right_red_n {
+     Name "side_right_red_n"
+     Pos 55 173
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass side_top_red_n {
+     Name "side_top_red_n"
+     Pos 23 168
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass side_bottom_red_n {
+     Name "side_bottom_red_n"
+     Pos 23 205
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass center_red_n {
+     Name "center_red_n"
+     Pos 23 173
+     Size 32 32
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Corny_Btn_Green {
+   Name "Corny_Btn_Green"
+   Images {
+    ImageSetDefClass top_left_corner_green_n {
+     Name "top_left_corner_green_n"
+     Pos 18 123
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass top_right_corner_green_n {
+     Name "top_right_corner_green_n"
+     Pos 55 123
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass bottom_left_corner_green_n {
+     Name "bottom_left_corner_green_n"
+     Pos 18 160
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass bottom_right_corner_green_n {
+     Name "bottom_right_corner_green_n"
+     Pos 55 160
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass side_left_green_n {
+     Name "side_left_green_n"
+     Pos 18 128
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass side_right_green_n {
+     Name "side_right_green_n"
+     Pos 55 128
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass side_top_green_n {
+     Name "side_top_green_n"
+     Pos 23 123
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass side_bottom_green_n {
+     Name "side_bottom_green_n"
+     Pos 23 160
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass center_green_n {
+     Name "center_green_n"
+     Pos 23 128
+     Size 32 32
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Corny_Btn_Blue {
+   Name "Corny_Btn_Blue"
+   Images {
+    ImageSetDefClass top_left_corner_blue_n {
+     Name "top_left_corner_blue_n"
+     Pos 18 213
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass top_right_corner_blue_n {
+     Name "top_right_corner_blue_n"
+     Pos 55 213
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass bottom_left_corner_blue_n {
+     Name "bottom_left_corner_blue_n"
+     Pos 18 250
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass bottom_right_corner_blue_n {
+     Name "bottom_right_corner_blue_n"
+     Pos 55 250
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass side_left_blue_n {
+     Name "side_left_blue_n"
+     Pos 18 218
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass side_right_blue_n {
+     Name "side_right_blue_n"
+     Pos 55 218
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass side_top_blue_n {
+     Name "side_top_blue_n"
+     Pos 23 213
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass side_bottom_blue_n {
+     Name "side_bottom_blue_n"
+     Pos 23 250
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass center_blue_n {
+     Name "center_blue_n"
+     Pos 23 218
+     Size 32 32
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Corny_Btn_Green_Hover {
+   Name "Corny_Btn_Green_Hover"
+   Images {
+    ImageSetDefClass top_left_corner_green_h {
+     Name "top_left_corner_green_h"
+     Pos 118 123
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass top_right_corner_green_h {
+     Name "top_right_corner_green_h"
+     Pos 155 123
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass bottom_left_corner_green_h {
+     Name "bottom_left_corner_green_h"
+     Pos 118 160
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass bottom_right_corner_green_h {
+     Name "bottom_right_corner_green_h"
+     Pos 155 160
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass side_left_green_h {
+     Name "side_left_green_h"
+     Pos 118 128
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass side_right_green_h {
+     Name "side_right_green_h"
+     Pos 155 128
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass side_top_green_h {
+     Name "side_top_green_h"
+     Pos 123 123
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass side_bottom_green_h {
+     Name "side_bottom_green_h"
+     Pos 123 160
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass center_green_h {
+     Name "center_green_h"
+     Pos 123 128
+     Size 32 32
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Corny_Btn_Red_Hover {
+   Name "Corny_Btn_Red_Hover"
+   Images {
+    ImageSetDefClass top_left_corner_red_h {
+     Name "top_left_corner_red_h"
+     Pos 118 168
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass top_right_corner_red_h {
+     Name "top_right_corner_red_h"
+     Pos 155 168
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass bottom_left_corner_red_h {
+     Name "bottom_left_corner_red_h"
+     Pos 118 205
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass bottom_right_corner_red_h {
+     Name "bottom_right_corner_red_h"
+     Pos 155 205
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass side_left_red_h {
+     Name "side_left_red_h"
+     Pos 118 173
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass side_right_red_h {
+     Name "side_right_red_h"
+     Pos 155 173
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass side_top_red_h {
+     Name "side_top_red_h"
+     Pos 123 168
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass side_bottom_red_h {
+     Name "side_bottom_red_h"
+     Pos 123 205
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass center_red_h {
+     Name "center_red_h"
+     Pos 123 173
+     Size 32 32
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Corny_Btn_Blue_Hover {
+   Name "Corny_Btn_Blue_Hover"
+   Images {
+    ImageSetDefClass top_left_corner_blue_h {
+     Name "top_left_corner_blue_h"
+     Pos 118 213
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass top_right_corner_blue_h {
+     Name "top_right_corner_blue_h"
+     Pos 155 213
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass bottom_left_corner_blue_h {
+     Name "bottom_left_corner_blue_h"
+     Pos 118 250
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass bottom_right_corner_blue_h {
+     Name "bottom_right_corner_blue_h"
+     Pos 155 250
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass side_left_blue_h {
+     Name "side_left_blue_h"
+     Pos 118 218
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass side_right_blue_h {
+     Name "side_right_blue_h"
+     Pos 155 218
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass side_top_blue_h {
+     Name "side_top_blue_h"
+     Pos 123 213
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass side_bottom_blue_h {
+     Name "side_bottom_blue_h"
+     Pos 123 250
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass center_blue_h {
+     Name "center_blue_h"
+     Pos 123 218
+     Size 32 32
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Corny_Btn_Green_Focus {
+   Name "Corny_Btn_Green_Focus"
+   Images {
+    ImageSetDefClass top_left_corner_green_f {
+     Name "top_left_corner_green_f"
+     Pos 218 123
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass top_right_corner_green_f {
+     Name "top_right_corner_green_f"
+     Pos 255 123
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass bottom_left_corner_green_f {
+     Name "bottom_left_corner_green_f"
+     Pos 218 160
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass bottom_right_corner_green_f {
+     Name "bottom_right_corner_green_f"
+     Pos 255 160
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass side_left_green_f {
+     Name "side_left_green_f"
+     Pos 218 128
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass side_right_green_f {
+     Name "side_right_green_f"
+     Pos 255 128
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass side_top_green_f {
+     Name "side_top_green_f"
+     Pos 223 123
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass side_bottom_green_f {
+     Name "side_bottom_green_f"
+     Pos 223 160
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass center_green_f {
+     Name "center_green_f"
+     Pos 223 128
+     Size 32 32
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Corny_Btn_Red_Focus {
+   Name "Corny_Btn_Red_Focus"
+   Images {
+    ImageSetDefClass top_left_corner_red_f {
+     Name "top_left_corner_red_f"
+     Pos 218 168
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass top_right_corner_red_f {
+     Name "top_right_corner_red_f"
+     Pos 255 168
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass bottom_left_corner_red_f {
+     Name "bottom_left_corner_red_f"
+     Pos 218 205
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass bottom_right_corner_red_f {
+     Name "bottom_right_corner_red_f"
+     Pos 255 205
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass side_left_red_f {
+     Name "side_left_red_f"
+     Pos 218 173
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass side_right_red_f {
+     Name "side_right_red_f"
+     Pos 255 173
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass side_top_red_f {
+     Name "side_top_red_f"
+     Pos 223 168
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass side_bottom_red_f {
+     Name "side_bottom_red_f"
+     Pos 223 205
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass center_red_f {
+     Name "center_red_f"
+     Pos 223 173
+     Size 32 32
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Corny_Btn_Blue_Focus {
+   Name "Corny_Btn_Blue_Focus"
+   Images {
+    ImageSetDefClass top_left_corner_blue_f {
+     Name "top_left_corner_blue_f"
+     Pos 218 213
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass top_right_corner_blue_f {
+     Name "top_right_corner_blue_f"
+     Pos 255 213
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass bottom_left_corner_blue_f {
+     Name "bottom_left_corner_blue_f"
+     Pos 218 250
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass bottom_right_corner_blue_f {
+     Name "bottom_right_corner_blue_f"
+     Pos 255 250
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass side_left_blue_f {
+     Name "side_left_blue_f"
+     Pos 218 218
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass side_right_blue_f {
+     Name "side_right_blue_f"
+     Pos 255 218
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass side_top_blue_f {
+     Name "side_top_blue_f"
+     Pos 223 213
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass side_bottom_blue_f {
+     Name "side_bottom_blue_f"
+     Pos 223 250
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass center_blue_f {
+     Name "center_blue_f"
+     Pos 223 218
+     Size 32 32
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Corny_Btn_Green_Disabled {
+   Name "Corny_Btn_Green_Disabled"
+   Images {
+    ImageSetDefClass top_left_corner_green_d {
+     Name "top_left_corner_green_d"
+     Pos 318 123
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass top_right_corner_green_d {
+     Name "top_right_corner_green_d"
+     Pos 355 123
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass bottom_left_corner_green_d {
+     Name "bottom_left_corner_green_d"
+     Pos 318 160
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass bottom_right_corner_green_d {
+     Name "bottom_right_corner_green_d"
+     Pos 355 160
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass side_left_green_d {
+     Name "side_left_green_d"
+     Pos 318 128
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass side_right_green_d {
+     Name "side_right_green_d"
+     Pos 355 128
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass side_top_green_d {
+     Name "side_top_green_d"
+     Pos 323 123
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass side_bottom_green_d {
+     Name "side_bottom_green_d"
+     Pos 323 160
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass center_green_d {
+     Name "center_green_d"
+     Pos 323 128
+     Size 32 32
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Corny_Btn_Red_Disabled {
+   Name "Corny_Btn_Red_Disabled"
+   Images {
+    ImageSetDefClass top_left_corner_red_d {
+     Name "top_left_corner_red_d"
+     Pos 318 168
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass top_right_corner_red_d {
+     Name "top_right_corner_red_d"
+     Pos 355 168
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass bottom_left_corner_red_d {
+     Name "bottom_left_corner_red_d"
+     Pos 318 205
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass bottom_right_corner_red_d {
+     Name "bottom_right_corner_red_d"
+     Pos 355 205
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass side_left_red_d {
+     Name "side_left_red_d"
+     Pos 318 173
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass side_right_red_d {
+     Name "side_right_red_d"
+     Pos 355 173
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass side_top_red_d {
+     Name "side_top_red_d"
+     Pos 323 168
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass side_bottom_red_d {
+     Name "side_bottom_red_d"
+     Pos 324 205
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass center_red_d {
+     Name "center_red_d"
+     Pos 323 173
+     Size 32 32
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Corny_Btn_Blue_Disabled {
+   Name "Corny_Btn_Blue_Disabled"
+   Images {
+    ImageSetDefClass top_left_corner_blue_d {
+     Name "top_left_corner_blue_d"
+     Pos 318 213
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass top_right_corner_blue_d {
+     Name "top_right_corner_blue_d"
+     Pos 355 213
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass bottom_left_corner_blue_d {
+     Name "bottom_left_corner_blue_d"
+     Pos 318 250
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass bottom_right_corner_blue_d {
+     Name "bottom_right_corner_blue_d"
+     Pos 355 250
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass side_left_blue_d {
+     Name "side_left_blue_d"
+     Pos 318 218
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass side_right_blue_d {
+     Name "side_right_blue_d"
+     Pos 355 218
+     Size 5 32
+     Flags 0
+    }
+    ImageSetDefClass side_top_blue_d {
+     Name "side_top_blue_d"
+     Pos 323 213
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass side_bottom_blue_d {
+     Name "side_bottom_blue_d"
+     Pos 323 250
+     Size 32 5
+     Flags 0
+    }
+    ImageSetDefClass center_blue_d {
+     Name "center_blue_d"
+     Pos 323 218
+     Size 32 32
+     Flags 0
+    }
+   }
+  }
+  ImageSetGroupClass Corny_Small_Shadow_5px {
+   Name "Corny_Small_Shadow_5px"
+   Images {
+    ImageSetDefClass topleft_ss {
+     Name "topleft_ss"
+     Pos 391 213
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass leftside_ss {
+     Name "leftside_ss"
+     Pos 391 218
+     Size 5 33
+     Flags 0
+    }
+    ImageSetDefClass bottomleft_ss {
+     Name "bottomleft_ss"
+     Pos 391 251
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass bottom_ss {
+     Name "bottom_ss"
+     Pos 396 251
+     Size 33 5
+     Flags 0
+    }
+    ImageSetDefClass bottomright_ss {
+     Name "bottomright_ss"
+     Pos 429 251
+     Size 5 5
+     Flags 0
+    }
+    ImageSetDefClass right_ss {
+     Name "right_ss"
+     Pos 429 218
+     Size 5 33
+     Flags 0
+    }
+    ImageSetDefClass topright_ss {
+     Name "topright_ss"
+     Pos 429 213
+     Size 5 5
+     Flags 0
+    }
+   }
+  }
+ }
+}
