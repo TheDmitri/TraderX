@@ -312,7 +312,7 @@ We actively listen to community feedback. Submit feature requests through GitHub
 
 ## 📞 Support & Community
 
-- **GitHub Issues**: [Report bugs and request features](https://github.com/YourRepo/TraderX/issues)
+- **GitHub Issues**: [Report bugs and request features](https://github.com/TheDmitri/TraderX/issues)
 - **Discord**: [Join our community server](https://discord.gg/t9YkApe7K9)
 - **Steam Workshop**: [Rate and comment](https://steamcommunity.com/sharedfiles/filedetails/?id=2626525656)
 - **Documentation**: to be added
