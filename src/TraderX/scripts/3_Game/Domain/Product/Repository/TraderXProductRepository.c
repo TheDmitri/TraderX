@@ -76,6 +76,49 @@ class TraderXProductRepository
     {
         GetTraderXLogger().LogInfo("[TraderX] LoadAllProducts - Starting");
         
+        // Try compiled JSON first (CSV-based system)
+        if (FileExist(TRADERX_COMPILED_PRODUCTS_FILE))
+        {
+            GetTraderXLogger().LogInfo("[TraderX] Loading products from compiled config");
+            LoadFromCompiledJson();
+            return;
+        }
+        
+        // Fallback to legacy multi-file JSON
+        GetTraderXLogger().LogWarning("[TraderX] Compiled config not found, using legacy multi-file JSON");
+        LoadFromLegacyJson();
+    }
+    
+    // Load products from compiled JSON (CSV-based system)
+    private static void LoadFromCompiledJson()
+    {
+        ref array<ref TraderXJsonProduct> jsonProducts = new array<ref TraderXJsonProduct>;
+        JsonFileLoader<array<ref TraderXJsonProduct>>.JsonLoadFile(TRADERX_COMPILED_PRODUCTS_FILE, jsonProducts);
+        
+        if (!jsonProducts || jsonProducts.Count() == 0)
+        {
+            GetTraderXLogger().LogError("[TraderX] Failed to load compiled products, falling back to legacy");
+            LoadFromLegacyJson();
+            return;
+        }
+        
+        s_Items.Clear();
+        
+        foreach (TraderXJsonProduct jsonProduct : jsonProducts)
+        {
+            TraderXProduct product = TraderXProductMapper.MapToTraderXProduct(jsonProduct);
+            if (product && product.productId.Length() > 0)
+            {
+                s_Items.Set(product.productId, product);
+            }
+        }
+        
+        GetTraderXLogger().LogInfo(string.Format("[TraderX] LoadAllProducts - Completed. Total products loaded: %1 (from compiled config)", s_Items.Count()));
+    }
+    
+    // Load products from legacy multi-file JSON (backward compatibility)
+    private static void LoadFromLegacyJson()
+    {
         if (!FileExist(TRADERX_PRODUCTS_DIR)){
             MakeDirectory(TRADERX_PRODUCTS_DIR);
         }
@@ -132,6 +175,6 @@ class TraderXProductRepository
         }
 
         CloseFindFile(findHandle);
-        GetTraderXLogger().LogInfo(string.Format("[TraderX] LoadAllProducts - Completed. Total products loaded: %1", s_Items.Count()));
+        GetTraderXLogger().LogInfo(string.Format("[TraderX] LoadAllProducts - Completed. Total products loaded: %1 (from legacy JSON)", s_Items.Count()));
     }
 }

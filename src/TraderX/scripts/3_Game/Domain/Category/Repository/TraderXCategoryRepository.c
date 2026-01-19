@@ -133,8 +133,51 @@ class TraderXCategoryRepository
 
     static void LoadAllCategories()
     {
-        GetTraderXLogger().LogDebug("[TraderX] LoadAllCategories - Starting");
+        GetTraderXLogger().LogInfo("[TraderX] LoadAllCategories - Starting");
         
+        // Try compiled JSON first (CSV-based system)
+        if (FileExist(TRADERX_COMPILED_CATEGORIES_FILE))
+        {
+            GetTraderXLogger().LogInfo("[TraderX] Loading categories from compiled config");
+            LoadFromCompiledJson();
+            return;
+        }
+        
+        // Fallback to legacy multi-file JSON
+        GetTraderXLogger().LogWarning("[TraderX] Compiled config not found, using legacy multi-file JSON");
+        LoadFromLegacyJson();
+    }
+    
+    // Load categories from compiled JSON (CSV-based system)
+    private static void LoadFromCompiledJson()
+    {
+        ref array<ref TraderXJsonCategory> jsonCategories = new array<ref TraderXJsonCategory>;
+        JsonFileLoader<array<ref TraderXJsonCategory>>.JsonLoadFile(TRADERX_COMPILED_CATEGORIES_FILE, jsonCategories);
+        
+        if (!jsonCategories || jsonCategories.Count() == 0)
+        {
+            GetTraderXLogger().LogError("[TraderX] Failed to load compiled categories, falling back to legacy");
+            LoadFromLegacyJson();
+            return;
+        }
+        
+        s_Categories.Clear();
+        
+        foreach (TraderXJsonCategory jsonCategory : jsonCategories)
+        {
+            TraderXCategory category = TraderXCategoryMapper.MapToTraderXCategory(jsonCategory);
+            if (category && category.categoryId.Length() > 0)
+            {
+                s_Categories.Set(category.categoryId, category);
+            }
+        }
+        
+        GetTraderXLogger().LogInfo(string.Format("[TraderX] LoadAllCategories - Completed. Total categories loaded: %1 (from compiled config)", s_Categories.Count()));
+    }
+    
+    // Load categories from legacy multi-file JSON (backward compatibility)
+    private static void LoadFromLegacyJson()
+    {
         if (!FileExist(TRADERX_CATEGORIES_DIR)){
             GetTraderXLogger().LogDebug("[TraderX] Categories directory doesn't exist, creating: " + TRADERX_CATEGORIES_DIR);
             MakeDirectory(TRADERX_CATEGORIES_DIR);
@@ -189,5 +232,6 @@ class TraderXCategoryRepository
 
         CloseFindFile(findHandle);
         AssignCategoriesIdsToMap();
+        GetTraderXLogger().LogInfo(string.Format("[TraderX] LoadAllCategories - Completed. Total categories loaded: %1 (from legacy JSON)", s_Categories.Count()));
     }
 }

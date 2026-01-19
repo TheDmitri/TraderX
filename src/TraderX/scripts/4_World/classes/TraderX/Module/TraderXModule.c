@@ -26,6 +26,15 @@ class TraderXModule : CF_ModuleWorld
             // Convert old V1 configs to V2 format before loading repositories
             oldTraderXPriceConfig.ConvertOldConfigToNew();
             oldTraderXGeneralSettings.ConvertOldConfigToNew();
+
+            TraderXJsonToCsvConverter.ConvertAllJsonToCsv();
+            
+            // Compile and validate CSV configuration (if CSV source files exist)
+            bool compilationSuccess = TraderXConfigCompiler.CompileAndValidate();
+            if (!compilationSuccess)
+            {
+                GetTraderXLogger().LogWarning("[TraderX] CSV compilation failed or used backup. Check ConfigReport.log for details.");
+            }
             
             TraderXProductRepository.LoadAllProducts();
             TraderXCategoryRepository.LoadAllCategories();

@@ -45,6 +45,22 @@ const string TRADERX_DEBUG_TEST_CASE_FILE = TRADERX_DEBUG_TEST_CASES_DIR + "%1.j
 // Debug settings
 const string TRADERX_DEBUG_SETTINGS_FILE = TRADERX_CONFIG_DIR_SERVER + "TraderXDebugSettings.json";
 
+// CSV Configuration System
+const string TRADERX_CSV_SOURCE_DIR = TRADERX_CONFIG_DIR_SERVER + "Source\\";
+const string TRADERX_COMPILED_DIR = TRADERX_CONFIG_DIR_SERVER + "Compiled\\";
+const string TRADERX_BACKUP_DIR = TRADERX_CONFIG_DIR_SERVER + "Backup\\";
+
+// Compiled configuration files
+const string TRADERX_COMPILED_PRODUCTS_FILE = TRADERX_COMPILED_DIR + "Products_compiled.json";
+const string TRADERX_COMPILED_CATEGORIES_FILE = TRADERX_COMPILED_DIR + "Categories_compiled.json";
+
+// Backup files
+const string TRADERX_COMPILED_PRODUCTS_BACKUP = TRADERX_BACKUP_DIR + "Products_compiled.json.backup";
+const string TRADERX_COMPILED_CATEGORIES_BACKUP = TRADERX_BACKUP_DIR + "Categories_compiled.json.backup";
+
+// Configuration reports
+const string TRADERX_CONFIG_REPORT_FILE = TRADERX_LOGGER_CONFIG_DIR + "ConfigReport.log";
+
 // Logger
 const string TRADERX_LOG_FOLDER = TRADERX_CONFIG_ROOT_SERVER + "TraderXLogs\\";
 const string TRADERX_LOGGER_CONFIG_DIR = TRADERX_LOG_FOLDER + "Config\\";
