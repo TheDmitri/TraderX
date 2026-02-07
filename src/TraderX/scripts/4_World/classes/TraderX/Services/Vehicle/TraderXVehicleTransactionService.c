@@ -120,6 +120,51 @@ class TraderXVehicleTransactionService
         return false;
     }
     
+    // ===== PRESET VALIDATION METHODS =====
+    
+    private bool ValidatePresetAttachmentStock(TraderXPreset preset)
+    {
+        if (!preset || !preset.attachments) {
+            return true; // No attachments to validate
+        }
+        
+        for (int i = 0; i < preset.attachments.Count(); i++) {
+            string attachmentId = preset.attachments.Get(i);
+            TraderXProduct attachmentProduct = TraderXProductRepository.GetItemById(attachmentId);
+            
+            if (!attachmentProduct) {
+                GetTraderXLogger().LogError(string.Format("[VEHICLE] Preset attachment not found in catalog: %1", attachmentId));
+                return false;
+            }
+            
+            if (!attachmentProduct.IsStockUnlimited()) {
+                if (!TraderXProductStockRepository.CanDecreaseStock(attachmentId)) {
+                    GetTraderXLogger().LogWarning(string.Format("[VEHICLE] Preset attachment out of stock: %1 (Product: %2)", attachmentId, attachmentProduct.className));
+                    return false;
+                }
+            }
+        }
+        
+        return true;
+    }
+    
+    private void DecreasePresetAttachmentStock(TraderXPreset preset)
+    {
+        if (!preset || !preset.attachments) {
+            return;
+        }
+        
+        for (int i = 0; i < preset.attachments.Count(); i++) {
+            string attachmentId = preset.attachments.Get(i);
+            TraderXProduct attachmentProduct = TraderXProductRepository.GetItemById(attachmentId);
+            
+            if (attachmentProduct && !attachmentProduct.IsStockUnlimited()) {
+                TraderXProductStockRepository.DecreaseStock(attachmentId);
+                GetTraderXLogger().LogDebug(string.Format("[VEHICLE] Decreased stock for preset attachment: %1", attachmentId));
+            }
+        }
+    }
+    
     // ===== VEHICLE TRANSACTION METHODS =====
     
     TraderXTransactionResult ProcessVehicleBuyTransaction(TraderXTransaction transaction, PlayerBase player)
@@ -139,8 +184,19 @@ class TraderXVehicleTransactionService
         }
         
         // Calculate dynamic price based on current stock and coefficient
-        TraderXPriceCalculation priceCalculation = TraderXPricingService.GetInstance().CalculateBuyPrice(product, transaction.GetMultiplier());
-        int calculatedPrice = priceCalculation.GetCalculatedPrice();
+        // For vehicles with presets, include the preset price (attachments)
+        TraderXPreset preset = transaction.GetPreset();
+        int calculatedPrice;
+        
+        if (preset && preset.attachments && preset.attachments.Count() > 0) {
+            // Use preset pricing which includes main item + attachments
+            calculatedPrice = TraderXPresetsService.GetInstance().CalculateTotalPricePreset(preset);
+            GetTraderXLogger().LogInfo(string.Format("[VEHICLE] Preset pricing - Vehicle: %1, Preset: %2, TotalPrice: %3", product.className, preset.presetName, calculatedPrice));
+        } else {
+            // Regular dynamic pricing for vehicles without presets
+            TraderXPriceCalculation priceCalculation = TraderXPricingService.GetInstance().CalculateBuyPrice(product, transaction.GetMultiplier());
+            calculatedPrice = priceCalculation.GetCalculatedPrice();
+        }
         
         // Price validation - reject transactions with -1 price (allow 0 for free items)
         if (calculatedPrice < 0) {
@@ -152,6 +208,17 @@ class TraderXVehicleTransactionService
         if (transactionPrice != calculatedPrice) {
             GetTraderXLogger().LogWarning(string.Format("[VEHICLE] Price mismatch - Expected: %1, Received: %2, Product: %3", calculatedPrice, transactionPrice, product.className));
             return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), "Vehicle purchase failed: Invalid price");
+        }
+        
+        // Validate preset productId matches the transaction product
+        if (preset && preset.productId != "" && preset.productId != transaction.GetProductId()) {
+            GetTraderXLogger().LogWarning(string.Format("[VEHICLE] Preset product mismatch - Transaction: %1, Preset: %2", transaction.GetProductId(), preset.productId));
+            return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), "Vehicle purchase failed: Invalid preset configuration");
+        }
+        
+        // Validate preset attachment stock availability (before main stock validation)
+        if (preset && !ValidatePresetAttachmentStock(preset)) {
+            return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), "Vehicle purchase failed: Preset attachment out of stock");
         }
         
         // Stock validation
@@ -215,6 +282,11 @@ class TraderXVehicleTransactionService
         // Update stock
         if (!product.IsStockUnlimited()) {
             TraderXProductStockRepository.DecreaseStock(transaction.GetProductId());
+        }
+        
+        // Decrease stock for preset attachments (if any)
+        if (preset) {
+            DecreasePresetAttachmentStock(preset);
         }
         
         GetTraderXLogger().LogInfo("Vehicle purchased successfully: " + product.className + " by player: " + player.GetIdentity().GetName());

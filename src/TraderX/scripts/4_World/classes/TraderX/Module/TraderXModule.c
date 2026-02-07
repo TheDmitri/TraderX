@@ -27,19 +27,12 @@ class TraderXModule : CF_ModuleWorld
             oldTraderXPriceConfig.ConvertOldConfigToNew();
             oldTraderXGeneralSettings.ConvertOldConfigToNew();
 
-            TraderXJsonToCsvConverter.ConvertAllJsonToCsv();
+            // Load user's source format preference
+            TraderXSourceConfig sourceConfig = TraderXSourceConfigLoader.LoadConfig();
             
-            // Compile and validate CSV configuration (if CSV source files exist)
-            bool compilationSuccess = TraderXConfigCompiler.CompileAndValidate();
-            if (!compilationSuccess)
-            {
-                GetTraderXLogger().LogWarning("[TraderX] CSV compilation failed or used backup. Check ConfigReport.log for details.");
-            }
+            // Initialize configuration using the service (handles all format loading and migration)
+            TraderXConfigurationService.GetInstance().Initialize(sourceConfig);
             
-            TraderXProductRepository.LoadAllProducts();
-            TraderXCategoryRepository.LoadAllCategories();
-            TraderXVehicleParkingRepository.LoadAllParkingCollections();
-
             generalSettings = TraderXSettingsRepository.Load();
             TraderXPresetsService.GetInstance().GetInstance();
             TraderXNpcService.GetInstance().CreateNpcs();

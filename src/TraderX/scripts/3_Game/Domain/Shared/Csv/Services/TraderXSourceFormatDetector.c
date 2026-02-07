@@ -110,6 +110,9 @@ class TraderXSourceFormatDetector
      */
     bool NeedsMigration(string preferredFormat, string currentFormat)
     {
+        // Normalize to uppercase for comparison
+        preferredFormat.ToUpper();
+        
         // No migration needed if no source files exist
         if (currentFormat == "NONE")
         {

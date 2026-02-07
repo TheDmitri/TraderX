@@ -1,0 +1,83 @@
+{
+    "preferredFormat": "LEGACY",
+    "autoMigrate": false,
+    "allowCompilation": true
+}
+
+/*
+ * TraderX Source Configuration File
+ * 
+ * This file controls which configuration format TraderX uses.
+ * 
+ * PREFERRED FORMAT OPTIONS:
+ * ========================
+ * 
+ * 1. "LEGACY" - Traditional individual JSON files
+ *    Location: TraderXConfig/Products/*.json
+ *             TraderXConfig/Categories/*.json
+ *    Best for: Users who prefer editing individual files per product/category
+ *    Migration: Set autoMigrate to true to convert legacy files to CSV
+ * 
+ * 2. "CSV" - Spreadsheet-friendly CSV files
+ *    Location: TraderXConfig/Source/products.csv
+ *             TraderXConfig/Source/categories.csv
+ *    Best for: Users who prefer editing in Excel/Google Sheets
+ *    Note: CSV files are automatically compiled to Compiled JSON on server start
+ *    Migration: Set autoMigrate to true to convert legacy files to CSV first
+ * 
+ * 3. "COMPILED" - Optimized single-file JSON
+ *    Location: TraderXConfig/Compiled/Products_compiled.json
+ *             TraderXConfig/Compiled/Categories_compiled.json
+ *    Best for: Advanced users who want direct control over the runtime format
+ *    Note: These files are normally auto-generated from CSV
+ *    Migration: Set autoMigrate to true to compile from CSV or legacy
+ * 
+ * 
+ * SETTINGS:
+ * =========
+ * 
+ * preferredFormat (string): Choose "LEGACY", "CSV", or "COMPILED"
+ * 
+ * autoMigrate (bool): When true, automatically converts from legacy format
+ *                     to your preferred format on first run
+ *                     - LEGACY mode: No migration happens
+ *                     - CSV mode: Converts legacy JSON -> CSV
+ *                     - COMPILED mode: Converts legacy -> CSV -> Compiled
+ * 
+ * allowCompilation (bool): When true (CSV mode), allows CSV -> Compiled conversion
+ *                          Set to false to skip compilation and load CSV directly
+ *                          (Not applicable for LEGACY or COMPILED modes)
+ * 
+ * 
+ * MIGRATION SCENARIOS:
+ * ===================
+ * 
+ * Converting from Legacy to CSV:
+ *   1. Set preferredFormat to "CSV"
+ *   2. Set autoMigrate to true
+ *   3. Start server - legacy files will be converted to CSV
+ *   4. Edit the new CSV files in TraderXConfig/Source/
+ *   5. Set autoMigrate to false to prevent re-conversion
+ * 
+ * Converting from Legacy to Compiled:
+ *   1. Set preferredFormat to "COMPILED"
+ *   2. Set autoMigrate to true
+ *   3. Start server - legacy files will be converted to CSV then Compiled
+ *   4. Edit CSV files or directly edit Compiled files
+ *   5. Set autoMigrate to false
+ * 
+ * Sticking with Legacy:
+ *   1. Set preferredFormat to "LEGACY"
+ *   2. Set autoMigrate to false
+ *   3. Continue editing individual JSON files
+ * 
+ * 
+ * IMPORTANT NOTES:
+ * ================
+ * 
+ * - After migration, your original files are NOT deleted (safety first)
+ * - The system logs which format it's using in the server console
+ * - If compiled files are corrupt, the system falls back to source files
+ * - If source files are missing, the system can auto-migrate from legacy
+ * - Always back up your configuration before changing formats!
+ */

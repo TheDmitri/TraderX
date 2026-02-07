@@ -7,11 +7,11 @@ enum ETraderXTransactionResultType
 class TraderXTransactionResult
 {
     //TODO: remove finish this
-    private ref TraderXTransactionId transactionId;
-    private string productId;
-    private TraderXTransactionType transactionType;
-    private ETraderXTransactionResultType resultType;
-    private string message;
+    ref TraderXTransactionId transactionId;
+    string productId;
+    TraderXTransactionType transactionType;
+    ETraderXTransactionResultType resultType;
+    string message;
     
     void TraderXTransactionResult(TraderXTransactionId id, string prodId, TraderXTransactionType transType, ETraderXTransactionResultType transResultType, string msg)
     {

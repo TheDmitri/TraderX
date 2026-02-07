@@ -151,28 +151,72 @@ class TraderXCategoryRepository
     // Load categories from compiled JSON (CSV-based system)
     private static void LoadFromCompiledJson()
     {
-        ref array<ref TraderXJsonCategory> jsonCategories = new array<ref TraderXJsonCategory>;
-        JsonFileLoader<array<ref TraderXJsonCategory>>.JsonLoadFile(TRADERX_COMPILED_CATEGORIES_FILE, jsonCategories);
+        ref array<ref TraderXCompiledCategory> jsonCategories = new array<ref TraderXCompiledCategory>;
+        JsonFileLoader<array<ref TraderXCompiledCategory>>.JsonLoadFile(TRADERX_COMPILED_CATEGORIES_FILE, jsonCategories);
         
         if (!jsonCategories || jsonCategories.Count() == 0)
         {
-            GetTraderXLogger().LogError("[TraderX] Failed to load compiled categories, falling back to legacy");
+            GetTraderXLogger().LogError("[TraderX] Failed to load compiled categories (empty or null), falling back to legacy");
             LoadFromLegacyJson();
             return;
         }
         
         s_Categories.Clear();
+        int successCount = 0;
+        int failCount = 0;
         
-        foreach (TraderXJsonCategory jsonCategory : jsonCategories)
+        foreach (TraderXCompiledCategory jsonCategory : jsonCategories)
         {
-            TraderXCategory category = TraderXCategoryMapper.MapToTraderXCategory(jsonCategory);
-            if (category && category.categoryId.Length() > 0)
+            if (!jsonCategory)
             {
-                s_Categories.Set(category.categoryId, category);
+                failCount++;
+                continue;
+            }
+            
+            // Validate required fields
+            if (jsonCategory.categoryId.Length() == 0)
+            {
+                GetTraderXLogger().LogWarning("[TraderX] Skipping category with empty categoryId in compiled file");
+                failCount++;
+                continue;
+            }
+            
+            TraderXCategory category = TraderXCategoryMapper.MapToTraderXCategory(jsonCategory);
+            if (category)
+            {
+                category.categoryId = jsonCategory.categoryId;
+                if (category.categoryId.Length() > 0)
+                {
+                    s_Categories.Set(category.categoryId, category);
+                    successCount++;
+                }
+                else
+                {
+                    failCount++;
+                }
+            }
+            else
+            {
+                failCount++;
             }
         }
         
-        GetTraderXLogger().LogInfo(string.Format("[TraderX] LoadAllCategories - Completed. Total categories loaded: %1 (from compiled config)", s_Categories.Count()));
+        // If too many failures, fall back to legacy
+        if (successCount == 0 && failCount > 0)
+        {
+            GetTraderXLogger().LogError(string.Format("[TraderX] All %1 categories failed to load from compiled file, falling back to legacy", failCount));
+            LoadFromLegacyJson();
+            return;
+        }
+        
+        if (failCount > 0)
+        {
+            GetTraderXLogger().LogWarning(string.Format("[TraderX] Loaded %1 categories from compiled file, %2 failed", successCount, failCount));
+        }
+        else
+        {
+            GetTraderXLogger().LogInfo(string.Format("[TraderX] LoadAllCategories - Completed. Total categories loaded: %1 (from compiled config)", s_Categories.Count()));
+        }
     }
     
     // Load categories from legacy multi-file JSON (backward compatibility)

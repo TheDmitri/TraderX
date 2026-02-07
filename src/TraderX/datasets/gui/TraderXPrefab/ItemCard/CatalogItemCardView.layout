@@ -1,0 +1,146 @@
+PanelWidgetClass CatalogItemCardView {
+ visible 1
+ ignorepointer 1
+ color 0.1882 0.1882 0.1882 1
+ size 48 220
+ hexactpos 1
+ vexactpos 1
+ hexactsize 1
+ vexactsize 1
+ scriptclass "CatalogItemCardViewController"
+ style TP_BackgroundStroke
+ {
+  PanelWidgetClass itemCardContent {
+   visible 1
+   ignorepointer 0
+   color 0.1882 0.1882 0.1882 1
+   position 0 0
+   size 1 1
+   hexactpos 0
+   vexactpos 0
+   hexactsize 0
+   vexactsize 0
+   style TP_BackgroundStroke
+   {
+    ButtonWidgetClass itemCardMainBtn {
+     color 0.1882 0.1882 0.1882 1
+     position 0 0
+     size 1 1
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     scriptclass "ViewBinding"
+     style TP_CardBtn
+    }
+    PanelWidgetClass previewPanel {
+     ignorepointer 1
+     color 0.1882 0.1882 0.1882 1
+     position 0 0.05
+     size 0.9 0.55
+     halign center_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     {
+      ItemPreviewWidgetClass itemPreview {
+       ignorepointer 1
+       position 0 0
+       size 1 1
+       halign center_ref
+       valign center_ref
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       scriptclass "ViewBinding"
+       {
+        ScriptParamsClass {
+         Binding_Name "preview"
+        }
+       }
+      }
+     }
+    }
+    TextWidgetClass itemNameText {
+     ignorepointer 1
+     color 0.8471 0.8471 0.8471 1
+     position 0 0.62
+     size 0.95 0.18
+     halign center_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     scriptclass "ViewBinding"
+     text "Item Name"
+     font "TraderX/datasets/fonts/RobotoCondensedVF16"
+     wrap 1
+     "text halign" center
+     {
+      ScriptParamsClass {
+       Binding_Name "itemName"
+      }
+     }
+    }
+    PanelWidgetClass pricePanel {
+     ignorepointer 1
+     color 0.1569 0.1569 0.1569 1
+     position 0 0.82
+     size 0.95 0.15
+     halign center_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     style TP_BackgroundStroke
+     {
+      TextWidgetClass priceText {
+       ignorepointer 1
+       color 0.9961 0.9961 0.9961 1
+       position 0 0
+       size 1 1
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       scriptclass "ViewBinding"
+       text "0"
+       font "TraderX/datasets/fonts/RobotoCondensedVF22"
+       "text halign" center
+       "text valign" center
+       {
+        ScriptParamsClass {
+         Binding_Name "itemPrice"
+        }
+       }
+      }
+     }
+    }
+    TextWidgetClass stockText {
+     visible 1
+     ignorepointer 1
+     color 0.6471 0.6471 0.6471 1
+     position 0 0.97
+     size 0.95 0.05
+     halign center_ref
+     valign bottom_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+       scriptclass "ViewBinding"
+     text "Stock: 0/10"
+     font "TraderX/datasets/fonts/RobotoCondensedVF14"
+     "text halign" center
+     {
+      ScriptParamsClass {
+       Binding_Name "itemStock"
+      }
+     }
+    }
+   }
+  }
+ }
+}

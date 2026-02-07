@@ -62,7 +62,7 @@ class PlayerSlotNavigationViewController: ViewController
 
     override bool OnMouseEnter(Widget w, int x, int y)
 	{
-        if(w && w.GetUserID() >= EPlayerSlotNavigationButton.ALL && w.GetUserID() <= EPlayerSlotNavigationButton.ARMBAND){
+        if(w && w.GetUserID() >= EPlayerSlotNavigationButton.ALL && w.GetUserID() <= EPlayerSlotNavigationButton.VEHICLES){
             w.SetAlpha(1.0);
         }
         return false;
@@ -70,7 +70,7 @@ class PlayerSlotNavigationViewController: ViewController
 
     override bool OnMouseLeave(Widget w, Widget enterW, int x, int y)
 	{
-        if(w && w.GetUserID() >= EPlayerSlotNavigationButton.ALL && w.GetUserID() <= EPlayerSlotNavigationButton.ARMBAND){
+        if(w && w.GetUserID() >= EPlayerSlotNavigationButton.ALL && w.GetUserID() <= EPlayerSlotNavigationButton.VEHICLES){
             w.SetAlpha(0.7);
         }
         return false;

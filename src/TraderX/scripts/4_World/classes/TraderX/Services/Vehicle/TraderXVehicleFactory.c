@@ -17,8 +17,14 @@ class TraderXVehicleFactory
             return null;
         }
         
-        // Set orientation
+        // Set orientation with roll trick to force physics engine acknowledgment
+        vehicle.SetPosition(position);
         vehicle.SetOrientation(orientation);
+        vector roll = vehicle.GetOrientation();
+        roll[2] = roll[2] - 1;
+        vehicle.SetOrientation(roll);
+        roll[2] = roll[2] + 1;
+        vehicle.SetOrientation(roll);
         
         // Configure vehicle based on preset
         ConfigureVehicleFromPreset(vehicle, preset);

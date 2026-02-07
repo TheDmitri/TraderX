@@ -40,13 +40,55 @@ class CustomizePageViewController: ViewController
     void CustomizePageViewController()
     {
         itemAttachments = new array<ref TraderXProduct>();
-        RegisterEventHandlers();
-        RegisterServiceEvents();
         TraderXTradingService.GetInstance().SetMaxQuantity(false);
+    }
+    
+    void ~CustomizePageViewController()
+    {
+        UnregisterEventHandlers();
+        UnregisterServiceEvents();
+        
+        if (preview)
+        {
+            GetGame().ObjectDelete(preview);
+            preview = null;
+        }
+        
+        if (instance == this)
+            instance = null;
+    }
+    
+    void UnregisterEventHandlers()
+    {
+        ItemCardViewController.Event_OnItemCardClickEventCallBack.Remove(OnItemCardSelected);
+        NewPresetCardViewController.Event_OnNewPresetClickCallBack.Remove(OnNewPresetClick);
+        
+        VariantCardViewController.Event_OnVariantClickCallBack.Remove(OnVariantClick);
+        ModalCreatePresetViewController.Event_OnConfirmClickCallBack.Remove(OnConfirmClick);
+        ModalCreatePresetViewController.Event_OnCancelClickCallBack.Remove(OnCancelClick);
+        ModalConfirmationViewController.Event_OnConfirmClickCallBack.Remove(OnConfirmDeleteClick);
+        ModalConfirmationViewController.Event_OnCancelClickCallBack.Remove(OnCancelDeleteClick);
+
+        PresetCardViewController.Event_OnPresetClickCallBack.Remove(OnPresetClick);
+        PresetCardViewController.Event_OnDefaultPresetClickCallBack.Remove(OnDefaultPresetClick);
+        PresetCardViewController.Event_OnEditPresetClickCallBack.Remove(OnEditPresetClick);
+        PresetCardViewController.Event_OnDeletePresetClickCallBack.Remove(OnDeletePresetClick);
+    }
+    
+    void UnregisterServiceEvents()
+    {
+        CustomizePreviewService.Event_OnPreviewUpdated.Remove(OnPreviewUpdated);
+        CustomizePreviewService.Event_OnAttachmentsChanged.Remove(OnAttachmentsChanged);
+        CustomizeStateService.Event_OnVariantChanged.Remove(OnVariantChanged);
+        CustomizeStateService.Event_OnPresetChanged.Remove(OnPresetChanged);
+        CustomizeStateService.Event_OnConfigurationChanged.Remove(OnConfigurationChanged);
     }
     
     void RegisterEventHandlers()
     {
+        // Remove first to prevent duplicate registrations from previous instances
+        UnregisterEventHandlers();
+        
         ItemCardViewController.Event_OnItemCardClickEventCallBack.Insert(OnItemCardSelected);
         NewPresetCardViewController.Event_OnNewPresetClickCallBack.Insert(OnNewPresetClick);
         
@@ -64,6 +106,9 @@ class CustomizePageViewController: ViewController
     
     void RegisterServiceEvents()
     {
+        // Remove first to prevent duplicate registrations from previous instances
+        UnregisterServiceEvents();
+        
         CustomizePreviewService.Event_OnPreviewUpdated.Insert(OnPreviewUpdated);
         CustomizePreviewService.Event_OnAttachmentsChanged.Insert(OnAttachmentsChanged);
         CustomizeStateService.Event_OnVariantChanged.Insert(OnVariantChanged);
@@ -74,6 +119,12 @@ class CustomizePageViewController: ViewController
     void Setup(TraderXProduct item)
     {
         instance = this;
+        
+        // Register events AFTER setting instance so old instance destructor
+        // (triggered by losing its static ref) runs first and cleans up its handlers
+        RegisterEventHandlers();
+        RegisterServiceEvents();
+        
         TraderXUINavigationService.GetInstance().SetNavigationId(ENavigationIds.CUSTOMIZE);
         TraderXTradingService.GetInstance().SetTradeMode(ETraderXTradeMode.BUY);
         originalItem = item;
@@ -524,13 +575,15 @@ class CustomizePageViewController: ViewController
         money_amount = TraderXQuantityManager.GetFormattedMoneyAmount(playerMoney);
         
         // Update total amount with current configuration price
-        total_amount = CustomizeStateService.GetInstance().GetFormattedTotalPrice();
         
         NotifyPropertiesChanged({"money_amount", "total_amount"});
     }
 
     void OnDefaultPresetClick(TraderXPreset preset)
     {
+        if (!preset || !originalItem)
+            return;
+        
         // Check if this is a server preset - server presets can't be set as user defaults
         bool isServerPreset = IsServerPreset(preset);
         if (isServerPreset)
@@ -544,28 +597,33 @@ class CustomizePageViewController: ViewController
         
         TraderXPresetsService.GetInstance().SetDefaultPreset(storageProductId, preset.presetId);
         
-        // Verify the preset was set as default
-        string verifyDefaultId = TraderXPresetsService.GetInstance().GetDefaultPresetId(storageProductId);
-        GetTraderXLogger().LogDebug(string.Format("OnDefaultPresetClick - Verified default preset ID: %1", verifyDefaultId));
-        
-        // Refresh all preset cards to update their default button colors
-        RefreshAllPresetDefaultButtons();
-        
-        FillPresetList();
+        // Only refresh existing card colors — do NOT call FillPresetList here
+        // because it destroys the PresetCardViewController that is still on the call stack
+        if (preset_list)
+            RefreshAllPresetDefaultButtons();
     }
     
     void RefreshAllPresetDefaultButtons()
     {
-        // Iterate through all preset cards and refresh their default button colors
-        foreach (ScriptView presetView : preset_list.GetArray())
+        if (!preset_list)
+            return;
+        
+        array<ref ScriptView> cards = preset_list.GetArray();
+        if (!cards)
+            return;
+        
+        for (int i = 0; i < cards.Count(); i++)
         {
-            PresetCardView presetCardView = PresetCardView.Cast(presetView);
+            if (!cards[i])
+                continue;
+            
+            PresetCardView presetCardView = PresetCardView.Cast(cards[i]);
             if (presetCardView && presetCardView.GetTemplateController())
             {
                 PresetCardViewController controller = PresetCardViewController.Cast(presetCardView.GetTemplateController());
                 if (controller)
                 {
-                    controller.RefreshDefaultStatus();
+                    controller.RefreshDefaultStatus(originalItem.productId);
                 }
             }
         }
@@ -624,7 +682,9 @@ class CustomizePageViewController: ViewController
         if (!preset)
             return false;
             
-        // Check if preset exists in server presets
+        if (!originalItem)
+            return false;
+        
         TraderXPresets serverPresets = TraderXPresetsService.GetInstance().GetServerPresets(originalItem.productId);
         if (!serverPresets || !serverPresets.presets)
             return false;

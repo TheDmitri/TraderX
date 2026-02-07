@@ -1,7 +1,7 @@
 class TraderXTransactionResultCollection
 {
-    protected string steamId;
-    protected ref array<ref TraderXTransactionResult> transactionResults;
+    string steamId;
+    ref array<ref TraderXTransactionResult> transactionResults;
 
     void TraderXTransactionResultCollection(string steamId, array<ref TraderXTransactionResult> results = null)
     {

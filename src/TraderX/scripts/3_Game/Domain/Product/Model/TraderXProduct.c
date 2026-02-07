@@ -6,7 +6,7 @@ class TraderXJsonProduct
     int tradeQuantity;
     int buyPrice;
     int sellPrice;
-    int stockSettings; // Combines both destock coefficient (0-100) and behavior at restart
+    int stockSettings;
     ref array<string> attachments;
     ref array<string> variants;
 

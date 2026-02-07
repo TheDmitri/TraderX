@@ -19,6 +19,7 @@ class TraderXTradingService
     static ref TraderXTradingService m_instanceTraderXTradingService;
     static ref ScriptInvoker Event_OnTraderXResponseReceived = new ScriptInvoker();
     private bool isMaxQuantity = false;
+    private bool m_IsTransactionPending = false;
 
     int tradeMode = ETraderXTradeMode.SELL;
 
@@ -96,9 +97,26 @@ class TraderXTradingService
         return m_instanceTraderXTradingService;
     }
 
+    bool IsTransactionPending()
+    {
+        return m_IsTransactionPending;
+    }
+
+    void LockTransaction()
+    {
+        m_IsTransactionPending = true;
+    }
+
+    void UnlockTransaction()
+    {
+        m_IsTransactionPending = false;
+    }
+
     void OnTraderXResponseReceived(int response, TraderXTransactionResultCollection transactionResultCollection = null)
     {
-        GetTraderXLogger().LogDebug("TraderXTradingService::OnTraderXResponseReceived");  
+        GetTraderXLogger().LogDebug("TraderXTradingService::OnTraderXResponseReceived");
+        if(response == ETraderXResponse.TRANSACTIONS)
+            UnlockTransaction();
         Event_OnTraderXResponseReceived.Invoke(response, transactionResultCollection);
     }
 

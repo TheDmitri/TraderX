@@ -72,12 +72,12 @@ class TraderXFormatMigrator
         string productsJsonPath = m_sourceDirectory + "products.json";
         if (FileExist(productsJsonPath))
         {
-            ref array<ref TraderXJsonProduct> jsonProducts = new array<ref TraderXJsonProduct>;
-            JsonFileLoader<array<ref TraderXJsonProduct>>.JsonLoadFile(productsJsonPath, jsonProducts);
+            ref array<ref TraderXCompiledProduct> jsonProducts = new array<ref TraderXCompiledProduct>;
+            JsonFileLoader<array<ref TraderXCompiledProduct>>.JsonLoadFile(productsJsonPath, jsonProducts);
             
             if (jsonProducts)
             {
-                foreach (TraderXJsonProduct jsonProd : jsonProducts)
+                foreach (TraderXCompiledProduct jsonProd : jsonProducts)
                 {
                     TraderXCsvProduct csvProd = ConvertJsonProductToCsv(jsonProd);
                     if (csvProd)
@@ -91,12 +91,12 @@ class TraderXFormatMigrator
         string categoriesJsonPath = m_sourceDirectory + "categories.json";
         if (FileExist(categoriesJsonPath))
         {
-            ref array<ref TraderXJsonCategory> jsonCategories = new array<ref TraderXJsonCategory>;
-            JsonFileLoader<array<ref TraderXJsonCategory>>.JsonLoadFile(categoriesJsonPath, jsonCategories);
+            ref array<ref TraderXCompiledCategory> jsonCategories = new array<ref TraderXCompiledCategory>;
+            JsonFileLoader<array<ref TraderXCompiledCategory>>.JsonLoadFile(categoriesJsonPath, jsonCategories);
             
             if (jsonCategories)
             {
-                foreach (TraderXJsonCategory jsonCat : jsonCategories)
+                foreach (TraderXCompiledCategory jsonCat : jsonCategories)
                 {
                     TraderXCsvCategory csvCat = ConvertJsonCategoryToCsv(jsonCat);
                     if (csvCat)
@@ -174,7 +174,7 @@ class TraderXFormatMigrator
             
             if (csvFile.IndexOf("product") != -1)
             {
-                ref array<ref TraderXCsvProduct> packProducts = csvLoader.LoadProducts(fullPath);
+                ref array<ref TraderXCsvProduct> packProducts = csvLoader.LoadProductsCsv(fullPath);
                 if (packProducts)
                 {
                     foreach (TraderXCsvProduct prod : packProducts)
@@ -185,7 +185,7 @@ class TraderXFormatMigrator
             }
             else if (csvFile.IndexOf("categor") != -1)
             {
-                ref array<ref TraderXCsvCategory> packCategories = csvLoader.LoadCategories(fullPath);
+                ref array<ref TraderXCsvCategory> packCategories = csvLoader.LoadCategoriesCsv(fullPath);
                 if (packCategories)
                 {
                     foreach (TraderXCsvCategory cat : packCategories)
@@ -197,22 +197,22 @@ class TraderXFormatMigrator
         }
         
         // Convert to JSON format
-        ref array<ref TraderXJsonProduct> jsonProducts = new array<ref TraderXJsonProduct>;
+        ref array<ref TraderXCompiledProduct> jsonProducts = new array<ref TraderXCompiledProduct>;
         
         foreach (TraderXCsvProduct csvProd : products)
         {
-            TraderXJsonProduct jsonProd = ConvertCsvProductToJson(csvProd);
+            TraderXCompiledProduct jsonProd = ConvertCsvProductToJson(csvProd);
             if (jsonProd)
             {
                 jsonProducts.Insert(jsonProd);
             }
         }
         
-        ref array<ref TraderXJsonCategory> jsonCategories = new array<ref TraderXJsonCategory>;
+        ref array<ref TraderXCompiledCategory> jsonCategories = new array<ref TraderXCompiledCategory>;
         
         foreach (TraderXCsvCategory csvCat : categories)
         {
-            TraderXJsonCategory jsonCat = ConvertCsvCategoryToJson(csvCat);
+            TraderXCompiledCategory jsonCat = ConvertCsvCategoryToJson(csvCat);
             if (jsonCat)
             {
                 jsonCategories.Insert(jsonCat);
@@ -222,13 +222,13 @@ class TraderXFormatMigrator
         // Save as JSON
         if (jsonProducts.Count() > 0)
         {
-            JsonFileLoader<array<ref TraderXJsonProduct>>.JsonSaveFile(m_sourceDirectory + "products.json", jsonProducts);
+            JsonFileLoader<array<ref TraderXCompiledProduct>>.JsonSaveFile(m_sourceDirectory + "products.json", jsonProducts);
             GetTraderXLogger().LogInfo(string.Format("Migrated %1 products to JSON", jsonProducts.Count()));
         }
         
         if (jsonCategories.Count() > 0)
         {
-            JsonFileLoader<array<ref TraderXJsonCategory>>.JsonSaveFile(m_sourceDirectory + "categories.json", jsonCategories);
+            JsonFileLoader<array<ref TraderXCompiledCategory>>.JsonSaveFile(m_sourceDirectory + "categories.json", jsonCategories);
             GetTraderXLogger().LogInfo(string.Format("Migrated %1 categories to JSON", jsonCategories.Count()));
         }
         
@@ -242,7 +242,7 @@ class TraderXFormatMigrator
      * @param jsonProd JSON product with packed bitfields
      * @return CSV product with unpacked fields
      */
-    private TraderXCsvProduct ConvertJsonProductToCsv(TraderXJsonProduct jsonProd)
+    private TraderXCsvProduct ConvertJsonProductToCsv(TraderXCompiledProduct jsonProd)
     {
         TraderXCsvProduct csvProd = new TraderXCsvProduct();
         
@@ -287,7 +287,7 @@ class TraderXFormatMigrator
      * @param jsonCat JSON category
      * @return CSV category
      */
-    private TraderXCsvCategory ConvertJsonCategoryToCsv(TraderXJsonCategory jsonCat)
+    private TraderXCsvCategory ConvertJsonCategoryToCsv(TraderXCompiledCategory jsonCat)
     {
         TraderXCsvCategory csvCat = new TraderXCsvCategory();
         
@@ -307,9 +307,9 @@ class TraderXFormatMigrator
      * @param csvProd CSV product with unpacked fields
      * @return JSON product with packed bitfields
      */
-    private TraderXJsonProduct ConvertCsvProductToJson(TraderXCsvProduct csvProd)
+    private TraderXCompiledProduct ConvertCsvProductToJson(TraderXCsvProduct csvProd)
     {
-        TraderXJsonProduct jsonProd = new TraderXJsonProduct();
+        TraderXCompiledProduct jsonProd = new TraderXCompiledProduct();
         
         jsonProd.productId = csvProd.productKey;
         jsonProd.className = csvProd.className;
@@ -336,9 +336,9 @@ class TraderXFormatMigrator
      * @param csvCat CSV category
      * @return JSON category
      */
-    private TraderXCsvCategory ConvertCsvCategoryToJson(TraderXCsvCategory csvCat)
+    private TraderXCompiledCategory ConvertCsvCategoryToJson(TraderXCsvCategory csvCat)
     {
-        TraderXJsonCategory jsonCat = new TraderXJsonCategory();
+        TraderXCompiledCategory jsonCat = new TraderXCompiledCategory();
         
         jsonCat.categoryId = csvCat.categoryKey;
         jsonCat.categoryName = csvCat.categoryName;

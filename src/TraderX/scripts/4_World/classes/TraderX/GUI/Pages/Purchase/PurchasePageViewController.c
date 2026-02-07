@@ -2,6 +2,8 @@ class PurchasePageViewController: ViewController
 {
     string search_keyword;
     ref ObservableCollection<ref CategoryCardView> category_card_list = new ObservableCollection<ref CategoryCardView>(this);
+    bool m_AllExpanded = false;
+    TextWidget toggleExpandText;
     
     void PurchasePageViewController()
     {
@@ -37,17 +39,42 @@ class PurchasePageViewController: ViewController
         }
     }
 
+    void DebouncedSearch()
+    {
+        UpdateCategoryList();
+    }
+
     override void PropertyChanged(string property_name)
 	{
 		switch (property_name)
 		{
 			case "search_keyword": 
 			{
-				UpdateCategoryList();
+				GetGame().GetCallQueue(CALL_CATEGORY_GUI).Remove(DebouncedSearch);
+				GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(DebouncedSearch, 300, false);
 				break;
 			}
 		}
 	}
+
+    bool OnToggleExpandExecute(ButtonCommandArgs args)
+    {
+        TraderXInventoryManager.PlayMenuSound(ETraderXSounds.SELECT);
+        m_AllExpanded = !m_AllExpanded;
+        array<ref CategoryCardView> cards = category_card_list.GetArray();
+        for(int i = 0; i < cards.Count(); i++)
+        {
+            cards[i].GetTemplateController().SetExpanded(!m_AllExpanded);
+        }
+        if(toggleExpandText)
+        {
+            if(m_AllExpanded)
+                toggleExpandText.SetText(Widget.TranslateString("#tpm_collapse_all"));
+            else
+                toggleExpandText.SetText(Widget.TranslateString("#tpm_expand_all"));
+        }
+        return true;
+    }
 
     void OnItemCardClick(ItemCardViewController itemSelected, int command = ETraderXClickEvents.LCLICK)
     {
@@ -77,11 +104,14 @@ class PurchasePageViewController: ViewController
 
     void OnItemCardDoubleClick(ItemCardViewController itemSelected)
     {
+        if(TraderXTradingService.GetInstance().IsTransactionPending())
+            return;
+
         int npcId = TraderXTradingService.GetInstance().GetNpcId();
         TraderXTransactionCollection transactionCollection = new TraderXTransactionCollection();
         transactionCollection.AddTransaction(TraderXTransaction.CreateBuyTransaction(itemSelected.item, 1, itemSelected.GetPrice(), npcId));
         
-        // Envoyer la requête via RPC    
+        TraderXTradingService.GetInstance().LockTransaction();
         GetRPCManager().SendRPC("TraderX", "GetTransactionsRequest", new Param2<TraderXTransactionCollection, int>(transactionCollection, npcId));
         
         GetTraderXLogger().LogDebug(string.Format("Transaction request sent for item %1 with price %2", itemSelected.item.className, itemSelected.GetPrice()));

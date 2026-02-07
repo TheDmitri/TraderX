@@ -2,7 +2,7 @@ class TraderXMainViewController: ViewController
 {
     static private TraderXMainViewController m_instance;
 
-    ButtonWidget favBtn, SellBtn, PurchaseBtn, UpgradeBtn, DropBagBtn, PlayerBtn;
+    ButtonWidget favBtn, SellBtn, PurchaseBtn, UpgradeBtn, DropBagBtn, PlayerBtn, CatalogBtn;
 
     static TraderXMainViewController GetInstance()
     {
@@ -76,6 +76,13 @@ class TraderXMainViewController: ViewController
 		return true;
 	}
 
+    bool OnCatalogExecute(ButtonCommandArgs args)
+	{
+        TraderXInventoryManager.PlayMenuSound(ETraderXSounds.QUICK_EVENT);
+        ChangeSubView(new CatalogPageView(), args.Source);
+		return true;
+	}
+
     #ifdef TRADERX_STASH
     bool OnDropBagExecute(ButtonCommandArgs args)
 	{
@@ -87,6 +94,7 @@ class TraderXMainViewController: ViewController
 
     void ChangeSubView(ScriptView view, ButtonWidget newSelectedBtn)
     {
+        ItemCardViewController.DestroyAllTooltips();
         TraderXSelectionService.GetInstance().DeSelectAllItems();
         
         if(selectedBtn){

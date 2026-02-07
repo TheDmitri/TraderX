@@ -16,6 +16,7 @@ class ItemCardViewController: ViewController
 
     static ref ScriptInvoker Event_OnItemCardClickEventCallBack = new ScriptInvoker();
     static ref ScriptInvoker Event_OnItemCardSelectCallBack = new ScriptInvoker();
+    static ref ScriptInvoker Event_OnDestroyAllTooltips = new ScriptInvoker();
 
     ref SellTooltipView sellTooltipView;
     ref BuyTooltipView buyTooltipView;
@@ -30,11 +31,18 @@ class ItemCardViewController: ViewController
         TraderXTradingService.Event_OnTraderXResponseReceived.Insert(OnTraderXResponseReceived);
         // Subscribe to checkout pricing changes for dynamic price updates
         TraderXProduct.Event_OnCheckoutPricingChanged.Insert(OnCheckoutPricingChanged);
+        Event_OnDestroyAllTooltips.Insert(DestroyTooltips);
     }
 
     void ~ItemCardViewController()
     {
+        Event_OnDestroyAllTooltips.Remove(DestroyTooltips);
         DestroyTooltips();
+    }
+
+    static void DestroyAllTooltips()
+    {
+        Event_OnDestroyAllTooltips.Invoke();
     }
 
     void Setup(TraderXProduct item, int categoryType, bool selectable, bool isFavable, bool isFav)
@@ -206,8 +214,9 @@ class ItemCardViewController: ViewController
                 int dynamicPrice = TraderXPricingService.GetInstance().GetPricePreview(item.GetProductId(), false, 1, item.GetPlayerItem().healthLevel);
                 return dynamicPrice.ToString();
             } else {
-                GetTraderXLogger().LogError("GetPriceFromItem SELL: item is not sell entity");
-                return "-1";
+                // Catalog item - calculate theoretical sell price based on pristine condition
+                int catalogSellPrice = TraderXPricingService.GetInstance().GetPricePreview(item.GetProductId(), false, 1, TraderXItemState.PRISTINE);
+                return catalogSellPrice.ToString();
             }
         }
 

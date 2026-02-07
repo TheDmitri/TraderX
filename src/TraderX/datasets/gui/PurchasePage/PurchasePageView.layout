@@ -11,7 +11,7 @@ PanelWidgetClass PurchasePageView {
  hexactsize 0
  vexactsize 0
  scriptclass "PurchasePageViewController"
- style DA_Smooth_Small_10px
+ style blank
  {
   PanelWidgetClass wSearchBar {
    visible 1
@@ -24,7 +24,7 @@ PanelWidgetClass PurchasePageView {
    vexactpos 0
    hexactsize 0
    vexactsize 0
-   style DA_Smooth5px_ColoredStr
+   style blank
    {
     EditBoxWidgetClass EditBoxWidget1 {
      color 0.8471 0.8471 0.8471 1
@@ -67,6 +67,72 @@ PanelWidgetClass PurchasePageView {
      "src alpha" 1
      "stretch mode" stretch_w_h
      filter 0
+    }
+   }
+  }
+  ButtonWidgetClass expandAllBtn {
+   color 0.9961 0.9961 0.9961 1
+   position -0.025 0.0568
+   size 0.06 0.0426
+   halign center_ref
+   hexactpos 0
+   vexactpos 0
+   hexactsize 0
+   vexactsize 0
+   scriptclass "ViewBinding"
+   style TP_CardBtn
+   {
+    TextWidgetClass expandAllText {
+     ignorepointer 1
+     color 0.8471 0.8471 0.8471 1
+     position 0 0
+     size 1 1
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     text "#tpm_expand_all"
+     font "TraderX/datasets/fonts/RobotoCondensedVF12"
+     "text halign" center
+     "text valign" center
+    }
+   }
+   {
+    ScriptParamsClass {
+     Relay_Command "OnExpandAllExecute"
+    }
+   }
+  }
+  ButtonWidgetClass collapseAllBtn {
+   color 0.9961 0.9961 0.9961 1
+   position 0.04 0.0568
+   size 0.06 0.0426
+   halign center_ref
+   hexactpos 0
+   vexactpos 0
+   hexactsize 0
+   vexactsize 0
+   scriptclass "ViewBinding"
+   style TP_CardBtn
+   {
+    TextWidgetClass collapseAllText {
+     ignorepointer 1
+     color 0.8471 0.8471 0.8471 1
+     position 0 0
+     size 1 1
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     text "#tpm_collapse_all"
+     font "TraderX/datasets/fonts/RobotoCondensedVF12"
+     "text halign" center
+     "text valign" center
+    }
+   }
+   {
+    ScriptParamsClass {
+     Relay_Command "OnCollapseAllExecute"
     }
    }
   }
@@ -377,6 +443,41 @@ PanelWidgetClass PurchasePageView {
                  "size to text v" 1
                  "text halign" center
                  "text valign" center
+                }
+                ButtonWidgetClass clearCheckoutBtn {
+                 color 0.9961 0.9961 0.9961 1
+                 position 0.02 0.025
+                 size 36 36
+                 halign right_ref
+                 hexactpos 0
+                 vexactpos 0
+                 hexactsize 1
+                 vexactsize 1
+                 scriptclass "ViewBinding"
+                 style TP_CardBtn
+                 {
+                  ImageWidgetClass trashIcon {
+                   ignorepointer 1
+                   color 0.8471 0.8471 0.8471 1
+                   position 0 0
+                   size 20 20
+                   halign center_ref
+                   valign center_ref
+                   hexactpos 0
+                   vexactpos 0
+                   hexactsize 1
+                   vexactsize 1
+                   imageTexture "{9E0A4859DB84556E}TraderX/datasets/icons/delete.edds"
+                   mode blend
+                   "src alpha" 1
+                   "stretch mode" stretch_w_h
+                  }
+                 }
+                 {
+                  ScriptParamsClass {
+                   Relay_Command "OnClearCheckoutExecute"
+                  }
+                 }
                 }
                }
               }

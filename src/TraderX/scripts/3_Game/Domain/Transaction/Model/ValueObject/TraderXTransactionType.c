@@ -1,6 +1,6 @@
 class TraderXTransactionType
 {
-    private ETraderXTradeMode type;
+    ETraderXTradeMode type;
     
     void TraderXTransactionType(ETraderXTradeMode transactionType)
     {

@@ -1,0 +1,443 @@
+PanelWidgetClass CatalogPageView {
+ visible 1
+ ignorepointer 1
+ color 0 0 0 0
+ position 0 0
+ size 1 1
+ halign center_ref
+ valign bottom_ref
+ hexactpos 0
+ vexactpos 0
+ hexactsize 0
+ vexactsize 0
+ scriptclass "CatalogPageViewController"
+ style blank
+ {
+  PanelWidgetClass Background {
+   disabled 0
+   inheritalpha 0
+   ignorepointer 1
+   color 0.1882 0.1882 0.1882 1
+   position 0 0
+   size 1 0.87496
+   halign center_ref
+   valign bottom_ref
+   hexactpos 0
+   vexactpos 0
+   hexactsize 0
+   vexactsize 0
+   style blank
+   {
+    PanelWidgetClass LeftPanel {
+     ignorepointer 1
+     position 0 0
+     size 0.7 1
+     valign center_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     {
+      TextWidgetClass TextWidget0 {
+       ignorepointer 1
+       color 0.8471 0.8471 0.8471 1
+       position 0.01 0.015
+       size 0.05 0.04752
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       text "#tpm_catalog_items"
+       font "TraderX/datasets/fonts/RobotoCondensedVF22"
+       "size to text h" 1
+       "size to text v" 0
+       "text valign" center
+      }
+      ScrollWidgetClass ScrollWidget0 {
+       ignorepointer 1
+       position 0 0.01
+       size 0.98 0.88
+       halign center_ref
+       valign bottom_ref
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       "Scrollbar V" 1
+       {
+        GridSpacerWidgetClass categoryGrid {
+         ignorepointer 1
+         position 0 0
+         size 1 0.01
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         scriptclass "ViewBinding"
+         "Size To Content V" 1
+         Columns 1
+         Rows 100
+         {
+          ScriptParamsClass {
+           Binding_Name "category_card_list"
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+    PanelWidgetClass RightPanel {
+     ignorepointer 1
+     color 0.1176 0.1176 0.1176 1
+     position 0 0
+     size 0.3 1
+     halign right_ref
+     valign center_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     style TP_BackgroundStroke
+     {
+      TextWidgetClass TitleText {
+       ignorepointer 1
+       color 0.8471 0.8471 0.8471 1
+       position 0 0.02
+       size 1 0.08
+       halign center_ref
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       text "#tpm_item_details"
+       font "TraderX/datasets/fonts/RobotoCondensedVF22"
+       "text halign" center
+       "text valign" center
+      }
+      PanelWidgetClass PreviewPanel {
+       ignorepointer 1
+       color 0.1882 0.1882 0.1882 1
+       position 0 0.12
+       size 0.9 0.35
+       halign center_ref
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       style TP_BackgroundStroke
+       {
+        ItemPreviewWidgetClass itemPreview {
+         ignorepointer 1
+         position 0 0
+         size 1 1
+         halign center_ref
+         valign center_ref
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         scriptclass "ViewBinding"
+         {
+          ScriptParamsClass {
+           Binding_Name "selected_preview"
+          }
+         }
+        }
+       }
+      }
+      TextWidgetClass ItemNameText {
+       ignorepointer 1
+       color 0.9961 0.9961 0.9961 1
+       position 0 0.49
+       size 0.95 0.06
+       halign center_ref
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       scriptclass "ViewBinding"
+       text "Item Name"
+       font "TraderX/datasets/fonts/RobotoCondensedVF24"
+       "text halign" center
+       "text valign" center
+       {
+        ScriptParamsClass {
+         Binding_Name "selected_item_name"
+        }
+       }
+      }
+      GridSpacerWidgetClass PricePanel {
+       ignorepointer 1
+       position 0 0.56
+       size 0.9 0.1
+       halign center_ref
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       Padding 5
+       Margin 5
+       Columns 2
+       Rows 1
+       {
+        PanelWidgetClass SellPricePanel {
+         ignorepointer 1
+         color 0.1569 0.1569 0.1569 1
+         size 0.5 1
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         style TP_BackgroundStroke
+         {
+          TextWidgetClass SellPriceLabel {
+           ignorepointer 1
+           color 0.6471 0.6471 0.6471 1
+           position 0 0
+           size 1 0.4
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           text "#tpm_sell_price"
+           font "TraderX/datasets/fonts/RobotoCondensedVF14"
+           "text halign" center
+           "text valign" center
+          }
+          TextWidgetClass SellPriceValue {
+           ignorepointer 1
+           color 0.6039 0.8039 0.1961 1
+           position 0 0.4
+           size 1 0.6
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           scriptclass "ViewBinding"
+           text "0"
+           font "TraderX/datasets/fonts/RobotoCondensedVF20"
+           "text halign" center
+           "text valign" center
+           {
+            ScriptParamsClass {
+             Binding_Name "selected_sell_price"
+            }
+           }
+          }
+         }
+        }
+        PanelWidgetClass BuyPricePanel {
+         ignorepointer 1
+         color 0.1569 0.1569 0.1569 1
+         size 0.5 1
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         style TP_BackgroundStroke
+         {
+          TextWidgetClass BuyPriceLabel {
+           ignorepointer 1
+           color 0.6471 0.6471 0.6471 1
+           position 0 0
+           size 1 0.4
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           text "#tpm_buy_price"
+           font "TraderX/datasets/fonts/RobotoCondensedVF14"
+           "text halign" center
+           "text valign" center
+          }
+          TextWidgetClass BuyPriceValue {
+           ignorepointer 1
+           color 0.9961 0.5529 0.5529 1
+           position 0 0.4
+           size 1 0.6
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           scriptclass "ViewBinding"
+           text "0"
+           font "TraderX/datasets/fonts/RobotoCondensedVF20"
+           "text halign" center
+           "text valign" center
+           {
+            ScriptParamsClass {
+             Binding_Name "selected_buy_price"
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+      TextWidgetClass StockText {
+       ignorepointer 1
+       color 0.8471 0.8471 0.8471 1
+       position 0 0.68
+       size 0.9 0.05
+       halign center_ref
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       scriptclass "ViewBinding"
+       text "Stock: 0/10"
+       font "TraderX/datasets/fonts/RobotoCondensedVF16"
+       "text halign" center
+       "text valign" center
+       {
+        ScriptParamsClass {
+         Binding_Name "selected_stock"
+        }
+       }
+      }
+      PanelWidgetClass DescPanel {
+       ignorepointer 1
+       color 0.1882 0.1882 0.1882 1
+       position 0 0.75
+       size 0.9 0.22
+       halign center_ref
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       style TP_BackgroundStroke
+       {
+        ScrollWidgetClass DescScroll {
+         ignorepointer 1
+         position 0 0
+         size 1 1
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         "Scrollbar V" 1
+         {
+          RichTextWidgetClass DescriptionText {
+           ignorepointer 1
+           color 0.6471 0.6471 0.6471 1
+           position 0 0
+           size 0.95 0.95
+           halign center_ref
+           valign center_ref
+           hexactpos 0
+           vexactpos 0
+           hexactsize 0
+           vexactsize 0
+           scriptclass "ViewBinding"
+           text "#tpm_select_item_for_details"
+           font "TraderX/datasets/fonts/RobotoCondensedVF16"
+           "exact text" 1
+           "text halign" center
+           wrap 1
+           "condense whitespace" 1
+           "strip newlines" 1
+           {
+            ScriptParamsClass {
+             Binding_Name "selected_description"
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+  PanelWidgetClass wSearchBar {
+   visible 1
+   ignorepointer 1
+   color 0.3294 0.3294 0.3294 1
+   position -0.18 0.0568
+   size 0.1935 0.0426
+   halign center_ref
+   hexactpos 0
+   vexactpos 0
+   hexactsize 0
+   vexactsize 0
+   style blank
+   {
+    EditBoxWidgetClass EditBoxWidget1 {
+     color 0.8471 0.8471 0.8471 1
+     position 0.03 0
+     size 0.834 0.83
+     valign center_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     scriptclass "ViewBinding"
+     style No_Highlight
+     text "#tpm_search"
+     "Default text color" 0.9961 0.9961 0.9961 1
+     "Use default text" 1
+     "exact text" 1
+     font "TraderX/datasets/fonts/RobotoCondensedVF28"
+     "text color" 0.9961 0.9961 0.9961 1
+     {
+      ScriptParamsClass {
+       Binding_Name "search_keyword"
+       Two_Way_Binding 1
+      }
+     }
+    }
+    ImageWidgetClass ImageWidget5 {
+     ignorepointer 1
+     color 0.8471 0.8471 0.8471 1
+     position 0.02 0
+     size 0.084 0.755
+     halign right_ref
+     valign center_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     imageTexture "{F42AF1339263932B}TraderX/datasets/icons/search.edds"
+     mode blend
+     "src alpha" 1
+     "stretch mode" stretch_w_h
+    }
+   }
+  }
+  ButtonWidgetClass toggleExpandBtn {
+   color 0.9961 0.9961 0.9961 1
+   position 0.095 0.0568
+   size 0.06 0.0426
+   halign center_ref
+   hexactpos 0
+   vexactpos 0
+   hexactsize 0
+   vexactsize 0
+   scriptclass "ViewBinding"
+   style TP_CardBtn
+   {
+    TextWidgetClass toggleExpandText {
+     ignorepointer 1
+     color 0.8471 0.8471 0.8471 1
+     position 0 0
+     size 1 1
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     text "#tpm_expand_all"
+     font "TraderX/datasets/fonts/RobotoCondensedVF12"
+     "text halign" center
+     "text valign" center
+    }
+   }
+   {
+    ScriptParamsClass {
+     Relay_Command "OnToggleExpandExecute"
+    }
+   }
+  }
+ }
+}

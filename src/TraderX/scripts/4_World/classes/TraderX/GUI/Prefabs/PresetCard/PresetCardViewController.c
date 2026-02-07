@@ -142,13 +142,17 @@ class PresetCardViewController: ViewController
     
     void UpdateDefaultButtonColor()
     {
+        UpdateDefaultButtonColorForProduct(preset.productId);
+    }
+    
+    void UpdateDefaultButtonColorForProduct(string storageProductId)
+    {
         if (!defaultPresetBtn || !defaultPresetImg || !preset)
         {
             return;
         }
-            
-        // Check if this preset is the default preset
-        UUID defaultPresetId = TraderXPresetsService.GetInstance().GetDefaultPresetId(preset.productId);
+        
+        string defaultPresetId = TraderXPresetsService.GetInstance().GetDefaultPresetId(storageProductId);
         bool isDefault = (defaultPresetId == preset.presetId);
         
         if (isDefault)
@@ -163,9 +167,9 @@ class PresetCardViewController: ViewController
         }
     }
     
-    void RefreshDefaultStatus()
+    void RefreshDefaultStatus(string storageProductId)
     {
-        UpdateDefaultButtonColor();
+        UpdateDefaultButtonColorForProduct(storageProductId);
     }
     
     void ConfigureServerPresetUI()

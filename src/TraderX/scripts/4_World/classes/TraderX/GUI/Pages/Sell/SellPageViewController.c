@@ -313,6 +313,9 @@ class SellPageViewController: ViewController
         if(!manual_sell)
             return;
 
+        if(TraderXTradingService.GetInstance().IsTransactionPending())
+            return;
+
         int npcId = TraderXTradingService.GetInstance().GetNpcId();
         int sellPrice = itemDoubleClicked.GetPrice();
         
@@ -326,6 +329,7 @@ class SellPageViewController: ViewController
             return;
         }
         
+        TraderXTradingService.GetInstance().LockTransaction();
         GetRPCManager().SendRPC("TraderX", "GetTransactionsRequest", new Param2<TraderXTransactionCollection, int>(transactionCollection, npcId));
     }
 
@@ -413,13 +417,19 @@ class SellPageViewController: ViewController
         }
     }
 
+    void DebouncedSearch()
+    {
+        FilterItemList();
+    }
+
     override void PropertyChanged(string property_name)
 	{
 		switch (property_name)
 		{
 			case "search_keyword": 
 			{
-				FilterItemList();
+				GetGame().GetCallQueue(CALL_CATEGORY_GUI).Remove(DebouncedSearch);
+				GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(DebouncedSearch, 300, false);
 				break;
 			}
 

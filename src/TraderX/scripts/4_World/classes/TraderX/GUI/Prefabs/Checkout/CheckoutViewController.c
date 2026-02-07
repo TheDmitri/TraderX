@@ -285,6 +285,19 @@ class CheckoutViewController: ViewController
         }
     }
 
+    bool OnClearCheckoutExecute(ButtonCommandArgs args)
+    {
+        TraderXInventoryManager.PlayMenuSound(ETraderXSounds.SELECT);
+        if(checkout_card_list.GetArray().Count() == 0)
+            return false;
+
+        TraderXSelectionService.GetInstance().DeSelectAllItems();
+        checkout_card_list.Clear();
+        UpdateTotalPrice();
+        UpdatePlayerMoney();
+        return true;
+    }
+
     bool OnCheckoutExecute(ButtonCommandArgs args)
     {
         TraderXInventoryManager.PlayMenuSound(ETraderXSounds.CONFIRM);
@@ -292,7 +305,11 @@ class CheckoutViewController: ViewController
             return false;
         }
 
+        if(TraderXTradingService.GetInstance().IsTransactionPending())
+            return false;
+
         if(TraderXUINavigationService.GetInstance().GetNavigationId() == ENavigationIds.CUSTOMIZE){
+            TraderXTradingService.GetInstance().LockTransaction();
             HandleCustomizeCheckout();
             return true;
         }
@@ -367,6 +384,7 @@ class CheckoutViewController: ViewController
             }
 		}
 
+        TraderXTradingService.GetInstance().LockTransaction();
         GetRPCManager().SendRPC("TraderX", "GetTransactionsRequest", new Param2<TraderXTransactionCollection, int>(transactions, npcId));
 
         TraderXInventoryManager.PlayMenuSound(ETraderXSounds.CONFIRM);

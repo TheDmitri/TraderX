@@ -1,6 +1,6 @@
-class CategoryCardViewController: ViewController
+class CatalogCategoryCardViewController: ViewController
 {
-    ref ObservableCollection<ref ItemCardView> item_card_list = new ObservableCollection<ref ItemCardView>(this);
+    ref ObservableCollection<ref CatalogItemCardView> catalog_item_card_list = new ObservableCollection<ref CatalogItemCardView>(this);
     ImageWidget categoryIcon;
     ImageWidget croissantIcon;
     ImageWidget decroissantIcon;
@@ -11,7 +11,7 @@ class CategoryCardViewController: ViewController
 
     bool isExpanded;
     int sorting = ETraderXCategorySort.MINTOMAX;
-	int itemCardViewSize;
+    int itemCardViewSize;
     int categoryType;
 
     string category_name;
@@ -20,12 +20,13 @@ class CategoryCardViewController: ViewController
     bool isBlocked = false;
 
     ref TraderXCategory category;
+    string searchKeyword;
 
     void SetCategoryCardData(TraderXCategory category, int itemCardViewSize, bool expand = false, int categoryType = ETraderXCategoryType.NONE)
     {
         GetTraderXLogger().LogDebug("SetCategoryCardData " + category.categoryName + " expand: " + expand); 
         this.category = category;
-		this.itemCardViewSize = itemCardViewSize;
+        this.itemCardViewSize = itemCardViewSize;
         this.categoryType = categoryType;
 
         category_name = category.categoryName;
@@ -72,7 +73,7 @@ class CategoryCardViewController: ViewController
         itemCountText.Show(isExpanded);
 
         if (isExpanded){
-            item_card_list.Clear();
+            catalog_item_card_list.Clear();
         }
         else{
             ShowItemList();
@@ -93,7 +94,7 @@ class CategoryCardViewController: ViewController
         itemCountText.Show(isExpanded);
 
         if (isExpanded){
-            item_card_list.Clear();
+            catalog_item_card_list.Clear();
         }
         else{
             ShowItemList();
@@ -122,25 +123,25 @@ class CategoryCardViewController: ViewController
     void Sort(bool ascending)
     {
         bool isSwapped = true;
-        int n = item_card_list.GetArray().Count();
+        int n = catalog_item_card_list.GetArray().Count();
 
         while(isSwapped)
         {
             isSwapped = false;
             for (int i = 1; i < n; i++)
             {
-                ItemCardView a = item_card_list.Get(i - 1);
-                ItemCardView b = item_card_list.Get(i);
+                CatalogItemCardView a = catalog_item_card_list.Get(i - 1);
+                CatalogItemCardView b = catalog_item_card_list.Get(i);
 
                 int aProperty = a.GetTemplateController().GetPrice();
                 int bProperty = b.GetTemplateController().GetPrice();
 
                 if(ascending && aProperty > bProperty)
                 {
-                    item_card_list.SwapItems(i - 1, i);
+                    catalog_item_card_list.SwapItems(i - 1, i);
                     isSwapped = true;
                 }else if (aProperty < bProperty){
-                    item_card_list.SwapItems(i - 1, i);
+                    catalog_item_card_list.SwapItems(i - 1, i);
                     isSwapped = true;
                 }
             }
@@ -150,21 +151,22 @@ class CategoryCardViewController: ViewController
 
     void FilterList(string searchKeyword)
     {
-        item_card_list.Clear();
+        this.searchKeyword = searchKeyword;
+        catalog_item_card_list.Clear();
         string searchLower = searchKeyword;
         searchLower.ToLower();
         array<ref TraderXProduct> products = category.GetProducts();
         foreach(TraderXProduct item : products)
         {
-            if(!item.CanBeBought())
+            if(!item.CanBeSold())
                 continue;
-                
+            
             string classNameLower = item.className;
             classNameLower.ToLower();
             string displayNameLower = item.GetDisplayName();
             displayNameLower.ToLower();
-            if(classNameLower.Contains(searchLower) || displayNameLower.Contains(searchLower)){
-                item_card_list.Insert(ItemCardView.CreateItemCardView(item, itemCardViewSize, categoryType));
+            if(searchLower == string.Empty || classNameLower.Contains(searchLower) || displayNameLower.Contains(searchLower)){
+                catalog_item_card_list.Insert(new CatalogItemCardView(item, categoryType));
             }
         }
     }
@@ -178,14 +180,32 @@ class CategoryCardViewController: ViewController
 
     void ShowItemList()
     {
-        item_card_list.Clear();
+        catalog_item_card_list.Clear();
         array<ref TraderXProduct> products = category.GetProducts();
         foreach(TraderXProduct item : products)
         {
-            if(!item.CanBeBought())
+            if(!item.CanBeSold())
                 continue;
                 
-            item_card_list.Insert(ItemCardView.CreateItemCardView(item, itemCardViewSize, categoryType));
+            catalog_item_card_list.Insert(new CatalogItemCardView(item, categoryType));
         }
+    }
+}
+
+class CatalogCategoryCardView: ScriptViewTemplate<CatalogCategoryCardViewController>
+{
+    void CatalogCategoryCardView(TraderXCategory category, int itemCardViewSize, bool expand = false, int categoryType = ETraderXCategoryType.NONE)
+    {
+        m_TemplateController.SetCategoryCardData(category, itemCardViewSize, expand, categoryType);
+    }
+
+    override string GetLayoutFile() 
+    {
+        return "TraderX/datasets/gui/TraderXPrefab/CategoryCard/CatalogCategoryCardView.layout";
+    }
+
+    override typename GetControllerType()
+    {
+        return CatalogCategoryCardViewController;
     }
 }

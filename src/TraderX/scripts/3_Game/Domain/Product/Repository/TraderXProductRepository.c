@@ -92,28 +92,72 @@ class TraderXProductRepository
     // Load products from compiled JSON (CSV-based system)
     private static void LoadFromCompiledJson()
     {
-        ref array<ref TraderXJsonProduct> jsonProducts = new array<ref TraderXJsonProduct>;
-        JsonFileLoader<array<ref TraderXJsonProduct>>.JsonLoadFile(TRADERX_COMPILED_PRODUCTS_FILE, jsonProducts);
+        ref array<ref TraderXCompiledProduct> jsonProducts = new array<ref TraderXCompiledProduct>;
+        JsonFileLoader<array<ref TraderXCompiledProduct>>.JsonLoadFile(TRADERX_COMPILED_PRODUCTS_FILE, jsonProducts);
         
         if (!jsonProducts || jsonProducts.Count() == 0)
         {
-            GetTraderXLogger().LogError("[TraderX] Failed to load compiled products, falling back to legacy");
+            GetTraderXLogger().LogError("[TraderX] Failed to load compiled products (empty or null), falling back to legacy");
             LoadFromLegacyJson();
             return;
         }
         
         s_Items.Clear();
+        int successCount = 0;
+        int failCount = 0;
         
-        foreach (TraderXJsonProduct jsonProduct : jsonProducts)
+        foreach (TraderXCompiledProduct jsonProduct : jsonProducts)
         {
-            TraderXProduct product = TraderXProductMapper.MapToTraderXProduct(jsonProduct);
-            if (product && product.productId.Length() > 0)
+            if (!jsonProduct)
             {
-                s_Items.Set(product.productId, product);
+                failCount++;
+                continue;
+            }
+            
+            // Validate required fields
+            if (jsonProduct.productId.Length() == 0)
+            {
+                GetTraderXLogger().LogWarning("[TraderX] Skipping product with empty productId in compiled file");
+                failCount++;
+                continue;
+            }
+            
+            TraderXProduct product = TraderXProductMapper.MapToTraderXProduct(jsonProduct);
+            if (product)
+            {
+                product.productId = jsonProduct.productId;
+                if (product.productId.Length() > 0)
+                {
+                    s_Items.Set(product.productId, product);
+                    successCount++;
+                }
+                else
+                {
+                    failCount++;
+                }
+            }
+            else
+            {
+                failCount++;
             }
         }
         
-        GetTraderXLogger().LogInfo(string.Format("[TraderX] LoadAllProducts - Completed. Total products loaded: %1 (from compiled config)", s_Items.Count()));
+        // If too many failures, fall back to legacy
+        if (successCount == 0 && failCount > 0)
+        {
+            GetTraderXLogger().LogError(string.Format("[TraderX] All %1 products failed to load from compiled file, falling back to legacy", failCount));
+            LoadFromLegacyJson();
+            return;
+        }
+        
+        if (failCount > 0)
+        {
+            GetTraderXLogger().LogWarning(string.Format("[TraderX] Loaded %1 products from compiled file, %2 failed", successCount, failCount));
+        }
+        else
+        {
+            GetTraderXLogger().LogInfo(string.Format("[TraderX] LoadAllProducts - Completed. Total products loaded: %1 (from compiled config)", s_Items.Count()));
+        }
     }
     
     // Load products from legacy multi-file JSON (backward compatibility)

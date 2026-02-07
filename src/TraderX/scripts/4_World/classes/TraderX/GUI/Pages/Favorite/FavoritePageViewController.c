@@ -41,13 +41,19 @@ class FavoritePageViewController: ViewController
         }
     }
 
+    void DebouncedSearch()
+    {
+        UpdateCategoryList();
+    }
+
     override void PropertyChanged(string property_name)
 	{
 		switch (property_name)
 		{
 			case "search_keyword": 
 			{
-				UpdateCategoryList();
+				GetGame().GetCallQueue(CALL_CATEGORY_GUI).Remove(DebouncedSearch);
+				GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(DebouncedSearch, 300, false);
 				break;
 			}
 		}
@@ -81,12 +87,14 @@ class FavoritePageViewController: ViewController
 
     void OnItemCardDoubleClick(ItemCardViewController itemSelected)
     {
-        // Créer une collection de transactions
+        if(TraderXTradingService.GetInstance().IsTransactionPending())
+            return;
+
         int npcId = TraderXTradingService.GetInstance().GetNpcId();
         TraderXTransactionCollection transactionCollection = new TraderXTransactionCollection();
         transactionCollection.AddTransaction(TraderXTransaction.CreateBuyTransaction(itemSelected.item, 1, itemSelected.GetPrice(), npcId));
         
-        // Envoyer la requête via RPC
+        TraderXTradingService.GetInstance().LockTransaction();
         GetRPCManager().SendRPC("TraderX", "GetTransactionsRequest", new Param2<TraderXTransactionCollection, int>(transactionCollection, npcId));
         
         GetTraderXLogger().LogDebug(string.Format("Transaction request sent for item %1 with price %2 and id: %3", itemSelected.item.className, itemSelected.GetPrice(), itemSelected.item.productId));

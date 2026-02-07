@@ -120,12 +120,17 @@ class TraderXVehicleParkingService
             return false;
         }
         
-        // Move vehicle to parking position
+        // Move vehicle to parking position with roll trick to force physics acknowledgment
         vector parkingPos = position.position;
         vector parkingRot = position.rotation;
         
         vehicle.SetPosition(parkingPos);
         vehicle.SetOrientation(parkingRot);
+        vector roll = vehicle.GetOrientation();
+        roll[2] = roll[2] - 1;
+        vehicle.SetOrientation(roll);
+        roll[2] = roll[2] + 1;
+        vehicle.SetOrientation(roll);
         
         // Track occupied position
         if (!m_occupiedPositions.Contains(traderId))
