@@ -139,7 +139,7 @@ class SafeZoneHandler
         string msg = TraderXSafeZoneTernary<string>.If(settings.msgOnEnteringZone != "", settings.msgOnEnteringZone, "You entered the safezone!");
 
         NotificationSystem.AddNotificationExtended(settings.notificationTimer, GetNotifTitle(), msg, "TraderXSafeZone/datasets/shield.paa");
-        GetRPCManager().SendRPC("TraderXSafeZone", "GetSafeZoneStatus", new Param1<bool>(isInZone), true, null);
+        GetDayZularRPCManager().SendRPC("TraderXSafeZone", "GetSafeZoneStatus", new Param1<bool>(isInZone), true, null);
     }
 
     void DisableOnLeaving()
@@ -195,7 +195,7 @@ class SafeZoneHandler
         string msg = TraderXSafeZoneTernary<string>.If(settings.msgOnLeavingZone != "", settings.msgOnLeavingZone, "You have left the safezone!");
         
         NotificationSystem.AddNotificationExtended(settings.notificationTimer, GetNotifTitle(), msg, "TraderXSafeZone/datasets/shield.paa");
-        GetRPCManager().SendRPC("TraderXSafeZone", "GetSafeZoneStatus", new Param1<bool>(isInZone), true, null);
+        GetDayZularRPCManager().SendRPC("TraderXSafeZone", "GetSafeZoneStatus", new Param1<bool>(isInZone), true, null);
     }
 
     void CheckTXSafeZoneLocation(TXSafeZoneLocation location)
@@ -267,7 +267,7 @@ class SafeZoneHandler
         }
 
         if (needsCleanup)
-            GetRPCManager().SendRPC("TraderXSafeZone", "EntitiesCleanUpRequest", new Param1<TXSafeZoneLocation>(selectedLocation), true, null);
+            GetDayZularRPCManager().SendRPC("TraderXSafeZone", "EntitiesCleanUpRequest", new Param1<TXSafeZoneLocation>(selectedLocation), true, null);
     }
 
     bool IsAllowedAnimal(Object animal, TXSafeZoneLocation location)
@@ -277,7 +277,7 @@ class SafeZoneHandler
             
         foreach(string allowedAnimal : location.allowedAnimals)
         {
-            if(CF_String.EqualsIgnoreCase(allowedAnimal, animal.GetType()))
+            if(DZlrString.EqualsIgnoreCase(allowedAnimal, animal.GetType()))
                 return true;
         }
         return false;

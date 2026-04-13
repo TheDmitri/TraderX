@@ -11,6 +11,7 @@ class TraderXTransaction
     private ref TraderXNetworkIdentifier networkId;
     private int depth;
     private int traderId;
+    private int deliveryMethod; // ETraderXDeliveryMethod: 0=PARKING, 1=GARAGE, 2=RECEIPT
     
     void TraderXTransaction(TraderXTransactionId id, TraderXTransactionType type, string _id, string _parentItemId, int multi, TraderXTransactionPrice price, TraderXNetworkIdentifier netId = null, int itemDepth = 0, int npcId = 0, TraderXPreset tpPreset = null)
     {
@@ -66,6 +67,8 @@ class TraderXTransaction
     int GetDepth() { return depth; }
     int GetTraderId() { return traderId; }
     TraderXPreset GetPreset() { return preset; }
+    int GetDeliveryMethod() { return deliveryMethod; }
+    void SetDeliveryMethod(int method) { deliveryMethod = method; }
     
     // Query methods
     bool IsBuy() { return transactionType.IsBuy(); }
@@ -93,10 +96,10 @@ class TraderXTransaction
         string result = "";
         result += "{\n";
         result += "  transactionId: " + transactionId.ToString() + "\n";
-        result += "  type: " + Ternary<string>.If(IsBuy(), "BUY", "SELL") + "\n";
+        result += "  type: " + TernaryString(IsBuy(), "BUY", "SELL") + "\n";
         result += "  productId: " + productId + "\n";
         result += "  parentItemId: " + parentItemId + "\n";
-        result += "  multiplier: " + Ternary<string>.If(IsBuy(), multiplier.ToString(), "-" + multiplier.ToString()) + "\n";
+        result += "  multiplier: " + TernaryString(IsBuy(), multiplier.ToString(), "-" + multiplier.ToString()) + "\n";
         result += "  unitPrice: " + unitPrice.ToStringFormatted() + "\n";
         result += "  totalPrice: " + totalPrice.ToStringFormatted() + "\n";
         result += "  depth: " + depth.ToString() + "\n";

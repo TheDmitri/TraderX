@@ -26,12 +26,12 @@ class TraderXTransactionService
     {
         if(GetGame().IsServer())
         {
-            GetRPCManager().AddRPC("TraderX", "GetTransactionsRequest", this, SingeplayerExecutionType.Server);
+            GetDayZularRPCManager().AddRPC("TraderX", "GetTransactionsRequest", this, DayZularRPCType.Server);
         }
         else
         {
-            GetRPCManager().AddRPC("TraderX", "OnTransactionsResponse", this, SingeplayerExecutionType.Client);
-            GetRPCManager().AddRPC("TraderX", "OnStockUpdateResponse", this, SingeplayerExecutionType.Client);
+            GetDayZularRPCManager().AddRPC("TraderX", "OnTransactionsResponse", this, DayZularRPCType.Client);
+            GetDayZularRPCManager().AddRPC("TraderX", "OnStockUpdateResponse", this, DayZularRPCType.Client);
         }
     }
     
@@ -254,8 +254,13 @@ class TraderXTransactionService
         // Retrait de la monnaie - skip if price is zero (free items)
         int tTotalPrice = transaction.GetTotalPrice().GetAmount();
         GetTraderXLogger().LogInfo(string.Format("[TRANSACTION] Processing payment: totalPrice=%1, npcCurrencies=%2", tTotalPrice, npc.GetCurrenciesAccepted().Count()));
+
+        // Fire before-transaction event
+        TraderXTransactionEvents.Event_OnBeforeTransaction.Invoke(player, transaction, tTotalPrice);
+
         if (tTotalPrice > 0) {
-            bool currencyResult = TraderXCurrencyService.GetInstance().RemoveMoneyAmountFromPlayer(player, tTotalPrice, npc.GetCurrenciesAccepted());
+            string paymentPriority = GetTraderXModule().GetSettings().paymentPriority;
+            bool currencyResult = TraderXPaymentService.GetInstance().RemovePlayerMoney(player, tTotalPrice, npc.GetCurrenciesAccepted(), paymentPriority);
             GetTraderXLogger().LogInfo(string.Format("[TRANSACTION] Currency removal result: %1", currencyResult));
             if (!currencyResult) {
                 // Rollback: remove all created items and restore stock
@@ -273,9 +278,11 @@ class TraderXTransactionService
             }
         }
         
-        return TraderXTransactionResult.CreateSuccess(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.purchaseSuccessful);
+        TraderXTransactionResult buySuccess = TraderXTransactionResult.CreateSuccess(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.purchaseSuccessful);
+        TraderXTransactionEvents.Event_OnAfterTransaction.Invoke(player, buySuccess);
+        return buySuccess;
     }
-    
+
     private TraderXTransactionResult ValidatePresetAttachmentStock(TraderXPreset preset, TraderXTransaction transaction)
     {
         TraderXDynamicTranslationSettings settings = TraderXDynamicTranslationRepository.GetSettings();
@@ -443,9 +450,12 @@ class TraderXTransactionService
         }
         
         // Ajout de la monnaie au joueur
-        TraderXCurrencyService.GetInstance().AddMoneyToPlayer(player, transaction.GetTotalPrice().GetAmount(), npc.GetCurrenciesAccepted());
-        
-        return TraderXTransactionResult.CreateSuccess(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.saleSuccessful);
+        string sellPaymentPriority = GetTraderXModule().GetSettings().paymentPriority;
+        TraderXPaymentService.GetInstance().AddPlayerMoney(player, transaction.GetTotalPrice().GetAmount(), npc.GetCurrenciesAccepted(), sellPaymentPriority);
+
+        TraderXTransactionResult sellSuccess = TraderXTransactionResult.CreateSuccess(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.saleSuccessful);
+        TraderXTransactionEvents.Event_OnAfterTransaction.Invoke(player, sellSuccess);
+        return sellSuccess;
     }
 
     void ProcessTransactionQueue(float dt)
@@ -561,7 +571,7 @@ class TraderXTransactionService
         if (!resultCollection || !playerIdentity)
             return;
             
-        GetRPCManager().SendRPC("TraderX", "OnTransactionsResponse", new Param1<TraderXTransactionResultCollection>(resultCollection), true, playerIdentity);
+        GetDayZularRPCManager().SendRPC("TraderX", "OnTransactionsResponse", new Param1<TraderXTransactionResultCollection>(resultCollection), true, playerIdentity);
         
         // Send updated stock data to client
         SendUpdatedStockToClient(resultCollection, playerIdentity);
@@ -596,15 +606,13 @@ class TraderXTransactionService
         // Send stock update to client
         if (updatedStocks.Count() > 0)
         {
-            GetRPCManager().SendRPC("TraderX", "OnStockUpdateResponse", new Param1<array<ref TraderXProductStock>>(updatedStocks), true, playerIdentity);
+            GetDayZularRPCManager().SendRPC("TraderX", "OnStockUpdateResponse", new Param1<array<ref TraderXProductStock>>(updatedStocks), true, playerIdentity);
         }
     }
 
     //RPCs 
-    void GetTransactionsRequest(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
+    void GetTransactionsRequest(PlayerIdentity sender, ParamsReadContext ctx)
     {
-        if(type != CallType.Server)
-            return;
 
         Param2<TraderXTransactionCollection, int> data;
         if(!ctx.Read(data)){
@@ -633,10 +641,8 @@ class TraderXTransactionService
         GetTraderXLogger().LogDebug(string.Format("Transaction request queued for player %1 with %2 transactions", sender.GetPlainId(), transactionCollection.GetCount()));
     }
 
-    void OnTransactionsResponse(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
+    void OnTransactionsResponse(PlayerIdentity sender, ParamsReadContext ctx)
     {
-        if(type != CallType.Client)
-            return;
 
         GetTraderXLogger().LogDebug("OnTransactionsResponse");
 
@@ -658,10 +664,8 @@ class TraderXTransactionService
         GetTraderXLogger().LogDebug(string.Format("Transaction response queued for player %1 with %2 results", resultCollection.GetSteamId(), resultCollection.Count()));
     }
     
-    void OnStockUpdateResponse(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
+    void OnStockUpdateResponse(PlayerIdentity sender, ParamsReadContext ctx)
     {
-        if(type != CallType.Client)
-            return;
 
         Param1<array<ref TraderXProductStock>> data;
         if(!ctx.Read(data)){

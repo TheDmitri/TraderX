@@ -28,7 +28,7 @@ class TraderXTransactionNotifier
         else if (results.Count() == 1)
         {
             auto result = results.GetTransactionResults()[0];
-            return Ternary<string>.If(result.IsSuccess(), "#tpm_transaction_successful", "#tpm_transaction_failed");
+            return TernaryString(result.IsSuccess(), "#tpm_transaction_successful", "#tpm_transaction_failed");
         }
         return "#tpm_transaction_notification";
     }
@@ -70,11 +70,11 @@ class TraderXTransactionNotifier
             
             if (rResult.IsSuccess())
             {
-                return string.Format(Ternary<string>.If(transactionType.IsSell(), settings.successfullySold, settings.successfullyBought), itemName);
+                return string.Format(TernaryString(transactionType.IsSell(), settings.successfullySold, settings.successfullyBought), itemName);
             }
             else
             {
-                return string.Format(Ternary<string>.If(transactionType.IsSell(), settings.failedToSell, settings.failedToBuy), itemName, rResult.GetMessage());
+                return string.Format(TernaryString(transactionType.IsSell(), settings.failedToSell, settings.failedToBuy), itemName, rResult.GetMessage());
             }
         }
         return "";
@@ -86,7 +86,7 @@ class TraderXTransactionNotifier
         if (results.Count() == 1)
         {
             auto rResult = results.GetTransactionResults()[0];
-            return Ternary<int>.If(rResult.IsSuccess(), ENotificationType.SUCCESS, ENotificationType.ERROR);
+            return TernaryInt(rResult.IsSuccess(), ENotificationType.SUCCESS, ENotificationType.ERROR);
         }
         
         bool hasSuccess = false;
@@ -130,7 +130,7 @@ class TraderXTransactionNotifier
             TraderXTransactionResult result = results.GetTransactionResults()[i];
             string itemName = TraderXProductRepository.GetItemById(result.GetProductId()).GetDisplayName();
             TraderXDynamicTranslationSettings settings = TraderXDynamicTranslationRepository.GetSettings();
-            string status = Ternary<string>.If(result.IsSuccess(), settings.completed, string.Format(settings.failedWithReason, result.GetMessage()));
+            string status = TernaryString(result.IsSuccess(), settings.completed, string.Format(settings.failedWithReason, result.GetMessage()));
             
             TraderXNotificationDetails detail = new TraderXNotificationDetails(result.IsSuccess(), itemName, status);
             details.Insert(detail);

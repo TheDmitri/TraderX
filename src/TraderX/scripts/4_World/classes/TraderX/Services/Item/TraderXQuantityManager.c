@@ -275,7 +275,7 @@ class TraderXQuantityManager
   		array<EntityAI> itemsArray = TraderXInventoryManager.GetItemsArray(player);
       foreach(EntityAI entity: itemsArray)
       {
-        if (CF_String.EqualsIgnoreCase(entity.GetType(),className))
+        if (DZlrString.EqualsIgnoreCase(entity.GetType(),className))
         {
           ItemBase item = ItemBase.Cast(entity);
           if(TraderXItemValidator.ShouldSkipItem(item))
@@ -302,7 +302,7 @@ class TraderXQuantityManager
     for (int i = 0; i < itemsArray.Count(); ++i)
     {
       item = ItemBase.Cast(itemsArray[i]);
-      if (item && CF_String.EqualsIgnoreCase(item.GetType(), className))
+      if (item && DZlrString.EqualsIgnoreCase(item.GetType(), className))
       {
         string itemType = item.GetType();
         GetTraderXLogger().LogDebug(string.Format("[STACKING] Checking item %1/%2: %3 (looking for %4)", (i+1).ToString(), itemsArray.Count().ToString(), itemType, className));

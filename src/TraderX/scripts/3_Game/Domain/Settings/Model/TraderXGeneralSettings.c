@@ -6,6 +6,10 @@ class TraderXGeneralSettings {
     ref array<ref TraderXNpc> traders;
     ref array<ref TraderXObject> traderObjects;
 
+    // Payment priority when a banking provider is registered.
+    // Options: "cash_first", "bank_first", "bank_only", "cash_only"
+    string paymentPriority = "cash_first";
+
     void TraderXGeneralSettings() {
         licenses = new array<ref TraderXLicense>();
         traders = new array<ref TraderXNpc>();

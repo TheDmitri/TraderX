@@ -1,11 +1,14 @@
 
+static ref TraderXLoggingModule g_TraderXLogger;
+
 static ref TraderXLoggingModule GetTraderXLogger()
 {
-    return TraderXLoggingModule.Cast(CF_ModuleCoreManager.Get(TraderXLoggingModule));
+    if (!g_TraderXLogger)
+        g_TraderXLogger = TraderXLoggingModule.Cast(DZlrServiceRegistry.GetInstance().GetService(TraderXLoggingModule));
+    return g_TraderXLogger;
 }
 
-[CF_RegisterModule(TraderXLoggingModule)]
-class TraderXLoggingModule : CF_ModuleGame
+class TraderXLoggingModule : DayZularService
 {
     private int networkSync_LogLevel;
 
@@ -15,89 +18,78 @@ class TraderXLoggingModule : CF_ModuleGame
 
     float dtime = 0;
 
-
-    override void OnInit()
+    void TraderXLoggingModule()
     {
-        super.OnInit();
-        
-        EnableUpdate();
-        EnableMissionStart();
+        g_TraderXLogger = this;
+
+        GetDayZularEvents().OnMissionStart.Insert(OnMissionStart);
+        GetDayZularEvents().OnUpdate.Insert(OnUpdate);
     }
 
-    override void OnMissionStart(Class sender, CF_EventArgs args)
+    void OnMissionStart()
     {
-        super.OnMissionStart(sender, args);
-
         fileHandle = CreateNewLogFile();
 
-        if(GetGame().IsServer())
+        if (GetGame().IsServer())
         {
             settings = TraderXLoggingSettings.Load();
-
             networkSync_LogLevel = settings.logLevel;
-            SynchLogLevel();       
+            SynchLogLevel();
         }
         else
         {
-            AddLegacyRPC("GetLogLevelResponse", SingleplayerExecutionType.Client);
+            GetDayZularRPCManager().AddRPC("TraderXLogger", "GetLogLevelResponse", this, DayZularRPCType.Client);
         }
     }
 
-    void GetLogLevelResponse(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
-	{
-		 if (type != CallType.Client)
-			 return;
-
-		 Param1<int> data;
-		 if (!ctx.Read(data))
+    void GetLogLevelResponse(PlayerIdentity sender, ParamsReadContext ctx)
+    {
+        Param1<int> data;
+        if (!ctx.Read(data))
             return;
 
-		 networkSync_LogLevel = data.param1;
-	}
+        networkSync_LogLevel = data.param1;
+    }
 
     void SynchLogLevel()
     {
-        GetRPCManager().SendRPC(ClassName(), "GetLogLevelResponse",  new Param1<int>(networkSync_LogLevel), true, NULL);
+        GetDayZularRPCManager().SendRPC("TraderXLogger", "GetLogLevelResponse", new Param1<int>(networkSync_LogLevel), true, NULL);
     }
 
-    override void OnUpdate(Class sender, CF_EventArgs args)
+    void OnUpdate(float dt)
     {
-        auto update = CF_EventUpdateArgs.Cast(args);
-
-        if(!GetGame().IsServer())
+        if (!GetGame().IsServer())
             return;
 
-        if(!settings)
+        if (!settings)
             return;
 
-        dtime += update.DeltaTime;
-        if(dtime >= settings.refreshRateInSeconds)
+        dtime += dt;
+        if (dtime >= settings.refreshRateInSeconds)
         {
             dtime = 0;
 
             settings = TraderXLoggingSettings.Load();
-
             networkSync_LogLevel = settings.logLevel;
             SynchLogLevel();
         }
     }
 
-
     void MakeDirectoryIfNotExists()
     {
-        if(!FileExist(TRADERX_CONFIG_ROOT_SERVER))
+        if (!FileExist(TRADERX_CONFIG_ROOT_SERVER))
             MakeDirectory(TRADERX_CONFIG_ROOT_SERVER);
 
-        if(!FileExist(TRADERX_LOG_FOLDER))
+        if (!FileExist(TRADERX_LOG_FOLDER))
             MakeDirectory(TRADERX_LOG_FOLDER);
 
-        if(!FileExist(TRADERX_LOGGER_CONFIG_DIR))
+        if (!FileExist(TRADERX_LOGGER_CONFIG_DIR))
             MakeDirectory(TRADERX_LOGGER_CONFIG_DIR);
-        
-        if(!FileExist(TRADERX_LOGGER_LOG_DIR))
+
+        if (!FileExist(TRADERX_LOGGER_LOG_DIR))
             MakeDirectory(TRADERX_LOGGER_LOG_DIR);
     }
-    
+
     string GenerateShortDateString()
     {
         int year, month, day;
@@ -114,10 +106,7 @@ class TraderXLoggingModule : CF_ModuleGame
 
     string GenerateFullTimestamp()
     {
-        string dateStr = GenerateShortDateString();
-        string timeStr = GenerateShortTimeString();
-
-        return dateStr + "-" + timeStr;
+        return GenerateShortDateString() + "-" + GenerateShortTimeString();
     }
 
     FileHandle CreateNewLogFile()
@@ -128,7 +117,7 @@ class TraderXLoggingModule : CF_ModuleGame
 
         fileHandle = OpenFile(filePath, FileMode.WRITE);
 
-        if(fileHandle != 0)
+        if (fileHandle != 0)
         {
             FPrintln(fileHandle, "Creation Time: " + GenerateFullTimestamp());
             return fileHandle;
@@ -139,9 +128,9 @@ class TraderXLoggingModule : CF_ModuleGame
 
     void Log(string content, TraderXLogLevel logLevel)
     {
-        if(logLevel < networkSync_LogLevel)
+        if (logLevel < networkSync_LogLevel)
             return;
-        
+
         string timestamp = GenerateShortTimeString();
         FPrintln(fileHandle, timestamp + " | " + GetLogLevelString(logLevel) + " | " + content);
     }
@@ -168,9 +157,9 @@ class TraderXLoggingModule : CF_ModuleGame
 
     string GetLogLevelString(TraderXLogLevel logLevel)
     {
-        switch(logLevel)
+        switch (logLevel)
         {
-             case TraderXLogLevel.Debug:
+            case TraderXLogLevel.Debug:
                 return "DEBUG";
             case TraderXLogLevel.Info:
                 return "INFO";
@@ -184,5 +173,4 @@ class TraderXLoggingModule : CF_ModuleGame
 
         return "";
     }
-
 }

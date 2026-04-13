@@ -63,7 +63,7 @@ class TraderXCurrencyType
     {
         foreach(TraderXCurrency currency : currencies)
         {
-            if(CF_String.EqualsIgnoreCase(currency.className, className))
+            if(DZlrString.EqualsIgnoreCase(currency.className, className))
                 return currency;
         }
 

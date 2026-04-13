@@ -1,41 +1,53 @@
+static ref TraderXModule g_TraderXModule;
+
 static ref TraderXModule GetTraderXModule()
 {
-    return TraderXModule.Cast(CF_ModuleCoreManager.Get(TraderXModule));
+    if (!g_TraderXModule)
+        g_TraderXModule = TraderXModule.Cast(DZlrServiceRegistry.GetInstance().GetService(TraderXModule));
+    return g_TraderXModule;
 }
 
-[CF_RegisterModule(TraderXModule)]
-class TraderXModule : CF_ModuleWorld
+class TraderXModule : DayZularService
 {
     ref TraderXGeneralSettings generalSettings;
 
     static ref ScriptInvoker Event_OnTraderXPlayerJoined = new ScriptInvoker();
 
-    ref TraderXMainView traderXMainView;
+    private float m_DeltaAccumulator;
 
-    override void OnInit()
+    void TraderXModule()
     {
-        super.OnInit();
-        EnableMissionStart();
-        EnableUpdate();
+        g_TraderXModule = this;
+
+        // Subscribe to DayZular lifecycle events
+        GetDayZularEvents().OnMissionStart.Insert(OnMissionStart);
+        GetDayZularEvents().OnUpdate.Insert(OnUpdate);
     }
 
     void InitializeModule()
     {
-        if(GetGame().IsServer())
+        if (GetGame().IsServer())
         {
-            // Convert old V1 configs to V2 format before loading repositories
+            // Convert TraderPlus V1 configs if detected (runs before anything else)
+            ConvertTraderPlus.TryConvert();
+
+            // Convert old TraderX V1 internal format to V2 (legacy migration)
             oldTraderXPriceConfig.ConvertOldConfigToNew();
             oldTraderXGeneralSettings.ConvertOldConfigToNew();
 
             // Load user's source format preference
             TraderXSourceConfig sourceConfig = TraderXSourceConfigLoader.LoadConfig();
-            
+
             // Initialize configuration using the service (handles all format loading and migration)
             TraderXConfigurationService.GetInstance().Initialize(sourceConfig);
-            
+
             generalSettings = TraderXSettingsRepository.Load();
             TraderXPresetsService.GetInstance().GetInstance();
             TraderXNpcService.GetInstance().CreateNpcs();
+
+            // Initialize insurance and receipt services
+            TraderXInsuranceService.GetInstance().Initialize();
+            TraderXReceiptService.GetInstance().Initialize();
         }
         else
         {
@@ -46,6 +58,12 @@ class TraderXModule : CF_ModuleWorld
         }
 
         InitRPCs();
+
+        // Schedule insurance scan for missing vehicles (server only, delayed)
+        if (GetGame().IsServer() && TraderXProviderRegistry.GetInstance().HasInsuranceProvider())
+        {
+            GetGame().GetCallQueue(CALL_CATEGORY_SYSTEM).CallLater(TraderXInsuranceService.GetInstance().ScanForMissingVehicles, 5000);
+        }
     }
 
     TraderXGeneralSettings GetSettings()
@@ -59,80 +77,64 @@ class TraderXModule : CF_ModuleWorld
         TraderXPresetsService.GetInstance().RegisterRPCs();
         TraderXCurrencyService.GetInstance().RegisterRPCs();
         TraderXVehicleParkingService.GetInstance().RegisterRPCs();
+        TraderXInsuranceService.GetInstance().RegisterRPCs();
+        TraderXReceiptService.GetInstance().RegisterRPCs();
 
-        if(GetGame().IsClient())
+        if (GetGame().IsClient())
         {
-            GetRPCManager().AddRPC("TraderX", "GetConfigResponse", this, SingeplayerExecutionType.Client);
-            GetRPCManager().AddRPC("TraderX", "GetTraderCategoriesResponse", this, SingeplayerExecutionType.Client);
-            GetRPCManager().AddRPC("TraderX", "GetTraderProductsResponse", this, SingeplayerExecutionType.Client);
-            GetRPCManager().AddRPC("TraderX", "GetTraderStockResponse", this, SingeplayerExecutionType.Client);
-            GetRPCManager().AddRPC("TraderX", "GetPlayerLicensesResponse", this, SingeplayerExecutionType.Client);
-            GetRPCManager().AddRPC("TraderX", "GetTraderXCurrencyResponse", TraderXCurrencyService.GetInstance(), SingeplayerExecutionType.Client);
+            GetDayZularRPCManager().AddRPC("TraderX", "GetConfigResponse", this, DayZularRPCType.Client);
+            GetDayZularRPCManager().AddRPC("TraderX", "GetTraderCategoriesResponse", this, DayZularRPCType.Client);
+            GetDayZularRPCManager().AddRPC("TraderX", "GetTraderProductsResponse", this, DayZularRPCType.Client);
+            GetDayZularRPCManager().AddRPC("TraderX", "GetTraderStockResponse", this, DayZularRPCType.Client);
+            GetDayZularRPCManager().AddRPC("TraderX", "GetPlayerLicensesResponse", this, DayZularRPCType.Client);
+            GetDayZularRPCManager().AddRPC("TraderX", "GetTraderXCurrencyResponse", TraderXCurrencyService.GetInstance(), DayZularRPCType.Client);
         }
         else
         {
-            GetRPCManager().AddRPC("TraderX", "OnTraderXMenuOpen", this, SingeplayerExecutionType.Server);
-            GetRPCManager().AddRPC("TraderX", "OnTraderXMenuClose", this, SingeplayerExecutionType.Server);
+            GetDayZularRPCManager().AddRPC("TraderX", "OnTraderXMenuOpen", this, DayZularRPCType.Server);
+            GetDayZularRPCManager().AddRPC("TraderX", "OnTraderXMenuClose", this, DayZularRPCType.Server);
         }
     }
 
     void OpenTraderView()
     {
-        if(traderXMainView){
-            traderXMainView.Show(true);
-            return;
-        }
-
-        traderXMainView = new TraderXMainView();
-        traderXMainView.Show(true);
+        TraderXUIService.GetInstance().OpenTraderView();
     }
 
     bool IsTraderViewOpen()
     {
-        return traderXMainView != null;
+        return TraderXUIService.GetInstance().IsTraderViewOpen();
     }
 
     void CloseTraderView()
     {
-        if(traderXMainView){
-            TraderXTradingService.GetInstance().ClearNpc();
-            traderXMainView.Show(false);
-            delete traderXMainView;
-        }
+        TraderXUIService.GetInstance().CloseTraderView();
     }
 
-    void OnTraderXMenuOpen(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
+    void OnTraderXMenuOpen(PlayerIdentity sender, ParamsReadContext ctx)
     {
-        if(type != CallType.Server)
-            return;
-
         PlayerBase player = TraderXHelper.GetPlayerByIdentity(sender);
-        if(!player)
+        if (!player)
             return;
 
         Param1<int> data;
-        if(!ctx.Read(data)){
+        if (!ctx.Read(data))
             return;
-        }
 
         int npcId = data.param1;
         TraderXNpcSessionService.GetInstance().AddPlayerToNpcId(player, npcId);
         SendTraderStockToClient(player, npcId);
     }
 
-    void OnTraderXMenuClose(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
+    void OnTraderXMenuClose(PlayerIdentity sender, ParamsReadContext ctx)
     {
-        if(type != CallType.Server)
-            return;
-
         PlayerBase player = TraderXHelper.GetPlayerByIdentity(sender);
-        if(!player)
+        if (!player)
             return;
 
         Param1<int> data;
-        if(!ctx.Read(data)){
+        if (!ctx.Read(data))
             return;
-        }
 
         int npcId = data.param1;
         TraderXNpcSessionService.GetInstance().RemovePlayerFromNpcId(player, npcId);
@@ -142,53 +144,42 @@ class TraderXModule : CF_ModuleWorld
     {
         TraderXNpc npc = generalSettings.GetNpcById(npcId);
 
-        if(!npc){
+        if (!npc)
+        {
             GetTraderXLogger().LogError("GetTraderStockRequest:: npc wasn't found from id: " + npcId);
             return;
         }
 
         array<ref TraderXProductStock> npcStock = new array<ref TraderXProductStock>();
         TraderXProductStockRepository.GetStockArrForCategoriesId(npc.categoriesId, npcStock);
-        GetRPCManager().SendRPC("TraderX", "GetTraderStockResponse", new Param1<array<ref TraderXProductStock>>(npcStock), true, player.GetIdentity());
+        GetDayZularRPCManager().SendRPC("TraderX", "GetTraderStockResponse", new Param1<array<ref TraderXProductStock>>(npcStock), true, player.GetIdentity());
     }
 
-    void GetTraderStockResponse(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
+    void GetTraderStockResponse(PlayerIdentity sender, ParamsReadContext ctx)
     {
-        if(type != CallType.Client)
-            return;
-
         Param1<array<ref TraderXProductStock>> data;
-        if(!ctx.Read(data)){
+        if (!ctx.Read(data))
             return;
-        }
 
         array<ref TraderXProductStock> npcStock = data.param1;
         TraderXProductStockRepository.RefStockToTraderXProduct(npcStock);
         TraderXTradingService.GetInstance().OnTraderXResponseReceived(ETraderXResponse.ALL_STOCK_RECEIVED);
     }
 
-    void GetPlayerLicensesResponse(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
+    void GetPlayerLicensesResponse(PlayerIdentity sender, ParamsReadContext ctx)
     {
-        if(type != CallType.Client)
-            return;
-
         Param1<TraderXPlayerLicenses> data;
-        if(!ctx.Read(data)){
+        if (!ctx.Read(data))
             return;
-        }
 
         TraderXLicenseService.GetInstance().OnPlayerLicensesResponse(data.param1);
     }
 
-    void GetConfigResponse(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
+    void GetConfigResponse(PlayerIdentity sender, ParamsReadContext ctx)
     {
-        if(type != CallType.Client)
-            return;
-
         Param1<TraderXGeneralSettings> data;
-        if(!ctx.Read(data)){
+        if (!ctx.Read(data))
             return;
-        }
 
         GetTraderXLogger().LogDebug("GetConfigResponse serverId " + data.param1.serverID);
 
@@ -198,13 +189,11 @@ class TraderXModule : CF_ModuleWorld
         TraderXPresetsService.GetInstance().SetServerId(data.param1.serverID);
     }
 
-    void GetTraderCategoriesResponse(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
+    void GetTraderCategoriesResponse(PlayerIdentity sender, ParamsReadContext ctx)
     {
-        if(type != CallType.Client)
-            return;
-
         Param1<array<ref TraderXCategory>> data;
-        if(!ctx.Read(data)){
+        if (!ctx.Read(data))
+        {
             GetTraderXLogger().LogError("GetTraderCategoriesResponse:: failed to read data");
             return;
         }
@@ -215,13 +204,11 @@ class TraderXModule : CF_ModuleWorld
         TraderXCategoryRepository.DebugSaveAllCategories();
     }
 
-    void GetTraderProductsResponse(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
+    void GetTraderProductsResponse(PlayerIdentity sender, ParamsReadContext ctx)
     {
-        if(type != CallType.Client)
-            return;
-
         Param1<array<ref TraderXProduct>> data;
-        if(!ctx.Read(data)){
+        if (!ctx.Read(data))
+        {
             GetTraderXLogger().LogError("GetTraderProductsResponse:: failed to read data");
             return;
         }
@@ -233,18 +220,18 @@ class TraderXModule : CF_ModuleWorld
 
     void SendGeneralConfig(PlayerIdentity identity)
     {
-        GetRPCManager().SendRPC("TraderX", "GetConfigResponse", new Param1<TraderXGeneralSettings>(generalSettings), true, identity);
+        GetDayZularRPCManager().SendRPC("TraderX", "GetConfigResponse", new Param1<TraderXGeneralSettings>(generalSettings), true, identity);
     }
 
     void SendTraderXCategories(PlayerIdentity identity)
     {
-        GetRPCManager().SendRPC("TraderX", "GetTraderCategoriesResponse", new Param1<array<ref TraderXCategory>>(TraderXCategoryRepository.GetCategories()), true, identity);
+        GetDayZularRPCManager().SendRPC("TraderX", "GetTraderCategoriesResponse", new Param1<array<ref TraderXCategory>>(TraderXCategoryRepository.GetCategories()), true, identity);
     }
 
     void SendTraderXProducts(PlayerIdentity identity)
     {
         TraderXJsonLoader<array<ref TraderXProduct>>.SaveToFile(TRADERX_PRODUCTS_DIR + "RPCAllItems.json", TraderXProductRepository.GetProducts());
-        GetRPCManager().SendRPC("TraderX", "GetTraderProductsResponse", new Param1<array<ref TraderXProduct>>(TraderXProductRepository.GetProducts()), true, identity);
+        GetDayZularRPCManager().SendRPC("TraderX", "GetTraderProductsResponse", new Param1<array<ref TraderXProduct>>(TraderXProductRepository.GetProducts()), true, identity);
     }
 
     void OnPlayerJoined(PlayerBase player, PlayerIdentity identity)
@@ -256,29 +243,27 @@ class TraderXModule : CF_ModuleWorld
         Event_OnTraderXPlayerJoined.Invoke(player, identity);
     }
 
-    override void OnMissionStart(Class sender, CF_EventArgs args)
+    void OnMissionStart()
     {
-        super.OnMissionStart(sender, args);
-        if(GetGame().IsServer()){
+        if (GetGame().IsServer())
+        {
             GetGame().GetCallQueue(CALL_CATEGORY_SYSTEM).CallLater(InitializeModule, 1000);
         }
-        else{
+        else
+        {
             InitializeModule();
         }
     }
 
-    override void OnUpdate(Class sender, CF_EventArgs args)
+    void OnUpdate(float dt)
     {
-        super.OnUpdate(sender, args);
-        auto update = CF_EventUpdateArgs.Cast(args);
-    
         if (GetGame().IsServer())
         {
-            TraderXTransactionService.GetInstance().ProcessTransactionQueue(update.DeltaTime);
+            TraderXTransactionService.GetInstance().ProcessTransactionQueue(dt);
         }
-        else if(GetGame().IsClient())
+        else if (GetGame().IsClient())
         {
-           TraderXTransactionService.GetInstance().ProcessTransactionResponseQueue(update.DeltaTime);
+            TraderXTransactionService.GetInstance().ProcessTransactionResponseQueue(dt);
         }
     }
 }

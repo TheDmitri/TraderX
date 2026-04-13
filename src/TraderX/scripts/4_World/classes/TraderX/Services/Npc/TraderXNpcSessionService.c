@@ -80,7 +80,7 @@ class TraderXNpcSessionService
             if(!player)
                 continue;
 
-            GetRPCManager().SendRPC("TraderX", "GetTraderStockResponse", new Param1<array<ref TraderXProductStock>>(itemsStock), true, player.GetIdentity());
+            GetDayZularRPCManager().SendRPC("TraderX", "GetTraderStockResponse", new Param1<array<ref TraderXProductStock>>(itemsStock), true, player.GetIdentity());
         }
 
         RefreshPlayers(npcId);

@@ -55,17 +55,17 @@ class CfgMods
 			class gameScriptModule
 			{
 				value = "";
-				files[] = {"DabsFramework/scripts/3_Game","TraderPlus/scripts/Common","TraderX/scripts/Common","TraderX/scripts/3_Game"};
+				files[] = {"DayZular/scripts/3_Game","TraderPlus/scripts/Common","TraderX/scripts/Common","TraderX/scripts/3_Game"};
 			};
 			class worldScriptModule
 			{
 				value = "";
-				files[] = {"DabsFramework/scripts/4_World","TraderPlus/scripts/Common","TraderX/scripts/Common","TraderX/scripts/4_World"};
+				files[] = {"DayZular/scripts/4_World","TraderPlus/scripts/Common","TraderX/scripts/Common","TraderX/scripts/4_World"};
 			};
 			class missionScriptModule
 			{
 				value = "";
-				files[] = {"DabsFramework/scripts/5_Mission","TraderPlus/scripts/Common","TraderX/scripts/Common","TraderX/scripts/5_Mission"};
+				files[] = {"DayZular/scripts/5_Mission","TraderPlus/scripts/Common","TraderX/scripts/Common","TraderX/scripts/5_Mission"};
 			};
 		};
 	};

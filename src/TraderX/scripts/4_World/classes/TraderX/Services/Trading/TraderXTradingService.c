@@ -33,8 +33,15 @@ class TraderXTradingService
         GetTraderXLogger().LogDebug("SetTraderCategoriesFromNpc " + npc.npcId );
         traderNpc = npc;
 
-        GetRPCManager().SendRPC("TraderX", "OnTraderXMenuOpen", new Param1<int>(traderNpc.npcId), true, null);
-        
+        GetDayZularRPCManager().SendRPC("TraderX", "OnTraderXMenuOpen", new Param1<int>(traderNpc.npcId), true, null);
+
+        // Fire menu opened event — providers can refresh their data
+        TraderXTransactionEvents.Event_OnTraderMenuOpened.Invoke(traderNpc.npcId);
+
+        // Request bank balance refresh if banking provider is available
+        if (TraderXProviderRegistry.GetInstance().HasBankingProvider())
+            TraderXProviderRegistry.GetInstance().GetBankingProvider().RequestBalanceRefresh();
+
         traderCategories.Clear();
         foreach(UUID categoryId : npc.categoriesId)
         {
@@ -65,22 +72,36 @@ class TraderXTradingService
     void ClearNpc()
     {
         if(traderNpc){
-            GetRPCManager().SendRPC("TraderX", "OnTraderXMenuClose", new Param1<int>(traderNpc.npcId), true, null);
+            int closedNpcId = traderNpc.npcId;
+            GetDayZularRPCManager().SendRPC("TraderX", "OnTraderXMenuClose", new Param1<int>(closedNpcId), true, null);
             traderNpc = null;
+
+            // Fire menu closed event
+            TraderXTransactionEvents.Event_OnTraderMenuClosed.Invoke(closedNpcId);
         }
-        
+
         traderCategories.Clear();
     }
 
     int GetNpcId()
     {
-        return Ternary<int>.If(traderNpc != null, traderNpc.npcId, -1);
+        return TernaryInt(traderNpc != null, traderNpc.npcId, -1);
     }
 
     int GetPlayerMoneyAmount(PlayerBase player)
     {
         TStringArray acceptedCurrencyTypes = traderNpc.GetCurrenciesAccepted();
         return TraderXCurrencyService.GetInstance().GetPlayerMoneyFromAllCurrency(player, acceptedCurrencyTypes);
+    }
+
+    /**
+     * Get total money available (cash + bank) for the current trader's accepted currencies.
+     * Client-side: uses cached bank balance. Server-side: reads actual balance.
+     */
+    int GetPlayerTotalMoneyAmount(PlayerBase player)
+    {
+        TStringArray acceptedCurrencyTypes = traderNpc.GetCurrenciesAccepted();
+        return TraderXPaymentService.GetInstance().GetPlayerTotalMoneyClient(player, acceptedCurrencyTypes);
     }
 
     array<ref TraderXCategory> GetTraderCategories()

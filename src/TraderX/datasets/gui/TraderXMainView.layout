@@ -119,7 +119,7 @@ PanelWidgetClass OutlineMainView1 {
        Padding 10
        "Size To Content H" 1
        "Size To Content V" 1
-       Columns 4
+       Columns 5
        {
         ButtonWidgetClass favBtn {
          color 0.9961 0.9961 0.9961 1
@@ -206,6 +206,29 @@ PanelWidgetClass OutlineMainView1 {
          {
           ScriptParamsClass {
            Relay_Command "OnCatalogExecute"
+          }
+         }
+        }
+        ButtonWidgetClass GarageBtn {
+         visible 0
+         color 0.9961 0.9961 0.9961 1
+         position -0.21 0
+         size 140 50
+         halign right_ref
+         valign center_ref
+         hexactpos 0
+         vexactpos 0
+         hexactsize 1
+         vexactsize 1
+         userID 232
+         scriptclass "ViewBinding"
+         style TP_NavBtn
+         text "GARAGE"
+         font "TraderX/datasets/fonts/RobotoCondensedVF14"
+         "text color" 0.6471 0.6471 0.6471 1
+         {
+          ScriptParamsClass {
+           Relay_Command "OnGarageExecute"
           }
          }
         }

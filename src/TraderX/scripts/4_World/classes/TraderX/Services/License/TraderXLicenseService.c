@@ -41,10 +41,53 @@ class TraderXLicenseService
         return true;
     }
 
+    /**
+     * Get the names of missing licenses from a required list.
+     * Returns a comma-separated string of missing license names for UI display.
+     */
+    string GetMissingLicenseNames(array<string> licensesId)
+    {
+        if (!licensesId || licensesId.Count() == 0)
+            return "";
+
+        string missing = "";
+        foreach (string licenseId : licensesId)
+        {
+            if (!playerLicenses || !playerLicenses.HasLicense(licenseId))
+            {
+                // Look up the license name from general settings
+                string licenseName = GetLicenseNameById(licenseId);
+                if (missing != "")
+                    missing += ", ";
+                missing += licenseName;
+            }
+        }
+
+        return missing;
+    }
+
+    /**
+     * Look up a license display name by its ID.
+     */
+    private string GetLicenseNameById(string licenseId)
+    {
+        array<ref TraderXLicense> licenses = GetTraderXModule().GetSettings().licenses;
+        if (!licenses)
+            return licenseId;
+
+        foreach (TraderXLicense license : licenses)
+        {
+            if (license.licenseId == licenseId)
+                return license.licenseName;
+        }
+
+        return licenseId;
+    }
+
     void LoadPlayerLicenses(PlayerBase player)
     {
         TraderXPlayerLicenses playerLicenses = TraderXLicenseRepository.Load(player.GetIdentity().GetPlainId(), player.GetIdentity().GetName());
-        GetRPCManager().SendRPC("TraderX", "GetPlayerLicensesResponse", new Param1<TraderXPlayerLicenses>(playerLicenses), true, player.GetIdentity());
+        GetDayZularRPCManager().SendRPC("TraderX", "GetPlayerLicensesResponse", new Param1<TraderXPlayerLicenses>(playerLicenses), true, player.GetIdentity());
     }
 
     void OnPlayerLicensesResponse(TraderXPlayerLicenses playerLicenses)

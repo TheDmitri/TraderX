@@ -1,0 +1,495 @@
+PanelWidgetClass rootFrame {
+ position 0 0
+ size 1 1
+ halign center_ref
+ valign center_ref
+ hexactpos 0
+ vexactpos 0
+ hexactsize 0
+ vexactsize 0
+ {
+  PanelWidgetClass Background {
+   ignorepointer 1
+   keepsafezone 1
+   color 0 0 0 0.75
+   position 0 0
+   size 0.48 0.72
+   halign center_ref
+   valign center_ref
+   hexactpos 0
+   vexactpos 0
+   hexactsize 0
+   vexactsize 0
+   style rover_sim_colorable
+   {
+    GridSpacerWidgetClass TabBar {
+     ignorepointer 1
+     position 0.046 0.025
+     size 0.91 0.065
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     Rows 1
+     {
+      ButtonWidgetClass AccountTabBtn {
+       position 0 0
+       size 0.3 1
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       scriptclass "ButtonBinding"
+       style Editor
+       text "Account"
+       {
+        ScriptParamsClass {
+         OnClick "OnAccountTabClicked"
+        }
+       }
+      }
+      ButtonWidgetClass TransferTabBtn {
+       position 0 0
+       size 0.3 1
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       scriptclass "ButtonBinding"
+       style Editor
+       text "Transfer"
+       {
+        ScriptParamsClass {
+         OnClick "OnTransferTabClicked"
+        }
+       }
+      }
+     }
+    }
+    PanelWidgetClass PlayerAccountPanel {
+     visible 1
+     ignorepointer 1
+     position 0.046 0.11
+     size 0.91 0.58
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     style Outline
+     {
+      TextWidgetClass FeesLabel {
+       ignorepointer 1
+       position 0.75 0.02
+       size 0.23 0.065
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       scriptclass "TextBinding"
+       "exact text" 1
+       "text halign" right
+       "text valign" center
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ feesText }}"
+        }
+       }
+      }
+      GridSpacerWidgetClass AccountGrid {
+       ignorepointer 1
+       position 0.02 0.1
+       size 0.96 0.72
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       Columns 2
+       Rows 5
+       {
+        TextWidgetClass BankLabel {
+         ignorepointer 1
+         size 0.35 0.18
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         style Bold
+         text "Bank Balance:"
+         "exact text" 1
+         "text halign" right
+         "text valign" center
+        }
+        TextWidgetClass BankBalanceValue {
+         ignorepointer 1
+         size 0.55 0.18
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         scriptclass "TextBinding"
+         "text valign" center
+         {
+          ScriptParamsClass {
+           Binding_Expression "{{ bankBalanceText }}"
+          }
+         }
+        }
+        TextWidgetClass CashLabel {
+         ignorepointer 1
+         size 0.35 0.18
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         style Bold
+         text "Cash on Hand:"
+         "exact text" 1
+         "text halign" right
+         "text valign" center
+        }
+        TextWidgetClass CashValue {
+         ignorepointer 1
+         size 0.55 0.18
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         scriptclass "TextBinding"
+         "text valign" center
+         {
+          ScriptParamsClass {
+           Binding_Expression "{{ playerCashText }}"
+          }
+         }
+        }
+        TextWidgetClass AmountLabel {
+         ignorepointer 1
+         size 0.35 0.18
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         style Bold
+         text "Amount:"
+         "exact text" 1
+         "text halign" right
+         "text valign" center
+        }
+        EditBoxWidgetClass DepositAmountInput {
+         size 0.55 0.18
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         scriptclass "EditBoxBinding"
+         "Use default text" 0
+         "exact text" 1
+         {
+          ScriptParamsClass {
+           Form_Control_Name "depositAmount"
+           Form_Validators "required,integer,min:1"
+           Two_Way_Binding 1
+           OnChange "OnDepositAmountChanged"
+          }
+         }
+        }
+        ProgressBarWidgetClass BalanceProgressBar {
+         ignorepointer 1
+         size 0.9 0.1
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         scriptclass "ProgressBinding"
+         style Stamina
+         current 0
+         {
+          ScriptParamsClass {
+           Binding_Expression "{{ progressValue }}"
+          }
+         }
+        }
+        PanelWidgetClass Spacer1 {
+         ignorepointer 1
+         size 0.01 0.01
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+        }
+        ButtonWidgetClass DepositBtn {
+         position 0 0
+         size 0.42 0.18
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         scriptclass "ButtonBinding"
+         style Editor
+         text "Deposit"
+         {
+          ScriptParamsClass {
+           OnClick "OnDepositClicked"
+          }
+         }
+        }
+        ButtonWidgetClass WithdrawBtn {
+         position 0 0
+         size 0.42 0.18
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         scriptclass "ButtonBinding"
+         style Editor
+         text "Withdraw"
+         {
+          ScriptParamsClass {
+           OnClick "OnWithdrawClicked"
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+    PanelWidgetClass TransferPanel {
+     visible 0
+     ignorepointer 1
+     position 0.046 0.11
+     size 0.91 0.58
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     style Outline
+     {
+      TextWidgetClass TransferFeesLabel {
+       ignorepointer 1
+       position 0.75 0.02
+       size 0.23 0.065
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       scriptclass "TextBinding"
+       "exact text" 1
+       "text halign" right
+       "text valign" center
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ feesText }}"
+        }
+       }
+      }
+      GridSpacerWidgetClass TransferGrid {
+       ignorepointer 1
+       position 0.02 0.12
+       size 0.96 0.55
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       Columns 2
+       Rows 3
+       {
+        TextWidgetClass TransferBankLabel {
+         ignorepointer 1
+         size 0.35 0.28
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         style Bold
+         text "Bank Balance:"
+         "exact text" 1
+         "text halign" right
+         "text valign" center
+        }
+        TextWidgetClass TransferBankValue {
+         ignorepointer 1
+         size 0.55 0.28
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         scriptclass "TextBinding"
+         "text valign" center
+         {
+          ScriptParamsClass {
+           Binding_Expression "{{ transferBalanceText }}"
+          }
+         }
+        }
+        TextWidgetClass TransferAmountLabel {
+         ignorepointer 1
+         size 0.35 0.28
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         style Bold
+         text "Amount:"
+         "exact text" 1
+         "text halign" right
+         "text valign" center
+        }
+        EditBoxWidgetClass TransferAmountInput {
+         size 0.55 0.28
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         scriptclass "EditBoxBinding"
+         "Use default text" 0
+         "exact text" 1
+         {
+          ScriptParamsClass {
+           Form_Control_Name "transferAmount"
+           Form_Validators "required,integer,min:1"
+           Two_Way_Binding 1
+           OnChange "OnTransferAmountChanged"
+          }
+         }
+        }
+        TextWidgetClass TransferIdLabel {
+         ignorepointer 1
+         size 0.35 0.28
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         style Bold
+         text "Account ID:"
+         "exact text" 1
+         "text halign" right
+         "text valign" center
+        }
+        EditBoxWidgetClass TransferIdInput {
+         size 0.55 0.28
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         scriptclass "EditBoxBinding"
+         "Use default text" 0
+         "exact text" 1
+         {
+          ScriptParamsClass {
+           Form_Control_Name "transferId"
+           Form_Validators "required,integer,minlength:16"
+           Two_Way_Binding 1
+          }
+         }
+        }
+       }
+      }
+      ButtonWidgetClass TransferBtn {
+       position 0.35 0.75
+       size 0.3 0.12
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       scriptclass "ButtonBinding"
+       style Editor
+       text "Transfer"
+       {
+        ScriptParamsClass {
+         OnClick "OnTransferClicked"
+        }
+       }
+      }
+     }
+    }
+    PanelWidgetClass AccountIdPanel {
+     ignorepointer 1
+     position 0.046 0.71
+     size 0.91 0.1
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     style Outline
+     {
+      GridSpacerWidgetClass IdGrid {
+       ignorepointer 1
+       position 0.02 0.08
+       size 0.96 0.84
+       hexactpos 0
+       vexactpos 0
+       hexactsize 0
+       vexactsize 0
+       Rows 1
+       {
+        TextWidgetClass IdLabel {
+         ignorepointer 1
+         size 0.2 1
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         text "Your ID:"
+         "exact text" 1
+         "text halign" right
+         "text valign" center
+        }
+        TextWidgetClass IdValue {
+         ignorepointer 1
+         size 0.5 1
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         scriptclass "TextBinding"
+         "text halign" center
+         "text valign" center
+         {
+          ScriptParamsClass {
+           Binding_Expression "{{ playerIdText }}"
+          }
+         }
+        }
+        ButtonWidgetClass CopyIdBtn {
+         size 0.25 0.9
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         scriptclass "ButtonBinding"
+         style Editor
+         text "Copy ID"
+         {
+          ScriptParamsClass {
+           OnClick "OnCopyIdClicked"
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+    RichTextWidgetClass StatusText {
+     visible 1
+     ignorepointer 1
+     color 1 0.749 0 1
+     position 0.05 0.84
+     size 0.9 0.06
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     scriptclass "TextBinding"
+     "text halign" center
+     "text valign" center
+     wrap 1
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ statusText }}"
+      }
+     }
+    }
+   }
+  }
+ }
+}

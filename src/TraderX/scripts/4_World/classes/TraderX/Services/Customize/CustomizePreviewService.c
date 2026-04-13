@@ -122,7 +122,7 @@ class CustomizePreviewService
         bool found = false;
         for (int i = entityAttachments.Count() - 1; i >= 0; i--)
         {
-            if (CF_String.EqualsIgnoreCase(entityAttachments[i].GetType(), attachment.className))
+            if (DZlrString.EqualsIgnoreCase(entityAttachments[i].GetType(), attachment.className))
             {
                 GetGame().ObjectDelete(entityAttachments[i]);
                 found = true;
@@ -316,7 +316,7 @@ class CustomizePreviewService
             bool found = false;
             foreach (EntityAI entityItem : entityAttachments)
             {
-                if (CF_String.EqualsIgnoreCase(entityItem.GetType(), trackedItem.className))
+                if (DZlrString.EqualsIgnoreCase(entityItem.GetType(), trackedItem.className))
                 {
                     found = true;
                     break;

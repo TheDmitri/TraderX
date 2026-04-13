@@ -276,10 +276,10 @@ class CustomizeStateService
     void LogCurrentState()
     {
         GetTraderXLogger().LogDebug("=== CustomizeStateService Current State ===");
-        GetTraderXLogger().LogDebug("Original Item: " + Ternary<string>.If(m_OriginalItem != null , m_OriginalItem.GetDisplayName(), "null"));
-        GetTraderXLogger().LogDebug("Current Item: " + Ternary<string>.If(m_CurrentItem != null, m_CurrentItem.GetDisplayName(), "null"));
+        GetTraderXLogger().LogDebug("Original Item: " + TernaryString(m_OriginalItem != null , m_OriginalItem.GetDisplayName(), "null"));
+        GetTraderXLogger().LogDebug("Current Item: " + TernaryString(m_CurrentItem != null, m_CurrentItem.GetDisplayName(), "null"));
         GetTraderXLogger().LogDebug("Current Variant Name: " + m_CurrentVariantName);
-        GetTraderXLogger().LogDebug("Current Preset: " + Ternary<string>.If(m_CurrentPreset != null, m_CurrentPreset.presetName, "none"));
+        GetTraderXLogger().LogDebug("Current Preset: " + TernaryString(m_CurrentPreset != null, m_CurrentPreset.presetName, "none"));
         GetTraderXLogger().LogDebug("Current Preset Name: " + m_CurrentPresetName);
         GetTraderXLogger().LogDebug("Has Changes: " + HasChangesFromOriginal());
         GetTraderXLogger().LogDebug("Is Valid: " + IsConfigurationValid());

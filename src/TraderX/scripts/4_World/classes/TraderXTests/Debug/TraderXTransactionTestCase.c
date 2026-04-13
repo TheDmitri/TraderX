@@ -32,7 +32,7 @@ class TraderXTransactionTestCase
     void TraderXTransactionTestCase()
     {
         testCaseId = TraderXTransactionId.Generate().GetValue();
-        timestamp = CF_Date.Now().GetTimestamp().ToString();
+        timestamp = GetGame().GetTime().ToString();
         preTransactionState = new TraderXPlayerState();
         postTransactionState = new TraderXPlayerState();
         preTransactionStock = new array<ref TraderXProductStock>();

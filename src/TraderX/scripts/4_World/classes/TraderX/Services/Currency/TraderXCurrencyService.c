@@ -29,12 +29,12 @@ class TraderXCurrencyService
     void RegisterRPCs()
     {
         if(GetGame().IsClient())
-            GetRPCManager().AddRPC("TraderX", "GetTraderXCurrencyResponse", this, SingeplayerExecutionType.Client);
+            GetDayZularRPCManager().AddRPC("TraderX", "GetTraderXCurrencyResponse", this, DayZularRPCType.Client);
     }
 
     void OnPlayerJoined(PlayerBase player, PlayerIdentity identity)
     {
-        GetRPCManager().SendRPC("TraderX", "GetTraderXCurrencyResponse", new Param1<TraderXCurrencyTypeCollection>(currencySettings), true, identity);
+        GetDayZularRPCManager().SendRPC("TraderX", "GetTraderXCurrencyResponse", new Param1<TraderXCurrencyTypeCollection>(currencySettings), true, identity);
     }
 
     //----------------------------------------------------------------//
@@ -286,10 +286,8 @@ class TraderXCurrencyService
 	//RPC Methods
 	//----------------------------------------------------------------//
 
-    void GetTraderXCurrencyResponse(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
+    void GetTraderXCurrencyResponse(PlayerIdentity sender, ParamsReadContext ctx)
     {
-        if(type != CallType.Client)
-            return;
 
         Param1<TraderXCurrencyTypeCollection> data;
         if(!ctx.Read(data))

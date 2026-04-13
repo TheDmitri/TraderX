@@ -21,7 +21,7 @@ class TraderXCategoryRepository
     {
         foreach(string categoryId, TraderXCategory category: s_Categories)
         {
-            if(CF_String.EqualsIgnoreCase(category.categoryName, catName))
+            if(DZlrString.EqualsIgnoreCase(category.categoryName, catName))
                 return categoryId;
         }
         return string.Empty;

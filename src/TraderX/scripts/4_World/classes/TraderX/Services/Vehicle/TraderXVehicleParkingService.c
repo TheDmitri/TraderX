@@ -30,11 +30,11 @@ class TraderXVehicleParkingService
     {
         if(GetGame().IsClient())
         {
-            GetRPCManager().AddRPC("TraderX", "GetVehicleParkingDataResponse", this, SingeplayerExecutionType.Client);
+            GetDayZularRPCManager().AddRPC("TraderX", "GetVehicleParkingDataResponse", this, DayZularRPCType.Client);
         }
         else
         {
-            GetRPCManager().AddRPC("TraderX", "GetVehicleParkingDataRequest", this, SingeplayerExecutionType.Server);
+            GetDayZularRPCManager().AddRPC("TraderX", "GetVehicleParkingDataRequest", this, DayZularRPCType.Server);
         }
     }
     
@@ -236,10 +236,8 @@ class TraderXVehicleParkingService
 
     // ===== VEHICLE PARKING RPC METHODS =====
 
-    void GetVehicleParkingDataRequest(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
+    void GetVehicleParkingDataRequest(PlayerIdentity sender, ParamsReadContext ctx)
     {
-        if(type != CallType.Server)
-            return;
 
         Param1<int> data;
         if(!ctx.Read(data))
@@ -260,7 +258,7 @@ class TraderXVehicleParkingService
         GetVehiclesFromParkingSpots(npcId, player, vehicleProducts);
 
         // Send response back to client
-        GetRPCManager().SendRPC("TraderX", "GetVehicleParkingDataResponse", new Param1<array<ref TraderXProduct>>(vehicleProducts), true, sender);
+        GetDayZularRPCManager().SendRPC("TraderX", "GetVehicleParkingDataResponse", new Param1<array<ref TraderXProduct>>(vehicleProducts), true, sender);
     }
 
     void GetVehiclesFromParkingSpots(int npcId, PlayerBase player, out array<ref TraderXProduct> vehicleProducts)
@@ -372,10 +370,8 @@ class TraderXVehicleParkingService
         return null;
     }
 
-    void GetVehicleParkingDataResponse(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
+    void GetVehicleParkingDataResponse(PlayerIdentity sender, ParamsReadContext ctx)
     {
-        if(type != CallType.Client)
-            return;
 
         Param1<array<ref TraderXProduct>> data;
         if(!ctx.Read(data))

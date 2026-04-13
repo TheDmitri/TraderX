@@ -37,7 +37,7 @@ class TraderXAttachmentHandler
 
             foreach(string slot : slotNames)
             {
-                if(CF_String.EqualsIgnoreCase(slot,slotName))
+                if(DZlrString.EqualsIgnoreCase(slot,slotName))
                     return true;
             }
         }

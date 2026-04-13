@@ -29,13 +29,13 @@ class TraderXPresetsService
     {
         if(GetGame().IsServer())
         {
-            GetRPCManager().AddRPC("TraderX", "GetServerPresetsRequest", this, SingeplayerExecutionType.Server);
-            GetRPCManager().AddRPC("TraderX", "GetAllServerPresetsRequest", this, SingeplayerExecutionType.Server);
+            GetDayZularRPCManager().AddRPC("TraderX", "GetServerPresetsRequest", this, DayZularRPCType.Server);
+            GetDayZularRPCManager().AddRPC("TraderX", "GetAllServerPresetsRequest", this, DayZularRPCType.Server);
         }
         else
         {
-            GetRPCManager().AddRPC("TraderX", "OnAllServerPresetsResponse", this, SingeplayerExecutionType.Client);
-            GetRPCManager().AddRPC("TraderX", "OnServerPresetsResponse", this, SingeplayerExecutionType.Client);
+            GetDayZularRPCManager().AddRPC("TraderX", "OnAllServerPresetsResponse", this, DayZularRPCType.Client);
+            GetDayZularRPCManager().AddRPC("TraderX", "OnServerPresetsResponse", this, DayZularRPCType.Client);
         }
     }
 
@@ -346,21 +346,19 @@ class TraderXPresetsService
         TraderXPresets serverPresets = GetServerPresets(productId);
         if (!serverPresets) return;
         
-        GetRPCManager().SendRPC("TraderX", "OnServerPresetsResponse", new Param2<string, ref TraderXPresets>(productId, serverPresets), true, identity);
+        GetDayZularRPCManager().SendRPC("TraderX", "OnServerPresetsResponse", new Param2<string, ref TraderXPresets>(productId, serverPresets), true, identity);
     }
     
     void SendAllServerPresetsToClient(PlayerIdentity identity)
     {
         if (!GetGame().IsServer()) return;
         array<ref TraderXPresets> allPresets = GetAllPresets();
-        GetRPCManager().SendRPC("TraderX", "OnAllServerPresetsResponse", new Param1<array<ref TraderXPresets>>(allPresets), true, identity);
+        GetDayZularRPCManager().SendRPC("TraderX", "OnAllServerPresetsResponse", new Param1<array<ref TraderXPresets>>(allPresets), true, identity);
     }
     
     //RPCs
-    void GetServerPresetsRequest(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
+    void GetServerPresetsRequest(PlayerIdentity sender, ParamsReadContext ctx)
     {
-        if(type != CallType.Server)
-            return;
 
         Param1<string> data;
         if(!ctx.Read(data)){
@@ -377,19 +375,15 @@ class TraderXPresetsService
         SendServerPresetsToClient(sender, productId);
     }
 
-    void GetAllServerPresetsRequest(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
+    void GetAllServerPresetsRequest(PlayerIdentity sender, ParamsReadContext ctx)
     {
-        if(type != CallType.Server)
-            return;
 
         // Send all server presets to client
         SendAllServerPresetsToClient(sender);
     }
     
-    void OnServerPresetsResponse(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
+    void OnServerPresetsResponse(PlayerIdentity sender, ParamsReadContext ctx)
     {
-        if(type != CallType.Client)
-            return;
 
         Param2<string, ref TraderXPresets> data;
         if(!ctx.Read(data)){
@@ -408,10 +402,8 @@ class TraderXPresetsService
         m_serverPresets.Set(productId, serverPresets);
     }
 
-    void OnAllServerPresetsResponse(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)
+    void OnAllServerPresetsResponse(PlayerIdentity sender, ParamsReadContext ctx)
     {
-        if(type != CallType.Client)
-            return;
 
         Param1<array<ref TraderXPresets>> data;
         if(!ctx.Read(data)){

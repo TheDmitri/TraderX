@@ -106,19 +106,20 @@ class TraderXVehicleFactory
         }
     }
     
-    // Configure vehicle locks (remove existing locks, make it unlocked)
+    // Configure vehicle locks (remove existing locks, make it unlocked for new buyer)
     private static void ConfigureVehicleLocks(EntityAI vehicle)
     {
-        // This would integrate with TraderXCarLock system
-        // For now, just ensure the vehicle is unlocked and accessible
-        
-        Car car = Car.Cast(vehicle);
-        if (car)
+        if (TraderXProviderRegistry.GetInstance().HasCarLockProvider())
         {
-            // Remove any existing locks
-            // This would need to integrate with your car lock system
-            GetTraderXLogger().LogDebug("Configured vehicle locks for trading");
+            ITraderXCarLockProvider lockProvider = TraderXProviderRegistry.GetInstance().GetCarLockProvider();
+            if (lockProvider.HasLock(vehicle))
+            {
+                lockProvider.RemoveLock(vehicle);
+                GetTraderXLogger().LogInfo("Removed existing lock from traded vehicle: " + vehicle.GetType());
+            }
         }
+
+        GetTraderXLogger().LogDebug("Configured vehicle locks for trading");
     }
     
     // Prepare a vehicle for sale (clean up, reset condition)

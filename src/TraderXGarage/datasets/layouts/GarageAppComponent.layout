@@ -1,0 +1,187 @@
+PanelWidgetClass GarageRoot {
+	position 0.3 0.15 0 0
+	size 0.4 0.7 0 0
+	halign left_ref
+	valign top_ref
+ {
+	PanelWidgetClass GarageBackground {
+		position 0 0 0 0
+		size 1 1 0 0
+		hexColor "CC1A1A2E"
+	 {
+		// ─── Title ───
+		TextWidgetClass GarageTitle {
+			position 0 0.02 0 0
+			size 1 0 0 30
+			halign left_ref
+			valign top_ref
+			text "Garage"
+			font "gui/fonts/MetronD"
+			hexColor "FFFFFFFF"
+			align center_center
+		}
+
+		// ─── Vehicle List (left side) ───
+		ScrollWidgetClass VehicleScroll {
+			position 0.03 0.08 0 0
+			size 0.44 0.55 0 0
+		 {
+			GridSpacerWidgetClass VehicleListGrid {
+				position 0 0 0 0
+				size 1 1 0 0
+			 {
+				ComponentWidgetBinding {
+					Component_ForEach "{{ _inputVehicles }}"
+					Component_Template "txg-garage-vehicle-card"
+				}
+			 }
+			}
+		 }
+		}
+
+		// ─── Vehicle Preview (right side) ───
+		PanelWidgetClass PreviewPanel {
+			position 0.5 0.08 0 0
+			size 0.47 0.55 0 0
+		 {
+			ItemPreviewWidgetClass VehiclePreviewWidget {
+				position 0 0 0 0
+				size 1 1 0 0
+			 {
+				scriptclass "ItemPreviewBinding"
+				 {
+					Binding_Expression "{{ vehiclePreview }}"
+					Enable_Rotation 1
+					Enable_Scale 1
+				 }
+			 }
+			}
+		 }
+		}
+
+		// ─── Parking Status Indicator ───
+		PanelWidgetClass StatusPanel {
+			position 0.03 0.65 0 0
+			size 0.2 0 0 24
+		 {
+			ImageWidgetClass ParkingStatus {
+				position 0 0 0 0
+				size 0 0 20 20
+				hexColor "FF30BF30"
+			}
+			TextWidgetClass StatusLabel {
+				position 0 0 24 0
+				size 0.8 1 0 0
+				text "Parking"
+				font "gui/fonts/MetronD"
+				hexColor "FFFFFFFF"
+			}
+		 }
+		}
+
+		// ─── Cost Display ───
+		PanelWidgetClass CostPanel {
+			position 0.03 0.72 0 0
+			size 0.94 0 0 60
+		 {
+			TextWidgetClass LabelParkIn {
+				position 0 0 0 0
+				size 0.25 0.5 0 0
+				text "Park In:"
+				font "gui/fonts/MetronD"
+				hexColor "FFAAAAAA"
+			}
+			TextWidgetClass CostParkInText {
+				position 0.25 0 0 0
+				size 0.25 0.5 0 0
+			 {
+				scriptclass "TextBinding"
+				 {
+					Binding_Expression "{{ costParkInText }}"
+				 }
+			 }
+			}
+			TextWidgetClass LabelParkOut {
+				position 0 0.5 0 0
+				size 0.25 0.5 0 0
+				text "Park Out:"
+				font "gui/fonts/MetronD"
+				hexColor "FFAAAAAA"
+			}
+			TextWidgetClass CostParkOutText {
+				position 0.25 0.5 0 0
+				size 0.25 0.5 0 0
+			 {
+				scriptclass "TextBinding"
+				 {
+					Binding_Expression "{{ costParkOutText }}"
+				 }
+			 }
+			}
+			TextWidgetClass LabelMoney {
+				position 0.55 0 0 0
+				size 0.2 1 0 0
+				text "Balance:"
+				font "gui/fonts/MetronD"
+				hexColor "FFAAAAAA"
+			}
+			TextWidgetClass MoneyDisplay {
+				position 0.75 0 0 0
+				size 0.25 1 0 0
+			 {
+				scriptclass "TextBinding"
+				 {
+					Binding_Expression "{{ moneyText }}"
+				 }
+			 }
+			}
+		 }
+		}
+
+		// ─── Action Buttons ───
+		PanelWidgetClass ButtonPanel {
+			position 0.03 0.84 0 0
+			size 0.94 0 0 50
+		 {
+			ButtonWidgetClass BtnParkOut {
+				position 0 0 0 0
+				size 0.3 1 0 0
+				text "Park Out"
+			 {
+				scriptclass "ButtonBinding"
+				 {
+					Binding_Text "Park Out"
+					OnClick "OnParkOutClicked"
+				 }
+			 }
+			}
+			ButtonWidgetClass BtnParkIn {
+				position 0.35 0 0 0
+				size 0.3 1 0 0
+				text "Park In"
+			 {
+				scriptclass "ButtonBinding"
+				 {
+					Binding_Text "Park In"
+					OnClick "OnParkInClicked"
+				 }
+			 }
+			}
+			ButtonWidgetClass BtnClose {
+				position 0.7 0 0 0
+				size 0.3 1 0 0
+				text "Close"
+			 {
+				scriptclass "ButtonBinding"
+				 {
+					Binding_Text "Close"
+					OnClick "OnCloseClicked"
+				 }
+			 }
+			}
+		 }
+		}
+	 }
+	}
+ }
+}

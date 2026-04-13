@@ -35,8 +35,8 @@ class TraderXCoreUtils
         int seconds2 = seconds - hours * 3600 - minutes * 60;
         
         // Add zero padding for single digits
-        string minutesStr = Ternary<string>.If(minutes < 10, "0" + minutes.ToString(), minutes.ToString());
-        string secondsStr = Ternary<string>.If(seconds2 < 10, "0" + seconds2.ToString(), seconds2.ToString());
+        string minutesStr = TernaryString(minutes < 10, "0" + minutes.ToString(), minutes.ToString());
+        string secondsStr = TernaryString(seconds2 < 10, "0" + seconds2.ToString(), seconds2.ToString());
         
         return hours.ToString() + ":" + minutesStr + ":" + secondsStr;
     }

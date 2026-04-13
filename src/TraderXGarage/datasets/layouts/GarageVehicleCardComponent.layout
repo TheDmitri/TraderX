@@ -1,0 +1,17 @@
+PanelWidgetClass VehicleCardRoot {
+	position 0 0 0 0
+	size 1 0 0 32
+ {
+	ButtonWidgetClass VehicleButton {
+		position 0 0 0 0
+		size 1 1 0 0
+	 {
+		scriptclass "ButtonBinding"
+		 {
+			Binding_Text "{{ vehicleDisplayName }}"
+			OnClick "OnVehicleClicked"
+		 }
+	 }
+	}
+ }
+}

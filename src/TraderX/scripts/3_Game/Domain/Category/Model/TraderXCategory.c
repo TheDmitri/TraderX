@@ -71,7 +71,7 @@ class TraderXCategory extends TraderXJsonCategory
         array<ref TraderXProduct> products = GetProducts();
         foreach(TraderXProduct product: products)
         {
-            if(CF_String.EqualsIgnoreCase(product.className, className)){
+            if(DZlrString.EqualsIgnoreCase(product.className, className)){
                 GetTraderXLogger().LogDebug("FindProductByClassName : " + product.className);
                 return product;
             }

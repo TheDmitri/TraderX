@@ -1,0 +1,311 @@
+PanelWidgetClass TXCarLockRoot {
+ size 1 1
+ halign center_ref
+ valign center_ref
+ hexactpos 0
+ vexactpos 0
+ hexactsize 1
+ vexactsize 1
+ {
+  PanelWidgetClass Background {
+   position 0.35 0.25
+   size 0.3 0.5
+   halign left_ref
+   valign top_ref
+   hexactpos 0
+   vexactpos 0
+   hexactsize 0
+   vexactsize 0
+   color 20 20 20 220
+   {
+    TextWidgetClass messageOutput {
+     scriptclass "TextBinding"
+     position 0.05 0.02
+     size 0.9 0.08
+     halign left_ref
+     valign top_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     text "SET PASSWORD (8)"
+     font "gui/fonts/metron"
+     color 200 200 200 255
+     exact 0
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ statusMessage }}"
+      }
+     }
+    }
+    TextWidgetClass codeDisplay {
+     scriptclass "TextBinding"
+     position 0.05 0.1
+     size 0.9 0.1
+     halign left_ref
+     valign top_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     text ""
+     font "gui/fonts/metron"
+     color 255 255 255 255
+     exact 0
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ codeDisplayText }}"
+      }
+     }
+    }
+    ButtonWidgetClass digit_1 {
+     scriptclass "ButtonBinding"
+     position 0.05 0.22
+     size 0.28 0.12
+     halign left_ref
+     valign top_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     text "1"
+     font "gui/fonts/metron"
+     color 60 60 60 255
+     {
+      ScriptParamsClass {
+       OnClick "OnDigit1Click"
+      }
+     }
+    }
+    ButtonWidgetClass digit_2 {
+     scriptclass "ButtonBinding"
+     position 0.36 0.22
+     size 0.28 0.12
+     halign left_ref
+     valign top_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     text "2"
+     font "gui/fonts/metron"
+     color 60 60 60 255
+     {
+      ScriptParamsClass {
+       OnClick "OnDigit2Click"
+      }
+     }
+    }
+    ButtonWidgetClass digit_3 {
+     scriptclass "ButtonBinding"
+     position 0.67 0.22
+     size 0.28 0.12
+     halign left_ref
+     valign top_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     text "3"
+     font "gui/fonts/metron"
+     color 60 60 60 255
+     {
+      ScriptParamsClass {
+       OnClick "OnDigit3Click"
+      }
+     }
+    }
+    ButtonWidgetClass digit_4 {
+     scriptclass "ButtonBinding"
+     position 0.05 0.36
+     size 0.28 0.12
+     halign left_ref
+     valign top_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     text "4"
+     font "gui/fonts/metron"
+     color 60 60 60 255
+     {
+      ScriptParamsClass {
+       OnClick "OnDigit4Click"
+      }
+     }
+    }
+    ButtonWidgetClass digit_5 {
+     scriptclass "ButtonBinding"
+     position 0.36 0.36
+     size 0.28 0.12
+     halign left_ref
+     valign top_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     text "5"
+     font "gui/fonts/metron"
+     color 60 60 60 255
+     {
+      ScriptParamsClass {
+       OnClick "OnDigit5Click"
+      }
+     }
+    }
+    ButtonWidgetClass digit_6 {
+     scriptclass "ButtonBinding"
+     position 0.67 0.36
+     size 0.28 0.12
+     halign left_ref
+     valign top_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     text "6"
+     font "gui/fonts/metron"
+     color 60 60 60 255
+     {
+      ScriptParamsClass {
+       OnClick "OnDigit6Click"
+      }
+     }
+    }
+    ButtonWidgetClass digit_7 {
+     scriptclass "ButtonBinding"
+     position 0.05 0.50
+     size 0.28 0.12
+     halign left_ref
+     valign top_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     text "7"
+     font "gui/fonts/metron"
+     color 60 60 60 255
+     {
+      ScriptParamsClass {
+       OnClick "OnDigit7Click"
+      }
+     }
+    }
+    ButtonWidgetClass digit_8 {
+     scriptclass "ButtonBinding"
+     position 0.36 0.50
+     size 0.28 0.12
+     halign left_ref
+     valign top_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     text "8"
+     font "gui/fonts/metron"
+     color 60 60 60 255
+     {
+      ScriptParamsClass {
+       OnClick "OnDigit8Click"
+      }
+     }
+    }
+    ButtonWidgetClass digit_9 {
+     scriptclass "ButtonBinding"
+     position 0.67 0.50
+     size 0.28 0.12
+     halign left_ref
+     valign top_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     text "9"
+     font "gui/fonts/metron"
+     color 60 60 60 255
+     {
+      ScriptParamsClass {
+       OnClick "OnDigit9Click"
+      }
+     }
+    }
+    ButtonWidgetClass btnCLR {
+     scriptclass "ButtonBinding"
+     position 0.05 0.64
+     size 0.28 0.12
+     halign left_ref
+     valign top_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     text "CLR"
+     font "gui/fonts/metron"
+     color 120 30 30 255
+     {
+      ScriptParamsClass {
+       OnClick "OnClearClick"
+      }
+     }
+    }
+    ButtonWidgetClass digit_0 {
+     scriptclass "ButtonBinding"
+     position 0.36 0.64
+     size 0.28 0.12
+     halign left_ref
+     valign top_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     text "0"
+     font "gui/fonts/metron"
+     color 60 60 60 255
+     {
+      ScriptParamsClass {
+       OnClick "OnDigit0Click"
+      }
+     }
+    }
+    ButtonWidgetClass btnOk {
+     scriptclass "ButtonBinding"
+     position 0.67 0.64
+     size 0.28 0.12
+     halign left_ref
+     valign top_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     text "ENTER"
+     font "gui/fonts/metron"
+     color 30 120 30 255
+     {
+      ScriptParamsClass {
+       OnClick "OnEnterClick"
+      }
+     }
+    }
+    ButtonWidgetClass btnClose {
+     scriptclass "ButtonBinding"
+     position 0.05 0.82
+     size 0.9 0.12
+     halign left_ref
+     valign top_ref
+     hexactpos 0
+     vexactpos 0
+     hexactsize 0
+     vexactsize 0
+     text "CLOSE"
+     font "gui/fonts/metron"
+     color 80 80 80 255
+     {
+      ScriptParamsClass {
+       OnClick "OnCloseClick"
+      }
+     }
+    }
+   }
+  }
+ }
+}

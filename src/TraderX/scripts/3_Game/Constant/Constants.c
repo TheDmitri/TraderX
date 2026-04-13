@@ -68,5 +68,15 @@ const string TRADERX_COMPILED_CATEGORIES_BACKUP = TRADERX_BACKUP_DIR + "Categori
 // Configuration reports (depends on TRADERX_LOGGER_CONFIG_DIR defined above)
 const string TRADERX_CONFIG_REPORT_FILE = TRADERX_LOGGER_CONFIG_DIR + "ConfigReport.log";
 
+// Insurance
+const string TRADERX_INSURANCE_DIR = TRADERX_DB_DIR_SERVER + "Insurance\\";
+const string TRADERX_INSURANCE_FILE = TRADERX_INSURANCE_DIR + "insurance_%1.json";
+const string TRADERX_INSURANCE_CONFIG_FILE = TRADERX_CONFIG_DIR_SERVER + "TraderXInsuranceSettings.json";
+
+// Receipts
+const string TRADERX_RECEIPTS_DIR = TRADERX_DB_DIR_SERVER + "Receipts\\";
+const string TRADERX_RECEIPTS_FILE = TRADERX_RECEIPTS_DIR + "receipts_%1.json";
+const string TRADERX_RECEIPT_CONFIG_FILE = TRADERX_CONFIG_DIR_SERVER + "TraderXReceiptSettings.json";
+
 // Version
 const string TRADERX_CURRENT_VERSION = "1.0.1";

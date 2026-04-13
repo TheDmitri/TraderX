@@ -1,18 +1,19 @@
 
+static ref TraderXModuleTest g_TraderXModuleTest;
+
 static ref TraderXModuleTest GetTraderXModuleTest()
 {
-    return TraderXModuleTest.Cast(CF_ModuleCoreManager.Get(TraderXModuleTest));
+    return g_TraderXModuleTest;
 }
 
-[CF_RegisterModule(TraderXModuleTest)]
-class TraderXModuleTest: CF_ModuleWorld
+class TraderXModuleTest : DayZularService
 {
     ref TraderXDebugSettings debugSettings;
 
-    override void OnInit()
-	{
-        super.OnInit();
-        EnableMissionStart();
+    void TraderXModuleTest()
+    {
+        g_TraderXModuleTest = this;
+        GetDayZularEvents().OnMissionStart.Insert(OnMissionStart);
     }
 
     void StartUnitTest()
@@ -138,12 +139,11 @@ class TraderXModuleTest: CF_ModuleWorld
         GetTraderXLogger().LogInfo("[TEST RUNNER] Vehicle Transaction Tests completed.");
     }
 
-    override void OnMissionStart(Class sender, CF_EventArgs args)
-	{
-		super.OnMissionStart(sender, args);
-        if(GetGame().IsServer())
+    void OnMissionStart()
+    {
+        if (GetGame().IsServer())
         {
             GetGame().GetCallQueue(CALL_CATEGORY_SYSTEM).CallLater(StartUnitTest, 3000);
         }
-	}
+    }
 }
