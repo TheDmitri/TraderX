@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+  <link rel="stylesheet" href="dzml-icons.css">
+</head>
+<body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#1a1a1a;">
+
+<div data-dz="panel"
+    data-name="FavoritesView"
+    data-style="TXContent"
+    class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr">
+  <div data-dz="panel"
+      data-name="topBar"
+      data-style="TXSurface"
+      class="dz-xy-0-0 dz-wh-100-6 dz-c-FE dz-noptr">
+    <div data-dz="panel"
+        data-name="SearchBarHost"
+        data-component="tx-search-bar"
+        class="dz-xy-36-22 dz-wh-26-56"></div>
+    <div data-dz="panel"
+        data-name="ViewToggleHost"
+        data-component="tx-view-toggle"
+        class="dz-xy-64-22 dz-wh-8-56 dz-noptr"></div>
+  </div>
+  <div data-dz="panel"
+      data-name="FavListPanel"
+      data-style="TXSurface"
+      class="dz-xy-0-7 dz-wh-75-92 dz-c-FE dz-noptr">
+    <span data-dz="text"
+        data-name="favTitle"
+        class="dz-xy-1-1 dz-wh-40-4 dz-tc-9A9488 dz-font-body-14 dz-noptr dz-exact-text">
+      #tpm_favorites
+    </span>
+    <div data-dz="scroll"
+        data-name="scrollCategory"
+        class="dz-xy-1-6 dz-wh-98-93 dz-noptr dz-scroll-v">
+      <div data-dz="grid"
+          data-name="categoryGrid"
+          data-foreach="{{ _inputCategories }}"
+          data-template="tx-category-card"
+          data-item="_inputCategory"
+          class="dz-xy-0-0 dz-wh-100-1 dz-fit-v dz-cols-1 dz-rows-100 dz-gap-6"></div>
+    </div>
+  </div>
+  <div data-dz="panel"
+      data-name="CheckoutHost"
+      data-style="TXCard"
+      data-component="tx-checkout"
+      class="dz-xy-76-7 dz-wh-23-92 dz-c-FE"></div>
+</div>
+
+<script src="dzml-runtime.js?v=1780762080951"></script>
+</body>
+</html>

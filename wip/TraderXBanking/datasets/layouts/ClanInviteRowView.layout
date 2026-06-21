@@ -1,0 +1,129 @@
+PanelWidgetClass inviteRowRoot {
+ position 0 0
+ hexactpos 0
+ vexactpos 0
+ size 1 1
+ hexactsize 0
+ vexactsize 0
+ color 0.9961 0.9961 0.9961 1
+ style TXInfoBox
+ {
+  PanelWidgetClass inviteCrest {
+   position 0.03 0.2
+   hexactpos 0
+   vexactpos 0
+   size 0.1 0.6
+   hexactsize 0
+   vexactsize 0
+   color 0.9961 0.9961 0.9961 1
+   ignorepointer 1
+   style TXSurface
+   {
+    TextWidgetClass inviteCrestText {
+     position 0 0
+     hexactpos 0
+     vexactpos 0
+     size 1 1
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8314 0.6431 0.298 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     "text halign" center
+     "text valign" center
+     style Bold
+     text "—"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ inviteCrestText }}"
+      }
+     }
+    }
+   }
+  }
+  TextWidgetClass inviteName {
+   position 0.15 0.15
+   hexactpos 0
+   vexactpos 0
+   size 0.5 0.3
+   hexactsize 0
+   vexactsize 0
+   "text color" 0.8471 0.8235 0.7529 1
+   font "gui/fonts/etelkatextpro14"
+   ignorepointer 1
+   "exact text" 1
+   style Bold
+   text "—"
+   scriptclass "TextBinding"
+   {
+    ScriptParamsClass {
+     Binding_Expression "{{ inviteNameText }}"
+    }
+   }
+  }
+  TextWidgetClass inviteMeta {
+   position 0.15 0.48
+   hexactpos 0
+   vexactpos 0
+   size 0.5 0.32
+   hexactsize 0
+   vexactsize 0
+   "text color" 0.4157 0.3961 0.3765 1
+   font "gui/fonts/etelkatextpro12"
+   ignorepointer 1
+   "exact text" 1
+   wrap 1
+   text "—"
+   scriptclass "TextBinding"
+   {
+    ScriptParamsClass {
+     Binding_Expression "{{ inviteMetaText }}"
+    }
+   }
+  }
+  ButtonWidgetClass inviteDeclineBtn {
+   position 0.67 0.25
+   hexactpos 0
+   vexactpos 0
+   size 0.14 0.5
+   hexactsize 0
+   vexactsize 0
+   color 0.9961 0.9961 0.9961 1
+   "text color" 0.8471 0.8235 0.7529 1
+   font "gui/fonts/etelkatextpro12"
+   "exact text" 1
+   style Bold
+   style TXBtnDefault
+   text "DECLINE"
+   scriptclass "ButtonBinding"
+   {
+    ScriptParamsClass {
+     OnClick "OnDeclineClicked"
+    }
+   }
+  }
+  ButtonWidgetClass inviteAcceptBtn {
+   position 0.82 0.25
+   hexactpos 0
+   vexactpos 0
+   size 0.15 0.5
+   hexactsize 0
+   vexactsize 0
+   color 0.9961 0.9961 0.9961 1
+   "text color" 0.8471 0.8235 0.7529 1
+   font "gui/fonts/etelkatextpro12"
+   "exact text" 1
+   style Bold
+   style TXBtnPrimary
+   text "ACCEPT"
+   scriptclass "ButtonBinding"
+   {
+    ScriptParamsClass {
+     OnClick "OnAcceptClicked"
+    }
+   }
+  }
+ }
+}

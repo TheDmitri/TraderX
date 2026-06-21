@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{5F5BAA874D85E4D0}TraderXBanking/datasets/styles/banking_atlas.edds"
+ Author "dmitri"
+ ChangeDate 1453618322
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "banking_atlas.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}

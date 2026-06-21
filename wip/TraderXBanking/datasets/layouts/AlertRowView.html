@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+</head>
+<body>
+
+<!-- AlertRowView — One alert/notification card.
+     Displays title, body message, and optional action button.
+     Style changes based on alert type (info, warning, danger, success, clan).
+     Used in HomeTab alerts column via data-foreach. -->
+<div data-dz="panel" data-name="alertRowRoot"
+     data-style="{{ _inputAlert.GetStyleClass() }}"
+     class="dz-xy-0-0 dz-wh-full dz-c-FE">
+
+  <!-- Alert title - color set by component via SetColor() -->
+  <span data-dz="text" data-name="alertTitle"
+        data-bind="{{ _inputAlert.title }}"
+        class="dz-xy-4-12 dz-wh-92-25 dz-font-11 dz-noptr dz-exact-text dz-bold">
+    ALERT TITLE
+  </span>
+
+  <!-- Alert body/message - neutral ash color -->
+  <span data-dz="text" data-name="alertBody"
+        data-bind="{{ _inputAlert.body }}"
+        class="dz-xy-4-40 dz-wh-92-50 dz-font-10 dz-noptr dz-exact-text dz-wrap">
+    Alert message body text goes here.
+  </span>
+
+  <!-- Action button (shown if alert has action) -->
+  <button data-dz="button" data-name="alertActionBtn"
+          data-style="TXTab" data-on-click="OnAlertActionClicked"
+          data-bind="{{ _inputAlert.actionLabel }}"
+          data-visible="{{ _inputAlert.HasAction() }}"
+          class="dz-xy-70-82 dz-wh-26-14 dz-font-10 dz-exact-text dz-bold">
+    ACTION
+  </button>
+</div>
+
+<script src="dzml-runtime.js"></script>
+</body>
+</html>

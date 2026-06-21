@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+  <link rel="stylesheet" href="dzml-icons.css">
+</head>
+<!-- TraderX marketplace HUD toast — port of CourseBarterTrader's BarterToastCard.
+     360x152, top-right inset 18px, gold accent left rule, glyph well + kicker /
+     title / body / footer, draining 3px progress rule. Themed with the TraderX
+     Field-Ledger 9-slice styles (TXCardElevated card, TXSurface well) and the
+     gold/bronze palette. The FIFO runner (TraderXToastService) slides cardSlot
+     in/out; this layout only renders ONE notification + its progress rule.
+     data-name contract → AutoLoadWidgets in TraderXToastCardComponent.c:
+       cardSlot, leftRule, iconImg, progressTrack, progressFill, queuePill -->
+<body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#0F1215;">
+
+<div data-dz="panel" data-name="cardRoot" class="dz-xy-0-0 dz-wh-full dz-noptr dz-priority-999">
+
+  <!-- Animated slot: the 360x152 card surface (themed 9-slice; runner slides this) -->
+  <div data-dz="panel" data-name="cardSlot" data-style="TXCardElevated" class="dz-xy-1542px-18px dz-wh-360px-152px dz-noptr">
+
+    <!-- Signature gold left rule (recolored per type in code) -->
+    <div data-dz="panel" data-name="leftRule" class="dz-xy-0px-0px dz-wh-3px-152px dz-c-c4a35a dz-noptr"></div>
+
+    <!-- Icon well: dark surface panel + tinted atlas glyph (recolored per type in code).
+         Frame loaded at runtime from traderx_icons via TraderXToastNotification.GetIconImageRef(). -->
+    <div data-dz="panel" data-name="iconWell" data-style="TXSurface" class="dz-xy-14px-14px dz-wh-44px-44px dz-noptr">
+      <img data-dz="image" data-name="iconImg" data-image="set:traderx_icons image:sale"
+          class="dz-xy-10px-10px dz-wh-24px-24px dz-c-C4A35A dz-noptr" />
+    </div>
+
+    <!-- Kicker: "TRADER · SOLD" + right-aligned time -->
+    <span data-dz="text" data-name="kickerText" data-bind="{{ _notif.GetKicker() }}"
+        class="dz-xy-72px-15px dz-wh-200px-14px dz-noptr dz-c-8A8F96 dz-font-body-12 dz-exact-text dz-text-vc">
+      TRADER · SOLD
+    </span>
+    <span data-dz="text" data-name="timeText" data-bind="{{ _notif.time }}"
+        class="dz-xy-18px-15px dz-wh-50px-14px dz-noptr dz-c-8A8F96 dz-font-body-12 dz-align-x-right dz-exact-text dz-text-vc">
+      now
+    </span>
+
+    <!-- Title -->
+    <span data-dz="text" data-name="titleText" data-bind="{{ _notif.title }}"
+        class="dz-xy-72px-34px dz-wh-273px-22px dz-noptr dz-c-ECE8DA dz-font-body-16">
+      Item Sold
+    </span>
+
+    <!-- Body (multiline, clipped so it never spills into footer) -->
+    <div data-dz="panel" data-name="bodyClip" class="dz-xy-72px-60px dz-wh-273px-44px dz-noptr dz-clip">
+      <p data-dz="richtext" data-name="bodyText" data-bind="{{ _notif.body }}"
+          class="dz-xy-0px-0px dz-wh-full dz-noptr dz-c-A8B0A7 dz-font-body-14 dz-exact-text dz-wrap">
+        Successfully sold Ammo Box for 800.
+      </p>
+    </div>
+
+    <!-- Footer (optional) -->
+    <span data-dz="text" data-name="footerText" data-bind="{{ _notif.footer }}"
+        class="dz-xy-72px-120px dz-wh-273px-14px dz-noptr dz-c-9AA09A dz-font-body-12 dz-exact-text dz-text-vc">
+    </span>
+
+    <!-- Per-transaction breakdown for bulk trades. Hidden + zero-height by default;
+         TraderXToastCardComponent shows it, sizes it to the line count and grows the
+         card whenever the notification HasDetails(). One transaction per line. -->
+    <div data-dz="panel" data-name="detailsClip" data-style="TXSurface"
+        class="dz-xy-14px-110px dz-wh-332px-0px dz-noptr dz-clip dz-hidden">
+      <p data-dz="richtext" data-name="detailsText" data-bind="{{ _notif.GetDetailsText() }}"
+          class="dz-xy-10px-8px dz-wh-312px-full dz-noptr dz-c-A8B0A7 dz-font-body-13 dz-exact-text dz-wrap">
+      </p>
+    </div>
+
+    <!-- Progress rule: 3px bottom bar. Track (low-alpha accent) + fill (drains 1->0).
+         The component repositions these to the card bottom when expanded. -->
+    <div data-dz="panel" data-name="progressTrack" class="dz-xy-0px-149px dz-wh-100-3px dz-c-c4a35a24 dz-noptr"></div>
+    <div data-dz="panel" data-name="progressFill" class="dz-xy-0px-149px dz-wh-100-3px dz-c-c4a35a dz-noptr"></div>
+
+  </div>
+
+  <!-- Backlog pill — sibling of the card (so it stays put while the card slides).
+       Card rests at 1542,18 (360x152) → pill bottom-right at 1794,178.
+       Hidden until queue_count > 0; the component toggles it. -->
+  <div data-dz="panel" data-name="queuePill" class="dz-xy-1794px-178px dz-wh-108px-18px dz-c-1E2227E0 dz-hidden dz-noptr">
+    <div data-dz="panel" data-name="queuePillFill" class="dz-xy-1px-1px dz-wh-106px-16px dz-c-0F1215CC dz-noptr">
+      <span data-dz="text" data-name="queueText" data-bind="{{ queue_count }}"
+          class="dz-xy-9px-0px dz-wh-26px-16px dz-noptr dz-c-C4A35A dz-font-mono-12 dz-text-vc">+3</span>
+      <span data-dz="text" data-name="queueLabel"
+          class="dz-xy-37px-0px dz-wh-62px-16px dz-noptr dz-c-8A8F96 dz-font-body-12 dz-text-vc">QUEUED</span>
+    </div>
+  </div>
+</div>
+
+<script src="dzml-runtime.js"></script>
+</body>
+</html>

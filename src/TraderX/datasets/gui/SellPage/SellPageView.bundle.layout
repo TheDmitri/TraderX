@@ -1,0 +1,363 @@
+PanelWidgetClass SellPageView {
+ position 0 0
+ hexactpos 0
+ vexactpos 0
+ size 1 1
+ hexactsize 0
+ vexactsize 0
+ ignorepointer 1
+ style TXContent
+ color 0.9961 0.9961 0.9961 1
+ {
+  PanelWidgetClass topBar {
+   position 0 0
+   hexactpos 0
+   vexactpos 0
+   size 1 0.06
+   hexactsize 0
+   vexactsize 0
+   ignorepointer 1
+   style TXSurface
+   color 0.9961 0.9961 0.9961 1
+   {
+    PanelWidgetClass SearchBarHost {
+     position 0.39 0.22
+     hexactpos 0
+     vexactpos 0
+     size 0.22 0.56
+     hexactsize 0
+     vexactsize 0
+     scriptclass "ComponentWidgetBinding"
+     {
+      ScriptParamsClass {
+       Component_Selector "tx-search-bar"
+      }
+     }
+    }
+    PanelWidgetClass ViewToggleHost {
+     position 0.62 0.22
+     hexactpos 0
+     vexactpos 0
+     size 0.08 0.56
+     hexactsize 0
+     vexactsize 0
+     ignorepointer 1
+     scriptclass "ComponentWidgetBinding"
+     {
+      ScriptParamsClass {
+       Component_Selector "tx-view-toggle"
+      }
+     }
+    }
+   }
+  }
+  PanelWidgetClass PlayerSlotHost {
+   position 0 0.06
+   hexactpos 0
+   vexactpos 0
+   size 1 0.07
+   hexactsize 0
+   vexactsize 0
+   style TXSurface
+   color 0.9961 0.9961 0.9961 1
+   scriptclass "ComponentWidgetBinding"
+   {
+    ScriptParamsClass {
+     Component_Selector "tx-player-slot-nav"
+    }
+   }
+  }
+  PanelWidgetClass ContainerListPanel {
+   position 0 0.14
+   hexactpos 0
+   vexactpos 0
+   size 0.62 0.84
+   hexactsize 0
+   vexactsize 0
+   ignorepointer 1
+   style TXSurface
+   color 0.9961 0.9961 0.9961 1
+   {
+    TextWidgetClass containerTitle {
+     position 0.01 0.01
+     hexactpos 0
+     vexactpos 0
+     size 0.6 0.05
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.6039 0.5804 0.5333 1
+     font "TraderX/datasets/fonts/RobotoCondensedVF14"
+     ignorepointer 1
+     "exact text" 1
+     text "#tpm_select_container_to_sell"
+    }
+    ScrollWidgetClass scrollSell {
+     position 0.01 0.07
+     hexactpos 0
+     vexactpos 0
+     size 0.98 0.92
+     hexactsize 0
+     vexactsize 0
+     ignorepointer 1
+     "Scrollbar V" 1
+     {
+      GridSpacerWidgetClass sellGridList {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 1 0.01
+       hexactsize 0
+       vexactsize 0
+       "Size To Content V" 1
+       Columns 1
+       Rows 100
+       Margin 6
+       scriptclass "ComponentWidgetBinding"
+       {
+        ScriptParamsClass {
+         Component_ForEach "{{ _inputSellProducts }}"
+         Component_Template "tx-item-card-small"
+         Component_ItemProperty "_inputProduct"
+        }
+       }
+      }
+      GridSpacerWidgetClass sellGridTiles {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 1 0.01
+       hexactsize 0
+       vexactsize 0
+       "Size To Content V" 1
+       Columns 3
+       Rows 100
+       Margin 6
+       scriptclass "ComponentWidgetBinding"
+       {
+        ScriptParamsClass {
+         Component_ForEach "{{ _inputSellProducts }}"
+         Component_Template "tx-item-card-large"
+         Component_ItemProperty "_inputProduct"
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+  PanelWidgetClass SellOptionsPanel {
+   position 0.63 0.14
+   hexactpos 0
+   vexactpos 0
+   size 0.36 0.84
+   hexactsize 0
+   vexactsize 0
+   ignorepointer 1
+   style TXCard
+   color 0.9961 0.9961 0.9961 1
+   {
+    TextWidgetClass optionsTitle {
+     position 0 0.01
+     hexactpos 0
+     vexactpos 0
+     size 1 0.04
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "TraderX/datasets/fonts/RobotoCondensedVF16"
+     ignorepointer 1
+     style Bold
+     "exact text" 1
+     "text halign" center
+     text "#tpm_select_advanced_sell_options"
+    }
+    GridSpacerWidgetClass modeGrid {
+     position 0.03 0.07
+     hexactpos 0
+     vexactpos 0
+     size 0.94 0.07
+     hexactsize 0
+     vexactsize 0
+     ignorepointer 1
+     Columns 3
+     Rows 1
+     Margin 5
+     {
+      ButtonWidgetClass entireContainerBtn {
+       "text color" 0.9961 0.9961 0.9961 1
+       "text color" 0.8471 0.8235 0.7529 1
+       font "TraderX/datasets/fonts/RobotoCondensedVF12"
+       "exact text" 1
+       style "TXBtnDefault"
+       style Bold
+       color 0.9961 0.9961 0.9961 1
+       text "#tpm_sell_container"
+       scriptclass "ButtonBinding"
+       {
+        ScriptParamsClass {
+         OnClick "OnSellEntireContainerClick"
+        }
+       }
+      }
+      ButtonWidgetClass selectItemsBtn {
+       "text color" 0.9961 0.9961 0.9961 1
+       "text color" 0.8471 0.8235 0.7529 1
+       font "TraderX/datasets/fonts/RobotoCondensedVF12"
+       "exact text" 1
+       style "TXBtnDefault"
+       style Bold
+       color 0.9961 0.9961 0.9961 1
+       text "#tpm_select_items"
+       scriptclass "ButtonBinding"
+       {
+        ScriptParamsClass {
+         OnClick "OnSelectItemsClick"
+        }
+       }
+      }
+      ButtonWidgetClass manualBtn {
+       "text color" 0.9961 0.9961 0.9961 1
+       "text color" 0.8471 0.8235 0.7529 1
+       font "TraderX/datasets/fonts/RobotoCondensedVF12"
+       "exact text" 1
+       style "TXBtnDefault"
+       style Bold
+       color 0.9961 0.9961 0.9961 1
+       text "#tpm_manual"
+       scriptclass "ButtonBinding"
+       {
+        ScriptParamsClass {
+         OnClick "OnManualClick"
+        }
+       }
+      }
+     }
+    }
+    PanelWidgetClass qtyRow {
+     position 0.03 0.16
+     hexactpos 0
+     vexactpos 0
+     size 0.94 0.04
+     hexactsize 0
+     vexactsize 0
+     ignorepointer 1
+     {
+      TextWidgetClass minQtyLabel {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 0.5 1
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.6039 0.5804 0.5333 1
+       font "TraderX/datasets/fonts/RobotoCondensedVF12"
+       ignorepointer 1
+       "exact text" 1
+       "text valign" center
+       text "#tpm_minimal_quantity"
+      }
+      TextWidgetClass maxQtyLabel {
+       position 0.5 0
+       hexactpos 0
+       vexactpos 0
+       size 0.5 1
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.6039 0.5804 0.5333 1
+       font "TraderX/datasets/fonts/RobotoCondensedVF12"
+       ignorepointer 1
+       "exact text" 1
+       "text valign" center
+       "text halign" right
+       text "#tpm_maximal_quantity"
+      }
+     }
+    }
+    ProgressBarWidgetClass quantitySlider {
+     position 0.03 0.21
+     hexactpos 0
+     vexactpos 0
+     size 0.94 0.02
+     hexactsize 0
+     vexactsize 0
+     style TXProgressFill
+     color 0.9961 0.9961 0.9961 1
+     scriptclass "ProgressBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ slider_quantity }}"
+       OnChange "OnSliderQuantityChanged"
+      }
+     }
+    }
+    TextWidgetClass totalQty {
+     position 0.03 0.26
+     hexactpos 0
+     vexactpos 0
+     size 0.94 0.04
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "TraderX/datasets/fonts/RobotoCondensedVF14"
+     ignorepointer 1
+     "exact text" 1
+     "text valign" center
+     text "#tpm_maximal_quantity 5000"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ total_quantity }}"
+      }
+     }
+    }
+    TextWidgetClass minNeeded {
+     position 0.03 0.31
+     hexactpos 0
+     vexactpos 0
+     size 0.94 0.04
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.6039 0.5804 0.5333 1
+     font "TraderX/datasets/fonts/RobotoCondensedVF12"
+     ignorepointer 1
+     "exact text" 1
+     "text valign" center
+     text "#tpm_minimal_quantity 60"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ minimal_quantity }}"
+      }
+     }
+    }
+    PanelWidgetClass optDivider {
+     position 0.03 0.34
+     hexactpos 0
+     vexactpos 0
+     size 0.94 0
+     hexactsize 0
+     vexactsize 0
+     ignorepointer 1
+     style TXDivider
+     color 0.9961 0.9961 0.9961 1
+    }
+    PanelWidgetClass CheckoutHost {
+     position 0.01 0.36
+     hexactpos 0
+     vexactpos 0
+     size 0.98 0.63
+     hexactsize 0
+     vexactsize 0
+     style TXCard
+     color 0.9961 0.9961 0.9961 1
+     scriptclass "ComponentWidgetBinding"
+     {
+      ScriptParamsClass {
+       Component_Selector "tx-checkout"
+      }
+     }
+    }
+   }
+  }
+ }
+}

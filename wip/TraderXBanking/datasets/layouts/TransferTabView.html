@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, initial-scale=1">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+  <style>
+    html, body { margin: 0; padding: 0; overflow: hidden; }
+    body.dz-viewport {
+      width: 1920px; height: 1080px;
+      background: #08090c url('bg-preview.jpg') center/cover no-repeat;
+    }
+    @media (max-width: 1920px) {
+      body.dz-viewport { transform: scale(calc(100vw / 1920)); transform-origin: top left; }
+    }
+  </style>
+</head>
+<body class="dz-viewport">
+
+<!-- TransferTabView — Field Ledger 2-col: form left / contacts + clan vault right.
+     Backdrop dz-c-08090CD1 = ~82% opaque — same translucent backdrop as Account/Ledger. -->
+<div data-dz="panel" data-name="transferPanel"
+     class="dz-xy-0-0 dz-wh-full dz-c-08090CD1 dz-noptr">
+
+  <!-- ════════ LEFT COLUMN — Form ════════ -->
+
+  <!-- Form panel -->
+  <div data-dz="panel" data-name="formCard" data-style="TXCard"
+       class="dz-xy-2-2 dz-wh-46-65 dz-c-FE dz-noptr">
+
+    <span data-dz="text" data-name="formTitle"
+          class="dz-xy-3-3 dz-wh-50-6 dz-tc-D8D2C0 dz-font-20 dz-noptr dz-exact-text dz-bold">
+      NEW TRANSFER
+    </span>
+
+    <!-- Recipient ID -->
+    <span data-dz="text" data-name="recipientLabel"
+          class="dz-xy-3-12 dz-wh-50-3 dz-tc-9A9488 dz-font-11 dz-noptr dz-exact-text">
+      RECIPIENT ACCOUNT ID
+    </span>
+    <input data-dz="editbox" data-name="transferDestInput"
+           data-style="TXInputField"
+           data-bind="{{ destinationAccountId }}"
+           data-two-way="1"
+           class="dz-xy-3-16 dz-wh-94-7 dz-c-FE dz-tc-D8D2C0 dz-font-14 dz-exact-text" />
+    <span data-dz="text" data-name="recipientHint"
+          class="dz-xy-3-24 dz-wh-94-3 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text">
+      Format: 76561198·XXXX·XXXX (Steam64)
+    </span>
+
+    <!-- Amount + currency -->
+    <span data-dz="text" data-name="amountLabel"
+          class="dz-xy-3-30 dz-wh-30-3 dz-tc-9A9488 dz-font-11 dz-noptr dz-exact-text">
+      AMOUNT
+    </span>
+    <input data-dz="editbox" data-name="transferAmountInput"
+           data-style="TXInputField"
+           data-bind="{{ transferAmount }}"
+           data-two-way="1"
+           data-on-change="OnTransferAmountChanged"
+           class="dz-xy-3-34 dz-wh-60-7 dz-c-FE dz-tc-D8D2C0 dz-font-14 dz-exact-text" />
+    <span data-dz="text" data-name="currencyLabel"
+          class="dz-xy-66-30 dz-wh-30-3 dz-tc-9A9488 dz-font-11 dz-noptr dz-exact-text">
+      CURRENCY
+    </span>
+    <div data-dz="panel" data-name="currencyDisplay" data-style="TXInputField"
+         class="dz-xy-66-34 dz-wh-31-7 dz-c-FE dz-noptr">
+      <span data-dz="text" data-name="currencyValue"
+            class="dz-xy-5-0 dz-wh-90-100 dz-tc-9A9488 dz-font-13 dz-noptr dz-exact-text dz-text-vc">
+        Roubles
+      </span>
+    </div>
+
+    <!-- Note -->
+    <span data-dz="text" data-name="noteLabel"
+          class="dz-xy-3-43 dz-wh-30-3 dz-tc-9A9488 dz-font-11 dz-noptr dz-exact-text">
+      NOTE (OPTIONAL)
+    </span>
+    <input data-dz="editbox" data-name="transferNoteInput"
+           data-style="TXInputField"
+           data-bind="{{ transferNote }}"
+           data-two-way="1"
+           class="dz-xy-3-47 dz-wh-94-7 dz-c-FE dz-tc-D8D2C0 dz-font-13 dz-exact-text" />
+
+    <!-- Summary box: Amount / Transfer fee 2% / Recipient receives / Total deducted -->
+    <div data-dz="panel" data-name="summaryBox" data-style="TXInfoBox"
+         class="dz-xy-3-57 dz-wh-94-32 dz-c-FE dz-noptr">
+      <!-- Amount row -->
+      <span data-dz="text" data-name="summaryAmountLabel"
+            class="dz-xy-4-8 dz-wh-50-12 dz-tc-9A9488 dz-font-11 dz-noptr dz-exact-text">
+        Amount
+      </span>
+      <span data-dz="text" data-name="summaryAmountValue"
+            data-bind="{{ transferAmount }}"
+            class="dz-xy-50-8 dz-wh-46-12 dz-tc-D8D2C0 dz-font-12 dz-noptr dz-exact-text dz-text-right">
+        0
+      </span>
+      <!-- Fee row (with 2% sub-label) -->
+      <span data-dz="text" data-name="summaryFeeLabel"
+            class="dz-xy-4-22 dz-wh-50-12 dz-tc-9A9488 dz-font-11 dz-noptr dz-exact-text">
+        Transfer fee · 2%
+      </span>
+      <span data-dz="text" data-name="summaryFeeValue"
+            data-bind="{{ transferFeesDisplay }}"
+            class="dz-xy-50-22 dz-wh-46-12 dz-tc-C8664A dz-font-12 dz-noptr dz-exact-text dz-text-right">
+        0
+      </span>
+      <!-- Recipient receives row -->
+      <span data-dz="text" data-name="summaryReceivesLabel"
+            class="dz-xy-4-36 dz-wh-50-12 dz-tc-9A9488 dz-font-11 dz-noptr dz-exact-text">
+        Recipient receives
+      </span>
+      <span data-dz="text" data-name="summaryReceivesValue"
+            data-bind="{{ transferAmount }}"
+            class="dz-xy-50-36 dz-wh-46-12 dz-tc-D4A44C dz-font-12 dz-noptr dz-exact-text dz-text-right">
+        0
+      </span>
+      <!-- Divider -->
+      <div data-dz="panel" data-name="summaryDivider" data-style="TXDivider"
+           class="dz-xy-4-55 dz-wh-92-1 dz-c-FE dz-noptr"></div>
+      <!-- Total deducted row (emphasis) -->
+      <span data-dz="text" data-name="summaryTotalLabel"
+            class="dz-xy-4-64 dz-wh-50-25 dz-tc-D8D2C0 dz-font-13 dz-noptr dz-exact-text dz-bold dz-text-vc">
+        Total deducted
+      </span>
+      <span data-dz="text" data-name="summaryTotalValue"
+            data-bind="{{ transferBalanceText }}"
+            class="dz-xy-50-64 dz-wh-46-25 dz-tc-D4A44C dz-font-16 dz-noptr dz-exact-text dz-text-right dz-text-vc dz-bold">
+        0
+      </span>
+    </div>
+
+    <!-- Action buttons -->
+    <button data-dz="button" data-name="resetBtn"
+            data-style="TXBtnDefault"
+            data-on-click="OnReset"
+            class="dz-xy-3-86 dz-wh-30-10 dz-c-FE dz-tc-D8D2C0 dz-font-14 dz-exact-text dz-bold">
+      RESET
+    </button>
+    <button data-dz="button" data-name="transferBtn"
+            data-style="TXBtnPrimary"
+            data-on-click="OnTransfer"
+            class="dz-xy-36-86 dz-wh-61-10 dz-c-FE dz-tc-D8D2C0 dz-font-14 dz-exact-text dz-bold">
+      SEND TRANSFER
+    </button>
+  </div>
+
+  <!-- Info alert below form -->
+  <div data-dz="panel" data-name="finalAlert" data-style="TXInfoBox"
+       class="dz-xy-2-69 dz-wh-46-15 dz-c-FE dz-noptr">
+    <span data-dz="text" data-name="finalTitle"
+          class="dz-xy-3-15 dz-wh-94-25 dz-tc-4A7AC7 dz-font-12 dz-noptr dz-exact-text dz-bold">
+      TRANSFERS ARE FINAL
+    </span>
+    <span data-dz="text" data-name="finalBody"
+          class="dz-xy-3-45 dz-wh-94-50 dz-tc-9A9488 dz-font-11 dz-noptr dz-exact-text dz-wrap">
+      Once confirmed, transfers cannot be reversed. Verify the recipient ID before sending.
+    </span>
+  </div>
+
+  <!-- Status message -->
+  <div data-dz="panel" data-name="transferStatusPanel" data-style="TXSurface"
+       class="dz-xy-2-86 dz-wh-46-10 dz-c-FE dz-noptr dz-hidden">
+    <div data-dz="richtext" data-name="transferStatusMessage"
+         data-bind="{{ transferStatusText }}"
+         class="dz-xy-3-10 dz-wh-94-80 dz-tc-D8D2C0 dz-font-12 dz-noptr dz-exact-text dz-text-vc dz-wrap">
+    </div>
+  </div>
+
+  <!-- ════════ RIGHT COLUMN — Contacts + Clan vault ════════ -->
+
+  <!-- Recent contacts with search input -->
+  <div data-dz="panel" data-name="contactsCard" data-style="TXCard"
+       class="dz-xy-50-2 dz-wh-48-65 dz-c-FE dz-noptr">
+    <span data-dz="text" data-name="contactsTitle"
+          class="dz-xy-3-3 dz-wh-35-6 dz-tc-D8D2C0 dz-font-13 dz-noptr dz-exact-text dz-bold dz-text-vc">
+      RECENT RECIPIENTS
+    </span>
+    <!-- Search input (top-right of contacts card) -->
+    <input data-dz="editbox" data-name="contactsSearchInput"
+           data-style="TXInputField"
+           data-bind="{{ contactsSearch }}"
+           data-two-way="1"
+           class="dz-xy-40-3 dz-wh-57-6 dz-c-FE dz-tc-D8D2C0 dz-font-12 dz-exact-text" />
+    <span data-dz="text" data-name="contactsSubtitle"
+          class="dz-xy-3-11 dz-wh-94-3 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text">
+      Click a contact to pre-fill the recipient ID
+    </span>
+    <span data-dz="text" data-name="contactsEmpty"
+          class="dz-xy-5-50 dz-wh-90-10 dz-tc-6A6560 dz-font-12 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+      No recent transfers
+    </span>
+  </div>
+
+  <!-- Clan vault placeholder -->
+  <div data-dz="panel" data-name="clanCard" data-style="TXCardElevated"
+       class="dz-xy-50-69 dz-wh-48-27 dz-c-FE dz-noptr">
+    <span data-dz="text" data-name="clanTitle"
+          class="dz-xy-3-8 dz-wh-50-12 dz-tc-D8D2C0 dz-font-13 dz-noptr dz-exact-text dz-bold">
+      CLAN VAULT
+    </span>
+    <span data-dz="text" data-name="clanComingSoon"
+          class="dz-xy-3-25 dz-wh-94-15 dz-tc-9A9488 dz-font-12 dz-noptr dz-exact-text dz-bold dz-text-vc">
+      Coming soon
+    </span>
+    <span data-dz="text" data-name="clanDesc"
+          class="dz-xy-3-45 dz-wh-94-40 dz-tc-9A9488 dz-font-11 dz-noptr dz-exact-text dz-wrap">
+      Clan accounts (shared vault, contributions, withdrawal log) will be available in a future update.
+    </span>
+  </div>
+</div>
+
+<script src="dzml-runtime.js"></script>
+</body>
+</html>

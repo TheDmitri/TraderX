@@ -1,6 +1,6 @@
 GameProjectClass {
-	ID "DabsFramework"
-	TITLE "DabsFramework"
+	ID "TraderX"
+	TITLE "TraderX"
 	Configurations {
 		GameProjectConfigClass PC {
 			platformHardware PC
@@ -26,33 +26,28 @@ GameProjectClass {
 				"gui/imagesets/playstation_buttons.imageset"
 				"gui/imagesets/selection.imageset"
 				"gui/imagesets/console_toolbar.imageset"
-				"DabsFramework/gui/imagesets/prefabs.imageset"
-				"DabsFramework/gui/icons/brands.imageset"
-				"DabsFramework/gui/icons/light.imageset"
-				"DabsFramework/gui/icons/regular.imageset"
-				"DabsFramework/gui/icons/solid.imageset"
-				"DabsFramework/gui/icons/thin.imageset"
 				"TraderX_GUI/gui/Data/square_shadow.imageset"
 				"TraderX_GUI/gui/Data/first.imageset"
 				"TraderX/datasets/images/notification_ui.imageset"
 				"TraderX/datasets/traderplus_ui.imageset"
-				"TraderX/datasets/icons/icons.imageset"
 				"TraderX/datasets/styles/traderx_ui.imageset"
+				"TraderX/datasets/icons/traderx_icons.imageset"
+				"CourseBarterTrader/datasets/gui/barter_trader_ui_ui.imageset"
 			}
 			widgetStyles {
 				"gui/looknfeel/dayzwidgets.styles" 
 				"gui/looknfeel/widgets.styles"
-				"DabsFramework/gui/looknfeel/prefabs.styles"
 				"TraderX_GUI/gui/Styles.styles"
 				"TraderX/datasets/Styles.styles"
 				"TraderX/datasets/styles/traderx_styles.styles"
+				"CourseBarterTrader/datasets/gui/barter_trader_ui_styles.styles"
 			}
 			ScriptModules {
 				ScriptModulePathClass {
 					Name "core"
 					Paths {
 						"scripts/1_Core"
-						"DabsFramework/Scripts/1_Core"
+						"DayZular/scripts/1_Core"
 					}
 					EntryPoint ""
 				}
@@ -60,7 +55,7 @@ GameProjectClass {
 					Name "gameLib"
 					Paths {
 						"scripts/2_GameLib"
-						"DabsFramework/Scripts/2_GameLib"
+						"DayZular/scripts/2_GameLib"
 					}
 					EntryPoint ""
 				}
@@ -68,7 +63,7 @@ GameProjectClass {
 					Name "game"
 					Paths {
 						"scripts/3_Game"
-						"DabsFramework/Scripts/3_Game"
+						"DayZular/scripts/3_Game"
 					}
 					EntryPoint "CreateGame"
 				}
@@ -76,7 +71,7 @@ GameProjectClass {
 					Name "world"
 					Paths {
 						"scripts/4_World"
-						"DabsFramework/Scripts/4_World"
+						"DayZular/scripts/4_World"
 					}
 					EntryPoint ""
 				}
@@ -84,7 +79,7 @@ GameProjectClass {
 					Name "mission"
 					Paths {
 						"scripts/5_Mission"
-						"DabsFramework/Scripts/5_Mission"
+						"DayZular/scripts/5_Mission"
 					}
 					EntryPoint "CreateMission"
 				}
@@ -92,7 +87,6 @@ GameProjectClass {
 				ScriptModulePathClass {
 					Name "workbench"
 					Paths {
-						"DabsFramework/Workbench/ToolAddons"
 					} 
 					EntryPoint "CreateWorkbench"
 				} 

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+  <link rel="stylesheet" href="dzml-icons.css">
+</head>
+<body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#1a1a1a;">
+
+<div data-dz="panel"
+    data-name="CheckOutView"
+    data-style="TXCard"
+    class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr">
+  <div data-dz="panel"
+      data-name="checkoutHeader"
+      data-style="TXSurface"
+      class="dz-xy-0-0 dz-wh-100-8 dz-c-FE dz-noptr">
+    <span data-dz="text"
+        data-name="checkoutTitle"
+        data-bind="{{ checkout_label }}"
+        class="dz-xy-6-0 dz-wh-70-100 dz-tc-D8D2C0 dz-font-body-16 dz-noptr dz-bold dz-exact-text dz-text-vc">
+      #tpm_shopping_cart
+    </span>
+    <button data-dz="button"
+        data-name="clearCheckoutBtn"
+        data-style="TXBtnIcon"
+        data-on-click="OnClearCheckoutClick"
+        class="dz-xy-90-18 dz-wh-32px-32px dz-tc-FE dz-tc-C93030 dz-font-body-16">
+      <img data-dz="image"
+          data-name="ImageWidget0"
+          class="dz-xy-0-0 dz-wh-69-70 dz-align-cc dz-c-F0654A dz-noptr"
+          data-image="set:traderx_icons image:delete"
+          data-image-mode="blend"
+          data-image-src-alpha="1"
+          data-image-stretch="stretch_w_h"/>
+    </button>
+  </div>
+  <div data-dz="scroll"
+      data-name="CheckoutScroll"
+      class="dz-xy-2-9 dz-wh-96-58 dz-noptr dz-scroll-v">
+    <div data-dz="panel"
+        data-name="emptyCartPanel"
+        class="dz-xy-0-20 dz-wh-100-40 dz-noptr">
+      <img data-dz="image"
+          data-name="emptyCartIcon"
+          class="dz-xy-38-0 dz-wh-24-40 dz-c-1A1E28 dz-noptr dz-align-x-center"
+          data-image="set:traderx_icons image:checkout"
+          data-image-mode="blend"
+          data-image-src-alpha="1"
+          data-image-stretch="stretch_w_h"/>
+      <span data-dz="text"
+          data-name="emptyCartText"
+          class="dz-xy-0-50 dz-wh-100-30 dz-tc-3A4050 dz-font-body-14 dz-noptr dz-exact-text dz-text-center">
+        #tpm_add_items_to_cart
+      </span>
+    </div>
+    <div data-dz="grid"
+        data-name="checkoutGrid"
+        data-foreach="{{ _inputCheckoutItems }}"
+        data-template="tx-checkout-card"
+        data-item="_inputProduct"
+        class="dz-xy-0-0 dz-wh-100-1 dz-fit-v dz-cols-1 dz-rows-100 dz-gap-4"></div>
+  </div>
+  <div data-dz="panel"
+      data-name="checkoutFooter"
+      data-style="TXSurface"
+      class="dz-xy-0-68 dz-wh-100-32 dz-c-FE dz-noptr">
+    <div data-dz="panel"
+        data-name="rowToPay"
+        class="dz-xy-4-4 dz-wh-92-20 dz-noptr">
+      <span data-dz="text"
+          data-name="LabelTotal"
+          class="dz-xy-0-0 dz-wh-40-100 dz-tc-6A6560 dz-font-body-14 dz-noptr dz-exact-text dz-text-vc">
+        #tpm_to_pay
+      </span>
+      <span data-dz="text"
+          data-name="totalAmount"
+          data-bind="{{ total_amount }}"
+          class="dz-xy-30-0 dz-wh-70-100 dz-tc-C4A35A dz-font-mono-28 dz-noptr dz-bold dz-text-vc dz-text-right">
+        13,350
+      </span>
+    </div>
+    <div data-dz="panel"
+        data-name="rowWallet"
+        class="dz-xy-4-28 dz-wh-92-14 dz-noptr">
+      <img data-dz="image"
+          data-name="walletIcon"
+          class="dz-xy-0-0 dz-wh-24px-24px dz-align-y-center dz-c-9A9488 dz-noptr"
+          data-image="set:traderx_icons image:wallet"
+          data-image-mode="blend"
+          data-image-src-alpha="1"
+          data-image-stretch="stretch_w_h"/>
+      <span data-dz="text"
+          data-name="moneyAmount"
+          data-bind="{{ money_amount }}"
+          class="dz-xy-40-0 dz-wh-60-100 dz-tc-D8D2C0 dz-font-mono-16 dz-noptr dz-text-vc dz-text-right">
+        34,000
+      </span>
+    </div>
+    <button data-dz="button"
+        data-name="purchaseBtn"
+        data-style="TXBtnPrimary"
+        data-on-click="OnCheckoutClick"
+        class="dz-xy-3-48 dz-wh-94-46 dz-tc-FE dz-tc-D8D2C0 dz-font-heading-22">
+      <img data-dz="image"
+          data-name="purchaseBtnIcon"
+          class="dz-xy-28-0 dz-wh-32px-32px dz-align-y-center dz-c-D8D2C0 dz-noptr"
+          data-image="set:traderx_icons image:checkout"
+          data-image-mode="blend"
+          data-image-src-alpha="1"
+          data-image-stretch="stretch_w_h"/>
+      <span data-dz="text"
+          data-name="purchaseBtnText"
+          data-bind="{{ checkout_btn_text }}"
+          class="dz-xy-36-0 dz-wh-60-full dz-tc-D8D2C0 dz-font-heading-22 dz-noptr dz-bold dz-text-vc">
+        #tpm_purchase
+      </span>
+    </button>
+  </div>
+</div>
+
+<script src="dzml-runtime.js?v=1780762085783"></script>
+</body>
+</html>

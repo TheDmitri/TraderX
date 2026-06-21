@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+  <link rel="stylesheet" href="dzml-icons.css">
+</head>
+<body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#1a1a1a;">
+
+<div data-dz="panel"
+    data-name="itemCardView"
+    class="dz-xy-0-0 dz-wh-100-72px dz-noptr">
+  <button data-dz="button"
+      data-name="itemCardMainBtn"
+      data-style="TXListRow"
+      data-on-click="OnItemCardLeftClick"
+      data-on-rclick="OnItemCardRightClick"
+      data-on-dblclick="OnItemCardDoubleClick"
+      data-on-mouseenter="OnItemCardMouseEnter"
+      data-on-mouseleave="OnItemCardMouseLeave"
+      class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
+  <div data-dz="panel"
+      data-name="itemCardOutline"
+      data-style="TXListRowSelected"
+      class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr"></div>
+  <div data-dz="panel"
+      data-name="itemCardContent"
+      class="dz-xy-0-3 dz-wh-99-94 dz-c-00000000 dz-noptr">
+    <button data-dz="button"
+        data-name="volumeBtn"
+        data-style="TXProgressBg"
+        class="dz-xy-0-0 dz-wh-5px-86 dz-align-y-center dz-tc-FE">
+      <progress data-dz="progress"
+          data-name="volumeBar"
+          data-style="TXProgressFill"
+          class="dz-xy-0-40 dz-wh-100-60 dz-c-FE dz-noptr"></progress>
+    </button>
+    <div data-dz="panel"
+        data-name="previewBg"
+        class="dz-xy-1-6 dz-wh-56px-56px dz-c-06070A dz-noptr"></div>
+    <div data-dz="preview"
+        data-name="itemPreview"
+        data-bind-item="{{ preview }}"
+        class="dz-xy-1-6 dz-wh-56px-56px dz-noptr"></div>
+    <img data-dz="image"
+        data-name="healthImg"
+        class="dz-xy-1-6 dz-wh-10px-10px dz-c-6B8E5A dz-noptr"
+        data-image="set:traderx_icons image:circle"
+        data-image-mode="blend"
+        data-image-src-alpha="1"
+        data-image-stretch="stretch_w_h"/>
+    <span data-dz="text"
+        data-name="classNameText"
+        data-bind="{{ itemName }}"
+        class="dz-xy-10-10 dz-wh-40-44 dz-c-D8D2C0 dz-font-body-14 dz-noptr dz-bold dz-exact-text dz-text-vc">
+      Item Name
+    </span>
+    <span data-dz="text"
+        data-name="quantityStr"
+        data-bind="{{ quantityStr }}"
+        class="dz-xy-10-56 dz-wh-40-36 dz-c-6A6560 dz-font-mono-12 dz-noptr dz-exact-text"></span>
+    <span data-dz="text"
+        data-name="stockText"
+        data-bind="{{ itemStock }}"
+        class="dz-xy-50-0 dz-wh-22-100 dz-c-9A9488 dz-font-mono-12 dz-noptr dz-exact-text dz-text-vc dz-text-right">
+      0/15
+    </span>
+    <img data-dz="image"
+        data-name="priceIcon"
+        class="dz-xy-74-0 dz-wh-24px-24px dz-align-y-center dz-c-C4A35A dz-noptr"
+        data-image="set:traderx_icons image:simpleCoins"
+        data-image-mode="blend"
+        data-image-src-alpha="1"
+        data-image-stretch="stretch_w_h"/>
+    <span data-dz="text"
+        data-name="priceText"
+        data-bind="{{ itemPrice }}"
+        class="dz-xy-78-0 dz-wh-14-100 dz-c-C4A35A dz-font-mono-16 dz-noptr dz-bold dz-exact-text dz-text-vc">
+      1,250
+    </span>
+  </div>
+  <button data-dz="button"
+      data-name="favBtn"
+      data-style="Empty"
+      data-on-click="OnItemFavClick"
+      class="dz-xy-92-0 dz-wh-26px-26px dz-align-y-center dz-tc-FE">
+    <img data-dz="image"
+        data-name="favIcon"
+        class="dz-xy-0-0 dz-wh-full dz-c-C4A35A dz-noptr"
+        data-image="set:traderx_icons image:star_full"
+        data-image-mode="blend"
+        data-image-src-alpha="1"
+        data-image-stretch="stretch_w_h"/>
+    <img data-dz="image"
+        data-name="unfavIcon"
+        class="dz-xy-0-0 dz-wh-full dz-c-9A9488 dz-noptr dz-hidden"
+        data-image="set:traderx_icons image:star"
+        data-image-mode="blend"
+        data-image-src-alpha="1"
+        data-image-stretch="stretch_w_h"/>
+  </button>
+</div>
+
+<script src="dzml-runtime.js?v=1780762087338"></script>
+</body>
+</html>

@@ -1,0 +1,356 @@
+<svg width="224" height="192" xmlns="http://www.w3.org/2000/svg" style="background:transparent">
+  <rect width="224" height="192" fill="none"/>
+  <defs>
+    <linearGradient id="g0" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#08090c"/>
+      <stop offset="100%" stop-color="#06070a"/>
+    </linearGradient>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#060709"/>
+      <stop offset="100%" stop-color="#050507"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0c0e14"/>
+      <stop offset="100%" stop-color="#0a0b11"/>
+    </linearGradient>
+    <linearGradient id="g3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#090b10"/>
+      <stop offset="100%" stop-color="#07090d"/>
+    </linearGradient>
+    <linearGradient id="g4" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#10131b"/>
+      <stop offset="100%" stop-color="#0d1016"/>
+    </linearGradient>
+    <linearGradient id="g5" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0c0f15"/>
+      <stop offset="100%" stop-color="#0a0c11"/>
+    </linearGradient>
+    <linearGradient id="g6" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#161a24"/>
+      <stop offset="100%" stop-color="#12161e"/>
+    </linearGradient>
+    <linearGradient id="g7" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#11141c"/>
+      <stop offset="100%" stop-color="#0e1117"/>
+    </linearGradient>
+    <linearGradient id="g8" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0c0e14"/>
+      <stop offset="100%" stop-color="#0a0b11"/>
+    </linearGradient>
+    <linearGradient id="g9" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#090b10"/>
+      <stop offset="100%" stop-color="#07090d"/>
+    </linearGradient>
+    <linearGradient id="g10" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1a1e28"/>
+      <stop offset="100%" stop-color="#161922"/>
+    </linearGradient>
+    <linearGradient id="g11" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#141820"/>
+      <stop offset="100%" stop-color="#11141b"/>
+    </linearGradient>
+    <linearGradient id="g12" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0c0e14"/>
+      <stop offset="100%" stop-color="#0a0b11"/>
+    </linearGradient>
+    <linearGradient id="g13" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#12151c"/>
+      <stop offset="100%" stop-color="#0f1117"/>
+    </linearGradient>
+    <linearGradient id="g14" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#08090e"/>
+      <stop offset="100%" stop-color="#06070b"/>
+    </linearGradient>
+    <linearGradient id="g15" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2a3a1a"/>
+      <stop offset="100%" stop-color="#233116"/>
+    </linearGradient>
+    <linearGradient id="g16" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3a5022"/>
+      <stop offset="100%" stop-color="#31441c"/>
+    </linearGradient>
+    <linearGradient id="g17" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1f2a12"/>
+      <stop offset="100%" stop-color="#1a230f"/>
+    </linearGradient>
+    <linearGradient id="g18" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2a2214"/>
+      <stop offset="100%" stop-color="#231c11"/>
+    </linearGradient>
+    <linearGradient id="g19" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3a2e1a"/>
+      <stop offset="100%" stop-color="#312716"/>
+    </linearGradient>
+    <linearGradient id="g20" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1d180e"/>
+      <stop offset="100%" stop-color="#18140b"/>
+    </linearGradient>
+    <linearGradient id="g21" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2a1410"/>
+      <stop offset="100%" stop-color="#23110d"/>
+    </linearGradient>
+    <linearGradient id="g22" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3a1a14"/>
+      <stop offset="100%" stop-color="#311611"/>
+    </linearGradient>
+    <linearGradient id="g23" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1a0c08"/>
+      <stop offset="100%" stop-color="#160a06"/>
+    </linearGradient>
+    <linearGradient id="g24" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#14161e"/>
+      <stop offset="100%" stop-color="#111219"/>
+    </linearGradient>
+    <linearGradient id="g25" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1a1e28"/>
+      <stop offset="100%" stop-color="#161922"/>
+    </linearGradient>
+    <linearGradient id="g26" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0e1018"/>
+      <stop offset="100%" stop-color="#0b0d14"/>
+    </linearGradient>
+    <linearGradient id="g27" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8B0000"/>
+      <stop offset="100%" stop-color="#760000"/>
+    </linearGradient>
+    <linearGradient id="g28" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a52a2a"/>
+      <stop offset="100%" stop-color="#8c2323"/>
+    </linearGradient>
+    <linearGradient id="g29" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6B0000"/>
+      <stop offset="100%" stop-color="#5a0000"/>
+    </linearGradient>
+    <linearGradient id="g30" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#14161e"/>
+      <stop offset="100%" stop-color="#111219"/>
+    </linearGradient>
+    <linearGradient id="g31" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1a1e28"/>
+      <stop offset="100%" stop-color="#161922"/>
+    </linearGradient>
+    <linearGradient id="g32" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#101118"/>
+      <stop offset="100%" stop-color="#0d0e14"/>
+    </linearGradient>
+    <linearGradient id="g33" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#14161e"/>
+      <stop offset="100%" stop-color="#111219"/>
+    </linearGradient>
+    <linearGradient id="g34" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#101118"/>
+      <stop offset="100%" stop-color="#0d0e14"/>
+    </linearGradient>
+    <linearGradient id="g35" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#d4a44c"/>
+      <stop offset="100%" stop-color="#b48b40"/>
+    </linearGradient>
+    <linearGradient id="g36" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a9833c"/>
+      <stop offset="100%" stop-color="#8f6f33"/>
+    </linearGradient>
+    <linearGradient id="g37" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#10121a"/>
+      <stop offset="100%" stop-color="#0d0f16"/>
+    </linearGradient>
+    <linearGradient id="g38" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0c0e14"/>
+      <stop offset="100%" stop-color="#0a0b11"/>
+    </linearGradient>
+    <linearGradient id="g39" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#10121a"/>
+      <stop offset="100%" stop-color="#0d0f16"/>
+    </linearGradient>
+    <linearGradient id="g40" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0c0e14"/>
+      <stop offset="100%" stop-color="#0a0b11"/>
+    </linearGradient>
+    <linearGradient id="g41" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#10121a"/>
+      <stop offset="100%" stop-color="#0d0f16"/>
+    </linearGradient>
+    <linearGradient id="g42" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0c0e14"/>
+      <stop offset="100%" stop-color="#0a0b11"/>
+    </linearGradient>
+    <linearGradient id="g43" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#10121a"/>
+      <stop offset="100%" stop-color="#0d0f16"/>
+    </linearGradient>
+    <linearGradient id="g44" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0c0e14"/>
+      <stop offset="100%" stop-color="#0a0b11"/>
+    </linearGradient>
+    <linearGradient id="g45" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0a0c12"/>
+      <stop offset="100%" stop-color="#080a0f"/>
+    </linearGradient>
+    <linearGradient id="g46" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#12141c"/>
+      <stop offset="100%" stop-color="#0f1117"/>
+    </linearGradient>
+    <linearGradient id="g47" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0e1018"/>
+      <stop offset="100%" stop-color="#0b0d14"/>
+    </linearGradient>
+    <linearGradient id="g48" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0d0f16"/>
+      <stop offset="100%" stop-color="#0b0c12"/>
+    </linearGradient>
+    <linearGradient id="g49" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#12141c"/>
+      <stop offset="100%" stop-color="#0f1117"/>
+    </linearGradient>
+    <linearGradient id="g50" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0e1018"/>
+      <stop offset="100%" stop-color="#0b0d14"/>
+    </linearGradient>
+    <linearGradient id="g51" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#14161e"/>
+      <stop offset="100%" stop-color="#111219"/>
+    </linearGradient>
+    <linearGradient id="g52" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#14161e"/>
+      <stop offset="100%" stop-color="#111219"/>
+    </linearGradient>
+    <linearGradient id="g53" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#14161e"/>
+      <stop offset="100%" stop-color="#111219"/>
+    </linearGradient>
+    <linearGradient id="g54" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#14161e"/>
+      <stop offset="100%" stop-color="#111219"/>
+    </linearGradient>
+    <linearGradient id="g55" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#101118"/>
+      <stop offset="100%" stop-color="#0d0e14"/>
+    </linearGradient>
+  </defs>
+  <!-- TXContainer_normal -->
+  <path d="M 5 2 H 23 A 3 3 0 0 1 26 5 V 23 A 3 3 0 0 1 23 26 H 5 A 3 3 0 0 1 2 23 V 5 A 3 3 0 0 1 5 2 Z" fill="url(#g0)" stroke="#252a36" stroke-width="2" stroke-linejoin="round"/>
+  <!-- TXContainer_disabled -->
+  <path d="M 31 2 H 49 A 3 3 0 0 1 52 5 V 23 A 3 3 0 0 1 49 26 H 31 A 3 3 0 0 1 28 23 V 5 A 3 3 0 0 1 31 2 Z" fill="url(#g1)" stroke="#1d212b" stroke-width="2" stroke-linejoin="round"/>
+  <!-- TXHeader_normal -->
+  <path d="M 57 2 H 75 A 3 3 0 0 1 78 5 V 23 A 3 3 0 0 1 75 26 H 57 A 3 3 0 0 1 54 23 V 5 A 3 3 0 0 1 57 2 Z" fill="url(#g2)"  stroke-linejoin="round"/>
+  <path d="M 54 23 H 78 V 23 A 3 3 0 0 1 75 26 H 57 A 3 3 0 0 1 54 23 Z" fill="#1a1e28"/>
+  <!-- TXHeader_disabled -->
+  <path d="M 83 2 H 101 A 3 3 0 0 1 104 5 V 23 A 3 3 0 0 1 101 26 H 83 A 3 3 0 0 1 80 23 V 5 A 3 3 0 0 1 83 2 Z" fill="url(#g3)"  stroke-linejoin="round"/>
+  <path d="M 80 23 H 104 V 23 A 3 3 0 0 1 101 26 H 83 A 3 3 0 0 1 80 23 Z" fill="#1a1e28"/>
+  <!-- TXCard_normal -->
+  <path d="M 109 2 H 127 A 3 3 0 0 1 130 5 V 23 A 3 3 0 0 1 127 26 H 109 A 3 3 0 0 1 106 23 V 5 A 3 3 0 0 1 109 2 Z" fill="url(#g4)" stroke="#1a1e28" stroke-width="2" stroke-linejoin="round"/>
+  <!-- TXCard_disabled -->
+  <path d="M 135 2 H 153 A 3 3 0 0 1 156 5 V 23 A 3 3 0 0 1 153 26 H 135 A 3 3 0 0 1 132 23 V 5 A 3 3 0 0 1 135 2 Z" fill="url(#g5)" stroke="#141820" stroke-width="2" stroke-linejoin="round"/>
+  <!-- TXCardElevated_normal -->
+  <path d="M 161 2 H 179 A 3 3 0 0 1 182 5 V 23 A 3 3 0 0 1 179 26 H 161 A 3 3 0 0 1 158 23 V 5 A 3 3 0 0 1 161 2 Z" fill="url(#g6)" stroke="#3a4050" stroke-width="2" stroke-linejoin="round"/>
+  <!-- TXCardElevated_disabled -->
+  <path d="M 187 2 H 205 A 3 3 0 0 1 208 5 V 23 A 3 3 0 0 1 205 26 H 187 A 3 3 0 0 1 184 23 V 5 A 3 3 0 0 1 187 2 Z" fill="url(#g7)" stroke="#2e3340" stroke-width="2" stroke-linejoin="round"/>
+  <!-- TXSurface_normal -->
+  <path d="M 5 28 H 23 A 3 3 0 0 1 26 31 V 49 A 3 3 0 0 1 23 52 H 5 A 3 3 0 0 1 2 49 V 31 A 3 3 0 0 1 5 28 Z" fill="url(#g8)" stroke="#1a1e28" stroke-width="2" stroke-linejoin="round"/>
+  <!-- TXSurface_disabled -->
+  <path d="M 31 28 H 49 A 3 3 0 0 1 52 31 V 49 A 3 3 0 0 1 49 52 H 31 A 3 3 0 0 1 28 49 V 31 A 3 3 0 0 1 31 28 Z" fill="url(#g9)" stroke="#141820" stroke-width="2" stroke-linejoin="round"/>
+  <!-- TXDivider_normal -->
+  <path d="M 57 28 H 75 A 3 3 0 0 1 78 31 V 49 A 3 3 0 0 1 75 52 H 57 A 3 3 0 0 1 54 49 V 31 A 3 3 0 0 1 57 28 Z" fill="url(#g10)"  stroke-linejoin="round"/>
+  <!-- TXDivider_disabled -->
+  <path d="M 83 28 H 101 A 3 3 0 0 1 104 31 V 49 A 3 3 0 0 1 101 52 H 83 A 3 3 0 0 1 80 49 V 31 A 3 3 0 0 1 83 28 Z" fill="url(#g11)"  stroke-linejoin="round"/>
+  <!-- TXTab_normal -->
+  <path d="M 109 28 H 127 A 3 3 0 0 1 130 31 V 49 A 3 3 0 0 1 127 52 H 109 A 3 3 0 0 1 106 49 V 31 A 3 3 0 0 1 109 28 Z" fill="url(#g12)"  stroke-linejoin="round"/>
+  <!-- TXTab_hover -->
+  <path d="M 135 28 H 153 A 3 3 0 0 1 156 31 V 49 A 3 3 0 0 1 153 52 H 135 A 3 3 0 0 1 132 49 V 31 A 3 3 0 0 1 135 28 Z" fill="url(#g13)"  stroke-linejoin="round"/>
+  <path d="M 132 49 H 156 V 49 A 3 3 0 0 1 153 52 H 135 A 3 3 0 0 1 132 49 Z" fill="#d4a44c"/>
+  <!-- TXTab_active -->
+  <path d="M 161 28 H 179 A 3 3 0 0 1 182 31 V 49 A 3 3 0 0 1 179 52 H 161 A 3 3 0 0 1 158 49 V 31 A 3 3 0 0 1 161 28 Z" fill="url(#g14)"  stroke-linejoin="round"/>
+  <path d="M 158 49 H 182 V 49 A 3 3 0 0 1 179 52 H 161 A 3 3 0 0 1 158 49 Z" fill="#d4a44c"/>
+  <!-- TXBtnPrimary_normal -->
+  <path d="M 187 28 H 205 A 3 3 0 0 1 208 31 V 49 A 3 3 0 0 1 205 52 H 187 A 3 3 0 0 1 184 49 V 31 A 3 3 0 0 1 187 28 Z" fill="url(#g15)" stroke="#4a6a2a" stroke-width="2" stroke-linejoin="round"/>
+  <!-- TXBtnPrimary_hover -->
+  <path d="M 5 54 H 23 A 3 3 0 0 1 26 57 V 75 A 3 3 0 0 1 23 78 H 5 A 3 3 0 0 1 2 75 V 57 A 3 3 0 0 1 5 54 Z" fill="url(#g16)" stroke="#5c783f" stroke-width="2" stroke-linejoin="round"/>
+  <!-- TXBtnPrimary_active -->
+  <path d="M 31 54 H 49 A 3 3 0 0 1 52 57 V 75 A 3 3 0 0 1 49 78 H 31 A 3 3 0 0 1 28 75 V 57 A 3 3 0 0 1 31 54 Z" fill="url(#g17)" stroke="#3e5a23" stroke-width="2" stroke-linejoin="round"/>
+  <!-- TXBtnAccent_normal -->
+  <path d="M 57 54 H 75 A 3 3 0 0 1 78 57 V 75 A 3 3 0 0 1 75 78 H 57 A 3 3 0 0 1 54 75 V 57 A 3 3 0 0 1 57 54 Z" fill="url(#g18)" stroke="#8a6a30" stroke-width="2" stroke-linejoin="round"/>
+  <!-- TXBtnAccent_hover -->
+  <path d="M 83 54 H 101 A 3 3 0 0 1 104 57 V 75 A 3 3 0 0 1 101 78 H 83 A 3 3 0 0 1 80 75 V 57 A 3 3 0 0 1 83 54 Z" fill="url(#g19)" stroke="#957844" stroke-width="2" stroke-linejoin="round"/>
+  <!-- TXBtnAccent_active -->
+  <path d="M 109 54 H 127 A 3 3 0 0 1 130 57 V 75 A 3 3 0 0 1 127 78 H 109 A 3 3 0 0 1 106 75 V 57 A 3 3 0 0 1 109 54 Z" fill="url(#g20)" stroke="#755a28" stroke-width="2" stroke-linejoin="round"/>
+  <!-- TXBtnDanger_normal -->
+  <path d="M 135 54 H 153 A 3 3 0 0 1 156 57 V 75 A 3 3 0 0 1 153 78 H 135 A 3 3 0 0 1 132 75 V 57 A 3 3 0 0 1 135 54 Z" fill="url(#g21)" stroke="#7a2a18" stroke-width="2" stroke-linejoin="round"/>
+  <!-- TXBtnDanger_hover -->
+  <path d="M 161 54 H 179 A 3 3 0 0 1 182 57 V 75 A 3 3 0 0 1 179 78 H 161 A 3 3 0 0 1 158 75 V 57 A 3 3 0 0 1 161 54 Z" fill="url(#g22)" stroke="#873f2f" stroke-width="2" stroke-linejoin="round"/>
+  <!-- TXBtnDanger_active -->
+  <path d="M 187 54 H 205 A 3 3 0 0 1 208 57 V 75 A 3 3 0 0 1 205 78 H 187 A 3 3 0 0 1 184 75 V 57 A 3 3 0 0 1 187 54 Z" fill="url(#g23)" stroke="#672314" stroke-width="2" stroke-linejoin="round"/>
+  <!-- TXBtnDefault_normal -->
+  <path d="M 5 80 H 23 A 3 3 0 0 1 26 83 V 101 A 3 3 0 0 1 23 104 H 5 A 3 3 0 0 1 2 101 V 83 A 3 3 0 0 1 5 80 Z" fill="url(#g24)" stroke="#252a36" stroke-width="2" stroke-linejoin="round"/>
+  <!-- TXBtnDefault_hover -->
+  <path d="M 31 80 H 49 A 3 3 0 0 1 52 83 V 101 A 3 3 0 0 1 49 104 H 31 A 3 3 0 0 1 28 101 V 83 A 3 3 0 0 1 31 80 Z" fill="url(#g25)" stroke="#3a3f4a" stroke-width="2" stroke-linejoin="round"/>
+  <!-- TXBtnDefault_active -->
+  <path d="M 57 80 H 75 A 3 3 0 0 1 78 83 V 101 A 3 3 0 0 1 75 104 H 57 A 3 3 0 0 1 54 101 V 83 A 3 3 0 0 1 57 80 Z" fill="url(#g26)" stroke="#1f232d" stroke-width="2" stroke-linejoin="round"/>
+  <!-- TXBtnLeave_normal -->
+  <path d="M 83 80 H 101 A 3 3 0 0 1 104 83 V 101 A 3 3 0 0 1 101 104 H 83 A 3 3 0 0 1 80 101 V 83 A 3 3 0 0 1 83 80 Z" fill="url(#g27)"  stroke-linejoin="round"/>
+  <!-- TXBtnLeave_hover -->
+  <path d="M 109 80 H 127 A 3 3 0 0 1 130 83 V 101 A 3 3 0 0 1 127 104 H 109 A 3 3 0 0 1 106 101 V 83 A 3 3 0 0 1 109 80 Z" fill="url(#g28)"  stroke-linejoin="round"/>
+  <!-- TXBtnLeave_active -->
+  <path d="M 135 80 H 153 A 3 3 0 0 1 156 83 V 101 A 3 3 0 0 1 153 104 H 135 A 3 3 0 0 1 132 101 V 83 A 3 3 0 0 1 135 80 Z" fill="url(#g29)"  stroke-linejoin="round"/>
+  <!-- TXInputField_normal -->
+  <path d="M 161 80 H 179 A 3 3 0 0 1 182 83 V 101 A 3 3 0 0 1 179 104 H 161 A 3 3 0 0 1 158 101 V 83 A 3 3 0 0 1 161 80 Z" fill="url(#g30)" stroke="#252a36" stroke-width="2" stroke-linejoin="round"/>
+  <!-- TXInputField_focus -->
+  <path d="M 187 80 H 205 A 3 3 0 0 1 208 83 V 101 A 3 3 0 0 1 205 104 H 187 A 3 3 0 0 1 184 101 V 83 A 3 3 0 0 1 187 80 Z" fill="url(#g31)" stroke="#d4a44c" stroke-width="2" stroke-linejoin="round"/>
+  <!-- TXInputField_disabled -->
+  <path d="M 5 106 H 23 A 3 3 0 0 1 26 109 V 127 A 3 3 0 0 1 23 130 H 5 A 3 3 0 0 1 2 127 V 109 A 3 3 0 0 1 5 106 Z" fill="url(#g32)" stroke="#1d212b" stroke-width="2" stroke-linejoin="round"/>
+  <!-- TXProgressBg_normal -->
+  <path d="M 31 106 H 49 A 3 3 0 0 1 52 109 V 127 A 3 3 0 0 1 49 130 H 31 A 3 3 0 0 1 28 127 V 109 A 3 3 0 0 1 31 106 Z" fill="url(#g33)"  stroke-linejoin="round"/>
+  <!-- TXProgressBg_disabled -->
+  <path d="M 57 106 H 75 A 3 3 0 0 1 78 109 V 127 A 3 3 0 0 1 75 130 H 57 A 3 3 0 0 1 54 127 V 109 A 3 3 0 0 1 57 106 Z" fill="url(#g34)"  stroke-linejoin="round"/>
+  <!-- TXProgressFill_normal -->
+  <path d="M 83 106 H 101 A 3 3 0 0 1 104 109 V 127 A 3 3 0 0 1 101 130 H 83 A 3 3 0 0 1 80 127 V 109 A 3 3 0 0 1 83 106 Z" fill="url(#g35)"  stroke-linejoin="round"/>
+  <!-- TXProgressFill_disabled -->
+  <path d="M 109 106 H 127 A 3 3 0 0 1 130 109 V 127 A 3 3 0 0 1 127 130 H 109 A 3 3 0 0 1 106 127 V 109 A 3 3 0 0 1 109 106 Z" fill="url(#g36)"  stroke-linejoin="round"/>
+  <!-- TXInfoBox_normal -->
+  <path d="M 135 106 H 153 A 3 3 0 0 1 156 109 V 127 A 3 3 0 0 1 153 130 H 135 A 3 3 0 0 1 132 127 V 109 A 3 3 0 0 1 135 106 Z" fill="url(#g37)"  stroke-linejoin="round"/>
+  <path d="M 135 106 A 3 3 0 0 0 132 109 V 127 A 3 3 0 0 0 135 130 H 135 V 106 Z" fill="#4a7ac7"/>
+  <!-- TXInfoBox_disabled -->
+  <path d="M 161 106 H 179 A 3 3 0 0 1 182 109 V 127 A 3 3 0 0 1 179 130 H 161 A 3 3 0 0 1 158 127 V 109 A 3 3 0 0 1 161 106 Z" fill="url(#g38)"  stroke-linejoin="round"/>
+  <path d="M 161 106 A 3 3 0 0 0 158 109 V 127 A 3 3 0 0 0 161 130 H 161 V 106 Z" fill="#4a7ac7"/>
+  <!-- TXSuccessBox_normal -->
+  <path d="M 187 106 H 205 A 3 3 0 0 1 208 109 V 127 A 3 3 0 0 1 205 130 H 187 A 3 3 0 0 1 184 127 V 109 A 3 3 0 0 1 187 106 Z" fill="url(#g39)"  stroke-linejoin="round"/>
+  <path d="M 187 106 A 3 3 0 0 0 184 109 V 127 A 3 3 0 0 0 187 130 H 187 V 106 Z" fill="#7a9a4a"/>
+  <!-- TXSuccessBox_disabled -->
+  <path d="M 5 132 H 23 A 3 3 0 0 1 26 135 V 153 A 3 3 0 0 1 23 156 H 5 A 3 3 0 0 1 2 153 V 135 A 3 3 0 0 1 5 132 Z" fill="url(#g40)"  stroke-linejoin="round"/>
+  <path d="M 5 132 A 3 3 0 0 0 2 135 V 153 A 3 3 0 0 0 5 156 H 5 V 132 Z" fill="#7a9a4a"/>
+  <!-- TXWarningBox_normal -->
+  <path d="M 31 132 H 49 A 3 3 0 0 1 52 135 V 153 A 3 3 0 0 1 49 156 H 31 A 3 3 0 0 1 28 153 V 135 A 3 3 0 0 1 31 132 Z" fill="url(#g41)"  stroke-linejoin="round"/>
+  <path d="M 31 132 A 3 3 0 0 0 28 135 V 153 A 3 3 0 0 0 31 156 H 31 V 132 Z" fill="#d4a44c"/>
+  <!-- TXWarningBox_disabled -->
+  <path d="M 57 132 H 75 A 3 3 0 0 1 78 135 V 153 A 3 3 0 0 1 75 156 H 57 A 3 3 0 0 1 54 153 V 135 A 3 3 0 0 1 57 132 Z" fill="url(#g42)"  stroke-linejoin="round"/>
+  <path d="M 57 132 A 3 3 0 0 0 54 135 V 153 A 3 3 0 0 0 57 156 H 57 V 132 Z" fill="#d4a44c"/>
+  <!-- TXErrorBox_normal -->
+  <path d="M 83 132 H 101 A 3 3 0 0 1 104 135 V 153 A 3 3 0 0 1 101 156 H 83 A 3 3 0 0 1 80 153 V 135 A 3 3 0 0 1 83 132 Z" fill="url(#g43)"  stroke-linejoin="round"/>
+  <path d="M 83 132 A 3 3 0 0 0 80 135 V 153 A 3 3 0 0 0 83 156 H 83 V 132 Z" fill="#c93030"/>
+  <!-- TXErrorBox_disabled -->
+  <path d="M 109 132 H 127 A 3 3 0 0 1 130 135 V 153 A 3 3 0 0 1 127 156 H 109 A 3 3 0 0 1 106 153 V 135 A 3 3 0 0 1 109 132 Z" fill="url(#g44)"  stroke-linejoin="round"/>
+  <path d="M 109 132 A 3 3 0 0 0 106 135 V 153 A 3 3 0 0 0 109 156 H 109 V 132 Z" fill="#c93030"/>
+  <!-- TXListRow_normal -->
+  <path d="M 135 132 H 153 A 3 3 0 0 1 156 135 V 153 A 3 3 0 0 1 153 156 H 135 A 3 3 0 0 1 132 153 V 135 A 3 3 0 0 1 135 132 Z" fill="url(#g45)"  stroke-linejoin="round"/>
+  <!-- TXListRow_hover -->
+  <path d="M 161 132 H 179 A 3 3 0 0 1 182 135 V 153 A 3 3 0 0 1 179 156 H 161 A 3 3 0 0 1 158 153 V 135 A 3 3 0 0 1 161 132 Z" fill="url(#g46)"  stroke-linejoin="round"/>
+  <!-- TXListRow_active -->
+  <path d="M 187 132 H 205 A 3 3 0 0 1 208 135 V 153 A 3 3 0 0 1 205 156 H 187 A 3 3 0 0 1 184 153 V 135 A 3 3 0 0 1 187 132 Z" fill="url(#g47)"  stroke-linejoin="round"/>
+  <!-- TXListRowAlt_normal -->
+  <path d="M 5 158 H 23 A 3 3 0 0 1 26 161 V 179 A 3 3 0 0 1 23 182 H 5 A 3 3 0 0 1 2 179 V 161 A 3 3 0 0 1 5 158 Z" fill="url(#g48)"  stroke-linejoin="round"/>
+  <!-- TXListRowAlt_hover -->
+  <path d="M 31 158 H 49 A 3 3 0 0 1 52 161 V 179 A 3 3 0 0 1 49 182 H 31 A 3 3 0 0 1 28 179 V 161 A 3 3 0 0 1 31 158 Z" fill="url(#g49)"  stroke-linejoin="round"/>
+  <!-- TXListRowAlt_active -->
+  <path d="M 57 158 H 75 A 3 3 0 0 1 78 161 V 179 A 3 3 0 0 1 75 182 H 57 A 3 3 0 0 1 54 179 V 161 A 3 3 0 0 1 57 158 Z" fill="url(#g50)"  stroke-linejoin="round"/>
+  <!-- TXListRowSelected_normal -->
+  <path d="M 83 158 H 101 A 3 3 0 0 1 104 161 V 179 A 3 3 0 0 1 101 182 H 83 A 3 3 0 0 1 80 179 V 161 A 3 3 0 0 1 83 158 Z" fill="url(#g51)"  stroke-linejoin="round"/>
+  <path d="M 83 158 A 3 3 0 0 0 80 161 V 179 A 3 3 0 0 0 83 182 H 83 V 158 Z" fill="#d4a44c"/>
+  <!-- TXListRowSelected_hover -->
+  <path d="M 109 158 H 127 A 3 3 0 0 1 130 161 V 179 A 3 3 0 0 1 127 182 H 109 A 3 3 0 0 1 106 179 V 161 A 3 3 0 0 1 109 158 Z" fill="url(#g52)"  stroke-linejoin="round"/>
+  <path d="M 109 158 A 3 3 0 0 0 106 161 V 179 A 3 3 0 0 0 109 182 H 109 V 158 Z" fill="#d4a44c"/>
+  <!-- TXListRowSelected_active -->
+  <path d="M 135 158 H 153 A 3 3 0 0 1 156 161 V 179 A 3 3 0 0 1 153 182 H 135 A 3 3 0 0 1 132 179 V 161 A 3 3 0 0 1 135 158 Z" fill="url(#g53)"  stroke-linejoin="round"/>
+  <path d="M 135 158 A 3 3 0 0 0 132 161 V 179 A 3 3 0 0 0 135 182 H 135 V 158 Z" fill="#d4a44c"/>
+  <!-- TXBadge_normal -->
+  <path d="M 161 158 H 179 A 3 3 0 0 1 182 161 V 179 A 3 3 0 0 1 179 182 H 161 A 3 3 0 0 1 158 179 V 161 A 3 3 0 0 1 161 158 Z" fill="url(#g54)"  stroke-linejoin="round"/>
+  <!-- TXBadge_disabled -->
+  <path d="M 187 158 H 205 A 3 3 0 0 1 208 161 V 179 A 3 3 0 0 1 205 182 H 187 A 3 3 0 0 1 184 179 V 161 A 3 3 0 0 1 187 158 Z" fill="url(#g55)"  stroke-linejoin="round"/>
+</svg>

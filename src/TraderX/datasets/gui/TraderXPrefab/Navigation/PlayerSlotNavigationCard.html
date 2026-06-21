@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+  <link rel="stylesheet" href="dzml-icons.css">
+</head>
+<body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#1a1a1a;">
+
+<button data-dz="button"
+    data-name="btnNav"
+    data-style="TXBtnIcon"
+    data-on-click="OnSlotClick"
+    data-on-rclick="OnSlotRightClick"
+    data-on-mouseenter="OnSlotMouseEnter"
+    data-on-mouseleave="OnSlotMouseLeave"
+    class="dz-xy-0-0 dz-wh-52px-52px dz-tc-FE">
+  <img data-dz="image"
+      data-name="imgBtn"
+      class="dz-wh-34px-34px dz-align-cc dz-c-2A dz-noptr"
+      data-image="set:traderx_icons image:allStock"
+      data-image-mode="blend"
+      data-image-src-alpha="1"
+      data-image-stretch="stretch_w_h"
+      data-prop-hexactpos="0"
+      data-prop-vexactpos="0"/>
+  <span data-dz="text"
+      data-name="slotCount"
+      data-bind="{{ itemCount }}"
+      class="dz-xy-0-1 dz-wh-96-30 dz-tc-C4A35A dz-font-mono-12 dz-noptr dz-bold dz-exact-text dz-text-right"></span>
+  <img data-dz="image"
+      data-name="imgLock"
+      class="dz-wh-15px-15px dz-align-br dz-c-F0654A dz-noptr"
+      data-image="set:traderx_icons image:padlock"
+      data-image-mode="blend"
+      data-image-src-alpha="1"
+      data-image-stretch="stretch_w_h"
+      data-prop-visible="0"
+      data-prop-hexactpos="0"
+      data-prop-vexactpos="0"/>
+</button>
+
+<script src="dzml-runtime.js?v=1780762088378"></script>
+</body>
+</html>

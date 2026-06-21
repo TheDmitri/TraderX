@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+# Build TraderX Field-Ledger in-game style assets on LINUX (no Windows tools).
+#   field-ledger.html ──stylesjson──► styles_traderx.json
+#                       ──generate_styles.py──► .styles + .imageset + .svg
+#                       ──cairosvg──► .png ──png2edds.py──► .edds
+#
+# Deps (one-time):  python3 -m pip install pillow cairosvg lz4
+# Run:              scripts/build-styles.sh
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+GUI="$ROOT/src/TraderX/datasets/gui"
+STYLES_OUT="$ROOT/src/TraderX/datasets/styles"
+TOOLS="$ROOT/../dayz-tools"
+DZ="$TOOLS/dayz-layout-tools/dist/bin/dzml.js"
+GEN="$TOOLS/styles_generator"
+EDDSCONV="$TOOLS/edds-cli/eddsconv"   # game-accurate EDDS writer (woozymasta/edds)
+NAME="traderx"
+# Stable Enfusion asset GUID for the atlas (written into .edds.meta + imageset path).
+# Keep this fixed so references don't break across rebuilds.
+ATLAS_GUID="B62CAA2543B1EC63"
+SRC="$GUI/_fixtures/field-ledger.html"
+
+# Self-contained Python env (pillow/cairosvg/lz4) so it runs regardless of the
+# system python. cairosvg needs the system cairo lib (apt: libcairo2).
+VENV="$GEN/.venv"; PY="$VENV/bin/python"
+if [ ! -x "$PY" ] || ! "$PY" -c "import cairosvg, PIL" 2>/dev/null; then
+  echo "[0/6] bootstrapping python venv (pillow cairosvg lz4)…"
+  python3 -m venv "$VENV"
+  "$PY" -m pip install -q --upgrade pip pillow cairosvg lz4 || {
+    echo "ERROR: pip install failed. If cairosvg complains about libcairo: sudo apt install libcairo2"; exit 1; }
+fi
+
+echo "[1/6] dz-styles tokens -> $NAME.json"
+REL="TraderX/datasets/styles/${NAME}_atlas.edds"
+node "$DZ" stylesjson "$SRC" --name "$NAME" --texture "{GUID}${REL}" -o "$GEN/${NAME}.json" >/dev/null
+
+echo "[2-3/6] generate .styles + .imageset + .svg + .png (@2x, coords scaled to match)"
+# --png drives PNG generation (cairosvg inside generate_styles) AND scales imageset
+# coordinates by the same factor, so the atlas pixels and 9-slice rects stay aligned.
+"$PY" "$GEN/generate_styles.py" "$GEN/${NAME}.json" -o "$STYLES_OUT" --png --scale 2 --stroke-width 1 --css "$GUI/dzml-styles.css" >/dev/null
+[ -f "$STYLES_OUT/${NAME}_atlas.png" ] || { echo "ERROR: PNG not generated (cairosvg missing/failed)."; exit 1; }
+
+echo "[4/6] png -> edds (game-accurate Go writer)"
+"$EDDSCONV" conv "$STYLES_OUT/${NAME}_atlas.png" "$STYLES_OUT/${NAME}_atlas.edds"
+
+echo "[5/6] assign Enfusion GUID: write .edds.meta + patch imageset path"
+cat > "$STYLES_OUT/${NAME}_atlas.edds.meta" <<META
+MetaFileClass {
+ Name "{${ATLAS_GUID}}${REL}"
+ Author "dmitri"
+ ChangeDate 0
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "${NAME}_atlas.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+  PNGResourceClass LINUX : PC {
+  }
+ }
+}
+META
+# generate_styles.py emits a literal {GUID} placeholder — replace with the real GUID.
+sed -i "s|{GUID}|{${ATLAS_GUID}}|g" "$STYLES_OUT/${NAME}_ui.imageset"
+
+echo "[6/6] validate edds is game-readable"
+"$EDDSCONV" check "$STYLES_OUT/${NAME}_atlas.edds"
+grep -o "{${ATLAS_GUID}}${REL}" "$STYLES_OUT/${NAME}_ui.imageset" >/dev/null && echo "imageset path GUID OK"
+ls -la "$STYLES_OUT/${NAME}_styles.styles" "$STYLES_OUT/${NAME}_ui.imageset" "$STYLES_OUT/${NAME}_atlas.edds"

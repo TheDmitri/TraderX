@@ -74,7 +74,12 @@ class TraderXVehicleFactory
             }
             
             string attachmentClassName = attachmentProduct.className;
-            
+
+            // Vehicles spawn (ECE_SETUP) with default parts already filling some slots.
+            // CreateAttachment silently fails when the target slot is taken, which is why
+            // preset parts (e.g. headlights) never appeared — free the slot(s) first.
+            FreeAttachmentSlots(vehicle, attachmentClassName);
+
             // Create attachment directly on vehicle using DayZ API
             EntityAI attachment = vehicle.GetInventory().CreateAttachment(attachmentClassName);
             if (attachment)
@@ -83,7 +88,38 @@ class TraderXVehicleFactory
             }
             else
             {
-                GetTraderXLogger().LogWarning("Failed to create attachment: " + attachmentClassName + " (product: " + productId + ")");
+                GetTraderXLogger().LogWarning("Failed to create attachment: " + attachmentClassName + " (product: " + productId + ") — no compatible/free slot on " + vehicle.GetType());
+            }
+        }
+    }
+
+    // Remove whatever default part currently occupies the slot(s) this attachment class uses,
+    // so the preset part can take it. Reads the item's inventorySlot config (single value or
+    // array). No-op when the slot is already empty or the class declares no slot.
+    private static void FreeAttachmentSlots(EntityAI vehicle, string attachmentClassName)
+    {
+        string cfgPath = "CfgVehicles " + attachmentClassName + " inventorySlot";
+
+        array<string> slotNames = new array<string>();
+        GetGame().ConfigGetTextArray(cfgPath, slotNames);
+        if (slotNames.Count() == 0)
+        {
+            string single;
+            if (GetGame().ConfigGetText(cfgPath, single) && single != "")
+                slotNames.Insert(single);
+        }
+
+        foreach (string slotName : slotNames)
+        {
+            int slotId = InventorySlots.GetSlotIdFromString(slotName);
+            if (slotId == InventorySlots.INVALID)
+                continue;
+
+            EntityAI existing = vehicle.GetInventory().FindAttachment(slotId);
+            if (existing)
+            {
+                GetTraderXLogger().LogDebug("Removing default part " + existing.GetType() + " from slot " + slotName + " to apply preset attachment " + attachmentClassName);
+                GetGame().ObjectDelete(existing);
             }
         }
     }

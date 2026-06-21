@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, initial-scale=1">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+  <style>
+    html, body { margin: 0; padding: 0; overflow: hidden; }
+    body.dz-viewport {
+      width: 1920px; height: 1080px;
+      background: #08090c url('bg-preview.jpg') center/cover no-repeat;
+    }
+    @media (max-width: 1920px) {
+      body.dz-viewport { transform: scale(calc(100vw / 1920)); transform-origin: top left; }
+    }
+  </style>
+</head>
+<body class="dz-viewport">
+
+<!-- HomeTabView — Banking dashboard entry page.
+     Hero welcome + 4 KPI tiles + 4 shortcuts + recent activity + alerts column.
+     All dynamic values bound to TXBHomeTabComponent. -->
+<div data-dz="panel" data-name="homePanel"
+     class="dz-xy-0-0 dz-wh-full dz-c-08090CD1 dz-noptr">
+
+  <!-- ════════ HERO (welcome + meta) ════════ -->
+  <div data-dz="panel" data-name="heroCard" data-style="TXWarningBox"
+       class="dz-xy-2-2 dz-wh-96-9 dz-c-FE dz-noptr">
+    <span data-dz="text" data-name="heroTitle"
+          data-bind="{{ heroCard.formattedWelcome }}"
+          class="dz-xy-2-15 dz-wh-60-35 dz-tc-D8D2C0 dz-font-24 dz-noptr dz-exact-text dz-bold">
+      Welcome back, —
+    </span>
+    <span data-dz="text" data-name="heroSub"
+          data-bind="{{ heroCard.lastVisitDisplay }}"
+          class="dz-xy-2-55 dz-wh-60-25 dz-tc-9A9488 dz-font-12 dz-noptr dz-exact-text">
+      Last visit · —
+    </span>
+    <span data-dz="text" data-name="heroAccountId"
+          data-bind="{{ heroCard.formattedAccountId }}"
+          class="dz-xy-72-25 dz-wh-26-20 dz-tc-D8D2C0 dz-font-11 dz-noptr dz-exact-text dz-text-right">
+      76561198·—
+    </span>
+    <span data-dz="text" data-name="heroAccountIdLabel"
+          class="dz-xy-72-10 dz-wh-26-15 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-text-right">
+      ACCOUNT ID
+    </span>
+    <span data-dz="text" data-name="heroSessionLabel"
+          class="dz-xy-72-50 dz-wh-26-15 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-text-right">
+      SESSION
+    </span>
+    <span data-dz="text" data-name="heroSession"
+          data-bind="{{ heroCard.sessionDisplay }}"
+          class="dz-xy-72-65 dz-wh-26-20 dz-tc-D8D2C0 dz-font-11 dz-noptr dz-exact-text dz-text-right">
+      #—
+    </span>
+  </div>
+
+  <!-- ════════ KPI TILES (4 cols) ════════ -->
+  <div data-dz="grid" data-name="kpiGrid"
+       class="dz-xy-2-13 dz-wh-96-22 dz-noptr dz-cols-4 dz-rows-1 dz-gap-3">
+
+    <!-- Personal balance -->
+    <div data-dz="panel" data-name="kpiBalance" data-style="TXCard" class="dz-c-FE dz-noptr">
+      <span data-dz="text" data-name="kpiBalanceLabel"
+            data-bind="{{ balanceCard.label }}"
+            class="dz-xy-5-8 dz-wh-60-12 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-bold">
+        PERSONAL BALANCE
+      </span>
+      <span data-dz="text" data-name="kpiBalancePill"
+            data-bind="{{ balanceCard.badge }}"
+            class="dz-xy-65-8 dz-wh-30-12 dz-tc-9AB05A dz-font-10 dz-noptr dz-exact-text dz-text-right">
+        +— today
+      </span>
+      <span data-dz="text" data-name="kpiBalanceValue"
+            data-bind="{{ balanceCard.valueText }}"
+            class="dz-xy-5-24 dz-wh-90-30 dz-tc-D4A44C dz-font-28 dz-noptr dz-exact-text dz-bold">
+        0
+      </span>
+      <span data-dz="text" data-name="kpiBalanceSub"
+            data-bind="{{ balanceCard.subText }}"
+            class="dz-xy-5-55 dz-wh-90-10 dz-tc-6A6560 dz-font-11 dz-noptr dz-exact-text">
+        Roubles · — of — cap
+      </span>
+      <div data-dz="panel" data-name="kpiBalanceProgress" data-style="TXProgressBg"
+           class="dz-xy-5-68 dz-wh-90-4 dz-c-FE dz-noptr">
+        <div data-dz="panel" data-name="kpiBalanceProgressFill" data-style="TXProgressFill"
+             data-style-w="{{ balanceCard.progressRatio }}"
+             class="dz-xy-0-0 dz-wh-0-100 dz-c-FE dz-noptr"></div>
+      </div>
+      <span data-dz="text" data-name="kpiBalanceCash"
+            data-bind="{{ balanceCard.footerLeft }}"
+            class="dz-xy-5-82 dz-wh-50-12 dz-tc-6A6560 dz-font-10 dz-noptr dz-exact-text">
+        On hand: —
+      </span>
+      <button data-dz="button" data-name="kpiBalanceLink"
+              data-style="TXTab" data-nav-target="{{ balanceCard.navTarget }}"
+              class="dz-xy-60-82 dz-wh-35-12 dz-c-FE dz-tc-D4A44C dz-font-10 dz-exact-text dz-bold">
+        OPEN →
+      </button>
+    </div>
+
+    <!-- Personal vault -->
+    <div data-dz="panel" data-name="kpiVault" data-style="TXCard" class="dz-c-FE dz-noptr">
+      <span data-dz="text" data-name="kpiVaultLabel"
+            data-bind="{{ vaultCard.label }}"
+            class="dz-xy-5-8 dz-wh-60-12 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-bold">
+        PERSONAL VAULT
+      </span>
+      <span data-dz="text" data-name="kpiVaultBox"
+            data-bind="{{ vaultCard.badge }}"
+            class="dz-xy-65-8 dz-wh-30-12 dz-tc-D8D2C0 dz-font-10 dz-noptr dz-exact-text dz-text-right">
+        Box —
+      </span>
+      <span data-dz="text" data-name="kpiVaultValue"
+            data-bind="{{ vaultCard.valueText }}"
+            class="dz-xy-5-24 dz-wh-90-30 dz-tc-D8D2C0 dz-font-22 dz-noptr dz-exact-text dz-bold">
+        — / —
+      </span>
+      <span data-dz="text" data-name="kpiVaultSub"
+            data-bind="{{ vaultCard.subText }}"
+            class="dz-xy-5-55 dz-wh-90-10 dz-tc-6A6560 dz-font-11 dz-noptr dz-exact-text">
+        slots · next fee —
+      </span>
+      <div data-dz="panel" data-name="kpiVaultProgress" data-style="TXProgressBg"
+           class="dz-xy-5-68 dz-wh-90-4 dz-c-FE dz-noptr">
+        <div data-dz="panel" data-name="kpiVaultProgressFill" data-style="TXProgressFill"
+             data-style-w="{{ vaultCard.progressRatio }}"
+             class="dz-xy-0-0 dz-wh-0-100 dz-c-FE dz-noptr"></div>
+      </div>
+      <span data-dz="text" data-name="kpiVaultFee"
+            data-bind="{{ vaultCard.footerLeft }}"
+            class="dz-xy-5-82 dz-wh-50-12 dz-tc-C8664A dz-font-10 dz-noptr dz-exact-text">
+        — ₽/day
+      </span>
+      <button data-dz="button" data-name="kpiVaultLink"
+              data-style="TXTab" data-nav-target="{{ vaultCard.navTarget }}"
+              class="dz-xy-60-82 dz-wh-35-12 dz-c-FE dz-tc-D4A44C dz-font-10 dz-exact-text dz-bold">
+        OPEN →
+      </button>
+    </div>
+
+    <!-- Clan -->
+    <div data-dz="panel" data-name="kpiClan" data-style="TXCard" class="dz-c-FE dz-noptr">
+      <span data-dz="text" data-name="kpiClanLabel"
+            data-bind="{{ clanCard.label }}"
+            class="dz-xy-5-8 dz-wh-60-12 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-bold">
+        CLAN · —
+      </span>
+      <span data-dz="text" data-name="kpiClanRole"
+            data-bind="{{ clanCard.badge }}"
+            class="dz-xy-65-8 dz-wh-30-12 dz-tc-D4A44C dz-font-10 dz-noptr dz-exact-text dz-text-right dz-bold">
+        —
+      </span>
+      <span data-dz="text" data-name="kpiClanValue"
+            data-bind="{{ clanCard.valueText }}"
+            class="dz-xy-5-24 dz-wh-90-30 dz-tc-D8D2C0 dz-font-22 dz-noptr dz-exact-text dz-bold">
+        —
+      </span>
+      <span data-dz="text" data-name="kpiClanSub"
+            data-bind="{{ clanCard.subText }}"
+            class="dz-xy-5-55 dz-wh-90-10 dz-tc-6A6560 dz-font-11 dz-noptr dz-exact-text">
+        Vault — · Bank —
+      </span>
+      <span data-dz="text" data-name="kpiClanContrib"
+            data-bind="{{ clanCard.footerLeft }}"
+            class="dz-xy-5-82 dz-wh-50-12 dz-tc-9AB05A dz-font-10 dz-noptr dz-exact-text">
+        +— contrib 30d
+      </span>
+      <button data-dz="button" data-name="kpiClanLink"
+              data-style="TXTab" data-nav-target="{{ clanCard.navTarget }}"
+              class="dz-xy-60-82 dz-wh-35-12 dz-c-FE dz-tc-D4A44C dz-font-10 dz-exact-text dz-bold">
+        OPEN →
+      </button>
+    </div>
+
+    <!-- 30-day stats -->
+    <div data-dz="panel" data-name="kpiStats" data-style="TXCard" class="dz-c-FE dz-noptr">
+      <span data-dz="text" data-name="kpiStatsLabel"
+            data-bind="{{ statsCard.label }}"
+            class="dz-xy-5-8 dz-wh-60-12 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-bold">
+        STATS · 30 DAYS
+      </span>
+      <span data-dz="text" data-name="kpiStatsAllflows"
+            data-bind="{{ statsCard.badge }}"
+            class="dz-xy-65-8 dz-wh-30-12 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-text-right">
+        All flows
+      </span>
+      <span data-dz="text" data-name="kpiStatsInLabel"
+            class="dz-xy-5-30 dz-wh-40-10 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-bold">
+        IN
+      </span>
+      <span data-dz="text" data-name="kpiStatsInValue"
+            data-bind="{{ statsCard.subText }}"
+            class="dz-xy-5-42 dz-wh-40-20 dz-tc-9AB05A dz-font-18 dz-noptr dz-exact-text dz-bold">
+        +0
+      </span>
+      <span data-dz="text" data-name="kpiStatsOutLabel"
+            class="dz-xy-50-30 dz-wh-40-10 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-bold">
+        OUT
+      </span>
+      <span data-dz="text" data-name="kpiStatsOutValue"
+            data-bind="{{ statsCard.valueText }}"
+            class="dz-xy-50-42 dz-wh-40-20 dz-tc-C8664A dz-font-18 dz-noptr dz-exact-text dz-bold">
+        -0
+      </span>
+      <span data-dz="text" data-name="kpiStatsSub"
+            data-bind="{{ statsCard.footerLeft }}"
+            class="dz-xy-5-82 dz-wh-50-12 dz-tc-6A6560 dz-font-10 dz-noptr dz-exact-text">
+        — transfers · — tx
+      </span>
+      <button data-dz="button" data-name="kpiStatsLink"
+              data-style="TXTab" data-nav-target="{{ statsCard.navTarget }}"
+              class="dz-xy-55-82 dz-wh-40-12 dz-c-FE dz-tc-D4A44C dz-font-10 dz-exact-text dz-bold">
+        VIEW LEDGER →
+      </button>
+    </div>
+  </div>
+
+  <!-- ════════ BOTTOM: RECENT ACTIVITY (2/3) + ALERTS (1/3) ════════ -->
+
+  <!-- Recent activity (left, 2/3 width) -->
+  <div data-dz="panel" data-name="homeActivity" data-style="TXCard"
+       class="dz-xy-2-47 dz-wh-63-50 dz-c-FE dz-noptr">
+    <span data-dz="text" data-name="homeActivityTitle"
+          class="dz-xy-3-2 dz-wh-60-5 dz-tc-D8D2C0 dz-font-13 dz-noptr dz-exact-text dz-bold">
+      RECENT ACTIVITY
+    </span>
+    <button data-dz="button" data-name="homeActivityLink"
+            data-style="TXTab" data-nav-target="txb-ledger-tab"
+            class="dz-xy-80-2 dz-wh-17-5 dz-c-FE dz-tc-D4A44C dz-font-10 dz-exact-text dz-bold">
+      OPEN LEDGER →
+    </button>
+
+    <div data-dz="scroll" data-name="homeActivityScroll"
+         class="dz-xy-0-9 dz-wh-100-89 dz-scroll-v">
+      <div data-dz="grid" data-name="homeActivityList"
+           data-foreach="{{ activity.visibleEntries }}"
+           data-template="txb-ledger-row"
+           data-item="_inputEntry"
+           class="dz-wh-100-28px dz-noptr dz-fit-v dz-cols-1 dz-rows-20 dz-gap-1"></div>
+      <span data-dz="text" data-name="homeActivityEmpty"
+            data-bind="{{ activity.emptyMessage }}"
+            class="dz-xy-5-40 dz-wh-90-10 dz-tc-6A6560 dz-font-12 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+        No recent activity
+      </span>
+    </div>
+  </div>
+
+  <!-- Alerts column (right, 1/3 width) -->
+  <div data-dz="panel" data-name="homeAlertsWrap"
+       class="dz-xy-67-47 dz-wh-31-50 dz-noptr">
+
+    <!-- Pending invites (ForEach) -->
+    <div data-dz="scroll" data-name="homeInvitesScroll"
+         class="dz-xy-0-0 dz-wh-100-45 dz-scroll-v">
+      <div data-dz="grid" data-name="homeInvitesList"
+           data-foreach="{{ pendingInvites }}"
+           data-template="txb-clan-invite-row"
+           data-item="_inputInvite"
+           class="dz-wh-100-90px dz-noptr dz-fit-v dz-cols-1 dz-rows-10 dz-gap-2"></div>
+    </div>
+
+    <!-- Alerts list (using data-foreach) -->
+    <div data-dz="scroll" data-name="homeAlertsScroll"
+         class="dz-xy-0-48 dz-wh-100-50 dz-scroll-v">
+      <div data-dz="grid" data-name="homeAlertsList"
+           data-foreach="{{ alerts }}"
+           data-template="txb-alert-row"
+           data-item="_inputAlert"
+           class="dz-wh-100-auto dz-noptr dz-fit-v dz-cols-1 dz-rows-5 dz-gap-2"></div>
+    </div>
+  </div>
+</div>
+
+<script src="dzml-runtime.js"></script>
+</body>
+</html>

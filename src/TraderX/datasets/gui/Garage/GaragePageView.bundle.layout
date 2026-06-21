@@ -1,0 +1,707 @@
+FrameWidgetClass rootFrame {
+ position 0 0
+ hexactpos 0
+ vexactpos 0
+ size 1 1
+ hexactsize 0
+ vexactsize 0
+ halign center_ref
+ valign center_ref
+ {
+  PanelWidgetClass garageRoot {
+   position 0 0
+   hexactpos 0
+   vexactpos 0
+   size 0.6 0.7
+   hexactsize 0
+   vexactsize 0
+   halign center_ref
+   valign center_ref
+   style TXContainer
+   color 0.9961 0.9961 0.9961 1
+   {
+    PanelWidgetClass headerBar {
+     position 0 0
+     hexactpos 0
+     vexactpos 0
+     size 1 0.08
+     hexactsize 0
+     vexactsize 0
+     ignorepointer 1
+     style TXHeader
+     color 0.9961 0.9961 0.9961 1
+     {
+      TextWidgetClass headerTitle {
+       position 0.02 0
+       hexactpos 0
+       vexactpos 0
+       size 0.2 1
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.8784 0.8784 0.8784 1
+       font "TraderX/datasets/fonts/RobotoCondensedVF16"
+       ignorepointer 1
+       "exact text" 1
+       "text valign" center
+       text "GARAGE"
+      }
+      PanelWidgetClass balancePanel {
+       position 0.5 0
+       hexactpos 0
+       vexactpos 0
+       size 0.35 1
+       hexactsize 0
+       vexactsize 0
+       ignorepointer 1
+       {
+        TextWidgetClass balanceLabel {
+         position 0 0
+         hexactpos 0
+         vexactpos 0
+         size 0.3 1
+         hexactsize 0
+         vexactsize 0
+         "text color" 0.3333 0.3333 0.3333 1
+         font "TraderX/datasets/fonts/RobotoCondensedVF16"
+         ignorepointer 1
+         "exact text" 1
+         "text valign" center
+         "text halign" right
+         text "BALANCE"
+        }
+        TextWidgetClass balanceValue {
+         position 0.32 0
+         hexactpos 0
+         vexactpos 0
+         size 0.45 1
+         hexactsize 0
+         vexactsize 0
+         "text color" 0.7882 0.1882 0.1725 1
+         font "TraderX/datasets/fonts/RobotoCondensedVF16"
+         ignorepointer 1
+         "exact text" 1
+         "text valign" center
+         "text halign" right
+         text "0"
+        }
+        TextWidgetClass balanceCurrency {
+         position 0.78 0
+         hexactpos 0
+         vexactpos 0
+         size 0.2 1
+         hexactsize 0
+         vexactsize 0
+         "text color" 0.5333 0.5333 0.5333 1
+         font "TraderX/datasets/fonts/RobotoCondensedVF16"
+         ignorepointer 1
+         "exact text" 1
+         "text valign" center
+         text "TC"
+        }
+       }
+      }
+      ButtonWidgetClass leaveBtn {
+       position 0.87 0.1
+       hexactpos 0
+       vexactpos 0
+       size 0.11 0.8
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.9961 0.9961 0.9961 1
+       "text color" 1 1 1 1
+       font "TraderX/datasets/fonts/RobotoCondensedVF16"
+       style TXBtnLeave
+       color 0.9961 0.9961 0.9961 1
+       text "LEAVE"
+      }
+     }
+    }
+    PanelWidgetClass headerDivider {
+     position 0 0.08
+     hexactpos 0
+     vexactpos 0
+     size 1 0
+     hexactsize 0
+     vexactsize 0
+     ignorepointer 1
+     style TXDivider
+     color 0.9961 0.9961 0.9961 1
+    }
+    PanelWidgetClass mainContent {
+     position 0 0.09
+     hexactpos 0
+     vexactpos 0
+     size 1 0.91
+     hexactsize 0
+     vexactsize 0
+     ignorepointer 1
+     {
+      PanelWidgetClass vehicleListPanel {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 0.4 1
+       hexactsize 0
+       vexactsize 0
+       ignorepointer 1
+       style TXSidebar
+       color 0.9961 0.9961 0.9961 1
+       {
+        PanelWidgetClass listHeader {
+         position 0 0
+         hexactpos 0
+         vexactpos 0
+         size 1 0.07
+         hexactsize 0
+         vexactsize 0
+         ignorepointer 1
+         {
+          TextWidgetClass listHeaderLabel {
+           position 0.65 0
+           hexactpos 0
+           vexactpos 0
+           size 0.3 1
+           hexactsize 0
+           vexactsize 0
+           "text color" 0.3333 0.3333 0.3333 1
+           font "TraderX/datasets/fonts/RobotoCondensedVF16"
+           ignorepointer 1
+           "exact text" 1
+           "text valign" center
+           "text halign" right
+           text "0/5"
+          }
+         }
+        }
+        PanelWidgetClass listDivider {
+         position 0 0.07
+         hexactpos 0
+         vexactpos 0
+         size 1 0
+         hexactsize 0
+         vexactsize 0
+         ignorepointer 1
+         style TXDivider
+         color 0.9961 0.9961 0.9961 1
+        }
+        ScrollWidgetClass vehicleListScroll {
+         position 0 0.08
+         hexactpos 0
+         vexactpos 0
+         size 1 0.91
+         hexactsize 0
+         vexactsize 0
+         ignorepointer 1
+         "Scrollbar V" 1
+         {
+          GridSpacerWidgetClass vehicleListGrid {
+           position 0 0
+           hexactpos 0
+           vexactpos 0
+           size 1 48
+           hexactsize 0
+           vexactsize 1
+           ignorepointer 1
+           "Size To Content V" 1
+           Columns 1
+           Rows 100
+           Padding 1
+           Margin 8
+           {
+            ButtonWidgetClass vehicleRowBtn {
+             position 0 0
+             hexactpos 0
+             vexactpos 0
+             size 1 48
+             hexactsize 0
+             vexactsize 1
+             "text color" 0.9961 0.9961 0.9961 1
+             "text color" 0.9961 0.9961 0.9961 1
+             style TXListRow
+             color 0.9961 0.9961 0.9961 1
+             {
+              PanelWidgetClass vehicleRowContent {
+               position 0 0
+               hexactpos 0
+               vexactpos 0
+               size 1 1
+               hexactsize 0
+               vexactsize 0
+               halign center_ref
+               valign center_ref
+               ignorepointer 1
+               style blank
+               color 0.9961 0.9961 0.9961 1
+               {
+                PanelWidgetClass healthIndicator {
+                 position 0 0.1
+                 hexactpos 0
+                 vexactpos 0
+                 size 0.01 0.8
+                 hexactsize 0
+                 vexactsize 0
+                 color 0.9961 0.9961 0.9961 1
+                 ignorepointer 1
+                 style rover_sim_colorable
+                }
+                TextWidgetClass vehicleName {
+                 position 0.04 0
+                 hexactpos 0
+                 vexactpos 0
+                 size 0.65 0.6
+                 hexactsize 0
+                 vexactsize 0
+                 "text color" 0.7529 0.7529 0.7529 1
+                 font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                 ignorepointer 1
+                 "exact text" 1
+                 "text valign" center
+                 text "OffroadHatchback"
+                }
+                TextWidgetClass vehicleHealth {
+                 position 0.04 0.55
+                 hexactpos 0
+                 vexactpos 0
+                 size 0.65 0.4
+                 hexactsize 0
+                 vexactsize 0
+                 "text color" 0.3333 0.3333 0.3333 1
+                 font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                 ignorepointer 1
+                 "exact text" 1
+                 "text valign" center
+                 text "Pristine"
+                }
+                PanelWidgetClass blockingBadge {
+                 position 0.75 0.2
+                 hexactpos 0
+                 vexactpos 0
+                 size 0.22 0.6
+                 hexactsize 0
+                 vexactsize 0
+                 ignorepointer 1
+                 visible 0
+                 style TXBadge
+                 color 0.9961 0.9961 0.9961 1
+                 {
+                  TextWidgetClass blockingText {
+                   position 0 0
+                   hexactpos 0
+                   vexactpos 0
+                   size 1 1
+                   hexactsize 0
+                   vexactsize 0
+                   "text color" 0.7882 0.1882 0.1725 1
+                   font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                   ignorepointer 1
+                   "exact text" 1
+                   "text halign" center
+                   "text valign" center
+                   text "IN"
+                  }
+                 }
+                }
+               }
+              }
+             }
+            }
+            ButtonWidgetClass vehicleRowBtn0 {
+             position 0 0
+             hexactpos 0
+             vexactpos 0
+             size 1 48
+             hexactsize 0
+             vexactsize 1
+             "text color" 0.9961 0.9961 0.9961 1
+             "text color" 0.9961 0.9961 0.9961 1
+             style TXListRow
+             color 0.9961 0.9961 0.9961 1
+             {
+              PanelWidgetClass vehicleRowContent0 {
+               position 0 0
+               hexactpos 0
+               vexactpos 0
+               size 1 1
+               hexactsize 0
+               vexactsize 0
+               halign center_ref
+               valign center_ref
+               ignorepointer 1
+               style blank
+               color 0.9961 0.9961 0.9961 1
+               {
+                PanelWidgetClass healthIndicator0 {
+                 position 0 0.1
+                 hexactpos 0
+                 vexactpos 0
+                 size 0.01 0.8
+                 hexactsize 0
+                 vexactsize 0
+                 color 0.9961 0.9961 0.9961 1
+                 ignorepointer 1
+                 style rover_sim_colorable
+                }
+                TextWidgetClass vehicleName0 {
+                 position 0.04 0
+                 hexactpos 0
+                 vexactpos 0
+                 size 0.65 0.6
+                 hexactsize 0
+                 vexactsize 0
+                 "text color" 0.7529 0.7529 0.7529 1
+                 font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                 ignorepointer 1
+                 "exact text" 1
+                 "text valign" center
+                 text "OffroadHatchback"
+                }
+                TextWidgetClass vehicleHealth0 {
+                 position 0.04 0.55
+                 hexactpos 0
+                 vexactpos 0
+                 size 0.65 0.4
+                 hexactsize 0
+                 vexactsize 0
+                 "text color" 0.3333 0.3333 0.3333 1
+                 font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                 ignorepointer 1
+                 "exact text" 1
+                 "text valign" center
+                 text "Pristine"
+                }
+                PanelWidgetClass blockingBadge0 {
+                 position 0.75 0.2
+                 hexactpos 0
+                 vexactpos 0
+                 size 0.22 0.6
+                 hexactsize 0
+                 vexactsize 0
+                 ignorepointer 1
+                 visible 0
+                 style TXBadge
+                 color 0.9961 0.9961 0.9961 1
+                 {
+                  TextWidgetClass blockingText0 {
+                   position 0 0
+                   hexactpos 0
+                   vexactpos 0
+                   size 1 1
+                   hexactsize 0
+                   vexactsize 0
+                   "text color" 0.7882 0.1882 0.1725 1
+                   font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                   ignorepointer 1
+                   "exact text" 1
+                   "text halign" center
+                   "text valign" center
+                   text "IN"
+                  }
+                 }
+                }
+               }
+              }
+             }
+            }
+            ButtonWidgetClass vehicleRowBtn1 {
+             position 0 0
+             hexactpos 0
+             vexactpos 0
+             size 1 48
+             hexactsize 0
+             vexactsize 1
+             "text color" 0.9961 0.9961 0.9961 1
+             "text color" 0.9961 0.9961 0.9961 1
+             style TXListRow
+             color 0.9961 0.9961 0.9961 1
+             {
+              PanelWidgetClass vehicleRowContent1 {
+               position 0 0
+               hexactpos 0
+               vexactpos 0
+               size 1 1
+               hexactsize 0
+               vexactsize 0
+               halign center_ref
+               valign center_ref
+               ignorepointer 1
+               style blank
+               color 0.9961 0.9961 0.9961 1
+               {
+                PanelWidgetClass healthIndicator1 {
+                 position 0 0.1
+                 hexactpos 0
+                 vexactpos 0
+                 size 0.01 0.8
+                 hexactsize 0
+                 vexactsize 0
+                 color 0.9961 0.9961 0.9961 1
+                 ignorepointer 1
+                 style rover_sim_colorable
+                }
+                TextWidgetClass vehicleName1 {
+                 position 0.04 0
+                 hexactpos 0
+                 vexactpos 0
+                 size 0.65 0.6
+                 hexactsize 0
+                 vexactsize 0
+                 "text color" 0.7529 0.7529 0.7529 1
+                 font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                 ignorepointer 1
+                 "exact text" 1
+                 "text valign" center
+                 text "OffroadHatchback"
+                }
+                TextWidgetClass vehicleHealth1 {
+                 position 0.04 0.55
+                 hexactpos 0
+                 vexactpos 0
+                 size 0.65 0.4
+                 hexactsize 0
+                 vexactsize 0
+                 "text color" 0.3333 0.3333 0.3333 1
+                 font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                 ignorepointer 1
+                 "exact text" 1
+                 "text valign" center
+                 text "Pristine"
+                }
+                PanelWidgetClass blockingBadge1 {
+                 position 0.75 0.2
+                 hexactpos 0
+                 vexactpos 0
+                 size 0.22 0.6
+                 hexactsize 0
+                 vexactsize 0
+                 ignorepointer 1
+                 visible 0
+                 style TXBadge
+                 color 0.9961 0.9961 0.9961 1
+                 {
+                  TextWidgetClass blockingText1 {
+                   position 0 0
+                   hexactpos 0
+                   vexactpos 0
+                   size 1 1
+                   hexactsize 0
+                   vexactsize 0
+                   "text color" 0.7882 0.1882 0.1725 1
+                   font "TraderX/datasets/fonts/RobotoCondensedVF16"
+                   ignorepointer 1
+                   "exact text" 1
+                   "text halign" center
+                   "text valign" center
+                   text "IN"
+                  }
+                 }
+                }
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      }
+      PanelWidgetClass detailPanel {
+       position 0.4 0
+       hexactpos 0
+       vexactpos 0
+       size 0.6 1
+       hexactsize 0
+       vexactsize 0
+       ignorepointer 1
+       {
+        PanelWidgetClass vehiclePreviewSection {
+         position 0.02 0.02
+         hexactpos 0
+         vexactpos 0
+         size 0.96 0.5
+         hexactsize 0
+         vexactsize 0
+         ignorepointer 1
+         style TXPreviewPanel
+         color 0.9961 0.9961 0.9961 1
+         {
+          TextWidgetClass previewTitle {
+           position 0.03 0.03
+           hexactpos 0
+           vexactpos 0
+           size 0.94 0.08
+           hexactsize 0
+           vexactsize 0
+           "text color" 0.8784 0.8784 0.8784 1
+           font "TraderX/datasets/fonts/RobotoCondensedVF16"
+           ignorepointer 1
+           "exact text" 1
+           "text valign" center
+           text "Select"
+          }
+          PanelWidgetClass previewDivider {
+           position 0.03 0.12
+           hexactpos 0
+           vexactpos 0
+           size 0.94 0
+           hexactsize 0
+           vexactsize 0
+           ignorepointer 1
+           style TXDivider
+           color 0.9961 0.9961 0.9961 1
+          }
+          ItemPreviewWidgetClass vehiclePreview {
+           position 0 0.14
+           hexactpos 0
+           vexactpos 0
+           size 1 0.86
+           hexactsize 0
+           vexactsize 0
+           halign center_ref
+           valign center_ref
+           ignorepointer 1
+          }
+         }
+        }
+        PanelWidgetClass parkingStatusSection {
+         position 0.02 0.54
+         hexactpos 0
+         vexactpos 0
+         size 0.96 0.1
+         hexactsize 0
+         vexactsize 0
+         ignorepointer 1
+         {
+          PanelWidgetClass parkingIndicator {
+           position 0.01 0
+           hexactpos 0
+           vexactpos 0
+           size 0.03 0.27
+           hexactsize 0
+           vexactsize 0
+           valign center_ref
+           ignorepointer 1
+           style TXParkingAvailable
+           color 0.9961 0.9961 0.9961 1
+          }
+          TextWidgetClass parkingStatusLabel {
+           position 0.06 0
+           hexactpos 0
+           vexactpos 0
+           size 0.4 0.5
+           hexactsize 0
+           vexactsize 0
+           valign center_ref
+           "text color" 0.4157 0.6039 0.4157 1
+           font "TraderX/datasets/fonts/RobotoCondensedVF16"
+           ignorepointer 1
+           "exact text" 1
+           "text valign" center
+           text "Available"
+          }
+          PanelWidgetClass costPanel {
+           position 0.5 0
+           hexactpos 0
+           vexactpos 0
+           size 0.5 1
+           hexactsize 0
+           vexactsize 0
+           ignorepointer 1
+           {
+            TextWidgetClass parkInCostLabel {
+             position 0.57 0
+             hexactpos 0
+             vexactpos 0
+             size 0.4 0.5
+             hexactsize 0
+             vexactsize 0
+             "text color" 0.7882 0.1882 0.1725 1
+             font "TraderX/datasets/fonts/RobotoCondensedVF16"
+             ignorepointer 1
+             "exact text" 1
+             "text valign" center
+             text "100"
+            }
+            TextWidgetClass parkOutCostLabel {
+             position 0.57 0.5
+             hexactpos 0
+             vexactpos 0
+             size 0.4 0.5
+             hexactsize 0
+             vexactsize 0
+             "text color" 0.7882 0.1882 0.1725 1
+             font "TraderX/datasets/fonts/RobotoCondensedVF16"
+             ignorepointer 1
+             "exact text" 1
+             "text valign" center
+             text "100"
+            }
+           }
+          }
+         }
+        }
+        GridSpacerWidgetClass actionGrid {
+         position 0.02 0.66
+         hexactpos 0
+         vexactpos 0
+         size 0.96 0.12
+         hexactsize 0
+         vexactsize 0
+         Columns 2
+         Rows 1
+         Margin 8
+         {
+          ButtonWidgetClass parkInBtn {
+           "text color" 0.9961 0.9961 0.9961 1
+           "text color" 0.4157 0.6039 0.4157 1
+           font "TraderX/datasets/fonts/RobotoCondensedVF16"
+           style TXBtnPrimary
+           color 0.9961 0.9961 0.9961 1
+           text "PARK"
+          }
+          ButtonWidgetClass parkOutBtn {
+           "text color" 0.9961 0.9961 0.9961 1
+           "text color" 0.7882 0.1882 0.1725 1
+           font "TraderX/datasets/fonts/RobotoCondensedVF16"
+           style TXBtnDanger
+           color 0.9961 0.9961 0.9961 1
+           text "PARK"
+          }
+         }
+        }
+        PanelWidgetClass garageStatusPanel {
+         position 0.02 0.8
+         hexactpos 0
+         vexactpos 0
+         size 0.96 0.08
+         hexactsize 0
+         vexactsize 0
+         ignorepointer 1
+         visible 0
+         style TXInfoBox
+         color 0.9961 0.9961 0.9961 1
+         {
+          RichTextWidgetClass garageStatusMessage {
+           position 0.03 0
+           hexactpos 0
+           vexactpos 0
+           size 0.94 1
+           hexactsize 0
+           vexactsize 0
+           "text color" 0.7882 0.1882 0.1725 1
+           font "TraderX/datasets/fonts/RobotoCondensedVF16"
+           ignorepointer 1
+           wrap 1
+           "exact text" 1
+           "text valign" center
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

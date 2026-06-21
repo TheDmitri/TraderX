@@ -1,0 +1,892 @@
+PanelWidgetClass homePanel {
+ position 0 0
+ hexactpos 0
+ vexactpos 0
+ size 1 1
+ hexactsize 0
+ vexactsize 0
+ color 0.0314 0.0353 0.0471 0.8196
+ ignorepointer 1
+ {
+  PanelWidgetClass heroCard {
+   position 0.02 0.02
+   hexactpos 0
+   vexactpos 0
+   size 0.96 0.09
+   hexactsize 0
+   vexactsize 0
+   color 0.9961 0.9961 0.9961 1
+   ignorepointer 1
+   style TXWarningBox
+   {
+    TextWidgetClass heroTitle {
+     position 0.02 0.15
+     hexactpos 0
+     vexactpos 0
+     size 0.6 0.35
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "gui/fonts/etelkatextpro28"
+     ignorepointer 1
+     "exact text" 1
+     style Bold
+     text "Welcome back, —"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ heroCard.formattedWelcome }}"
+      }
+     }
+    }
+    TextWidgetClass heroSub {
+     position 0.02 0.55
+     hexactpos 0
+     vexactpos 0
+     size 0.6 0.25
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.6039 0.5804 0.5333 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     text "Last visit · —"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ heroCard.lastVisitDisplay }}"
+      }
+     }
+    }
+    TextWidgetClass heroAccountId {
+     position 0.72 0.25
+     hexactpos 0
+     vexactpos 0
+     size 0.26 0.2
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     "text halign" right
+     text "76561198·—"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ heroCard.formattedAccountId }}"
+      }
+     }
+    }
+    TextWidgetClass heroAccountIdLabel {
+     position 0.72 0.1
+     hexactpos 0
+     vexactpos 0
+     size 0.26 0.15
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.6039 0.5804 0.5333 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     "text halign" right
+     text "ACCOUNT ID"
+    }
+    TextWidgetClass heroSessionLabel {
+     position 0.72 0.5
+     hexactpos 0
+     vexactpos 0
+     size 0.26 0.15
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.6039 0.5804 0.5333 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     "text halign" right
+     text "SESSION"
+    }
+    TextWidgetClass heroSession {
+     position 0.72 0.65
+     hexactpos 0
+     vexactpos 0
+     size 0.26 0.2
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     "text halign" right
+     text "#—"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ heroCard.sessionDisplay }}"
+      }
+     }
+    }
+   }
+  }
+  GridSpacerWidgetClass kpiGrid {
+   position 0.02 0.13
+   hexactpos 0
+   vexactpos 0
+   size 0.96 0.22
+   hexactsize 0
+   vexactsize 0
+   ignorepointer 1
+   Columns 4
+   Rows 1
+   Margin 3
+   {
+    PanelWidgetClass kpiBalance {
+     color 0.9961 0.9961 0.9961 1
+     ignorepointer 1
+     style TXCard
+     {
+      TextWidgetClass kpiBalanceLabel {
+       position 0.05 0.08
+       hexactpos 0
+       vexactpos 0
+       size 0.6 0.12
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.6039 0.5804 0.5333 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       style Bold
+       text "PERSONAL BALANCE"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ balanceCard.label }}"
+        }
+       }
+      }
+      TextWidgetClass kpiBalancePill {
+       position 0.65 0.08
+       hexactpos 0
+       vexactpos 0
+       size 0.3 0.12
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.6039 0.6902 0.3529 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       "text halign" right
+       text "+— today"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ balanceCard.badge }}"
+        }
+       }
+      }
+      TextWidgetClass kpiBalanceValue {
+       position 0.05 0.24
+       hexactpos 0
+       vexactpos 0
+       size 0.9 0.3
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.8314 0.6431 0.298 1
+       font "gui/fonts/etelkatextpro28"
+       ignorepointer 1
+       "exact text" 1
+       style Bold
+       text "0"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ balanceCard.valueText }}"
+        }
+       }
+      }
+      TextWidgetClass kpiBalanceSub {
+       position 0.05 0.55
+       hexactpos 0
+       vexactpos 0
+       size 0.9 0.1
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.4157 0.3961 0.3765 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       text "Roubles · — of — cap"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ balanceCard.subText }}"
+        }
+       }
+      }
+      PanelWidgetClass kpiBalanceProgress {
+       position 0.05 0.68
+       hexactpos 0
+       vexactpos 0
+       size 0.9 0.04
+       hexactsize 0
+       vexactsize 0
+       color 0.9961 0.9961 0.9961 1
+       ignorepointer 1
+       style TXProgressBg
+       {
+        PanelWidgetClass kpiBalanceProgressFill {
+         position 0 0
+         hexactpos 0
+         vexactpos 0
+         size 0 1
+         hexactsize 0
+         vexactsize 0
+         color 0.9961 0.9961 0.9961 1
+         ignorepointer 1
+         style TXProgressFill
+        }
+       }
+      }
+      TextWidgetClass kpiBalanceCash {
+       position 0.05 0.82
+       hexactpos 0
+       vexactpos 0
+       size 0.5 0.12
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.4157 0.3961 0.3765 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       text "On hand: —"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ balanceCard.footerLeft }}"
+        }
+       }
+      }
+      ButtonWidgetClass kpiBalanceLink {
+       position 0.6 0.82
+       hexactpos 0
+       vexactpos 0
+       size 0.35 0.12
+       hexactsize 0
+       vexactsize 0
+       color 0.9961 0.9961 0.9961 1
+       "text color" 0.8314 0.6431 0.298 1
+       font "gui/fonts/etelkatextpro12"
+       "exact text" 1
+       style Bold
+       style TXTab
+       text "OPEN →"
+       scriptclass "NavButtonBinding"
+       {
+        ScriptParamsClass {
+         TargetSelector "{{ balanceCard.navTarget }}"
+        }
+       }
+      }
+     }
+    }
+    PanelWidgetClass kpiVault {
+     color 0.9961 0.9961 0.9961 1
+     ignorepointer 1
+     style TXCard
+     {
+      TextWidgetClass kpiVaultLabel {
+       position 0.05 0.08
+       hexactpos 0
+       vexactpos 0
+       size 0.6 0.12
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.6039 0.5804 0.5333 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       style Bold
+       text "PERSONAL VAULT"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ vaultCard.label }}"
+        }
+       }
+      }
+      TextWidgetClass kpiVaultBox {
+       position 0.65 0.08
+       hexactpos 0
+       vexactpos 0
+       size 0.3 0.12
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.8471 0.8235 0.7529 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       "text halign" right
+       text "Box —"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ vaultCard.badge }}"
+        }
+       }
+      }
+      TextWidgetClass kpiVaultValue {
+       position 0.05 0.24
+       hexactpos 0
+       vexactpos 0
+       size 0.9 0.3
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.8471 0.8235 0.7529 1
+       font "gui/fonts/etelkatextpro22"
+       ignorepointer 1
+       "exact text" 1
+       style Bold
+       text "— / —"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ vaultCard.valueText }}"
+        }
+       }
+      }
+      TextWidgetClass kpiVaultSub {
+       position 0.05 0.55
+       hexactpos 0
+       vexactpos 0
+       size 0.9 0.1
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.4157 0.3961 0.3765 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       text "slots · next fee —"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ vaultCard.subText }}"
+        }
+       }
+      }
+      PanelWidgetClass kpiVaultProgress {
+       position 0.05 0.68
+       hexactpos 0
+       vexactpos 0
+       size 0.9 0.04
+       hexactsize 0
+       vexactsize 0
+       color 0.9961 0.9961 0.9961 1
+       ignorepointer 1
+       style TXProgressBg
+       {
+        PanelWidgetClass kpiVaultProgressFill {
+         position 0 0
+         hexactpos 0
+         vexactpos 0
+         size 0 1
+         hexactsize 0
+         vexactsize 0
+         color 0.9961 0.9961 0.9961 1
+         ignorepointer 1
+         style TXProgressFill
+        }
+       }
+      }
+      TextWidgetClass kpiVaultFee {
+       position 0.05 0.82
+       hexactpos 0
+       vexactpos 0
+       size 0.5 0.12
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.7843 0.4 0.2902 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       text "— ₽/day"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ vaultCard.footerLeft }}"
+        }
+       }
+      }
+      ButtonWidgetClass kpiVaultLink {
+       position 0.6 0.82
+       hexactpos 0
+       vexactpos 0
+       size 0.35 0.12
+       hexactsize 0
+       vexactsize 0
+       color 0.9961 0.9961 0.9961 1
+       "text color" 0.8314 0.6431 0.298 1
+       font "gui/fonts/etelkatextpro12"
+       "exact text" 1
+       style Bold
+       style TXTab
+       text "OPEN →"
+       scriptclass "NavButtonBinding"
+       {
+        ScriptParamsClass {
+         TargetSelector "{{ vaultCard.navTarget }}"
+        }
+       }
+      }
+     }
+    }
+    PanelWidgetClass kpiClan {
+     color 0.9961 0.9961 0.9961 1
+     ignorepointer 1
+     style TXCard
+     {
+      TextWidgetClass kpiClanLabel {
+       position 0.05 0.08
+       hexactpos 0
+       vexactpos 0
+       size 0.6 0.12
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.6039 0.5804 0.5333 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       style Bold
+       text "CLAN · —"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ clanCard.label }}"
+        }
+       }
+      }
+      TextWidgetClass kpiClanRole {
+       position 0.65 0.08
+       hexactpos 0
+       vexactpos 0
+       size 0.3 0.12
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.8314 0.6431 0.298 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       "text halign" right
+       style Bold
+       text "—"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ clanCard.badge }}"
+        }
+       }
+      }
+      TextWidgetClass kpiClanValue {
+       position 0.05 0.24
+       hexactpos 0
+       vexactpos 0
+       size 0.9 0.3
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.8471 0.8235 0.7529 1
+       font "gui/fonts/etelkatextpro22"
+       ignorepointer 1
+       "exact text" 1
+       style Bold
+       text "—"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ clanCard.valueText }}"
+        }
+       }
+      }
+      TextWidgetClass kpiClanSub {
+       position 0.05 0.55
+       hexactpos 0
+       vexactpos 0
+       size 0.9 0.1
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.4157 0.3961 0.3765 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       text "Vault — · Bank —"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ clanCard.subText }}"
+        }
+       }
+      }
+      TextWidgetClass kpiClanContrib {
+       position 0.05 0.82
+       hexactpos 0
+       vexactpos 0
+       size 0.5 0.12
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.6039 0.6902 0.3529 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       text "+— contrib 30d"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ clanCard.footerLeft }}"
+        }
+       }
+      }
+      ButtonWidgetClass kpiClanLink {
+       position 0.6 0.82
+       hexactpos 0
+       vexactpos 0
+       size 0.35 0.12
+       hexactsize 0
+       vexactsize 0
+       color 0.9961 0.9961 0.9961 1
+       "text color" 0.8314 0.6431 0.298 1
+       font "gui/fonts/etelkatextpro12"
+       "exact text" 1
+       style Bold
+       style TXTab
+       text "OPEN →"
+       scriptclass "NavButtonBinding"
+       {
+        ScriptParamsClass {
+         TargetSelector "{{ clanCard.navTarget }}"
+        }
+       }
+      }
+     }
+    }
+    PanelWidgetClass kpiStats {
+     color 0.9961 0.9961 0.9961 1
+     ignorepointer 1
+     style TXCard
+     {
+      TextWidgetClass kpiStatsLabel {
+       position 0.05 0.08
+       hexactpos 0
+       vexactpos 0
+       size 0.6 0.12
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.6039 0.5804 0.5333 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       style Bold
+       text "STATS · 30 DAYS"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ statsCard.label }}"
+        }
+       }
+      }
+      TextWidgetClass kpiStatsAllflows {
+       position 0.65 0.08
+       hexactpos 0
+       vexactpos 0
+       size 0.3 0.12
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.6039 0.5804 0.5333 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       "text halign" right
+       text "All flows"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ statsCard.badge }}"
+        }
+       }
+      }
+      TextWidgetClass kpiStatsInLabel {
+       position 0.05 0.3
+       hexactpos 0
+       vexactpos 0
+       size 0.4 0.1
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.6039 0.5804 0.5333 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       style Bold
+       text "IN"
+      }
+      TextWidgetClass kpiStatsInValue {
+       position 0.05 0.42
+       hexactpos 0
+       vexactpos 0
+       size 0.4 0.2
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.6039 0.6902 0.3529 1
+       font "18"
+       ignorepointer 1
+       "exact text" 1
+       style Bold
+       text "+0"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ statsCard.subText }}"
+        }
+       }
+      }
+      TextWidgetClass kpiStatsOutLabel {
+       position 0.5 0.3
+       hexactpos 0
+       vexactpos 0
+       size 0.4 0.1
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.6039 0.5804 0.5333 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       style Bold
+       text "OUT"
+      }
+      TextWidgetClass kpiStatsOutValue {
+       position 0.5 0.42
+       hexactpos 0
+       vexactpos 0
+       size 0.4 0.2
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.7843 0.4 0.2902 1
+       font "18"
+       ignorepointer 1
+       "exact text" 1
+       style Bold
+       text "-0"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ statsCard.valueText }}"
+        }
+       }
+      }
+      TextWidgetClass kpiStatsSub {
+       position 0.05 0.82
+       hexactpos 0
+       vexactpos 0
+       size 0.5 0.12
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.4157 0.3961 0.3765 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       text "— transfers · — tx"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ statsCard.footerLeft }}"
+        }
+       }
+      }
+      ButtonWidgetClass kpiStatsLink {
+       position 0.55 0.82
+       hexactpos 0
+       vexactpos 0
+       size 0.4 0.12
+       hexactsize 0
+       vexactsize 0
+       color 0.9961 0.9961 0.9961 1
+       "text color" 0.8314 0.6431 0.298 1
+       font "gui/fonts/etelkatextpro12"
+       "exact text" 1
+       style Bold
+       style TXTab
+       text "VIEW LEDGER →"
+       scriptclass "NavButtonBinding"
+       {
+        ScriptParamsClass {
+         TargetSelector "{{ statsCard.navTarget }}"
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+  PanelWidgetClass homeActivity {
+   position 0.02 0.47
+   hexactpos 0
+   vexactpos 0
+   size 0.63 0.5
+   hexactsize 0
+   vexactsize 0
+   color 0.9961 0.9961 0.9961 1
+   ignorepointer 1
+   style TXCard
+   {
+    TextWidgetClass homeActivityTitle {
+     position 0.03 0.02
+     hexactpos 0
+     vexactpos 0
+     size 0.6 0.05
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     style Bold
+     text "RECENT ACTIVITY"
+    }
+    ButtonWidgetClass homeActivityLink {
+     position 0.8 0.02
+     hexactpos 0
+     vexactpos 0
+     size 0.17 0.05
+     hexactsize 0
+     vexactsize 0
+     color 0.9961 0.9961 0.9961 1
+     "text color" 0.8314 0.6431 0.298 1
+     font "gui/fonts/etelkatextpro12"
+     "exact text" 1
+     style Bold
+     style TXTab
+     text "OPEN LEDGER →"
+     scriptclass "NavButtonBinding"
+     {
+      ScriptParamsClass {
+       TargetSelector "txb-ledger-tab"
+      }
+     }
+    }
+    ScrollWidgetClass homeActivityScroll {
+     position 0 0.09
+     hexactpos 0
+     vexactpos 0
+     size 1 0.89
+     hexactsize 0
+     vexactsize 0
+     "Scrollbar V" 1
+     {
+      GridSpacerWidgetClass homeActivityList {
+       size 1 28
+       hexactsize 0
+       vexactsize 1
+       ignorepointer 1
+       "Size To Content V" 1
+       Columns 1
+       Rows 20
+       Margin 1
+       scriptclass "ComponentWidgetBinding"
+       {
+        ScriptParamsClass {
+         Component_ForEach "{{ activity.visibleEntries }}"
+         Component_Template "txb-ledger-row"
+         Component_ItemProperty "_inputEntry"
+        }
+       }
+      }
+      TextWidgetClass homeActivityEmpty {
+       position 0.05 0.4
+       hexactpos 0
+       vexactpos 0
+       size 0.9 0.1
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.4157 0.3961 0.3765 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       "text halign" center
+       "text valign" center
+       text "No recent activity"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ activity.emptyMessage }}"
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+  PanelWidgetClass homeAlertsWrap {
+   position 0.67 0.47
+   hexactpos 0
+   vexactpos 0
+   size 0.31 0.5
+   hexactsize 0
+   vexactsize 0
+   ignorepointer 1
+   {
+    ScrollWidgetClass homeInvitesScroll {
+     position 0 0
+     hexactpos 0
+     vexactpos 0
+     size 1 0.45
+     hexactsize 0
+     vexactsize 0
+     "Scrollbar V" 1
+     {
+      GridSpacerWidgetClass homeInvitesList {
+       size 1 90
+       hexactsize 0
+       vexactsize 1
+       ignorepointer 1
+       "Size To Content V" 1
+       Columns 1
+       Rows 10
+       Margin 2
+       scriptclass "ComponentWidgetBinding"
+       {
+        ScriptParamsClass {
+         Component_ForEach "{{ pendingInvites }}"
+         Component_Template "txb-clan-invite-row"
+         Component_ItemProperty "_inputInvite"
+        }
+       }
+      }
+     }
+    }
+    ScrollWidgetClass homeAlertsScroll {
+     position 0 0.48
+     hexactpos 0
+     vexactpos 0
+     size 1 0.5
+     hexactsize 0
+     vexactsize 0
+     "Scrollbar V" 1
+     {
+      GridSpacerWidgetClass homeAlertsList {
+       ignorepointer 1
+       "Size To Content V" 1
+       Columns 1
+       Rows 5
+       Margin 2
+       scriptclass "ComponentWidgetBinding"
+       {
+        ScriptParamsClass {
+         Component_ForEach "{{ alerts }}"
+         Component_Template "txb-alert-row"
+         Component_ItemProperty "_inputAlert"
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

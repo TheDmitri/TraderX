@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+  <link rel="stylesheet" href="dzml-icons.css">
+</head>
+<body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#1a1a1a;">
+
+<div data-dz="frame"
+    data-name="rootFrame"
+    class="dz-xy-0-0 dz-wh-full dz-align-cc">
+  <div data-dz="panel"
+      data-name="OutlineMainView1"
+      data-style="TXContainer"
+      class="dz-xy-0-0 dz-wh-96-92 dz-align-cc dz-c-FE">
+    <div data-dz="panel"
+        data-name="MainPageHeader"
+        data-style="TXHeader"
+        class="dz-xy-0-0 dz-wh-100-10 dz-c-FE dz-noptr">
+      <div data-dz="panel"
+          data-name="TraderInfoPanel"
+          class="dz-xy-1-0 dz-wh-22-100 dz-noptr">
+        <div data-dz="panel"
+            data-name="TraderIconBox"
+            data-style="TXIcon"
+            class="dz-xy-0-0 dz-wh-46px-46px dz-align-y-center dz-c-FE dz-noptr">
+          <img data-dz="image"
+              data-name="TraderIcon"
+              class="dz-xy-0-0 dz-wh-full dz-align-cc dz-noptr"
+              data-image="set:traderx_icons image:market"
+              data-image-mode="blend"
+              data-image-src-alpha="1"
+              data-image-stretch="stretch_w_h"/>
+        </div>
+        <span data-dz="text"
+            data-name="TraderNameLabel"
+            data-bind="{{ trader_name }}"
+            class="dz-xy-15--8 dz-wh-80-29 dz-align-y-center dz-tc-C4A35A dz-font-heading-28 dz-noptr dz-bold dz-exact-text">
+          Marie
+        </span>
+        <span data-dz="text"
+            data-name="TraderRole"
+            data-bind="{{ trader_role }}"
+            class="dz-xy-15-57 dz-wh-80-18 dz-tc-9A9488 dz-font-body-12 dz-noptr dz-exact-text">
+          FOOD TRADER
+        </span>
+      </div>
+      <div data-dz="grid"
+          data-name="navigationGrid"
+          class="dz-xy-25-22 dz-wh-40-56 dz-noptr dz-cols-5 dz-rows-1 dz-gap-6">
+        <button data-dz="button"
+            data-name="CatalogBtn"
+            data-style="TXTab"
+            data-user-id="232"
+            data-on-click="OnCatalogClick"
+            class="dz-tc-FE dz-tc-D8D2C0 dz-font-body-14">
+          #tpm_catalog
+        </button>
+        <button data-dz="button"
+            data-name="PurchaseBtn"
+            data-style="TXTab"
+            data-user-id="232"
+            data-on-click="OnPurchaseClick"
+            class="dz-tc-FE dz-tc-D8D2C0 dz-font-body-14">
+          #tpm_purchase
+        </button>
+        <button data-dz="button"
+            data-name="SellBtn"
+            data-style="TXTab"
+            data-user-id="232"
+            data-on-click="OnSellClick"
+            class="dz-tc-FE dz-tc-D8D2C0 dz-font-body-14">
+          #tpm_sell
+        </button>
+        <button data-dz="button"
+            data-name="favBtn"
+            data-style="TXTab"
+            data-user-id="232"
+            data-on-click="OnFavoriteClick"
+            class="dz-tc-FE dz-tc-D8D2C0 dz-font-body-14">
+          #tpm_favorites
+        </button>
+      </div>
+      <div data-dz="panel"
+          data-name="walletPanel"
+          class="dz-xy-68-0 dz-wh-24-100 dz-noptr">
+        <img data-dz="image"
+            data-name="walletHeaderIcon"
+            class="dz-xy-52-0 dz-wh-24px-24px dz-align-y-center dz-c-C4A35A dz-noptr"
+            data-image="set:traderx_icons image:wallet"
+            data-image-mode="blend"
+            data-image-src-alpha="1"
+            data-image-stretch="stretch_w_h"/>
+        <span data-dz="text"
+            data-name="walletHeaderAmount"
+            data-bind="{{ wallet_amount }}"
+            class="dz-xy-58-0 dz-wh-38-100 dz-tc-C4A35A dz-font-mono-22 dz-noptr dz-bold dz-exact-text dz-text-vc">
+          0
+        </span>
+      </div>
+    </div>
+    <div data-dz="panel"
+        data-name="HeaderDivider"
+        data-style="TXDivider"
+        class="dz-xy-0-10 dz-wh-100-0 dz-c-FE dz-noptr"></div>
+    <div data-dz="panel"
+        data-name="MainPageContent"
+        data-style="TXContent"
+        data-component="{{ currentPageSelector }}"
+        data-default-page="tx-purchase-page"
+        class="dz-xy-0-10 dz-wh-100-86 dz-c-FE dz-clip"></div>
+
+    <!-- Promo footer — DayZ Beans Launcher attribution. The whole bar is a
+         clickable button (OnLauncherClick → OnLauncherExecute → OpenURL); the
+         logo + texts are noptr overlays so the click falls through to it. -->
+    <div data-dz="panel"
+        data-name="dzbFooter"
+        data-style="TXSurface"
+        class="dz-align-bc dz-wh-100-4 dz-c-FE dz-clip">
+      <button data-dz="button"
+          data-name="dzbFooterBtn"
+          data-style="Empty"
+          data-on-click="OnLauncherClick"
+          class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
+      <span data-dz="text"
+          data-name="dzbPromoText"
+          class="dz-align-cr dz-xy-2-0 dz-wh-16-100 dz-noptr dz-c-C4A35A dz-font-body-12 dz-exact-text dz-text-vc dz-text-right">
+        Sponsored By DayZ Beans Launcher
+      </span>
+    </div>
+  </div>
+</div>
+
+<script src="dzml-runtime.js?v=1780760519498"></script>
+</body>
+</html>

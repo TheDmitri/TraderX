@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, initial-scale=1">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+</head>
+<body class="dz-viewport">
+
+<!-- ClanInClanView — full in-clan layout.
+     Banner (clan identity + role + leave) · sub-tab nav · Overview sub-view:
+     KPI row · Roster (ForEach) + Invite panel · Clan bank card · Recent log.
+     Bank/Activity/Settings sub-tabs toggle widget groups via Widget.Show()
+     driven by TXBClanInClanComponent.current_subview. -->
+<div data-dz="panel" data-name="clanInClanRoot"
+     class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr">
+
+  <!-- ════════ BANNER ════════ -->
+  <div data-dz="panel" data-name="clanBanner" data-style="TXWarningBox"
+       class="dz-xy-2-2 dz-wh-96-13 dz-c-FE dz-noptr">
+    <span data-dz="text" data-name="clanName"
+          data-bind="{{ clanNameText }}"
+          class="dz-xy-2-8 dz-wh-60-30 dz-tc-D8D2C0 dz-font-26 dz-noptr dz-exact-text dz-bold">
+      —
+    </span>
+    <span data-dz="text" data-name="clanMotto"
+          data-bind="{{ clanMottoText }}"
+          class="dz-xy-2-40 dz-wh-60-15 dz-tc-9A9488 dz-font-12 dz-noptr dz-exact-text">
+      —
+    </span>
+    <span data-dz="text" data-name="clanFoundedLabel"
+          class="dz-xy-2-62 dz-wh-18-10 dz-tc-6A6560 dz-font-10 dz-noptr dz-exact-text dz-bold">
+      FOUNDED
+    </span>
+    <span data-dz="text" data-name="clanFoundedValue"
+          data-bind="{{ clanFoundedText }}"
+          class="dz-xy-2-72 dz-wh-18-20 dz-tc-D8D2C0 dz-font-11 dz-noptr dz-exact-text">
+      —
+    </span>
+    <span data-dz="text" data-name="clanMembersLabel"
+          class="dz-xy-22-62 dz-wh-18-10 dz-tc-6A6560 dz-font-10 dz-noptr dz-exact-text dz-bold">
+      MEMBERS
+    </span>
+    <span data-dz="text" data-name="clanMembersValue"
+          data-bind="{{ clanMembersCountText }}"
+          class="dz-xy-22-72 dz-wh-18-20 dz-tc-D8D2C0 dz-font-11 dz-noptr dz-exact-text">
+      — / —
+    </span>
+    <span data-dz="text" data-name="clanTagLabel"
+          class="dz-xy-42-62 dz-wh-18-10 dz-tc-6A6560 dz-font-10 dz-noptr dz-exact-text dz-bold">
+      TAG
+    </span>
+    <span data-dz="text" data-name="clanTagValue"
+          data-bind="{{ clanTagText }}"
+          class="dz-xy-42-72 dz-wh-18-20 dz-tc-D8D2C0 dz-font-11 dz-noptr dz-exact-text">
+      —
+    </span>
+
+    <div data-dz="panel" data-name="clanRoleBadge" data-style="TXBadge"
+         class="dz-xy-82-10 dz-wh-15-30 dz-c-FE dz-noptr">
+      <span data-dz="text" data-name="clanRoleBadgeText"
+            data-bind="{{ clanRoleText }}"
+            class="dz-xy-0-0 dz-wh-100-100 dz-tc-D4A44C dz-font-11 dz-noptr dz-exact-text dz-text-center dz-text-vc dz-bold">
+        —
+      </span>
+    </div>
+
+    <button data-dz="button" data-name="clanLeaveBtn"
+            data-style="TXBtnDanger" data-on-click="OnLeaveClan"
+            class="dz-xy-82-50 dz-wh-15-35 dz-c-FE dz-tc-C8664A dz-font-11 dz-exact-text dz-bold">
+      LEAVE CLAN
+    </button>
+  </div>
+
+  <!-- ════════ SUB-TAB NAV ════════ -->
+  <div data-dz="grid" data-name="clanSubTabs"
+       class="dz-xy-2-16 dz-wh-60-4 dz-noptr dz-cols-4 dz-rows-1 dz-gap-0">
+    <button data-dz="button" data-name="subTabOverview"
+            data-style="TXTab" data-on-click="OnSubTabOverview"
+            class="dz-c-FE dz-tc-D4A44C dz-font-12 dz-exact-text dz-text-center dz-text-vc dz-bold">
+      OVERVIEW
+    </button>
+    <button data-dz="button" data-name="subTabBank"
+            data-style="TXTab" data-on-click="OnSubTabBank"
+            class="dz-c-FE dz-tc-9A9488 dz-font-12 dz-exact-text dz-text-center dz-text-vc dz-bold">
+      BANK ACCOUNT
+    </button>
+    <button data-dz="button" data-name="subTabActivity"
+            data-style="TXTab" data-on-click="OnSubTabActivity"
+            class="dz-c-FE dz-tc-9A9488 dz-font-12 dz-exact-text dz-text-center dz-text-vc dz-bold">
+      ACTIVITY LOG
+    </button>
+    <button data-dz="button" data-name="subTabSettings"
+            data-style="TXTab" data-on-click="OnSubTabSettings"
+            class="dz-c-FE dz-tc-9A9488 dz-font-12 dz-exact-text dz-text-center dz-text-vc dz-bold">
+      SETTINGS
+    </button>
+  </div>
+  <div data-dz="panel" data-name="clanSubTabDivider" data-style="TXDivider"
+       class="dz-xy-2-20 dz-wh-96-0.3 dz-c-FE dz-noptr"></div>
+
+  <!-- ════════ KPI ROW (3 tiles) ════════ -->
+  <div data-dz="grid" data-name="clanKpiGrid"
+       class="dz-xy-2-22 dz-wh-96-8 dz-noptr dz-cols-3 dz-rows-1 dz-gap-3">
+
+    <div data-dz="panel" data-name="clanKpiBank" data-style="TXCard" class="dz-c-FE dz-noptr">
+      <span data-dz="text" data-name="clanKpiBankLabel"
+            class="dz-xy-5-10 dz-wh-90-18 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-bold">
+        BANK BALANCE
+      </span>
+      <span data-dz="text" data-name="clanKpiBankValue"
+            data-bind="{{ clanBankBalanceText }}"
+            class="dz-xy-5-30 dz-wh-90-30 dz-tc-D4A44C dz-font-22 dz-noptr dz-exact-text dz-bold">
+        0
+      </span>
+      <span data-dz="text" data-name="clanKpiBankSub"
+            class="dz-xy-5-65 dz-wh-90-15 dz-tc-6A6560 dz-font-10 dz-noptr dz-exact-text dz-wrap">
+        Roubles · pooled clan funds
+      </span>
+    </div>
+
+    <div data-dz="panel" data-name="clanKpiVault" data-style="TXCard" class="dz-c-FE dz-noptr">
+      <span data-dz="text" data-name="clanKpiVaultLabel"
+            class="dz-xy-5-10 dz-wh-90-18 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-bold">
+        VAULT
+      </span>
+      <span data-dz="text" data-name="clanKpiVaultValue"
+            data-bind="{{ clanVaultCapacityText }}"
+            class="dz-xy-5-30 dz-wh-90-30 dz-tc-D8D2C0 dz-font-22 dz-noptr dz-exact-text dz-bold">
+        — / —
+      </span>
+      <button data-dz="button" data-name="clanKpiVaultLink"
+              data-style="TXTab" data-nav-target="banking-vault-tab"
+              class="dz-xy-5-65 dz-wh-90-25 dz-c-FE dz-tc-D4A44C dz-font-10 dz-exact-text dz-bold">
+        OPEN VAULT →
+      </button>
+    </div>
+
+    <div data-dz="panel" data-name="clanKpiContrib" data-style="TXCard" class="dz-c-FE dz-noptr">
+      <span data-dz="text" data-name="clanKpiContribLabel"
+            class="dz-xy-5-10 dz-wh-90-18 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-bold">
+        YOUR CONTRIBUTION (30D)
+      </span>
+      <span data-dz="text" data-name="clanKpiContribValue"
+            data-bind="{{ clanOwnContribText }}"
+            class="dz-xy-5-30 dz-wh-90-30 dz-tc-9AB05A dz-font-22 dz-noptr dz-exact-text dz-bold">
+        +0
+      </span>
+      <span data-dz="text" data-name="clanKpiContribSub"
+            data-bind="{{ clanOwnContribDetailText }}"
+            class="dz-xy-5-65 dz-wh-90-15 dz-tc-6A6560 dz-font-10 dz-noptr dz-exact-text dz-wrap">
+        Roubles in · — items deposited
+      </span>
+    </div>
+  </div>
+
+  <!-- ════════ MAIN 2-COL : Roster+Invite | Bank+Log ════════ -->
+
+  <!-- LEFT COL (roster + invite) -->
+  <div data-dz="panel" data-name="clanRosterCard" data-style="TXCard"
+       class="dz-xy-2-31 dz-wh-55-45 dz-c-FE dz-noptr">
+    <span data-dz="text" data-name="clanRosterTitle"
+          data-bind="{{ clanRosterTitleText }}"
+          class="dz-xy-3-3 dz-wh-40-7 dz-tc-D8D2C0 dz-font-13 dz-noptr dz-exact-text dz-bold">
+      ROSTER · —
+    </span>
+    <input data-dz="editbox" data-name="rosterSearchInput"
+           data-style="TXInputField"
+           data-bind="{{ rosterSearch }}" data-two-way="1" data-on-change="OnRosterSearchChanged"
+           class="dz-xy-55-3 dz-wh-30-7 dz-c-FE dz-tc-D8D2C0 dz-font-11 dz-exact-text" />
+    <span data-dz="text" data-name="rosterRoleFilter"
+          class="dz-xy-87-3 dz-wh-10-7 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-text-vc dz-text-right">
+      ALL ▾
+    </span>
+
+    <div data-dz="scroll" data-name="rosterScroll"
+         class="dz-xy-2-13 dz-wh-96-85 dz-scroll-v">
+      <div data-dz="grid" data-name="rosterList"
+           data-foreach="{{ _members }}"
+           data-template="txb-clan-member-row"
+           data-item="_inputMember"
+           class="dz-wh-100-54px dz-noptr dz-fit-v dz-cols-1 dz-rows-30 dz-gap-1"></div>
+
+      <span data-dz="text" data-name="rosterEmpty"
+            class="dz-xy-5-40 dz-wh-90-10 dz-tc-6A6560 dz-font-11 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+        No members match your search
+      </span>
+    </div>
+  </div>
+
+  <div data-dz="panel" data-name="clanInviteCard" data-style="TXCard"
+       class="dz-xy-2-77 dz-wh-55-20 dz-c-FE dz-noptr">
+    <span data-dz="text" data-name="clanInviteTitle"
+          class="dz-xy-3-5 dz-wh-50-10 dz-tc-D8D2C0 dz-font-13 dz-noptr dz-exact-text dz-bold">
+      INVITE NEW MEMBER
+    </span>
+    <span data-dz="text" data-name="clanInviteGate"
+          class="dz-xy-65-5 dz-wh-32-10 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-text-right dz-bold">
+      OFFICER+
+    </span>
+
+    <span data-dz="text" data-name="clanInviteLabel"
+          class="dz-xy-3-20 dz-wh-50-6 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-bold">
+      PLAYER ACCOUNT ID
+    </span>
+    <input data-dz="editbox" data-name="clanInviteInput"
+           data-style="TXInputField"
+           data-bind="{{ inviteRecipientId }}" data-two-way="1"
+           class="dz-xy-3-28 dz-wh-70-14 dz-c-FE dz-tc-D8D2C0 dz-font-12 dz-exact-text" />
+    <button data-dz="button" data-name="clanInviteSendBtn"
+            data-style="TXBtnPrimary" data-on-click="OnSendInvite"
+            class="dz-xy-76-28 dz-wh-21-14 dz-c-FE dz-tc-D8D2C0 dz-font-11 dz-exact-text dz-bold">
+      SEND INVITE
+    </button>
+    <span data-dz="text" data-name="clanInviteHint"
+          class="dz-xy-3-46 dz-wh-94-10 dz-tc-6A6560 dz-font-10 dz-noptr dz-exact-text dz-wrap">
+      Invites expire after 7 days. Visible on the invitee's Home tab.
+    </span>
+
+    <span data-dz="text" data-name="pendingInvitesLabel"
+          data-bind="{{ pendingInvitesTitleText }}"
+          class="dz-xy-3-60 dz-wh-94-8 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-bold">
+      PENDING INVITES · 0
+    </span>
+    <div data-dz="scroll" data-name="pendingInvitesScroll"
+         class="dz-xy-3-70 dz-wh-94-28 dz-scroll-v">
+      <div data-dz="grid" data-name="pendingInvitesList"
+           data-foreach="{{ _pendingOutgoingInvites }}"
+           data-template="txb-clan-invite-row"
+           data-item="_inputInvite"
+           class="dz-wh-100-22px dz-noptr dz-fit-v dz-cols-1 dz-rows-10 dz-gap-1"></div>
+    </div>
+  </div>
+
+  <!-- RIGHT COL (clan bank + log) -->
+  <div data-dz="panel" data-name="clanBankCard" data-style="TXCard"
+       class="dz-xy-58-31 dz-wh-40-33 dz-c-FE dz-noptr">
+    <div data-dz="panel" data-name="clanBankStrip" data-style="TXProgressFill"
+         class="dz-xy-0-0 dz-wh-0.5-100 dz-c-FE dz-noptr"></div>
+
+    <span data-dz="text" data-name="clanBankLabel"
+          class="dz-xy-5-5 dz-wh-90-8 dz-tc-9A9488 dz-font-11 dz-noptr dz-exact-text dz-bold">
+      CLAN BANK BALANCE
+    </span>
+    <span data-dz="text" data-name="clanBankValue"
+          data-bind="{{ clanBankBalanceText }}"
+          class="dz-xy-5-14 dz-wh-90-22 dz-tc-D4A44C dz-font-40 dz-noptr dz-exact-text dz-bold">
+      0
+    </span>
+    <span data-dz="text" data-name="clanBankUnit"
+          class="dz-xy-5-37 dz-wh-90-6 dz-tc-9A9488 dz-font-11 dz-noptr dz-exact-text">
+      ROUBLES
+    </span>
+
+    <span data-dz="text" data-name="clanBankDepLabel"
+          class="dz-xy-5-47 dz-wh-60-5 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-bold">
+      DEPOSIT FROM PERSONAL ACCOUNT
+    </span>
+    <input data-dz="editbox" data-name="clanBankDepInput"
+           data-style="TXInputField"
+           data-bind="{{ clanBankDepositAmount }}" data-two-way="1"
+           class="dz-xy-5-53 dz-wh-60-9 dz-c-FE dz-tc-D8D2C0 dz-font-12 dz-exact-text" />
+    <button data-dz="button" data-name="clanBankDepBtn"
+            data-style="TXBtnPrimary" data-on-click="OnClanBankDeposit"
+            class="dz-xy-68-53 dz-wh-29-9 dz-c-FE dz-tc-D8D2C0 dz-font-11 dz-exact-text dz-bold">
+      DEPOSIT
+    </button>
+
+    <span data-dz="text" data-name="clanBankWdrLabel"
+          class="dz-xy-5-65 dz-wh-60-5 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-bold">
+      WITHDRAW TO PERSONAL ACCOUNT
+    </span>
+    <input data-dz="editbox" data-name="clanBankWdrInput"
+           data-style="TXInputField"
+           data-bind="{{ clanBankWithdrawAmount }}" data-two-way="1"
+           class="dz-xy-5-71 dz-wh-60-9 dz-c-FE dz-tc-D8D2C0 dz-font-12 dz-exact-text" />
+    <button data-dz="button" data-name="clanBankWdrBtn"
+            data-style="TXBtnDanger" data-on-click="OnClanBankWithdraw"
+            class="dz-xy-68-71 dz-wh-29-9 dz-c-FE dz-tc-C8664A dz-font-11 dz-exact-text dz-bold">
+      WITHDRAW
+    </button>
+
+    <span data-dz="text" data-name="clanBankNote"
+          class="dz-xy-5-83 dz-wh-94-14 dz-tc-6A6560 dz-font-10 dz-noptr dz-exact-text dz-wrap">
+      Withdraw requires Officer+. All ops tracked on clan log and your personal ledger.
+    </span>
+  </div>
+
+  <div data-dz="panel" data-name="clanLogCard" data-style="TXCard"
+       class="dz-xy-58-65 dz-wh-40-32 dz-c-FE dz-noptr">
+    <span data-dz="text" data-name="clanLogTitle"
+          class="dz-xy-3-3 dz-wh-60-7 dz-tc-D8D2C0 dz-font-13 dz-noptr dz-exact-text dz-bold">
+      RECENT CLAN ACTIVITY
+    </span>
+    <button data-dz="button" data-name="clanLogFullLink"
+            data-style="TXTab" data-on-click="OnOpenFullLog"
+            class="dz-xy-70-3 dz-wh-27-7 dz-c-FE dz-tc-D4A44C dz-font-10 dz-exact-text dz-bold">
+      FULL LOG →
+    </button>
+
+    <div data-dz="scroll" data-name="clanLogScroll"
+         class="dz-xy-2-13 dz-wh-96-85 dz-scroll-v">
+      <div data-dz="grid" data-name="clanLogList"
+           data-foreach="{{ _clanActivity }}"
+           data-template="txb-clan-activity-row"
+           data-item="_inputActivity"
+           class="dz-wh-100-22px dz-noptr dz-fit-v dz-cols-1 dz-rows-30 dz-gap-1"></div>
+
+      <span data-dz="text" data-name="clanLogEmpty"
+            class="dz-xy-5-40 dz-wh-90-10 dz-tc-6A6560 dz-font-11 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+        No recent activity
+      </span>
+    </div>
+  </div>
+</div>
+
+<script src="dzml-runtime.js"></script>
+</body>
+</html>

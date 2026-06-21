@@ -40,7 +40,8 @@ class CfgMods
 			{
 				files[]=
 				{
-					"TraderX/datasets/Styles.styles"
+					"TraderX/datasets/Styles.styles",
+					"TraderX/datasets/styles/traderx_styles.styles"
 				};
 			};
 			class imageSets
@@ -49,23 +50,24 @@ class CfgMods
 				{
 					"TraderX/datasets/images/notification_ui.imageset",
 					"TraderX/datasets/traderplus_ui.imageset",
-					"TraderX/datasets/icons/icons.imageset",
+					"TraderX/datasets/styles/traderx_ui.imageset",
+					"TraderX/datasets/icons/traderx_icons.imageset"
 				};
 			};
 			class gameScriptModule
 			{
 				value = "";
-				files[] = {"DabsFramework/scripts/3_Game","TraderPlus/scripts/Common","TraderX/scripts/Common","TraderX/scripts/3_Game"};
+				files[] = {"DabsFramework/scripts/3_Game","DayZular/scripts/Common","DayZular/scripts/3_Game","TraderPlus/scripts/Common","TraderX/scripts/Common","TraderX/scripts/3_Game"};
 			};
 			class worldScriptModule
 			{
 				value = "";
-				files[] = {"DabsFramework/scripts/4_World","TraderPlus/scripts/Common","TraderX/scripts/Common","TraderX/scripts/4_World"};
+				files[] = {"DabsFramework/scripts/4_World","DayZular/scripts/Common","DayZular/scripts/4_World","TraderPlus/scripts/Common","TraderX/scripts/Common","TraderX/scripts/4_World"};
 			};
 			class missionScriptModule
 			{
 				value = "";
-				files[] = {"DabsFramework/scripts/5_Mission","TraderPlus/scripts/Common","TraderX/scripts/Common","TraderX/scripts/5_Mission"};
+				files[] = {"DabsFramework/scripts/5_Mission","DayZular/scripts/Common","DayZular/scripts/5_Mission","TraderPlus/scripts/Common","TraderX/scripts/Common","TraderX/scripts/5_Mission"};
 			};
 		};
 	};

@@ -2,7 +2,7 @@ modded class MissionGameplay extends MissionBase
 {
 	override void Pause()
 	{
-		if(GetTraderXModule().IsTraderViewOpen())
+		if(GetTraderXUIService() && GetTraderXUIService().IsTraderViewOpen())
 			return;
 
 		super.Pause();
@@ -12,7 +12,7 @@ modded class MissionGameplay extends MissionBase
 	{
 		super.OnUpdate(timeslice);
 		if (GetUApi() && GetUApi().GetInputByName("UAUIBack").LocalPress()){
-            GetTraderXModule().CloseTraderView();
+            if(GetTraderXUIService()) GetTraderXUIService().CloseTraderView();
         }
 	}
 };

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+</head>
+<body>
+
+<!-- VaultItemCard — one card in the 4-column vault storage grid.
+     Right half: ItemPreview (entity, populated for inventory pseudo-items only).
+     Left half: name, health label, qty, footprint.
+     Click overlay fires OnCardClicked → Event_OnItemClicked. -->
+<div data-dz="panel" data-name="vaultCardRoot" data-style="TXSurface"
+     class="dz-xy-0-0 dz-wh-full dz-c-FE">
+
+  <!-- Click overlay -->
+  <button data-dz="button" data-name="cardClickBtn"
+          data-on-click="OnCardClicked"
+          class="dz-xy-0-0 dz-wh-full dz-c-00000000"></button>
+
+  <!-- Left amber accent strip -->
+  <div data-dz="panel" data-name="cardStrip" data-style="TXProgressFill"
+       class="dz-xy-0-0 dz-wh-1-100 dz-c-FE dz-noptr"></div>
+
+  <!-- Item preview (right 36%, entity-bound — shows for inventory items) -->
+  <div data-dz="preview" data-name="cardPreview"
+       data-bind-item="{{ entityRef }}"
+       data-enable-rotation="1"
+       class="dz-xy-63-2 dz-wh-35-96 dz-noptr"></div>
+
+  <!-- Item name (bold, wraps to 2 lines) -->
+  <span data-dz="text" data-name="cardName"
+        data-bind="{{ displayName }}"
+        class="dz-xy-3-5 dz-wh-57-40 dz-tc-D8D2C0 dz-font-12 dz-noptr dz-exact-text dz-bold dz-wrap">
+    —
+  </span>
+
+  <!-- Qty badge -->
+  <span data-dz="text" data-name="cardQty"
+        data-bind="{{ qtyText }}"
+        class="dz-xy-3-50 dz-wh-30-18 dz-tc-D4A44C dz-font-10 dz-noptr dz-exact-text dz-bold">
+    —
+  </span>
+
+  <!-- Health label (amber) -->
+  <span data-dz="text" data-name="cardHealth"
+        data-bind="{{ healthText }}"
+        class="dz-xy-3-70 dz-wh-42-25 dz-tc-D4A44C dz-font-10 dz-noptr dz-exact-text dz-bold">
+    —
+  </span>
+
+  <!-- Footprint (muted, bottom) -->
+  <span data-dz="text" data-name="cardFootprint"
+        data-bind="{{ footprintText }}"
+        class="dz-xy-44-72 dz-wh-17-22 dz-tc-6A6560 dz-font-9 dz-noptr dz-exact-text dz-text-right">
+    —
+  </span>
+</div>
+
+<script src="dzml-runtime.js"></script>
+</body>
+</html>

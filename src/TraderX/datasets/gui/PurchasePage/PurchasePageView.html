@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+  <link rel="stylesheet" href="dzml-icons.css">
+</head>
+<body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#1a1a1a;">
+
+<div data-dz="panel"
+    data-name="PurchasePageView"
+    data-style="TXContent"
+    class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr">
+  <div data-dz="panel"
+      data-name="topBar"
+      data-style="TXSurface"
+      class="dz-xy-0-0 dz-wh-100-6 dz-c-FE dz-noptr">
+    <div data-dz="panel"
+        data-name="SearchBarHost"
+        data-component="tx-search-bar"
+        class="dz-xy-36-22 dz-wh-24-56"></div>
+    <button data-dz="button"
+        data-name="toggleExpandBtn"
+        data-style="Bold"
+        data-on-click="OnToggleExpandClick"
+        class="dz-xy-60-22 dz-wh-6-56 dz-tc-FE dz-tc-D8D2C0 dz-font-body-12 dz-exact-text"
+        data-prop-style="TXBtnDefault">
+      <span data-dz="text"
+          data-name="toggleExpandText"
+          class="dz-xy-0-0 dz-wh-full dz-tc-D8D2C0 dz-font-body-12 dz-noptr dz-text-center dz-text-vc dz-exact-text">
+        #tpm_expand_all
+      </span>
+    </button>
+    <div data-dz="panel"
+        data-name="ViewToggleHost"
+        data-component="tx-view-toggle"
+        class="dz-xy-67-22 dz-wh-8-56 dz-noptr"></div>
+  </div>
+  <div data-dz="panel"
+      data-name="PlayerPreviewPanel"
+      data-style="TXCard"
+      class="dz-xy-1-7 dz-wh-19-92 dz-c-FE dz-noptr">
+    <div data-dz="playerpreview"
+        data-name="playerPreview"
+        data-enable-rotation="1"
+        class="dz-xy-0-0 dz-wh-94-75 dz-align-cc dz-noptr"></div>
+    <button data-dz="button"
+        data-name="stripBtn"
+        data-style="TXBtnIcon"
+        data-on-click="OnStripClick"
+        class="dz-xy-28-88 dz-wh-44px-44px dz-tc-FE dz-tc-D8D2C0 dz-font-body-16 dz-exact-text">
+      <img data-dz="image"
+          data-name="stripBtnIcon"
+          class="dz-xy-0-0 dz-wh-55-55 dz-align-cc dz-noptr"
+          data-image="set:traderx_icons image:person"
+          data-image-mode="blend"
+          data-image-src-alpha="1"
+          data-image-stretch="stretch_w_h"/>
+    </button>
+    <button data-dz="button"
+        data-name="resetBtn"
+        data-style="TXBtnIcon"
+        data-on-click="OnResetClick"
+        class="dz-xy-56-88 dz-wh-44px-44px dz-tc-FE dz-tc-D8D2C0 dz-font-body-16 dz-exact-text">
+      <img data-dz="image"
+          data-name="resetBtnIcon"
+          class="dz-xy-0-0 dz-wh-55-55 dz-align-cc dz-noptr"
+          data-image="set:traderx_icons image:refresh"
+          data-image-mode="blend"
+          data-image-src-alpha="1"
+          data-image-stretch="stretch_w_h"/>
+    </button>
+  </div>
+  <div data-dz="panel"
+      data-name="CategoryListPanel"
+      data-style="TXSurface"
+      class="dz-xy-21-7 dz-wh-55-92 dz-c-FE dz-noptr">
+    <div data-dz="scroll"
+        data-name="scrollCategory"
+        class="dz-xy-1-1 dz-wh-98-98 dz-noptr dz-scroll-v">
+      <div data-dz="grid"
+          data-name="categoryGrid"
+          data-foreach="{{ _inputCategories }}"
+          data-template="tx-category-card"
+          data-item="_inputCategory"
+          class="dz-xy-0-0 dz-wh-100-1 dz-fit-v dz-cols-1 dz-rows-100 dz-gap-6"></div>
+    </div>
+  </div>
+  <div data-dz="panel"
+      data-name="CheckoutHost"
+      data-style="TXCard"
+      data-component="tx-checkout"
+      class="dz-xy-77-7 dz-wh-22-92 dz-c-FE"></div>
+</div>
+
+<script src="dzml-runtime.js?v=1780762083610"></script>
+</body>
+</html>

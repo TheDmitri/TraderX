@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Banking · Account — Field Ledger</title>
+  <link rel="stylesheet" href="../field-ledger.css">
+  <style>
+    .page { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-5); padding: var(--sp-5); height: 100%; min-height: 0; }
+    .account { display: flex; flex-direction: column; gap: var(--sp-4); }
+    .account__id { padding: var(--sp-3) var(--sp-4); background: var(--bg-card); border: 1px solid var(--border-soft); display: flex; justify-content: space-between; align-items: center; }
+    .account__id-k { font-size: 11px; color: var(--text-ash); letter-spacing: 1.5px; text-transform: uppercase; }
+    .account__id-v { font-family: 'Courier New', monospace; color: var(--accent-amber); font-size: 14px; letter-spacing: 1.5px; }
+    .action-panel { padding: var(--sp-4); background: var(--bg-card); border: 1px solid var(--border-soft); display: flex; flex-direction: column; gap: var(--sp-3); }
+    .action-panel h3 { font-size: 13px; color: var(--text-ivory); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500; }
+    .action-panel__row { display: grid; grid-template-columns: 1fr auto; gap: var(--sp-3); align-items: end; }
+    .transactions { flex: 1; min-height: 0; display: flex; flex-direction: column; background: var(--bg-card); border: 1px solid var(--border-soft); }
+    .transactions__header { padding: var(--sp-3) var(--sp-4); border-bottom: 1px solid var(--border-soft); display: flex; justify-content: space-between; align-items: center; }
+    .transactions__header h3 { font-size: 13px; color: var(--text-ivory); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500; }
+    .transactions__body { flex: 1; overflow-y: auto; }
+    .status-pills { display: flex; gap: var(--sp-2); }
+    .pill { padding: 4px 10px; font-size: 11px; color: var(--text-ash); text-transform: uppercase; letter-spacing: 1.3px; border: 1px solid var(--border-default); background: var(--bg-surface); }
+    .pill--on { color: var(--text-olive); border-color: var(--action-olive-deep); }
+  </style>
+</head>
+<body>
+<div class="dz-viewport">
+  <div class="shell">
+    <div class="shell__header">
+      <div class="shell__identity">
+        <div class="shell__identity-name">Yuri Pashkov</div>
+        <div class="shell__identity-role">Banking · Bank teller</div>
+      </div>
+      <div class="shell__nav">
+        <a class="shell__tab" href="bankingView.html">Home</a>
+        <a class="shell__tab is-active" href="account.html">Account</a>
+        <a class="shell__tab" href="vault.html">Vault</a>
+        <a class="shell__tab" href="transfer.html">Transfer</a>
+        <a class="shell__tab" href="clan.html">Clan</a>
+        <a class="shell__tab" href="ledger.html">Ledger</a>
+      </div>
+      <button class="shell__close">X</button>
+    </div>
+
+    <div class="shell__subnav">
+      <div class="muted uppercase" style="font-size: 11px; letter-spacing: 1.5px;">Svetloyarsk · Central bank branch</div>
+      <div class="ml-auto status-pills">
+        <span class="pill pill--on">● Online</span>
+        <span class="pill">Fee 2%</span>
+      </div>
+    </div>
+
+    <div class="shell__content">
+      <div class="page">
+        <!-- LEFT: balance + actions -->
+        <div class="account">
+          <div class="balance-card">
+            <div class="balance-card__label">Current balance</div>
+            <div class="balance-card__value">14,165</div>
+            <div class="balance-card__unit">Roubles</div>
+            <div style="width: 80%; margin-top: var(--sp-3);">
+              <div class="fl" style="justify-content: space-between; font-size: 10px; color: var(--text-dust); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 4px;">
+                <span>0</span><span>Max 50,000</span>
+              </div>
+              <div class="progress"><div class="progress__fill" style="width: 28.3%;"></div></div>
+            </div>
+          </div>
+
+          <div class="account__id">
+            <span class="account__id-k">Account ID</span>
+            <span class="account__id-v">76561198·A9F2·1847</span>
+            <button class="btn btn--sm">Copy</button>
+          </div>
+
+          <div class="action-panel">
+            <h3>Deposit</h3>
+            <div class="action-panel__row">
+              <div class="field">
+                <label class="field__label">Amount</label>
+                <input class="input" placeholder="0" value="500">
+              </div>
+              <button class="btn btn--primary">Deposit</button>
+            </div>
+            <div class="muted" style="font-size: 11px;">Fee: 10 (2%). On hand: 1,240 roubles cash.</div>
+          </div>
+
+          <div class="action-panel">
+            <h3>Withdraw</h3>
+            <div class="action-panel__row">
+              <div class="field">
+                <label class="field__label">Amount</label>
+                <input class="input" placeholder="0">
+              </div>
+              <button class="btn btn--danger">Withdraw</button>
+            </div>
+            <div class="alert alert--warn">
+              <div class="alert__title">Credit card required</div>
+              <div class="alert__body">You must carry a valid credit card to withdraw. Last usage: 2h ago.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: recent transactions + quick stats -->
+        <div class="fl-col gap-4" style="min-height: 0;">
+          <div class="fl gap-3">
+            <div class="panel p-4 fl-1 fl-col gap-1">
+              <div class="muted uppercase" style="font-size: 10px; letter-spacing: 1.5px;">Total deposits (30d)</div>
+              <div style="font-size: 22px; color: var(--text-olive); font-weight: 500;">+18,400</div>
+            </div>
+            <div class="panel p-4 fl-1 fl-col gap-1">
+              <div class="muted uppercase" style="font-size: 10px; letter-spacing: 1.5px;">Total withdrawals (30d)</div>
+              <div style="font-size: 22px; color: var(--text-rust); font-weight: 500;">−9,800</div>
+            </div>
+            <div class="panel p-4 fl-1 fl-col gap-1">
+              <div class="muted uppercase" style="font-size: 10px; letter-spacing: 1.5px;">Transfers</div>
+              <div style="font-size: 22px; color: var(--text-ivory); font-weight: 500;">6</div>
+            </div>
+          </div>
+
+          <div class="transactions">
+            <div class="transactions__header">
+              <h3>Recent transactions</h3>
+              <a class="muted uppercase" href="ledger.html" style="font-size: 11px; letter-spacing: 1.5px;">View ledger →</a>
+            </div>
+            <div class="transactions__body">
+              <div class="ledger-row"><span class="ledger-row__date">2026-04-17 14:22</span><span class="ledger-row__type">Deposit</span><span class="ledger-row__from">Self · cash</span><span class="ledger-row__amount ledger-row__amount--in">+500</span><span class="ledger-row__balance">14,165</span></div>
+              <div class="ledger-row"><span class="ledger-row__date">2026-04-17 13:08</span><span class="ledger-row__type">Sell income</span><span class="ledger-row__from">Trader · Marie</span><span class="ledger-row__amount ledger-row__amount--in">+680</span><span class="ledger-row__balance">13,665</span></div>
+              <div class="ledger-row"><span class="ledger-row__date">2026-04-17 11:52</span><span class="ledger-row__type">Purchase</span><span class="ledger-row__from">Trader · Marie</span><span class="ledger-row__amount ledger-row__amount--out">−1,340</span><span class="ledger-row__balance">12,985</span></div>
+              <div class="ledger-row"><span class="ledger-row__date">2026-04-17 10:14</span><span class="ledger-row__type">Transfer out</span><span class="ledger-row__from">→ Alex K.</span><span class="ledger-row__amount ledger-row__amount--out">−2,000</span><span class="ledger-row__balance">14,325</span></div>
+              <div class="ledger-row"><span class="ledger-row__date">2026-04-17 09:03</span><span class="ledger-row__type">Garage fee</span><span class="ledger-row__from">Park-in · Svetlana</span><span class="ledger-row__amount ledger-row__amount--out">−250</span><span class="ledger-row__balance">16,325</span></div>
+              <div class="ledger-row"><span class="ledger-row__date">2026-04-16 22:47</span><span class="ledger-row__type">Transfer in</span><span class="ledger-row__from">← Boris M.</span><span class="ledger-row__amount ledger-row__amount--in">+5,000</span><span class="ledger-row__balance">16,575</span></div>
+              <div class="ledger-row"><span class="ledger-row__date">2026-04-16 18:12</span><span class="ledger-row__type">Deposit</span><span class="ledger-row__from">Self · cash</span><span class="ledger-row__amount ledger-row__amount--in">+3,000</span><span class="ledger-row__balance">11,575</span></div>
+              <div class="ledger-row"><span class="ledger-row__date">2026-04-16 15:30</span><span class="ledger-row__type">Withdraw</span><span class="ledger-row__from">Self · ATM</span><span class="ledger-row__amount ledger-row__amount--out">−500</span><span class="ledger-row__balance">8,575</span></div>
+              <div class="ledger-row"><span class="ledger-row__date">2026-04-16 14:05</span><span class="ledger-row__type">Purchase</span><span class="ledger-row__from">Trader · Pyotr</span><span class="ledger-row__amount ledger-row__amount--out">−2,450</span><span class="ledger-row__balance">9,075</span></div>
+              <div class="ledger-row"><span class="ledger-row__date">2026-04-16 11:18</span><span class="ledger-row__type">Sell income</span><span class="ledger-row__from">Trader · Pyotr</span><span class="ledger-row__amount ledger-row__amount--in">+1,200</span><span class="ledger-row__balance">11,525</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+  <link rel="stylesheet" href="dzml-icons.css">
+</head>
+<body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#1a1a1a;">
+
+<div data-dz="panel"
+    data-name="modalRoot"
+    class="dz-xy-0-0 dz-wh-full dz-align-cc dz-priority-999">
+  <div data-dz="panel"
+      data-name="backdrop"
+      class="dz-xy-0-0 dz-wh-full dz-c-000000C8"></div>
+  <div data-dz="panel"
+      data-name="modalCard"
+      data-style="TXCard"
+      class="dz-xy-0-0 dz-wh-30-30 dz-align-cc dz-c-FE">
+    <span data-dz="text"
+        data-name="title"
+        data-bind="{{ title }}"
+        class="dz-xy-0-8 dz-wh-100-16 dz-align-x-center dz-c-D8D2C0 dz-font-heading-22 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+      #tpm_confirmation
+    </span>
+    <p data-dz="richtext"
+        data-name="textContent"
+        data-bind="{{ content }}"
+        class="dz-xy-8-34 dz-wh-84-34 dz-c-A8B0A7 dz-font-body-16 dz-noptr dz-wrap dz-exact-text dz-text-center">
+      Are you sure?
+    </p>
+    <button data-dz="button"
+        data-name="cancelBtn"
+        data-style="TXBtnDefault"
+        data-on-click="OnCancelClick"
+        class="dz-xy-7-74 dz-wh-40-18 dz-tc-FE">
+      #tpm_cancel
+    </button>
+    <button data-dz="button"
+        data-name="confirmBtn"
+        data-style="TXBtnPrimary"
+        data-on-click="OnConfirmClick"
+        class="dz-xy-53-74 dz-wh-40-18 dz-tc-FE">
+      #tpm_confirm
+    </button>
+  </div>
+</div>
+
+<script src="dzml-runtime.js"></script>
+</body>
+</html>

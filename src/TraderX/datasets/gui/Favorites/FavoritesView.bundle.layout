@@ -1,0 +1,129 @@
+PanelWidgetClass FavoritesView {
+ position 0 0
+ hexactpos 0
+ vexactpos 0
+ size 1 1
+ hexactsize 0
+ vexactsize 0
+ ignorepointer 1
+ style TXContent
+ color 0.9961 0.9961 0.9961 1
+ {
+  PanelWidgetClass topBar {
+   position 0 0
+   hexactpos 0
+   vexactpos 0
+   size 1 0.06
+   hexactsize 0
+   vexactsize 0
+   ignorepointer 1
+   style TXSurface
+   color 0.9961 0.9961 0.9961 1
+   {
+    PanelWidgetClass SearchBarHost {
+     position 0.39 0.22
+     hexactpos 0
+     vexactpos 0
+     size 0.22 0.56
+     hexactsize 0
+     vexactsize 0
+     scriptclass "ComponentWidgetBinding"
+     {
+      ScriptParamsClass {
+       Component_Selector "tx-search-bar"
+      }
+     }
+    }
+    PanelWidgetClass ViewToggleHost {
+     position 0.62 0.22
+     hexactpos 0
+     vexactpos 0
+     size 0.08 0.56
+     hexactsize 0
+     vexactsize 0
+     ignorepointer 1
+     scriptclass "ComponentWidgetBinding"
+     {
+      ScriptParamsClass {
+       Component_Selector "tx-view-toggle"
+      }
+     }
+    }
+   }
+  }
+  PanelWidgetClass FavListPanel {
+   position 0 0.07
+   hexactpos 0
+   vexactpos 0
+   size 0.75 0.92
+   hexactsize 0
+   vexactsize 0
+   ignorepointer 1
+   style TXSurface
+   color 0.9961 0.9961 0.9961 1
+   {
+    TextWidgetClass favTitle {
+     position 0.01 0.01
+     hexactpos 0
+     vexactpos 0
+     size 0.4 0.04
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.6039 0.5804 0.5333 1
+     font "TraderX/datasets/fonts/RobotoCondensedVF14"
+     ignorepointer 1
+     "exact text" 1
+     text "#tpm_favorites"
+    }
+    ScrollWidgetClass scrollCategory {
+     position 0.01 0.06
+     hexactpos 0
+     vexactpos 0
+     size 0.98 0.93
+     hexactsize 0
+     vexactsize 0
+     ignorepointer 1
+     "Scrollbar V" 1
+     {
+      GridSpacerWidgetClass categoryGrid {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 1 0.01
+       hexactsize 0
+       vexactsize 0
+       "Size To Content V" 1
+       Columns 1
+       Rows 100
+       Margin 6
+       scriptclass "ComponentWidgetBinding"
+       {
+        ScriptParamsClass {
+         Component_ForEach "{{ _inputCategories }}"
+         Component_Template "tx-category-card"
+         Component_ItemProperty "_inputCategory"
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+  PanelWidgetClass CheckoutHost {
+   position 0.76 0.07
+   hexactpos 0
+   vexactpos 0
+   size 0.23 0.92
+   hexactsize 0
+   vexactsize 0
+   style TXCard
+   color 0.9961 0.9961 0.9961 1
+   scriptclass "ComponentWidgetBinding"
+   {
+    ScriptParamsClass {
+     Component_Selector "tx-checkout"
+    }
+   }
+  }
+ }
+}

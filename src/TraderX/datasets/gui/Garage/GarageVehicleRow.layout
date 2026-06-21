@@ -1,97 +1,93 @@
 ButtonWidgetClass vehicleRowBtn {
- color 0.9961 0.9961 0.9961 1
  position 0 0
- size 1 48
  hexactpos 0
  vexactpos 0
+ size 1 48
  hexactsize 0
  vexactsize 1
- scriptclass "ButtonBinding"
- style TXListRow
  "text color" 0.9961 0.9961 0.9961 1
+ "text color" 0.9961 0.9961 0.9961 1
+ style TXListRow
+ color 0.9961 0.9961 0.9961 1
  {
   PanelWidgetClass vehicleRowContent {
-   ignorepointer 1
-   color 0.9961 0.9961 0.9961 1
    position 0 0
-   size 1 1
-   halign center_ref
-   valign center_ref
    hexactpos 0
    vexactpos 0
+   size 1 1
    hexactsize 0
    vexactsize 0
+   halign center_ref
+   valign center_ref
+   ignorepointer 1
    style blank
+   color 0.9961 0.9961 0.9961 1
    {
     PanelWidgetClass healthIndicator {
-     ignorepointer 1
-     color 0.4157 0.6039 0.4157 1
      position 0 0.1
-     size 0.01 0.8
      hexactpos 0
      vexactpos 0
+     size 0.01 0.8
      hexactsize 0
      vexactsize 0
+     color 0.9961 0.9961 0.9961 1
+     ignorepointer 1
      style rover_sim_colorable
     }
     TextWidgetClass vehicleName {
-     ignorepointer 1
      position 0.04 0
-     size 0.65 0.6
      hexactpos 0
      vexactpos 0
+     size 0.65 0.6
      hexactsize 0
      vexactsize 0
-     scriptclass "TextBinding"
-     text "OffroadHatchback"
-     font "gui"
      "text color" 0.7529 0.7529 0.7529 1
+     font "TraderX/datasets/fonts/oswalt16"
+     ignorepointer 1
      "exact text" 1
-     "text halign" left
      "text valign" center
+     text "OffroadHatchback"
     }
     TextWidgetClass vehicleHealth {
-     ignorepointer 1
      position 0.04 0.55
-     size 0.65 0.4
      hexactpos 0
      vexactpos 0
+     size 0.65 0.4
      hexactsize 0
      vexactsize 0
-     scriptclass "TextBinding"
-     text "Pristine"
-     font "gui"
      "text color" 0.3333 0.3333 0.3333 1
+     font "TraderX/datasets/fonts/oswalt16"
+     ignorepointer 1
      "exact text" 1
-     "text halign" left
      "text valign" center
+     text "Pristine"
     }
     PanelWidgetClass blockingBadge {
-     visible 0
-     ignorepointer 1
-     color 0.9961 0.9961 0.9961 1
      position 0.75 0.2
-     size 0.22 0.6
      hexactpos 0
      vexactpos 0
+     size 0.22 0.6
      hexactsize 0
      vexactsize 0
+     ignorepointer 1
+     visible 0
      style TXBadge
+     color 0.9961 0.9961 0.9961 1
      {
       TextWidgetClass blockingText {
-       ignorepointer 1
        position 0 0
-       size 1 1
        hexactpos 0
        vexactpos 0
+       size 1 1
        hexactsize 0
        vexactsize 0
-       text "IN"
-       font "gui"
        "text color" 0.7882 0.1882 0.1725 1
+       font "TraderX/datasets/fonts/oswalt16"
+       ignorepointer 1
        "exact text" 1
        "text halign" center
        "text valign" center
+       text "IN"
       }
      }
     }

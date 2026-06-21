@@ -4,193 +4,133 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" href="dzml.css">
   <link rel="stylesheet" href="dzml-styles.css">
+  <link rel="stylesheet" href="dzml-icons.css">
 </head>
-<body class="dz-viewport" style="width:1920px; height:1080px; background:#0a0a0a;">
-
-<!-- ============================================
-     TRADERX BANKING UI — Marketplace-v2 Theme
-     Dark tactical aesthetic with red accents
-     ============================================ -->
+<body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#1a1a1a;">
 
 <div data-dz="frame"
     data-name="rootFrame"
     class="dz-xy-0-0 dz-wh-full dz-align-cc">
-
-  <!-- Main Container: 50% width, 70% height, centered -->
   <div data-dz="panel"
       data-name="bankingRoot"
       data-style="TXContainer"
       class="dz-xy-0-0 dz-wh-50-70 dz-align-cc dz-c-FE">
-
-    <!-- ========== HEADER BAR ========== -->
     <div data-dz="panel"
         data-name="headerBar"
         data-style="TXHeader"
         class="dz-xy-0-0 dz-wh-100-8 dz-c-FE dz-noptr">
-
-      <!-- Title -->
       <span data-dz="text"
           data-name="headerTitle"
-          class="dz-xy-2-0 dz-wh-20-100 dz-tc-E0E0E0 dz-font-22 dz-noptr dz-exact-text dz-text-vc dz-bold">
+          class="dz-xy-2-0 dz-wh-20-100 dz-tc-D8D2C0 dz-font-body-16 dz-noptr dz-bold dz-exact-text dz-text-vc">
         BANK
       </span>
-
-      <!-- Balance Display -->
       <div data-dz="panel"
           data-name="balancePanel"
           class="dz-xy-60-0 dz-wh-38-100 dz-noptr">
         <span data-dz="text"
             data-name="balanceLabel"
-            class="dz-xy-0-0 dz-wh-30-100 dz-tc-555555 dz-font-14 dz-noptr dz-exact-text dz-text-right dz-text-vc">
-          BALANCE:
+            class="dz-xy-0-0 dz-wh-30-100 dz-tc-6A6560 dz-font-body-16 dz-noptr dz-exact-text dz-text-vc dz-text-right">
+          BALANCE
         </span>
         <span data-dz="text"
             data-name="balanceValue"
-            data-bind="{{ bankBalance | number }}"
-            class="dz-xy-32-0 dz-wh-45-100 dz-tc-C9302C dz-font-22 dz-noptr dz-exact-text dz-text-right dz-text-vc dz-bold">
+            class="dz-xy-32-0 dz-wh-45-100 dz-tc-C4A35A dz-font-body-16 dz-noptr dz-bold dz-exact-text dz-text-vc dz-text-right">
           0
         </span>
         <span data-dz="text"
             data-name="balanceCurrency"
-            class="dz-xy-78-0 dz-wh-20-100 dz-tc-888888 dz-font-14 dz-noptr dz-exact-text dz-text-left dz-text-vc">
+            class="dz-xy-78-0 dz-wh-20-100 dz-tc-9A9488 dz-font-body-16 dz-noptr dz-exact-text dz-text-vc">
           TC
         </span>
       </div>
     </div>
-
-    <!-- ========== TAB NAVIGATION ========== -->
     <div data-dz="grid"
         data-name="tabNavGrid"
         class="dz-xy-0-8 dz-wh-100-6 dz-noptr dz-cols-3 dz-rows-1">
-
       <button data-dz="button"
           data-name="tabAccount"
           data-style="TXTabActive"
-          data-on-click="OnTabAccount"
-          class="dz-tc-E0E0E0 dz-font-14 dz-exact-text">
+          class="dz-tc-FE dz-tc-D8D2C0 dz-font-body-16">
         ACCOUNT
       </button>
-
       <button data-dz="button"
           data-name="tabTransfer"
           data-style="TXTabInactive"
-          data-on-click="OnTabTransfer"
-          class="dz-tc-666666 dz-font-14 dz-exact-text">
+          class="dz-tc-FE dz-tc-9A9488 dz-font-body-16">
         TRANSFER
       </button>
-
       <button data-dz="button"
           data-name="tabLeave"
           data-style="TXBtnLeave"
-          data-on-click="OnClose"
-          class="dz-tc-FFFFFF dz-font-14 dz-exact-text">
+          class="dz-tc-FE dz-tc-D8D2C0 dz-font-body-16">
         LEAVE
       </button>
     </div>
-
-    <!-- Divider below tabs -->
     <div data-dz="panel"
         data-name="tabDivider"
         data-style="TXDivider"
-        class="dz-xy-0-14 dz-wh-100-0.3 dz-noptr dz-c-FE"></div>
-
-    <!-- ========== ACCOUNT TAB CONTENT ========== -->
+        class="dz-xy-0-14 dz-wh-100-0 dz-c-FE dz-noptr"></div>
     <div data-dz="panel"
         data-name="accountPanel"
         class="dz-xy-0-15 dz-wh-100-85 dz-noptr">
-
-      <!-- Bank Amount Section -->
       <div data-dz="panel"
           data-name="bankAmountSection"
           data-style="TXCard"
           class="dz-xy-3-3 dz-wh-94-18 dz-c-FE dz-noptr">
-
         <span data-dz="text"
             data-name="bankAmountLabel"
-            class="dz-xy-3-8 dz-wh-30-35 dz-tc-555555 dz-font-14 dz-noptr dz-exact-text dz-text-right dz-text-vc">
-          BANK AMOUNT
-        </span>
-        <span data-dz="text"
-            data-name="bankAmountValue"
-            data-bind="{{ bankAmount | number }}"
-            class="dz-xy-35-8 dz-wh-62-35 dz-tc-E0E0E0 dz-font-22 dz-noptr dz-exact-text dz-text-left dz-text-vc">
+            class="dz-xy-35-8 dz-wh-62-35 dz-tc-D8D2C0 dz-font-body-16 dz-noptr dz-exact-text dz-text-vc">
           0
         </span>
-
         <span data-dz="text"
             data-name="playerAmountLabel"
-            class="dz-xy-3-48 dz-wh-30-35 dz-tc-555555 dz-font-14 dz-noptr dz-exact-text dz-text-right dz-text-vc">
-          ON PLAYER
-        </span>
-        <span data-dz="text"
-            data-name="playerAmountValue"
-            data-bind="{{ playerMoney | number }}"
-            class="dz-xy-35-48 dz-wh-62-35 dz-tc-C0C0C0 dz-font-22 dz-noptr dz-exact-text dz-text-left dz-text-vc">
+            class="dz-xy-35-48 dz-wh-62-35 dz-tc-9A9488 dz-font-body-16 dz-noptr dz-exact-text dz-text-vc">
           0
         </span>
       </div>
-
-      <!-- Transaction Input Section -->
       <div data-dz="panel"
           data-name="transactionSection"
           data-style="TXCard"
           class="dz-xy-3-23 dz-wh-94-22 dz-c-FE dz-noptr">
-
         <span data-dz="text"
             data-name="transactionLabel"
-            class="dz-xy-3-8 dz-wh-30-30 dz-tc-555555 dz-font-14 dz-noptr dz-exact-text dz-text-right dz-text-vc">
+            class="dz-xy-3-8 dz-wh-30-30 dz-tc-6A6560 dz-font-body-16 dz-noptr dz-exact-text dz-text-vc dz-text-right">
           AMOUNT
         </span>
-
         <input data-dz="editbox"
             data-name="transactionAmountInput"
-            data-style="TXInputField"
-            data-bind="{{ transactionAmount }}"
-            data-scriptclass="EditBoxBinding"
-            data-validators="required,integer,min:1"
-            data-on-change="OnTransactionAmountChanged"
-            class="dz-xy-35-8 dz-wh-50-30 dz-c-FE dz-font-16 dz-exact-text"/>
-
+            data-style="Default"
+            class="dz-xy-35-8 dz-wh-50-30 dz-tc-FE dz-tc-FE dz-font-body-16 dz-exact-text"/>
         <span data-dz="text"
             data-name="feesLabel"
-            class="dz-xy-3-50 dz-wh-30-30 dz-tc-555555 dz-font-14 dz-noptr dz-exact-text dz-text-right dz-text-vc">
+            class="dz-xy-3-50 dz-wh-30-30 dz-tc-6A6560 dz-font-body-16 dz-noptr dz-exact-text dz-text-vc dz-text-right">
           FEES
         </span>
         <span data-dz="text"
             data-name="feesValue"
-            data-bind="{{ feesDisplay }}"
-            class="dz-xy-35-50 dz-wh-50-30 dz-tc-888888 dz-font-16 dz-noptr dz-exact-text dz-text-left dz-text-vc">
+            class="dz-xy-35-50 dz-wh-50-30 dz-tc-9A9488 dz-font-body-16 dz-noptr dz-exact-text dz-text-vc">
           5%
         </span>
       </div>
-
-      <!-- Action Buttons -->
       <div data-dz="grid"
           data-name="actionButtonGrid"
           class="dz-xy-3-47 dz-wh-94-10 dz-cols-2 dz-rows-1 dz-gap-8">
-
         <button data-dz="button"
             data-name="depositBtn"
             data-style="TXBtnPrimary"
-            data-on-click="OnDeposit"
-            class="dz-tc-6A9A6A dz-font-16 dz-exact-text dz-bold">
+            class="dz-tc-FE dz-tc-D8D2C0 dz-font-body-16">
           DEPOSIT
         </button>
-
         <button data-dz="button"
             data-name="withdrawBtn"
             data-style="TXBtnDanger"
-            data-on-click="OnWithdraw"
-            class="dz-tc-C9302C dz-font-16 dz-exact-text dz-bold">
+            class="dz-tc-FE dz-tc-D8D2C0 dz-font-body-16">
           WITHDRAW
         </button>
       </div>
-
-      <!-- Progress Bar (Balance / Max) -->
       <div data-dz="panel"
           data-name="progressSection"
           class="dz-xy-3-59 dz-wh-94-8 dz-noptr">
-
         <div data-dz="panel"
             data-name="progressBg"
             data-style="TXProgressBg"
@@ -198,171 +138,113 @@
           <div data-dz="panel"
               data-name="progressFill"
               data-style="TXProgressFill"
-              data-bind-width="{{ progressPercent }}"
               class="dz-xy-0-0 dz-wh-50-100 dz-c-FE dz-noptr"></div>
         </div>
-
         <span data-dz="text"
             data-name="maxLabel"
-            class="dz-xy-0-0 dz-wh-100-25 dz-tc-555555 dz-font-14 dz-noptr dz-exact-text dz-text-right dz-text-vc">
+            class="dz-xy-0-0 dz-wh-100-25 dz-tc-6A6560 dz-font-body-16 dz-noptr dz-exact-text dz-text-vc dz-text-right">
           MAX
         </span>
         <span data-dz="text"
             data-name="maxValue"
-            data-bind="{{ maxAmount | number }}"
-            class="dz-xy-0-75 dz-wh-100-25 dz-tc-555555 dz-font-14 dz-noptr dz-exact-text dz-text-right dz-text-vc">
+            class="dz-xy-0-75 dz-wh-100-25 dz-tc-6A6560 dz-font-body-16 dz-noptr dz-exact-text dz-text-vc dz-text-right">
           1,000,000
         </span>
       </div>
-
-      <!-- Account ID Section -->
       <div data-dz="panel"
           data-name="accountIdSection"
           data-style="TXCard"
           class="dz-xy-3-70 dz-wh-94-12 dz-c-FE dz-noptr">
-
         <span data-dz="text"
             data-name="accountIdLabel"
-            class="dz-xy-3-0 dz-wh-20-100 dz-tc-555555 dz-font-14 dz-noptr dz-exact-text dz-text-right dz-text-vc">
-          ACCOUNT ID
-        </span>
-
-        <div data-dz="panel"
-            data-name="accountIdBg"
-            data-style="TXInputField"
-            class="dz-xy-25-15 dz-wh-48-70 dz-c-FE dz-noptr">
+            data-style="Normal"
+            class="dz-xy-25-15 dz-wh-48-70 dz-tc-FE dz-tc-6A6560 dz-font-body-16 dz-noptr dz-exact-text dz-text-vc dz-text-right">
+          ACCOUNT
           <span data-dz="text"
               data-name="accountIdValue"
-              data-bind="{{ accountId }}"
-              class="dz-xy-3-0 dz-wh-94-100 dz-tc-888888 dz-font-14 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+              class="dz-xy-3-0 dz-wh-94-100 dz-tc-9A9488 dz-font-body-16 dz-noptr dz-exact-text dz-text-center dz-text-vc">
             76561198000000000
           </span>
-        </div>
-
+        </span>
         <button data-dz="button"
             data-name="copyIdBtn"
             data-style="TXBtnDefault"
-            data-on-click="OnCopyId"
-            class="dz-xy-75-15 dz-wh-22-70 dz-tc-888888 dz-font-14 dz-exact-text">
-          COPY ID
+            class="dz-xy-75-15 dz-wh-22-70 dz-tc-FE dz-tc-9A9488 dz-font-body-16">
+          COPY
         </button>
       </div>
-
-      <!-- Status/Error Message -->
       <div data-dz="panel"
           data-name="statusPanel"
           data-style="TXInfoBox"
           class="dz-xy-3-84 dz-wh-94-8 dz-c-FE dz-noptr dz-hidden">
-        <div data-dz="richtext"
+        <p data-dz="richtext"
             data-name="statusMessage"
-            data-bind="{{ statusText }}"
-            class="dz-xy-3-0 dz-wh-94-100 dz-tc-C9302C dz-font-14 dz-noptr dz-exact-text dz-text-vc dz-wrap">
-        </div>
+            class="dz-xy-3-0 dz-wh-94-100 dz-tc-C93030 dz-font-body-16 dz-noptr dz-wrap dz-exact-text dz-text-vc"></p>
       </div>
     </div>
-
-    <!-- ========== TRANSFER TAB CONTENT ========== -->
     <div data-dz="panel"
         data-name="transferPanel"
         class="dz-xy-0-15 dz-wh-100-85 dz-noptr dz-hidden">
-
-      <!-- Transfer Bank Balance Display -->
       <div data-dz="panel"
           data-name="transferBalanceSection"
           data-style="TXCard"
           class="dz-xy-3-3 dz-wh-94-14 dz-c-FE dz-noptr">
-
         <span data-dz="text"
             data-name="transferBankLabel"
-            class="dz-xy-3-0 dz-wh-30-100 dz-tc-555555 dz-font-14 dz-noptr dz-exact-text dz-text-right dz-text-vc">
-          BANK AMOUNT
-        </span>
-        <span data-dz="text"
-            data-name="transferBankValue"
-            data-bind="{{ bankAmount | number }}"
-            class="dz-xy-35-0 dz-wh-62-100 dz-tc-E0E0E0 dz-font-22 dz-noptr dz-exact-text dz-text-left dz-text-vc">
+            class="dz-xy-35-0 dz-wh-62-100 dz-tc-D8D2C0 dz-font-body-16 dz-noptr dz-exact-text dz-text-vc">
           0
         </span>
       </div>
-
-      <!-- Transfer Amount Input -->
       <div data-dz="panel"
           data-name="transferAmountSection"
           data-style="TXCard"
           class="dz-xy-3-19 dz-wh-94-16 dz-c-FE dz-noptr">
-
         <span data-dz="text"
             data-name="transferAmountLabel"
-            class="dz-xy-3-10 dz-wh-30-35 dz-tc-555555 dz-font-14 dz-noptr dz-exact-text dz-text-right dz-text-vc">
-          TRANSFER AMOUNT
+            data-style="Normal"
+            class="dz-xy-35-10 dz-wh-50-35 dz-tc-FE dz-tc-6A6560 dz-font-body-16 dz-noptr dz-exact-text dz-text-vc dz-text-right">
+          TRANSFER
         </span>
-        <input data-dz="editbox"
-            data-name="transferAmountInput"
-            data-style="TXInputField"
-            data-bind="{{ transferAmount }}"
-            data-scriptclass="EditBoxBinding"
-            data-validators="required,integer,min:1"
-            data-on-change="OnTransferAmountChanged"
-            class="dz-xy-35-10 dz-wh-50-35 dz-c-FE dz-font-16 dz-exact-text"/>
-
         <span data-dz="text"
             data-name="transferFeesLabel"
-            class="dz-xy-3-55 dz-wh-30-35 dz-tc-555555 dz-font-14 dz-noptr dz-exact-text dz-text-right dz-text-vc">
+            class="dz-xy-3-55 dz-wh-30-35 dz-tc-6A6560 dz-font-body-16 dz-noptr dz-exact-text dz-text-vc dz-text-right">
           FEES
         </span>
         <span data-dz="text"
             data-name="transferFeesValue"
-            data-bind="{{ transferFeesDisplay }}"
-            class="dz-xy-35-55 dz-wh-50-35 dz-tc-888888 dz-font-16 dz-noptr dz-exact-text dz-text-left dz-text-vc">
+            class="dz-xy-35-55 dz-wh-50-35 dz-tc-9A9488 dz-font-body-16 dz-noptr dz-exact-text dz-text-vc">
           5%
         </span>
       </div>
-
-      <!-- Destination Account ID Input -->
       <div data-dz="panel"
           data-name="transferDestSection"
           data-style="TXCard"
           class="dz-xy-3-37 dz-wh-94-16 dz-c-FE dz-noptr">
-
         <span data-dz="text"
             data-name="transferDestLabel"
-            class="dz-xy-3-0 dz-wh-30-100 dz-tc-555555 dz-font-14 dz-noptr dz-exact-text dz-text-right dz-text-vc">
-          DESTINATION ID
+            data-style="Normal"
+            class="dz-xy-35-15 dz-wh-62-70 dz-tc-FE dz-tc-6A6560 dz-font-body-16 dz-noptr dz-exact-text dz-text-vc dz-text-right">
+          DESTINATION
         </span>
-        <input data-dz="editbox"
-            data-name="transferDestInput"
-            data-style="TXInputField"
-            data-bind="{{ destinationAccountId }}"
-            data-scriptclass="EditBoxBinding"
-            data-validators="required,minlength:16"
-            class="dz-xy-35-15 dz-wh-62-70 dz-c-FE dz-font-16 dz-exact-text"/>
       </div>
-
-      <!-- Transfer Button -->
       <button data-dz="button"
           data-name="transferBtn"
           data-style="TXBtnDanger"
-          data-on-click="OnTransfer"
-          class="dz-xy-3-55 dz-wh-94-10 dz-tc-C9302C dz-font-16 dz-exact-text dz-bold">
-        SEND TRANSFER
+          class="dz-xy-3-55 dz-wh-94-10 dz-tc-FE dz-tc-D8D2C0 dz-font-body-16">
+        SEND
       </button>
-
-      <!-- Transfer Status Message -->
       <div data-dz="panel"
           data-name="transferStatusPanel"
           data-style="TXInfoBox"
           class="dz-xy-3-67 dz-wh-94-8 dz-c-FE dz-noptr dz-hidden">
-        <div data-dz="richtext"
+        <p data-dz="richtext"
             data-name="transferStatusMessage"
-            data-bind="{{ transferStatusText }}"
-            class="dz-xy-3-0 dz-wh-94-100 dz-tc-C9302C dz-font-14 dz-noptr dz-exact-text dz-text-vc dz-wrap">
-        </div>
+            class="dz-xy-3-0 dz-wh-94-100 dz-tc-C93030 dz-font-body-16 dz-noptr dz-wrap dz-exact-text dz-text-vc"></p>
       </div>
     </div>
-
   </div>
 </div>
 
-<script src="dzml-runtime.js"></script>
+<script src="dzml-runtime.js?v=1780762080419"></script>
 </body>
 </html>

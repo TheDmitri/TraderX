@@ -104,44 +104,73 @@ class TraderXTransactionNotifier
         return ENotificationType.SUCCESS;
     }
     
-    // Main method to show transaction notification
+    // Map a transaction result set to a toast type key (TXNOTIF_*). Single results
+    // distinguish purchase vs sale; multi results collapse to info/partial/error.
+    private string ResolveToastType(TraderXTransactionResultCollection results)
+    {
+        if (results.Count() == 1)
+        {
+            TraderXTransactionResult r = results.GetTransactionResults()[0];
+            if (!r || !r.IsSuccess())
+                return TXNOTIF_ERROR;
+
+            TraderXTransactionType tt = r.GetTransactionType();
+            if (tt && tt.IsSell())
+                return TXNOTIF_SALE;
+            return TXNOTIF_PURCHASE;
+        }
+
+        int type = GetNotificationType(results);
+        if (type == ENotificationType.ERROR)   return TXNOTIF_ERROR;
+        if (type == ENotificationType.WARNING) return TXNOTIF_WARNING;
+        return TXNOTIF_INFO;
+    }
+
+    // One breakdown line per independent transaction, for the expandable detail
+    // panel of a bulk toast: "Sold Ammo Box" / "Bought M4" / "Failed Canteen".
+    private void BuildDetailLines(TraderXTransactionResultCollection results, array<string> outDetails)
+    {
+        foreach (TraderXTransactionResult r : results.GetTransactionResults())
+        {
+            if (!r) continue;
+
+            TraderXProduct product = TraderXProductRepository.GetItemById(r.GetProductId());
+            string itemName = r.GetProductId();
+            if (product) itemName = product.GetDisplayName();
+
+            bool isSell = false;
+            TraderXTransactionType tt = r.GetTransactionType();
+            if (tt) isSell = tt.IsSell();
+
+            string line;
+            if (r.IsSuccess())
+                line = string.Format("%1 %2", Ternary<string>.If(isSell, "Sold", "Bought"), itemName);
+            else
+                line = string.Format("Failed %1", itemName);
+
+            outDetails.Insert(line);
+        }
+    }
+
+    // Main method to show transaction notification — routes to the HUD toast runner.
     void ShowTransactionNotification(TraderXTransactionResultCollection results)
     {
-        GetTraderXLogger().LogInfo("[TEST] TraderXTransactionNotifier::ShowTransactionNotification");
         if (!results || results.Count() == 0) return;
-        
+
         string title = FormatNotificationTitle(results);
         string content = FormatNotificationContent(results);
-        int type = GetNotificationType(results);
-        
-        // Use the notification service to display the notification
-        TraderXNotificationService.GetInstance().ShowTransactionNotification(type, 5, title, content, results.Count() > 1, "#tpm_show_details", GetNotificationDetails(results));
-    }
-    
-    // Get formatted details for the notification
-    private array<ref TraderXNotificationDetails> GetNotificationDetails(TraderXTransactionResultCollection results)
-    {
-        array<ref TraderXNotificationDetails> details = new array<ref TraderXNotificationDetails>();
-        
-        if (results.Count() <= 1) return details;
-        
-        for(int i = 0; i < results.GetTransactionResults().Count(); i++)
-        {
-            TraderXTransactionResult result = results.GetTransactionResults()[i];
-            string itemName = TraderXProductRepository.GetItemById(result.GetProductId()).GetDisplayName();
-            TraderXDynamicTranslationSettings settings = TraderXDynamicTranslationRepository.GetSettings();
-            string status = Ternary<string>.If(result.IsSuccess(), settings.completed, string.Format(settings.failedWithReason, result.GetMessage()));
-            
-            TraderXNotificationDetails detail = new TraderXNotificationDetails(result.IsSuccess(), itemName, status);
-            details.Insert(detail);
-        }
-        
-        return details;
+        string toastType = ResolveToastType(results);
+
+        // Bulk trades carry a per-transaction breakdown the card can expand to show.
+        array<string> details = new array<string>();
+        if (results.Count() > 1)
+            BuildDetailLines(results, details);
+
+        GetTraderXToastService().ShowToast(toastType, title, content, "", details);
     }
 
     void OnTraderXResponseReceived(int response, TraderXTransactionResultCollection transactionResultCollection)
     {
-        GetTraderXLogger().LogInfo("[TEST] TraderXTransactionNotifier::OnTraderXResponseReceived");
         if(response == ETraderXResponse.TRANSACTIONS && transactionResultCollection.Count() > 0){
             ShowTransactionNotification(transactionResultCollection);
         }

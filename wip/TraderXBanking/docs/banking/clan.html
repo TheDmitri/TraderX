@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Banking · Clan — Field Ledger</title>
+  <link rel="stylesheet" href="../field-ledger.css">
+  <style>
+    .page { padding: var(--sp-5); height: 100%; min-height: 0; display: flex; flex-direction: column; gap: var(--sp-4); overflow-y: auto; }
+
+    /* Clan header banner */
+    .clan-head { display: grid; grid-template-columns: 1fr auto; gap: var(--sp-4); padding: var(--sp-5); background: var(--bg-card); border: 1px solid var(--border-soft); border-left: 3px solid var(--accent-amber); }
+    .clan-head__name { font-size: 26px; color: var(--text-ivory); font-weight: 600; letter-spacing: 0.5px; }
+    .clan-head__motto { font-size: 12px; color: var(--text-ash); margin-top: 4px; font-style: italic; }
+    .clan-head__meta { display: flex; gap: var(--sp-4); margin-top: var(--sp-3); font-size: 11px; color: var(--text-dust); text-transform: uppercase; letter-spacing: 1.5px; }
+    .clan-head__meta strong { color: var(--text-ivory); font-weight: 500; }
+    .clan-head__actions { display: flex; flex-direction: column; gap: var(--sp-2); align-items: flex-end; }
+    .role-badge { padding: 4px 10px; border: 1px solid var(--accent-amber-dim); color: var(--accent-amber); font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500; }
+
+    /* Sub-tab nav within the Clan tab */
+    .subtabs { display: flex; gap: 0; border-bottom: 1px solid var(--border-soft); }
+    .subtabs__tab { padding: var(--sp-3) var(--sp-4); font-size: 12px; color: var(--text-ash); text-transform: uppercase; letter-spacing: 1.5px; border-bottom: 2px solid transparent; cursor: pointer; }
+    .subtabs__tab.is-active { color: var(--accent-amber); border-bottom-color: var(--accent-amber); }
+    .subtabs__tab:hover { color: var(--text-ivory); }
+
+    /* Overview layout */
+    .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--sp-4); }
+
+    .kpi { padding: var(--sp-4); background: var(--bg-card); border: 1px solid var(--border-soft); display: flex; flex-direction: column; gap: 4px; }
+    .kpi__k { font-size: 10px; color: var(--text-ash); text-transform: uppercase; letter-spacing: 1.5px; }
+    .kpi__v { font-size: 22px; color: var(--text-ivory); font-weight: 500; }
+    .kpi__v--amber { color: var(--accent-amber); }
+    .kpi__v--olive { color: var(--text-olive); }
+    .kpi__sub { font-size: 11px; color: var(--text-dust); }
+
+    .cols2 { display: grid; grid-template-columns: 1.4fr 1fr; gap: var(--sp-4); }
+
+    /* Roster */
+    .roster { background: var(--bg-card); border: 1px solid var(--border-soft); display: flex; flex-direction: column; min-height: 0; }
+    .roster__head { padding: var(--sp-3) var(--sp-4); border-bottom: 1px solid var(--border-soft); display: flex; justify-content: space-between; align-items: center; }
+    .roster__head h3 { font-size: 13px; color: var(--text-ivory); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500; }
+    .roster__body { display: flex; flex-direction: column; }
+    .member { display: grid; grid-template-columns: 36px 1fr auto auto auto; gap: var(--sp-3); align-items: center; padding: var(--sp-3) var(--sp-4); border-bottom: 1px solid var(--border-soft); }
+    .member:hover { background: var(--bg-hover); }
+    .member__avatar { width: 36px; height: 36px; background: var(--bg-elevated); border: 1px solid var(--border-soft); display: flex; align-items: center; justify-content: center; color: var(--text-ash); font-size: 12px; font-weight: 500; }
+    .member__info { display: flex; flex-direction: column; }
+    .member__name { font-size: 13px; color: var(--text-ivory); font-weight: 500; }
+    .member__name--self { color: var(--accent-amber); }
+    .member__sub { font-size: 11px; color: var(--text-dust); font-family: monospace; }
+    .member__contrib { font-size: 11px; color: var(--text-olive); letter-spacing: 1px; text-transform: uppercase; font-weight: 500; }
+    .member__role { font-size: 10px; padding: 2px 8px; border: 1px solid var(--border-default); color: var(--text-ash); text-transform: uppercase; letter-spacing: 1.2px; }
+    .member__role--owner { color: var(--text-rust); border-color: var(--action-rust-deep); }
+    .member__role--officer { color: var(--accent-amber); border-color: var(--accent-amber-dim); }
+    .member__role--member { color: var(--text-ash); }
+    .member__actions { display: flex; gap: 4px; }
+
+    /* Invite panel */
+    .invite-panel { background: var(--bg-card); border: 1px solid var(--border-soft); padding: var(--sp-4); display: flex; flex-direction: column; gap: var(--sp-3); }
+    .invite-panel h3 { font-size: 13px; color: var(--text-ivory); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500; }
+    .invite-panel__row { display: grid; grid-template-columns: 1fr auto; gap: var(--sp-3); }
+
+    .pending-invites { display: flex; flex-direction: column; gap: var(--sp-2); margin-top: var(--sp-2); }
+    .pending-row { display: grid; grid-template-columns: 1fr auto; gap: var(--sp-3); align-items: center; padding: 8px 10px; background: var(--bg-surface); border: 1px solid var(--border-soft); font-size: 12px; }
+    .pending-row__name { color: var(--text-ivory); font-weight: 500; }
+    .pending-row__meta { color: var(--text-dust); font-size: 10px; }
+
+    /* Clan account (money) */
+    .bank-card { background: var(--bg-card); border: 1px solid var(--border-soft); border-left: 3px solid var(--accent-amber); padding: var(--sp-5); display: flex; flex-direction: column; gap: var(--sp-3); }
+    .bank-card__v { font-size: 40px; color: var(--accent-amber); font-weight: 500; line-height: 1; }
+    .bank-card__unit { font-size: 12px; color: var(--text-ash); text-transform: uppercase; letter-spacing: 1.5px; }
+    .bank-actions { display: flex; flex-direction: column; gap: var(--sp-3); }
+    .action-row { display: grid; grid-template-columns: 1fr auto; gap: var(--sp-3); align-items: end; }
+
+    /* Log */
+    .log { background: var(--bg-card); border: 1px solid var(--border-soft); display: flex; flex-direction: column; }
+    .log__head { padding: var(--sp-3) var(--sp-4); border-bottom: 1px solid var(--border-soft); display: flex; justify-content: space-between; align-items: center; }
+    .log__head h3 { font-size: 13px; color: var(--text-ivory); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500; }
+    .log__body { max-height: 280px; overflow-y: auto; padding: var(--sp-2); display: flex; flex-direction: column; gap: 4px; }
+    .log__line { display: grid; grid-template-columns: 72px 1fr auto; gap: var(--sp-2); padding: 6px 10px; font-size: 11px; align-items: center; }
+    .log__date { color: var(--text-dust); font-family: monospace; font-size: 10px; }
+    .log__who { color: var(--text-ivory); font-weight: 500; }
+    .log__desc { color: var(--text-ash); }
+    .log__desc--in { color: var(--text-olive); }
+    .log__desc--out { color: var(--text-rust); }
+  </style>
+</head>
+<body>
+<div class="dz-viewport">
+  <div class="shell">
+    <div class="shell__header">
+      <div class="shell__identity">
+        <div class="shell__identity-name">Yuri Pashkov</div>
+        <div class="shell__identity-role">Banking · Bank teller</div>
+      </div>
+      <div class="shell__nav">
+        <a class="shell__tab" href="bankingView.html">Home</a>
+        <a class="shell__tab" href="account.html">Account</a>
+        <a class="shell__tab" href="vault.html">Vault</a>
+        <a class="shell__tab" href="transfer.html">Transfer</a>
+        <a class="shell__tab is-active" href="clan.html">Clan</a>
+        <a class="shell__tab" href="ledger.html">Ledger</a>
+      </div>
+      <button class="shell__close">X</button>
+    </div>
+
+    <div class="shell__subnav">
+      <div class="muted uppercase" style="font-size: 11px; letter-spacing: 1.5px;">Clan services · roster, bank &amp; activity</div>
+      <div class="ml-auto status-pills">
+        <span class="pill pill--on">● Member since 2026-04-02</span>
+      </div>
+    </div>
+
+    <div class="shell__content">
+      <div class="page">
+        <!-- CLAN BANNER -->
+        <div class="clan-head">
+          <div>
+            <div class="clan-head__name">Chernyi Led</div>
+            <div class="clan-head__motto">“The ice holds what the forest cannot.”</div>
+            <div class="clan-head__meta">
+              <div>Founded <strong>2026-03-14</strong></div>
+              <div>Members <strong>12 / 20</strong></div>
+              <div>Tag <strong>[CHL]</strong></div>
+            </div>
+          </div>
+          <div class="clan-head__actions">
+            <span class="role-badge">Officer · you</span>
+            <button class="btn btn--sm btn--default">Leave clan</button>
+          </div>
+        </div>
+
+        <!-- SUBTAB NAV inside Clan tab -->
+        <div class="subtabs">
+          <div class="subtabs__tab is-active">Overview</div>
+          <div class="subtabs__tab">Bank account</div>
+          <div class="subtabs__tab">Activity log</div>
+          <div class="subtabs__tab">Settings</div>
+        </div>
+
+        <!-- KPI ROW -->
+        <div class="grid3">
+          <div class="kpi">
+            <span class="kpi__k">Bank balance</span>
+            <span class="kpi__v kpi__v--amber">48,200</span>
+            <span class="kpi__sub">Roubles · pooled clan funds</span>
+          </div>
+          <div class="kpi">
+            <span class="kpi__k">Vault</span>
+            <span class="kpi__v">156 / 500</span>
+            <span class="kpi__sub">slots · <a href="vault-clan.html" class="amber">open vault →</a></span>
+          </div>
+          <div class="kpi">
+            <span class="kpi__k">Your contribution (30d)</span>
+            <span class="kpi__v kpi__v--olive">+4,000</span>
+            <span class="kpi__sub">Roubles in · 3 items deposited</span>
+          </div>
+        </div>
+
+        <!-- MAIN TWO-COL: roster + invites | clan bank -->
+        <div class="cols2">
+          <!-- LEFT: Roster + Invites -->
+          <div class="fl-col gap-4" style="min-height: 0;">
+            <div class="roster">
+              <div class="roster__head">
+                <h3>Roster · 12 members</h3>
+                <div class="fl gap-2">
+                  <input class="input" placeholder="Search member…" style="padding: 4px 10px; font-size: 12px; min-width: 180px;">
+                  <span class="pill">All roles ▾</span>
+                </div>
+              </div>
+              <div class="roster__body">
+                <div class="member">
+                  <div class="member__avatar">NK</div>
+                  <div class="member__info">
+                    <span class="member__name">Nikolai K.</span>
+                    <span class="member__sub">76561198·0042·1004 · joined 2026-03-14</span>
+                  </div>
+                  <span class="member__contrib">+18,400</span>
+                  <span class="member__role member__role--owner">Owner</span>
+                  <div class="member__actions">
+                    <button class="btn btn--sm btn--default" disabled>Message</button>
+                  </div>
+                </div>
+                <div class="member" style="background: var(--bg-hover);">
+                  <div class="member__avatar">DM</div>
+                  <div class="member__info">
+                    <span class="member__name member__name--self">Dmitri (you)</span>
+                    <span class="member__sub">76561198·A9F2·1847 · joined 2026-04-02</span>
+                  </div>
+                  <span class="member__contrib">+4,000</span>
+                  <span class="member__role member__role--officer">Officer</span>
+                  <div class="member__actions">
+                    <button class="btn btn--sm btn--default" disabled>—</button>
+                  </div>
+                </div>
+                <div class="member">
+                  <div class="member__avatar">BM</div>
+                  <div class="member__info">
+                    <span class="member__name">Boris M.</span>
+                    <span class="member__sub">76561198·5F12·A3C0 · joined 2026-04-05</span>
+                  </div>
+                  <span class="member__contrib">+6,200</span>
+                  <span class="member__role member__role--officer">Officer</span>
+                  <div class="member__actions">
+                    <button class="btn btn--sm btn--default">Demote</button>
+                    <button class="btn btn--sm btn--default">Kick</button>
+                  </div>
+                </div>
+                <div class="member">
+                  <div class="member__avatar">AK</div>
+                  <div class="member__info">
+                    <span class="member__name">Alex K.</span>
+                    <span class="member__sub">76561198·B1CE·9214 · joined 2026-04-08</span>
+                  </div>
+                  <span class="member__contrib">+3,100</span>
+                  <span class="member__role member__role--member">Member</span>
+                  <div class="member__actions">
+                    <button class="btn btn--sm btn--default">Promote</button>
+                    <button class="btn btn--sm btn--default">Kick</button>
+                  </div>
+                </div>
+                <div class="member">
+                  <div class="member__avatar">SV</div>
+                  <div class="member__info">
+                    <span class="member__name">Svetlana V.</span>
+                    <span class="member__sub">76561198·03AB·771F · joined 2026-04-10</span>
+                  </div>
+                  <span class="member__contrib">+2,400</span>
+                  <span class="member__role member__role--member">Member</span>
+                  <div class="member__actions">
+                    <button class="btn btn--sm btn--default">Promote</button>
+                    <button class="btn btn--sm btn--default">Kick</button>
+                  </div>
+                </div>
+                <div class="member">
+                  <div class="member__avatar">EK</div>
+                  <div class="member__info">
+                    <span class="member__name">Elena K.</span>
+                    <span class="member__sub">76561198·72E9·5544 · joined 2026-04-12</span>
+                  </div>
+                  <span class="member__contrib">+1,800</span>
+                  <span class="member__role member__role--member">Member</span>
+                  <div class="member__actions">
+                    <button class="btn btn--sm btn--default">Promote</button>
+                    <button class="btn btn--sm btn--default">Kick</button>
+                  </div>
+                </div>
+                <div class="member">
+                  <div class="member__avatar">DO</div>
+                  <div class="member__info">
+                    <span class="member__name">Dmitri O.</span>
+                    <span class="member__sub">76561198·9A40·E2B7 · joined 2026-04-13</span>
+                  </div>
+                  <span class="member__contrib">+900</span>
+                  <span class="member__role member__role--member">Member</span>
+                  <div class="member__actions">
+                    <button class="btn btn--sm btn--default">Promote</button>
+                    <button class="btn btn--sm btn--default">Kick</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="invite-panel">
+              <div class="fl" style="justify-content: space-between; align-items: center;">
+                <h3>Invite new member</h3>
+                <span class="muted" style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.3px;">Officer+</span>
+              </div>
+              <div class="invite-panel__row">
+                <div class="field">
+                  <label class="field__label">Player Account ID</label>
+                  <input class="input" placeholder="76561198·XXXX·XXXX">
+                </div>
+                <button class="btn btn--primary" style="align-self: end;">Send invite</button>
+              </div>
+              <div class="muted" style="font-size: 11px;">Invited players see your clan in their Home tab. Invites expire after 7 days.</div>
+
+              <div class="pending-invites">
+                <div class="muted uppercase" style="font-size: 10px; letter-spacing: 1.5px; margin-top: var(--sp-2);">Pending invites · 2</div>
+                <div class="pending-row">
+                  <div class="fl-col">
+                    <span class="pending-row__name">Maxim S.</span>
+                    <span class="pending-row__meta">76561198·BC41·0077 · sent 2d ago · expires 5d</span>
+                  </div>
+                  <button class="btn btn--sm btn--default">Revoke</button>
+                </div>
+                <div class="pending-row">
+                  <div class="fl-col">
+                    <span class="pending-row__name">Irina R.</span>
+                    <span class="pending-row__meta">76561198·44F8·9910 · sent 6h ago · expires 6d</span>
+                  </div>
+                  <button class="btn btn--sm btn--default">Revoke</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: Clan bank + recent log -->
+          <div class="fl-col gap-4" style="min-height: 0;">
+            <div class="bank-card">
+              <div class="muted uppercase" style="font-size: 11px; letter-spacing: 1.5px;">Clan bank balance</div>
+              <div class="bank-card__v">48,200</div>
+              <div class="bank-card__unit">Roubles</div>
+
+              <div class="bank-actions" style="margin-top: var(--sp-3);">
+                <div class="action-row">
+                  <div class="field">
+                    <label class="field__label">Deposit from personal account</label>
+                    <input class="input" placeholder="0" value="2,000">
+                  </div>
+                  <button class="btn btn--primary">Deposit</button>
+                </div>
+                <div class="action-row">
+                  <div class="field">
+                    <label class="field__label">Withdraw to personal account</label>
+                    <input class="input" placeholder="0">
+                  </div>
+                  <button class="btn btn--danger">Withdraw</button>
+                </div>
+                <div class="muted" style="font-size: 11px;">Withdraw requires Officer+ · all ops recorded on clan log and your personal ledger.</div>
+              </div>
+            </div>
+
+            <div class="log">
+              <div class="log__head">
+                <h3>Recent clan activity</h3>
+                <a class="muted uppercase" href="ledger.html" style="font-size: 11px; letter-spacing: 1.5px;">Full log →</a>
+              </div>
+              <div class="log__body">
+                <div class="log__line">
+                  <span class="log__date">04-17 14:10</span>
+                  <span><span class="log__who">Boris M.</span> <span class="log__desc log__desc--in">deposited SVD to vault</span></span>
+                  <span class="log__desc">+item</span>
+                </div>
+                <div class="log__line">
+                  <span class="log__date">04-17 11:52</span>
+                  <span><span class="log__who">Dmitri (you)</span> <span class="log__desc log__desc--in">deposited 2,000 ₽</span></span>
+                  <span class="log__desc log__desc--in">+2,000 ₽</span>
+                </div>
+                <div class="log__line">
+                  <span class="log__date">04-17 09:15</span>
+                  <span><span class="log__who">Svetlana V.</span> <span class="log__desc log__desc--in">deposited 20× medkit</span></span>
+                  <span class="log__desc">+20 items</span>
+                </div>
+                <div class="log__line">
+                  <span class="log__date">04-16 21:44</span>
+                  <span><span class="log__who">Alex K.</span> <span class="log__desc log__desc--out">withdrew M4A1</span></span>
+                  <span class="log__desc">−item</span>
+                </div>
+                <div class="log__line">
+                  <span class="log__date">04-16 18:02</span>
+                  <span><span class="log__who">Dmitri O.</span> <span class="log__desc log__desc--in">deposited 2× NVG</span></span>
+                  <span class="log__desc">+2 items</span>
+                </div>
+                <div class="log__line">
+                  <span class="log__date">04-16 09:00</span>
+                  <span><span class="log__who">System</span> <span class="log__desc log__desc--out">vault daily fee</span></span>
+                  <span class="log__desc log__desc--out">−312 ₽</span>
+                </div>
+                <div class="log__line">
+                  <span class="log__date">04-15 22:05</span>
+                  <span><span class="log__who">Nikolai K.</span> <span class="log__desc">promoted Boris M. to Officer</span></span>
+                  <span class="log__desc">—</span>
+                </div>
+                <div class="log__line">
+                  <span class="log__date">04-15 17:48</span>
+                  <span><span class="log__who">Alex K.</span> <span class="log__desc log__desc--out">withdrew plate carrier</span></span>
+                  <span class="log__desc">−item</span>
+                </div>
+                <div class="log__line">
+                  <span class="log__date">04-14 10:33</span>
+                  <span><span class="log__who">Elena K.</span> <span class="log__desc">joined clan (accepted invite)</span></span>
+                  <span class="log__desc">+member</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+MetaFileClass {
+ Name "{0340C2EBFA081AA7}TraderX/datasets/icons/traderx_icons.edds"
+ Author "dmitri"
+ ChangeDate 0
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "traderx_icons.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+ }
+}

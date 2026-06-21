@@ -1,0 +1,1091 @@
+PanelWidgetClass vaultPanel {
+ position 0 0
+ hexactpos 0
+ vexactpos 0
+ size 1 1
+ hexactsize 0
+ vexactsize 0
+ color 0.0314 0.0353 0.0471 0.8196
+ ignorepointer 1
+ {
+  PanelWidgetClass ownerBar {
+   position 0.02 0.02
+   hexactpos 0
+   vexactpos 0
+   size 0.7 0.06
+   hexactsize 0
+   vexactsize 0
+   color 0.9961 0.9961 0.9961 1
+   ignorepointer 1
+   style TXCard
+   {
+    TextWidgetClass ownerLabel {
+     position 0.02 0.15
+     hexactpos 0
+     vexactpos 0
+     size 0.1 0.7
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.6039 0.5804 0.5333 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     "text valign" center
+     style Bold
+     text "OWNER"
+    }
+    TextWidgetClass ownerValue {
+     position 0.13 0.15
+     hexactpos 0
+     vexactpos 0
+     size 0.5 0.7
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "gui/fonts/etelkatextpro14"
+     ignorepointer 1
+     "exact text" 1
+     "text valign" center
+     style Bold
+     text "—"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ ownerDisplayText }}"
+      }
+     }
+    }
+    TextWidgetClass ownerRoleBadge {
+     position 0.64 0.2
+     hexactpos 0
+     vexactpos 0
+     size 0.14 0.6
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8314 0.6431 0.298 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     "text valign" center
+     style Bold
+     text "—"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ ownerRoleText }}"
+      }
+     }
+    }
+    ButtonWidgetClass ownerSwitchBtn {
+     position 0.8 0.15
+     hexactpos 0
+     vexactpos 0
+     size 0.17 0.7
+     hexactsize 0
+     vexactsize 0
+     color 0.9961 0.9961 0.9961 1
+     "text color" 0.8314 0.6431 0.298 1
+     font "gui/fonts/etelkatextpro12"
+     "exact text" 1
+     style Bold
+     style TXBtnDefault
+     text "SWITCH OWNER ▾"
+     scriptclass "ButtonBinding"
+     {
+      ScriptParamsClass {
+       OnClick "OnSwitchOwner"
+      }
+     }
+    }
+    PanelWidgetClass ownerDropdown {
+     position 0.8 1
+     hexactpos 0
+     vexactpos 0
+     size 0.17 1.8
+     hexactsize 0
+     vexactsize 0
+     color 0.9961 0.9961 0.9961 1
+     ignorepointer 1
+     style TXCardElevated
+     {
+      ScrollWidgetClass ownerDropdownScroll {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 1 1
+       hexactsize 0
+       vexactsize 0
+       "Scrollbar V" 1
+       {
+        GridSpacerWidgetClass ownerDropdownList {
+         size 1 40
+         hexactsize 0
+         vexactsize 1
+         ignorepointer 1
+         "Size To Content V" 1
+         Columns 1
+         Rows 6
+         Margin 1
+         scriptclass "ComponentWidgetBinding"
+         {
+          ScriptParamsClass {
+           Component_ForEach "{{ _availableOwners }}"
+           Component_Template "txb-vault-owner-row"
+           Component_ItemProperty "_inputOwner"
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+  GridSpacerWidgetClass capacityGrid {
+   position 0.02 0.09
+   hexactpos 0
+   vexactpos 0
+   size 0.7 0.1
+   hexactsize 0
+   vexactsize 0
+   ignorepointer 1
+   Columns 4
+   Rows 1
+   Margin 3
+   {
+    PanelWidgetClass capCapacity {
+     color 0.9961 0.9961 0.9961 1
+     ignorepointer 1
+     style TXCard
+     {
+      TextWidgetClass capCapacityLabel {
+       position 0.05 0.1
+       hexactpos 0
+       vexactpos 0
+       size 0.9 0.18
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.6039 0.5804 0.5333 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       style Bold
+       text "CAPACITY"
+      }
+      TextWidgetClass capCapacityValue {
+       position 0.05 0.28
+       hexactpos 0
+       vexactpos 0
+       size 0.9 0.3
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.8471 0.8235 0.7529 1
+       font "gui/fonts/etelkatextpro22"
+       ignorepointer 1
+       "exact text" 1
+       style Bold
+       text "— / —"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ capacityText }}"
+        }
+       }
+      }
+      TextWidgetClass capCapacitySub {
+       position 0.05 0.6
+       hexactpos 0
+       vexactpos 0
+       size 0.9 0.1
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.4157 0.3961 0.3765 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       text "slots used"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ capacitySubText }}"
+        }
+       }
+      }
+      PanelWidgetClass capProgress {
+       position 0.05 0.75
+       hexactpos 0
+       vexactpos 0
+       size 0.9 0.05
+       hexactsize 0
+       vexactsize 0
+       color 0.9961 0.9961 0.9961 1
+       ignorepointer 1
+       style TXProgressBg
+       {
+        PanelWidgetClass capProgressFill {
+         position 0 0
+         hexactpos 0
+         vexactpos 0
+         size 0 1
+         hexactsize 0
+         vexactsize 0
+         color 0.9961 0.9961 0.9961 1
+         ignorepointer 1
+         style TXProgressFill
+        }
+       }
+      }
+     }
+    }
+    PanelWidgetClass capFee {
+     color 0.9961 0.9961 0.9961 1
+     ignorepointer 1
+     style TXCard
+     {
+      TextWidgetClass capFeeLabel {
+       position 0.05 0.1
+       hexactpos 0
+       vexactpos 0
+       size 0.9 0.18
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.6039 0.5804 0.5333 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       style Bold
+       text "DAILY FEE"
+      }
+      TextWidgetClass capFeeValue {
+       position 0.05 0.28
+       hexactpos 0
+       vexactpos 0
+       size 0.9 0.3
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.7843 0.4 0.2902 1
+       font "gui/fonts/etelkatextpro22"
+       ignorepointer 1
+       "exact text" 1
+       style Bold
+       text "— ₽"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ dailyFeeText }}"
+        }
+       }
+      }
+      TextWidgetClass capFeeSub {
+       position 0.05 0.6
+       hexactpos 0
+       vexactpos 0
+       size 0.9 0.2
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.4157 0.3961 0.3765 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       wrap 1
+       text "debited from bank balance"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ feeSourceText }}"
+        }
+       }
+      }
+     }
+    }
+    PanelWidgetClass capRole {
+     color 0.9961 0.9961 0.9961 1
+     ignorepointer 1
+     style TXCard
+     {
+      TextWidgetClass capRoleLabel {
+       position 0.05 0.1
+       hexactpos 0
+       vexactpos 0
+       size 0.9 0.18
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.6039 0.5804 0.5333 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       style Bold
+       text "YOUR ROLE"
+      }
+      TextWidgetClass capRoleValue {
+       position 0.05 0.28
+       hexactpos 0
+       vexactpos 0
+       size 0.9 0.3
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.8314 0.6431 0.298 1
+       font "gui/fonts/etelkatextpro22"
+       ignorepointer 1
+       "exact text" 1
+       style Bold
+       text "—"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ capacityRoleText }}"
+        }
+       }
+      }
+      TextWidgetClass capRoleSub {
+       position 0.05 0.6
+       hexactpos 0
+       vexactpos 0
+       size 0.9 0.2
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.4157 0.3961 0.3765 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       wrap 1
+       text "—"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ capacityRoleRightsText }}"
+        }
+       }
+      }
+     }
+    }
+    PanelWidgetClass capNext {
+     color 0.9961 0.9961 0.9961 1
+     ignorepointer 1
+     style TXCard
+     {
+      TextWidgetClass capNextLabel {
+       position 0.05 0.1
+       hexactpos 0
+       vexactpos 0
+       size 0.9 0.18
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.6039 0.5804 0.5333 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       style Bold
+       text "NEXT COLLECTION"
+      }
+      TextWidgetClass capNextValue {
+       position 0.05 0.28
+       hexactpos 0
+       vexactpos 0
+       size 0.9 0.3
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.8314 0.6431 0.298 1
+       font "gui/fonts/etelkatextpro22"
+       ignorepointer 1
+       "exact text" 1
+       style Bold
+       text "—"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ nextCollectionText }}"
+        }
+       }
+      }
+      TextWidgetClass capNextSub {
+       position 0.05 0.6
+       hexactpos 0
+       vexactpos 0
+       size 0.9 0.2
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.4157 0.3961 0.3765 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       wrap 1
+       text "auto-debit if funded"
+      }
+     }
+    }
+   }
+  }
+  PanelWidgetClass storageCard {
+   position 0.02 0.21
+   hexactpos 0
+   vexactpos 0
+   size 0.7 0.76
+   hexactsize 0
+   vexactsize 0
+   color 0.9961 0.9961 0.9961 1
+   ignorepointer 1
+   style TXCard
+   {
+    TextWidgetClass storageTitle {
+     position 0.02 0.02
+     hexactpos 0
+     vexactpos 0
+     size 0.4 0.04
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     style Bold
+     text "STORED ITEMS · 0"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ storageTitleText }}"
+      }
+     }
+    }
+    EditBoxWidgetClass storageSearchInput {
+     position 0.65 0.02
+     hexactpos 0
+     vexactpos 0
+     size 0.22 0.04
+     hexactsize 0
+     vexactsize 0
+     color 0.9961 0.9961 0.9961 1
+     "text color" 0.8471 0.8235 0.7529 1
+     font "gui/fonts/etelkatextpro12"
+     "exact text" 1
+     style TXInputField
+     scriptclass "EditBoxBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ storageSearch }}"
+       Two_Way_Binding 1
+       OnChange "OnStorageSearchChanged"
+      }
+     }
+    }
+    TextWidgetClass storageDepositorFilter {
+     position 0.88 0.02
+     hexactpos 0
+     vexactpos 0
+     size 0.1 0.04
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.6039 0.5804 0.5333 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     "text valign" center
+     "text halign" right
+     text "ALL ▾"
+    }
+    ScrollWidgetClass storageScroll {
+     position 0.02 0.07
+     hexactpos 0
+     vexactpos 0
+     size 0.96 0.91
+     hexactsize 0
+     vexactsize 0
+     "Scrollbar V" 1
+     {
+      GridSpacerWidgetClass storageGrid {
+       size 1 90
+       hexactsize 0
+       vexactsize 1
+       ignorepointer 1
+       "Size To Content V" 1
+       Columns 4
+       Rows 40
+       Margin 2
+       scriptclass "ComponentWidgetBinding"
+       {
+        ScriptParamsClass {
+         Component_ForEach "{{ _visibleItems }}"
+         Component_Template "txb-vault-item-card"
+         Component_ItemProperty "_inputItem"
+        }
+       }
+      }
+      TextWidgetClass storageEmpty {
+       position 0.05 0.4
+       hexactpos 0
+       vexactpos 0
+       size 0.9 0.1
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.4157 0.3961 0.3765 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       "text halign" center
+       "text valign" center
+       text "No stored items"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ emptyStorageText }}"
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+  PanelWidgetClass previewCard {
+   position 0.73 0.02
+   hexactpos 0
+   vexactpos 0
+   size 0.25 0.16
+   hexactsize 0
+   vexactsize 0
+   color 0.9961 0.9961 0.9961 1
+   ignorepointer 1
+   style TXCard
+   {
+    ItemPreviewWidgetClass itemPreviewWidget {
+     position 0.25 0.05
+     hexactpos 0
+     vexactpos 0
+     size 0.5 0.9
+     hexactsize 0
+     vexactsize 0
+     ignorepointer 1
+     scriptclass "ItemPreviewBinding"
+     {
+      ScriptParamsClass {
+       Binding_Item "{{ previewItem }}"
+       Enable_Rotation 1
+      }
+     }
+    }
+   }
+  }
+  PanelWidgetClass detailCard {
+   position 0.73 0.19
+   hexactpos 0
+   vexactpos 0
+   size 0.25 0.3
+   hexactsize 0
+   vexactsize 0
+   color 0.9961 0.9961 0.9961 1
+   ignorepointer 1
+   style TXCard
+   {
+    PanelWidgetClass detailLeftStrip {
+     position 0 0
+     hexactpos 0
+     vexactpos 0
+     size 0 1
+     hexactsize 0
+     vexactsize 0
+     color 0.9961 0.9961 0.9961 1
+     ignorepointer 1
+     style TXProgressFill
+    }
+    TextWidgetClass detailItemName {
+     position 0.05 0.05
+     hexactpos 0
+     vexactpos 0
+     size 0.7 0.1
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "gui/fonts/etelkatextpro16"
+     ignorepointer 1
+     "exact text" 1
+     style Bold
+     text "—"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ detailNameText }}"
+      }
+     }
+    }
+    TextWidgetClass detailHealthBadge {
+     position 0.76 0.05
+     hexactpos 0
+     vexactpos 0
+     size 0.22 0.1
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.6039 0.6902 0.3529 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     "text halign" right
+     style Bold
+     text "—"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ detailHealthText }}"
+      }
+     }
+    }
+    TextWidgetClass detailClassLabel {
+     position 0.05 0.18
+     hexactpos 0
+     vexactpos 0
+     size 0.45 0.05
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.6039 0.5804 0.5333 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     text "CLASS"
+    }
+    TextWidgetClass detailClassValue {
+     position 0.05 0.24
+     hexactpos 0
+     vexactpos 0
+     size 0.45 0.06
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     text "—"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ detailClassText }}"
+      }
+     }
+    }
+    TextWidgetClass detailFootprintLabel {
+     position 0.52 0.18
+     hexactpos 0
+     vexactpos 0
+     size 0.45 0.05
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.6039 0.5804 0.5333 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     text "FOOTPRINT"
+    }
+    TextWidgetClass detailFootprintValue {
+     position 0.52 0.24
+     hexactpos 0
+     vexactpos 0
+     size 0.45 0.06
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     text "—"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ detailFootprintText }}"
+      }
+     }
+    }
+    TextWidgetClass detailSinceLabel {
+     position 0.05 0.33
+     hexactpos 0
+     vexactpos 0
+     size 0.45 0.05
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.6039 0.5804 0.5333 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     text "STORED SINCE"
+    }
+    TextWidgetClass detailSinceValue {
+     position 0.05 0.39
+     hexactpos 0
+     vexactpos 0
+     size 0.45 0.06
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     text "—"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ detailSinceText }}"
+      }
+     }
+    }
+    TextWidgetClass detailDaysLabel {
+     position 0.52 0.33
+     hexactpos 0
+     vexactpos 0
+     size 0.45 0.05
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.6039 0.5804 0.5333 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     text "DAYS STORED"
+    }
+    TextWidgetClass detailDaysValue {
+     position 0.52 0.39
+     hexactpos 0
+     vexactpos 0
+     size 0.45 0.06
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     text "—"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ detailDaysText }}"
+      }
+     }
+    }
+    TextWidgetClass detailAttachmentsLabel {
+     position 0.05 0.48
+     hexactpos 0
+     vexactpos 0
+     size 0.45 0.05
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.6039 0.5804 0.5333 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     text "ATTACHMENTS"
+    }
+    TextWidgetClass detailAttachmentsValue {
+     position 0.05 0.54
+     hexactpos 0
+     vexactpos 0
+     size 0.45 0.06
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     text "—"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ detailAttachmentsText }}"
+      }
+     }
+    }
+    TextWidgetClass detailCargoLabel {
+     position 0.52 0.48
+     hexactpos 0
+     vexactpos 0
+     size 0.45 0.05
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.6039 0.5804 0.5333 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     text "CARGO / MAG"
+    }
+    TextWidgetClass detailCargoValue {
+     position 0.52 0.54
+     hexactpos 0
+     vexactpos 0
+     size 0.45 0.06
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     text "—"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ detailCargoText }}"
+      }
+     }
+    }
+    PanelWidgetClass detailDivider {
+     position 0.05 0.68
+     hexactpos 0
+     vexactpos 0
+     size 0.9 0
+     hexactsize 0
+     vexactsize 0
+     color 0.9961 0.9961 0.9961 1
+     ignorepointer 1
+     style TXDivider
+    }
+    TextWidgetClass detailAccruedLabel {
+     position 0.05 0.72
+     hexactpos 0
+     vexactpos 0
+     size 0.5 0.1
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.6039 0.5804 0.5333 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     text "Accrued fee"
+    }
+    TextWidgetClass detailAccruedValue {
+     position 0.55 0.72
+     hexactpos 0
+     vexactpos 0
+     size 0.42 0.1
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.7843 0.4 0.2902 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     "text halign" right
+     style Bold
+     text "— ₽"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ detailAccruedFeeText }}"
+      }
+     }
+    }
+    PanelWidgetClass detailDepositorStrip {
+     position 0.03 0.84
+     hexactpos 0
+     vexactpos 0
+     size 0.94 0.12
+     hexactsize 0
+     vexactsize 0
+     color 0.9961 0.9961 0.9961 1
+     ignorepointer 1
+     style TXInfoBox
+     {
+      TextWidgetClass detailDepositorText {
+       position 0.04 0
+       hexactpos 0
+       vexactpos 0
+       size 0.92 1
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.6039 0.5804 0.5333 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       "text valign" center
+       wrap 1
+       text "Deposited by — · —"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ detailDepositorText }}"
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+  PanelWidgetClass actionsCard {
+   position 0.73 0.5
+   hexactpos 0
+   vexactpos 0
+   size 0.25 0.22
+   hexactsize 0
+   vexactsize 0
+   color 0.9961 0.9961 0.9961 1
+   ignorepointer 1
+   style TXCard
+   {
+    TextWidgetClass actionsTitle {
+     position 0.05 0.05
+     hexactpos 0
+     vexactpos 0
+     size 0.9 0.1
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     style Bold
+     text "ACTIONS"
+    }
+    ButtonWidgetClass withdrawItemBtn {
+     position 0.05 0.2
+     hexactpos 0
+     vexactpos 0
+     size 0.9 0.16
+     hexactsize 0
+     vexactsize 0
+     color 0.9961 0.9961 0.9961 1
+     "text color" 0.8471 0.8235 0.7529 1
+     font "gui/fonts/etelkatextpro12"
+     "exact text" 1
+     style Bold
+     style TXBtnPrimary
+     text "WITHDRAW TO INVENTORY"
+     scriptclass "ButtonBinding"
+     {
+      ScriptParamsClass {
+       OnClick "OnWithdrawItem"
+      }
+     }
+    }
+    ButtonWidgetClass depositItemBtn {
+     position 0.05 0.39
+     hexactpos 0
+     vexactpos 0
+     size 0.9 0.16
+     hexactsize 0
+     vexactsize 0
+     color 0.9961 0.9961 0.9961 1
+     "text color" 0.8471 0.8235 0.7529 1
+     font "gui/fonts/etelkatextpro12"
+     "exact text" 1
+     style Bold
+     style TXBtnDefault
+     text "DEPOSIT FROM INVENTORY"
+     scriptclass "ButtonBinding"
+     {
+      ScriptParamsClass {
+       OnClick "OnDepositItem"
+      }
+     }
+    }
+    ButtonWidgetClass takeAllBtn {
+     position 0.05 0.58
+     hexactpos 0
+     vexactpos 0
+     size 0.9 0.16
+     hexactsize 0
+     vexactsize 0
+     color 0.9961 0.9961 0.9961 1
+     "text color" 0.7843 0.4 0.2902 1
+     font "gui/fonts/etelkatextpro12"
+     "exact text" 1
+     style Bold
+     style TXBtnDanger
+     text "TAKE EVERYTHING"
+     scriptclass "ButtonBinding"
+     {
+      ScriptParamsClass {
+       OnClick "OnTakeAll"
+      }
+     }
+    }
+    TextWidgetClass actionsNote {
+     position 0.05 0.78
+     hexactpos 0
+     vexactpos 0
+     size 0.9 0.18
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.4157 0.3961 0.3765 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     wrap 1
+     text "Withdraw spawns into inventory. Deposit snapshots health/qty/attachments."
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ actionsNoteText }}"
+      }
+     }
+    }
+   }
+  }
+  PanelWidgetClass vaultActivityCard {
+   position 0.73 0.73
+   hexactpos 0
+   vexactpos 0
+   size 0.25 0.24
+   hexactsize 0
+   vexactsize 0
+   color 0.9961 0.9961 0.9961 1
+   ignorepointer 1
+   style TXCard
+   {
+    TextWidgetClass vaultActivityTitle {
+     position 0.05 0.04
+     hexactpos 0
+     vexactpos 0
+     size 0.9 0.06
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     style Bold
+     text "VAULT ACTIVITY"
+    }
+    ScrollWidgetClass vaultActivityScroll {
+     position 0.02 0.11
+     hexactpos 0
+     vexactpos 0
+     size 0.96 0.85
+     hexactsize 0
+     vexactsize 0
+     "Scrollbar V" 1
+     {
+      GridSpacerWidgetClass vaultActivityList {
+       size 1 22
+       hexactsize 0
+       vexactsize 1
+       ignorepointer 1
+       "Size To Content V" 1
+       Columns 1
+       Rows 30
+       Margin 1
+       scriptclass "ComponentWidgetBinding"
+       {
+        ScriptParamsClass {
+         Component_ForEach "{{ _vaultActivity }}"
+         Component_Template "txb-clan-activity-row"
+         Component_ItemProperty "_inputActivity"
+        }
+       }
+      }
+      TextWidgetClass vaultActivityEmpty {
+       position 0.05 0.4
+       hexactpos 0
+       vexactpos 0
+       size 0.9 0.1
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.4157 0.3961 0.3765 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       "text halign" center
+       "text valign" center
+       text "No recent activity"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ emptyVaultActivityText }}"
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

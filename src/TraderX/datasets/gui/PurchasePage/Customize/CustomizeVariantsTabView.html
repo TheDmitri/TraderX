@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="dzml.css">
+</head>
+<body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#1a1a1a;">
+
+<div data-dz="panel"
+    data-name="CustomizeVariantsTab"
+    data-style="blank"
+    class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr">
+  <div data-dz="scroll"
+      data-name="variantsScroll"
+      class="dz-xy-0-0 dz-wh-full dz-noptr dz-scroll-v">
+    <div data-dz="grid"
+        data-name="variantsGrid"
+        data-style="Empty"
+        data-foreach="{{ _inputVariants }}"
+        data-template="tx-variant-card"
+        data-item="_inputProduct"
+        class="dz-xy-0-0 dz-wh-100-1 dz-align-x-center dz-c-FE dz-noptr dz-fit-v dz-cols-4 dz-rows-100 dz-pad-8 dz-gap-8"></div>
+  </div>
+  <span data-dz="text"
+      data-name="emptyState"
+      data-bind="{{ empty_label }}"
+      class="dz-xy-0-0 dz-wh-full dz-align-cc dz-c-8B8F9A dz-font-TraderX/datasets/fonts/oswalt16 dz-noptr dz-text-center dz-text-vc"></span>
+</div>
+
+<script src="dzml-runtime.js?v=1781985749376"></script>
+</body>
+</html>

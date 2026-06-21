@@ -1,173 +1,146 @@
-FrameWidgetClass rootFrame {
+PanelWidgetClass modalRoot {
  position 0 0
- size 1 1
- halign center_ref
- valign center_ref
  hexactpos 0
  vexactpos 0
+ size 1 1
  hexactsize 0
  vexactsize 0
+ halign center_ref
+ valign center_ref
  priority 999
- scriptclass "ModalCreatePresetViewController"
  {
-  PanelWidgetClass PanelWidget7 {
-   ignorepointer 1
-   color 0.1804 0.1804 0.1804 1
+  PanelWidgetClass backdrop {
    position 0 0
-   size 0.26 0.2
-   halign center_ref
-   valign center_ref
    hexactpos 0
    vexactpos 0
+   size 1 1
    hexactsize 0
    vexactsize 0
-   style DA_Smooth_Small_10px
+   color 0 0 0 0.7843
+   style rover_sim_colorable
+  }
+  PanelWidgetClass modalCard {
+   position 0 0
+   hexactpos 0
+   vexactpos 0
+   size 0.3 0.3
+   hexactsize 0
+   vexactsize 0
+   halign center_ref
+   valign center_ref
+   style TXCard
+   color 0.9961 0.9961 0.9961 1
    {
-    ButtonWidgetClass confirmBtn {
-     color 0.9961 0.9961 0.9961 1
-     position 0.04 0.08
-     size 0.25 0.2
-     halign right_ref
-     valign bottom_ref
+    TextWidgetClass title {
+     position 0 0.07
      hexactpos 0
      vexactpos 0
+     size 1 0.14
      hexactsize 0
      vexactsize 0
-     userID 333
-     scriptclass "ViewBinding"
-     style TP_PurchaseBtn
-     {
-      TextWidgetClass TextWidget10 {
-       inheritalpha 1
-       ignorepointer 1
-       color 1 1 1 0.7059
-       size 1 1
-       halign center_ref
-       valign center_ref
-       hexactpos 0
-       vexactpos 0
-       hexactsize 0
-       vexactsize 0
-       userID 333
-       scriptclass "ViewBinding"
-       text "#tpm_confirm"
-       font "TraderX/datasets/fonts/RobotoCondensedVF22"
-       "exact text" 1
-       "text halign" center
-       "text valign" center
-       {
-        ScriptParamsClass {
-         Relay_Command "OnConfirmExecute"
-        }
-       }
-      }
-     }
+     halign center_ref
+     color 0.8471 0.8235 0.7529 1
+     font "TraderX/datasets/fonts/oswalt22"
+     ignorepointer 1
+     "exact text" 1
+     "text halign" center
+     "text valign" center
+     text "#tpm_create_new_preset"
+     scriptclass "TextBinding"
      {
       ScriptParamsClass {
-       Relay_Command "OnConfirmExecute"
+       Binding_Expression "{{ modal_title }}"
+      }
+     }
+    }
+    TextWidgetClass nameLabel {
+     position 0.07 0.27
+     hexactpos 0
+     vexactpos 0
+     size 0.86 0.09
+     hexactsize 0
+     vexactsize 0
+     color 0.6039 0.5804 0.5333 1
+     font "TraderX/datasets/fonts/oswalt16"
+     ignorepointer 1
+     "exact text" 1
+     "text valign" center
+     text "#tpm_choose_preset_name"
+    }
+    EditBoxWidgetClass nameInput {
+     position 0.07 0.38
+     hexactpos 0
+     vexactpos 0
+     size 0.86 0.16
+     hexactsize 0
+     vexactsize 0
+     font "TraderX/datasets/fonts/oswalt16"
+     "exact text" 1
+     style TXInputField
+     color 0.9961 0.9961 0.9961 1
+     scriptclass "EditBoxBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ input_text }}"
+       Two_Way_Binding 1
+       OnChange "OnInputTextChanged"
+      }
+     }
+    }
+    TextWidgetClass errorText {
+     position 0.07 0.57
+     hexactpos 0
+     vexactpos 0
+     size 0.86 0.09
+     hexactsize 0
+     vexactsize 0
+     color 0.9412 0.3961 0.2902 1
+     font "TraderX/datasets/fonts/oswalt14"
+     ignorepointer 1
+     "exact text" 1
+     "text valign" center
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ error_text }}"
       }
      }
     }
     ButtonWidgetClass cancelBtn {
+     position 0.07 0.74
+     hexactpos 0
+     vexactpos 0
+     size 0.4 0.18
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.9961 0.9961 0.9961 1
+     style TXBtnDefault
      color 0.9961 0.9961 0.9961 1
-     position 0.32 0.08
-     size 0.25 0.2
-     halign right_ref
-     valign bottom_ref
-     hexactpos 0
-     vexactpos 0
-     hexactsize 0
-     vexactsize 0
-     userID 333
-     scriptclass "ViewBinding"
-     style TP_CardBtn
-     {
-      TextWidgetClass TextWidget11 {
-       inheritalpha 1
-       ignorepointer 1
-       color 1 1 1 0.7059
-       size 1 1
-       halign center_ref
-       valign center_ref
-       hexactpos 0
-       vexactpos 0
-       hexactsize 0
-       vexactsize 0
-       userID 333
-       scriptclass "ViewBinding"
-       text "#tpm_cancel"
-       font "TraderX/datasets/fonts/RobotoCondensedVF22"
-       "exact text" 1
-       "text halign" center
-       "text valign" center
-       {
-        ScriptParamsClass {
-         Relay_Command "OnCancelExecute"
-        }
-       }
-      }
-     }
+     text "#tpm_cancel"
+     scriptclass "ButtonBinding"
      {
       ScriptParamsClass {
-       Relay_Command "OnCancelExecute"
+       OnClick "OnCancelClick"
       }
      }
     }
-    TextWidgetClass title {
-     ignorepointer 1
-     position 0 0.05
-     size 0.137 0.222
-     halign center_ref
+    ButtonWidgetClass confirmBtn {
+     position 0.53 0.74
      hexactpos 0
      vexactpos 0
+     size 0.4 0.18
      hexactsize 0
      vexactsize 0
-     scriptclass "ViewBinding"
-     text "#tpm_create_new_preset"
-     font "TraderX/datasets/fonts/RobotoCondensedVF22"
-     "size to text h" 1
-     "text halign" center
-     "text valign" center
+     "text color" 0.9961 0.9961 0.9961 1
+     style TXBtnPrimary
+     color 0.9961 0.9961 0.9961 1
+     text "#tpm_confirm"
+     scriptclass "ButtonBinding"
      {
       ScriptParamsClass {
-       Binding_Name "title"
+       OnClick "OnConfirmClick"
       }
      }
-    }
-    EditBoxWidgetClass EditBoxWidget0 {
-     color 0.549 0.549 0.549 1
-     position -0.00123 0.47
-     size 0.85847 0.178
-     halign center_ref
-     hexactpos 0
-     vexactpos 0
-     hexactsize 0
-     vexactsize 0
-     scriptclass "ViewBinding"
-     style DA_Smooth
-     font "TraderX/datasets/fonts/RobotoCondensedVF16"
-     {
-      ScriptParamsClass {
-       Binding_Name "input_text"
-       Two_Way_Binding 1
-      }
-     }
-    }
-    TextWidgetClass TextWidget12 {
-     ignorepointer 1
-     position 0.07 0.356
-     size 0.096 0.222
-     hexactpos 0
-     vexactpos 0
-     hexactsize 0
-     vexactsize 0
-     style Normal
-     text "#tpm_choose_preset_name"
-     font "TraderX/datasets/fonts/RobotoCondensedVF22"
-     "exact text" 1
-     "size to text h" 1
-     "size to text v" 1
-     "text valign" center
     }
    }
   }

@@ -1,0 +1,71 @@
+PanelWidgetClass CustomizeVariantsTab {
+ position 0 0
+ hexactpos 0
+ vexactpos 0
+ size 1 1
+ hexactsize 0
+ vexactsize 0
+ ignorepointer 1
+ style blank
+ color 0.9961 0.9961 0.9961 1
+ {
+  ScrollWidgetClass variantsScroll {
+   position 0 0
+   hexactpos 0
+   vexactpos 0
+   size 1 1
+   hexactsize 0
+   vexactsize 0
+   ignorepointer 1
+   "Scrollbar V" 1
+   {
+    GridSpacerWidgetClass variantsGrid {
+     position 0 0
+     hexactpos 0
+     vexactpos 0
+     size 1 0.01
+     hexactsize 0
+     vexactsize 0
+     halign center_ref
+     ignorepointer 1
+     "Size To Content V" 1
+     Columns 4
+     Rows 100
+     Padding 8
+     Margin 8
+     style Empty
+     color 0.9961 0.9961 0.9961 1
+     scriptclass "ComponentWidgetBinding"
+     {
+      ScriptParamsClass {
+       Component_ForEach "{{ _inputVariants }}"
+       Component_Template "tx-variant-card"
+       Component_ItemProperty "_inputProduct"
+      }
+     }
+    }
+   }
+  }
+  TextWidgetClass emptyState {
+   position 0 0
+   hexactpos 0
+   vexactpos 0
+   size 1 1
+   hexactsize 0
+   vexactsize 0
+   halign center_ref
+   valign center_ref
+   color 0.5451 0.5608 0.6039 1
+   font "TraderX/datasets/fonts/oswalt16"
+   ignorepointer 1
+   "text halign" center
+   "text valign" center
+   scriptclass "TextBinding"
+   {
+    ScriptParamsClass {
+     Binding_Expression "{{ empty_label }}"
+    }
+   }
+  }
+ }
+}

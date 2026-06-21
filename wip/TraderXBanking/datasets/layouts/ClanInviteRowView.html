@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+</head>
+<body>
+
+<!-- ClanInviteRowView — one pending-invite card.
+     Crest · clan name + meta · accept/decline buttons.
+     Used in HomeTab alerts column, ClanCreateTab incoming list,
+     and ClanInClanTab outgoing list (where buttons label becomes "Revoke"). -->
+<div data-dz="panel" data-name="inviteRowRoot" data-style="TXInfoBox"
+     class="dz-xy-0-0 dz-wh-full dz-c-FE">
+
+  <!-- Crest (tag letters) -->
+  <div data-dz="panel" data-name="inviteCrest" data-style="TXSurface"
+       class="dz-xy-3-20 dz-wh-10-60 dz-c-FE dz-noptr">
+    <span data-dz="text" data-name="inviteCrestText"
+          data-bind="{{ inviteCrestText }}"
+          class="dz-xy-0-0 dz-wh-100-100 dz-tc-D4A44C dz-font-13 dz-noptr dz-exact-text dz-text-center dz-text-vc dz-bold">
+      —
+    </span>
+  </div>
+
+  <!-- Name + meta -->
+  <span data-dz="text" data-name="inviteName"
+        data-bind="{{ inviteNameText }}"
+        class="dz-xy-15-15 dz-wh-50-30 dz-tc-D8D2C0 dz-font-14 dz-noptr dz-exact-text dz-bold">
+    —
+  </span>
+  <span data-dz="text" data-name="inviteMeta"
+        data-bind="{{ inviteMetaText }}"
+        class="dz-xy-15-48 dz-wh-50-32 dz-tc-6A6560 dz-font-10 dz-noptr dz-exact-text dz-wrap">
+    —
+  </span>
+
+  <!-- Action buttons -->
+  <button data-dz="button" data-name="inviteDeclineBtn"
+          data-style="TXBtnDefault" data-on-click="OnDeclineClicked"
+          data-bind="{{ inviteDeclineLabel }}"
+          class="dz-xy-67-25 dz-wh-14-50 dz-c-FE dz-tc-D8D2C0 dz-font-11 dz-exact-text dz-bold">
+    DECLINE
+  </button>
+  <button data-dz="button" data-name="inviteAcceptBtn"
+          data-style="TXBtnPrimary" data-on-click="OnAcceptClicked"
+          data-bind="{{ inviteAcceptLabel }}"
+          class="dz-xy-82-25 dz-wh-15-50 dz-c-FE dz-tc-D8D2C0 dz-font-11 dz-exact-text dz-bold">
+    ACCEPT
+  </button>
+</div>
+
+<script src="dzml-runtime.js"></script>
+</body>
+</html>

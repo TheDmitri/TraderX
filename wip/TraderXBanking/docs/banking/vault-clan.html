@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Banking · Vault (clan) — Field Ledger</title>
+  <link rel="stylesheet" href="../field-ledger.css">
+  <style>
+    .page { display: grid; grid-template-columns: 1fr 360px; gap: var(--sp-5); padding: var(--sp-5); height: 100%; min-height: 0; }
+
+    /* Owner selector (dropdown shown open to illustrate switching) */
+    .vault-head { display: flex; flex-direction: column; gap: var(--sp-3); position: relative; }
+    .owner-select { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-3) var(--sp-4); background: var(--bg-card); border: 1px solid var(--border-strong); cursor: pointer; }
+    .owner-select__label { font-size: 10px; color: var(--text-ash); text-transform: uppercase; letter-spacing: 1.5px; }
+    .owner-select__value { font-size: 14px; color: var(--text-ivory); font-weight: 500; }
+    .owner-select__caret { color: var(--text-dust); font-size: 14px; }
+    .owner-select__badge { font-size: 10px; padding: 2px 8px; border: 1px solid var(--border-default); color: var(--text-amber); letter-spacing: 1.2px; text-transform: uppercase; }
+    .owner-select__dropdown { position: absolute; top: 44px; left: 0; right: 50%; background: var(--bg-elevated); border: 1px solid var(--border-strong); z-index: 10; display: flex; flex-direction: column; box-shadow: 0 4px 12px rgba(0,0,0,0.6); }
+    .owner-select__option { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-3) var(--sp-4); border-bottom: 1px solid var(--border-soft); cursor: pointer; }
+    .owner-select__option:hover { background: var(--bg-hover); }
+    .owner-select__option.is-active { background: var(--bg-hover); border-left: 3px solid var(--accent-amber); }
+    .owner-select__option-name { font-size: 13px; color: var(--text-ivory); }
+    .owner-select__option-sub { font-size: 11px; color: var(--text-dust); }
+
+    .capacity { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: var(--sp-3); }
+    .capacity__tile { padding: var(--sp-4); background: var(--bg-card); border: 1px solid var(--border-soft); display: flex; flex-direction: column; gap: 4px; }
+    .capacity__k { font-size: 10px; color: var(--text-ash); text-transform: uppercase; letter-spacing: 1.5px; }
+    .capacity__v { font-size: 22px; color: var(--text-ivory); font-weight: 500; }
+    .capacity__v--fee { color: var(--text-rust); }
+    .capacity__v--role { color: var(--accent-amber); }
+    .capacity__sub { font-size: 11px; color: var(--text-dust); }
+
+    /* Storage grid (reused) */
+    .storage { display: flex; flex-direction: column; min-height: 0; background: var(--bg-card); border: 1px solid var(--border-soft); }
+    .storage__header { display: flex; justify-content: space-between; align-items: center; padding: var(--sp-3) var(--sp-4); border-bottom: 1px solid var(--border-soft); }
+    .storage__header h3 { font-size: 13px; color: var(--text-ivory); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500; }
+    .storage__filters { display: flex; gap: var(--sp-2); align-items: center; }
+    .storage__search { padding: 4px 10px; background: var(--bg-hover); border: 1px solid var(--border-default); font-size: 12px; color: var(--text-ivory); }
+    .storage__grid { flex: 1; overflow-y: auto; padding: var(--sp-3); display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; align-content: start; }
+
+    .slot { aspect-ratio: 1; background: var(--bg-surface); border: 1px solid var(--border-soft); position: relative; cursor: pointer; display: flex; align-items: flex-end; padding: 4px; }
+    .slot:hover { border-color: var(--border-default); background: var(--bg-hover); }
+    .slot.is-selected { border-color: var(--accent-amber); background: var(--bg-elevated); }
+    .slot.is-empty { border-style: dashed; border-color: var(--border-soft); background: transparent; cursor: default; }
+    .slot.is-restricted { opacity: 0.55; cursor: not-allowed; }
+    .slot__name { font-size: 10px; color: var(--text-ivory); line-height: 1.2; text-transform: uppercase; letter-spacing: 0.5px; }
+    .slot__name--muted { color: var(--text-dust); }
+    .slot__qty { position: absolute; top: 3px; right: 4px; font-size: 10px; color: var(--text-amber); font-weight: 600; }
+    .slot__health { position: absolute; top: 3px; left: 3px; width: 8px; height: 8px; border-radius: 50%; }
+    .slot__health--pristine { background: var(--action-olive); }
+    .slot__health--worn { background: var(--accent-amber); }
+    .slot__health--damaged { background: var(--action-rust); }
+    .slot__health--badly { background: var(--action-rust-deep); }
+    .slot__footprint { position: absolute; bottom: 2px; right: 3px; font-size: 9px; color: var(--text-dust); letter-spacing: 1px; }
+    .slot__depositor { position: absolute; top: 3px; right: 3px; font-size: 9px; color: var(--text-dust); padding: 1px 3px; background: var(--bg-card); }
+
+    /* Right rail */
+    .rail { display: flex; flex-direction: column; gap: var(--sp-3); min-height: 0; }
+    .detail { background: var(--bg-card); border: 1px solid var(--border-soft); border-left: 3px solid var(--accent-amber); padding: var(--sp-4); display: flex; flex-direction: column; gap: var(--sp-3); }
+    .detail__name { font-size: 16px; color: var(--text-ivory); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+    .detail__meta { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-2) var(--sp-3); font-size: 12px; }
+    .detail__k { color: var(--text-ash); text-transform: uppercase; letter-spacing: 1.2px; font-size: 10px; }
+    .detail__v { color: var(--text-ivory); }
+    .detail__depositor { padding: 6px 10px; background: var(--bg-elevated); border-left: 2px solid var(--info-steel); font-size: 11px; color: var(--text-ash); }
+    .detail__depositor strong { color: var(--text-ivory); font-weight: 500; }
+
+    .actions { background: var(--bg-card); border: 1px solid var(--border-soft); padding: var(--sp-4); display: flex; flex-direction: column; gap: var(--sp-3); }
+    .actions h3 { font-size: 12px; color: var(--text-ivory); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500; }
+    .actions__row { display: flex; gap: var(--sp-2); }
+    .actions__note { font-size: 10px; color: var(--text-ash); display: flex; justify-content: space-between; }
+    .actions__note .ok { color: var(--text-olive); }
+    .actions__note .deny { color: var(--text-rust); }
+
+    /* Activity sidebar (clan log — richer than solo) */
+    .activity { background: var(--bg-card); border: 1px solid var(--border-soft); display: flex; flex-direction: column; min-height: 0; flex: 1; }
+    .activity__header { padding: var(--sp-3) var(--sp-4); border-bottom: 1px solid var(--border-soft); display: flex; justify-content: space-between; align-items: center; }
+    .activity__header h3 { font-size: 12px; color: var(--text-ivory); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500; }
+    .activity__body { flex: 1; overflow-y: auto; padding: var(--sp-2); display: flex; flex-direction: column; gap: 4px; }
+    .activity__line { display: grid; grid-template-columns: 52px 1fr auto; gap: var(--sp-2); padding: 6px 8px; font-size: 11px; align-items: center; }
+    .activity__line:hover { background: var(--bg-hover); }
+    .activity__date { color: var(--text-dust); font-family: monospace; font-size: 10px; }
+    .activity__who { color: var(--text-ivory); font-weight: 500; }
+    .activity__desc { color: var(--text-ash); }
+    .activity__desc--in { color: var(--text-olive); }
+    .activity__desc--out { color: var(--text-rust); }
+
+    /* Role / access matrix card */
+    .role-card { background: var(--bg-card); border: 1px solid var(--border-soft); padding: var(--sp-4); display: flex; flex-direction: column; gap: var(--sp-3); }
+    .role-card h3 { font-size: 12px; color: var(--text-ivory); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500; }
+    .role-grid { display: grid; grid-template-columns: 1fr auto auto auto; gap: 6px 12px; font-size: 11px; align-items: center; }
+    .role-grid__role { color: var(--text-ivory); text-transform: uppercase; letter-spacing: 1.2px; font-weight: 500; font-size: 11px; }
+    .role-grid__cell { text-align: center; font-size: 13px; }
+    .role-grid__cell--yes { color: var(--text-olive); }
+    .role-grid__cell--no { color: var(--text-dust); }
+    .role-grid__cell--self { color: var(--accent-amber); font-weight: 600; }
+  </style>
+</head>
+<body>
+<div class="dz-viewport">
+  <div class="shell">
+    <div class="shell__header">
+      <div class="shell__identity">
+        <div class="shell__identity-name">Yuri Pashkov</div>
+        <div class="shell__identity-role">Banking · Bank teller</div>
+      </div>
+      <div class="shell__nav">
+        <a class="shell__tab" href="bankingView.html">Home</a>
+        <a class="shell__tab" href="account.html">Account</a>
+        <a class="shell__tab is-active" href="vault.html">Vault</a>
+        <a class="shell__tab" href="transfer.html">Transfer</a>
+        <a class="shell__tab" href="clan.html">Clan</a>
+        <a class="shell__tab" href="ledger.html">Ledger</a>
+      </div>
+      <button class="shell__close">X</button>
+    </div>
+
+    <div class="shell__subnav">
+      <div class="muted uppercase" style="font-size: 11px; letter-spacing: 1.5px;">Safety deposit boxes · Svetloyarsk branch · Clan rates</div>
+      <div class="ml-auto status-pills">
+        <span class="pill pill--on">● Online</span>
+        <span class="pill">Daily fee 2 ₽/slot</span>
+      </div>
+    </div>
+
+    <div class="shell__content">
+      <div class="page">
+        <!-- LEFT: owner (open dropdown), capacity, storage -->
+        <div class="fl-col gap-4" style="min-height: 0;">
+          <div class="vault-head">
+            <div class="owner-select">
+              <span class="owner-select__label">Owner</span>
+              <span class="owner-select__value">Clan · "Chernyi Led"</span>
+              <span class="owner-select__badge">Officer</span>
+              <span class="ml-auto owner-select__caret">▾</span>
+            </div>
+
+            <!-- Dropdown shown expanded for demo -->
+            <div class="owner-select__dropdown">
+              <div class="owner-select__option">
+                <div class="fl-col">
+                  <span class="owner-select__option-name">Personal safe · Box #47</span>
+                  <span class="owner-select__option-sub">42 / 100 slots · −126 ₽/day</span>
+                </div>
+                <span class="ml-auto owner-select__badge">Solo</span>
+              </div>
+              <div class="owner-select__option is-active">
+                <div class="fl-col">
+                  <span class="owner-select__option-name">Clan · "Chernyi Led"</span>
+                  <span class="owner-select__option-sub">156 / 500 slots · −312 ₽/day · 12 members</span>
+                </div>
+                <span class="ml-auto owner-select__badge">Officer</span>
+              </div>
+            </div>
+
+            <div class="capacity">
+              <div class="capacity__tile">
+                <span class="capacity__k">Capacity</span>
+                <span class="capacity__v">156 / 500</span>
+                <span class="capacity__sub">slots used · 12 contributors</span>
+                <div class="progress" style="margin-top: 6px;"><div class="progress__fill" style="width: 31%;"></div></div>
+              </div>
+              <div class="capacity__tile">
+                <span class="capacity__k">Daily fee</span>
+                <span class="capacity__v capacity__v--fee">−312 ₽</span>
+                <span class="capacity__sub">from clan vault balance</span>
+              </div>
+              <div class="capacity__tile">
+                <span class="capacity__k">Your role</span>
+                <span class="capacity__v capacity__v--role">Officer</span>
+                <span class="capacity__sub">view · deposit · withdraw</span>
+              </div>
+              <div class="capacity__tile">
+                <span class="capacity__k">Next collection</span>
+                <span class="capacity__v">03h 12m</span>
+                <span class="capacity__sub">auto-debit if funded</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Storage grid -->
+          <div class="storage" style="flex: 1;">
+            <div class="storage__header">
+              <h3>Clan inventory · 156 items</h3>
+              <div class="storage__filters">
+                <input class="storage__search" placeholder="Search items…">
+                <span class="pill">All depositors ▾</span>
+              </div>
+            </div>
+            <div class="storage__grid">
+              <div class="slot is-selected">
+                <span class="slot__health slot__health--pristine"></span>
+                <span class="slot__depositor">BM</span>
+                <span class="slot__footprint">4×2</span>
+                <span class="slot__name">SVD Dragunov</span>
+              </div>
+              <div class="slot">
+                <span class="slot__health slot__health--pristine"></span>
+                <span class="slot__depositor">AK</span>
+                <span class="slot__footprint">4×2</span>
+                <span class="slot__name">LAR</span>
+              </div>
+              <div class="slot">
+                <span class="slot__health slot__health--worn"></span>
+                <span class="slot__depositor">AK</span>
+                <span class="slot__footprint">4×2</span>
+                <span class="slot__name">M4A1</span>
+              </div>
+              <div class="slot">
+                <span class="slot__health slot__health--pristine"></span>
+                <span class="slot__depositor">SV</span>
+                <span class="slot__footprint">3×3</span>
+                <span class="slot__name">Plate Carrier</span>
+              </div>
+              <div class="slot">
+                <span class="slot__health slot__health--pristine"></span>
+                <span class="slot__depositor">BM</span>
+                <span class="slot__footprint">3×3</span>
+                <span class="slot__name">Plate Carrier</span>
+              </div>
+              <div class="slot">
+                <span class="slot__health slot__health--damaged"></span>
+                <span class="slot__depositor">DM</span>
+                <span class="slot__footprint">2×2</span>
+                <span class="slot__name">NVG</span>
+              </div>
+              <div class="slot">
+                <span class="slot__health slot__health--pristine"></span>
+                <span class="slot__depositor">DM</span>
+                <span class="slot__footprint">2×2</span>
+                <span class="slot__name">NVG</span>
+              </div>
+              <div class="slot">
+                <span class="slot__health slot__health--pristine"></span>
+                <span class="slot__qty">×12</span>
+                <span class="slot__depositor">EK</span>
+                <span class="slot__footprint">1×1</span>
+                <span class="slot__name">Mag 75 drum</span>
+              </div>
+              <div class="slot">
+                <span class="slot__health slot__health--pristine"></span>
+                <span class="slot__qty">×500</span>
+                <span class="slot__depositor">EK</span>
+                <span class="slot__footprint">1×1</span>
+                <span class="slot__name">7.62×54 Box</span>
+              </div>
+              <div class="slot">
+                <span class="slot__health slot__health--pristine"></span>
+                <span class="slot__qty">×20</span>
+                <span class="slot__depositor">SV</span>
+                <span class="slot__footprint">1×1</span>
+                <span class="slot__name">Medkit</span>
+              </div>
+              <div class="slot">
+                <span class="slot__health slot__health--pristine"></span>
+                <span class="slot__qty">×30</span>
+                <span class="slot__depositor">SV</span>
+                <span class="slot__footprint">1×1</span>
+                <span class="slot__name">Morphine</span>
+              </div>
+              <div class="slot">
+                <span class="slot__health slot__health--pristine"></span>
+                <span class="slot__qty">×50</span>
+                <span class="slot__depositor">SV</span>
+                <span class="slot__footprint">1×1</span>
+                <span class="slot__name">Saline IV</span>
+              </div>
+              <div class="slot">
+                <span class="slot__health slot__health--pristine"></span>
+                <span class="slot__depositor">BM</span>
+                <span class="slot__footprint">2×3</span>
+                <span class="slot__name">Hunting Backpack</span>
+              </div>
+              <div class="slot">
+                <span class="slot__health slot__health--pristine"></span>
+                <span class="slot__depositor">AK</span>
+                <span class="slot__footprint">2×2</span>
+                <span class="slot__name">Ballistic Helmet</span>
+              </div>
+              <!-- Restricted example: item "locked" by owner-only policy -->
+              <div class="slot is-restricted" title="Only Owner can withdraw this item">
+                <span class="slot__health slot__health--pristine"></span>
+                <span class="slot__depositor">OW</span>
+                <span class="slot__footprint">2×4</span>
+                <span class="slot__name">VSS Vintorez 🔒</span>
+              </div>
+              <div class="slot is-empty"><span class="slot__name slot__name--muted">Empty</span></div>
+              <div class="slot is-empty"><span class="slot__name slot__name--muted">Empty</span></div>
+              <div class="slot is-empty"><span class="slot__name slot__name--muted">Empty</span></div>
+              <div class="slot is-empty"><span class="slot__name slot__name--muted">Empty</span></div>
+              <div class="slot is-empty"><span class="slot__name slot__name--muted">Empty</span></div>
+              <div class="slot is-empty"><span class="slot__name slot__name--muted">Empty</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT rail: detail + actions (role-gated) + activity + role matrix -->
+        <div class="rail">
+          <div class="detail">
+            <div class="fl" style="justify-content: space-between; align-items: flex-start;">
+              <div class="detail__name">SVD Dragunov</div>
+              <span class="pill pill--on">● Pristine</span>
+            </div>
+            <div class="detail__meta">
+              <div><div class="detail__k">Class</div><div class="detail__v">SVDDragunov</div></div>
+              <div><div class="detail__k">Footprint</div><div class="detail__v">4 × 2</div></div>
+              <div><div class="detail__k">Attachments</div><div class="detail__v">PSO-1 · Suppressor</div></div>
+              <div><div class="detail__k">Cargo / Mag</div><div class="detail__v">10 rnd loaded</div></div>
+            </div>
+            <div class="detail__depositor">
+              Deposited by <strong>Boris M.</strong> · 2026-04-16 · 2 days ago
+            </div>
+          </div>
+
+          <div class="actions">
+            <h3>Actions</h3>
+            <div class="actions__row">
+              <button class="btn btn--primary" style="flex: 1;">Withdraw to inventory</button>
+            </div>
+            <div class="actions__row">
+              <button class="btn btn--default" style="flex: 1;">Deposit from inventory</button>
+            </div>
+            <div class="actions__note">
+              <span>Withdraw by <strong>Officer+</strong></span>
+              <span class="ok">✓ Allowed</span>
+            </div>
+            <div class="actions__note">
+              <span>Manage roster</span>
+              <span class="deny">✗ Owner only</span>
+            </div>
+          </div>
+
+          <div class="activity">
+            <div class="activity__header">
+              <h3>Contribution log</h3>
+              <span class="pill">All actions ▾</span>
+            </div>
+            <div class="activity__body">
+              <div class="activity__line">
+                <span class="activity__date">04-17 14:10</span>
+                <span><span class="activity__who">Boris M.</span> <span class="activity__desc activity__desc--in">deposited SVD Dragunov</span></span>
+                <span class="activity__desc">+1</span>
+              </div>
+              <div class="activity__line">
+                <span class="activity__date">04-17 09:15</span>
+                <span><span class="activity__who">Svetlana V.</span> <span class="activity__desc activity__desc--in">deposited 20× Medkit</span></span>
+                <span class="activity__desc">+20</span>
+              </div>
+              <div class="activity__line">
+                <span class="activity__date">04-16 21:44</span>
+                <span><span class="activity__who">Alex K.</span> <span class="activity__desc activity__desc--out">withdrew M4A1</span></span>
+                <span class="activity__desc">−1</span>
+              </div>
+              <div class="activity__line">
+                <span class="activity__date">04-16 18:02</span>
+                <span><span class="activity__who">Dmitri O.</span> <span class="activity__desc activity__desc--in">deposited 2× NVG</span></span>
+                <span class="activity__desc">+2</span>
+              </div>
+              <div class="activity__line">
+                <span class="activity__date">04-16 09:00</span>
+                <span><span class="activity__who">System</span> <span class="activity__desc activity__desc--out">Fee debit</span></span>
+                <span class="activity__desc">−312 ₽</span>
+              </div>
+              <div class="activity__line">
+                <span class="activity__date">04-16 08:12</span>
+                <span><span class="activity__who">Elena K.</span> <span class="activity__desc activity__desc--in">deposited 500× 7.62×54</span></span>
+                <span class="activity__desc">+1</span>
+              </div>
+              <div class="activity__line">
+                <span class="activity__date">04-15 22:05</span>
+                <span><span class="activity__who">Owner</span> <span class="activity__desc">promoted Boris M. to Officer</span></span>
+                <span class="activity__desc">—</span>
+              </div>
+              <div class="activity__line">
+                <span class="activity__date">04-15 17:48</span>
+                <span><span class="activity__who">Alex K.</span> <span class="activity__desc activity__desc--out">withdrew Plate Carrier</span></span>
+                <span class="activity__desc">−1</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="role-card">
+            <div class="fl" style="justify-content: space-between; align-items: center;">
+              <h3>Access matrix</h3>
+              <span class="muted" style="font-size: 10px; text-transform: uppercase; letter-spacing: 1.3px;">Policy v1</span>
+            </div>
+            <div class="role-grid">
+              <span class="muted" style="font-size: 10px; text-transform: uppercase;">Role</span>
+              <span class="muted" style="font-size: 10px;">View</span>
+              <span class="muted" style="font-size: 10px;">Deposit</span>
+              <span class="muted" style="font-size: 10px;">Withdraw</span>
+
+              <span class="role-grid__role">Owner</span>
+              <span class="role-grid__cell role-grid__cell--yes">✓</span>
+              <span class="role-grid__cell role-grid__cell--yes">✓</span>
+              <span class="role-grid__cell role-grid__cell--yes">✓</span>
+
+              <span class="role-grid__role" style="color: var(--accent-amber);">Officer <small>(you)</small></span>
+              <span class="role-grid__cell role-grid__cell--self">✓</span>
+              <span class="role-grid__cell role-grid__cell--self">✓</span>
+              <span class="role-grid__cell role-grid__cell--self">✓</span>
+
+              <span class="role-grid__role">Member</span>
+              <span class="role-grid__cell role-grid__cell--yes">✓</span>
+              <span class="role-grid__cell role-grid__cell--yes">✓</span>
+              <span class="role-grid__cell role-grid__cell--no">—</span>
+            </div>
+            <div class="muted" style="font-size: 10px;">Owner items marked 🔒 can only be withdrawn by the original depositor or by the Owner.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

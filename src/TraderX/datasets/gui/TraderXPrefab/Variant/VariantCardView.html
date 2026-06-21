@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+  <link rel="stylesheet" href="dzml-icons.css">
+</head>
+<body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#1a1a1a;">
+
+<div data-dz="panel"
+    data-name="VariantPanel"
+    data-style="blank"
+    class="dz-xy-10px-10px dz-wh-220px-160px dz-c-FE">
+  <button data-dz="button"
+      data-name="ButtonWidget0"
+      data-style="TXBtnDefault"
+      data-on-click="OnVariantClick"
+      class="dz-xy-0-0 dz-wh-full dz-align-cc dz-tc-FE"></button>
+    <div data-dz="panel"
+        data-name="PanelWidget7"
+        data-style="TXCard"
+        class="dz-xy-0-1 dz-wh-100-65 dz-align-x-center dz-c-FE dz-noptr">
+      <div data-dz="preview"
+          data-name="ItemPreviewWidget0"
+          data-bind-item="{{ preview }}"
+          class="dz-xy-0-9 dz-wh-93-81 dz-align-x-center dz-noptr"></div>
+    </div>
+    <span data-dz="text"
+        data-name="TextWidget11"
+        data-bind="{{ variant_price }}"
+        class="dz-xy-0-6 dz-wh-14-11 dz-align-bc dz-c-9ACD32 dz-font-body-16 dz-noptr dz-exact-text dz-size-to-text">
+      Total: 1,850
+    </span>
+    <span data-dz="text"
+        data-name="TextWidget10"
+        data-bind="{{ variant_classname }}"
+        class="dz-xy-0-18 dz-wh-14-18 dz-align-bc dz-c-D8D2C0 dz-font-heading-22 dz-noptr dz-exact-text dz-text-vc dz-size-to-text">
+      Tactical Setup
+    </span>
+    <div data-dz="panel"
+        data-name="selectedBadge"
+        class="dz-xy-84-3 dz-wh-30px-30px dz-c-9ACD32 dz-noptr dz-hidden">
+      <img data-dz="image"
+          data-name="selectedBadgeIcon"
+          class="dz-xy-0-0 dz-wh-full dz-align-cc dz-c-1A1E28 dz-noptr"
+          data-image="set:traderx_icons image:approved"
+          data-image-mode="blend"
+          data-image-src-alpha="1"
+          data-image-stretch="stretch_w_h"/>
+    </div>
+</div>
+
+<script src="dzml-runtime.js?v=1780762091685"></script>
+</body>
+</html>

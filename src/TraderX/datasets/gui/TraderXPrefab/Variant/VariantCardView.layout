@@ -1,108 +1,136 @@
 PanelWidgetClass VariantPanel {
- color 0.1176 0.1176 0.1176 1
  position 10 10
- size 220 160
  hexactpos 1
  vexactpos 1
+ size 220 160
  hexactsize 1
  vexactsize 1
- scriptclass "VariantCardViewController"
  style blank
+ color 0.9961 0.9961 0.9961 1
  {
   ButtonWidgetClass ButtonWidget0 {
-   color 0.9961 0.9961 0.9961 1
    position 0 0
-   size 1 1
-   halign center_ref
-   valign center_ref
    hexactpos 0
    vexactpos 0
+   size 1 1
    hexactsize 0
    vexactsize 0
-   scriptclass "ViewBinding"
-   style TP_CardBtn
+   halign center_ref
+   valign center_ref
+   "text color" 0.9961 0.9961 0.9961 1
+   style TXBtnDefault
+   color 0.9961 0.9961 0.9961 1
+   scriptclass "ButtonBinding"
    {
-    PanelWidgetClass PanelWidget7 {
-     ignorepointer 1
-     color 0.0549 0.0549 0.0549 1
-     position 0 0.01
-     size 0.995 0.65
-     halign center_ref
-     hexactpos 0
-     vexactpos 0
-     hexactsize 0
-     vexactsize 0
-     style TP_BackgroundStroke
-     {
-      ItemPreviewWidgetClass ItemPreviewWidget0 {
-       ignorepointer 1
-       position 0 0.09
-       size 0.925 0.807
-       halign center_ref
-       hexactpos 0
-       vexactpos 0
-       hexactsize 0
-       vexactsize 0
-       priority 101
-       scriptclass "ViewBinding"
-       {
-        ScriptParamsClass {
-         Binding_Name "preview"
-        }
-       }
-      }
-     }
+    ScriptParamsClass {
+     OnClick "OnVariantClick"
     }
-    TextWidgetClass TextWidget11 {
-     ignorepointer 1
-     color 0.6039 0.8039 0.1961 1
-     position 0 0.06
-     size 0.135 0.107
-     halign center_ref
-     valign bottom_ref
+   }
+  }
+  PanelWidgetClass PanelWidget7 {
+   position 0 0.01
+   hexactpos 0
+   vexactpos 0
+   size 1 0.65
+   hexactsize 0
+   vexactsize 0
+   halign center_ref
+   ignorepointer 1
+   style TXCard
+   color 0.9961 0.9961 0.9961 1
+   {
+    ItemPreviewWidgetClass ItemPreviewWidget0 {
+     position 0 0.09
      hexactpos 0
      vexactpos 0
+     size 0.93 0.81
      hexactsize 0
      vexactsize 0
-     scriptclass "ViewBinding"
-     text "Total: 1,850"
-     font "TraderX/datasets/fonts/RobotoCondensedVF16"
-     "exact text" 1
-     "size to text h" 1
-     "size to text v" 1
+     halign center_ref
+     ignorepointer 1
+     scriptclass "ItemPreviewBinding"
      {
       ScriptParamsClass {
-       Binding_Name "variant_price"
-      }
-     }
-    }
-    TextWidgetClass TextWidget10 {
-     ignorepointer 1
-     position 0 0.18
-     size 0.135 0.183
-     halign center_ref
-     valign bottom_ref
-     hexactpos 0
-     vexactpos 0
-     hexactsize 0
-     vexactsize 0
-     scriptclass "ViewBinding"
-     text "Tactical Setup"
-     font "TraderX/datasets/fonts/RobotoCondensedVF22"
-     "exact text" 1
-     "size to text h" 1
-     "size to text v" 1
-     "text valign" center
-     {
-      ScriptParamsClass {
-       Binding_Name "variant_classname"
+       Binding_Item "{{ preview }}"
       }
      }
     }
    }
+  }
+  TextWidgetClass TextWidget11 {
+   position 0 0.06
+   hexactpos 0
+   vexactpos 0
+   size 0.14 0.11
+   hexactsize 0
+   vexactsize 0
+   halign center_ref
+   valign bottom_ref
+   color 0.6039 0.8039 0.1961 1
+   font "TraderX/datasets/fonts/oswalt16"
+   ignorepointer 1
+   "exact text" 1
+   "size to text h" 1
+   "size to text v" 1
+   text "Total: 1,850"
+   scriptclass "TextBinding"
    {
     ScriptParamsClass {
-     Relay_Command "OnVariantExecute"
+     Binding_Expression "{{ variant_price }}"
+    }
+   }
+  }
+  TextWidgetClass TextWidget10 {
+   position 0 0.18
+   hexactpos 0
+   vexactpos 0
+   size 0.14 0.18
+   hexactsize 0
+   vexactsize 0
+   halign center_ref
+   valign bottom_ref
+   color 0.8471 0.8235 0.7529 1
+   font "TraderX/datasets/fonts/oswalt22"
+   ignorepointer 1
+   "exact text" 1
+   "text valign" center
+   "size to text h" 1
+   "size to text v" 1
+   text "Tactical Setup"
+   scriptclass "TextBinding"
+   {
+    ScriptParamsClass {
+     Binding_Expression "{{ variant_classname }}"
+    }
+   }
+  }
+  PanelWidgetClass selectedBadge {
+   position 0.84 0.03
+   hexactpos 0
+   vexactpos 0
+   size 30 30
+   hexactsize 1
+   vexactsize 1
+   color 0.6039 0.8039 0.1961 1
+   ignorepointer 1
+   visible 0
+   style rover_sim_colorable
+   {
+    ImageWidgetClass selectedBadgeIcon {
+     position 0 0
+     hexactpos 0
+     vexactpos 0
+     size 1 1
+     hexactsize 0
+     vexactsize 0
+     halign center_ref
+     valign center_ref
+     color 0.102 0.1176 0.1569 1
+     ignorepointer 1
+     image0 "set:traderx_icons image:approved"
+     mode blend
+     "src alpha" 1
+     "stretch mode" stretch_w_h
     }
    }
   }

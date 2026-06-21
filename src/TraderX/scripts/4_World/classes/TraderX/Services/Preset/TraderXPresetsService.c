@@ -233,6 +233,22 @@ class TraderXPresetsService
         return null;
     }
 
+    void RenamePreset(string productId, string presetId, string newName)
+    {
+        if(!m_presets.Contains(productId))
+            return;
+
+        foreach (TraderXPreset preset : m_presets[productId].presets)
+        {
+            if(preset.presetId == presetId)
+            {
+                preset.presetName = newName;
+                StoreTraderXProductsPresets();
+                return;
+            }
+        }
+    }
+
     void RemovePreset(string productId, string presetId)
     {
         if(!m_presets.Contains(productId))
@@ -252,10 +268,26 @@ class TraderXPresetsService
         StoreTraderXProductsPresets();
     }
 
+    // DayZ's JsonFileLoader does NOT round-trip map<> types — the map serialises to
+    // junk and reloads empty, so user presets vanished on relog. Persist the values
+    // as a plain array<ref> (the proven pattern used everywhere else) and rebuild the
+    // productId->presets map on load.
     void StoreTraderXProductsPresets()
     {
+        if (filePath == string.Empty)
+        {
+            GetTraderXLogger().LogError("StoreTraderXProductsPresets: filePath not set (SetServerId not called yet) — skipping save");
+            return;
+        }
+
+        array<ref TraderXPresets> presetList = new array<ref TraderXPresets>();
+        foreach (string productId, ref TraderXPresets presets : m_presets)
+        {
+            if (presets) presetList.Insert(presets);
+        }
+
         string errorMessage;
-        JsonFileLoader<map<string, ref TraderXPresets>>.SaveFile(filePath, m_presets, errorMessage);
+        JsonFileLoader<array<ref TraderXPresets>>.SaveFile(filePath, presetList, errorMessage);
     }
 
     void LoadTraderXProductsFavorites()
@@ -272,8 +304,15 @@ class TraderXPresetsService
 
         if (FileExist(filePath))
         {
+            array<ref TraderXPresets> presetList = new array<ref TraderXPresets>();
             string errorMessage;
-            JsonFileLoader<map<string, ref TraderXPresets>>.LoadFile(filePath, m_presets, errorMessage);
+            JsonFileLoader<array<ref TraderXPresets>>.LoadFile(filePath, presetList, errorMessage);
+
+            m_presets.Clear();
+            foreach (TraderXPresets presets : presetList)
+            {
+                if (presets) m_presets.Insert(presets.productId, presets);
+            }
             return;
         }
 

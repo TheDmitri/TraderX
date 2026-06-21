@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="dzml.css">
+</head>
+<body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#1a1a1a;">
+
+<div data-dz="panel"
+    data-name="CustomizeAttachmentsTab"
+    data-style="blank"
+    class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr">
+  <div data-dz="panel"
+      data-name="attachTopBar"
+      data-style="TXSurface"
+      class="dz-xy-0-0 dz-wh-100-8 dz-c-FE dz-noptr">
+    <div data-dz="panel"
+        data-name="ViewToggleHost"
+        data-component="tx-view-toggle"
+        class="dz-xy-90-18 dz-wh-8-60 dz-noptr"></div>
+  </div>
+  <div data-dz="scroll"
+      data-name="attachmentsScroll"
+      class="dz-xy-0-9 dz-wh-100-91 dz-noptr dz-scroll-v">
+    <div data-dz="grid"
+        data-name="attachmentGridList"
+        data-foreach="{{ _inputAttachments }}"
+        data-template="tx-item-card-small"
+        data-item="_inputProduct"
+        class="dz-xy-0-0 dz-wh-100-1 dz-fit-v dz-cols-1 dz-rows-100 dz-gap-4"></div>
+    <div data-dz="grid"
+        data-name="attachmentGridTiles"
+        data-foreach="{{ _inputAttachments }}"
+        data-template="tx-item-card-large"
+        data-item="_inputProduct"
+        class="dz-xy-0-0 dz-wh-100-1 dz-fit-v dz-cols-5 dz-rows-100 dz-gap-6"></div>
+  </div>
+  <span data-dz="text"
+      data-name="emptyState"
+      data-bind="{{ empty_label }}"
+      class="dz-xy-0-40 dz-wh-full dz-align-x-center dz-c-8B8F9A dz-font-TraderX/datasets/fonts/oswalt16 dz-noptr dz-text-center dz-text-vc"></span>
+</div>
+
+<script src="dzml-runtime.js?v=1781985757195"></script>
+</body>
+</html>

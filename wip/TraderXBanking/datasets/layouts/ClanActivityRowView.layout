@@ -1,0 +1,93 @@
+PanelWidgetClass activityRowRoot {
+ position 0 0
+ hexactpos 0
+ vexactpos 0
+ size 1 1
+ hexactsize 0
+ vexactsize 0
+ color 0 0 0 0
+ {
+  TextWidgetClass activityDate {
+   position 0.02 0
+   hexactpos 0
+   vexactpos 0
+   size 0.12 1
+   hexactsize 0
+   vexactsize 0
+   "text color" 0.4157 0.3961 0.3765 1
+   font "gui/fonts/etelkatextpro12"
+   ignorepointer 1
+   "exact text" 1
+   "text valign" center
+   text "—"
+   scriptclass "TextBinding"
+   {
+    ScriptParamsClass {
+     Binding_Expression "{{ activityDateText }}"
+    }
+   }
+  }
+  TextWidgetClass activityWho {
+   position 0.15 0
+   hexactpos 0
+   vexactpos 0
+   size 0.2 1
+   hexactsize 0
+   vexactsize 0
+   "text color" 0.8471 0.8235 0.7529 1
+   font "gui/fonts/etelkatextpro12"
+   ignorepointer 1
+   "exact text" 1
+   "text valign" center
+   style Bold
+   text "—"
+   scriptclass "TextBinding"
+   {
+    ScriptParamsClass {
+     Binding_Expression "{{ activityWhoText }}"
+    }
+   }
+  }
+  TextWidgetClass activityDesc {
+   position 0.36 0
+   hexactpos 0
+   vexactpos 0
+   size 0.45 1
+   hexactsize 0
+   vexactsize 0
+   "text color" 0.6039 0.5804 0.5333 1
+   font "gui/fonts/etelkatextpro12"
+   ignorepointer 1
+   "exact text" 1
+   "text valign" center
+   text "—"
+   scriptclass "TextBinding"
+   {
+    ScriptParamsClass {
+     Binding_Expression "{{ activityDescText }}"
+    }
+   }
+  }
+  TextWidgetClass activityDelta {
+   position 0.82 0
+   hexactpos 0
+   vexactpos 0
+   size 0.15 1
+   hexactsize 0
+   vexactsize 0
+   "text color" 0.6039 0.5804 0.5333 1
+   font "gui/fonts/etelkatextpro12"
+   ignorepointer 1
+   "exact text" 1
+   "text valign" center
+   "text halign" right
+   text "—"
+   scriptclass "TextBinding"
+   {
+    ScriptParamsClass {
+     Binding_Expression "{{ activityDeltaText }}"
+    }
+   }
+  }
+ }
+}

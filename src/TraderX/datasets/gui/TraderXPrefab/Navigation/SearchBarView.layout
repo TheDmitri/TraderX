@@ -1,0 +1,47 @@
+PanelWidgetClass searchBarRoot {
+ position 0 0
+ hexactpos 0
+ vexactpos 0
+ size 1 1
+ hexactsize 0
+ vexactsize 0
+ style TXInputField
+ color 0.9961 0.9961 0.9961 1
+ {
+  ImageWidgetClass searchHint {
+   position 0.04 0
+   hexactpos 0
+   vexactpos 0
+   size 18 18
+   hexactsize 1
+   vexactsize 1
+   valign center_ref
+   color 0.6039 0.5804 0.5333 1
+   ignorepointer 1
+   image0 "set:traderx_icons image:search"
+   mode blend
+   "src alpha" 1
+   "stretch mode" stretch_w_h
+  }
+  EditBoxWidgetClass searchInput {
+   position 0.12 0
+   hexactpos 0
+   vexactpos 0
+   size 0.86 0.8
+   hexactsize 0
+   vexactsize 0
+   valign center_ref
+   color 0.9961 0.9961 0.9961 1
+   color 0.8471 0.8235 0.7529 1
+   font "TraderX/datasets/fonts/oswalt14"
+   scriptclass "EditBoxBinding"
+   {
+    ScriptParamsClass {
+     Binding_Expression "{{ search_keyword }}"
+     Two_Way_Binding 1
+     OnChange "OnSearchChanged"
+    }
+   }
+  }
+ }
+}

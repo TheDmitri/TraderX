@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, initial-scale=1">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+</head>
+<body class="dz-viewport">
+
+<!-- ClanCreateTabView — displayed when the player has no clan affiliation.
+     Hero banner · Create form (left) · Pending invitations + Join-by-code (right).
+     Bindings resolve to TXBClanCreateTabComponent. -->
+<div data-dz="panel" data-name="clanCreateRoot"
+     class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr">
+
+  <!-- ════════ HERO ════════ -->
+  <div data-dz="panel" data-name="createHero" data-style="TXCard"
+       class="dz-xy-2-2 dz-wh-96-14 dz-c-FE dz-noptr">
+    <span data-dz="text" data-name="createHeroMeta"
+          class="dz-xy-0-15 dz-wh-100-10 dz-tc-6A6560 dz-font-10 dz-noptr dz-exact-text dz-text-center dz-bold">
+      NO CLAN AFFILIATION
+    </span>
+    <span data-dz="text" data-name="createHeroTitle"
+          class="dz-xy-0-30 dz-wh-100-25 dz-tc-D8D2C0 dz-font-28 dz-noptr dz-exact-text dz-text-center dz-bold">
+      Join or found a clan
+    </span>
+    <span data-dz="text" data-name="createHeroBody"
+          class="dz-xy-15-60 dz-wh-70-35 dz-tc-9A9488 dz-font-12 dz-noptr dz-exact-text dz-text-center dz-wrap">
+      A clan gives you access to a shared bank account, a shared vault for items, and coordinated ops. Founders become Owner; members and officers contribute per role.
+    </span>
+  </div>
+
+  <!-- ════════ LEFT COL : CREATE FORM ════════ -->
+  <div data-dz="panel" data-name="createCard" data-style="TXCard"
+       class="dz-xy-2-17 dz-wh-47-81 dz-c-FE dz-noptr">
+    <span data-dz="text" data-name="createTitle"
+          class="dz-xy-3-2 dz-wh-94-6 dz-tc-D8D2C0 dz-font-16 dz-noptr dz-exact-text dz-bold">
+      CREATE A NEW CLAN
+    </span>
+    <span data-dz="text" data-name="createDesc"
+          class="dz-xy-3-8 dz-wh-94-6 dz-tc-9A9488 dz-font-11 dz-noptr dz-exact-text dz-wrap">
+      You become the Owner. Initial deposit seeds the clan bank.
+    </span>
+
+    <span data-dz="text" data-name="createNameLabel"
+          class="dz-xy-3-16 dz-wh-94-4 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-bold">
+      CLAN NAME
+    </span>
+    <input data-dz="editbox" data-name="createNameInput"
+           data-style="TXInputField"
+           data-bind="{{ newClanName }}" data-two-way="1"
+           class="dz-xy-3-20 dz-wh-94-5 dz-c-FE dz-tc-D8D2C0 dz-font-13 dz-exact-text" />
+
+    <span data-dz="text" data-name="createTagLabel"
+          class="dz-xy-3-27 dz-wh-45-4 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-bold">
+      TAG (3-5 LETTERS)
+    </span>
+    <input data-dz="editbox" data-name="createTagInput"
+           data-style="TXInputField"
+           data-bind="{{ newClanTag }}" data-two-way="1"
+           class="dz-xy-3-31 dz-wh-45-5 dz-c-FE dz-tc-D8D2C0 dz-font-13 dz-exact-text" />
+
+    <span data-dz="text" data-name="createMaxLabel"
+          class="dz-xy-52-27 dz-wh-45-4 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-bold">
+      MAX MEMBERS
+    </span>
+    <input data-dz="editbox" data-name="createMaxInput"
+           data-style="TXInputField"
+           data-bind="{{ newClanMaxMembers }}" data-two-way="1"
+           class="dz-xy-52-31 dz-wh-45-5 dz-c-FE dz-tc-D8D2C0 dz-font-13 dz-exact-text" />
+
+    <span data-dz="text" data-name="createMottoLabel"
+          class="dz-xy-3-38 dz-wh-94-4 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-bold">
+      MOTTO (OPTIONAL)
+    </span>
+    <input data-dz="editbox" data-name="createMottoInput"
+           data-style="TXInputField"
+           data-bind="{{ newClanMotto }}" data-two-way="1"
+           class="dz-xy-3-42 dz-wh-94-5 dz-c-FE dz-tc-D8D2C0 dz-font-13 dz-exact-text" />
+
+    <span data-dz="text" data-name="createDepositLabel"
+          class="dz-xy-3-49 dz-wh-94-4 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-bold">
+      INITIAL BANK DEPOSIT (FROM YOUR PERSONAL ACCOUNT)
+    </span>
+    <input data-dz="editbox" data-name="createDepositInput"
+           data-style="TXInputField"
+           data-bind="{{ newClanInitialDeposit }}" data-two-way="1" data-on-change="OnCreateAmountChanged"
+           class="dz-xy-3-53 dz-wh-94-5 dz-c-FE dz-tc-D8D2C0 dz-font-13 dz-exact-text" />
+
+    <!-- Cost preview -->
+    <div data-dz="panel" data-name="createCostBox" data-style="TXWarningBox"
+         class="dz-xy-3-60 dz-wh-94-15 dz-c-FE dz-noptr">
+      <span data-dz="text" data-name="createCostFeeLabel"
+            class="dz-xy-4-10 dz-wh-60-18 dz-tc-9A9488 dz-font-11 dz-noptr dz-exact-text">
+        Founder registration fee
+      </span>
+      <span data-dz="text" data-name="createCostFeeValue"
+            data-bind="{{ founderFeeText }}"
+            class="dz-xy-64-10 dz-wh-32-18 dz-tc-D8D2C0 dz-font-11 dz-noptr dz-exact-text dz-text-right">
+        — ₽
+      </span>
+
+      <span data-dz="text" data-name="createCostDepLabel"
+            class="dz-xy-4-32 dz-wh-60-18 dz-tc-9A9488 dz-font-11 dz-noptr dz-exact-text">
+        Initial bank deposit
+      </span>
+      <span data-dz="text" data-name="createCostDepValue"
+            data-bind="{{ newClanInitialDeposit }}"
+            class="dz-xy-64-32 dz-wh-32-18 dz-tc-D8D2C0 dz-font-11 dz-noptr dz-exact-text dz-text-right">
+        0
+      </span>
+
+      <div data-dz="panel" data-name="createCostDivider" data-style="TXDivider"
+           class="dz-xy-4-55 dz-wh-92-0.5 dz-c-FE dz-noptr"></div>
+
+      <span data-dz="text" data-name="createCostTotalLabel"
+            class="dz-xy-4-62 dz-wh-60-22 dz-tc-D8D2C0 dz-font-12 dz-noptr dz-exact-text dz-bold">
+        Total debited from personal
+      </span>
+      <span data-dz="text" data-name="createCostTotalValue"
+            data-bind="{{ createTotalCostText }}"
+            class="dz-xy-64-62 dz-wh-32-22 dz-tc-D4A44C dz-font-13 dz-noptr dz-exact-text dz-text-right dz-bold">
+        0 ₽
+      </span>
+    </div>
+
+    <div data-dz="panel" data-name="createWarnBox" data-style="TXWarningBox"
+         class="dz-xy-3-77 dz-wh-94-10 dz-c-FE dz-noptr">
+      <span data-dz="text" data-name="createWarnTitle"
+            class="dz-xy-4-10 dz-wh-92-35 dz-tc-D4A44C dz-font-11 dz-noptr dz-exact-text dz-bold">
+        FOUNDING IS DEFINITIVE
+      </span>
+      <span data-dz="text" data-name="createWarnBody"
+            class="dz-xy-4-50 dz-wh-92-45 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-wrap">
+        Registration fee is non-refundable. Leaving transfers ownership to the next officer (or disbands).
+      </span>
+    </div>
+
+    <button data-dz="button" data-name="createFoundBtn"
+            data-style="TXBtnPrimary" data-on-click="OnFoundClan"
+            data-bind="{{ foundButtonLabel }}"
+            class="dz-xy-3-89 dz-wh-94-9 dz-c-FE dz-tc-D8D2C0 dz-font-13 dz-exact-text dz-bold">
+      FOUND CLAN
+    </button>
+  </div>
+
+  <!-- ════════ RIGHT COL : PENDING INVITES + JOIN BY CODE ════════ -->
+  <div data-dz="panel" data-name="invitesCard" data-style="TXCard"
+       class="dz-xy-51-17 dz-wh-47-50 dz-c-FE dz-noptr">
+    <span data-dz="text" data-name="invitesTitle"
+          class="dz-xy-3-3 dz-wh-94-6 dz-tc-D8D2C0 dz-font-16 dz-noptr dz-exact-text dz-bold">
+      PENDING INVITATIONS
+    </span>
+    <span data-dz="text" data-name="invitesDesc"
+          class="dz-xy-3-10 dz-wh-94-5 dz-tc-9A9488 dz-font-11 dz-noptr dz-exact-text">
+      Clans that invited you. Invites expire 7 days after sending.
+    </span>
+
+    <div data-dz="scroll" data-name="invitesScroll"
+         class="dz-xy-2-18 dz-wh-96-80 dz-scroll-v">
+      <div data-dz="grid" data-name="invitesList"
+           data-foreach="{{ _incomingInvites }}"
+           data-template="txb-clan-invite-row"
+           data-item="_inputInvite"
+           class="dz-wh-100-60px dz-noptr dz-fit-v dz-cols-1 dz-rows-10 dz-gap-2"></div>
+
+      <span data-dz="text" data-name="invitesEmpty"
+            class="dz-xy-5-40 dz-wh-90-10 dz-tc-6A6560 dz-font-11 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+        No pending invitations
+      </span>
+    </div>
+  </div>
+
+  <div data-dz="panel" data-name="joinCodeCard" data-style="TXCard"
+       class="dz-xy-51-68 dz-wh-47-30 dz-c-FE dz-noptr">
+    <span data-dz="text" data-name="joinCodeTitle"
+          class="dz-xy-3-5 dz-wh-94-10 dz-tc-D8D2C0 dz-font-16 dz-noptr dz-exact-text dz-bold">
+      JOIN BY INVITE CODE
+    </span>
+    <span data-dz="text" data-name="joinCodeDesc"
+          class="dz-xy-3-18 dz-wh-94-8 dz-tc-9A9488 dz-font-11 dz-noptr dz-exact-text">
+      If an officer gave you a code, enter it here.
+    </span>
+
+    <span data-dz="text" data-name="joinCodeLabel"
+          class="dz-xy-3-30 dz-wh-94-6 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-bold">
+      INVITE CODE
+    </span>
+    <input data-dz="editbox" data-name="joinCodeInput"
+           data-style="TXInputField"
+           data-bind="{{ inviteCode }}" data-two-way="1"
+           class="dz-xy-3-38 dz-wh-94-15 dz-c-FE dz-tc-D8D2C0 dz-font-14 dz-exact-text" />
+
+    <button data-dz="button" data-name="joinCodeBtn"
+            data-style="TXBtnDefault" data-on-click="OnJoinByCode"
+            class="dz-xy-3-56 dz-wh-94-12 dz-c-FE dz-tc-D8D2C0 dz-font-12 dz-exact-text dz-bold">
+      VALIDATE &amp; JOIN
+    </button>
+
+    <span data-dz="text" data-name="joinCodeNote"
+          class="dz-xy-3-72 dz-wh-94-25 dz-tc-6A6560 dz-font-10 dz-noptr dz-exact-text dz-wrap">
+      Codes are single-use, issued by Owner or Officers, and expire 24h after generation.
+    </span>
+  </div>
+</div>
+
+<script src="dzml-runtime.js"></script>
+</body>
+</html>

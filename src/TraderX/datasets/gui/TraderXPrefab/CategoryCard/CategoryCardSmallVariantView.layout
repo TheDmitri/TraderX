@@ -1,406 +1,318 @@
 GridSpacerWidgetClass categoryCard {
- ignorepointer 1
  position 10 10
- size 48 48
  hexactpos 1
  vexactpos 1
+ size 48 48
  hexactsize 1
  vexactsize 1
- scriptclass "CategoryCardViewController"
+ ignorepointer 1
  "Size To Content V" 1
  Columns 1
  Rows 2
  {
   PanelWidgetClass PanelWidget2 {
-   ignorepointer 1
-   color 0.3333 0.3529 0.3961 1
    position 0 0
-   size 77 56
    hexactpos 0
    vexactpos 0
+   size 77 56
    hexactsize 1
    vexactsize 1
-   style Corny_Square_Shadow_5px
+   ignorepointer 1
+   style TXSurface
+   color 0.9961 0.9961 0.9961 1
    {
     ButtonWidgetClass categoryBtn {
      position 0 0
-     size 1 0.86
-     halign center_ref
      hexactpos 0
      vexactpos 0
+     size 1 0.86
      hexactsize 0
      vexactsize 0
+     halign center_ref
+     "text color" 0.9961 0.9961 0.9961 1
      userID 345
-     scriptclass "ViewBinding"
      style Empty
+     color 0.9961 0.9961 0.9961 1
      {
       PanelWidgetClass GridCategory {
-       visible 1
-       disabled 0
-       ignorepointer 1
-       color 1 1 1 0
        position 0 -0.01
-       size 1 1
        hexactpos 0
        vexactpos 0
+       size 1 1
        hexactsize 0
        vexactsize 0
-       style DA_Squad
-       "no focus" 0
+       ignorepointer 1
+       disabled 0
+       style TXCard
+       color 0.9961 0.9961 0.9961 1
        {
         ImageWidgetClass categoryIcon {
-         ignorepointer 1
-         position 0.015 0
-         size 42 42
-         valign center_ref
+         position 0.02 0
          hexactpos 0
          vexactpos 0
+         size 42 42
          hexactsize 1
          vexactsize 1
-         imageTexture "{E1A403E96FE8D30E}TraderX/datasets/icons/rifle.edds"
+         valign center_ref
+         ignorepointer 1
+         image0 "set:traderx_icons image:rifle"
          mode blend
          "src alpha" 1
-         "clamp mode" wrap
          "stretch mode" stretch_w_h
         }
         TextWidgetClass CategoryName {
-         visible 1
-         ignorepointer 1
-         color 0.0588 0.0588 0.0588 1
-         position 0.08 -0.006
-         size 0.5 0.9057
-         valign center_ref
+         position 0.08 -0.01
          hexactpos 0
          vexactpos 0
+         size 0.5 0.91
          hexactsize 0
          vexactsize 0
-         priority 1
-         scriptclass "ViewBinding"
-         style Normal
-         text "Category Name"
-         font "TraderX/datasets/fonts/RobotoCondensedVF28"
-         "exact text" 0
-         "text halign" left
+         valign center_ref
+         "text color" 0.9961 0.9961 0.9961 1
+         "text color" 0.0588 0.0588 0.0588 1
+         font "TraderX/datasets/fonts/oswalt28"
+         ignorepointer 1
          "text valign" center
-         {
-          ScriptParamsClass {
-           Binding_Name "category_name"
-          }
-         }
+         style Normal
+         color 0.9961 0.9961 0.9961 1
+         text "Category Name"
         }
         GridSpacerWidgetClass dropdownParentPanel {
-         visible 1
-         ignorepointer 1
          position 0.1 0.09
-         size 1 0.95
-         halign right_ref
-         valign center_ref
          hexactpos 0
          vexactpos 0
+         size 1 0.95
          hexactsize 0
          vexactsize 0
-         "Ignore invisible" 0
+         halign right_ref
+         valign center_ref
+         ignorepointer 1
+         "Size To Content H" 1
+         Columns 2
+         Rows 1
          Padding 15
          Margin 3
-         "Size To Content H" 1
-         Columns 2
-         Rows 1
          {
           PanelWidgetClass PanelWidget4 {
-           ignorepointer 1
-           color 0.251 0.2706 0.302 1
            position 0 0
+           hexactpos 0
+           vexactpos 0
            size 0.15 0.8
+           hexactsize 0
+           vexactsize 0
            halign center_ref
            valign center_ref
-           hexactpos 0
-           vexactpos 0
-           hexactsize 0
-           vexactsize 0
-           style Corny_Square_Shadow_5px
-           {
-            ButtonWidgetClass sortByBtn {
-             visible 1
-             disabled 0
-             color 0.251 0.2706 0.302 1
-             position 0 0
-             size 0.98 0.84
-             hexactpos 0
-             vexactpos 0
-             hexactsize 0
-             vexactsize 0
-             priority 1
-             scriptclass "ViewBinding"
-             style Empty
-             {
-              TextWidgetClass DropdownText3 {
-               clipchildren 1
-               ignorepointer 1
-               color 0.7137 0.7137 0.7137 1
-               position 0 0
-               size 0.62 1
-               valign center_ref
-               hexactpos 0
-               vexactpos 0
-               hexactsize 0
-               vexactsize 0
-               scaled 1
-               scriptclass "ViewBinding"
-               style Normal
-               text "#tpm_sort_by"
-               font "TraderX/datasets/fonts/RobotoCondensedVF16"
-               "text color" 0.5569 0.5569 0.5569 1
-               "text offset" 10 0
-               "exact text" 0
-               "size to text h" 0
-               "size to text v" 0
-               "text valign" center
-               {
-                ScriptParamsClass {
-                 Binding_Name "Value"
-                }
-               }
-              }
-              ImageWidgetClass decroissantIcon {
-               visible 0
-               clipchildren 1
-               inheritalpha 1
-               ignorepointer 1
-               color 0.9961 0.9961 0.9961 1
-               position 0.07 0
-               size 30 30
-               halign right_ref
-               valign center_ref
-               hexactpos 0
-               vexactpos 0
-               hexactsize 1
-               vexactsize 1
-               imageTexture "{EA2703575C6257F7}TraderX/datasets/icons/decroissant.edds"
-               mode additive
-               "src alpha" 1
-               "stretch mode" stretch_w_h
-               filter 1
-              }
-              ImageWidgetClass croissantIcon {
-               visible 1
-               clipchildren 1
-               inheritalpha 1
-               ignorepointer 1
-               color 0.9961 0.9961 0.9961 1
-               position 0.07 0
-               size 30 30
-               halign right_ref
-               valign center_ref
-               hexactpos 0
-               vexactpos 0
-               hexactsize 1
-               vexactsize 1
-               imageTexture "{2E5FB39446D9A262}TraderX/datasets/icons/croissant.edds"
-               mode additive
-               "src alpha" 1
-               "stretch mode" stretch_w_h
-               filter 1
-              }
-             }
-             {
-              ScriptParamsClass {
-               Relay_Command "OnSortByClic"
-              }
-             }
-            }
-           }
-          }
-          PanelWidgetClass PanelWidget6 {
            ignorepointer 1
-           color 0.251 0.2706 0.302 1
-           position 0.029 0.213
-           size 0.15 0.75
-           hexactpos 0
-           vexactpos 0
-           hexactsize 0
-           vexactsize 0
-           style Corny_Square_Shadow_5px
-           {
-            ButtonWidgetClass collapseBtn {
-             visible 1
-             color 0.251 0.2706 0.302 1
-             size 0.98 0.84
-             hexactpos 0
-             vexactpos 0
-             hexactsize 0
-             vexactsize 0
-             priority 1
-             scriptclass "ViewBinding"
-             style Empty
-             {
-              TextWidgetClass DropdownText0 {
-               clipchildren 1
-               ignorepointer 1
-               color 0.7137 0.7137 0.7137 1
-               position 0 0
-               size 0.62 1
-               valign center_ref
-               hexactpos 0
-               vexactpos 0
-               hexactsize 0
-               vexactsize 0
-               scaled 1
-               scriptclass "ViewBinding"
-               style Normal
-               text "#tpm_collapse"
-               font "TraderX/datasets/fonts/RobotoCondensedVF16"
-               "text color" 0.5569 0.5569 0.5569 1
-               "text offset" 10 0
-               "exact text" 0
-               "size to text h" 0
-               "size to text v" 0
-               "text valign" center
-               {
-                ScriptParamsClass {
-                 Binding_Name "Value"
-                }
-               }
-              }
-              ImageWidgetClass DropdownExpandIcon0 {
-               visible 1
-               clipchildren 1
-               inheritalpha 1
-               ignorepointer 1
-               color 0.9961 0.9961 0.9961 1
-               position 0.07 0
-               size 30 21
-               halign right_ref
-               valign center_ref
-               hexactpos 0
-               vexactpos 0
-               hexactsize 1
-               vexactsize 1
-               image0 "set:ccgui_enforce image:CrScrollV"
-               mode blend
-               "src alpha" 1
-               "stretch mode" stretch_w_h
-               "flip v" 1
-               filter 1
-              }
-             }
-             {
-              ScriptParamsClass {
-               Relay_Command "OnCollapseClic"
-              }
-             }
-            }
-           }
-          }
-         }
-        }
-        GridSpacerWidgetClass licensePanel {
-         visible 0
-         ignorepointer 1
-         color 1 1 1 0.6549
-         size 0.314 0.87
-         halign center_ref
-         valign center_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         style Empty
-         Padding 10
-         "Size To Content H" 1
-         Columns 2
-         Rows 1
-         {
-          ImageWidgetClass ImageWidget0 {
-           inheritalpha 1
-           ignorepointer 1
+           style TXSurface
            color 0.9961 0.9961 0.9961 1
-           position 0.02 0
-           size 36 36
-           valign center_ref
-           hexactpos 0
-           vexactpos 0
-           hexactsize 1
-           vexactsize 1
-           imageTexture "{C18A99B5F1E1343B}TraderX/datasets/icons/padlock.edds"
-           mode additive
-           "src alpha" 1
-           "stretch mode" stretch_w_h
-          }
-          TextWidgetClass TextWidget1 {
-           inheritalpha 1
-           ignorepointer 1
-           color 0.9961 0.9961 0.9961 1
-           position 0.1 0
-           size 0.9 1
-           valign center_ref
-           hexactpos 0
-           vexactpos 0
-           hexactsize 0
-           vexactsize 0
-           text "#tpm_licenses_required"
-           font "TraderX/datasets/fonts/RobotoCondensedVF28"
-           "exact text" 1
-           "size to text h" 1
-           "size to text v" 1
-           "text valign" center
-          }
-         }
-        }
-        TextWidgetClass itemCountText {
-         ignorepointer 1
-         color 0.0588 0.0588 0.0588 1
-         position 0.01 0
-         size 0.09 1
-         halign right_ref
-         valign center_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         scriptclass "ViewBinding"
-         text "146 items"
-         font "TraderX/datasets/fonts/RobotoCondensedVF28"
-         "exact text" 1
-         "size to text h" 1
-         "size to text v" 0
-         "text halign" right
-         "text valign" center
-         {
-          ScriptParamsClass {
-           Binding_Name "item_count"
           }
          }
         }
        }
       }
      }
+    }
+    ButtonWidgetClass sortByBtn {
+     position 0 0
+     hexactpos 0
+     vexactpos 0
+     size 0.98 0.84
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.9961 0.9961 0.9961 1
+     "text color" 0.251 0.2706 0.302 1
+     disabled 0
+     style Empty
+     color 0.9961 0.9961 0.9961 1
      {
-      ScriptParamsClass {
-       Relay_Command "OnCategoryCardExecute"
+      TextWidgetClass DropdownText3 {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 0.62 1
+       hexactsize 0
+       vexactsize 0
+       valign center_ref
+       "text color" 0.9961 0.9961 0.9961 1
+       "text color" 0.5569 0.5569 0.5569 1
+       font "TraderX/datasets/fonts/oswalt16"
+       ignorepointer 1
+       "text valign" center
+       style Normal
+       color 0.9961 0.9961 0.9961 1
+       text "#tpm_sort_by"
+      }
+      ImageWidgetClass decroissantIcon {
+       position 0.07 0
+       hexactpos 0
+       vexactpos 0
+       size 30 30
+       hexactsize 1
+       vexactsize 1
+       halign right_ref
+       valign center_ref
+       color 0.9961 0.9961 0.9961 1
+       ignorepointer 1
+       visible 0
+       image0 "set:traderx_icons image:decroissant"
+       mode blend
+       "src alpha" 1
+       "stretch mode" stretch_w_h
+      }
+      ImageWidgetClass croissantIcon {
+       position 0.07 0
+       hexactpos 0
+       vexactpos 0
+       size 30 30
+       hexactsize 1
+       vexactsize 1
+       halign right_ref
+       valign center_ref
+       color 0.9961 0.9961 0.9961 1
+       ignorepointer 1
+       image0 "set:traderx_icons image:croissant"
+       mode blend
+       "src alpha" 1
+       "stretch mode" stretch_w_h
       }
      }
     }
    }
   }
-  GridSpacerWidgetClass itemCardGrid {
-   visible 1
-   ignorepointer 1
-   size 1 56
-   halign center_ref
+  PanelWidgetClass PanelWidget6 {
+   position 0.03 0.21
    hexactpos 0
    vexactpos 0
+   size 0.15 0.75
    hexactsize 0
-   vexactsize 1
-   scriptclass "ViewBinding"
-   Margin 4
-   "Size To Content V" 1
-   Columns 6
-   Rows 100
+   vexactsize 0
+   ignorepointer 1
+   style TXSurface
+   color 0.9961 0.9961 0.9961 1
    {
-    ScriptParamsClass {
-     Binding_Name "item_card_list"
+    ButtonWidgetClass collapseBtn {
+     size 0.98 0.84
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.9961 0.9961 0.9961 1
+     "text color" 0.251 0.2706 0.302 1
+     style Empty
+     color 0.9961 0.9961 0.9961 1
+     {
+      TextWidgetClass DropdownText0 {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 0.62 1
+       hexactsize 0
+       vexactsize 0
+       valign center_ref
+       "text color" 0.9961 0.9961 0.9961 1
+       "text color" 0.5569 0.5569 0.5569 1
+       font "TraderX/datasets/fonts/oswalt16"
+       ignorepointer 1
+       "text valign" center
+       style Normal
+       color 0.9961 0.9961 0.9961 1
+       text "#tpm_collapse"
+      }
+      ImageWidgetClass DropdownExpandIcon0 {
+       position 0.07 0
+       hexactpos 0
+       vexactpos 0
+       size 30 21
+       hexactsize 1
+       vexactsize 1
+       halign right_ref
+       valign center_ref
+       color 0.9961 0.9961 0.9961 1
+       ignorepointer 1
+       image0 "set:ccgui_enforce image:CrScrollV"
+       mode blend
+       "src alpha" 1
+       "stretch mode" stretch_w_h
+      }
+     }
     }
    }
   }
  }
+}
+GridSpacerWidgetClass licensePanel {
+ size 0.31 0.87
+ hexactsize 0
+ vexactsize 0
+ halign center_ref
+ valign center_ref
+ ignorepointer 1
+ visible 0
+ "Size To Content H" 1
+ Columns 2
+ Rows 1
+ Padding 10
+ style Empty
+ color 0.9961 0.9961 0.9961 1
+ {
+  ImageWidgetClass ImageWidget0 {
+   position 0.02 0
+   hexactpos 0
+   vexactpos 0
+   size 36 36
+   hexactsize 1
+   vexactsize 1
+   valign center_ref
+   color 0.9961 0.9961 0.9961 1
+   ignorepointer 1
+   image0 "set:traderx_icons image:padlock"
+   mode blend
+   "src alpha" 1
+   "stretch mode" stretch_w_h
+  }
+  TextWidgetClass TextWidget1 {
+   position 0.1 0
+   hexactpos 0
+   vexactpos 0
+   size 0.9 1
+   hexactsize 0
+   vexactsize 0
+   valign center_ref
+   "text color" 0.9961 0.9961 0.9961 1
+   font "TraderX/datasets/fonts/oswalt28"
+   ignorepointer 1
+   "exact text" 1
+   "text valign" center
+   "size to text h" 1
+   "size to text v" 1
+   text "#tpm_licenses_required"
+  }
+ }
+}
+TextWidgetClass itemCountText {
+ position 0.01 0
+ hexactpos 0
+ vexactpos 0
+ size 0.09 1
+ hexactsize 0
+ vexactsize 0
+ halign right_ref
+ valign center_ref
+ "text color" 0.0588 0.0588 0.0588 1
+ font "TraderX/datasets/fonts/jet-brains-mono28"
+ ignorepointer 1
+ "exact text" 1
+ "text valign" center
+ "text halign" right
+ "size to text h" 1
+ text "146 items"
+}
+GridSpacerWidgetClass itemCardGrid {
+ size 1 56
+ hexactsize 0
+ vexactsize 1
+ halign center_ref
+ ignorepointer 1
+ "Size To Content V" 1
+ Columns 6
+ Rows 100
+ Margin 4
 }

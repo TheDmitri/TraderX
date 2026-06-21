@@ -1,0 +1,300 @@
+ImageSetClass {
+ Name "traderx_icons"
+ RefSize 2048 1536
+ Textures {
+  ImageSetTextureClass {
+   mpix 1
+   path "{0340C2EBFA081AA7}TraderX/datasets/icons/traderx_icons.edds"
+  }
+ }
+ Images {
+  ImageSetDefClass add {
+   Name "add"
+   Pos 0 0
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass allStock {
+   Name "allStock"
+   Pos 256 0
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass approved {
+   Name "approved"
+   Pos 512 0
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass bank {
+   Name "bank"
+   Pos 768 0
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass bookmark {
+   Name "bookmark"
+   Pos 1024 0
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass bookmarkWhithe {
+   Name "bookmarkWhithe"
+   Pos 1280 0
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass bookmarkWhitheFav {
+   Name "bookmarkWhitheFav"
+   Pos 1536 0
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass checkout {
+   Name "checkout"
+   Pos 1792 0
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass chevron_down {
+   Name "chevron_down"
+   Pos 0 256
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass circle {
+   Name "circle"
+   Pos 256 256
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass close {
+   Name "close"
+   Pos 512 256
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass coins {
+   Name "coins"
+   Pos 768 256
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass croissant {
+   Name "croissant"
+   Pos 1024 256
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass decroissant {
+   Name "decroissant"
+   Pos 1280 256
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass delete {
+   Name "delete"
+   Pos 1536 256
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass edit {
+   Name "edit"
+   Pos 1792 256
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass error {
+   Name "error"
+   Pos 0 512
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass favFull {
+   Name "favFull"
+   Pos 256 512
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass favorites {
+   Name "favorites"
+   Pos 512 512
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass favorites_full {
+   Name "favorites_full"
+   Pos 768 512
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass grid {
+   Name "grid"
+   Pos 1024 512
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass info {
+   Name "info"
+   Pos 1280 512
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass left_click {
+   Name "left_click"
+   Pos 1536 512
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass left_right_click {
+   Name "left_right_click"
+   Pos 1792 512
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass list {
+   Name "list"
+   Pos 0 768
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass market {
+   Name "market"
+   Pos 256 768
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass minus {
+   Name "minus"
+   Pos 512 768
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass padlock {
+   Name "padlock"
+   Pos 768 768
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass palette {
+   Name "palette"
+   Pos 1024 768
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass person {
+   Name "person"
+   Pos 1280 768
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass purchase {
+   Name "purchase"
+   Pos 1536 768
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass quantity {
+   Name "quantity"
+   Pos 1792 768
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass ready_stock {
+   Name "ready_stock"
+   Pos 0 1024
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass refresh {
+   Name "refresh"
+   Pos 256 1024
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass rifle {
+   Name "rifle"
+   Pos 512 1024
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass right_click {
+   Name "right_click"
+   Pos 768 1024
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass sale {
+   Name "sale"
+   Pos 1024 1024
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass search {
+   Name "search"
+   Pos 1280 1024
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass shift {
+   Name "shift"
+   Pos 1536 1024
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass simpleCoins {
+   Name "simpleCoins"
+   Pos 1792 1024
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass star {
+   Name "star"
+   Pos 0 1280
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass star_full {
+   Name "star_full"
+   Pos 256 1280
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass stockSimple {
+   Name "stockSimple"
+   Pos 512 1280
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass trash {
+   Name "trash"
+   Pos 768 1280
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass unapproved {
+   Name "unapproved"
+   Pos 1024 1280
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass wallet {
+   Name "wallet"
+   Pos 1280 1280
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass warning {
+   Name "warning"
+   Pos 1536 1280
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass wrench {
+   Name "wrench"
+   Pos 1792 1280
+   Size 256 256
+   Flags 0
+  }
+ }
+}

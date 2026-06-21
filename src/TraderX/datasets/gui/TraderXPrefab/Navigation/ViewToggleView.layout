@@ -1,0 +1,74 @@
+ButtonWidgetClass viewToggleBtn {
+ position 0 0
+ hexactpos 0
+ vexactpos 0
+ size 1 1
+ hexactsize 0
+ vexactsize 0
+ "text color" 0.9961 0.9961 0.9961 1
+ "text color" 0.8471 0.8235 0.7529 1
+ font "TraderX/datasets/fonts/oswalt12"
+ "exact text" 1
+ "text halign" center
+ "text valign" center
+ style "TXBtnDefault"
+ style Bold
+ color 0.9961 0.9961 0.9961 1
+ scriptclass "ButtonBinding"
+ {
+  ImageWidgetClass gridIcon {
+   position 0.08 0
+   hexactpos 0
+   vexactpos 0
+   size 24 24
+   hexactsize 1
+   vexactsize 1
+   valign center_ref
+   color 0.7686 0.6392 0.3529 1
+   ignorepointer 1
+   image0 "set:traderx_icons image:grid"
+   mode blend
+   "src alpha" 1
+   "stretch mode" stretch_w_h
+  }
+  ImageWidgetClass listIcon {
+   position 0.08 0
+   hexactpos 0
+   vexactpos 0
+   size 24 24
+   hexactsize 1
+   vexactsize 1
+   valign center_ref
+   color 0.6039 0.5804 0.5333 1
+   ignorepointer 1
+   visible 0
+   image0 "set:traderx_icons image:list"
+   mode blend
+   "src alpha" 1
+   "stretch mode" stretch_w_h
+  }
+  TextWidgetClass viewLabel {
+   position 0.38 0
+   hexactpos 0
+   vexactpos 0
+   "text color" 0.8471 0.8235 0.7529 1
+   font "TraderX/datasets/fonts/oswalt12"
+   ignorepointer 1
+   style Bold
+   "text valign" center
+   "exact text" 1
+   text "Grid"
+   scriptclass "TextBinding"
+   {
+    ScriptParamsClass {
+     Binding_Expression "{{ view_label }}"
+    }
+   }
+  }
+ }
+ {
+  ScriptParamsClass {
+   OnClick "OnViewToggleClick"
+  }
+ }
+}

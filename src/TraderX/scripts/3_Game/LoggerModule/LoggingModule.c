@@ -137,6 +137,13 @@ class TraderXLoggingModule : CF_ModuleGame
         return null;
     }
 
+    // Cheap level check so hot paths can skip building an expensive string.Format
+    // argument that Log() would just discard. Mirrors the filter in Log().
+    bool ShouldLog(TraderXLogLevel logLevel)
+    {
+        return logLevel >= networkSync_LogLevel;
+    }
+
     void Log(string content, TraderXLogLevel logLevel)
     {
         if(logLevel < networkSync_LogLevel)

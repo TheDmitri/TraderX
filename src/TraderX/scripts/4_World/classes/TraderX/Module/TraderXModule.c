@@ -10,7 +10,6 @@ class TraderXModule : CF_ModuleWorld
 
     static ref ScriptInvoker Event_OnTraderXPlayerJoined = new ScriptInvoker();
 
-    ref TraderXMainView traderXMainView;
 
     override void OnInit()
     {
@@ -41,7 +40,8 @@ class TraderXModule : CF_ModuleWorld
         {
             generalSettings = new TraderXGeneralSettings();
             TraderXTransactionNotifier.GetInstance();
-            TraderXNotificationService.GetInstance();
+            // Legacy TraderXNotificationService stack kept dormant — toast routing
+            // now goes through TraderXToastService (registered in TraderXAppInit).
             TraderXPresetsService.GetInstance().GetInstance();
         }
 
@@ -78,27 +78,21 @@ class TraderXModule : CF_ModuleWorld
 
     void OpenTraderView()
     {
-        if(traderXMainView){
-            traderXMainView.Show(true);
-            return;
-        }
-
-        traderXMainView = new TraderXMainView();
-        traderXMainView.Show(true);
+        if (GetTraderXUIService())
+            GetTraderXUIService().OpenTraderView();
     }
 
     bool IsTraderViewOpen()
     {
-        return traderXMainView != null;
+        if (GetTraderXUIService())
+            return GetTraderXUIService().IsTraderViewOpen();
+        return false;
     }
 
     void CloseTraderView()
     {
-        if(traderXMainView){
-            TraderXTradingService.GetInstance().ClearNpc();
-            traderXMainView.Show(false);
-            delete traderXMainView;
-        }
+        if (GetTraderXUIService())
+            GetTraderXUIService().CloseTraderView();
     }
 
     void OnTraderXMenuOpen(CallType type, ParamsReadContext ctx, PlayerIdentity sender, Object target)

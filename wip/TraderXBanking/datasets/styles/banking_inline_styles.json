@@ -1,0 +1,221 @@
+{
+  "output": "banking",
+  "texture": "{00000000-0000-0000-0000-000000000000}banking_atlas.edds",
+  "styles": [
+    {
+      "name": "TXContainer",
+      "type": "panel",
+      "bg": "#08090c",
+      "border": "#252a36"
+    },
+    {
+      "name": "TXHeader",
+      "type": "panel",
+      "bg": "#0c0e14",
+      "bottom": "#1a1e28"
+    },
+    {
+      "name": "TXCard",
+      "type": "panel",
+      "bg": "#10131b",
+      "border": "#1a1e28"
+    },
+    {
+      "name": "TXCardElevated",
+      "type": "panel",
+      "bg": "#161a24",
+      "border": "#3a4050"
+    },
+    {
+      "name": "TXSurface",
+      "type": "panel",
+      "bg": "#0c0e14",
+      "border": "#1a1e28"
+    },
+    {
+      "name": "TXDivider",
+      "type": "panel",
+      "bg": "#1a1e28"
+    },
+    {
+      "name": "TXTab",
+      "type": "button",
+      "bg": "#0c0e14",
+      "states": {
+        "highlight": {
+          "bg": "#12151c",
+          "bottom": "#d4a44c"
+        },
+        "pushed": {
+          "bg": "#08090e",
+          "bottom": "#d4a44c"
+        }
+      }
+    },
+    {
+      "name": "TXBtnPrimary",
+      "type": "button",
+      "bg": "#2a3a1a",
+      "border": "#4a6a2a",
+      "states": {
+        "highlight": {
+          "bg": "#3a5022"
+        },
+        "pushed": {
+          "bg": "#1f2a12"
+        }
+      }
+    },
+    {
+      "name": "TXBtnAccent",
+      "type": "button",
+      "bg": "#2a2214",
+      "border": "#8a6a30",
+      "states": {
+        "highlight": {
+          "bg": "#3a2e1a"
+        },
+        "pushed": {
+          "bg": "#1d180e"
+        }
+      }
+    },
+    {
+      "name": "TXBtnDanger",
+      "type": "button",
+      "bg": "#2a1410",
+      "border": "#7a2a18",
+      "states": {
+        "highlight": {
+          "bg": "#3a1a14"
+        },
+        "pushed": {
+          "bg": "#1a0c08"
+        }
+      }
+    },
+    {
+      "name": "TXBtnDefault",
+      "type": "button",
+      "bg": "#14161e",
+      "border": "#252a36",
+      "states": {
+        "highlight": {
+          "bg": "#1a1e28"
+        },
+        "pushed": {
+          "bg": "#0e1018"
+        }
+      }
+    },
+    {
+      "name": "TXBtnLeave",
+      "type": "button",
+      "bg": "#8B0000",
+      "states": {
+        "highlight": {
+          "bg": "#a52a2a"
+        },
+        "pushed": {
+          "bg": "#6B0000"
+        }
+      }
+    },
+    {
+      "name": "TXInputField",
+      "type": "editbox",
+      "bg": "#14161e",
+      "border": "#252a36",
+      "states": {
+        "focus": {
+          "bg": "#1a1e28",
+          "border": "#d4a44c"
+        }
+      }
+    },
+    {
+      "name": "TXProgressBg",
+      "type": "panel",
+      "bg": "#14161e",
+      "radius": 3
+    },
+    {
+      "name": "TXProgressFill",
+      "type": "panel",
+      "bg": "#d4a44c",
+      "radius": 3
+    },
+    {
+      "name": "TXInfoBox",
+      "type": "panel",
+      "bg": "#10121a",
+      "left": "#4a7ac7"
+    },
+    {
+      "name": "TXSuccessBox",
+      "type": "panel",
+      "bg": "#10121a",
+      "left": "#7a9a4a"
+    },
+    {
+      "name": "TXWarningBox",
+      "type": "panel",
+      "bg": "#10121a",
+      "left": "#d4a44c"
+    },
+    {
+      "name": "TXErrorBox",
+      "type": "panel",
+      "bg": "#10121a",
+      "left": "#c93030"
+    },
+    {
+      "name": "TXListRow",
+      "type": "button",
+      "bg": "#0a0c12",
+      "states": {
+        "highlight": {
+          "bg": "#12141c"
+        },
+        "pushed": {
+          "bg": "#0e1018"
+        }
+      }
+    },
+    {
+      "name": "TXListRowAlt",
+      "type": "button",
+      "bg": "#0d0f16",
+      "states": {
+        "highlight": {
+          "bg": "#12141c"
+        },
+        "pushed": {
+          "bg": "#0e1018"
+        }
+      }
+    },
+    {
+      "name": "TXListRowSelected",
+      "type": "button",
+      "bg": "#14161e",
+      "left": "#d4a44c",
+      "states": {
+        "highlight": {
+          "bg": "#14161e",
+          "left": "#d4a44c"
+        },
+        "pushed": {
+          "bg": "#14161e",
+          "left": "#d4a44c"
+        }
+      }
+    },
+    {
+      "name": "TXBadge",
+      "type": "panel",
+      "bg": "#14161e",
+      "radius": 3
+    }
+  ]
+}

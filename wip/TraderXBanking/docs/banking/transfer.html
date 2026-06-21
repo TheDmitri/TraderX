@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Banking · Transfer — Field Ledger</title>
+  <link rel="stylesheet" href="../field-ledger.css">
+  <style>
+    .page { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-5); padding: var(--sp-5); height: 100%; min-height: 0; }
+    .panel-form { padding: var(--sp-5); background: var(--bg-card); border: 1px solid var(--border-soft); display: flex; flex-direction: column; gap: var(--sp-4); }
+    .panel-form h2 { font-size: 20px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-ivory); font-weight: 600; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3); }
+    .summary { padding: var(--sp-4); background: var(--bg-elevated); border-left: 3px solid var(--info-steel); display: flex; flex-direction: column; gap: var(--sp-3); }
+    .summary__row { display: flex; justify-content: space-between; font-size: 13px; padding: 4px 0; }
+    .summary__row--total { padding-top: var(--sp-3); border-top: 1px solid var(--border-soft); font-size: 16px; font-weight: 500; }
+    .contacts { padding: var(--sp-3); background: var(--bg-card); border: 1px solid var(--border-soft); display: flex; flex-direction: column; min-height: 0; }
+    .contacts__header { display: flex; justify-content: space-between; align-items: center; padding: 0 var(--sp-2) var(--sp-3); border-bottom: 1px solid var(--border-soft); }
+    .contact-row { display: grid; grid-template-columns: 32px 1fr auto; gap: var(--sp-3); align-items: center; padding: var(--sp-2); border-bottom: 1px solid var(--border-soft); cursor: pointer; border-left: 3px solid transparent; }
+    .contact-row:hover { background: var(--bg-hover); }
+    .contact-row.is-active { background: var(--bg-elevated); border-left-color: var(--accent-amber); }
+    .contact-row__avatar { width: 32px; height: 32px; background: var(--bg-base); border: 1px solid var(--border-soft); display: flex; align-items: center; justify-content: center; color: var(--text-ash); font-size: 12px; }
+    .contact-row__name { font-size: 13px; color: var(--text-ivory); }
+    .contact-row__id { font-size: 11px; color: var(--text-dust); font-family: monospace; letter-spacing: 0.8px; }
+    .contact-row__meta { font-size: 11px; color: var(--text-ash); letter-spacing: 1.2px; text-transform: uppercase; }
+  </style>
+</head>
+<body>
+<div class="dz-viewport">
+  <div class="shell">
+    <div class="shell__header">
+      <div class="shell__identity">
+        <div class="shell__identity-name">Yuri Pashkov</div>
+        <div class="shell__identity-role">Banking · Bank teller</div>
+      </div>
+      <div class="shell__nav">
+        <a class="shell__tab" href="bankingView.html">Home</a>
+        <a class="shell__tab" href="account.html">Account</a>
+        <a class="shell__tab" href="vault.html">Vault</a>
+        <a class="shell__tab is-active" href="transfer.html">Transfer</a>
+        <a class="shell__tab" href="clan.html">Clan</a>
+        <a class="shell__tab" href="ledger.html">Ledger</a>
+      </div>
+      <button class="shell__close">X</button>
+    </div>
+
+    <div class="shell__subnav">
+      <div class="muted uppercase" style="font-size: 11px; letter-spacing: 1.5px;">Send roubles to another player account</div>
+    </div>
+
+    <div class="shell__content">
+      <div class="page">
+        <!-- LEFT: form -->
+        <div class="fl-col gap-4" style="min-height: 0;">
+          <div class="panel-form">
+            <h2>New transfer</h2>
+
+            <div class="field">
+              <label class="field__label">Recipient account ID</label>
+              <input class="input" placeholder="76561198·XXXX·XXXX" value="76561198·B1CE·9214">
+              <div class="muted" style="font-size: 11px; margin-top: 2px;">Recipient: <span class="amber">Alex K.</span> · verified</div>
+            </div>
+
+            <div class="grid-2">
+              <div class="field">
+                <label class="field__label">Amount</label>
+                <input class="input" value="2,000">
+              </div>
+              <div class="field">
+                <label class="field__label">Currency</label>
+                <input class="input" value="Roubles" disabled>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="field__label">Note (optional)</label>
+              <input class="input" placeholder="Reference, memo…" value="Car repair — cheers">
+            </div>
+
+            <div class="summary">
+              <div class="summary__row"><span class="muted">Amount</span><span>2,000</span></div>
+              <div class="summary__row"><span class="muted">Transfer fee · 2%</span><span class="rust">−40</span></div>
+              <div class="summary__row"><span class="muted">Recipient receives</span><span class="amber">2,000</span></div>
+              <div class="summary__row summary__row--total"><span>Total deducted</span><span class="amber">2,040</span></div>
+            </div>
+
+            <div class="fl gap-3">
+              <button class="btn btn--default" style="flex: 1;">Reset</button>
+              <button class="btn btn--primary" style="flex: 2;">Send transfer</button>
+            </div>
+          </div>
+
+          <div class="alert alert--info">
+            <div class="alert__title">Transfers are final</div>
+            <div class="alert__body">Once confirmed, transfers cannot be reversed. Verify the recipient ID before sending.</div>
+          </div>
+        </div>
+
+        <!-- RIGHT: contacts + clan -->
+        <div class="fl-col gap-4" style="min-height: 0;">
+          <div class="contacts" style="flex: 1;">
+            <div class="contacts__header">
+              <span class="muted uppercase" style="font-size: 12px; letter-spacing: 1.5px;">Recent recipients</span>
+              <input class="search__input" placeholder="Search contacts…" style="background: var(--bg-hover); padding: 6px 10px; border: 1px solid var(--border-default); font-size: 12px;">
+            </div>
+            <div class="fl-col scroll-y fl-1">
+              <div class="contact-row is-active">
+                <div class="contact-row__avatar">AK</div>
+                <div class="fl-col">
+                  <span class="contact-row__name">Alex K.</span>
+                  <span class="contact-row__id">76561198·B1CE·9214</span>
+                </div>
+                <span class="contact-row__meta">3 transfers</span>
+              </div>
+              <div class="contact-row">
+                <div class="contact-row__avatar">BM</div>
+                <div class="fl-col">
+                  <span class="contact-row__name">Boris M.</span>
+                  <span class="contact-row__id">76561198·5F12·A3C0</span>
+                </div>
+                <span class="contact-row__meta">1 transfer</span>
+              </div>
+              <div class="contact-row">
+                <div class="contact-row__avatar">SV</div>
+                <div class="fl-col">
+                  <span class="contact-row__name">Svetlana V.</span>
+                  <span class="contact-row__id">76561198·03AB·771F</span>
+                </div>
+                <span class="contact-row__meta">2 transfers</span>
+              </div>
+              <div class="contact-row">
+                <div class="contact-row__avatar">DM</div>
+                <div class="fl-col">
+                  <span class="contact-row__name">Dmitri O.</span>
+                  <span class="contact-row__id">76561198·9A40·E2B7</span>
+                </div>
+                <span class="contact-row__meta">1 transfer</span>
+              </div>
+              <div class="contact-row">
+                <div class="contact-row__avatar">EK</div>
+                <div class="fl-col">
+                  <span class="contact-row__name">Elena K.</span>
+                  <span class="contact-row__id">76561198·72E9·5544</span>
+                </div>
+                <span class="contact-row__meta">1 transfer</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel p-4 fl-col gap-3">
+            <div class="fl" style="justify-content: space-between; align-items: center;">
+              <div class="uppercase" style="font-size: 13px; color: var(--text-ivory); letter-spacing: 1.5px; font-weight: 600;">Clan vault · "Chernyi Led"</div>
+              <span class="badge">Member</span>
+            </div>
+            <div class="fl gap-3">
+              <div class="fl-col fl-1">
+                <span class="muted uppercase" style="font-size: 10px; letter-spacing: 1.5px;">Vault balance</span>
+                <span class="amber" style="font-size: 20px; font-weight: 500;">48,200</span>
+              </div>
+              <div class="fl-col fl-1">
+                <span class="muted uppercase" style="font-size: 10px; letter-spacing: 1.5px;">Your contribution (30d)</span>
+                <span class="olive" style="font-size: 20px; font-weight: 500;">+4,000</span>
+              </div>
+            </div>
+            <div class="fl gap-2">
+              <button class="btn btn--sm btn--primary" style="flex: 1;">Deposit to vault</button>
+              <button class="btn btn--sm btn--default" style="flex: 1;">View log</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

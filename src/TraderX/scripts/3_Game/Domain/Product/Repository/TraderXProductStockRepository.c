@@ -2,30 +2,62 @@ class TraderXProductStockRepository
 {
     static ref map<string, ref TraderXProductStock> s_itemsStockByItemId = new map<string, ref TraderXProductStock>();
 
-    static void GetStockArrForCategoriesId(array<string> categoriesId, out array<ref TraderXProductStock> stockArr)
+    // Every productId a player can transact with at these NPCs: the category products
+    // PLUS each product's variants and preset attachments. Variants/attachments are not
+    // members of any category, so without including them here their stock never loads on
+    // the server's "for categories" path nor syncs to the client. The client then prices
+    // them at stock 0 while the server uses the real stock, and the buy is rejected by the
+    // server's price-match (anti-tamper) check — variants appear unbuyable. Deduplicated.
+    static void CollectTradableProductIds(array<string> categoriesId, out array<string> outIds)
     {
-        // Pre-load all stock for categories to avoid N+1 file I/O problem
-        LoadStockForCategories(categoriesId);
-        
         foreach(string categoryId: categoriesId)
         {
             TraderXCategory category = TraderXCategoryRepository.GetCategoryById(categoryId);
             if(!category)
                 continue;
 
-            foreach(TraderXProduct tpItem: category.GetProducts())
-            { 
-                // Check for null product to prevent crash
-                if (!tpItem) {
-                    GetTraderXLogger().LogWarning("GetStockArrForCategoriesId: Found null product in category " + categoryId);
+            foreach(TraderXProduct product: category.GetProducts())
+            {
+                if (!product)
+                {
+                    GetTraderXLogger().LogWarning("CollectTradableProductIds: Found null product in category " + categoryId);
                     continue;
                 }
-                
-                // Stock should already be loaded by LoadStockForCategories
-                TraderXProductStock stock = s_itemsStockByItemId[tpItem.productId];
-                if (stock) {
-                    stockArr.Insert(stock);
+
+                if (outIds.Find(product.productId) == -1)
+                    outIds.Insert(product.productId);
+
+                if (product.variants)
+                {
+                    foreach(string variantId: product.variants)
+                        if (variantId != "" && outIds.Find(variantId) == -1)
+                            outIds.Insert(variantId);
                 }
+
+                if (product.attachments)
+                {
+                    foreach(string attachmentId: product.attachments)
+                        if (attachmentId != "" && outIds.Find(attachmentId) == -1)
+                            outIds.Insert(attachmentId);
+                }
+            }
+        }
+    }
+
+    static void GetStockArrForCategoriesId(array<string> categoriesId, out array<ref TraderXProductStock> stockArr)
+    {
+        // Pre-load all stock for categories to avoid N+1 file I/O problem
+        LoadStockForCategories(categoriesId);
+
+        array<string> productIds = new array<string>();
+        CollectTradableProductIds(categoriesId, productIds);
+
+        foreach(string productId: productIds)
+        {
+            // Stock should already be loaded by LoadStockForCategories
+            TraderXProductStock stock = s_itemsStockByItemId[productId];
+            if (stock) {
+                stockArr.Insert(stock);
             }
         }
     }
@@ -79,27 +111,22 @@ class TraderXProductStockRepository
     {
         GetTraderXLogger().LogInfo("LoadStockForCategories: Bulk loading stock for " + categoriesId.Count() + " categories");
         
-        // Collect all product IDs that need stock loading
+        // Collect all tradable product IDs (category products + their variants + attachments)
+        array<string> tradableIds = new array<string>();
+        CollectTradableProductIds(categoriesId, tradableIds);
+
+        // Keep only the finite-stock ones not already in memory.
         array<string> productIdsToLoad = new array<string>();
-        
-        foreach(string categoryId: categoriesId)
+        foreach(string productId: tradableIds)
         {
-            TraderXCategory category = TraderXCategoryRepository.GetCategoryById(categoryId);
-            if(!category)
+            TraderXProduct product = TraderXProductRepository.GetItemById(productId);
+            if (!product || product.IsStockUnlimited())
                 continue;
-                
-            foreach(TraderXProduct product: category.GetProducts())
-            {
-                if (!product || product.IsStockUnlimited())
-                    continue;
-                    
-                // Only load if not already in memory
-                if (!s_itemsStockByItemId.Contains(product.productId)) {
-                    productIdsToLoad.Insert(product.productId);
-                }
-            }
+
+            if (!s_itemsStockByItemId.Contains(productId))
+                productIdsToLoad.Insert(productId);
         }
-        
+
         // Bulk load all required stock files
         LoadStockBulk(productIdsToLoad);
         

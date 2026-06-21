@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+</head>
+<body>
+
+<!-- ClanMemberRowView — one row in the clan roster.
+     Avatar · name+sub · contribution · role pill · action buttons (role-gated).
+     Promote/Demote/Kick buttons fire Event_OnActionClicked with (memberUid, action). -->
+<div data-dz="panel" data-name="memberRowRoot" data-style="TXListRow"
+     class="dz-xy-0-0 dz-wh-full dz-c-FE">
+
+  <!-- Avatar -->
+  <div data-dz="panel" data-name="memberAvatar" data-style="TXSurface"
+       class="dz-xy-2-15 dz-wh-6-70 dz-c-FE dz-noptr">
+    <span data-dz="text" data-name="memberAvatarText"
+          data-bind="{{ avatarInitials }}"
+          class="dz-xy-0-0 dz-wh-100-100 dz-tc-9A9488 dz-font-12 dz-noptr dz-exact-text dz-text-center dz-text-vc dz-bold">
+      —
+    </span>
+  </div>
+
+  <!-- Name + UID/joined info -->
+  <span data-dz="text" data-name="memberName"
+        data-bind="{{ memberNameText }}"
+        class="dz-xy-10-20 dz-wh-35-30 dz-tc-D8D2C0 dz-font-13 dz-noptr dz-exact-text dz-bold">
+    —
+  </span>
+  <span data-dz="text" data-name="memberSub"
+        data-bind="{{ memberSubText }}"
+        class="dz-xy-10-52 dz-wh-35-28 dz-tc-6A6560 dz-font-10 dz-noptr dz-exact-text">
+    —
+  </span>
+
+  <!-- Contribution -->
+  <span data-dz="text" data-name="memberContrib"
+        data-bind="{{ memberContribText }}"
+        class="dz-xy-47-15 dz-wh-15-70 dz-tc-9AB05A dz-font-11 dz-noptr dz-exact-text dz-text-right dz-text-vc dz-bold">
+    +0
+  </span>
+
+  <!-- Role pill -->
+  <div data-dz="panel" data-name="memberRolePill" data-style="TXBadge"
+       class="dz-xy-63-25 dz-wh-10-50 dz-c-FE dz-noptr">
+    <span data-dz="text" data-name="memberRolePillText"
+          data-bind="{{ memberRoleText }}"
+          class="dz-xy-0-0 dz-wh-100-100 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-text-center dz-text-vc dz-bold">
+      —
+    </span>
+  </div>
+
+  <!-- Action buttons (role-gated visibility handled in component) -->
+  <button data-dz="button" data-name="memberPromoteBtn"
+          data-style="TXBtnDefault" data-on-click="OnPromoteClicked"
+          class="dz-xy-74-25 dz-wh-11-50 dz-c-FE dz-tc-D8D2C0 dz-font-10 dz-exact-text">
+    PROMOTE
+  </button>
+  <button data-dz="button" data-name="memberKickBtn"
+          data-style="TXBtnDanger" data-on-click="OnKickClicked"
+          class="dz-xy-86-25 dz-wh-11-50 dz-c-FE dz-tc-C8664A dz-font-10 dz-exact-text">
+    KICK
+  </button>
+</div>
+
+<script src="dzml-runtime.js"></script>
+</body>
+</html>

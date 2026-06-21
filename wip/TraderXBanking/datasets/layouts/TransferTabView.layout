@@ -1,0 +1,601 @@
+PanelWidgetClass transferPanel {
+ position 0 0
+ hexactpos 0
+ vexactpos 0
+ size 1 1
+ hexactsize 0
+ vexactsize 0
+ color 0.0314 0.0353 0.0471 0.8196
+ ignorepointer 1
+ {
+  PanelWidgetClass formCard {
+   position 0.02 0.02
+   hexactpos 0
+   vexactpos 0
+   size 0.46 0.65
+   hexactsize 0
+   vexactsize 0
+   color 0.9961 0.9961 0.9961 1
+   ignorepointer 1
+   style TXCard
+   {
+    TextWidgetClass formTitle {
+     position 0.03 0.03
+     hexactpos 0
+     vexactpos 0
+     size 0.5 0.06
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "20"
+     ignorepointer 1
+     "exact text" 1
+     style Bold
+     text "NEW TRANSFER"
+    }
+    TextWidgetClass recipientLabel {
+     position 0.03 0.12
+     hexactpos 0
+     vexactpos 0
+     size 0.5 0.03
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.6039 0.5804 0.5333 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     text "RECIPIENT ACCOUNT ID"
+    }
+    EditBoxWidgetClass transferDestInput {
+     position 0.03 0.16
+     hexactpos 0
+     vexactpos 0
+     size 0.94 0.07
+     hexactsize 0
+     vexactsize 0
+     color 0.9961 0.9961 0.9961 1
+     "text color" 0.8471 0.8235 0.7529 1
+     font "gui/fonts/etelkatextpro14"
+     "exact text" 1
+     style TXInputField
+     scriptclass "EditBoxBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ destinationAccountId }}"
+       Two_Way_Binding 1
+      }
+     }
+    }
+    TextWidgetClass recipientHint {
+     position 0.03 0.24
+     hexactpos 0
+     vexactpos 0
+     size 0.94 0.03
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.6039 0.5804 0.5333 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     text "Format: 76561198·XXXX·XXXX (Steam64)"
+    }
+    TextWidgetClass amountLabel {
+     position 0.03 0.3
+     hexactpos 0
+     vexactpos 0
+     size 0.3 0.03
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.6039 0.5804 0.5333 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     text "AMOUNT"
+    }
+    EditBoxWidgetClass transferAmountInput {
+     position 0.03 0.34
+     hexactpos 0
+     vexactpos 0
+     size 0.6 0.07
+     hexactsize 0
+     vexactsize 0
+     color 0.9961 0.9961 0.9961 1
+     "text color" 0.8471 0.8235 0.7529 1
+     font "gui/fonts/etelkatextpro14"
+     "exact text" 1
+     style TXInputField
+     scriptclass "EditBoxBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ transferAmount }}"
+       Two_Way_Binding 1
+       OnChange "OnTransferAmountChanged"
+      }
+     }
+    }
+    TextWidgetClass currencyLabel {
+     position 0.66 0.3
+     hexactpos 0
+     vexactpos 0
+     size 0.3 0.03
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.6039 0.5804 0.5333 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     text "CURRENCY"
+    }
+    PanelWidgetClass currencyDisplay {
+     position 0.66 0.34
+     hexactpos 0
+     vexactpos 0
+     size 0.31 0.07
+     hexactsize 0
+     vexactsize 0
+     color 0.9961 0.9961 0.9961 1
+     ignorepointer 1
+     style TXInputField
+     {
+      TextWidgetClass currencyValue {
+       position 0.05 0
+       hexactpos 0
+       vexactpos 0
+       size 0.9 1
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.6039 0.5804 0.5333 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       "text valign" center
+       text "Roubles"
+      }
+     }
+    }
+    TextWidgetClass noteLabel {
+     position 0.03 0.43
+     hexactpos 0
+     vexactpos 0
+     size 0.3 0.03
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.6039 0.5804 0.5333 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     text "NOTE (OPTIONAL)"
+    }
+    EditBoxWidgetClass transferNoteInput {
+     position 0.03 0.47
+     hexactpos 0
+     vexactpos 0
+     size 0.94 0.07
+     hexactsize 0
+     vexactsize 0
+     color 0.9961 0.9961 0.9961 1
+     "text color" 0.8471 0.8235 0.7529 1
+     font "gui/fonts/etelkatextpro12"
+     "exact text" 1
+     style TXInputField
+     scriptclass "EditBoxBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ transferNote }}"
+       Two_Way_Binding 1
+      }
+     }
+    }
+    PanelWidgetClass summaryBox {
+     position 0.03 0.57
+     hexactpos 0
+     vexactpos 0
+     size 0.94 0.32
+     hexactsize 0
+     vexactsize 0
+     color 0.9961 0.9961 0.9961 1
+     ignorepointer 1
+     style TXInfoBox
+     {
+      TextWidgetClass summaryAmountLabel {
+       position 0.04 0.08
+       hexactpos 0
+       vexactpos 0
+       size 0.5 0.12
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.6039 0.5804 0.5333 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       text "Amount"
+      }
+      TextWidgetClass summaryAmountValue {
+       position 0.5 0.08
+       hexactpos 0
+       vexactpos 0
+       size 0.46 0.12
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.8471 0.8235 0.7529 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       "text halign" right
+       text "0"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ transferAmount }}"
+        }
+       }
+      }
+      TextWidgetClass summaryFeeLabel {
+       position 0.04 0.22
+       hexactpos 0
+       vexactpos 0
+       size 0.5 0.12
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.6039 0.5804 0.5333 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       text "Transfer fee · 2%"
+      }
+      TextWidgetClass summaryFeeValue {
+       position 0.5 0.22
+       hexactpos 0
+       vexactpos 0
+       size 0.46 0.12
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.7843 0.4 0.2902 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       "text halign" right
+       text "0"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ transferFeesDisplay }}"
+        }
+       }
+      }
+      TextWidgetClass summaryReceivesLabel {
+       position 0.04 0.36
+       hexactpos 0
+       vexactpos 0
+       size 0.5 0.12
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.6039 0.5804 0.5333 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       text "Recipient receives"
+      }
+      TextWidgetClass summaryReceivesValue {
+       position 0.5 0.36
+       hexactpos 0
+       vexactpos 0
+       size 0.46 0.12
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.8314 0.6431 0.298 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       "text halign" right
+       text "0"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ transferAmount }}"
+        }
+       }
+      }
+      PanelWidgetClass summaryDivider {
+       position 0.04 0.55
+       hexactpos 0
+       vexactpos 0
+       size 0.92 0.01
+       hexactsize 0
+       vexactsize 0
+       color 0.9961 0.9961 0.9961 1
+       ignorepointer 1
+       style TXDivider
+      }
+      TextWidgetClass summaryTotalLabel {
+       position 0.04 0.64
+       hexactpos 0
+       vexactpos 0
+       size 0.5 0.25
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.8471 0.8235 0.7529 1
+       font "gui/fonts/etelkatextpro12"
+       ignorepointer 1
+       "exact text" 1
+       style Bold
+       "text valign" center
+       text "Total deducted"
+      }
+      TextWidgetClass summaryTotalValue {
+       position 0.5 0.64
+       hexactpos 0
+       vexactpos 0
+       size 0.46 0.25
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.8314 0.6431 0.298 1
+       font "gui/fonts/etelkatextpro16"
+       ignorepointer 1
+       "exact text" 1
+       "text halign" right
+       "text valign" center
+       style Bold
+       text "0"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ transferBalanceText }}"
+        }
+       }
+      }
+     }
+    }
+    ButtonWidgetClass resetBtn {
+     position 0.03 0.86
+     hexactpos 0
+     vexactpos 0
+     size 0.3 0.1
+     hexactsize 0
+     vexactsize 0
+     color 0.9961 0.9961 0.9961 1
+     "text color" 0.8471 0.8235 0.7529 1
+     font "gui/fonts/etelkatextpro14"
+     "exact text" 1
+     style Bold
+     style TXBtnDefault
+     text "RESET"
+     scriptclass "ButtonBinding"
+     {
+      ScriptParamsClass {
+       OnClick "OnReset"
+      }
+     }
+    }
+    ButtonWidgetClass transferBtn {
+     position 0.36 0.86
+     hexactpos 0
+     vexactpos 0
+     size 0.61 0.1
+     hexactsize 0
+     vexactsize 0
+     color 0.9961 0.9961 0.9961 1
+     "text color" 0.8471 0.8235 0.7529 1
+     font "gui/fonts/etelkatextpro14"
+     "exact text" 1
+     style Bold
+     style TXBtnPrimary
+     text "SEND TRANSFER"
+     scriptclass "ButtonBinding"
+     {
+      ScriptParamsClass {
+       OnClick "OnTransfer"
+      }
+     }
+    }
+   }
+  }
+  PanelWidgetClass finalAlert {
+   position 0.02 0.69
+   hexactpos 0
+   vexactpos 0
+   size 0.46 0.15
+   hexactsize 0
+   vexactsize 0
+   color 0.9961 0.9961 0.9961 1
+   ignorepointer 1
+   style TXInfoBox
+   {
+    TextWidgetClass finalTitle {
+     position 0.03 0.15
+     hexactpos 0
+     vexactpos 0
+     size 0.94 0.25
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.2902 0.4784 0.7804 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     style Bold
+     text "TRANSFERS ARE FINAL"
+    }
+    TextWidgetClass finalBody {
+     position 0.03 0.45
+     hexactpos 0
+     vexactpos 0
+     size 0.94 0.5
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.6039 0.5804 0.5333 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     wrap 1
+     text "Once confirmed, transfers cannot be reversed. Verify the recipient ID before sending."
+    }
+   }
+  }
+  PanelWidgetClass transferStatusPanel {
+   position 0.02 0.86
+   hexactpos 0
+   vexactpos 0
+   size 0.46 0.1
+   hexactsize 0
+   vexactsize 0
+   color 0.9961 0.9961 0.9961 1
+   ignorepointer 1
+   visible 0
+   style TXSurface
+   {
+    RichTextWidgetClass transferStatusMessage {
+     position 0.03 0.1
+     hexactpos 0
+     vexactpos 0
+     size 0.94 0.8
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     "text valign" center
+     wrap 1
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ transferStatusText }}"
+      }
+     }
+    }
+   }
+  }
+  PanelWidgetClass contactsCard {
+   position 0.5 0.02
+   hexactpos 0
+   vexactpos 0
+   size 0.48 0.65
+   hexactsize 0
+   vexactsize 0
+   color 0.9961 0.9961 0.9961 1
+   ignorepointer 1
+   style TXCard
+   {
+    TextWidgetClass contactsTitle {
+     position 0.03 0.03
+     hexactpos 0
+     vexactpos 0
+     size 0.35 0.06
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     style Bold
+     "text valign" center
+     text "RECENT RECIPIENTS"
+    }
+    EditBoxWidgetClass contactsSearchInput {
+     position 0.4 0.03
+     hexactpos 0
+     vexactpos 0
+     size 0.57 0.06
+     hexactsize 0
+     vexactsize 0
+     color 0.9961 0.9961 0.9961 1
+     "text color" 0.8471 0.8235 0.7529 1
+     font "gui/fonts/etelkatextpro12"
+     "exact text" 1
+     style TXInputField
+     scriptclass "EditBoxBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ contactsSearch }}"
+       Two_Way_Binding 1
+      }
+     }
+    }
+    TextWidgetClass contactsSubtitle {
+     position 0.03 0.11
+     hexactpos 0
+     vexactpos 0
+     size 0.94 0.03
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.6039 0.5804 0.5333 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     text "Click a contact to pre-fill the recipient ID"
+    }
+    TextWidgetClass contactsEmpty {
+     position 0.05 0.5
+     hexactpos 0
+     vexactpos 0
+     size 0.9 0.1
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.4157 0.3961 0.3765 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     "text halign" center
+     "text valign" center
+     text "No recent transfers"
+    }
+   }
+  }
+  PanelWidgetClass clanCard {
+   position 0.5 0.69
+   hexactpos 0
+   vexactpos 0
+   size 0.48 0.27
+   hexactsize 0
+   vexactsize 0
+   color 0.9961 0.9961 0.9961 1
+   ignorepointer 1
+   style TXCardElevated
+   {
+    TextWidgetClass clanTitle {
+     position 0.03 0.08
+     hexactpos 0
+     vexactpos 0
+     size 0.5 0.12
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     style Bold
+     text "CLAN VAULT"
+    }
+    TextWidgetClass clanComingSoon {
+     position 0.03 0.25
+     hexactpos 0
+     vexactpos 0
+     size 0.94 0.15
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.6039 0.5804 0.5333 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     style Bold
+     "text valign" center
+     text "Coming soon"
+    }
+    TextWidgetClass clanDesc {
+     position 0.03 0.45
+     hexactpos 0
+     vexactpos 0
+     size 0.94 0.4
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.6039 0.5804 0.5333 1
+     font "gui/fonts/etelkatextpro12"
+     ignorepointer 1
+     "exact text" 1
+     wrap 1
+     text "Clan accounts (shared vault, contributions, withdrawal log) will be available in a future update."
+    }
+   }
+  }
+ }
+}

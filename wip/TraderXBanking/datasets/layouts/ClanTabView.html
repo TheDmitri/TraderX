@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, initial-scale=1">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+</head>
+<body class="dz-viewport">
+
+<!-- ClanTabView — wrapper that mounts the in-clan OR create-or-join view
+     based on TXBClanTabComponent.current_clan_view.
+     Values:
+       "banking-clan-inclan"   → ClanInClanView (member of a clan)
+       "banking-clan-create"   → ClanCreateTabView (no affiliation) -->
+<div data-dz="panel" data-name="clanTabRoot"
+     class="dz-xy-0-0 dz-wh-full dz-c-08090CD1 dz-clip">
+  <div data-dz="panel" data-name="clanSubView"
+       data-component="{{ current_clan_view }}"
+       class="dz-xy-0-0 dz-wh-full dz-clip"></div>
+</div>
+
+<script src="dzml-runtime.js"></script>
+</body>
+</html>

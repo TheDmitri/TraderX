@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Banking · Clan — Create or join — Field Ledger</title>
+  <link rel="stylesheet" href="../field-ledger.css">
+  <style>
+    .page { padding: var(--sp-5); height: 100%; min-height: 0; display: flex; flex-direction: column; gap: var(--sp-4); overflow-y: auto; }
+
+    .hero { padding: var(--sp-5); background: var(--bg-card); border: 1px solid var(--border-soft); display: flex; flex-direction: column; gap: var(--sp-3); align-items: center; text-align: center; }
+    .hero__title { font-size: 28px; color: var(--text-ivory); font-weight: 500; letter-spacing: 0.5px; }
+    .hero__sub { font-size: 13px; color: var(--text-ash); max-width: 540px; line-height: 1.5; }
+    .hero__meta { font-size: 11px; color: var(--text-dust); text-transform: uppercase; letter-spacing: 1.5px; }
+
+    .cols2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4); }
+
+    .card { background: var(--bg-card); border: 1px solid var(--border-soft); padding: var(--sp-5); display: flex; flex-direction: column; gap: var(--sp-3); }
+    .card h3 { font-size: 16px; color: var(--text-ivory); font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; }
+    .card__desc { font-size: 12px; color: var(--text-ash); }
+    .card__row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3); }
+
+    .cost-preview { padding: var(--sp-3) var(--sp-4); background: var(--bg-elevated); border-left: 3px solid var(--accent-amber); display: flex; flex-direction: column; gap: 6px; font-size: 12px; }
+    .cost-preview__row { display: flex; justify-content: space-between; }
+    .cost-preview__row--total { font-weight: 500; color: var(--text-ivory); padding-top: 6px; border-top: 1px solid var(--border-soft); }
+
+    /* Invites list (join path) */
+    .invites-list { display: flex; flex-direction: column; gap: var(--sp-2); }
+    .invite-row { display: grid; grid-template-columns: 44px 1fr auto; gap: var(--sp-3); align-items: center; padding: var(--sp-3); background: var(--bg-surface); border: 1px solid var(--border-soft); border-left: 3px solid var(--info-steel); }
+    .invite-row__crest { width: 44px; height: 44px; background: var(--bg-card); border: 1px solid var(--border-default); display: flex; align-items: center; justify-content: center; font-size: 13px; color: var(--accent-amber); font-weight: 700; letter-spacing: 1.2px; }
+    .invite-row__name { font-size: 14px; color: var(--text-ivory); font-weight: 500; }
+    .invite-row__meta { font-size: 11px; color: var(--text-dust); margin-top: 2px; }
+    .invite-row__actions { display: flex; gap: 6px; }
+
+    .join-code { padding: var(--sp-4); background: var(--bg-surface); border: 1px dashed var(--border-default); display: flex; flex-direction: column; gap: var(--sp-2); }
+
+    .empty-note { font-size: 11px; color: var(--text-dust); text-align: center; padding: var(--sp-4); background: var(--bg-surface); border: 1px dashed var(--border-soft); }
+  </style>
+</head>
+<body>
+<div class="dz-viewport">
+  <div class="shell">
+    <div class="shell__header">
+      <div class="shell__identity">
+        <div class="shell__identity-name">Yuri Pashkov</div>
+        <div class="shell__identity-role">Banking · Bank teller</div>
+      </div>
+      <div class="shell__nav">
+        <a class="shell__tab" href="bankingView.html">Home</a>
+        <a class="shell__tab" href="account.html">Account</a>
+        <a class="shell__tab" href="vault.html">Vault</a>
+        <a class="shell__tab" href="transfer.html">Transfer</a>
+        <a class="shell__tab is-active" href="clan-create.html">Clan</a>
+        <a class="shell__tab" href="ledger.html">Ledger</a>
+      </div>
+      <button class="shell__close">X</button>
+    </div>
+
+    <div class="shell__subnav">
+      <div class="muted uppercase" style="font-size: 11px; letter-spacing: 1.5px;">Clan services · you are not affiliated</div>
+    </div>
+
+    <div class="shell__content">
+      <div class="page">
+
+        <div class="hero">
+          <div class="hero__meta">No clan affiliation</div>
+          <div class="hero__title">Join or found a clan</div>
+          <div class="hero__sub">A clan gives you access to a shared bank account, a shared vault for items, and coordinated ops with other members. Founders become Owner; members and officers can contribute or manage per role.</div>
+        </div>
+
+        <div class="cols2">
+          <!-- LEFT: Create a clan -->
+          <div class="card">
+            <h3>Create a new clan</h3>
+            <div class="card__desc">You become the Owner. Initial deposit seeds the clan bank and covers the first vault slots' daily fee.</div>
+
+            <div class="field">
+              <label class="field__label">Clan name</label>
+              <input class="input" placeholder="e.g. Chernyi Led" value="Chernyi Led">
+            </div>
+            <div class="card__row">
+              <div class="field">
+                <label class="field__label">Tag (3-5 letters)</label>
+                <input class="input" placeholder="CHL" value="CHL">
+              </div>
+              <div class="field">
+                <label class="field__label">Max members</label>
+                <input class="input" placeholder="20" value="20">
+              </div>
+            </div>
+            <div class="field">
+              <label class="field__label">Motto (optional)</label>
+              <input class="input" placeholder="The ice holds what the forest cannot.">
+            </div>
+            <div class="field">
+              <label class="field__label">Initial bank deposit (from your personal account)</label>
+              <input class="input" placeholder="0" value="5,000">
+            </div>
+
+            <div class="cost-preview">
+              <div class="cost-preview__row"><span class="muted">Founder registration fee</span><span>5,000 ₽</span></div>
+              <div class="cost-preview__row"><span class="muted">Initial bank deposit</span><span>5,000 ₽</span></div>
+              <div class="cost-preview__row cost-preview__row--total"><span>Total debited from personal balance</span><span class="amber">10,000 ₽</span></div>
+            </div>
+
+            <div class="alert alert--warn">
+              <div class="alert__title">Founding is definitive</div>
+              <div class="alert__body">The registration fee is non-refundable. Leaving the clan later transfers ownership to the highest-ranked officer (or disbands if none).</div>
+            </div>
+
+            <button class="btn btn--primary" style="font-size: 14px; padding: 10px;">Found clan · 10,000 ₽</button>
+          </div>
+
+          <!-- RIGHT: Join path -->
+          <div class="fl-col gap-4">
+            <div class="card">
+              <h3>Pending invitations</h3>
+              <div class="card__desc">Clans that invited you. Invites expire 7 days after sending.</div>
+
+              <div class="invites-list">
+                <div class="invite-row">
+                  <div class="invite-row__crest">WLV</div>
+                  <div>
+                    <div class="invite-row__name">Wolves of Krasnostav</div>
+                    <div class="invite-row__meta">Invited by Nikolai K. · 6 members · tag [WLV] · expires in 2d</div>
+                  </div>
+                  <div class="invite-row__actions">
+                    <button class="btn btn--sm btn--default">Decline</button>
+                    <button class="btn btn--sm btn--primary">Accept</button>
+                  </div>
+                </div>
+                <div class="invite-row">
+                  <div class="invite-row__crest">IRN</div>
+                  <div>
+                    <div class="invite-row__name">Iron Crows</div>
+                    <div class="invite-row__meta">Invited by Vadim O. · 3 members · tag [IRN] · expires in 5d</div>
+                  </div>
+                  <div class="invite-row__actions">
+                    <button class="btn btn--sm btn--default">Decline</button>
+                    <button class="btn btn--sm btn--primary">Accept</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3>Join by invite code</h3>
+              <div class="card__desc">If a clan officer gave you a code, enter it here.</div>
+              <div class="join-code">
+                <div class="field">
+                  <label class="field__label">Invite code</label>
+                  <input class="input" placeholder="CHL-4F2A-9176" style="font-family: monospace; letter-spacing: 2px;">
+                </div>
+                <button class="btn btn--default">Validate &amp; join</button>
+              </div>
+              <div class="empty-note">Codes are single-use, issued by clan Owner or Officers, and expire 24h after generation.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

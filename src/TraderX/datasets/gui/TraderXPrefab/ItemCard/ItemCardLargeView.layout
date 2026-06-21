@@ -1,350 +1,320 @@
 PanelWidgetClass itemCardView {
- disabled 1
- color 0.6275 0.7529 0.3765 0.7059
  position 0 0
- size 238 182
  hexactpos 0
  vexactpos 0
- hexactsize 1
+ size 1 300
+ hexactsize 0
  vexactsize 1
- scriptclass "ItemCardViewController"
- style DA_Smooth_Small_10px
+ ignorepointer 1
  {
   PanelWidgetClass itemCardOutline {
-   ignorepointer 1
-   color 0.6078 0.651 0.2314 0
    position 0 0
-   size 1 1
    hexactpos 0
    vexactpos 0
+   size 1 1
    hexactsize 0
    vexactsize 0
-   style DA_Smooth_Small_5px
+   ignorepointer 1
+   style TXCardElevated
+   color 0.9961 0.9961 0.9961 1
+  }
+  ButtonWidgetClass itemCardMainBtn {
+   position 0.01 0.01
+   hexactpos 0
+   vexactpos 0
+   size 0.98 0.98
+   hexactsize 0
+   vexactsize 0
+   "text color" 0.9961 0.9961 0.9961 1
+   style Empty
+   color 0.9961 0.9961 0.9961 1
+   scriptclass "ButtonBinding"
    {
-    ButtonWidgetClass itemCardMainBtn {
-     color 0.9961 0.9961 0.9961 1
-     position 0 0
-     size 1 1
-     halign center_ref
-     valign center_ref
+    ScriptParamsClass {
+     OnClick "OnItemCardLeftClick"
+     OnDoubleClick "OnItemCardDoubleClick"
+     OnRightClick "OnItemCardRightClick"
+     OnMouseEnter "OnItemCardMouseEnter"
+     OnMouseLeave "OnItemCardMouseLeave"
+    }
+   }
+  }
+  PanelWidgetClass itemCardContent {
+   position 0.01 0.01
+   hexactpos 0
+   vexactpos 0
+   size 0.98 0.98
+   hexactsize 0
+   vexactsize 0
+   color 0 0 0 0
+   ignorepointer 1
+   style rover_sim_colorable
+   {
+    ButtonWidgetClass volumeBtn {
+     position 0.01 0.14
      hexactpos 0
      vexactpos 0
-     hexactsize 0
+     size 9 0.66
+     hexactsize 1
      vexactsize 0
-     userID 301
-     scriptclass ""
-     style TP_CardBtn
+     "text color" 0.9961 0.9961 0.9961 1
+     style Default
+     color 0.9961 0.9961 0.9961 1
      {
-      PanelWidgetClass itemCardContent {
-       visible 1
-       disabled 0
-       ignorepointer 1
-       color 0.3333 0.3529 0.3961 1
-       position 0 0
-       size 1 1
-       halign center_ref
-       valign center_ref
+      ProgressBarWidgetClass volumeBar {
+       position 0 0.4
        hexactpos 0
        vexactpos 0
+       size 1 0.6
        hexactsize 0
        vexactsize 0
-       style blank
+       ignorepointer 1
+       style TXProgressFill
+       color 0.9961 0.9961 0.9961 1
+      }
+     }
+    }
+    PanelWidgetClass previewWell {
+     position 0.04 0.03
+     hexactpos 0
+     vexactpos 0
+     size 0.92 0.54
+     hexactsize 0
+     vexactsize 0
+     color 0.0235 0.0275 0.0392 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
+    ItemPreviewWidgetClass itemPreview {
+     position 0.04 0.05
+     hexactpos 0
+     vexactpos 0
+     size 0.92 0.5
+     hexactsize 0
+     vexactsize 0
+     ignorepointer 1
+     clipchildren 1
+     scriptclass "ItemPreviewBinding"
+     {
+      ScriptParamsClass {
+       Binding_Item "{{ preview }}"
+      }
+     }
+    }
+    ImageWidgetClass healthImg {
+     position 0.08 0.05
+     hexactpos 0
+     vexactpos 0
+     size 12 12
+     hexactsize 1
+     vexactsize 1
+     color 0.4196 0.5569 0.3529 1
+     ignorepointer 1
+     image0 "set:traderx_icons image:circle"
+     mode blend
+     "src alpha" 1
+     "stretch mode" stretch_w_h
+    }
+    TextWidgetClass stockText {
+     position 0.4 0.05
+     hexactpos 0
+     vexactpos 0
+     size 0.52 0.08
+     hexactsize 0
+     vexactsize 0
+     color 0.6039 0.5804 0.5333 1
+     font "TraderX/datasets/fonts/jet-brains-mono12"
+     ignorepointer 1
+     "exact text" 1
+     "text halign" right
+     text "0/15"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ itemStock }}"
+      }
+     }
+    }
+    ImageWidgetClass unselectedIcon {
+     position 0.04 0.04
+     hexactpos 0
+     vexactpos 0
+     size 32 32
+     hexactsize 1
+     vexactsize 1
+     color 0 0 0 0
+     ignorepointer 1
+     image0 "set:traderx_icons image:unapproved"
+     mode blend
+     "src alpha" 1
+     "stretch mode" stretch_w_h
+    }
+    ImageWidgetClass selectedIcon {
+     position 0.04 0.04
+     hexactpos 0
+     vexactpos 0
+     size 32 32
+     hexactsize 1
+     vexactsize 1
+     color 0.4196 0.5569 0.3529 1
+     ignorepointer 1
+     visible 0
+     image0 "set:traderx_icons image:approved"
+     mode blend
+     "src alpha" 1
+     "stretch mode" stretch_w_h
+    }
+    PanelWidgetClass infoStrip {
+     position 0 0.58
+     hexactpos 0
+     vexactpos 0
+     size 1 0.42
+     hexactsize 0
+     vexactsize 0
+     ignorepointer 1
+     style TXSurface
+     color 0.9961 0.9961 0.9961 1
+     {
+      TextWidgetClass classNameText {
+       position 0.06 0.06
+       hexactpos 0
+       vexactpos 0
+       size 0.88 0.3
+       hexactsize 0
+       vexactsize 0
+       color 0.8471 0.8235 0.7529 1
+       font "TraderX/datasets/fonts/oswalt16"
+       ignorepointer 1
+       style Bold
+       "exact text" 1
+       "text halign" center
+       text "Item Name"
+       scriptclass "TextBinding"
        {
-        ItemPreviewWidgetClass itemPreview {
-         ignorepointer 1
-         position 0 0.17
-         size 0.75 0.4665
-         halign center_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         priority 100
-         scriptclass "ViewBinding"
-         {
-          ScriptParamsClass {
-           Binding_Name "preview"
-          }
-         }
+        ScriptParamsClass {
+         Binding_Expression "{{ itemName }}"
         }
-        TextWidgetClass stockText {
-         visible 1
-         ignorepointer 1
-         color 0.9961 0.9961 0.9961 1
-         position 0.05 0.05
-         size 0.229 0.072
-         halign right_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         scriptclass "ViewBinding"
-         text "0/15"
-         font "TraderX/datasets/fonts/RobotoCondensedVF16"
-         "exact text" 1
-         "size to text h" 1
-         "size to text v" 1
-         "text valign" center
-         {
-          ScriptParamsClass {
-           Binding_Name "itemStock"
-          }
-         }
-        }
+       }
+      }
+      GridSpacerWidgetClass priceGrid {
+       position 0.28 0.46
+       hexactpos 0
+       vexactpos 0
+       size 0.4 0.32
+       hexactsize 0
+       vexactsize 0
+       ignorepointer 1
+       Columns 2
+       Rows 1
+       Margin 6
+       "Size To Content H" 1
+       {
         ImageWidgetClass priceIcon {
-         visible 0
-         ignorepointer 1
-         position 0.07 0.17
-         size 24 24
-         halign right_ref
-         valign bottom_ref
+         position 0.28 0.46
          hexactpos 0
          vexactpos 0
+         size 32 32
          hexactsize 1
          vexactsize 1
-         imageTexture "{EEA89E4B3EA0F32E}TraderX/datasets/icons/simpleCoins.edds"
+         color 0.7686 0.6392 0.3529 1
+         ignorepointer 1
+         image0 "set:traderx_icons image:simpleCoins"
          mode blend
          "src alpha" 1
-         "clamp mode" clamp
-         "stretch mode" fit_h_center
-         filter 1
+         "stretch mode" stretch_w_h
         }
         TextWidgetClass priceText {
-         ignorepointer 1
-         color 0.6039 0.8039 0.1961 1
-         position 0 0.05
-         size 0.229 0.072
-         halign center_ref
-         valign bottom_ref
+         position 0.38 0.42
          hexactpos 0
          vexactpos 0
+         size 0.36 0.4
          hexactsize 0
          vexactsize 0
-         scriptclass "ViewBinding"
-         style Normal
-         text "5.000.000"
-         font "TraderX/datasets/fonts/RobotoCondensedVF14"
+         color 0.7686 0.6392 0.3529 1
+         font "TraderX/datasets/fonts/jet-brains-mono22"
+         ignorepointer 1
+         style Bold
          "exact text" 1
-         "size to text h" 1
-         "text halign" right
          "text valign" center
+         "size to text h" 1
+         text "1,250"
+         scriptclass "TextBinding"
          {
           ScriptParamsClass {
-           Binding_Name "itemPrice"
-          }
-         }
-        }
-        ImageWidgetClass selectedIcon {
-         visible 0
-         ignorepointer 1
-         color 0.2706 0.7569 0.3843 1
-         position 0.04 0.04
-         size 16 16
-         halign right_ref
-         valign bottom_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 1
-         vexactsize 1
-         image0 "set:tp_icons image:check"
-         imageTexture "{4CA65B40503D9726}TraderX/datasets/icons/approved.edds"
-         mode blend
-         "src alpha" 1
-         "stretch mode" stretch_w_h
-         filter 1
-        }
-        ImageWidgetClass unselectedIcon {
-         visible 0
-         disabled 0
-         ignorepointer 1
-         color 0.3294 0.3294 0.3294 1
-         position 0.04 0.04
-         size 16 16
-         halign right_ref
-         valign bottom_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 1
-         vexactsize 1
-         image0 "set:tp_icons image:add"
-         imageTexture "{1DFC5145FCB993CD}TraderX/datasets/icons/unapproved.edds"
-         mode blend
-         "src alpha" 1
-         "stretch mode" stretch_w_h
-         filter 1
-        }
-        RichTextWidgetClass classNameText {
-         ignorepointer 1
-         position 0 0.7
-         size 0.9 0.10954
-         halign center_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         draggable 0
-         scriptclass "ViewBinding"
-         style DayZNormal
-         text "Field Jacket"
-         font "TraderX/datasets/fonts/RobotoCondensedVF12"
-         "exact text" 1
-         "size to text h" 1
-         "size to text v" 0
-         "text halign" center
-         "text valign" center
-         wrap 1
-         "condense whitespace" 1
-         "strip newlines" 1
-         {
-          ScriptParamsClass {
-           Binding_Name "itemName"
-          }
-         }
-        }
-        ImageWidgetClass healthImg {
-         visible 1
-         clipchildren 0
-         inheritalpha 0
-         ignorepointer 1
-         color 0 1 0 1
-         position 0.04 0.04
-         size 16 16
-         hexactpos 0
-         vexactpos 0
-         hexactsize 1
-         vexactsize 1
-         image0 "set:dayz_gui image:circle"
-         mode additive
-         "src alpha" 1
-         "clamp mode" wrap
-         "stretch mode" stretch_w_h
-         filter 1
-        }
-        PanelWidgetClass PanelWidget8 {
-         ignorepointer 1
-         color 0.1176 0.1176 0.1176 1
-         position 0 0.01
-         size 0.97 0.68
-         halign center_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         style TP_Background_2
-        }
-        PanelWidgetClass PanelWidget10 {
-         ignorepointer 1
-         color 0.2745 0.2745 0.2745 1
-         position 0 0.84
-         size 0.98 0.005
-         halign center_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         style rover_sim_colorable
-        }
-        ButtonWidgetClass volumeBtn {
-         position 0.04 -0.1
-         size 0.07 0.462
-         valign center_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 0
-         vexactsize 0
-         priority 102
-         userID 102
-         style Empty
-         {
-          ProgressBarWidgetClass volumeBar {
-           ignorepointer 1
-           color 0.8471 0.8471 0.8471 1
-           size 0.33 1
-           halign center_ref
-           valign center_ref
-           hexactpos 0
-           vexactpos 0
-           hexactsize 0
-           vexactsize 0
-           scriptclass "ViewBinding"
-           style DA_Smooth
-           vertical 1
-           flipped 1
-           {
-            ScriptParamsClass {
-             Binding_Name "itemVolume"
-            }
-           }
+           Binding_Expression "{{ itemPrice }}"
           }
          }
         }
        }
       }
-      PanelWidgetClass PanelWidget9 {
-       ignorepointer 1
-       color 0.2745 0.2745 0.2745 1
-       position 0 0.69
-       size 0.98 0.003
-       halign center_ref
+      TextWidgetClass quantityStr {
+       position 0.06 0.74
        hexactpos 0
        vexactpos 0
+       size 0.3 0.22
        hexactsize 0
        vexactsize 0
-       style rover_sim_colorable
+       color 0.4157 0.3961 0.3765 1
+       font "TraderX/datasets/fonts/jet-brains-mono12"
+       ignorepointer 1
+       "exact text" 1
+       "text valign" center
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ quantityStr }}"
+        }
+       }
       }
      }
     }
    }
   }
   ButtonWidgetClass favBtn {
-   visible 1
-   position 0.04 0.04
-   size 16 16
-   valign bottom_ref
+   position 0.86 0.04
    hexactpos 0
    vexactpos 0
+   size 26 26
    hexactsize 1
    vexactsize 1
-   priority 101
-   userID 300
-   scriptclass ""
+   "text color" 0.9961 0.9961 0.9961 1
    style Empty
+   color 0.9961 0.9961 0.9961 1
+   scriptclass "ButtonBinding"
    {
     ImageWidgetClass favIcon {
-     visible 0
-     ignorepointer 1
-     color 0.8627 0.2078 0.2706 1
-     size 16 16
-     halign center_ref
-     valign center_ref
+     position 0 0
      hexactpos 0
      vexactpos 0
-     hexactsize 1
-     vexactsize 1
-     image0 "set:tp_icons image:favFull"
-     imageTexture "{FCD2342C161CCD0C}TraderX/datasets/icons/bookmarkWhitheFav.edds"
+     size 1 1
+     hexactsize 0
+     vexactsize 0
+     color 0.7686 0.6392 0.3529 1
+     ignorepointer 1
+     image0 "set:traderx_icons image:star_full"
      mode blend
      "src alpha" 1
      "stretch mode" stretch_w_h
-     filter 1
     }
     ImageWidgetClass unfavIcon {
-     visible 1
-     ignorepointer 1
-     color 0.3294 0.3294 0.3294 1
-     size 16 16
-     halign center_ref
-     valign center_ref
+     position 0 0
      hexactpos 0
      vexactpos 0
-     hexactsize 1
-     vexactsize 1
-     image0 "set:tp_icons image:favEmpty"
-     imageTexture "{EB726E14374FA5D6}TraderX/datasets/icons/bookmarkWhithe.edds"
+     size 1 1
+     hexactsize 0
+     vexactsize 0
+     color 0.6039 0.5804 0.5333 1
+     ignorepointer 1
+     visible 0
+     image0 "set:traderx_icons image:star"
      mode blend
      "src alpha" 1
      "stretch mode" stretch_w_h
-     filter 1
+    }
+   }
+   {
+    ScriptParamsClass {
+     OnClick "OnItemFavClick"
     }
    }
   }

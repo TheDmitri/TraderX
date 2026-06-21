@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+  <link rel="stylesheet" href="dzml-icons.css">
+</head>
+<!-- Catalog item card, GRID/tiles mode — same aspect as the purchase item card
+     (tx-item-card-large): elevated card, large preview, info strip with name +
+     price. Browse only (no fav/select/volume). Bound to CatalogItemGridCardComponent.
+     data-name contract → AutoLoadWidgets in CatalogItemCardComponent.c:
+       itemCardContent, stockText, healthImg, itemCardMainBtn -->
+<body data-dzml class="dz-viewport" style="width:720px; height:300px; background:#1a1a1a;">
+
+<div data-dz="panel"
+    data-name="itemCardView"
+    class="dz-xy-0-0 dz-wh-100-300px dz-noptr">
+  <div data-dz="panel"
+      data-name="itemCardOutline"
+      data-style="TXCardElevated"
+      class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr"></div>
+  <button data-dz="button"
+      data-name="itemCardMainBtn"
+      data-style="Empty"
+      data-on-click="OnCatalogItemClick"
+      data-on-dblclick="OnCatalogItemDoubleClick"
+      class="dz-xy-1-1 dz-wh-98-98 dz-tc-FE"></button>
+  <div data-dz="panel"
+      data-name="itemCardContent"
+      class="dz-xy-1-1 dz-wh-98-98 dz-c-00000000 dz-noptr">
+    <div data-dz="panel"
+        data-name="previewWell"
+        class="dz-xy-4-3 dz-wh-92-54 dz-c-06070A dz-noptr"></div>
+    <div data-dz="preview"
+        data-name="itemPreview"
+        data-bind-item="{{ preview }}"
+        class="dz-xy-4-5 dz-wh-92-50 dz-noptr dz-clip dz-priority-1"></div>
+    <img data-dz="image"
+        data-name="healthImg"
+        class="dz-xy-8-5 dz-wh-12px-12px dz-c-6B8E5A dz-noptr dz-hidden"
+        data-image="set:traderx_icons image:circle"
+        data-image-mode="blend"
+        data-image-src-alpha="1"
+        data-image-stretch="stretch_w_h"/>
+    <span data-dz="text"
+        data-name="stockText"
+        data-bind="{{ itemStock }}"
+        class="dz-xy-40-5 dz-wh-52-8 dz-c-9A9488 dz-font-mono-12 dz-noptr dz-exact-text dz-text-right">
+      0/15
+    </span>
+    <div data-dz="panel"
+        data-name="infoStrip"
+        data-style="TXSurface"
+        class="dz-xy-0-58 dz-wh-100-42 dz-c-FE dz-noptr">
+      <span data-dz="text"
+          data-name="itemName"
+          data-bind="{{ itemName }}"
+          class="dz-xy-6-6 dz-wh-88-30 dz-c-D8D2C0 dz-font-body-16 dz-noptr dz-bold dz-exact-text dz-text-center">
+        Item Name
+      </span>
+      <div data-dz="grid"
+          data-name="priceGrid"
+          class="dz-xy-28-46 dz-wh-40-32 dz-noptr dz-cols-2 dz-rows-1 dz-gap-6 dz-fit-h">
+        <img data-dz="image"
+            data-name="priceIcon"
+            class="dz-wh-32px-32px dz-c-C4A35A dz-noptr"
+            data-image="set:traderx_icons image:simpleCoins"
+            data-image-mode="blend"
+            data-image-src-alpha="1"
+            data-image-stretch="stretch_w_h"/>
+        <span data-dz="text"
+            data-name="itemPrice"
+            data-bind="{{ itemPrice }}"
+            class="dz-c-C4A35A dz-font-mono-22 dz-noptr dz-bold dz-exact-text dz-text-vc dz-size-to-text-h">
+          1,250
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="dzml-runtime.js"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+# Per-repo overrides for dayz_mod_workspace. Merged on top of
+# ~/.config/dayz-mod/userconfig.toml. Paths expand ~ and $VARS.
+
+[logs]
+# TraderX mod logs, shown in terminal via the "Client Custom Log" /
+# "Server Custom Log" tasks (or: dayz-mod tail --kind custom --scope client|server).
+# Source: TRADERX_LOG_FOLDER = "$profile:TraderX\TraderXLogs\Logs\" — i.e. each
+# side's profile dir + TraderX/TraderXLogs/Logs. Prints full file then follows.
+
+[[logs.custom]]
+scope   = "server"
+name    = "TraderX Server Logs"
+path    = "~/dayz-server-profile/TraderX/TraderXLogs/Logs"
+pattern = '\.log$'
+
+# Client writes to its Proton profile. Dir only appears after the client has
+# run the mod once; the task retries every 3s until a log shows up, so this is
+# safe to set now even though it doesn't exist yet.
+[[logs.custom]]
+scope   = "client"
+name    = "TraderX Client Logs"
+path    = "~/.steam/steam/steamapps/compatdata/221100/pfx/drive_c/users/steamuser/Local Settings/Application Data/DayZ/TraderX/TraderXLogs/Logs"
+pattern = '\.log$'

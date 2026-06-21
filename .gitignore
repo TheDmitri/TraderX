@@ -1,0 +1,12 @@
+target/
+.vscode/
+*.code-workspace
+links/
+
+# DZML generated component gallery (build artifact)
+gallery.html
+**/gallery.html
+
+# DZML generated preview artifacts
+*.bundle.html
+components.manifest.json

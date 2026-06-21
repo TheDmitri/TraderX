@@ -1,180 +1,186 @@
-GridSpacerWidgetClass checkoutCard {
+PanelWidgetClass CheckoutCardView {
  position 0 0
- size 1 50
- halign center_ref
  hexactpos 0
  vexactpos 0
+ size 1 60
  hexactsize 0
  vexactsize 1
- scriptclass "CheckoutCardViewController"
- "Size To Content H" 1
- "Size To Content V" 1
- Columns 1
- Rows 2
+ ignorepointer 1
+ style blank
+ color 0.9961 0.9961 0.9961 1
  {
-  PanelWidgetClass CheckoutCardView {
-   ignorepointer 1
-   color 0.1098 0.1098 0.1098 1
-   position 0 0
-   size 1 1
-   halign center_ref
-   valign center_ref
+  TextWidgetClass productName {
+   position 0.03 0.06
    hexactpos 0
    vexactpos 0
+   size 0.56 0.44
    hexactsize 0
    vexactsize 0
-   scriptclass ""
-   style blank
+   color 0.8471 0.8235 0.7529 1
+   font "TraderX/datasets/fonts/oswalt14"
+   ignorepointer 1
+   style Bold
+   "exact text" 1
+   "text valign" center
+   text "Item Name"
+   scriptclass "TextBinding"
    {
-    ButtonWidgetClass checkoutCardBtn {
+    ScriptParamsClass {
+     Binding_Expression "{{ product_name_text }}"
+    }
+   }
+  }
+  TextWidgetClass productPrice {
+   position 0.03 0.52
+   hexactpos 0
+   vexactpos 0
+   size 0.56 0.4
+   hexactsize 0
+   vexactsize 0
+   color 0.7686 0.6392 0.3529 1
+   font "TraderX/datasets/fonts/jet-brains-mono14"
+   ignorepointer 1
+   "exact text" 1
+   "text valign" center
+   text "1,250"
+   scriptclass "TextBinding"
+   {
+    ScriptParamsClass {
+     Binding_Expression "{{ product_price_text }}"
+    }
+   }
+  }
+  ButtonWidgetClass btnMinus {
+   position 0.6 0
+   hexactpos 0
+   vexactpos 0
+   size 32 32
+   hexactsize 1
+   vexactsize 1
+   valign center_ref
+   "text color" 0.9961 0.9961 0.9961 1
+   "text color" 0.8471 0.8235 0.7529 1
+   font "TraderX/datasets/fonts/oswalt16"
+   style TXBtnIcon
+   color 0.9961 0.9961 0.9961 1
+   scriptclass "ButtonBinding"
+   {
+    ImageWidgetClass btnMinusIcon {
      position 0 0
-     size 1 1
+     hexactpos 0
+     vexactpos 0
+     size 22 22
+     hexactsize 1
+     vexactsize 1
      halign center_ref
      valign center_ref
-     hexactpos 0
-     vexactpos 0
-     hexactsize 0
-     vexactsize 0
-     style Empty
-     {
-      TextWidgetClass productPriceText {
-       disabled 0
-       inheritalpha 0
-       ignorepointer 1
-       color 0.9961 0.9961 0.9961 1
-       position 0.02 0
-       size 0.05 1
-       halign right_ref
-       valign center_ref
-       hexactpos 0
-       vexactpos 0
-       hexactsize 0
-       vexactsize 0
-       scriptclass "ViewBinding"
-       text "12,600,000"
-       font "TraderX/datasets/fonts/RobotoCondensedVF14"
-       "size to text h" 1
-       "text valign" center
-       {
-        ScriptParamsClass {
-         Binding_Name "product_price_text"
-        }
-       }
-      }
-      TextWidgetClass productNameText {
-       ignorepointer 1
-       color 0.9961 0.9961 0.9961 1
-       position 0.02 0
-       size 0.6 1
-       valign center_ref
-       hexactpos 0
-       vexactpos 0
-       hexactsize 0
-       vexactsize 0
-       scriptclass "ViewBinding"
-       text "Purchase"
-       font "TraderX/datasets/fonts/RobotoCondensedVF14"
-       "text valign" center
-       {
-        ScriptParamsClass {
-         Binding_Name "product_name_text"
-        }
-       }
-      }
-      GridSpacerWidgetClass GridSpacerWidget0 {
-       ignorepointer 1
-       position 0.16 -0.03
-       size 0.049 1.607
-       halign center_ref
-       valign center_ref
-       hexactpos 0
-       vexactpos 0
-       hexactsize 0
-       vexactsize 0
-       Padding 10
-       Margin 0
-       "Size To Content H" 1
-       "Size To Content V" 1
-       Rows 1
-       {
-        ButtonWidgetClass btnMinus {
-         color 0.9961 0.9961 0.9961 1
-         position 0 0
-         size 42 39
-         halign center_ref
-         valign center_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 1
-         vexactsize 1
-         scriptclass "ViewBinding"
-         style TP_NavBtn
-         text "#tpm_minus_symbol"
-         font "gui/fonts/etelkatextpro22"
-         {
-          ScriptParamsClass {
-           Relay_Command "OnMinusExecute"
-          }
-         }
-        }
-        TextWidgetClass productQtyText {
-         ignorepointer 1
-         color 0.9961 0.9961 0.9961 1
-         position 0.505 0
-         size 2 42
-         valign center_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 1
-         vexactsize 1
-         scriptclass "ViewBinding"
-         text "+1"
-         font "TraderX/datasets/fonts/RobotoCondensedVF14"
-         "exact text" 1
-         "size to text h" 1
-         "text valign" center
-         {
-          ScriptParamsClass {
-           Binding_Name "product_quantity_text"
-          }
-         }
-        }
-        ButtonWidgetClass btnPlus {
-         color 0.9961 0.9961 0.9961 1
-         position 0 0
-         size 42 39
-         halign center_ref
-         valign center_ref
-         hexactpos 0
-         vexactpos 0
-         hexactsize 1
-         vexactsize 1
-         scriptclass "ViewBinding"
-         style TP_NavBtn
-         text "#tpm_plus_symbol"
-         font "gui/fonts/etelkatextpro22"
-         {
-          ScriptParamsClass {
-           Relay_Command "OnPlusExecute"
-          }
-         }
-        }
-       }
-      }
-     }
-    }
-    PanelWidgetClass PanelWidget4 {
      ignorepointer 1
-     color 0.1176 0.1176 0.1176 1
+     image0 "set:traderx_icons image:minus"
+     mode blend
+     "src alpha" 1
+     "stretch mode" stretch_w_h
+    }
+   }
+   {
+    ScriptParamsClass {
+     OnClick "OnMinusClick"
+    }
+   }
+  }
+  TextWidgetClass productQty {
+   position 0.68 0
+   hexactpos 0
+   vexactpos 0
+   size 0.14 1
+   hexactsize 0
+   vexactsize 0
+   color 0.8471 0.8235 0.7529 1
+   font "TraderX/datasets/fonts/jet-brains-mono16"
+   ignorepointer 1
+   style Bold
+   "exact text" 1
+   "text halign" center
+   "text valign" center
+   text "1"
+   scriptclass "TextBinding"
+   {
+    ScriptParamsClass {
+     Binding_Expression "{{ product_quantity_text }}"
+    }
+   }
+  }
+  ButtonWidgetClass btnPlus {
+   position 0.8 0
+   hexactpos 0
+   vexactpos 0
+   size 32 32
+   hexactsize 1
+   vexactsize 1
+   valign center_ref
+   "text color" 0.9961 0.9961 0.9961 1
+   "text color" 0.8471 0.8235 0.7529 1
+   font "TraderX/datasets/fonts/oswalt16"
+   style TXBtnIcon
+   color 0.9961 0.9961 0.9961 1
+   scriptclass "ButtonBinding"
+   {
+    ImageWidgetClass btnPlusIcon {
      position 0 0
-     size 1 0.1
-     halign center_ref
-     valign bottom_ref
      hexactpos 0
      vexactpos 0
-     hexactsize 0
-     vexactsize 0
-     style rover_sim_colorable
+     size 22 22
+     hexactsize 1
+     vexactsize 1
+     halign center_ref
+     valign center_ref
+     ignorepointer 1
+     image0 "set:traderx_icons image:add"
+     mode blend
+     "src alpha" 1
+     "stretch mode" stretch_w_h
+    }
+   }
+   {
+    ScriptParamsClass {
+     OnClick "OnPlusClick"
+    }
+   }
+  }
+  ButtonWidgetClass removeBtn {
+   position 0.9 0
+   hexactpos 0
+   vexactpos 0
+   size 32 32
+   hexactsize 1
+   vexactsize 1
+   valign center_ref
+   "text color" 0.9961 0.9961 0.9961 1
+   "text color" 0.7882 0.1882 0.1882 1
+   font "TraderX/datasets/fonts/oswalt16"
+   style TXBtnIcon
+   color 0.9961 0.9961 0.9961 1
+   scriptclass "ButtonBinding"
+   {
+    ImageWidgetClass removeBtnIcon {
+     position 0 0
+     hexactpos 0
+     vexactpos 0
+     size 22 22
+     hexactsize 1
+     vexactsize 1
+     halign center_ref
+     valign center_ref
+     color 0.9412 0.3961 0.2902 1
+     ignorepointer 1
+     image0 "set:traderx_icons image:trash"
+     mode blend
+     "src alpha" 1
+     "stretch mode" stretch_w_h
+    }
+   }
+   {
+    ScriptParamsClass {
+     OnClick "OnRemoveClick"
     }
    }
   }

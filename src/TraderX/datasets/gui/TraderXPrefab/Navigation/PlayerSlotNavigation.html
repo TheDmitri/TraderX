@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+  <link rel="stylesheet" href="dzml-icons.css">
+</head>
+<body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#1a1a1a;">
+
+<div data-dz="panel"
+    data-name="PlayerSlotNavigation"
+    data-style="TXSurface"
+    class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr">
+  <div data-dz="grid"
+      data-name="slotNavGrid"
+      data-foreach="{{ _inputNavBtnIds }}"
+      data-template="tx-player-slot-btn"
+      data-item="_inputSlot"
+      class="dz-xy-1-0 dz-wh-98-100 dz-align-y-center dz-noptr dz-fit-h dz-cols-16 dz-rows-1 dz-gap-8"></div>
+</div>
+
+<script src="dzml-runtime.js?v=1780762088107"></script>
+</body>
+</html>

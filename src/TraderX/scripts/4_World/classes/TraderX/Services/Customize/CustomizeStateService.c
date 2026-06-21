@@ -48,6 +48,19 @@ class CustomizeStateService
             Initialize(m_OriginalItem);
         }
     }
+
+    // Drop all customize identity when leaving the page. Without this, m_OriginalItem/
+    // m_CurrentItem leak into the NEXT customize session, so IsMainItem() can still
+    // match a previously-customized weapon (e.g. an LAR) and protect its row from
+    // removal — the "locked from a previous customization" bug. Call on page unmount.
+    void Clear()
+    {
+        m_OriginalItem = null;
+        m_CurrentItem = null;
+        m_CurrentPreset = null;
+        m_CurrentVariantName = "";
+        m_CurrentPresetName = "";
+    }
     
     // === VARIANT MANAGEMENT ===
     
@@ -59,17 +72,17 @@ class CustomizeStateService
             return false;
         }
         
-        TraderXSelectionService.GetInstance().DeselectItem(m_CurrentItem);
+        // Clear the whole selection so switching variants doesn't accumulate the previous
+        // variant's attachments in the cart, then make the new variant the only main line.
+        TraderXSelectionService.GetInstance().DeSelectAllItems();
         // Update state
         m_CurrentItem = variant;
         m_CurrentVariantName = variant.GetDisplayName();
         m_CurrentPreset = null; // Clear preset when manually selecting variant
         m_CurrentPresetName = "";
-        
-        // For variants, we replace the main item selection, not add as attachment
-        TraderXSelectionService.GetInstance().DeselectItem(m_OriginalItem);
+
         TraderXSelectionService.GetInstance().SelectItem(variant);
-        
+
         // Update preview service
         bool success = CustomizePreviewService.GetInstance().SetVariant(variant);
         if (success)
@@ -77,8 +90,48 @@ class CustomizeStateService
             Event_OnVariantChanged.Invoke(variant);
             Event_OnConfigurationChanged.Invoke(m_CurrentItem);
         }
-        
+
+        // Auto-apply the variant's own default preset (e.g. "Complete Vehicle") so a color
+        // variant is bought/spawned configured like the catalog item, not as a bare shell.
+        ApplyDefaultPresetForCurrentItem();
+
         return success;
+    }
+
+    // Apply m_CurrentItem's own default preset (user preset first, then server preset) onto
+    // the selection + preview, and stamp it on the product so the buy carries it. No-op if
+    // the item has no default preset. Shared by variant selection and entry seeding.
+    void ApplyDefaultPresetForCurrentItem()
+    {
+        if (!m_CurrentItem)
+            return;
+
+        TraderXPreset defaultPreset = TraderXPresetsService.GetInstance().GetDefaultPreset(m_CurrentItem.productId);
+        if (!defaultPreset)
+            defaultPreset = TraderXPresetsService.GetInstance().GetServerDefaultPreset(m_CurrentItem.productId);
+        if (!defaultPreset)
+            return;
+
+        map<string, int> attachmentCounts = new map<string, int>();
+        foreach (string attachmentId : defaultPreset.attachments)
+        {
+            if (attachmentCounts.Contains(attachmentId))
+                attachmentCounts.Set(attachmentId, attachmentCounts.Get(attachmentId) + 1);
+            else
+                attachmentCounts.Set(attachmentId, 1);
+        }
+        foreach (string attId, int count : attachmentCounts)
+        {
+            TraderXProduct att = TraderXProductRepository.GetItemById(attId);
+            if (att)
+            {
+                att.SetMultiplier(count);
+                TraderXSelectionService.GetInstance().SelectItem(att);
+            }
+        }
+
+        m_CurrentItem.defaultPreset = defaultPreset;
+        SetCurrentPreset(defaultPreset);
     }
     
     TraderXProduct GetCurrentVariant()
@@ -160,23 +213,27 @@ class CustomizeStateService
         // Create a copy of current item with selected attachments
         TraderXProduct configuration = m_CurrentItem;
         
-        // Get selected attachments from checkout instead of preview service
-        array<ref CheckoutCardView> checkoutItems = CheckoutViewController.GetInstance().GetCheckoutItems();
+        // Get selected attachments from the checkout cart (DZlr CheckoutComponent).
         array<string> attachmentIds = new array<string>();
-        
-        foreach (CheckoutCardView checkoutCard : checkoutItems)
+        array<ref TraderXProduct> checkoutItems;
+        if (CheckoutComponent.GetInstance())
+            checkoutItems = CheckoutComponent.GetInstance().GetCheckoutItems();
+
+        if (checkoutItems)
         {
-            if (!checkoutCard)
-                continue;
-                
-            TraderXProduct checkoutItem = checkoutCard.GetTemplateController().GetItem();
-            // Skip the main item and current variant, only include attachments/extras
-            if (checkoutItem.productId != m_OriginalItem.productId && checkoutItem.productId != m_CurrentItem.productId)
+            foreach (TraderXProduct checkoutItem : checkoutItems)
             {
-                // Add each attachment based on its multiplier
-                for (int i = 0; i < checkoutItem.GetMultiplier(); i++)
+                if (!checkoutItem)
+                    continue;
+
+                // Skip the main item and current variant, only include attachments/extras
+                if (checkoutItem.productId != m_OriginalItem.productId && checkoutItem.productId != m_CurrentItem.productId)
                 {
-                    attachmentIds.Insert(checkoutItem.productId);
+                    // Add each attachment based on its multiplier
+                    for (int i = 0; i < checkoutItem.GetMultiplier(); i++)
+                    {
+                        attachmentIds.Insert(checkoutItem.productId);
+                    }
                 }
             }
         }
@@ -189,6 +246,19 @@ class CustomizeStateService
     TraderXProduct GetOriginalItem()
     {
         return m_OriginalItem;
+    }
+
+    // The "main" line in the customize checkout is the active variant (or the
+    // original item before any variant is picked). It must not be removed from
+    // the cart manually — only swapped via SetCurrentVariant. Attachments are free.
+    bool IsMainItem(TraderXProduct item)
+    {
+        if (!item || !m_CurrentItem)
+            return false;
+        // Only the ACTIVE main line is protected. A variant swap deselects the original
+        // and makes the variant the current item, so matching m_OriginalItem too would
+        // protect a stale product that is no longer in the cart.
+        return item.productId == m_CurrentItem.productId;
     }
     
     // === VALIDATION ===

@@ -1,0 +1,6 @@
+{
+  "OnCatalogClick": "tx-catalog-page",
+  "OnPurchaseClick": "tx-purchase-page",
+  "OnSellClick": "tx-sell-page",
+  "OnFavoriteClick": "tx-favorite-page"
+}

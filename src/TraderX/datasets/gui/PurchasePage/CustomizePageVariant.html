@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="dzml.css">
+</head>
+<body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#1a1a1a;">
+
+<div data-dz="panel"
+    data-name="CustomizePageView"
+    data-style="blank"
+    class="dz-xy-0-0 dz-wh-full dz-align-bc dz-c-FE dz-noptr">
+  <div data-dz="panel"
+      data-name="Background"
+      data-style="TXContent"
+      data-disabled="0"
+      class="dz-xy-0-0 dz-wh-full dz-align-bc dz-c-FE dz-noptr">
+    <div data-dz="panel"
+        data-name="LeftPanel"
+        class="dz-xy-0-0 dz-wh-full dz-align-y-center dz-noptr">
+      <div data-dz="panel"
+          data-name="SubLeftPanel"
+          class="dz-xy-0-0 dz-wh-75-100 dz-align-y-center dz-noptr">
+        <div data-dz="panel"
+            data-name="tabContent"
+            data-style="TXContent"
+            data-component="{{ current_tab }}"
+            class="dz-xy-0-54 dz-wh-100-46 dz-c-FE dz-clip"></div>
+        <div data-dz="panel"
+            data-name="PanelWidget0"
+            data-style="TXCard"
+            class="dz-xy-0-0 dz-wh-100-46 dz-align-x-center dz-c-FE dz-noptr">
+          <div data-dz="panel"
+              data-name="PanelWidget2"
+              data-style="TXSurface"
+              class="dz-xy-0-7 dz-wh-95-73 dz-align-x-center dz-c-FE dz-noptr">
+            <div data-dz="preview"
+                data-name="itemPreview"
+                data-bind-item="{{ preview }}"
+                data-enable-rotation="1"
+                data-enable-scale="1"
+                class="dz-xy-0-0 dz-wh-95-80 dz-align-cc"></div>
+          </div>
+          <span data-dz="text"
+              data-name="TextWidget1"
+              data-bind="{{ product_classname }}"
+              class="dz-xy-0-11 dz-wh-4-12 dz-align-bc dz-tc-D8 dz-font-TraderX/datasets/fonts/oswalt22 dz-noptr dz-exact-text dz-text-center dz-text-vc dz-size-to-text">
+            M4A1 Assault Rifle
+          </span>
+          <span data-dz="text"
+              data-name="LabelTotal"
+              class="dz-xy--3-3 dz-wh-0-7 dz-align-bc dz-tc-D8 dz-font-TraderX/datasets/fonts/oswalt14 dz-noptr dz-text-vc dz-text-right dz-size-to-text-h">
+            #tpm_base_price
+          </span>
+          <span data-dz="text"
+              data-name="TextWidget3"
+              data-bind="{{ base_price }}"
+              class="dz-xy-2-3 dz-wh-9-6 dz-align-bc dz-tc-9ACD32 dz-font-TraderX/datasets/fonts/oswalt14 dz-noptr dz-text-vc dz-size-to-text-h">
+            13,350
+          </span>
+        </div>
+        <div data-dz="grid"
+            data-name="GridSpacerWidget0"
+            class="dz-xy-1-48 dz-wh-77-6 dz-noptr dz-fit-v dz-cols-3 dz-rows-1 dz-pad-5 dz-gap-0">
+          <div data-dz="panel"
+              data-name="presetsTab"
+              class="dz-xy-1-0 dz-wh-32-46px">
+            <button data-dz="button"
+                data-name="tabPresetsBtn"
+                data-style="TXTab"
+                data-on-click="OnTabPresets"
+                class="dz-xy-0-0 dz-wh-full dz-c-FE"></button>
+            <div data-dz="grid"
+                data-name="GridSpacerWidget2"
+                class="dz-xy-0-0 dz-wh-full dz-align-y-center dz-noptr dz-fit-h dz-cols-3 dz-rows-1 dz-pad-8 dz-gap-8">
+              <img data-dz="image"
+                  data-name="ImageWidget0"
+                  class="dz-xy-4-0 dz-wh-32px-32px dz-align-y-center dz-c-FE dz-noptr"
+                  data-image="set:traderx_icons image:star"
+                  data-image-mode="blend"
+                  data-image-src-alpha="1"
+                  data-image-stretch="stretch_w_h"/>
+              <span data-dz="text"
+                  data-name="TextWidget4"
+                  class="dz-xy-14-0 dz-wh-10-66 dz-align-y-center dz-c-D8D2C0 dz-font-TraderX/datasets/fonts/oswalt16 dz-noptr dz-exact-text dz-text-vc dz-size-to-text">
+                #tpm_presets
+              </span>
+              <span data-dz="text"
+                  data-name="TextWidget5"
+                  data-bind="{{ preset_name }}"
+                  class="dz-xy-30-0 dz-wh-10-66 dz-align-y-center dz-c-9ACD32 dz-font-TraderX/datasets/fonts/oswalt14 dz-noptr dz-exact-text dz-text-vc dz-size-to-text">
+                Custom Configuration
+              </span>
+            </div>
+          </div>
+          <div data-dz="panel"
+              data-name="variantsTab"
+              class="dz-xy-1-0 dz-wh-32-46px">
+            <button data-dz="button"
+                data-name="tabVariantsBtn"
+                data-style="TXTab"
+                data-on-click="OnTabVariants"
+                class="dz-xy-0-0 dz-wh-full dz-c-FE"></button>
+            <div data-dz="grid"
+                data-name="GridSpacerWidget3"
+                class="dz-xy-0-0 dz-wh-full dz-align-y-center dz-noptr dz-fit-h dz-cols-3 dz-rows-1 dz-pad-8 dz-gap-8">
+              <img data-dz="image"
+                  data-name="ImageWidget1"
+                  class="dz-xy-4-0 dz-wh-32px-32px dz-align-y-center dz-c-FE dz-noptr"
+                  data-image="set:traderx_icons image:palette"
+                  data-image-mode="blend"
+                  data-image-src-alpha="1"
+                  data-image-stretch="stretch_w_h"/>
+              <span data-dz="text"
+                  data-name="TextWidget6"
+                  class="dz-xy-14-0 dz-wh-10-66 dz-align-y-center dz-c-D8D2C0 dz-font-TraderX/datasets/fonts/oswalt16 dz-noptr dz-exact-text dz-text-vc dz-size-to-text">
+                #tpm_variants
+              </span>
+              <span data-dz="text"
+                  data-name="TextWidget7"
+                  data-bind="{{ variant_name }}"
+                  class="dz-xy-30-0 dz-wh-10-66 dz-align-y-center dz-c-9ACD32 dz-font-TraderX/datasets/fonts/oswalt14 dz-noptr dz-exact-text dz-text-vc dz-size-to-text">
+                Standard Black
+              </span>
+            </div>
+          </div>
+          <div data-dz="panel"
+              data-name="attachmentsTab"
+              class="dz-xy-1-0 dz-wh-32-46px">
+            <button data-dz="button"
+                data-name="tabAttachmentsBtn"
+                data-style="TXTab"
+                data-on-click="OnTabAttachments"
+                class="dz-xy-0-0 dz-wh-full dz-c-FE"></button>
+            <div data-dz="grid"
+                data-name="GridSpacerWidget4"
+                class="dz-xy-0-0 dz-wh-full dz-align-y-center dz-noptr dz-fit-h dz-cols-2 dz-rows-1 dz-pad-8 dz-gap-8">
+              <img data-dz="image"
+                  data-name="ImageWidget2"
+                  class="dz-xy-4-0 dz-wh-32px-32px dz-align-y-center dz-c-FE dz-noptr"
+                  data-image="set:traderx_icons image:wrench"
+                  data-image-mode="blend"
+                  data-image-src-alpha="1"
+                  data-image-stretch="stretch_w_h"/>
+              <span data-dz="text"
+                  data-name="TextWidget8"
+                  class="dz-xy-14-0 dz-wh-10-66 dz-align-y-center dz-c-D8D2C0 dz-font-TraderX/datasets/fonts/oswalt16 dz-noptr dz-exact-text dz-text-vc dz-size-to-text">
+                #tpm_attachments
+              </span>
+              <span data-dz="text"
+                  data-name="TextWidget9"
+                  class="dz-xy-30-0 dz-wh-10-66 dz-align-y-center dz-c-9ACD32 dz-font-TraderX/datasets/fonts/oswalt14 dz-noptr dz-exact-text dz-text-vc dz-size-to-text"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-dz="panel"
+          data-name="MiddlePanel"
+          class="dz-xy-0-0 dz-wh-25-100 dz-align-cr dz-noptr">
+        <div data-dz="panel"
+            data-name="PanelWidget3"
+            data-style="TXCard"
+            class="dz-xy-0-0 dz-wh-full dz-align-cc dz-c-FE dz-noptr">
+          <div data-dz="grid"
+              data-name="GridSpacerWidget1"
+              class="dz-xy-0-0 dz-wh-99-20 dz-align-x-center dz-noptr dz-fit-v dz-cols-1 dz-pad-10 dz-gap-10">
+            <span data-dz="text"
+                data-name="TextWidget0"
+                class="dz-wh-48px-50px dz-align-x-center dz-font-TraderX/datasets/fonts/oswalt22 dz-noptr dz-text-center dz-text-vc">
+              #tpm_configuration
+            </span>
+            <div data-dz="panel"
+                data-name="PanelWidget1"
+                data-style="blank"
+                class="dz-xy-10px-10px dz-wh-48px-100px dz-c-FE dz-noptr">
+              <span data-dz="text"
+                  data-name="TextWidget2"
+                  class="dz-xy-4-11 dz-wh-92-25 dz-tc-9ACD32 dz-font-TraderX/datasets/fonts/oswalt14 dz-noptr dz-exact-text dz-text-vc">
+                #tpm_product_description
+              </span>
+              <p data-dz="richtext"
+                  data-name="RichTextWidget0"
+                  data-bind="{{ product_description }}"
+                  class="dz-xy-4-34 dz-wh-92-61 dz-tc-D8 dz-font-TraderX/datasets/fonts/oswalt12 dz-noptr dz-wrap dz-exact-text">
+                Kobra Optics system is developped by Staroy Manfactura in relation to best optics design for COB.
+              </p>
+            </div>
+          </div>
+          <div data-dz="panel"
+              data-name="checkoutHost"
+              data-component="tx-checkout"
+              class="dz-xy-1-20 dz-wh-98-78 dz-align-x-center"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button data-dz="button"
+      data-name="closeBtn"
+      data-style="TXBtnIcon"
+      data-on-click="OnClose"
+      class="dz-xy-97-1 dz-wh-32px-32px dz-c-FE dz-tc-D8 dz-font-TraderX/datasets/fonts/oswalt22">
+    <img data-dz="image"
+        data-name="closeBtnIcon"
+        class="dz-xy-0-0 dz-wh-55-55 dz-align-cc dz-noptr"
+        data-image="set:traderx_icons image:close"
+        data-image-mode="blend"
+        data-image-src-alpha="1"
+        data-image-stretch="stretch_w_h"/>
+  </button>
+  <div data-dz="panel"
+      data-name="modalPanel"
+      data-component="{{ current_modal }}"
+      class="dz-xy-0-0 dz-wh-full dz-align-cc dz-noptr dz-priority-999"></div>
+</div>
+
+<script src="dzml-runtime.js?v=1781987185754"></script>
+</body>
+</html>

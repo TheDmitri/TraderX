@@ -1,0 +1,4 @@
+pipeline:
+  dzmlGlob: "*.html"
+  stylesOutput: ../../styles/banking
+  modPrefix: "Banking"

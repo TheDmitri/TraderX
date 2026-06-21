@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+  <link rel="stylesheet" href="dzml-icons.css">
+</head>
+<body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#1a1a1a;">
+
+<button data-dz="button"
+    data-name="viewToggleBtn"
+    data-style="Bold"
+    data-on-click="OnViewToggleClick"
+    class="dz-xy-0-0 dz-wh-full dz-tc-FE dz-tc-D8D2C0 dz-font-body-12 dz-exact-text dz-text-center dz-text-vc"
+    data-prop-style="TXBtnDefault">
+  <img data-dz="image"
+      data-name="gridIcon"
+      class="dz-xy-8-0 dz-wh-24px-24px dz-align-y-center dz-c-C4A35A dz-noptr"
+      data-image="set:traderx_icons image:grid"
+      data-image-mode="blend"
+      data-image-src-alpha="1"
+      data-image-stretch="stretch_w_h"/>
+  <img data-dz="image"
+      data-name="listIcon"
+      class="dz-xy-8-0 dz-wh-24px-24px dz-align-y-center dz-c-9A9488 dz-noptr dz-hidden"
+      data-image="set:traderx_icons image:list"
+      data-image-mode="blend"
+      data-image-src-alpha="1"
+      data-image-stretch="stretch_w_h"/>
+  <span data-dz="text"
+      data-name="viewLabel"
+      data-bind="{{ view_label }}"
+      class="dz-xy-38-0 dz-wh-58-full dz-tc-D8D2C0 dz-font-body-12 dz-noptr dz-bold dz-text-vc dz-exact-text">
+    Grid
+  </span>
+</button>
+
+<script src="dzml-runtime.js?v=1780760529291"></script>
+</body>
+</html>

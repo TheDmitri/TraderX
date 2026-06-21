@@ -1,0 +1,18 @@
+# dzml.config.yaml — TraderX DZML project config.
+# Loaded by `dzml compile` (walks up from each layout to find this file), so the
+# font aliases below cover every layout under datasets/gui/** (incl. subdirs).
+
+# Font aliases — semantic names → baked bitmap font path PREFIX. The compiler
+# appends the size: dz-font-heading-28 → RobotoCondensedVF28.
+# Baked sizes shipped in datasets/fonts/: 12 14 16 22 28 48 58 (NO 20/24 — snap to nearest).
+#
+# Swapping the typeface later (US-028) = change ONLY these paths (e.g. heading →
+# Oswald, mono → JetBrains) + ship the baked fonts. No layout edits.
+#   heading → titles / trader name / headers
+#   body    → labels / descriptions / most text
+#   mono    → prices, quantities, counts (numeric) — currently same face as body
+fonts:
+  default: "TraderX/datasets/fonts/oswalt"
+  heading: "TraderX/datasets/fonts/oswalt"            # Oswald — titles / labels / most text
+  body: "TraderX/datasets/fonts/oswalt"               # Oswald (condensed, tactical)
+  mono: "TraderX/datasets/fonts/jet-brains-mono"      # JetBrains Mono — prices / quantities / counts

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<!--
+  TraderX Field-Ledger design tokens — SINGLE SOURCE for all TraderX UI styles.
+  Shared with TraderXBanking. See docs/TraderX_Design_System.md.
+
+  Regenerate browser CSS:  dzml previewcss _fixtures/field-ledger.html -o dzml-styles.css
+  (Generate in-game .styles/atlas from the same tokens via stylesToJsonConfig + generate_styles.py.)
+-->
+<style type="dz-styles">
+  /* Containers & surfaces — CBT-aligned cool slate ramp (#0F1215 / #1A1D21) */
+  .TXContainer    { --bg: #0b0e12; --border: #2b3138; }
+  .TXHeader       { --bg: #1a1d21; --bottom: #20242a; }
+  .TXContent      { --bg: #0f1215; }
+  .TXCard         { --bg: #15181d; --border: #20242a; }
+  .TXCardElevated { --bg: #20242a; --border: #3a424b; }
+  .TXCardSelected { --bg: #15181d00; --border: #c4a35a; }   /* gold selection RING — transparent center (00 alpha = no fill, never blanks card) */
+  .TXSurface      { --bg: #1a1d21; --border: #20242a; }
+  .TXDivider      { --bg: #20242a; }
+  .TXIcon         { --bg: #1a1d21; --border: #2b3138; }
+
+  /* Tabs — gold underline on active/hover (#C4A35A) */
+  .TXTab {
+    --type: button; --bg: #1a1d21;
+    --highlight-bg: #20242a; --highlight-bottom: #c4a35a;
+    --pushed-bg: #15181d;    --pushed-bottom: #c4a35a;
+    --focus-bg: #20242a;     --focus-bottom: #c4a35a;
+  }
+
+  /* Buttons — green primary, gold accent, rust danger, neutral default, blood leave */
+  .TXBtnPrimary { --type: button; --bg: #1e2a16; --border: #6b8e5a;
+                  --highlight-bg: #2a3a1f; --pushed-bg: #16200f; }
+  .TXBtnAccent  { --type: button; --bg: #241d12; --border: #c4a35a;
+                  --highlight-bg: #322816; --pushed-bg: #18130b; }
+  .TXBtnDanger  { --type: button; --bg: #2a1410; --border: #b0482a;
+                  --highlight-bg: #3a1a14; --pushed-bg: #1a0c08; }
+  .TXBtnDefault { --type: button; --bg: #1a1d21; --border: #2b3138;
+                  --highlight-bg: #20242a; --pushed-bg: #15181d; }
+  .TXBtnLeave   { --type: button; --bg: #8B0000;
+                  --highlight-bg: #a52a2a; --pushed-bg: #6B0000; }
+  .TXBtnIcon    { --type: button; --bg: #1a1d21; --border: #2b3138;
+                  --highlight-bg: #20242a; --pushed-bg: #15181d; }
+
+  /* Inputs — gold focus border */
+  .TXInputField { --type: editbox; --bg: #1a1d21; --border: #2b3138;
+                  --focus-bg: #20242a; --focus-border: #c4a35a; }
+
+  /* Status boxes — left accent strip per sentiment (CBT gold/green/blue/red) */
+  .TXInfoBox    { --bg: #15181d; --left: #5c8fc7; }
+  .TXSuccessBox { --bg: #15181d; --left: #6b8e5a; }
+  .TXWarningBox { --bg: #15181d; --left: #c4a35a; }
+  .TXErrorBox   { --bg: #15181d; --left: #c45050; }
+
+  /* List rows */
+  .TXListRow         { --type: button; --bg: #12151a;
+                       --highlight-bg: #1a1d21; --pushed-bg: #15181d; }
+  .TXListRowAlt      { --type: button; --bg: #15181d;
+                       --highlight-bg: #1a1d21; --pushed-bg: #15181d; }
+  .TXListRowSelected { --type: button; --bg: #20242a; --left: #c4a35a;
+                       --highlight-bg: #20242a; --highlight-left: #c4a35a;
+                       --pushed-bg: #20242a;    --pushed-left: #c4a35a; }
+
+  .TXBadge { --bg: #1a1d21; --radius: 3; }
+
+  /* Progress / quantity bar */
+  .TXProgressBg   { --bg: #1a1d21; --radius: 2; }
+  .TXProgressFill { --type: progressbar; --bg: #1a1d21; --fill: #6b8e5a; --radius: 2; }
+</style>
+</head>
+<body data-dzml></body>
+</html>

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, initial-scale=1">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+  <style>
+    html, body { margin: 0; padding: 0; overflow: hidden; }
+    body.dz-viewport {
+      width: 1920px; height: 1080px;
+      background: #08090c url('bg-preview.jpg') center/cover no-repeat;
+    }
+    @media (max-width: 1920px) {
+      body.dz-viewport { transform: scale(calc(100vw / 1920)); transform-origin: top left; }
+    }
+  </style>
+</head>
+<body class="dz-viewport">
+
+<!-- VaultTabView — Items vault. Handles Personal & Clan owners via `current_owner_key`.
+     Left column: owner bar + capacity tiles + storage grid.
+     Right rail: selected item detail + actions (role-gated) + activity log.
+     All bindings resolve to TXBVaultTabComponent. -->
+<div data-dz="panel" data-name="vaultPanel"
+     class="dz-xy-0-0 dz-wh-full dz-c-08090CD1 dz-noptr">
+
+  <!-- ════════ LEFT COLUMN (~72% width) ════════ -->
+
+  <!-- Owner bar -->
+  <div data-dz="panel" data-name="ownerBar" data-style="TXCard"
+       class="dz-xy-2-2 dz-wh-70-6 dz-c-FE dz-noptr">
+    <span data-dz="text" data-name="ownerLabel"
+          class="dz-xy-2-15 dz-wh-10-70 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-text-vc dz-bold">
+      OWNER
+    </span>
+    <span data-dz="text" data-name="ownerValue"
+          data-bind="{{ ownerDisplayText }}"
+          class="dz-xy-13-15 dz-wh-50-70 dz-tc-D8D2C0 dz-font-14 dz-noptr dz-exact-text dz-text-vc dz-bold">
+      —
+    </span>
+    <span data-dz="text" data-name="ownerRoleBadge"
+          data-bind="{{ ownerRoleText }}"
+          class="dz-xy-64-20 dz-wh-14-60 dz-tc-D4A44C dz-font-10 dz-noptr dz-exact-text dz-text-vc dz-bold">
+      —
+    </span>
+    <button data-dz="button" data-name="ownerSwitchBtn"
+            data-style="TXBtnDefault" data-on-click="OnSwitchOwner"
+            class="dz-xy-80-15 dz-wh-17-70 dz-c-FE dz-tc-D4A44C dz-font-11 dz-exact-text dz-bold">
+      SWITCH OWNER ▾
+    </button>
+
+    <!-- Dropdown panel (shown/hidden via ownerSwitchBtn) -->
+    <div data-dz="panel" data-name="ownerDropdown" data-style="TXCardElevated"
+         class="dz-xy-80-100 dz-wh-17-180 dz-c-FE dz-noptr">
+      <div data-dz="scroll" data-name="ownerDropdownScroll"
+           class="dz-xy-0-0 dz-wh-100-100 dz-scroll-v">
+        <div data-dz="grid" data-name="ownerDropdownList"
+             data-foreach="{{ _availableOwners }}"
+             data-template="txb-vault-owner-row"
+             data-item="_inputOwner"
+             class="dz-wh-100-40px dz-noptr dz-fit-v dz-cols-1 dz-rows-6 dz-gap-1"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Capacity tiles (4 cols when clan, role tile collapses for personal) -->
+  <div data-dz="grid" data-name="capacityGrid"
+       class="dz-xy-2-9 dz-wh-70-10 dz-noptr dz-cols-4 dz-rows-1 dz-gap-3">
+
+    <div data-dz="panel" data-name="capCapacity" data-style="TXCard" class="dz-c-FE dz-noptr">
+      <span data-dz="text" data-name="capCapacityLabel"
+            class="dz-xy-5-10 dz-wh-90-18 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-bold">
+        CAPACITY
+      </span>
+      <span data-dz="text" data-name="capCapacityValue"
+            data-bind="{{ capacityText }}"
+            class="dz-xy-5-28 dz-wh-90-30 dz-tc-D8D2C0 dz-font-22 dz-noptr dz-exact-text dz-bold">
+        — / —
+      </span>
+      <span data-dz="text" data-name="capCapacitySub"
+            data-bind="{{ capacitySubText }}"
+            class="dz-xy-5-60 dz-wh-90-10 dz-tc-6A6560 dz-font-10 dz-noptr dz-exact-text">
+        slots used
+      </span>
+      <div data-dz="panel" data-name="capProgress" data-style="TXProgressBg"
+           class="dz-xy-5-75 dz-wh-90-5 dz-c-FE dz-noptr">
+        <div data-dz="panel" data-name="capProgressFill" data-style="TXProgressFill"
+             class="dz-xy-0-0 dz-wh-0-100 dz-c-FE dz-noptr"></div>
+      </div>
+    </div>
+
+    <div data-dz="panel" data-name="capFee" data-style="TXCard" class="dz-c-FE dz-noptr">
+      <span data-dz="text" data-name="capFeeLabel"
+            class="dz-xy-5-10 dz-wh-90-18 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-bold">
+        DAILY FEE
+      </span>
+      <span data-dz="text" data-name="capFeeValue"
+            data-bind="{{ dailyFeeText }}"
+            class="dz-xy-5-28 dz-wh-90-30 dz-tc-C8664A dz-font-22 dz-noptr dz-exact-text dz-bold">
+        — ₽
+      </span>
+      <span data-dz="text" data-name="capFeeSub"
+            data-bind="{{ feeSourceText }}"
+            class="dz-xy-5-60 dz-wh-90-20 dz-tc-6A6560 dz-font-10 dz-noptr dz-exact-text dz-wrap">
+        debited from bank balance
+      </span>
+    </div>
+
+    <div data-dz="panel" data-name="capRole" data-style="TXCard" class="dz-c-FE dz-noptr">
+      <span data-dz="text" data-name="capRoleLabel"
+            class="dz-xy-5-10 dz-wh-90-18 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-bold">
+        YOUR ROLE
+      </span>
+      <span data-dz="text" data-name="capRoleValue"
+            data-bind="{{ capacityRoleText }}"
+            class="dz-xy-5-28 dz-wh-90-30 dz-tc-D4A44C dz-font-22 dz-noptr dz-exact-text dz-bold">
+        —
+      </span>
+      <span data-dz="text" data-name="capRoleSub"
+            data-bind="{{ capacityRoleRightsText }}"
+            class="dz-xy-5-60 dz-wh-90-20 dz-tc-6A6560 dz-font-10 dz-noptr dz-exact-text dz-wrap">
+        —
+      </span>
+    </div>
+
+    <div data-dz="panel" data-name="capNext" data-style="TXCard" class="dz-c-FE dz-noptr">
+      <span data-dz="text" data-name="capNextLabel"
+            class="dz-xy-5-10 dz-wh-90-18 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-bold">
+        NEXT COLLECTION
+      </span>
+      <span data-dz="text" data-name="capNextValue"
+            data-bind="{{ nextCollectionText }}"
+            class="dz-xy-5-28 dz-wh-90-30 dz-tc-D4A44C dz-font-22 dz-noptr dz-exact-text dz-bold">
+        —
+      </span>
+      <span data-dz="text" data-name="capNextSub"
+            class="dz-xy-5-60 dz-wh-90-20 dz-tc-6A6560 dz-font-10 dz-noptr dz-exact-text dz-wrap">
+        auto-debit if funded
+      </span>
+    </div>
+  </div>
+
+  <!-- Storage card (grid of items) -->
+  <div data-dz="panel" data-name="storageCard" data-style="TXCard"
+       class="dz-xy-2-21 dz-wh-70-76 dz-c-FE dz-noptr">
+    <span data-dz="text" data-name="storageTitle"
+          data-bind="{{ storageTitleText }}"
+          class="dz-xy-2-2 dz-wh-40-4 dz-tc-D8D2C0 dz-font-13 dz-noptr dz-exact-text dz-bold">
+      STORED ITEMS · 0
+    </span>
+    <input data-dz="editbox" data-name="storageSearchInput"
+           data-style="TXInputField"
+           data-bind="{{ storageSearch }}" data-two-way="1" data-on-change="OnStorageSearchChanged"
+           class="dz-xy-65-2 dz-wh-22-4 dz-c-FE dz-tc-D8D2C0 dz-font-11 dz-exact-text" />
+    <span data-dz="text" data-name="storageDepositorFilter"
+          class="dz-xy-88-2 dz-wh-10-4 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-text-vc dz-text-right">
+      ALL ▾
+    </span>
+
+    <!-- Scrollable grid — 6 cols for personal, typically visually identical for clan -->
+    <div data-dz="scroll" data-name="storageScroll"
+         class="dz-xy-2-7 dz-wh-96-91 dz-scroll-v">
+      <div data-dz="grid" data-name="storageGrid"
+           data-foreach="{{ _visibleItems }}"
+           data-template="txb-vault-item-card"
+           data-item="_inputItem"
+           class="dz-wh-100-90px dz-noptr dz-fit-v dz-cols-4 dz-rows-40 dz-gap-2"></div>
+
+      <span data-dz="text" data-name="storageEmpty"
+            data-bind="{{ emptyStorageText }}"
+            class="dz-xy-5-40 dz-wh-90-10 dz-tc-6A6560 dz-font-12 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+        No stored items
+      </span>
+    </div>
+  </div>
+
+  <!-- ════════ RIGHT RAIL (~26%) — Preview + Detail + Actions + Activity ════════ -->
+
+  <!-- Item preview card -->
+  <div data-dz="panel" data-name="previewCard" data-style="TXCard"
+       class="dz-xy-73-2 dz-wh-25-16 dz-c-FE dz-noptr">
+    <div data-dz="preview" data-name="itemPreviewWidget"
+         data-bind-item="{{ previewItem }}"
+         data-enable-rotation="1"
+         class="dz-xy-25-5 dz-wh-50-90 dz-noptr"></div>
+  </div>
+
+  <!-- Selected item detail -->
+  <div data-dz="panel" data-name="detailCard" data-style="TXCard"
+       class="dz-xy-73-19 dz-wh-25-30 dz-c-FE dz-noptr">
+    <div data-dz="panel" data-name="detailLeftStrip" data-style="TXProgressFill"
+         class="dz-xy-0-0 dz-wh-0.5-100 dz-c-FE dz-noptr"></div>
+
+    <span data-dz="text" data-name="detailItemName"
+          data-bind="{{ detailNameText }}"
+          class="dz-xy-5-5 dz-wh-70-10 dz-tc-D8D2C0 dz-font-16 dz-noptr dz-exact-text dz-bold">
+      —
+    </span>
+    <span data-dz="text" data-name="detailHealthBadge"
+          data-bind="{{ detailHealthText }}"
+          class="dz-xy-76-5 dz-wh-22-10 dz-tc-9AB05A dz-font-10 dz-noptr dz-exact-text dz-text-right dz-bold">
+      —
+    </span>
+
+    <span data-dz="text" data-name="detailClassLabel"
+          class="dz-xy-5-18 dz-wh-45-5 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text">
+      CLASS
+    </span>
+    <span data-dz="text" data-name="detailClassValue"
+          data-bind="{{ detailClassText }}"
+          class="dz-xy-5-24 dz-wh-45-6 dz-tc-D8D2C0 dz-font-12 dz-noptr dz-exact-text">
+      —
+    </span>
+
+    <span data-dz="text" data-name="detailFootprintLabel"
+          class="dz-xy-52-18 dz-wh-45-5 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text">
+      FOOTPRINT
+    </span>
+    <span data-dz="text" data-name="detailFootprintValue"
+          data-bind="{{ detailFootprintText }}"
+          class="dz-xy-52-24 dz-wh-45-6 dz-tc-D8D2C0 dz-font-12 dz-noptr dz-exact-text">
+      —
+    </span>
+
+    <span data-dz="text" data-name="detailSinceLabel"
+          class="dz-xy-5-33 dz-wh-45-5 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text">
+      STORED SINCE
+    </span>
+    <span data-dz="text" data-name="detailSinceValue"
+          data-bind="{{ detailSinceText }}"
+          class="dz-xy-5-39 dz-wh-45-6 dz-tc-D8D2C0 dz-font-12 dz-noptr dz-exact-text">
+      —
+    </span>
+
+    <span data-dz="text" data-name="detailDaysLabel"
+          class="dz-xy-52-33 dz-wh-45-5 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text">
+      DAYS STORED
+    </span>
+    <span data-dz="text" data-name="detailDaysValue"
+          data-bind="{{ detailDaysText }}"
+          class="dz-xy-52-39 dz-wh-45-6 dz-tc-D8D2C0 dz-font-12 dz-noptr dz-exact-text">
+      —
+    </span>
+
+    <span data-dz="text" data-name="detailAttachmentsLabel"
+          class="dz-xy-5-48 dz-wh-45-5 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text">
+      ATTACHMENTS
+    </span>
+    <span data-dz="text" data-name="detailAttachmentsValue"
+          data-bind="{{ detailAttachmentsText }}"
+          class="dz-xy-5-54 dz-wh-45-6 dz-tc-D8D2C0 dz-font-12 dz-noptr dz-exact-text">
+      —
+    </span>
+
+    <span data-dz="text" data-name="detailCargoLabel"
+          class="dz-xy-52-48 dz-wh-45-5 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text">
+      CARGO / MAG
+    </span>
+    <span data-dz="text" data-name="detailCargoValue"
+          data-bind="{{ detailCargoText }}"
+          class="dz-xy-52-54 dz-wh-45-6 dz-tc-D8D2C0 dz-font-12 dz-noptr dz-exact-text">
+      —
+    </span>
+
+    <div data-dz="panel" data-name="detailDivider" data-style="TXDivider"
+         class="dz-xy-5-68 dz-wh-90-0.4 dz-c-FE dz-noptr"></div>
+
+    <span data-dz="text" data-name="detailAccruedLabel"
+          class="dz-xy-5-72 dz-wh-50-10 dz-tc-9A9488 dz-font-11 dz-noptr dz-exact-text">
+      Accrued fee
+    </span>
+    <span data-dz="text" data-name="detailAccruedValue"
+          data-bind="{{ detailAccruedFeeText }}"
+          class="dz-xy-55-72 dz-wh-42-10 dz-tc-C8664A dz-font-12 dz-noptr dz-exact-text dz-text-right dz-bold">
+      — ₽
+    </span>
+
+    <!-- Depositor strip (clan only — shows who deposited) -->
+    <div data-dz="panel" data-name="detailDepositorStrip" data-style="TXInfoBox"
+         class="dz-xy-3-84 dz-wh-94-12 dz-c-FE dz-noptr">
+      <span data-dz="text" data-name="detailDepositorText"
+            data-bind="{{ detailDepositorText }}"
+            class="dz-xy-4-0 dz-wh-92-100 dz-tc-9A9488 dz-font-10 dz-noptr dz-exact-text dz-text-vc dz-wrap">
+        Deposited by — · —
+      </span>
+    </div>
+  </div>
+
+  <!-- Actions panel -->
+  <div data-dz="panel" data-name="actionsCard" data-style="TXCard"
+       class="dz-xy-73-50 dz-wh-25-22 dz-c-FE dz-noptr">
+    <span data-dz="text" data-name="actionsTitle"
+          class="dz-xy-5-5 dz-wh-90-10 dz-tc-D8D2C0 dz-font-12 dz-noptr dz-exact-text dz-bold">
+      ACTIONS
+    </span>
+
+    <button data-dz="button" data-name="withdrawItemBtn"
+            data-style="TXBtnPrimary" data-on-click="OnWithdrawItem"
+            class="dz-xy-5-20 dz-wh-90-16 dz-c-FE dz-tc-D8D2C0 dz-font-12 dz-exact-text dz-bold">
+      WITHDRAW TO INVENTORY
+    </button>
+
+    <button data-dz="button" data-name="depositItemBtn"
+            data-style="TXBtnDefault" data-on-click="OnDepositItem"
+            class="dz-xy-5-39 dz-wh-90-16 dz-c-FE dz-tc-D8D2C0 dz-font-12 dz-exact-text dz-bold">
+      DEPOSIT FROM INVENTORY
+    </button>
+
+    <button data-dz="button" data-name="takeAllBtn"
+            data-style="TXBtnDanger" data-on-click="OnTakeAll"
+            class="dz-xy-5-58 dz-wh-90-16 dz-c-FE dz-tc-C8664A dz-font-12 dz-exact-text dz-bold">
+      TAKE EVERYTHING
+    </button>
+
+    <span data-dz="text" data-name="actionsNote"
+          data-bind="{{ actionsNoteText }}"
+          class="dz-xy-5-78 dz-wh-90-18 dz-tc-6A6560 dz-font-10 dz-noptr dz-exact-text dz-wrap">
+      Withdraw spawns into inventory. Deposit snapshots health/qty/attachments.
+    </span>
+  </div>
+
+  <!-- Activity log (vault-level) -->
+  <div data-dz="panel" data-name="vaultActivityCard" data-style="TXCard"
+       class="dz-xy-73-73 dz-wh-25-24 dz-c-FE dz-noptr">
+    <span data-dz="text" data-name="vaultActivityTitle"
+          class="dz-xy-5-4 dz-wh-90-6 dz-tc-D8D2C0 dz-font-12 dz-noptr dz-exact-text dz-bold">
+      VAULT ACTIVITY
+    </span>
+
+    <div data-dz="scroll" data-name="vaultActivityScroll"
+         class="dz-xy-2-11 dz-wh-96-85 dz-scroll-v">
+      <div data-dz="grid" data-name="vaultActivityList"
+           data-foreach="{{ _vaultActivity }}"
+           data-template="txb-clan-activity-row"
+           data-item="_inputActivity"
+           class="dz-wh-100-22px dz-noptr dz-fit-v dz-cols-1 dz-rows-30 dz-gap-1"></div>
+
+      <span data-dz="text" data-name="vaultActivityEmpty"
+            data-bind="{{ emptyVaultActivityText }}"
+            class="dz-xy-5-40 dz-wh-90-10 dz-tc-6A6560 dz-font-11 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+        No recent activity
+      </span>
+    </div>
+  </div>
+</div>
+
+<script src="dzml-runtime.js"></script>
+</body>
+</html>

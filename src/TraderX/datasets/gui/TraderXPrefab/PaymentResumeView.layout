@@ -1,154 +1,124 @@
 PanelWidgetClass PaymentResume {
- ignorepointer 1
- position 0.018 0.012
- size 470 92
+ position 0.02 0.01
  hexactpos 0
  vexactpos 0
+ size 470 92
  hexactsize 1
  vexactsize 1
- scriptclass "PaymentResumeViewController"
+ ignorepointer 1
  {
   TextWidgetClass PaymentAmount {
-   ignorepointer 1
-   color 0.6078 0.651 0.2314 1
-   size 0.09 0.391
-   halign right_ref
-   hexactpos 0
-   vexactpos 0
+   size 0.09 0.39
    hexactsize 0
    vexactsize 0
-   scriptclass "ViewBinding"
-   text "To pay: 13,350"
-   font "TraderX/datasets/fonts/RobotoCondensedVF28"
-   "size to text h" 1
+   halign right_ref
+   "text color" 0.6078 0.651 0.2314 1
+   font "TraderX/datasets/fonts/jet-brains-mono28"
+   ignorepointer 1
    "text valign" center
-   {
-    ScriptParamsClass {
-     Binding_Name "payment_amount"
-    }
-   }
+   "size to text h" 1
+   text "To pay: 13,350"
   }
   PanelWidgetClass PanelWidget5 {
-   ignorepointer 1
-   color 0.3608 0.3686 0.3882 1
    position 0 0.14
-   size 0.36 0.45
-   halign right_ref
-   valign bottom_ref
    hexactpos 0
    vexactpos 0
+   size 0.36 0.45
    hexactsize 0
    vexactsize 0
-   style DA_Smooth_Small_10px
+   halign right_ref
+   valign bottom_ref
+   ignorepointer 1
+   style TXCard
+   color 0.9961 0.9961 0.9961 1
    {
     ButtonWidgetClass ButtonWidget0 {
-     size 1 1.001
-     halign center_ref
-     valign center_ref
-     hexactpos 0
-     vexactpos 0
+     size 1 1
      hexactsize 0
      vexactsize 0
-     scriptclass "ViewBinding"
+     halign center_ref
+     valign center_ref
+     "text color" 0.9961 0.9961 0.9961 1
      style Empty
-     {
-      ScriptParamsClass {
-       Relay_Command "OnPurchaseExecute"
-      }
-     }
+     color 0.9961 0.9961 0.9961 1
     }
     TextWidgetClass TextWidget4 {
-     ignorepointer 1
-     color 0.6078 0.651 0.2314 1
      position 0 0
-     size 1 1.001
-     halign center_ref
-     valign center_ref
      hexactpos 0
      vexactpos 0
+     size 1 1
      hexactsize 0
      vexactsize 0
-     text "Purchase"
-     font "TraderX/datasets/fonts/RobotoCondensedVF22"
+     halign center_ref
+     valign center_ref
+     "text color" 0.6078 0.651 0.2314 1
+     font "TraderX/datasets/fonts/oswalt22"
+     ignorepointer 1
      "text halign" center
      "text valign" center
+     text "Purchase"
     }
    }
   }
   ImageWidgetClass StockLabel15 {
-   ignorepointer 1
    position 0.37 0.38
-   size 24 24
-   halign right_ref
-   valign bottom_ref
    hexactpos 0
    vexactpos 0
+   size 24 24
    hexactsize 1
    vexactsize 1
-   imageTexture "{F77C0332737AE964}TraderX/datasets/icons/bank.edds"
+   halign right_ref
+   valign bottom_ref
+   ignorepointer 1
+   image0 "set:traderx_icons image:bank"
    mode blend
    "src alpha" 1
    "stretch mode" stretch_w_h
-   filter 1
   }
   ImageWidgetClass StockLabel16 {
-   ignorepointer 1
    position 0.37 0.09
-   size 24 24
-   halign right_ref
-   valign bottom_ref
    hexactpos 0
    vexactpos 0
+   size 24 24
    hexactsize 1
    vexactsize 1
-   imageTexture "{9A6BCBE7CD6ECE8F}TraderX/datasets/icons/wallet.edds"
+   halign right_ref
+   valign bottom_ref
+   ignorepointer 1
+   image0 "set:traderx_icons image:wallet"
    mode blend
    "src alpha" 1
    "stretch mode" stretch_w_h
-   filter 1
   }
   TextWidgetClass WalletAccount {
-   ignorepointer 1
    position 0.44 0.09
-   size 48 24
-   halign right_ref
-   valign bottom_ref
    hexactpos 0
    vexactpos 0
+   size 48 24
    hexactsize 1
    vexactsize 1
-   scriptclass "ViewBinding"
-   text "34,000"
-   font "TraderX/datasets/fonts/RobotoCondensedVF22"
-   "size to text h" 1
+   halign right_ref
+   valign bottom_ref
+   font "TraderX/datasets/fonts/jet-brains-mono22"
+   ignorepointer 1
    "text valign" center
-   {
-    ScriptParamsClass {
-     Binding_Name "wallet_account"
-    }
-   }
+   "size to text h" 1
+   text "34,000"
   }
   TextWidgetClass BankAccount {
-   clipchildren 0
-   ignorepointer 1
    position 0.44 0.38
-   size 48 24
-   halign right_ref
-   valign bottom_ref
    hexactpos 0
    vexactpos 0
+   size 48 24
    hexactsize 1
    vexactsize 1
-   scriptclass "ViewBinding"
-   text "132,000,000"
-   font "TraderX/datasets/fonts/RobotoCondensedVF22"
-   "size to text h" 1
+   halign right_ref
+   valign bottom_ref
+   font "TraderX/datasets/fonts/jet-brains-mono22"
+   ignorepointer 1
    "text valign" center
-   {
-    ScriptParamsClass {
-     Binding_Name "bank_account"
-    }
-   }
+   "size to text h" 1
+   text "132,000,000"
   }
  }
 }

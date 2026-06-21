@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+  <link rel="stylesheet" href="dzml-icons.css">
+</head>
+<body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#1a1a1a;">
+
+<div data-dz="panel"
+    data-name="CatalogPageView"
+    data-style="TXContent"
+    class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr">
+  <div data-dz="panel"
+      data-name="topBar"
+      data-style="TXSurface"
+      class="dz-xy-0-0 dz-wh-100-6 dz-c-FE dz-noptr">
+    <div data-dz="panel"
+        data-name="SearchBarHost"
+        data-component="tx-search-bar"
+        class="dz-xy-36-22 dz-wh-26-56"></div>
+    <button data-dz="button"
+        data-name="toggleExpandBtn"
+        data-style="Bold"
+        data-on-click="OnToggleExpandClick"
+        class="dz-xy-59-22 dz-wh-6-56 dz-tc-FE dz-tc-D8D2C0 dz-font-body-12 dz-exact-text"
+        data-prop-style="TXBtnDefault">
+      #tpm_expand_all
+    </button>
+    <div data-dz="panel"
+        data-name="ViewToggleHost"
+        data-component="tx-view-toggle"
+        class="dz-xy-66-22 dz-wh-8-56 dz-noptr"></div>
+  </div>
+  <div data-dz="panel"
+      data-name="CatalogListPanel"
+      data-style="TXSurface"
+      class="dz-xy-0-7 dz-wh-69-92 dz-c-FE dz-noptr">
+    <span data-dz="text"
+        data-name="catalogTitle"
+        class="dz-xy-1-1 dz-wh-40-4 dz-tc-9A9488 dz-font-body-14 dz-noptr dz-exact-text">
+      #tpm_catalog_items
+    </span>
+    <div data-dz="scroll"
+        data-name="scrollCategory"
+        class="dz-xy-1-7 dz-wh-98-92 dz-noptr dz-scroll-v">
+      <div data-dz="grid"
+          data-name="categoryGrid"
+          data-foreach="{{ _inputCategories }}"
+          data-template="tx-catalog-category-card"
+          data-item="_inputCategory"
+          class="dz-xy-0-0 dz-wh-100-1 dz-fit-v dz-cols-1 dz-rows-100 dz-gap-6"></div>
+    </div>
+  </div>
+  <div data-dz="panel"
+      data-name="ItemDetailsPanel"
+      data-style="TXCard"
+      class="dz-xy-70-7 dz-wh-29-92 dz-c-FE dz-noptr">
+    <span data-dz="text"
+        data-name="detailsTitle"
+        class="dz-xy-0-2 dz-wh-100-4 dz-tc-D8D2C0 dz-font-body-16 dz-noptr dz-bold dz-exact-text dz-text-center">
+      #tpm_item_details
+    </span>
+    <div data-dz="panel"
+        data-name="detailPreviewBg"
+        class="dz-xy-4-7 dz-wh-92-36 dz-c-06070A dz-noptr"></div>
+    <div data-dz="preview"
+        data-name="itemPreview"
+        data-bind-item="{{ selected_preview }}"
+        data-enable-rotation="1"
+        data-enable-scale="1"
+        class="dz-xy-6-8 dz-wh-88-34"></div>
+    <span data-dz="text"
+        data-name="itemName"
+        data-bind="{{ selected_item_name }}"
+        class="dz-xy-0-44 dz-wh-100-5 dz-tc-D8D2C0 dz-font-body-16 dz-noptr dz-bold dz-exact-text dz-text-center">
+      Item Name
+    </span>
+    <div data-dz="panel"
+        data-name="sellBox"
+        data-style="TXSurface"
+        class="dz-xy-6-51 dz-wh-42-10 dz-c-FE dz-noptr">
+      <span data-dz="text"
+          data-name="sellLabel"
+          class="dz-xy-0-12 dz-wh-100-35 dz-tc-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-text-center">
+        #tpm_sell_price
+      </span>
+      <span data-dz="text"
+          data-name="sellPrice"
+          data-bind="{{ selected_sell_price }}"
+          class="dz-xy-0-50 dz-wh-100-45 dz-tc-6B8E5A dz-font-mono-16 dz-noptr dz-bold dz-exact-text dz-text-center">
+        0
+      </span>
+    </div>
+    <div data-dz="panel"
+        data-name="buyBox"
+        data-style="TXSurface"
+        class="dz-xy-52-51 dz-wh-42-10 dz-c-FE dz-noptr">
+      <span data-dz="text"
+          data-name="buyLabel"
+          class="dz-xy-0-12 dz-wh-100-35 dz-tc-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-text-center">
+        #tpm_buy_price
+      </span>
+      <span data-dz="text"
+          data-name="buyPrice"
+          data-bind="{{ selected_buy_price }}"
+          class="dz-xy-0-50 dz-wh-100-45 dz-tc-C4A35A dz-font-mono-16 dz-noptr dz-bold dz-exact-text dz-text-center">
+        0
+      </span>
+    </div>
+    <span data-dz="text"
+        data-name="stockText"
+        data-bind="{{ selected_stock }}"
+        class="dz-xy-0-63 dz-wh-100-4 dz-tc-9A9488 dz-font-mono-14 dz-noptr dz-exact-text dz-text-center">
+      #tpm_stock 0/10
+    </span>
+    <div data-dz="panel"
+        data-name="descBox"
+        data-style="TXSurface"
+        class="dz-xy-6-69 dz-wh-88-28 dz-c-FE dz-noptr">
+      <span data-dz="text"
+          data-name="descText"
+          data-bind="{{ selected_description }}"
+          class="dz-xy-6-8 dz-wh-88-84 dz-tc-9A9488 dz-font-body-12 dz-noptr dz-wrap">
+        Select an item to view details
+      </span>
+    </div>
+  </div>
+</div>
+
+<script src="dzml-runtime.js?v=1780762080691"></script>
+</body>
+</html>

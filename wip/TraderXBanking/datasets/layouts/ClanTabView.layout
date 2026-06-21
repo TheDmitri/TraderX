@@ -1,0 +1,27 @@
+PanelWidgetClass clanTabRoot {
+ position 0 0
+ hexactpos 0
+ vexactpos 0
+ size 1 1
+ hexactsize 0
+ vexactsize 0
+ color 0.0314 0.0353 0.0471 0.8196
+ clipchildren 1
+ {
+  PanelWidgetClass clanSubView {
+   position 0 0
+   hexactpos 0
+   vexactpos 0
+   size 1 1
+   hexactsize 0
+   vexactsize 0
+   clipchildren 1
+   scriptclass "ComponentWidgetBinding"
+   {
+    ScriptParamsClass {
+     Component_Selector "{{ current_clan_view }}"
+    }
+   }
+  }
+ }
+}

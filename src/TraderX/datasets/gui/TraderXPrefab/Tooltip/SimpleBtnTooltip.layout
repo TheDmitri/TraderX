@@ -1,43 +1,32 @@
 GridSpacerWidgetClass rootFrame {
- color 0.1137 0.1137 0.1137 1
  position 10 10
- size 94 33
  hexactpos 1
  vexactpos 1
+ size 94 33
  hexactsize 1
  vexactsize 1
- priority 111
- scriptclass "SimpleBtnTooltipViewController"
- style Colorable
- Padding 0
- Margin 8
- "Size To Content H" 1
+ color 0.9961 0.9961 0.9961 1
  "Size To Content V" 1
- content_halign center
- content_valign center
+ "Size To Content H" 1
  Columns 1
  Rows 1
+ Padding 0
+ Margin 8
+ priority 999
+ style Colorable
  {
   TextWidgetClass TextWidget0 {
-   ignorepointer 1
    size 48 20
-   halign center_ref
-   valign center_ref
-   hexactpos 1
-   vexactpos 1
    hexactsize 1
    vexactsize 1
-   scriptclass "ViewBinding"
-   text "All"
-   font "TraderX/datasets/fonts/RobotoCondensedVF22"
+   halign center_ref
+   valign center_ref
+   font "TraderX/datasets/fonts/oswalt22"
+   ignorepointer 1
+   "text valign" center
    "size to text h" 1
    "size to text v" 1
-   "text valign" center
-   {
-    ScriptParamsClass {
-     Binding_Name "title"
-    }
-   }
+   text "All"
   }
  }
 }

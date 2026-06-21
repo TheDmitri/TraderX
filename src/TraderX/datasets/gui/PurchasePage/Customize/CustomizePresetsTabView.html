@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="dzml.css">
+</head>
+<body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#1a1a1a;">
+
+<div data-dz="panel"
+    data-name="CustomizePresetsTab"
+    data-style="blank"
+    class="dz-xy-0-0 dz-wh-full dz-noptr">
+  <div data-dz="panel"
+      data-name="newPresetHost"
+      data-component="tx-new-preset-card"
+      class="dz-xy-0-0 dz-wh-14-100"></div>
+  <div data-dz="scroll"
+      data-name="presetsScroll"
+      class="dz-xy-15-0 dz-wh-85-100 dz-noptr dz-scroll-v">
+    <div data-dz="grid"
+        data-name="presetGrid"
+        data-foreach="{{ _inputPresets }}"
+        data-template="tx-preset-card"
+        data-item="_inputPreset"
+        class="dz-xy-0-0 dz-wh-100-1 dz-fit-v dz-cols-5 dz-rows-100 dz-gap-8"></div>
+  </div>
+  <span data-dz="text"
+      data-name="emptyState"
+      data-bind="{{ empty_label }}"
+      class="dz-xy-15-40 dz-wh-85-10 dz-align-x-center dz-c-8B8F9A dz-font-TraderX/datasets/fonts/oswalt16 dz-noptr dz-text-center dz-text-vc"></span>
+</div>
+
+<script src="dzml-runtime.js?v=1781985766172"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+  <link rel="stylesheet" href="dzml-icons.css">
+</head>
+<body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#1a1a1a;">
+
+<div data-dz="panel"
+    data-name="modalRoot"
+    class="dz-xy-0-0 dz-wh-full dz-align-cc dz-priority-999">
+  <div data-dz="panel"
+      data-name="backdrop"
+      class="dz-xy-0-0 dz-wh-full dz-c-000000C8"></div>
+  <div data-dz="panel"
+      data-name="modalCard"
+      data-style="TXCard"
+      class="dz-xy-0-0 dz-wh-30-30 dz-align-cc dz-c-FE">
+    <span data-dz="text"
+        data-name="title"
+        data-bind="{{ modal_title }}"
+        class="dz-xy-0-7 dz-wh-100-14 dz-align-x-center dz-c-D8D2C0 dz-font-TraderX/datasets/fonts/oswalt22 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+      #tpm_create_new_preset
+    </span>
+    <span data-dz="text"
+        data-name="nameLabel"
+        class="dz-xy-7-27 dz-wh-86-9 dz-c-9A9488 dz-font-TraderX/datasets/fonts/oswalt16 dz-noptr dz-exact-text dz-text-vc">
+      #tpm_choose_preset_name
+    </span>
+    <input data-dz="editbox"
+        data-name="nameInput"
+        data-style="TXInputField"
+        data-bind="{{ input_text }}"
+        data-two-way="1"
+        data-on-change="OnInputTextChanged"
+        class="dz-xy-7-38 dz-wh-86-16 dz-c-D8D2C0 dz-font-TraderX/datasets/fonts/oswalt16 dz-exact-text"/>
+    <span data-dz="text"
+        data-name="errorText"
+        data-bind="{{ error_text }}"
+        class="dz-xy-7-57 dz-wh-86-9 dz-c-F0654A dz-font-TraderX/datasets/fonts/oswalt14 dz-noptr dz-exact-text dz-text-vc"></span>
+    <button data-dz="button"
+        data-name="cancelBtn"
+        data-style="TXBtnDefault"
+        data-on-click="OnCancelClick"
+        class="dz-xy-7-74 dz-wh-40-18 dz-tc-FE">
+      #tpm_cancel
+    </button>
+    <button data-dz="button"
+        data-name="confirmBtn"
+        data-style="TXBtnPrimary"
+        data-on-click="OnConfirmClick"
+        class="dz-xy-53-74 dz-wh-40-18 dz-tc-FE">
+      #tpm_confirm
+    </button>
+  </div>
+</div>
+
+<script src="dzml-runtime.js?v=1780762087854"></script>
+</body>
+</html>

@@ -4,250 +4,263 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" href="dzml.css">
   <link rel="stylesheet" href="dzml-styles.css">
+  <link rel="stylesheet" href="dzml-icons.css">
 </head>
-<body class="dz-viewport" style="width:1920px; height:1080px; background:#0a0a0a;">
-
-<!-- ============================================
-     TRADERX GARAGE UI — Marketplace-v2 Theme
-     Dark tactical aesthetic with red accents
-     Layout: Left sidebar (vehicle list) + Right panel (preview + actions)
-     ============================================ -->
+<body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#1a1a1a;">
 
 <div data-dz="frame"
     data-name="rootFrame"
     class="dz-xy-0-0 dz-wh-full dz-align-cc">
-
-  <!-- Main Container: 60% width, 70% height, centered -->
   <div data-dz="panel"
       data-name="garageRoot"
       data-style="TXContainer"
       class="dz-xy-0-0 dz-wh-60-70 dz-align-cc dz-c-FE">
-
-    <!-- ========== HEADER BAR ========== -->
     <div data-dz="panel"
         data-name="headerBar"
         data-style="TXHeader"
         class="dz-xy-0-0 dz-wh-100-8 dz-c-FE dz-noptr">
-
-      <!-- Title -->
       <span data-dz="text"
           data-name="headerTitle"
-          class="dz-xy-2-0 dz-wh-20-100 dz-tc-E0E0E0 dz-font-22 dz-noptr dz-exact-text dz-text-vc dz-bold">
+          class="dz-xy-2-0 dz-wh-20-100 dz-tc-E0 dz-font-body-16 dz-noptr dz-exact-text dz-text-vc">
         GARAGE
       </span>
-
-      <!-- Balance Display -->
       <div data-dz="panel"
           data-name="balancePanel"
           class="dz-xy-50-0 dz-wh-35-100 dz-noptr">
         <span data-dz="text"
             data-name="balanceLabel"
-            class="dz-xy-0-0 dz-wh-30-100 dz-tc-555555 dz-font-14 dz-noptr dz-exact-text dz-text-right dz-text-vc">
-          BALANCE:
+            class="dz-xy-0-0 dz-wh-30-100 dz-tc-55 dz-font-body-16 dz-noptr dz-exact-text dz-text-vc dz-text-right">
+          BALANCE
         </span>
         <span data-dz="text"
             data-name="balanceValue"
-            data-bind="{{ playerMoney | number }}"
-            class="dz-xy-32-0 dz-wh-45-100 dz-tc-C9302C dz-font-22 dz-noptr dz-exact-text dz-text-right dz-text-vc dz-bold">
+            class="dz-xy-32-0 dz-wh-45-100 dz-tc-C9302C dz-font-body-16 dz-noptr dz-exact-text dz-text-vc dz-text-right">
           0
         </span>
         <span data-dz="text"
             data-name="balanceCurrency"
-            class="dz-xy-78-0 dz-wh-20-100 dz-tc-888888 dz-font-14 dz-noptr dz-exact-text dz-text-left dz-text-vc">
+            class="dz-xy-78-0 dz-wh-20-100 dz-tc-88 dz-font-body-16 dz-noptr dz-exact-text dz-text-vc">
           TC
         </span>
       </div>
-
-      <!-- Leave Button -->
       <button data-dz="button"
           data-name="leaveBtn"
           data-style="TXBtnLeave"
-          data-on-click="OnClose"
-          class="dz-xy-87-10 dz-wh-11-80 dz-tc-FFFFFF dz-font-14 dz-exact-text">
+          class="dz-xy-87-10 dz-wh-11-80 dz-tc-FE dz-tc-FF dz-font-body-16">
         LEAVE
       </button>
     </div>
-
-    <!-- Divider below header -->
     <div data-dz="panel"
         data-name="headerDivider"
         data-style="TXDivider"
-        class="dz-xy-0-8 dz-wh-100-0.3 dz-noptr dz-c-FE"></div>
-
-    <!-- ========== MAIN CONTENT: 2-Column Layout ========== -->
+        class="dz-xy-0-8 dz-wh-100-0 dz-c-FE dz-noptr"></div>
     <div data-dz="panel"
         data-name="mainContent"
         class="dz-xy-0-9 dz-wh-100-91 dz-noptr">
-
-      <!-- ===== LEFT PANEL: Vehicle List (40% width) ===== -->
       <div data-dz="panel"
           data-name="vehicleListPanel"
           data-style="TXSidebar"
           class="dz-xy-0-0 dz-wh-40-100 dz-c-FE dz-noptr">
-
-        <!-- List Header -->
         <div data-dz="panel"
             data-name="listHeader"
             class="dz-xy-0-0 dz-wh-100-7 dz-noptr">
           <span data-dz="text"
               data-name="listHeaderLabel"
-              class="dz-xy-4-0 dz-wh-60-100 dz-tc-555555 dz-font-14 dz-noptr dz-exact-text dz-text-left dz-text-vc">
-            STORED VEHICLES
-          </span>
-          <span data-dz="text"
-              data-name="vehicleCountLabel"
-              data-bind="{{ vehicleCountDisplay }}"
-              class="dz-xy-65-0 dz-wh-30-100 dz-tc-555555 dz-font-14 dz-noptr dz-exact-text dz-text-right dz-text-vc">
+              class="dz-xy-65-0 dz-wh-30-100 dz-tc-55 dz-font-body-16 dz-noptr dz-exact-text dz-text-vc dz-text-right">
             0/5
           </span>
         </div>
-
-        <!-- Divider -->
         <div data-dz="panel"
             data-name="listDivider"
             data-style="TXDivider"
-            class="dz-xy-0-7 dz-wh-100-0.3 dz-noptr dz-c-FE"></div>
-
-        <!-- Scrollable Vehicle List -->
+            class="dz-xy-0-7 dz-wh-100-0 dz-c-FE dz-noptr"></div>
         <div data-dz="scroll"
             data-name="vehicleListScroll"
-            class="dz-xy-0-8 dz-wh-100-92 dz-noptr dz-scroll-v">
-
+            class="dz-xy-0-8 dz-wh-100-91 dz-noptr dz-scroll-v">
           <div data-dz="grid"
               data-name="vehicleListGrid"
-              data-foreach="{{ vehicles }}"
-              data-template="garage-vehicle-row"
-              data-item="_inputVehicle"
-              class="dz-xy-0-0 dz-wh-100-48px dz-noptr dz-fit-v dz-cols-1 dz-rows-100 dz-gap-0"></div>
+              class="dz-xy-0-0 dz-wh-100-48px dz-noptr dz-fit-v dz-cols-1 dz-rows-100 dz-pad-1 dz-gap-8">
+            <button data-dz="button"
+                data-name="vehicleRowBtn"
+                data-style="TXListRow"
+                class="dz-xy-0-0 dz-wh-100-48px dz-tc-FE dz-tc-FE">
+              <div data-dz="panel"
+                  data-name="vehicleRowContent"
+                  data-style="blank"
+                  class="dz-xy-0-0 dz-wh-full dz-align-cc dz-c-FE dz-noptr">
+                <div data-dz="panel"
+                    data-name="healthIndicator"
+                    data-style="rover_sim_colorable"
+                    class="dz-xy-0-10 dz-wh-1-80 dz-c-FE dz-noptr"></div>
+                <span data-dz="text"
+                    data-name="vehicleName"
+                    class="dz-xy-4-0 dz-wh-65-60 dz-tc-C0 dz-font-body-16 dz-noptr dz-exact-text dz-text-vc">
+                  OffroadHatchback
+                </span>
+                <span data-dz="text"
+                    data-name="vehicleHealth"
+                    class="dz-xy-4-55 dz-wh-65-40 dz-tc-55 dz-font-body-16 dz-noptr dz-exact-text dz-text-vc">
+                  Pristine
+                </span>
+                <div data-dz="panel"
+                    data-name="blockingBadge"
+                    data-style="TXBadge"
+                    class="dz-xy-75-20 dz-wh-22-60 dz-c-FE dz-noptr dz-hidden">
+                  <span data-dz="text"
+                      data-name="blockingText"
+                      class="dz-xy-0-0 dz-wh-full dz-tc-C9302C dz-font-body-16 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+                    IN
+                  </span>
+                </div>
+              </div>
+            </button>
+            <button data-dz="button"
+                data-name="vehicleRowBtn0"
+                data-style="TXListRow"
+                class="dz-xy-0-0 dz-wh-100-48px dz-tc-FE dz-tc-FE">
+              <div data-dz="panel"
+                  data-name="vehicleRowContent0"
+                  data-style="blank"
+                  class="dz-xy-0-0 dz-wh-full dz-align-cc dz-c-FE dz-noptr">
+                <div data-dz="panel"
+                    data-name="healthIndicator0"
+                    data-style="rover_sim_colorable"
+                    class="dz-xy-0-10 dz-wh-1-80 dz-c-FE dz-noptr"></div>
+                <span data-dz="text"
+                    data-name="vehicleName0"
+                    class="dz-xy-4-0 dz-wh-65-60 dz-tc-C0 dz-font-body-16 dz-noptr dz-exact-text dz-text-vc">
+                  OffroadHatchback
+                </span>
+                <span data-dz="text"
+                    data-name="vehicleHealth0"
+                    class="dz-xy-4-55 dz-wh-65-40 dz-tc-55 dz-font-body-16 dz-noptr dz-exact-text dz-text-vc">
+                  Pristine
+                </span>
+                <div data-dz="panel"
+                    data-name="blockingBadge0"
+                    data-style="TXBadge"
+                    class="dz-xy-75-20 dz-wh-22-60 dz-c-FE dz-noptr dz-hidden">
+                  <span data-dz="text"
+                      data-name="blockingText0"
+                      class="dz-xy-0-0 dz-wh-full dz-tc-C9302C dz-font-body-16 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+                    IN
+                  </span>
+                </div>
+              </div>
+            </button>
+            <button data-dz="button"
+                data-name="vehicleRowBtn1"
+                data-style="TXListRow"
+                class="dz-xy-0-0 dz-wh-100-48px dz-tc-FE dz-tc-FE">
+              <div data-dz="panel"
+                  data-name="vehicleRowContent1"
+                  data-style="blank"
+                  class="dz-xy-0-0 dz-wh-full dz-align-cc dz-c-FE dz-noptr">
+                <div data-dz="panel"
+                    data-name="healthIndicator1"
+                    data-style="rover_sim_colorable"
+                    class="dz-xy-0-10 dz-wh-1-80 dz-c-FE dz-noptr"></div>
+                <span data-dz="text"
+                    data-name="vehicleName1"
+                    class="dz-xy-4-0 dz-wh-65-60 dz-tc-C0 dz-font-body-16 dz-noptr dz-exact-text dz-text-vc">
+                  OffroadHatchback
+                </span>
+                <span data-dz="text"
+                    data-name="vehicleHealth1"
+                    class="dz-xy-4-55 dz-wh-65-40 dz-tc-55 dz-font-body-16 dz-noptr dz-exact-text dz-text-vc">
+                  Pristine
+                </span>
+                <div data-dz="panel"
+                    data-name="blockingBadge1"
+                    data-style="TXBadge"
+                    class="dz-xy-75-20 dz-wh-22-60 dz-c-FE dz-noptr dz-hidden">
+                  <span data-dz="text"
+                      data-name="blockingText1"
+                      class="dz-xy-0-0 dz-wh-full dz-tc-C9302C dz-font-body-16 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+                    IN
+                  </span>
+                </div>
+              </div>
+            </button>
+          </div>
         </div>
       </div>
-
-      <!-- ===== RIGHT PANEL: Preview + Actions (60% width) ===== -->
       <div data-dz="panel"
           data-name="detailPanel"
           class="dz-xy-40-0 dz-wh-60-100 dz-noptr">
-
-        <!-- Vehicle Preview Area -->
         <div data-dz="panel"
             data-name="vehiclePreviewSection"
             data-style="TXPreviewPanel"
             class="dz-xy-2-2 dz-wh-96-50 dz-c-FE dz-noptr">
-
-          <!-- Preview Header -->
           <span data-dz="text"
               data-name="previewTitle"
-              data-bind="{{ selectedVehicleName }}"
-              class="dz-xy-3-3 dz-wh-94-8 dz-tc-E0E0E0 dz-font-16 dz-noptr dz-exact-text dz-text-left dz-text-vc dz-bold">
-            Select a vehicle
+              class="dz-xy-3-3 dz-wh-94-8 dz-tc-E0 dz-font-body-16 dz-noptr dz-exact-text dz-text-vc">
+            Select
           </span>
-
-          <!-- Divider -->
           <div data-dz="panel"
               data-name="previewDivider"
               data-style="TXDivider"
-              class="dz-xy-3-12 dz-wh-94-0.5 dz-noptr dz-c-FE"></div>
-
-          <!-- 3D Vehicle Preview -->
+              class="dz-xy-3-12 dz-wh-94-0 dz-c-FE dz-noptr"></div>
           <div data-dz="preview"
               data-name="vehiclePreview"
-              data-bind-item="{{ vehiclePreviewEntity }}"
               class="dz-xy-0-14 dz-wh-100-86 dz-align-cc dz-noptr"></div>
         </div>
-
-        <!-- Parking Status -->
         <div data-dz="panel"
             data-name="parkingStatusSection"
             class="dz-xy-2-54 dz-wh-96-10 dz-noptr">
-
           <div data-dz="panel"
               data-name="parkingIndicator"
               data-style="TXParkingAvailable"
-              class="dz-xy-0-10 dz-wh-3-80 dz-c-FE dz-noptr"></div>
-
+              class="dz-xy-1-0 dz-wh-3-27 dz-align-y-center dz-c-FE dz-noptr"></div>
           <span data-dz="text"
               data-name="parkingStatusLabel"
-              class="dz-xy-5-0 dz-wh-40-50 dz-tc-555555 dz-font-14 dz-noptr dz-exact-text dz-text-left dz-text-vc">
-            PARKING STATUS
-          </span>
-          <span data-dz="text"
-              data-name="parkingStatusValue"
-              data-bind="{{ parkingStatusText }}"
-              class="dz-xy-5-50 dz-wh-40-50 dz-tc-6A9A6A dz-font-14 dz-noptr dz-exact-text dz-text-left dz-text-vc">
+              class="dz-xy-6-0 dz-wh-40-50 dz-align-y-center dz-tc-6A9A6A dz-font-body-16 dz-noptr dz-exact-text dz-text-vc">
             Available
           </span>
-
-          <!-- Cost Display -->
           <div data-dz="panel"
               data-name="costPanel"
               class="dz-xy-50-0 dz-wh-50-100 dz-noptr">
             <span data-dz="text"
                 data-name="parkInCostLabel"
-                class="dz-xy-0-0 dz-wh-55-50 dz-tc-555555 dz-font-14 dz-noptr dz-exact-text dz-text-right dz-text-vc">
-              PARK IN:
-            </span>
-            <span data-dz="text"
-                data-name="parkInCostValue"
-                data-bind="{{ parkInCost | number }}"
-                class="dz-xy-57-0 dz-wh-40-50 dz-tc-C9302C dz-font-14 dz-noptr dz-exact-text dz-text-left dz-text-vc dz-bold">
+                class="dz-xy-57-0 dz-wh-40-50 dz-tc-C9302C dz-font-body-16 dz-noptr dz-exact-text dz-text-vc">
               100
             </span>
             <span data-dz="text"
                 data-name="parkOutCostLabel"
-                class="dz-xy-0-50 dz-wh-55-50 dz-tc-555555 dz-font-14 dz-noptr dz-exact-text dz-text-right dz-text-vc">
-              PARK OUT:
-            </span>
-            <span data-dz="text"
-                data-name="parkOutCostValue"
-                data-bind="{{ parkOutCost | number }}"
-                class="dz-xy-57-50 dz-wh-40-50 dz-tc-C9302C dz-font-14 dz-noptr dz-exact-text dz-text-left dz-text-vc dz-bold">
+                class="dz-xy-57-50 dz-wh-40-50 dz-tc-C9302C dz-font-body-16 dz-noptr dz-exact-text dz-text-vc">
               100
             </span>
           </div>
         </div>
-
-        <!-- Action Buttons -->
         <div data-dz="grid"
             data-name="actionGrid"
             class="dz-xy-2-66 dz-wh-96-12 dz-cols-2 dz-rows-1 dz-gap-8">
-
           <button data-dz="button"
               data-name="parkInBtn"
               data-style="TXBtnPrimary"
-              data-on-click="OnParkIn"
-              class="dz-tc-6A9A6A dz-font-16 dz-exact-text dz-bold">
-            PARK IN
+              class="dz-tc-FE dz-tc-6A9A6A dz-font-body-16">
+            PARK
           </button>
-
           <button data-dz="button"
               data-name="parkOutBtn"
               data-style="TXBtnDanger"
-              data-on-click="OnParkOut"
-              class="dz-tc-C9302C dz-font-16 dz-exact-text dz-bold">
-            PARK OUT
+              class="dz-tc-FE dz-tc-C9302C dz-font-body-16">
+            PARK
           </button>
         </div>
-
-        <!-- Status Message -->
         <div data-dz="panel"
             data-name="garageStatusPanel"
             data-style="TXInfoBox"
             class="dz-xy-2-80 dz-wh-96-8 dz-c-FE dz-noptr dz-hidden">
-          <div data-dz="richtext"
+          <p data-dz="richtext"
               data-name="garageStatusMessage"
-              data-bind="{{ garageStatusText }}"
-              class="dz-xy-3-0 dz-wh-94-100 dz-tc-C9302C dz-font-14 dz-noptr dz-exact-text dz-text-vc dz-wrap">
-          </div>
+              class="dz-xy-3-0 dz-wh-94-100 dz-tc-C9302C dz-font-body-16 dz-noptr dz-wrap dz-exact-text dz-text-vc"></p>
         </div>
-
       </div>
     </div>
-
   </div>
 </div>
 
-<!-- Template imports -->
-<template data-template-id="garage-vehicle-row" data-src="GarageVehicleRow.html"></template>
-
-<script src="dzml-runtime.js"></script>
+<script src="dzml-runtime.js?v=1780762081220"></script>
 </body>
 </html>

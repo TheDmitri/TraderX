@@ -1,4 +1,10 @@
-class TraderXTransactionService
+// Modern DayZular accessor (registry-resolved). Back-compat GetInstance() below.
+static TraderXTransactionService GetTraderXTransactionService()
+{
+    return TraderXTransactionService.GetInstance();
+}
+
+class TraderXTransactionService : DayZularService
 {
     static ref TraderXTransactionService m_instance;
 
@@ -15,10 +21,19 @@ class TraderXTransactionService
         m_TransactionResponseQueue = new TransactionQueue<ref TraderXTransactionResultCollection>();
     }
     
+    // Registry-backed. Resolves the instance registered in TraderXAppInit; if
+    // absent, creates and registers it. m_instance caches the lookup.
     static TraderXTransactionService GetInstance()
     {
         if (!m_instance)
-            m_instance = new TraderXTransactionService();
+        {
+            m_instance = TraderXTransactionService.Cast(DZlrServiceRegistry.GetInstance().GetService(TraderXTransactionService));
+            if (!m_instance)
+            {
+                m_instance = new TraderXTransactionService();
+                DZlrServiceRegistry.GetInstance().RegisterService(TraderXTransactionService, m_instance);
+            }
+        }
         return m_instance;
     }
 

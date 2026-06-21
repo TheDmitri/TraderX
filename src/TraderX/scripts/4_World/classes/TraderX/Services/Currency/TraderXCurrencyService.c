@@ -1,14 +1,30 @@
-class TraderXCurrencyService
+// Modern DayZular accessor (registry-resolved). Back-compat GetInstance() below.
+static TraderXCurrencyService GetTraderXCurrencyService()
+{
+    return TraderXCurrencyService.GetInstance();
+}
+
+class TraderXCurrencyService : DayZularService
 {
     static ref TraderXCurrencyService m_instance;
 
     ref TraderXCurrencyTypeCollection currencySettings;
 
+    // Registry-backed but intentionally NOT eager-registered in TraderXAppInit:
+    // the server ctor loads currency config via TraderXCurrencyRepository, which
+    // must run AFTER TraderXConfigurationService.Initialize(). So construction
+    // stays lazy (first GetInstance, inside TraderXModule.InitRPCs, after config
+    // init) and the instance is registered on creation. m_instance caches it.
     static TraderXCurrencyService GetInstance()
     {
         if (!m_instance)
         {
-            m_instance = new TraderXCurrencyService();
+            m_instance = TraderXCurrencyService.Cast(DZlrServiceRegistry.GetInstance().GetService(TraderXCurrencyService));
+            if (!m_instance)
+            {
+                m_instance = new TraderXCurrencyService();
+                DZlrServiceRegistry.GetInstance().RegisterService(TraderXCurrencyService, m_instance);
+            }
         }
         return m_instance;
     }

@@ -22,7 +22,8 @@ class TraderXPricingService
         float stateMultiplier = TraderXItemState.GetStateMultiplier(itemState);
         bool isUnlimitedStock = product.IsStockUnlimited();
         
-        GetTraderXLogger().LogInfo(string.Format("[PRICING] CalculateBuyPrice - Product: %1 (ID: %2), BasePrice: %3, Coefficient: %4, Stock: %5, Multiplier: %6, StateMultiplier: %7, IsUnlimited: %8", product.className, product.GetProductId(), product.buyPrice, product.coefficient, currentStock, multiplier, stateMultiplier, isUnlimitedStock));
+        if (GetTraderXLogger().ShouldLog(TraderXLogLevel.Debug))
+            GetTraderXLogger().LogDebug(string.Format("[PRICING] CalculateBuyPrice - Product: %1 (ID: %2), BasePrice: %3, Coefficient: %4, Stock: %5, Multiplier: %6, StateMultiplier: %7, IsUnlimited: %8", product.className, product.GetProductId(), product.buyPrice, product.coefficient, currentStock, multiplier, stateMultiplier, isUnlimitedStock));
         
         return TraderXPriceCalculation.CreateBuyCalculation(product.buyPrice, product.coefficient, currentStock, multiplier, stateMultiplier, isUnlimitedStock);
     }
@@ -39,7 +40,8 @@ class TraderXPricingService
         float stateMultiplier = TraderXItemState.GetStateMultiplier(itemState);
         bool isUnlimitedStock = product.IsStockUnlimited();
         
-        GetTraderXLogger().LogDebug(string.Format("[PRICING] CalculateSellPrice - Product: %1, BasePrice: %2, Coefficient: %3, Stock: %4, Multiplier: %5, StateMultiplier: %6", product.className, product.sellPrice, product.coefficient, currentStock, multiplier, stateMultiplier));
+        if (GetTraderXLogger().ShouldLog(TraderXLogLevel.Debug))
+            GetTraderXLogger().LogDebug(string.Format("[PRICING] CalculateSellPrice - Product: %1, BasePrice: %2, Coefficient: %3, Stock: %4, Multiplier: %5, StateMultiplier: %6", product.className, product.sellPrice, product.coefficient, currentStock, multiplier, stateMultiplier));
         
         return TraderXPriceCalculation.CreateSellCalculation(product.sellPrice, product.coefficient, currentStock, multiplier, stateMultiplier, isUnlimitedStock);
     }

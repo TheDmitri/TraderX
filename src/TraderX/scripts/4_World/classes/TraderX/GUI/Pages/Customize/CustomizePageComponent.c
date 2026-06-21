@@ -1,0 +1,280 @@
+// Customize page shell (DayZular). Hosts three swappable tabs
+// (presets / variants / attachments) via ComponentWidgetBinding driven by
+// {{ current_tab }}, plus a full-page modal surface driven by {{ current_modal }}.
+// Tab navigation uses NavButtonBinding -> SelectComponent. The cart/total/purchase
+// is the shared tx-checkout component embedded in the layout; this shell only owns
+// the item preview, the descriptive bindings and the tab/modal swap state.
+class CustomizePageComponent extends DZlrComponentBase
+{
+	private static ref ComponentAutoRegister s_Register = new ComponentAutoRegister("tx-customize-page", CustomizePageComponent);
+
+	static ref CustomizePageComponent instance;
+
+	ref TraderXProduct originalItem;
+	ref TraderXProduct currentItem;
+	EntityAI preview;
+
+	// Active tab / modal selectors — drive the two ComponentWidgetBinding hosts in the layout.
+	string current_tab = "tx-customize-presets";
+	string current_modal = "";
+
+	// Display bindings
+	string product_classname;
+	string base_price;
+	string product_description;
+	string preset_name;
+	string variant_name;
+
+	// Preview widgets (AutoLoadWidgets)
+	ItemPreviewWidget itemPreview;
+	ButtonWidget previewBtn;
+
+	// Tab buttons (AutoLoadWidgets) — recolored on tab switch for active-state feedback.
+	ButtonWidget tabPresetsBtn;
+	ButtonWidget tabVariantsBtn;
+	ButtonWidget tabAttachmentsBtn;
+
+	private vector itemPreviewOrientation;
+	private int itemPreviewRotX;
+	private int itemPreviewRotY;
+	private int itemPreviewScale;
+
+	override protected void RegisterMetadata()
+	{
+		m_Metadata = new ComponentMetadata();
+		m_Metadata.selector = "tx-customize-page";
+		m_Metadata.templatePath = "TraderX/datasets/gui/PurchasePage/CustomizePageVariant.layout";
+	}
+
+	static CustomizePageComponent GetInstance()
+	{
+		return instance;
+	}
+
+	override void OnInit()
+	{
+		instance = this;
+		AutoLoadWidgets();
+
+		// The selected product is published to CustomizeStateService by the purchase
+		// page before this component is mounted (see PurchasePageComponent.OnItemCardRClick).
+		originalItem = CustomizeStateService.GetInstance().GetOriginalItem();
+		if (!originalItem)
+		{
+			GetTraderXLogger().LogError("CustomizePageComponent.OnInit - No original item set in CustomizeStateService");
+			return;
+		}
+		currentItem = originalItem;
+
+		RegisterServiceEvents();
+
+		TraderXUINavigationService.GetInstance().SetNavigationId(ENavigationIds.CUSTOMIZE);
+		TraderXTradingService.GetInstance().SetTradeMode(ETraderXTradeMode.BUY);
+		TraderXTradingService.GetInstance().SetMaxQuantity(false);
+
+		// Snapshot the purchase cart, then clear it so customize builds its own
+		// isolated configuration selection. OnClose restores the snapshot.
+		TraderXSelectionService.GetInstance().PushSelectionSnapshot();
+		TraderXSelectionService.GetInstance().DeSelectAllItems();
+
+		originalItem.defaultPreset = null;
+		TraderXSelectionService.GetInstance().SelectItem(originalItem);
+
+		product_classname = originalItem.GetDisplayName();
+		product_description = CustomizePreviewService.GetInstance().GetItemDescription();
+		base_price = TraderXQuantityManager.GetFormattedMoneyAmount(originalItem.buyPrice);
+
+		// The preview entity is created by CustomizeStateService.Initialize before this
+		// component mounts, so the OnPreviewUpdated event already fired — seed it directly.
+		preview = CustomizePreviewService.GetInstance().GetCurrentPreview();
+
+		SelectDefaultPresetIfExists();
+		UpdateTabHighlight();
+		MarkForCheck();
+	}
+
+	override void OnDestroy()
+	{
+		UnregisterServiceEvents();
+		if (preview)
+		{
+			GetGame().ObjectDelete(preview);
+			preview = null;
+		}
+		// Cleanup must run on EVERY exit, not just the close button. Leaving via the
+		// top nav (Purchase/Sell) unmounts this component without calling OnClose, which
+		// otherwise leaked the snapshot and left stale customize identity behind.
+		// Both calls are idempotent: RestoreSelectionSnapshot no-ops once the snapshot is
+		// consumed (OnClose), and Clear() is safe to repeat.
+		TraderXSelectionService.GetInstance().RestoreSelectionSnapshot();
+		CustomizeStateService.GetInstance().Clear();
+		if (instance == this)
+			instance = null;
+	}
+
+	void RegisterServiceEvents()
+	{
+		UnregisterServiceEvents();
+		CustomizePreviewService.Event_OnPreviewUpdated.Insert(OnPreviewUpdated);
+		CustomizeStateService.Event_OnVariantChanged.Insert(OnVariantChanged);
+		CustomizeStateService.Event_OnPresetChanged.Insert(OnPresetChanged);
+		CustomizeStateService.Event_OnConfigurationChanged.Insert(OnConfigurationChanged);
+	}
+
+	void UnregisterServiceEvents()
+	{
+		CustomizePreviewService.Event_OnPreviewUpdated.Remove(OnPreviewUpdated);
+		CustomizeStateService.Event_OnVariantChanged.Remove(OnVariantChanged);
+		CustomizeStateService.Event_OnPresetChanged.Remove(OnPresetChanged);
+		CustomizeStateService.Event_OnConfigurationChanged.Remove(OnConfigurationChanged);
+	}
+
+	TraderXProduct GetItem()
+	{
+		return currentItem;
+	}
+
+	// === Tab navigation (NavButtonBinding calls SelectComponent on this host) ===
+
+	void SelectComponent(string selector)
+	{
+		if (current_tab == selector)
+			return;
+		current_tab = selector;
+		Event_OnComponentChanged.Invoke(selector);
+		UpdateTabHighlight();
+		MarkForCheck();
+	}
+
+	// Tab buttons use the standard ButtonBinding (data-on-click) path. NavButtonBinding
+	// was not wired in-game, so the tabs are driven through these handlers instead.
+	void OnTabPresets()
+	{
+		SelectComponent("tx-customize-presets");
+	}
+
+	void OnTabVariants()
+	{
+		SelectComponent("tx-customize-variants");
+	}
+
+	void OnTabAttachments()
+	{
+		SelectComponent("tx-customize-attachments");
+	}
+
+	// Active tab full alpha, inactive dimmed — mirrors the old NavButtonBinding feedback.
+	void UpdateTabHighlight()
+	{
+		if (tabPresetsBtn) tabPresetsBtn.SetAlpha(DZTernaryFloat.If(current_tab == "tx-customize-presets", 1.0, 0.6));
+		if (tabVariantsBtn) tabVariantsBtn.SetAlpha(DZTernaryFloat.If(current_tab == "tx-customize-variants", 1.0, 0.6));
+		if (tabAttachmentsBtn) tabAttachmentsBtn.SetAlpha(DZTernaryFloat.If(current_tab == "tx-customize-attachments", 1.0, 0.6));
+	}
+
+	// Close the customize overlay and return to the underlying page.
+	void OnClose()
+	{
+		TraderXInventoryManager.PlayMenuSound(ETraderXSounds.SELECT);
+		// Discard the customize configuration and restore the purchase cart.
+		TraderXSelectionService.GetInstance().RestoreSelectionSnapshot();
+		TraderXTradingService.GetInstance().SetMaxQuantity(true);
+		TraderXAppComponent.GetInstance().CloseSubPage();
+	}
+
+	// === Modal surface (driven by {{ current_modal }}) ===
+
+	void ShowModal(string selector)
+	{
+		current_modal = selector;
+		MarkForCheck();
+	}
+
+	void HideModal()
+	{
+		current_modal = "";
+		MarkForCheck();
+	}
+
+	void ShowConfirmModal(string title, string content)
+	{
+		ModalConfirmationComponent.s_PendingTitle = title;
+		ModalConfirmationComponent.s_PendingContent = content;
+		current_modal = "tx-modal-confirm";
+		MarkForCheck();
+	}
+
+	// === Default preset auto-selection (shared, needs originalItem) ===
+
+	void SelectDefaultPresetIfExists()
+	{
+		string storageProductId = originalItem.productId;
+		TraderXPreset defaultPreset = TraderXPresetsService.GetInstance().GetDefaultPreset(storageProductId);
+		if (!defaultPreset)
+			defaultPreset = TraderXPresetsService.GetInstance().GetServerDefaultPreset(storageProductId);
+		if (!defaultPreset) return;
+
+		TraderXSelectionService.GetInstance().DeSelectAllItems();
+		TraderXSelectionService.GetInstance().SelectItem(originalItem);
+
+		map<string, int> attachmentCounts = new map<string, int>();
+		foreach (string attachmentId : defaultPreset.attachments)
+		{
+			if (attachmentCounts.Contains(attachmentId))
+				attachmentCounts.Set(attachmentId, attachmentCounts.Get(attachmentId) + 1);
+			else
+				attachmentCounts.Set(attachmentId, 1);
+		}
+		foreach (string attachId, int count : attachmentCounts)
+		{
+			TraderXProduct attachment = TraderXProductRepository.GetItemById(attachId);
+			if (attachment)
+			{
+				attachment.SetMultiplier(count);
+				TraderXSelectionService.GetInstance().SelectItem(attachment);
+			}
+		}
+		originalItem.defaultPreset = defaultPreset;
+		CustomizeStateService.GetInstance().SetCurrentPreset(defaultPreset);
+	}
+
+	// === Service event handlers (update the shell's display bindings) ===
+
+	void OnPreviewUpdated(EntityAI newPreview)
+	{
+		preview = newPreview;
+		MarkForCheck();
+	}
+
+	void OnVariantChanged(TraderXProduct variant)
+	{
+		currentItem = variant;
+		variant_name = CustomizeStateService.GetInstance().GetCurrentVariantName();
+		product_description = CustomizePreviewService.GetInstance().GetItemDescription();
+		MarkForCheck();
+		SelectDefaultPresetIfExists();
+	}
+
+	void OnPresetChanged(TraderXPreset preset)
+	{
+		if (preset)
+		{
+			preset_name = CustomizeStateService.GetInstance().GetCurrentPresetName();
+			variant_name = CustomizeStateService.GetInstance().GetCurrentVariantName();
+		}
+		else
+		{
+			preset_name = "";
+		}
+		product_description = CustomizePreviewService.GetInstance().GetItemDescription();
+		MarkForCheck();
+	}
+
+	void OnConfigurationChanged(TraderXProduct configuration)
+	{
+		currentItem = configuration;
+		MarkForCheck();
+	}
+
+	// Item preview rotation/scale is handled by the ItemPreviewBinding
+	// (Enable_Rotation/Enable_Scale) on the itemPreview widget in the layout.
+}

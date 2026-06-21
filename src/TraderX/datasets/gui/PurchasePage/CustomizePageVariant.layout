@@ -1,584 +1,475 @@
 PanelWidgetClass CustomizePageView {
- visible 1
- ignorepointer 1
- color 0 0 0 0
- position 0.0004 0
- size 1 1
- halign center_ref
- valign bottom_ref
+ position 0 0
  hexactpos 0
  vexactpos 0
+ size 1 1
  hexactsize 0
  vexactsize 0
- priority 100
- scriptclass "CustomizePageViewController"
+ halign center_ref
+ valign bottom_ref
+ ignorepointer 1
  style blank
+ color 0.9961 0.9961 0.9961 1
  {
   PanelWidgetClass Background {
-   disabled 0
-   inheritalpha 0
-   ignorepointer 1
-   color 0.1882 0.1882 0.1882 1
    position 0 0
-   size 1 0.875
-   halign center_ref
-   valign bottom_ref
    hexactpos 0
    vexactpos 0
+   size 1 1
    hexactsize 0
    vexactsize 0
-   style blank
+   halign center_ref
+   valign bottom_ref
+   ignorepointer 1
+   disabled 0
+   style TXContent
+   color 0.9961 0.9961 0.9961 1
    {
     PanelWidgetClass LeftPanel {
-     ignorepointer 1
      position 0 0
-     size 1 1
-     valign center_ref
      hexactpos 0
      vexactpos 0
+     size 1 1
      hexactsize 0
      vexactsize 0
+     valign center_ref
+     ignorepointer 1
      {
       PanelWidgetClass SubLeftPanel {
-       ignorepointer 1
        position 0 0
-       size 0.75 1
-       valign center_ref
        hexactpos 0
        vexactpos 0
+       size 0.75 1
        hexactsize 0
        vexactsize 0
-       scriptclass ""
+       valign center_ref
+       ignorepointer 1
        {
-        ScrollWidgetClass ScrollWidget0 {
-         ignorepointer 1
-         color 0.0706 0.0706 0.0706 1
-         position 0 0
-         size 1 0.46
-         halign center_ref
-         valign bottom_ref
+        PanelWidgetClass tabContent {
+         position 0 0.54
          hexactpos 0
          vexactpos 0
+         size 1 0.46
          hexactsize 0
          vexactsize 0
-         style blank
-         "Ignore invisible" 0
-         "Scrollbar V" 1
+         clipchildren 1
+         style TXContent
+         color 0.9961 0.9961 0.9961 1
+         scriptclass "ComponentWidgetBinding"
          {
-          GridSpacerWidgetClass presetGrid {
-           visible 0
-           ignorepointer 1
-           color 1 0 0 1
-           position 0 0
-           size 1 0.05
-           halign center_ref
-           hexactpos 0
-           vexactpos 0
-           hexactsize 0
-           vexactsize 0
-           scriptclass "ViewBinding"
-           style Empty
-           Padding 8
-           Margin 8
-           "Size To Content V" 1
-           Columns 4
-           Rows 5
-           {
-            ScriptParamsClass {
-             Binding_Name "preset_list"
-            }
-           }
-          }
-          GridSpacerWidgetClass variantsGrid {
-           visible 0
-           ignorepointer 1
-           color 1 0 0 1
-           position 0 0
-           size 1 0.05
-           halign center_ref
-           hexactpos 0
-           vexactpos 0
-           hexactsize 0
-           vexactsize 0
-           scriptclass "ViewBinding"
-           style Empty
-           Padding 8
-           Margin 8
-           "Size To Content V" 1
-           Columns 4
-           Rows 5
-           {
-            ScriptParamsClass {
-             Binding_Name "variant_list"
-            }
-           }
-          }
-          GridSpacerWidgetClass attachmentsGrid {
-           visible 1
-           ignorepointer 1
-           color 1 0 0 1
-           position 0 0
-           size 1 0.05
-           halign center_ref
-           hexactpos 0
-           vexactpos 0
-           hexactsize 0
-           vexactsize 0
-           scriptclass "ViewBinding"
-           style Empty
-           Padding 8
-           Margin 8
-           "Size To Content V" 1
-           Columns 1
-           Rows 30
-           {
-            ScriptParamsClass {
-             Binding_Name "category_card_list"
-            }
-           }
+          ScriptParamsClass {
+           Component_Selector "{{ current_tab }}"
           }
          }
         }
         PanelWidgetClass PanelWidget0 {
-         ignorepointer 1
-         color 0.1176 0.1176 0.1176 0.7843
          position 0 0
-         size 1 0.46
-         halign center_ref
          hexactpos 0
          vexactpos 0
+         size 1 0.46
          hexactsize 0
          vexactsize 0
-         scriptclass "ViewBinding"
-         style TP_BackgroundStroke
+         halign center_ref
+         ignorepointer 1
+         style TXCard
+         color 0.9961 0.9961 0.9961 1
          {
           PanelWidgetClass PanelWidget2 {
-           ignorepointer 1
-           color 0.1176 0.1176 0.1176 1
            position 0 0.07
-           size 0.95 0.72713
-           halign center_ref
            hexactpos 0
            vexactpos 0
+           size 0.95 0.73
            hexactsize 0
            vexactsize 0
-           style rover_sim_colorable
+           halign center_ref
+           ignorepointer 1
+           style TXSurface
+           color 0.9961 0.9961 0.9961 1
            {
-            ButtonWidgetClass previewBtn {
+            ItemPreviewWidgetClass itemPreview {
              position 0 0
-             size 1 1
-             halign center_ref
-             valign center_ref
              hexactpos 0
              vexactpos 0
+             size 0.95 0.8
              hexactsize 0
              vexactsize 0
-             style Empty
+             halign center_ref
+             valign center_ref
+             scriptclass "ItemPreviewBinding"
              {
-              ItemPreviewWidgetClass itemPreview {
-               ignorepointer 1
-               position 0 0
-               size 0.95 0.8
-               halign center_ref
-               valign center_ref
-               hexactpos 0
-               vexactpos 0
-               hexactsize 0
-               vexactsize 0
-               priority 101
-               scriptclass "ViewBinding"
-               {
-                ScriptParamsClass {
-                 Binding_Name "preview"
-                }
-               }
+              ScriptParamsClass {
+               Binding_Item "{{ preview }}"
+               Enable_Rotation 1
+               Enable_Scale 1
               }
              }
             }
            }
           }
           TextWidgetClass TextWidget1 {
-           ignorepointer 1
-           color 0.8471 0.8471 0.8471 1
            position 0 0.11
-           size 0.035 0.12
-           halign center_ref
-           valign bottom_ref
            hexactpos 0
            vexactpos 0
+           size 0.04 0.12
            hexactsize 0
            vexactsize 0
-           scriptclass "ViewBinding"
-           text "M4A1 Assault Rifle"
-           font "TraderX/datasets/fonts/RobotoCondensedVF22"
+           halign center_ref
+           valign bottom_ref
+           "text color" 0.8471 0.8471 0.8471 1
+           font "TraderX/datasets/fonts/oswalt22"
+           ignorepointer 1
            "exact text" 1
-           "size to text h" 1
-           "size to text v" 1
            "text halign" center
            "text valign" center
+           "size to text h" 1
+           "size to text v" 1
+           text "M4A1 Assault Rifle"
+           scriptclass "TextBinding"
            {
             ScriptParamsClass {
-             Binding_Name "product_classname"
+             Binding_Expression "{{ product_classname }}"
             }
            }
           }
           TextWidgetClass LabelTotal {
-           ignorepointer 1
-           color 0.8471 0.8471 0.8471 1
            position -0.03 0.03
-           size 0 0.065
-           halign center_ref
-           valign bottom_ref
            hexactpos 0
            vexactpos 0
+           size 0 0.07
            hexactsize 0
            vexactsize 0
-           text "#tpm_base_price"
-           font "TraderX/datasets/fonts/RobotoCondensedVF14"
-           "size to text h" 1
-           "size to text v" 0
-           "text halign" right
+           halign center_ref
+           valign bottom_ref
+           "text color" 0.8471 0.8471 0.8471 1
+           font "TraderX/datasets/fonts/oswalt14"
+           ignorepointer 1
            "text valign" center
+           "text halign" right
+           "size to text h" 1
+           text "#tpm_base_price"
           }
           TextWidgetClass TextWidget3 {
-           ignorepointer 1
-           color 0.6039 0.8039 0.1961 1
-           position 0.015 0.03
-           size 0.09 0.0624
-           halign center_ref
-           valign bottom_ref
+           position 0.02 0.03
            hexactpos 0
            vexactpos 0
+           size 0.09 0.06
            hexactsize 0
            vexactsize 0
-           scriptclass "ViewBinding"
-           text "13,350"
-           font "TraderX/datasets/fonts/RobotoCondensedVF14"
-           "size to text h" 1
+           halign center_ref
+           valign bottom_ref
+           "text color" 0.6039 0.8039 0.1961 1
+           font "TraderX/datasets/fonts/oswalt14"
+           ignorepointer 1
            "text valign" center
+           "size to text h" 1
+           text "13,350"
+           scriptclass "TextBinding"
            {
             ScriptParamsClass {
-             Binding_Name "base_price"
+             Binding_Expression "{{ base_price }}"
             }
            }
-          }
-         }
-         {
-          ScriptParamsClass {
-           Binding_Name "item_panel"
           }
          }
         }
         GridSpacerWidgetClass GridSpacerWidget0 {
-         ignorepointer 1
-         position 0 0.48
-         size 0.77 0.055
+         position 0.01 0.48
          hexactpos 0
          vexactpos 0
+         size 0.77 0.06
          hexactsize 0
          vexactsize 0
+         ignorepointer 1
+         "Size To Content V" 1
+         Columns 3
+         Rows 1
          Padding 5
          Margin 0
-         "Size To Content V" 1
-         Rows 1
          {
-          ButtonWidgetClass ButtonWidget0 {
-           color 0.9961 0.9961 0.9961 1
-           position 10 10
-           size 48 48
-           hexactpos 1
-           vexactpos 1
-           hexactsize 1
+          PanelWidgetClass presetsTab {
+           position 0.01 0
+           hexactpos 0
+           vexactpos 0
+           size 0.32 46
+           hexactsize 0
            vexactsize 1
-           scriptclass "ViewBinding"
-           style Default
            {
-            PanelWidgetClass PanelWidget4 {
-             ignorepointer 1
-             color 0.1804 0.1804 0.1804 1
-             size 1 1
-             halign center_ref
-             valign center_ref
+            ButtonWidgetClass tabPresetsBtn {
+             position 0 0
              hexactpos 0
              vexactpos 0
+             size 1 1
              hexactsize 0
              vexactsize 0
-             style TP_BackgroundStroke
+             style TXTab
+             color 0.9961 0.9961 0.9961 1
+             scriptclass "ButtonBinding"
              {
-              GridSpacerWidgetClass GridSpacerWidget2 {
-               ignorepointer 1
-               position 0 -1
-               size 48 48
-               valign center_ref
-               hexactpos 1
-               vexactpos 1
+              ScriptParamsClass {
+               OnClick "OnTabPresets"
+              }
+             }
+            }
+            GridSpacerWidgetClass GridSpacerWidget2 {
+             position 0 0
+             hexactpos 0
+             vexactpos 0
+             size 1 1
+             hexactsize 0
+             vexactsize 0
+             valign center_ref
+             ignorepointer 1
+             "Size To Content H" 1
+             Columns 3
+             Rows 1
+             Padding 8
+             Margin 8
+             {
+              ImageWidgetClass ImageWidget0 {
+               position 0.04 0
+               hexactpos 0
+               vexactpos 0
+               size 32 32
                hexactsize 1
                vexactsize 1
-               Padding 8
-               Margin 8
-               "Size To Content H" 1
-               Rows 1
+               valign center_ref
+               color 0.9961 0.9961 0.9961 1
+               ignorepointer 1
+               image0 "set:traderx_icons image:star"
+               mode blend
+               "src alpha" 1
+               "stretch mode" stretch_w_h
+              }
+              TextWidgetClass TextWidget4 {
+               position 0.14 0
+               hexactpos 0
+               vexactpos 0
+               size 0.1 0.66
+               hexactsize 0
+               vexactsize 0
+               valign center_ref
+               color 0.8471 0.8235 0.7529 1
+               font "TraderX/datasets/fonts/oswalt16"
+               ignorepointer 1
+               "exact text" 1
+               "text valign" center
+               "size to text h" 1
+               "size to text v" 1
+               text "#tpm_presets"
+              }
+              TextWidgetClass TextWidget5 {
+               position 0.3 0
+               hexactpos 0
+               vexactpos 0
+               size 0.1 0.66
+               hexactsize 0
+               vexactsize 0
+               valign center_ref
+               color 0.6039 0.8039 0.1961 1
+               font "TraderX/datasets/fonts/oswalt14"
+               ignorepointer 1
+               "exact text" 1
+               "text valign" center
+               "size to text h" 1
+               "size to text v" 1
+               text "Custom Configuration"
+               scriptclass "TextBinding"
                {
-                ImageWidgetClass ImageWidget0 {
-                 ignorepointer 1
-                 color 0.9961 0.9961 0.9961 1
-                 position 0.04 0
-                 size 32 32
-                 valign center_ref
-                 hexactpos 0
-                 vexactpos 0
-                 hexactsize 1
-                 vexactsize 1
-                 image0 "set:tp_icons image:star"
-                 mode additive
-                 "src alpha" 1
-                 "stretch mode" stretch_w_h
-                }
-                TextWidgetClass TextWidget4 {
-                 ignorepointer 1
-                 position 0.14 0
-                 size 0.104 0.66
-                 valign center_ref
-                 hexactpos 0
-                 vexactpos 0
-                 hexactsize 0
-                 vexactsize 0
-                 text "#tpm_presets"
-                 font "TraderX/datasets/fonts/RobotoCondensedVF16"
-                 "exact text" 1
-                 "size to text h" 1
-                 "size to text v" 1
-                 "text valign" center
-                }
-                TextWidgetClass TextWidget5 {
-                 ignorepointer 1
-                 color 0.6039 0.8039 0.1961 1
-                 position 0.3 0
-                 size 0.104 0.66
-                 valign center_ref
-                 hexactpos 0
-                 vexactpos 0
-                 hexactsize 0
-                 vexactsize 0
-                 scriptclass "ViewBinding"
-                 text "Custom Configuration"
-                 font "TraderX/datasets/fonts/RobotoCondensedVF14"
-                 "exact text" 1
-                 "size to text h" 1
-                 "size to text v" 1
-                 "text valign" center
-                 {
-                  ScriptParamsClass {
-                   Binding_Name "preset_name"
-                  }
-                 }
+                ScriptParamsClass {
+                 Binding_Expression "{{ preset_name }}"
                 }
                }
               }
              }
-            }
-           }
-           {
-            ScriptParamsClass {
-             Relay_Command "OnPresetNavExecute"
             }
            }
           }
-          ButtonWidgetClass ButtonWidget1 {
-           color 0.9961 0.9961 0.9961 1
-           position 10 10
-           size 48 48
-           hexactpos 1
-           vexactpos 1
-           hexactsize 1
+          PanelWidgetClass variantsTab {
+           position 0.01 0
+           hexactpos 0
+           vexactpos 0
+           size 0.32 46
+           hexactsize 0
            vexactsize 1
-           scriptclass "ViewBinding"
-           style Default
            {
-            PanelWidgetClass PanelWidget5 {
-             ignorepointer 1
-             color 0.1804 0.1804 0.1804 1
+            ButtonWidgetClass tabVariantsBtn {
              position 0 0
-             size 1 1
-             halign center_ref
-             valign center_ref
              hexactpos 0
              vexactpos 0
+             size 1 1
              hexactsize 0
              vexactsize 0
-             style TP_BackgroundStroke
+             style TXTab
+             color 0.9961 0.9961 0.9961 1
+             scriptclass "ButtonBinding"
              {
-              GridSpacerWidgetClass GridSpacerWidget3 {
-               ignorepointer 1
-               position 0 -1
-               size 48 48
-               valign center_ref
-               hexactpos 1
-               vexactpos 1
+              ScriptParamsClass {
+               OnClick "OnTabVariants"
+              }
+             }
+            }
+            GridSpacerWidgetClass GridSpacerWidget3 {
+             position 0 0
+             hexactpos 0
+             vexactpos 0
+             size 1 1
+             hexactsize 0
+             vexactsize 0
+             valign center_ref
+             ignorepointer 1
+             "Size To Content H" 1
+             Columns 3
+             Rows 1
+             Padding 8
+             Margin 8
+             {
+              ImageWidgetClass ImageWidget1 {
+               position 0.04 0
+               hexactpos 0
+               vexactpos 0
+               size 32 32
                hexactsize 1
                vexactsize 1
-               Padding 8
-               Margin 8
-               "Size To Content H" 1
-               Rows 1
+               valign center_ref
+               color 0.9961 0.9961 0.9961 1
+               ignorepointer 1
+               image0 "set:traderx_icons image:palette"
+               mode blend
+               "src alpha" 1
+               "stretch mode" stretch_w_h
+              }
+              TextWidgetClass TextWidget6 {
+               position 0.14 0
+               hexactpos 0
+               vexactpos 0
+               size 0.1 0.66
+               hexactsize 0
+               vexactsize 0
+               valign center_ref
+               color 0.8471 0.8235 0.7529 1
+               font "TraderX/datasets/fonts/oswalt16"
+               ignorepointer 1
+               "exact text" 1
+               "text valign" center
+               "size to text h" 1
+               "size to text v" 1
+               text "#tpm_variants"
+              }
+              TextWidgetClass TextWidget7 {
+               position 0.3 0
+               hexactpos 0
+               vexactpos 0
+               size 0.1 0.66
+               hexactsize 0
+               vexactsize 0
+               valign center_ref
+               color 0.6039 0.8039 0.1961 1
+               font "TraderX/datasets/fonts/oswalt14"
+               ignorepointer 1
+               "exact text" 1
+               "text valign" center
+               "size to text h" 1
+               "size to text v" 1
+               text "Standard Black"
+               scriptclass "TextBinding"
                {
-                ImageWidgetClass ImageWidget1 {
-                 ignorepointer 1
-                 color 0.9961 0.9961 0.9961 1
-                 position 0.04 0
-                 size 32 32
-                 valign center_ref
-                 hexactpos 0
-                 vexactpos 0
-                 hexactsize 1
-                 vexactsize 1
-                 image0 "set:tp_icons image:palette"
-                 mode blend
-                 "src alpha" 1
-                }
-                TextWidgetClass TextWidget6 {
-                 ignorepointer 1
-                 position 0.14 0
-                 size 0.104 0.66
-                 valign center_ref
-                 hexactpos 0
-                 vexactpos 0
-                 hexactsize 0
-                 vexactsize 0
-                 text "#tpm_variants"
-                 font "TraderX/datasets/fonts/RobotoCondensedVF16"
-                 "exact text" 1
-                 "size to text h" 1
-                 "size to text v" 1
-                 "text valign" center
-                }
-                TextWidgetClass TextWidget7 {
-                 ignorepointer 1
-                 color 0.6039 0.8039 0.1961 1
-                 position 0.3 0
-                 size 0.104 0.66
-                 valign center_ref
-                 hexactpos 0
-                 vexactpos 0
-                 hexactsize 0
-                 vexactsize 0
-                 scriptclass "ViewBinding"
-                 text "Standard Black"
-                 font "TraderX/datasets/fonts/RobotoCondensedVF14"
-                 "exact text" 1
-                 "size to text h" 1
-                 "size to text v" 1
-                 "text valign" center
-                 {
-                  ScriptParamsClass {
-                   Binding_Name "variant_name"
-                  }
-                 }
+                ScriptParamsClass {
+                 Binding_Expression "{{ variant_name }}"
                 }
                }
               }
              }
-            }
-           }
-           {
-            ScriptParamsClass {
-             Relay_Command "OnVariantNavExecute"
             }
            }
           }
-          ButtonWidgetClass ButtonWidget2 {
-           color 0.9961 0.9961 0.9961 1
-           position 10 10
-           size 48 48
-           hexactpos 1
-           vexactpos 1
-           hexactsize 1
+          PanelWidgetClass attachmentsTab {
+           position 0.01 0
+           hexactpos 0
+           vexactpos 0
+           size 0.32 46
+           hexactsize 0
            vexactsize 1
-           scriptclass "ViewBinding"
-           style Default
            {
-            PanelWidgetClass PanelWidget6 {
-             ignorepointer 1
-             color 0.1804 0.1804 0.1804 1
+            ButtonWidgetClass tabAttachmentsBtn {
              position 0 0
-             size 1 1
-             halign center_ref
-             valign center_ref
              hexactpos 0
              vexactpos 0
+             size 1 1
              hexactsize 0
              vexactsize 0
-             style TP_BackgroundStroke
+             style TXTab
+             color 0.9961 0.9961 0.9961 1
+             scriptclass "ButtonBinding"
              {
-              GridSpacerWidgetClass GridSpacerWidget4 {
-               ignorepointer 1
-               position 0 -1
-               size 48 48
-               valign center_ref
-               hexactpos 1
-               vexactpos 1
-               hexactsize 1
-               vexactsize 1
-               Padding 8
-               Margin 8
-               "Size To Content H" 1
-               Rows 1
-               {
-                ImageWidgetClass ImageWidget2 {
-                 ignorepointer 1
-                 color 0.9961 0.9961 0.9961 1
-                 position 0.04 0
-                 size 32 32
-                 valign center_ref
-                 hexactpos 0
-                 vexactpos 0
-                 hexactsize 1
-                 vexactsize 1
-                 image0 "set:tp_icons image:wrench"
-                 mode blend
-                 "src alpha" 1
-                }
-                TextWidgetClass TextWidget8 {
-                 ignorepointer 1
-                 color 0.6039 0.8039 0.1961 1
-                 position 0.14 0
-                 size 0.104 0.66
-                 valign center_ref
-                 hexactpos 0
-                 vexactpos 0
-                 hexactsize 0
-                 vexactsize 0
-                 text "#tpm_attachments"
-                 font "TraderX/datasets/fonts/RobotoCondensedVF16"
-                 "exact text" 1
-                 "size to text h" 1
-                 "size to text v" 1
-                 "text valign" center
-                }
-                TextWidgetClass TextWidget9 {
-                 ignorepointer 1
-                 color 0.8471 0.8471 0.8471 1
-                 position 0.3 0
-                 size 0.104 0.66
-                 valign center_ref
-                 hexactpos 0
-                 vexactpos 0
-                 hexactsize 0
-                 vexactsize 0
-                 font "TraderX/datasets/fonts/RobotoCondensedVF14"
-                 "exact text" 1
-                 "size to text h" 1
-                 "size to text v" 1
-                 "text valign" center
-                }
-               }
+              ScriptParamsClass {
+               OnClick "OnTabAttachments"
               }
              }
             }
-           }
-           {
-            ScriptParamsClass {
-             Relay_Command "OnAttachNavExecute"
+            GridSpacerWidgetClass GridSpacerWidget4 {
+             position 0 0
+             hexactpos 0
+             vexactpos 0
+             size 1 1
+             hexactsize 0
+             vexactsize 0
+             valign center_ref
+             ignorepointer 1
+             "Size To Content H" 1
+             Columns 2
+             Rows 1
+             Padding 8
+             Margin 8
+             {
+              ImageWidgetClass ImageWidget2 {
+               position 0.04 0
+               hexactpos 0
+               vexactpos 0
+               size 32 32
+               hexactsize 1
+               vexactsize 1
+               valign center_ref
+               color 0.9961 0.9961 0.9961 1
+               ignorepointer 1
+               image0 "set:traderx_icons image:wrench"
+               mode blend
+               "src alpha" 1
+               "stretch mode" stretch_w_h
+              }
+              TextWidgetClass TextWidget8 {
+               position 0.14 0
+               hexactpos 0
+               vexactpos 0
+               size 0.1 0.66
+               hexactsize 0
+               vexactsize 0
+               valign center_ref
+               color 0.8471 0.8235 0.7529 1
+               font "TraderX/datasets/fonts/oswalt16"
+               ignorepointer 1
+               "exact text" 1
+               "text valign" center
+               "size to text h" 1
+               "size to text v" 1
+               text "#tpm_attachments"
+              }
+              TextWidgetClass TextWidget9 {
+               position 0.3 0
+               hexactpos 0
+               vexactpos 0
+               size 0.1 0.66
+               hexactsize 0
+               vexactsize 0
+               valign center_ref
+               color 0.6039 0.8039 0.1961 1
+               font "TraderX/datasets/fonts/oswalt14"
+               ignorepointer 1
+               "exact text" 1
+               "text valign" center
+               "size to text h" 1
+               "size to text v" 1
+              }
+             }
             }
            }
           }
@@ -587,372 +478,115 @@ PanelWidgetClass CustomizePageView {
        }
       }
       PanelWidgetClass MiddlePanel {
-       ignorepointer 1
        position 0 0
-       size 0.25 1
-       halign right_ref
-       valign center_ref
        hexactpos 0
        vexactpos 0
+       size 0.25 1
        hexactsize 0
        vexactsize 0
+       halign right_ref
+       valign center_ref
+       ignorepointer 1
        {
         PanelWidgetClass PanelWidget3 {
-         ignorepointer 1
-         color 0.1176 0.1176 0.1176 1
          position 0 0
-         size 1 1
-         halign center_ref
-         valign center_ref
          hexactpos 0
          vexactpos 0
+         size 1 1
          hexactsize 0
          vexactsize 0
-         style TP_BackgroundStroke
+         halign center_ref
+         valign center_ref
+         ignorepointer 1
+         style TXCard
+         color 0.9961 0.9961 0.9961 1
          {
           GridSpacerWidgetClass GridSpacerWidget1 {
-           ignorepointer 1
            position 0 0
-           size 0.99 0.069
-           halign center_ref
            hexactpos 0
            vexactpos 0
+           size 0.99 0.2
            hexactsize 0
            vexactsize 0
-           Padding 10
-           Margin 10
+           halign center_ref
+           ignorepointer 1
            "Size To Content V" 1
            Columns 1
+           Padding 10
+           Margin 10
            {
             TextWidgetClass TextWidget0 {
-             ignorepointer 1
              size 48 50
-             halign center_ref
-             hexactpos 0
-             vexactpos 0
              hexactsize 1
              vexactsize 1
-             text "#tpm_configuration"
-             font "TraderX/datasets/fonts/RobotoCondensedVF22"
+             halign center_ref
+             font "TraderX/datasets/fonts/oswalt22"
+             ignorepointer 1
              "text halign" center
              "text valign" center
+             text "#tpm_configuration"
             }
             PanelWidgetClass PanelWidget1 {
-             ignorepointer 1
-             color 0.1176 0.1176 0.1176 1
              position 10 10
-             size 48 100
              hexactpos 1
              vexactpos 1
+             size 48 100
              hexactsize 1
              vexactsize 1
+             ignorepointer 1
              style blank
+             color 0.9961 0.9961 0.9961 1
              {
               TextWidgetClass TextWidget2 {
-               ignorepointer 1
-               color 0.6039 0.8039 0.1961 1
-               position 0.04 0.1051
-               size 0.9202 0.2461
+               position 0.04 0.11
                hexactpos 0
                vexactpos 0
+               size 0.92 0.25
                hexactsize 0
                vexactsize 0
-               text "#tpm_product_description"
-               font "TraderX/datasets/fonts/RobotoCondensedVF14"
+               "text color" 0.6039 0.8039 0.1961 1
+               font "TraderX/datasets/fonts/oswalt14"
+               ignorepointer 1
                "exact text" 1
                "text valign" center
+               text "#tpm_product_description"
               }
               RichTextWidgetClass RichTextWidget0 {
-               ignorepointer 1
-               color 0.8471 0.8471 0.8471 1
-               position 0.03516 0.3358
-               size 0.92041 0.61261
+               position 0.04 0.34
                hexactpos 0
                vexactpos 0
+               size 0.92 0.61
                hexactsize 0
                vexactsize 0
-               scriptclass "ViewBinding"
-               text "Kobra Optics system is developped by Staroy Manfactura in relation to best optics design for COB."
-               font "TraderX/datasets/fonts/RobotoCondensedVF12"
-               "exact text" 1
+               "text color" 0.8471 0.8471 0.8471 1
+               font "TraderX/datasets/fonts/oswalt12"
+               ignorepointer 1
                wrap 1
-               "condense whitespace" 1
-               "strip newlines" 1
+               "exact text" 1
+               text "Kobra Optics system is developped by Staroy Manfactura in relation to best optics design for COB."
+               scriptclass "TextBinding"
                {
                 ScriptParamsClass {
-                 Binding_Name "product_description"
+                 Binding_Expression "{{ product_description }}"
                 }
                }
               }
              }
             }
-            GridSpacerWidgetClass CheckoutViewPanel {
-             ignorepointer 1
-             position 0 0.09
-             size 48 540
-             halign center_ref
-             hexactpos 0
-             vexactpos 0
-             hexactsize 1
-             vexactsize 1
-             scriptclass "CheckoutViewController"
-             Padding 10
-             Margin 0
-             "Size To Content V" 1
-             Columns 1
-             Rows 2
-             {
-              PanelWidgetClass CheckOutView {
-               ignorepointer 1
-               color 0.1882 0.1882 0.1882 1
-               position 0 0
-               size 1 0.97
-               halign center_ref
-               hexactpos 0
-               vexactpos 0
-               hexactsize 0
-               vexactsize 0
-               scriptclass ""
-               style TP_BackgroundStroke
-               {
-                ScrollWidgetClass CheckoutScroll {
-                 ignorepointer 1
-                 position 0 0.12
-                 size 0.96 0.85
-                 halign center_ref
-                 hexactpos 0
-                 vexactpos 0
-                 hexactsize 0
-                 vexactsize 0
-                 "Scrollbar V" 1
-                 {
-                  GridSpacerWidgetClass checkoutGrid {
-                   ignorepointer 1
-                   position 0 0
-                   size 1 48
-                   halign center_ref
-                   hexactpos 1
-                   vexactpos 1
-                   hexactsize 0
-                   vexactsize 1
-                   scriptclass "ViewBinding"
-                   "Size To Content V" 1
-                   Columns 1
-                   Rows 50
-                   {
-                    ScriptParamsClass {
-                     Binding_Name "checkout_card_list"
-                    }
-                   }
-                  }
-                 }
-                }
-                TextWidgetClass TextWidget14 {
-                 ignorepointer 1
-                 position 0 0.03
-                 size 0.112 0.127
-                 halign center_ref
-                 hexactpos 0
-                 vexactpos 0
-                 hexactsize 0
-                 vexactsize 0
-                 text "#tpm_shopping_cart"
-                 font "TraderX/datasets/fonts/RobotoCondensedVF22"
-                 "exact text" 1
-                 "size to text h" 1
-                 "size to text v" 1
-                 "text halign" center
-                 "text valign" center
-                }
-               }
-              }
-              PanelWidgetClass PanelWidget8 {
-               ignorepointer 1
-               color 0.1804 0.1804 0.1804 1
-               position 10 10
-               size 48 48
-               hexactpos 1
-               vexactpos 1
-               hexactsize 1
-               vexactsize 1
-               style TP_BackgroundStroke
-               {
-                GridSpacerWidgetClass GridTotal {
-                 ignorepointer 1
-                 position 0.03 0
-                 size 48 48
-                 halign right_ref
-                 valign center_ref
-                 hexactpos 0
-                 vexactpos 0
-                 hexactsize 1
-                 vexactsize 1
-                 Padding 5
-                 "Size To Content H" 1
-                 "Size To Content V" 1
-                 Columns 2
-                 Rows 1
-                 {
-                  TextWidgetClass LabelTotal0 {
-                   ignorepointer 1
-                   color 0.8471 0.8471 0.8471 1
-                   size 17 48
-                   halign right_ref
-                   valign center_ref
-                   hexactpos 0
-                   vexactpos 0
-                   hexactsize 1
-                   vexactsize 1
-                   text "#tpm_to_pay"
-                   font "TraderX/datasets/fonts/RobotoCondensedVF22"
-                   "size to text h" 1
-                   "size to text v" 0
-                   "text halign" right
-                   "text valign" center
-                  }
-                  TextWidgetClass TextWidget15 {
-                   ignorepointer 1
-                   color 0.6078 0.651 0.2314 1
-                   size 0.09 0.391
-                   halign right_ref
-                   hexactpos 0
-                   vexactpos 0
-                   hexactsize 0
-                   vexactsize 0
-                   scriptclass "ViewBinding"
-                   text "13,350"
-                   font "TraderX/datasets/fonts/RobotoCondensedVF22"
-                   "size to text h" 1
-                   "text valign" center
-                   {
-                    ScriptParamsClass {
-                     Binding_Name "total_amount"
-                    }
-                   }
-                  }
-                 }
-                }
-               }
-              }
-              PanelWidgetClass PaymentResume {
-               ignorepointer 1
-               position 0 0.7
-               size 1 0.3
-               halign center_ref
-               hexactpos 0
-               vexactpos 0
-               hexactsize 0
-               vexactsize 0
-               {
-                ImageWidgetClass StockLabel15 {
-                 visible 0
-                 ignorepointer 1
-                 position 0.37 0.38
-                 size 24 24
-                 halign right_ref
-                 valign bottom_ref
-                 hexactpos 0
-                 vexactpos 0
-                 hexactsize 1
-                 vexactsize 1
-                 imageTexture "{F77C0332737AE964}TraderX/datasets/icons/bank.edds"
-                 mode blend
-                 "src alpha" 1
-                 "stretch mode" stretch_w_h
-                 filter 1
-                }
-                ImageWidgetClass StockLabel16 {
-                 ignorepointer 1
-                 color 0.8471 0.8471 0.8471 1
-                 position 0.03 0.06
-                 size 24 24
-                 halign right_ref
-                 hexactpos 0
-                 vexactpos 0
-                 hexactsize 1
-                 vexactsize 1
-                 imageTexture "{9A6BCBE7CD6ECE8F}TraderX/datasets/icons/wallet.edds"
-                 mode blend
-                 "src alpha" 1
-                 "stretch mode" stretch_w_h
-                 filter 1
-                }
-                TextWidgetClass TextWidget16 {
-                 ignorepointer 1
-                 color 0.8471 0.8471 0.8471 1
-                 position 0.1 0.06
-                 size 48 24
-                 halign right_ref
-                 hexactpos 0
-                 vexactpos 0
-                 hexactsize 1
-                 vexactsize 1
-                 scriptclass "ViewBinding"
-                 text "34,000"
-                 font "TraderX/datasets/fonts/RobotoCondensedVF22"
-                 "size to text h" 1
-                 "text valign" center
-                 {
-                  ScriptParamsClass {
-                   Binding_Name "money_amount"
-                  }
-                 }
-                }
-                PanelWidgetClass PanelWidget9 {
-                 ignorepointer 1
-                 color 0.3608 0.3686 0.3882 1
-                 position 0 0.11
-                 size 0.94 0.3
-                 halign center_ref
-                 valign bottom_ref
-                 hexactpos 0
-                 vexactpos 0
-                 hexactsize 0
-                 vexactsize 0
-                 style blank
-                 {
-                  ButtonWidgetClass ButtonWidget14 {
-                   color 0.9961 0.9961 0.9961 1
-                   position 0 0
-                   size 1 1
-                   hexactpos 0
-                   vexactpos 0
-                   hexactsize 0
-                   vexactsize 0
-                   scriptclass "ViewBinding"
-                   style TP_PurchaseBtn
-                   {
-                    ScriptParamsClass {
-                     Relay_Command "OnCheckoutExecute"
-                    }
-                   }
-                  }
-                  TextWidgetClass TextWidget17 {
-                   ignorepointer 1
-                   color 0.9961 0.9961 0.9961 1
-                   position 0 0
-                   size 1 1
-                   hexactpos 0
-                   vexactpos 0
-                   hexactsize 0
-                   vexactsize 0
-                   userID 300
-                   scriptclass "ViewBinding"
-                   text "#tpm_purchase"
-                   font "TraderX/datasets/fonts/RobotoCondensedVF28"
-                   "text halign" center
-                   "text valign" center
-                   {
-                    ScriptParamsClass {
-                     Relay_Command "OnCheckoutExecute"
-                    }
-                   }
-                  }
-                 }
-                }
-               }
-              }
-             }
+           }
+          }
+          PanelWidgetClass checkoutHost {
+           position 0.01 0.2
+           hexactpos 0
+           vexactpos 0
+           size 0.98 0.78
+           hexactsize 0
+           vexactsize 0
+           halign center_ref
+           scriptclass "ComponentWidgetBinding"
+           {
+            ScriptParamsClass {
+             Component_Selector "tx-checkout"
             }
            }
           }
@@ -964,21 +598,56 @@ PanelWidgetClass CustomizePageView {
     }
    }
   }
-  PanelWidgetClass modalPanel {
-   visible 0
-   ignorepointer 1
-   position 0 0
-   size 1 1
-   halign center_ref
-   valign center_ref
+  ButtonWidgetClass closeBtn {
+   position 0.97 0.01
    hexactpos 0
    vexactpos 0
-   hexactsize 0
-   vexactsize 0
-   scriptclass "ViewBinding"
+   size 32 32
+   hexactsize 1
+   vexactsize 1
+   "text color" 0.8471 0.8471 0.8471 1
+   font "TraderX/datasets/fonts/oswalt22"
+   style TXBtnIcon
+   color 0.9961 0.9961 0.9961 1
+   scriptclass "ButtonBinding"
+   {
+    ImageWidgetClass closeBtnIcon {
+     position 0 0
+     hexactpos 0
+     vexactpos 0
+     size 0.55 0.55
+     hexactsize 0
+     vexactsize 0
+     halign center_ref
+     valign center_ref
+     ignorepointer 1
+     image0 "set:traderx_icons image:close"
+     mode blend
+     "src alpha" 1
+     "stretch mode" stretch_w_h
+    }
+   }
    {
     ScriptParamsClass {
-     Binding_Name "modal_parent"
+     OnClick "OnClose"
+    }
+   }
+  }
+  PanelWidgetClass modalPanel {
+   position 0 0
+   hexactpos 0
+   vexactpos 0
+   size 1 1
+   hexactsize 0
+   vexactsize 0
+   halign center_ref
+   valign center_ref
+   ignorepointer 1
+   priority 999
+   scriptclass "ComponentWidgetBinding"
+   {
+    ScriptParamsClass {
+     Component_Selector "{{ current_modal }}"
     }
    }
   }
