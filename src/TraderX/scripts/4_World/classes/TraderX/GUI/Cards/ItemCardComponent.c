@@ -4,6 +4,9 @@
 class ItemCardComponent extends DZlrComponentBase
 {
 	ref TraderXProduct _inputProduct;
+	// Last product the card was built for — lets OnChanges detect when the ForEach binding
+	// re-binds this card to a different product (e.g. after a sort) and refresh accordingly.
+	protected TraderXProduct m_BoundProduct;
 
 	string itemName;
 	string itemPrice;
@@ -20,6 +23,7 @@ class ItemCardComponent extends DZlrComponentBase
 	Widget itemCardOutline;
 	Widget itemCardContent;
 	Widget stockText;
+	Widget stockGrid;
 	Widget volumeBar;
 	Widget favBtn;
 	ImageWidget selectedIcon;
@@ -72,9 +76,19 @@ class ItemCardComponent extends DZlrComponentBase
 		Event_OnDestroyAllTooltips.Invoke();
 	}
 
+	// Re-bound by the ForEach binding (count unchanged → it reassigns each card's item and
+	// calls OnChanges). Rebuild the card when the product actually changed — this is what
+	// makes the price sort visibly reorder the cards.
+	override void OnChanges()
+	{
+		if (_inputProduct && _inputProduct != m_BoundProduct)
+			Setup(_inputProduct, categoryType, selectable, isFavable, false);
+	}
+
 	void Setup(TraderXProduct item, int catType, bool sel, bool favable, bool fav)
 	{
 		_inputProduct = item;
+		m_BoundProduct = item;
 		tradeMode = TraderXTradingService.GetInstance().GetTradeMode();
 		categoryType = catType;
 		selectable = sel;
@@ -116,9 +130,13 @@ class ItemCardComponent extends DZlrComponentBase
 	{
 		if (_inputProduct.IsStockUnlimited())
 		{
+			// Unlimited stock has no count to show — hide the whole stock grid (icon + text).
+			if (stockGrid) stockGrid.Show(false);
 			if (stockText) stockText.Show(false);
 			return;
 		}
+
+		if (stockGrid) stockGrid.Show(true);
 
 		// NOTE: don't tint itemCardContent here. In the grid it's a TXSurface-styled
 		// widget (the compiler forces it white so the style shows); in the list it's

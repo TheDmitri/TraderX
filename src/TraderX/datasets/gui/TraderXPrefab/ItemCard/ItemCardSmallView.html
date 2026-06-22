@@ -38,11 +38,11 @@
     </button>
     <div data-dz="panel"
         data-name="previewBg"
-        class="dz-xy-1-6 dz-wh-56px-56px dz-c-06070A dz-noptr"></div>
+        class="dz-xy-1-6 dz-wh-84px-56px dz-c-06070A dz-noptr"></div>
     <div data-dz="preview"
         data-name="itemPreview"
         data-bind-item="{{ preview }}"
-        class="dz-xy-1-6 dz-wh-56px-56px dz-noptr"></div>
+        class="dz-xy-1-6 dz-wh-84px-56px dz-noptr"></div>
     <img data-dz="image"
         data-name="healthImg"
         class="dz-xy-1-6 dz-wh-10px-10px dz-c-6B8E5A dz-noptr"
@@ -53,32 +53,46 @@
     <span data-dz="text"
         data-name="classNameText"
         data-bind="{{ itemName }}"
-        class="dz-xy-10-10 dz-wh-40-44 dz-c-D8D2C0 dz-font-body-14 dz-noptr dz-bold dz-exact-text dz-text-vc">
-      Item Name
+        class="dz-xy-13-10 dz-wh-40-44 dz-c-D8D2C0 dz-font-body-14 dz-noptr dz-bold dz-exact-text dz-text-vc">
     </span>
     <span data-dz="text"
         data-name="quantityStr"
         data-bind="{{ quantityStr }}"
-        class="dz-xy-10-56 dz-wh-40-36 dz-c-6A6560 dz-font-mono-12 dz-noptr dz-exact-text"></span>
-    <span data-dz="text"
-        data-name="stockText"
-        data-bind="{{ itemStock }}"
-        class="dz-xy-50-0 dz-wh-22-100 dz-c-9A9488 dz-font-mono-12 dz-noptr dz-exact-text dz-text-vc dz-text-right">
-      0/15
-    </span>
-    <img data-dz="image"
-        data-name="priceIcon"
-        class="dz-xy-74-0 dz-wh-24px-24px dz-align-y-center dz-c-C4A35A dz-noptr"
-        data-image="set:traderx_icons image:simpleCoins"
-        data-image-mode="blend"
-        data-image-src-alpha="1"
-        data-image-stretch="stretch_w_h"/>
-    <span data-dz="text"
-        data-name="priceText"
-        data-bind="{{ itemPrice }}"
-        class="dz-xy-78-0 dz-wh-14-100 dz-c-C4A35A dz-font-mono-16 dz-noptr dz-bold dz-exact-text dz-text-vc">
-      1,250
-    </span>
+        class="dz-xy-13-56 dz-wh-40-36 dz-c-6A6560 dz-font-mono-12 dz-noptr dz-exact-text"></span>
+    <div data-dz="grid"
+        data-name="stockGrid"
+        class="dz-xy-48-0 dz-wh-22-32px dz-noptr dz-cols-2 dz-rows-1 dz-gap-5 dz-pad-3 dz-fit-h dz-fit-v dz-align-y-center">
+      <img data-dz="image"
+          data-name="stockIcon"
+          class="dz-wh-32px-32px dz-c-9A9488 dz-noptr"
+          data-image="set:traderx_icons image:stockSimple"
+          data-image-mode="blend"
+          data-image-src-alpha="1"
+          data-image-stretch="stretch_w_h"/>
+      <span data-dz="text"
+          data-name="stockText"
+          data-bind="{{ itemStock }}"
+          class="dz-c-9A9488 dz-font-mono-16 dz-noptr dz-bold dz-exact-text dz-text-vc dz-size-to-text-h">
+        0/15
+      </span>
+    </div>
+    <div data-dz="grid"
+        data-name="priceGrid"
+        class="dz-xy-73-0 dz-wh-22-32px dz-noptr dz-cols-2 dz-rows-1 dz-gap-5 dz-pad-3 dz-fit-h dz-fit-v dz-align-y-center">
+      <img data-dz="image"
+          data-name="priceIcon"
+          class="dz-wh-32px-32px dz-c-C4A35A dz-noptr"
+          data-image="set:traderx_icons image:simpleCoins"
+          data-image-mode="blend"
+          data-image-src-alpha="1"
+          data-image-stretch="stretch_w_h"/>
+      <span data-dz="text"
+          data-name="priceText"
+          data-bind="{{ itemPrice }}"
+          class="dz-c-C4A35A dz-font-mono-16 dz-noptr dz-bold dz-exact-text dz-text-vc dz-size-to-text-h">
+        1,250
+      </span>
+    </div>
   </div>
   <button data-dz="button"
       data-name="favBtn"

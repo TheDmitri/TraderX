@@ -35,10 +35,10 @@ PanelWidgetClass PurchasePageView {
      }
     }
     ButtonWidgetClass toggleExpandBtn {
-     position 0.6 0.22
+     position 0.62 0.22
      hexactpos 0
      vexactpos 0
-     size 0.06 0.56
+     size 0.08 0.56
      hexactsize 0
      vexactsize 0
      "text color" 0.9961 0.9961 0.9961 1
@@ -73,7 +73,7 @@ PanelWidgetClass PurchasePageView {
      }
     }
     PanelWidgetClass ViewToggleHost {
-     position 0.67 0.22
+     position 0.72 0.22
      hexactpos 0
      vexactpos 0
      size 0.08 0.56
@@ -104,7 +104,7 @@ PanelWidgetClass PurchasePageView {
      position 0 0
      hexactpos 0
      vexactpos 0
-     size 0.94 0.75
+     size 0.94 0.85
      hexactsize 0
      vexactsize 0
      halign center_ref
@@ -116,8 +116,50 @@ PanelWidgetClass PurchasePageView {
       }
      }
     }
+    ButtonWidgetClass fittingBtn {
+     halign left_ref
+     valign bottom_ref
+     position 0.02 0.02
+     hexactpos 0
+     vexactpos 0
+     size 44 44
+     hexactsize 1
+     vexactsize 1
+     "text color" 0.9961 0.9961 0.9961 1
+     "text color" 0.8471 0.8235 0.7529 1
+     font "TraderX/datasets/fonts/oswalt16"
+     "exact text" 1
+     style TXBtnIcon
+     color 0.9961 0.9961 0.9961 1
+     scriptclass "ButtonBinding"
+     {
+      ImageWidgetClass fittingBtnIcon {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 0.55 0.55
+       hexactsize 0
+       vexactsize 0
+       halign center_ref
+       valign center_ref
+       color 0.6039 0.5804 0.5333 1
+       ignorepointer 1
+       image0 "set:traderx_icons image:approved"
+       mode blend
+       "src alpha" 1
+       "stretch mode" stretch_w_h
+      }
+     }
+     {
+      ScriptParamsClass {
+       OnClick "OnFittingToggleClick"
+      }
+     }
+    }
     ButtonWidgetClass stripBtn {
-     position 0.28 0.88
+     halign center_ref
+     valign bottom_ref
+     position 0.02 0.02
      hexactpos 0
      vexactpos 0
      size 44 44
@@ -154,7 +196,9 @@ PanelWidgetClass PurchasePageView {
      }
     }
     ButtonWidgetClass resetBtn {
-     position 0.56 0.88
+     halign right_ref
+     valign bottom_ref
+     position 0.02 0.02
      hexactpos 0
      vexactpos 0
      size 44 44

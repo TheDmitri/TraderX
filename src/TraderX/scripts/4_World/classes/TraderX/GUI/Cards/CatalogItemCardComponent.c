@@ -5,6 +5,7 @@ class CatalogItemCardComponent extends DZlrComponentBase
 	static ref ScriptInvoker Event_OnCatalogItemCardClickCallBack = new ScriptInvoker();
 
 	ref TraderXProduct _inputProduct;
+	protected TraderXProduct m_BoundProduct;
 
 	string itemName;
 	string itemPrice;
@@ -38,9 +39,18 @@ class CatalogItemCardComponent extends DZlrComponentBase
 		TraderXTradingService.Event_OnTraderXResponseReceived.Remove(OnTraderXResponseReceived);
 	}
 
+	// Rebound by the ForEach binding after a sort — refresh when the product changed so the
+	// list visibly reorders.
+	override void OnChanges()
+	{
+		if (_inputProduct && _inputProduct != m_BoundProduct)
+			Setup(_inputProduct, categoryType);
+	}
+
 	void Setup(TraderXProduct item, int catType)
 	{
 		_inputProduct = item;
+		m_BoundProduct = item;
 		categoryType = catType;
 		ShowName();
 		UpdateStock();

@@ -115,23 +115,45 @@ PanelWidgetClass itemCardView {
      "src alpha" 1
      "stretch mode" stretch_w_h
     }
-    TextWidgetClass stockText {
-     position 0.4 0.05
+    GridSpacerWidgetClass stockGrid {
+     position 0.5 0.03
      hexactpos 0
      vexactpos 0
-     size 0.52 0.08
+     size 0.46 32
      hexactsize 0
-     vexactsize 0
-     color 0.6039 0.5804 0.5333 1
-     font "TraderX/datasets/fonts/jet-brains-mono12"
+     vexactsize 1
      ignorepointer 1
-     "exact text" 1
-     "text halign" right
-     text "0/15"
-     scriptclass "TextBinding"
+     Columns 2
+     Rows 1
+     Margin 6
+     "Size To Content H" 1
      {
-      ScriptParamsClass {
-       Binding_Expression "{{ itemStock }}"
+      ImageWidgetClass stockIcon {
+       size 32 32
+       hexactsize 1
+       vexactsize 1
+       color 0.6039 0.5804 0.5333 1
+       ignorepointer 1
+       image0 "set:traderx_icons image:stockSimple"
+       mode blend
+       "src alpha" 1
+       "stretch mode" stretch_w_h
+      }
+      TextWidgetClass stockText {
+       color 0.6039 0.5804 0.5333 1
+       font "TraderX/datasets/fonts/jet-brains-mono22"
+       ignorepointer 1
+       style Bold
+       "exact text" 1
+       "text valign" center
+       "size to text h" 1
+       text "0/15"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ itemStock }}"
+        }
+       }
       }
      }
     }

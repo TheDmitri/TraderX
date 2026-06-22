@@ -35,10 +35,10 @@ PanelWidgetClass CatalogPageView {
      }
     }
     ButtonWidgetClass toggleExpandBtn {
-     position 0.59 0.22
+     position 0.64 0.22
      hexactpos 0
      vexactpos 0
-     size 0.06 0.56
+     size 0.08 0.56
      hexactsize 0
      vexactsize 0
      "text color" 0.9961 0.9961 0.9961 1
@@ -57,7 +57,7 @@ PanelWidgetClass CatalogPageView {
      }
     }
     PanelWidgetClass ViewToggleHost {
-     position 0.66 0.22
+     position 0.74 0.22
      hexactpos 0
      vexactpos 0
      size 0.08 0.56

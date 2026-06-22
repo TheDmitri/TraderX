@@ -79,7 +79,7 @@ PanelWidgetClass itemCardView {
      position 0.01 0.06
      hexactpos 0
      vexactpos 0
-     size 56 56
+     size 84 56
      hexactsize 1
      vexactsize 1
      color 0.0235 0.0275 0.0392 1
@@ -90,7 +90,7 @@ PanelWidgetClass itemCardView {
      position 0.01 0.06
      hexactpos 0
      vexactpos 0
-     size 56 56
+     size 84 56
      hexactsize 1
      vexactsize 1
      ignorepointer 1
@@ -116,7 +116,7 @@ PanelWidgetClass itemCardView {
      "stretch mode" stretch_w_h
     }
     TextWidgetClass classNameText {
-     position 0.1 0.1
+     position 0.13 0.1
      hexactpos 0
      vexactpos 0
      size 0.4 0.44
@@ -128,7 +128,6 @@ PanelWidgetClass itemCardView {
      style Bold
      "exact text" 1
      "text valign" center
-     text "Item Name"
      scriptclass "TextBinding"
      {
       ScriptParamsClass {
@@ -137,7 +136,7 @@ PanelWidgetClass itemCardView {
      }
     }
     TextWidgetClass quantityStr {
-     position 0.1 0.56
+     position 0.13 0.56
      hexactpos 0
      vexactpos 0
      size 0.4 0.36
@@ -154,60 +153,93 @@ PanelWidgetClass itemCardView {
       }
      }
     }
-    TextWidgetClass stockText {
-     position 0.5 0
+    GridSpacerWidgetClass stockGrid {
+     position 0.48 0
      hexactpos 0
      vexactpos 0
-     size 0.22 1
+     size 0.22 32
      hexactsize 0
-     vexactsize 0
-     color 0.6039 0.5804 0.5333 1
-     font "TraderX/datasets/fonts/jet-brains-mono12"
+     vexactsize 1
      ignorepointer 1
-     "exact text" 1
-     "text valign" center
-     "text halign" right
-     text "0/15"
-     scriptclass "TextBinding"
+     Columns 2
+     Rows 1
+     Margin 5
+     Padding 3
+     "Size To Content H" 1
+     "Size To Content V" 1
+     valign center_ref
      {
-      ScriptParamsClass {
-       Binding_Expression "{{ itemStock }}"
+      ImageWidgetClass stockIcon {
+       size 32 32
+       hexactsize 1
+       vexactsize 1
+       color 0.6039 0.5804 0.5333 1
+       ignorepointer 1
+       image0 "set:traderx_icons image:stockSimple"
+       mode blend
+       "src alpha" 1
+       "stretch mode" stretch_w_h
+      }
+      TextWidgetClass stockText {
+       color 0.6039 0.5804 0.5333 1
+       font "TraderX/datasets/fonts/jet-brains-mono16"
+       ignorepointer 1
+       style Bold
+       "exact text" 1
+       "text valign" center
+       "size to text h" 1
+       text "0/15"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ itemStock }}"
+        }
+       }
       }
      }
     }
-    ImageWidgetClass priceIcon {
-     position 0.74 0
+    GridSpacerWidgetClass priceGrid {
+     position 0.73 0
      hexactpos 0
      vexactpos 0
-     size 24 24
-     hexactsize 1
-     vexactsize 1
-     valign center_ref
-     color 0.7686 0.6392 0.3529 1
-     ignorepointer 1
-     image0 "set:traderx_icons image:simpleCoins"
-     mode blend
-     "src alpha" 1
-     "stretch mode" stretch_w_h
-    }
-    TextWidgetClass priceText {
-     position 0.78 0
-     hexactpos 0
-     vexactpos 0
-     size 0.14 1
+     size 0.22 32
      hexactsize 0
-     vexactsize 0
-     color 0.7686 0.6392 0.3529 1
-     font "TraderX/datasets/fonts/jet-brains-mono16"
+     vexactsize 1
      ignorepointer 1
-     style Bold
-     "exact text" 1
-     "text valign" center
-     text "1,250"
-     scriptclass "TextBinding"
+     Columns 2
+     Rows 1
+     Margin 5
+     Padding 3
+     "Size To Content H" 1
+     "Size To Content V" 1
+     valign center_ref
      {
-      ScriptParamsClass {
-       Binding_Expression "{{ itemPrice }}"
+      ImageWidgetClass priceIcon {
+       size 32 32
+       hexactsize 1
+       vexactsize 1
+       color 0.7686 0.6392 0.3529 1
+       ignorepointer 1
+       image0 "set:traderx_icons image:simpleCoins"
+       mode blend
+       "src alpha" 1
+       "stretch mode" stretch_w_h
+      }
+      TextWidgetClass priceText {
+       color 0.7686 0.6392 0.3529 1
+       font "TraderX/datasets/fonts/jet-brains-mono16"
+       ignorepointer 1
+       style Bold
+       "exact text" 1
+       "text valign" center
+       "size to text h" 1
+       text "1,250"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ itemPrice }}"
+        }
+       }
       }
      }
     }

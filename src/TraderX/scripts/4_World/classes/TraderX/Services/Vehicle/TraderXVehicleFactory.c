@@ -53,18 +53,24 @@ class TraderXVehicleFactory
         GetTraderXLogger().LogDebug("Configured vehicle with preset: " + preset.presetName);
     }
     
-    // Apply attachments to vehicle from preset
+    // Apply attachments to vehicle from preset. Each part is attached into a SPECIFIC slot
+    // (CreateAttachmentEx) instead of letting CreateAttachment auto-pick — auto-pick would
+    // drop the created entity on the ground when no slot is free, and a multi-slot part like
+    // a wheel (its config lists all 4 wheel slots) needs each copy in a distinct slot.
     private static void ApplyVehicleAttachments(EntityAI vehicle, array<string> attachmentProductIds)
     {
         if (!attachmentProductIds || attachmentProductIds.Count() == 0)
         {
             return;
         }
-        
+
+        // Slots already filled by this preset, so repeated parts (4 wheels) spread out.
+        array<int> usedSlots = new array<int>();
+
         for (int i = 0; i < attachmentProductIds.Count(); i++)
         {
             string productId = attachmentProductIds[i];
-            
+
             // Resolve product ID to get the actual class name
             TraderXProduct attachmentProduct = TraderXProductRepository.GetItemById(productId);
             if (!attachmentProduct)
@@ -72,31 +78,39 @@ class TraderXVehicleFactory
                 GetTraderXLogger().LogWarning("Failed to find product for attachment ID: " + productId);
                 continue;
             }
-            
+
             string attachmentClassName = attachmentProduct.className;
 
-            // Vehicles spawn (ECE_SETUP) with default parts already filling some slots.
-            // CreateAttachment silently fails when the target slot is taken, which is why
-            // preset parts (e.g. headlights) never appeared — free the slot(s) first.
-            FreeAttachmentSlots(vehicle, attachmentClassName);
+            int slotId = PickAttachmentSlot(vehicle, attachmentClassName, usedSlots);
+            if (slotId == InventorySlots.INVALID)
+            {
+                GetTraderXLogger().LogWarning("No free/compatible slot for attachment " + attachmentClassName + " (product: " + productId + ") on " + vehicle.GetType());
+                continue;
+            }
 
-            // Create attachment directly on vehicle using DayZ API
-            EntityAI attachment = vehicle.GetInventory().CreateAttachment(attachmentClassName);
+            // Vehicles spawn (ECE_SETUP) with default parts; replace whatever sits in the
+            // chosen slot so the preset part can take it.
+            EntityAI existing = vehicle.GetInventory().FindAttachment(slotId);
+            if (existing)
+                GetGame().ObjectDelete(existing);
+
+            EntityAI attachment = vehicle.GetInventory().CreateAttachmentEx(attachmentClassName, slotId);
             if (attachment)
             {
-                GetTraderXLogger().LogDebug("Attached item to vehicle: " + attachmentClassName + " (product: " + productId + ")");
+                usedSlots.Insert(slotId);
+                GetTraderXLogger().LogDebug("Attached " + attachmentClassName + " (product: " + productId + ") to slot id " + slotId);
             }
             else
             {
-                GetTraderXLogger().LogWarning("Failed to create attachment: " + attachmentClassName + " (product: " + productId + ") — no compatible/free slot on " + vehicle.GetType());
+                GetTraderXLogger().LogWarning("Failed to attach " + attachmentClassName + " (product: " + productId + ") to slot id " + slotId + " on " + vehicle.GetType());
             }
         }
     }
 
-    // Remove whatever default part currently occupies the slot(s) this attachment class uses,
-    // so the preset part can take it. Reads the item's inventorySlot config (single value or
-    // array). No-op when the slot is already empty or the class declares no slot.
-    private static void FreeAttachmentSlots(EntityAI vehicle, string attachmentClassName)
+    // Choose the slot this part should occupy: the first of its compatible slots (config
+    // inventorySlot, single value or array) not already used by this preset — preferring an
+    // empty slot, otherwise one holding a default part to replace. INVALID if none.
+    private static int PickAttachmentSlot(EntityAI vehicle, string attachmentClassName, array<int> usedSlots)
     {
         string cfgPath = "CfgVehicles " + attachmentClassName + " inventorySlot";
 
@@ -109,19 +123,23 @@ class TraderXVehicleFactory
                 slotNames.Insert(single);
         }
 
+        int firstReplaceable = InventorySlots.INVALID;
         foreach (string slotName : slotNames)
         {
             int slotId = InventorySlots.GetSlotIdFromString(slotName);
             if (slotId == InventorySlots.INVALID)
                 continue;
+            if (usedSlots.Find(slotId) != -1)
+                continue;
 
-            EntityAI existing = vehicle.GetInventory().FindAttachment(slotId);
-            if (existing)
-            {
-                GetTraderXLogger().LogDebug("Removing default part " + existing.GetType() + " from slot " + slotName + " to apply preset attachment " + attachmentClassName);
-                GetGame().ObjectDelete(existing);
-            }
+            EntityAI occupant = vehicle.GetInventory().FindAttachment(slotId);
+            if (!occupant)
+                return slotId;                       // empty slot — best choice
+            if (firstReplaceable == InventorySlots.INVALID)
+                firstReplaceable = slotId;           // remember a default part to replace
         }
+
+        return firstReplaceable;                     // no empty slot → replace a default (or INVALID)
     }
     
     // Set vehicle fuel level

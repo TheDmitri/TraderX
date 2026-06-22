@@ -96,7 +96,7 @@ class TraderXCategory extends TraderXJsonCategory
     {
         if (!productIds)
             return false;
-            
+
         return productIds.Find(productId) != -1;
     }
 };

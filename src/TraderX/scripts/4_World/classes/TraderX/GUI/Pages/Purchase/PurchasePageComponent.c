@@ -7,6 +7,8 @@ class PurchasePageComponent extends DZlrComponentBase
 	bool m_AllExpanded = false;
 	TextWidget toggleExpandText;
 	ScrollWidget scrollCategory;
+	ImageWidget fittingBtnIcon;
+	bool m_FittingMode = false;
 
 	// Player preview (inline playerPreview widget + strip/reset buttons in the layout).
 	PlayerPreviewWidget playerPreview;
@@ -27,6 +29,10 @@ class PurchasePageComponent extends DZlrComponentBase
 		TraderXSearchBarComponent.Event_OnSearchChangedCallBack.Insert(OnSearchKeyword);
 		TraderXSelectionService.Event_OnItemSelectionChanged.Insert(OnItemSelectionChanged);
 		CategoryCardComponent.Event_OnCategoryCollapsedCallBack.Insert(OnCategoryCollapsed);
+		// Fitting/outfit mode is opt-in per visit — start off.
+		m_FittingMode = false;
+		TraderXSelectionService.SetFittingMode(false);
+		UpdateFittingVisual();
 		m_CharacterOrientation = vector.Zero;
 		InitPlayerPreview();
 		Setup();
@@ -38,6 +44,8 @@ class PurchasePageComponent extends DZlrComponentBase
 		TraderXSearchBarComponent.Event_OnSearchChangedCallBack.Remove(OnSearchKeyword);
 		TraderXSelectionService.Event_OnItemSelectionChanged.Remove(OnItemSelectionChanged);
 		CategoryCardComponent.Event_OnCategoryCollapsedCallBack.Remove(OnCategoryCollapsed);
+		// Don't leak fitting mode into other pages.
+		TraderXSelectionService.SetFittingMode(false);
 		if (entPlayerPreview)
 			GetGame().ObjectDelete(entPlayerPreview);
 	}
@@ -201,6 +209,22 @@ class PurchasePageComponent extends DZlrComponentBase
 	void OnCategoryCollapsed()
 	{
 		ResetCategoryScroll();
+	}
+
+	// Fitting/outfit mode: when on, selecting a clothing item is slot-exclusive in the cart
+	// too, so the cart matches the dressed player preview (one item per slot). Off = multi-buy.
+	void OnFittingToggleClick()
+	{
+		TraderXInventoryManager.PlayMenuSound(ETraderXSounds.SELECT);
+		m_FittingMode = !m_FittingMode;
+		TraderXSelectionService.SetFittingMode(m_FittingMode);
+		UpdateFittingVisual();
+	}
+
+	void UpdateFittingVisual()
+	{
+		if (fittingBtnIcon)
+			fittingBtnIcon.SetColor(DZTernaryInt.If(m_FittingMode, ARGB(255, 196, 163, 90), ARGB(200, 154, 148, 136)));
 	}
 
 	// Debounced keyword pushed up from the embedded tx-search-bar component.

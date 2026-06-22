@@ -52,7 +52,7 @@ class TraderXCsvCategory
     ref array<string> licensesRequired;     // Semicolon-separated license names
     ref array<string> productKeys;          // Semicolon-separated productKeys
     string notes;                       // Admin notes
-    
+
     void TraderXCsvCategory()
     {
         categoryKey = "";

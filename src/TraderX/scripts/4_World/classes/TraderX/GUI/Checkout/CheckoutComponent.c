@@ -269,6 +269,32 @@ class CheckoutComponent extends DZlrComponentBase
 		MarkForCheck();
 	}
 
+	// Build the single preset transaction for a customize purchase: the current main item
+	// (variant) plus every selected attachment line, so it spawns assembled. Returns false
+	// if there is no main item to buy.
+	bool BuildCustomizeBuyTransaction(TraderXTransactionCollection transactions, int npcId)
+	{
+		TraderXProduct mainItem = CustomizeStateService.GetInstance().GetCurrentVariant();
+		if (!mainItem) return false;
+
+		array<string> attachments = new array<string>();
+		foreach (TraderXProduct item : _inputCheckoutItems)
+		{
+			if (!item || CustomizeStateService.GetInstance().IsMainItem(item)) continue;
+			int count = item.GetMultiplier();
+			if (count < 1) count = 1;
+			for (int i = 0; i < count; i++)
+				attachments.Insert(item.productId);
+		}
+
+		TraderXPreset preset = TraderXPreset.CreateTraderXPreset("", mainItem.productId, attachments);
+		int mult = mainItem.GetMultiplier();
+		if (mult < 1) mult = 1;
+		int avgUnitPrice = TraderXPresetsService.GetInstance().CalculateProgressivePresetPrice(preset, mult) / mult;
+		transactions.AddTransaction(TraderXTransaction.CreateBuyTransaction(mainItem, mult, avgUnitPrice, npcId, preset));
+		return true;
+	}
+
 	void OnCheckoutClick()
 	{
 		TraderXInventoryManager.PlayMenuSound(ETraderXSounds.CONFIRM);
@@ -277,6 +303,19 @@ class CheckoutComponent extends DZlrComponentBase
 
 		TraderXTransactionCollection transactions = new TraderXTransactionCollection();
 		int npcId = TraderXTradingService.GetInstance().GetNpcId();
+
+		// Customize buys the whole configuration as ONE preset transaction so the server
+		// assembles the parts onto the item. The per-line loop below would instead buy each
+		// attachment as a loose item — which drops vehicle parts at the player's feet.
+		bool isCustomizeBuy = TraderXTradingService.GetInstance().GetTradeMode() == ETraderXTradeMode.BUY && TraderXUINavigationService.GetInstance().GetNavigationId() == ENavigationIds.CUSTOMIZE;
+		if (isCustomizeBuy)
+		{
+			if (!BuildCustomizeBuyTransaction(transactions, npcId))
+				return;
+			TraderXTradingService.GetInstance().LockTransaction();
+			GetRPCManager().SendRPC("TraderX", "GetTransactionsRequest", new Param2<TraderXTransactionCollection, int>(transactions, npcId));
+			return;
+		}
 
 		foreach (TraderXProduct item : _inputCheckoutItems)
 		{

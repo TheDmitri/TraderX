@@ -1,7 +1,7 @@
 class TraderXCategoryRepository
 {
     private static ref map<string, ref TraderXCategory> s_Categories = new map<string, ref TraderXCategory>();
-    
+
     static TraderXCategory GetCategoryById(string id)
     {
         return s_Categories.Get(id);

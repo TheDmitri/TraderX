@@ -38,7 +38,9 @@ class TraderXTradingService
         traderCategories.Clear();
         foreach(UUID categoryId : npc.categoriesId)
         {
-            traderCategories.Insert(TraderXCategoryRepository.GetCategoryById(categoryId));
+            TraderXCategory category = TraderXCategoryRepository.GetCategoryById(categoryId);
+            if (category)
+                traderCategories.Insert(category);
         }
     }
 
@@ -83,8 +85,22 @@ class TraderXTradingService
         return TraderXCurrencyService.GetInstance().GetPlayerMoneyFromAllCurrency(player, acceptedCurrencyTypes);
     }
 
+    // Rebuilt fresh in the trader's assigned order (npc.categoriesId) every call, skipping
+    // any not-yet-resolved category. This guarantees the menu renders categories in exactly
+    // the order they're assigned to this trader — and stays correct even if some categories
+    // resolved after SetTraderNpc ran (which would otherwise leave null gaps).
     array<ref TraderXCategory> GetTraderCategories()
     {
+        traderCategories.Clear();
+        if (traderNpc)
+        {
+            foreach (UUID categoryId : traderNpc.categoriesId)
+            {
+                TraderXCategory category = TraderXCategoryRepository.GetCategoryById(categoryId);
+                if (category)
+                    traderCategories.Insert(category);
+            }
+        }
         return traderCategories;
     }
 

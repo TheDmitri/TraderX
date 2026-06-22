@@ -92,10 +92,10 @@ PanelWidgetClass SellPageView {
      text "#tpm_select_container_to_sell"
     }
     ScrollWidgetClass scrollSell {
-     position 0.01 0.07
+     position 0.01 0.14
      hexactpos 0
      vexactpos 0
-     size 0.98 0.92
+     size 0.98 0.85
      hexactsize 0
      vexactsize 0
      ignorepointer 1

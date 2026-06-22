@@ -34,6 +34,21 @@ class TraderXSelectionService : DayZularService
 
     static ref ScriptInvoker Event_OnItemSelectionChanged = new ScriptInvoker();
 
+    // "Fitting" / outfit mode (purchase page toggle). When on, slot exclusivity also applies
+    // in the purchase flow so the cart matches the dressed player preview (one item per slot).
+    // Off by default → normal multi-buy.
+    private static bool s_FittingModeEnabled = false;
+
+    static void SetFittingMode(bool enabled)
+    {
+        s_FittingModeEnabled = enabled;
+    }
+
+    static bool IsFittingMode()
+    {
+        return s_FittingModeEnabled;
+    }
+
     void TraderXSelectionService()
     {
         m_SelectedItems = new map<UUID, ref TraderXProduct>();
@@ -115,6 +130,11 @@ class TraderXSelectionService : DayZularService
 
     void SelectItem(TraderXProduct item)
     {
+        if (!item)
+            return;
+
+        EnforceSlotExclusivity(item);
+
         string uniqueId = GetUniqueItemId(item);
         if (!m_SelectedItems.Contains(uniqueId))
         {
@@ -122,6 +142,89 @@ class TraderXSelectionService : DayZularService
             m_SelectedItems.Insert(uniqueId, item);
             NotifySelectionChanged(item);
         }
+    }
+
+    // In customize, an attachment occupies a physical inventory slot. Two attachments that
+    // fight over the same slot can't both be applied, so selecting one swaps out whatever
+    // already claims that slot. Multi-slot parts (4 wheels) are allowed up to their slot
+    // count. Purely automatic — derived from each item's inventorySlot config, no admin flag.
+    // No-op outside customize and for the main item (it isn't an attachment).
+    private void EnforceSlotExclusivity(TraderXProduct item)
+    {
+        int nav = TraderXUINavigationService.GetInstance().GetNavigationId();
+        // Always in customize; in the purchase flow only when the player enabled fitting mode.
+        bool active = (nav == ENavigationIds.CUSTOMIZE) || (nav == ENavigationIds.PURCHASE && s_FittingModeEnabled);
+        if (!active)
+            return;
+        if (CustomizeStateService.GetInstance().IsMainItem(item))
+            return;
+
+        TStringArray itemSlots = GetInventorySlots(item.className);
+        if (itemSlots.Count() == 0)
+            return;
+        int capacity = itemSlots.Count();
+
+        // Already-selected attachments competing for the same slot(s).
+        array<ref TraderXProduct> conflicts = new array<ref TraderXProduct>();
+        foreach (string uid, TraderXProduct selected : m_SelectedItems)
+        {
+            if (!selected || selected.productId == item.productId)
+                continue;
+            if (CustomizeStateService.GetInstance().IsMainItem(selected))
+                continue;
+            if (SlotsIntersect(itemSlots, GetInventorySlots(selected.className)))
+                conflicts.Insert(selected);
+        }
+
+        // Keep the group within capacity once the new item joins: free the oldest extras.
+        while (conflicts.Count() >= capacity && conflicts.Count() > 0)
+        {
+            DeselectItem(conflicts[0]);
+            conflicts.RemoveOrdered(0);
+        }
+    }
+
+    // The inventory slot name(s) an item type can occupy. Attachable items live under
+    // different config roots: vehicle parts / clothing in CfgVehicles, weapon attachments
+    // (optics, suppressors, buttstocks) in CfgWeapons, magazines in CfgMagazines — so try
+    // each. Magazines usually declare no inventorySlot (they all compete for the weapon's
+    // single magazine well), so fall back to one synthetic shared "magazine" slot.
+    private TStringArray GetInventorySlots(string className)
+    {
+        TStringArray slots = new TStringArray();
+        if (ReadInventorySlot("CfgVehicles " + className, slots)) return slots;
+        if (ReadInventorySlot("CfgWeapons " + className, slots)) return slots;
+        if (ReadInventorySlot("CfgMagazines " + className, slots)) return slots;
+
+        if (GetGame().ConfigIsExisting("CfgMagazines " + className))
+            slots.Insert("magazine");
+
+        return slots;
+    }
+
+    // Read <classPath> inventorySlot (array or single value) into outSlots. Returns true if
+    // the class declared any slot.
+    private bool ReadInventorySlot(string classPath, TStringArray outSlots)
+    {
+        string cfgPath = classPath + " inventorySlot";
+        GetGame().ConfigGetTextArray(cfgPath, outSlots);
+        if (outSlots.Count() == 0)
+        {
+            string single;
+            if (GetGame().ConfigGetText(cfgPath, single) && single != "")
+                outSlots.Insert(single);
+        }
+        return outSlots.Count() > 0;
+    }
+
+    private bool SlotsIntersect(TStringArray a, TStringArray b)
+    {
+        foreach (string s : a)
+        {
+            if (b.Find(s) != -1)
+                return true;
+        }
+        return false;
     }
 
     void DeSelectAllItems()
