@@ -1,0 +1,582 @@
+PanelWidgetClass homePanel {
+ position 0 0
+ hexactpos 0
+ vexactpos 0
+ size 1 1
+ hexactsize 0
+ vexactsize 0
+ color 0.0314 0.0353 0.0471 0.9804
+ ignorepointer 1
+ style rover_sim_colorable
+ {
+  PanelWidgetClass balanceHero {
+   position 0.02 0.03
+   hexactpos 0
+   vexactpos 0
+   size 0.96 0.22
+   hexactsize 0
+   vexactsize 0
+   ignorepointer 1
+   style TXCardElevated
+   color 0.9961 0.9961 0.9961 1
+   {
+    PanelWidgetClass heroStrip {
+     position 0 0
+     hexactpos 0
+     vexactpos 0
+     size 0 1
+     hexactsize 0
+     vexactsize 0
+     ignorepointer 1
+     style TXProgressFill
+     color 0.9961 0.9961 0.9961 1
+    }
+    TextWidgetClass balanceLabel {
+     position 0.02 0.12
+     hexactpos 0
+     vexactpos 0
+     size 0.4 0.14
+     hexactsize 0
+     vexactsize 0
+     color 0.6039 0.5804 0.5333 1
+     font "TraderX/datasets/fonts/oswalt12"
+     ignorepointer 1
+     "exact text" 1
+     style Bold
+     text "PERSONAL BALANCE"
+    }
+    TextWidgetClass balanceValue {
+     position 0.02 0.28
+     hexactpos 0
+     vexactpos 0
+     size 0.52 0.44
+     hexactsize 0
+     vexactsize 0
+     color 0.8314 0.6431 0.298 1
+     font "TraderX/datasets/fonts/jet-brains-mono48"
+     ignorepointer 1
+     "exact text" 1
+     style Bold
+     text "0"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ balanceCard.valueText }}"
+      }
+     }
+    }
+    TextWidgetClass balanceSub {
+     position 0.02 0.78
+     hexactpos 0
+     vexactpos 0
+     size 0.25 0.16
+     hexactsize 0
+     vexactsize 0
+     color 0.8314 0.6431 0.298 1
+     font "TraderX/datasets/fonts/oswalt12"
+     ignorepointer 1
+     "exact text" 1
+     style Bold
+     text "Roubles"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ balanceCard.subText }}"
+      }
+     }
+    }
+    TextWidgetClass balanceCash {
+     position 0.22 0.78
+     hexactpos 0
+     vexactpos 0
+     size 0.32 0.16
+     hexactsize 0
+     vexactsize 0
+     color 0.8314 0.6431 0.298 1
+     font "TraderX/datasets/fonts/oswalt12"
+     ignorepointer 1
+     "exact text" 1
+     text "On hand: 0"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ balanceCard.footerLeft }}"
+      }
+     }
+    }
+    TextWidgetClass heroWelcome {
+     position 0.56 0.14
+     hexactpos 0
+     vexactpos 0
+     size 0.42 0.22
+     hexactsize 0
+     vexactsize 0
+     color 0.8471 0.8235 0.7529 1
+     font "TraderX/datasets/fonts/oswalt14"
+     ignorepointer 1
+     "exact text" 1
+     "text halign" right
+     style Bold
+     text "Welcome back"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ heroCard.formattedWelcome }}"
+      }
+     }
+    }
+    ButtonWidgetClass ctaDeposit {
+     position 0.56 0.5
+     hexactpos 0
+     vexactpos 0
+     size 0.13 0.38
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "TraderX/datasets/fonts/oswalt14"
+     "exact text" 1
+     style Bold
+     style TXBtnPrimary
+     color 0.9961 0.9961 0.9961 1
+     text "DEPOSIT"
+     scriptclass "NavButtonBinding"
+     {
+      ScriptParamsClass {
+       TargetSelector "banking-account-tab"
+      }
+     }
+    }
+    ButtonWidgetClass ctaWithdraw {
+     position 0.7 0.5
+     hexactpos 0
+     vexactpos 0
+     size 0.13 0.38
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "TraderX/datasets/fonts/oswalt14"
+     "exact text" 1
+     style Bold
+     style TXBtnDefault
+     color 0.9961 0.9961 0.9961 1
+     text "WITHDRAW"
+     scriptclass "NavButtonBinding"
+     {
+      ScriptParamsClass {
+       TargetSelector "banking-account-tab"
+      }
+     }
+    }
+    ButtonWidgetClass ctaTransfer {
+     position 0.84 0.5
+     hexactpos 0
+     vexactpos 0
+     size 0.14 0.38
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "TraderX/datasets/fonts/oswalt14"
+     "exact text" 1
+     style Bold
+     style TXBtnAccent
+     color 0.9961 0.9961 0.9961 1
+     text "TRANSFER"
+     scriptclass "NavButtonBinding"
+     {
+      ScriptParamsClass {
+       TargetSelector "banking-transfer-tab"
+      }
+     }
+    }
+   }
+  }
+  PanelWidgetClass activityCard {
+   position 0.02 0.27
+   hexactpos 0
+   vexactpos 0
+   size 0.61 0.7
+   hexactsize 0
+   vexactsize 0
+   ignorepointer 1
+   style TXCard
+   color 0.9961 0.9961 0.9961 1
+   {
+    TextWidgetClass activityTitle {
+     position 0.02 0.03
+     hexactpos 0
+     vexactpos 0
+     size 0.4 0.07
+     hexactsize 0
+     vexactsize 0
+     color 0.8471 0.8235 0.7529 1
+     font "TraderX/datasets/fonts/oswalt14"
+     ignorepointer 1
+     "exact text" 1
+     style Bold
+     text "RECENT ACTIVITY"
+    }
+    ButtonWidgetClass activityViewAll {
+     position 0.78 0.02
+     hexactpos 0
+     vexactpos 0
+     size 0.2 0.08
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8314 0.6431 0.298 1
+     font "TraderX/datasets/fonts/oswalt12"
+     "exact text" 1
+     style Bold
+     style TXTab
+     color 0.9961 0.9961 0.9961 1
+     text "VIEW ALL >"
+     scriptclass "NavButtonBinding"
+     {
+      ScriptParamsClass {
+       TargetSelector "txb-ledger-tab"
+      }
+     }
+    }
+    ScrollWidgetClass activityScroll {
+     position 0.02 0.12
+     hexactpos 0
+     vexactpos 0
+     size 0.96 0.86
+     hexactsize 0
+     vexactsize 0
+     "Scrollbar V" 1
+     {
+      GridSpacerWidgetClass activityList {
+       size 1 44
+       hexactsize 0
+       vexactsize 1
+       ignorepointer 1
+       "Size To Content V" 1
+       Columns 1
+       Rows 20
+       Margin 1
+       scriptclass "ComponentWidgetBinding"
+       {
+        ScriptParamsClass {
+         Component_ForEach "{{ recentEntries }}"
+         Component_Template "txb-ledger-row"
+         Component_ItemProperty "_inputEntry"
+        }
+       }
+      }
+      TextWidgetClass activityEmpty {
+       position 0.05 0.38
+       hexactpos 0
+       vexactpos 0
+       size 0.9 0.1
+       hexactsize 0
+       vexactsize 0
+       color 0.4157 0.3961 0.3765 1
+       font "TraderX/datasets/fonts/oswalt12"
+       ignorepointer 1
+       "exact text" 1
+       "text halign" center
+       "text valign" center
+       text "No recent activity"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ activityEmptyText }}"
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+  PanelWidgetClass vaultCard {
+   position 0.65 0.27
+   hexactpos 0
+   vexactpos 0
+   size 0.33 0.33
+   hexactsize 0
+   vexactsize 0
+   style TXCard
+   color 0.9961 0.9961 0.9961 1
+   {
+    ButtonWidgetClass vaultCardBtn {
+     position 0 0
+     hexactpos 0
+     vexactpos 0
+     size 1 1
+     hexactsize 0
+     vexactsize 0
+     color 0 0 0 0
+     scriptclass "NavButtonBinding"
+     {
+      ScriptParamsClass {
+       TargetSelector "banking-vault-tab"
+      }
+     }
+    }
+    TextWidgetClass vaultLabel {
+     position 0.06 0.1
+     hexactpos 0
+     vexactpos 0
+     size 0.6 0.12
+     hexactsize 0
+     vexactsize 0
+     color 0.6039 0.5804 0.5333 1
+     font "TraderX/datasets/fonts/oswalt12"
+     ignorepointer 1
+     "exact text" 1
+     style Bold
+     text "PERSONAL VAULT"
+    }
+    TextWidgetClass vaultValue {
+     position 0.06 0.26
+     hexactpos 0
+     vexactpos 0
+     size 0.88 0.3
+     hexactsize 0
+     vexactsize 0
+     color 0.8471 0.8235 0.7529 1
+     font "TraderX/datasets/fonts/jet-brains-mono28"
+     ignorepointer 1
+     "exact text" 1
+     style Bold
+     text "0 / 50"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ vaultCard.valueText }}"
+      }
+     }
+    }
+    TextWidgetClass vaultSub {
+     position 0.06 0.58
+     hexactpos 0
+     vexactpos 0
+     size 0.88 0.12
+     hexactsize 0
+     vexactsize 0
+     color 0.4157 0.3961 0.3765 1
+     font "TraderX/datasets/fonts/oswalt12"
+     ignorepointer 1
+     "exact text" 1
+     text "slots free"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ vaultCard.subText }}"
+      }
+     }
+    }
+    TextWidgetClass vaultFee {
+     position 0.06 0.78
+     hexactpos 0
+     vexactpos 0
+     size 0.5 0.14
+     hexactsize 0
+     vexactsize 0
+     color 0.6039 0.5804 0.5333 1
+     font "TraderX/datasets/fonts/oswalt12"
+     ignorepointer 1
+     "exact text" 1
+     text "No storage fees"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ vaultCard.footerLeft }}"
+      }
+     }
+    }
+    TextWidgetClass vaultOpen {
+     position 0.6 0.78
+     hexactpos 0
+     vexactpos 0
+     size 0.35 0.14
+     hexactsize 0
+     vexactsize 0
+     color 0.8314 0.6431 0.298 1
+     font "TraderX/datasets/fonts/oswalt12"
+     ignorepointer 1
+     "exact text" 1
+     "text halign" right
+     style Bold
+     text "OPEN VAULT >"
+    }
+   }
+  }
+  PanelWidgetClass statsCard {
+   position 0.65 0.62
+   hexactpos 0
+   vexactpos 0
+   size 0.33 0.35
+   hexactsize 0
+   vexactsize 0
+   style TXCard
+   color 0.9961 0.9961 0.9961 1
+   {
+    ButtonWidgetClass statsCardBtn {
+     position 0 0
+     hexactpos 0
+     vexactpos 0
+     size 1 1
+     hexactsize 0
+     vexactsize 0
+     color 0 0 0 0
+     scriptclass "NavButtonBinding"
+     {
+      ScriptParamsClass {
+       TargetSelector "txb-ledger-tab"
+      }
+     }
+    }
+    TextWidgetClass statsLabel {
+     position 0.06 0.08
+     hexactpos 0
+     vexactpos 0
+     size 0.6 0.1
+     hexactsize 0
+     vexactsize 0
+     color 0.6039 0.5804 0.5333 1
+     font "TraderX/datasets/fonts/oswalt12"
+     ignorepointer 1
+     "exact text" 1
+     style Bold
+     text "30-DAY STATS"
+    }
+    TextWidgetClass statsInLabel {
+     position 0.06 0.26
+     hexactpos 0
+     vexactpos 0
+     size 0.2 0.09
+     hexactsize 0
+     vexactsize 0
+     color 0.6039 0.5804 0.5333 1
+     font "TraderX/datasets/fonts/oswalt12"
+     ignorepointer 1
+     "exact text" 1
+     style Bold
+     text "IN"
+    }
+    TextWidgetClass statsInValue {
+     position 0.3 0.25
+     hexactpos 0
+     vexactpos 0
+     size 0.64 0.1
+     hexactsize 0
+     vexactsize 0
+     color 0.6039 0.6902 0.3529 1
+     font "TraderX/datasets/fonts/oswalt16"
+     ignorepointer 1
+     "exact text" 1
+     "text halign" right
+     style Bold
+     text "+0"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ statsCard.inDisplay }}"
+      }
+     }
+    }
+    TextWidgetClass statsOutLabel {
+     position 0.06 0.4
+     hexactpos 0
+     vexactpos 0
+     size 0.2 0.09
+     hexactsize 0
+     vexactsize 0
+     color 0.6039 0.5804 0.5333 1
+     font "TraderX/datasets/fonts/oswalt12"
+     ignorepointer 1
+     "exact text" 1
+     style Bold
+     text "OUT"
+    }
+    TextWidgetClass statsOutValue {
+     position 0.3 0.39
+     hexactpos 0
+     vexactpos 0
+     size 0.64 0.1
+     hexactsize 0
+     vexactsize 0
+     color 0.7843 0.4 0.2902 1
+     font "TraderX/datasets/fonts/oswalt16"
+     ignorepointer 1
+     "exact text" 1
+     "text halign" right
+     style Bold
+     text "-0"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ statsCard.outDisplay }}"
+      }
+     }
+    }
+    TextWidgetClass statsNetLabel {
+     position 0.06 0.54
+     hexactpos 0
+     vexactpos 0
+     size 0.2 0.09
+     hexactsize 0
+     vexactsize 0
+     color 0.6039 0.5804 0.5333 1
+     font "TraderX/datasets/fonts/oswalt12"
+     ignorepointer 1
+     "exact text" 1
+     style Bold
+     text "NET"
+    }
+    TextWidgetClass statsNetValue {
+     position 0.3 0.53
+     hexactpos 0
+     vexactpos 0
+     size 0.64 0.1
+     hexactsize 0
+     vexactsize 0
+     color 0.8314 0.6431 0.298 1
+     font "TraderX/datasets/fonts/oswalt16"
+     ignorepointer 1
+     "exact text" 1
+     "text halign" right
+     style Bold
+     text "+0"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ statsCard.netDisplay }}"
+      }
+     }
+    }
+    PanelWidgetClass statsDivider {
+     position 0.06 0.7
+     hexactpos 0
+     vexactpos 0
+     size 0.88 0
+     hexactsize 0
+     vexactsize 0
+     ignorepointer 1
+     style TXDivider
+     color 0.9961 0.9961 0.9961 1
+    }
+    TextWidgetClass statsFooter {
+     position 0.06 0.78
+     hexactpos 0
+     vexactpos 0
+     size 0.88 0.14
+     hexactsize 0
+     vexactsize 0
+     color 0.4157 0.3961 0.3765 1
+     font "TraderX/datasets/fonts/oswalt12"
+     ignorepointer 1
+     "exact text" 1
+     text "0 transfers - 0 tx"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ statsCard.footerLeft }}"
+      }
+     }
+    }
+   }
+  }
+ }
+}

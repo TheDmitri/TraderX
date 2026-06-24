@@ -1,0 +1,8 @@
+# dzml.config.yaml — TraderXCarLock DZML config (fully self-contained).
+# Fonts are CarLock's OWN copies under datasets/fonts/ (no dependency on the TraderX PBO).
+# Baked sizes shipped here: oswalt 14/16/22/28, jet-brains-mono 22/28.
+fonts:
+  default: "TraderXCarLock/datasets/fonts/oswalt"
+  heading: "TraderXCarLock/datasets/fonts/oswalt"
+  body: "TraderXCarLock/datasets/fonts/oswalt"
+  mono: "TraderXCarLock/datasets/fonts/jet-brains-mono"

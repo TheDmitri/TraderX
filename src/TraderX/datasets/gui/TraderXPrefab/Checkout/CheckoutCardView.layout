@@ -69,7 +69,7 @@ PanelWidgetClass CheckoutCardView {
      position 0 0
      hexactpos 0
      vexactpos 0
-     size 22 22
+     size 26 26
      hexactsize 1
      vexactsize 1
      halign center_ref
@@ -128,7 +128,7 @@ PanelWidgetClass CheckoutCardView {
      position 0 0
      hexactpos 0
      vexactpos 0
-     size 22 22
+     size 26 26
      hexactsize 1
      vexactsize 1
      halign center_ref
@@ -165,7 +165,7 @@ PanelWidgetClass CheckoutCardView {
      position 0 0
      hexactpos 0
      vexactpos 0
-     size 22 22
+     size 26 26
      hexactsize 1
      vexactsize 1
      halign center_ref

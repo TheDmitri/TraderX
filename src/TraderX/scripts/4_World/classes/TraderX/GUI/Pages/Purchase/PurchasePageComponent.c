@@ -15,6 +15,16 @@ class PurchasePageComponent extends DZlrComponentBase
 	protected PlayerBase entPlayerPreview;
 	protected vector m_CharacterOrientation;
 
+	// Preview show/hide toggle (top-bar button). Static so the choice survives page swaps
+	// within the trader session.
+	Widget PlayerPreviewPanel;
+	Widget CategoryListPanel;
+	ImageWidget previewToggleIcon;
+	static bool m_PreviewHidden = false;
+
+	// Hover tooltip shared by the three preview action buttons (only one shows at a time).
+	protected ref NavBtnTooltipComponent previewBtnTooltipComp;
+
 	override protected void RegisterMetadata()
 	{
 		m_Metadata = new ComponentMetadata();
@@ -34,8 +44,48 @@ class PurchasePageComponent extends DZlrComponentBase
 		TraderXSelectionService.SetFittingMode(false);
 		UpdateFittingVisual();
 		m_CharacterOrientation = vector.Zero;
-		InitPlayerPreview();
+		if (!m_PreviewHidden)
+			InitPlayerPreview();
 		Setup();
+		ApplyPreviewVisibility();
+	}
+
+	void OnPreviewToggleClick()
+	{
+		TraderXInventoryManager.PlayMenuSound(ETraderXSounds.SELECT);
+		m_PreviewHidden = !m_PreviewHidden;
+		// Build the preview lazily the first time it's shown.
+		if (!m_PreviewHidden && !entPlayerPreview)
+			InitPlayerPreview();
+		ApplyPreviewVisibility();
+	}
+
+	// Hide/show the preview panel and let the category list reclaim the freed width.
+	void ApplyPreviewVisibility()
+	{
+		bool visible = !m_PreviewHidden;
+
+		if (PlayerPreviewPanel)
+			PlayerPreviewPanel.Show(visible);
+
+		if (CategoryListPanel)
+		{
+			float x, y, w, h;
+			CategoryListPanel.GetPos(x, y);
+			CategoryListPanel.GetSize(w, h);
+			x = DZTernaryFloat.If(visible, 0.21, 0.01);
+			w = DZTernaryFloat.If(visible, 0.55, 0.75);
+			CategoryListPanel.SetPos(x, y);
+			CategoryListPanel.SetSize(w, h);
+		}
+
+		UpdatePreviewToggleVisual();
+	}
+
+	void UpdatePreviewToggleVisual()
+	{
+		if (previewToggleIcon)
+			previewToggleIcon.SetColor(DZTernaryInt.If(m_PreviewHidden, ARGB(200, 154, 148, 136), ARGB(255, 196, 163, 90)));
 	}
 
 	override void OnDestroy()
@@ -46,8 +96,48 @@ class PurchasePageComponent extends DZlrComponentBase
 		CategoryCardComponent.Event_OnCategoryCollapsedCallBack.Remove(OnCategoryCollapsed);
 		// Don't leak fitting mode into other pages.
 		TraderXSelectionService.SetFittingMode(false);
+		DestroyPreviewBtnTooltip();
 		if (entPlayerPreview)
 			GetGame().ObjectDelete(entPlayerPreview);
+	}
+
+	// === Preview action button tooltips ===
+
+	void OnFittingBtnMouseEnter()
+	{
+		ShowPreviewBtnTooltip("Fitting mode: equip one item per slot to preview an outfit");
+	}
+
+	void OnStripBtnMouseEnter()
+	{
+		ShowPreviewBtnTooltip("Strip preview: remove all previewed items");
+	}
+
+	void OnResetBtnMouseEnter()
+	{
+		ShowPreviewBtnTooltip("Reset preview to your current gear");
+	}
+
+	void OnPreviewBtnMouseLeave()
+	{
+		DestroyPreviewBtnTooltip();
+	}
+
+	protected void ShowPreviewBtnTooltip(string text)
+	{
+		DestroyPreviewBtnTooltip();
+		previewBtnTooltipComp = new NavBtnTooltipComponent();
+		previewBtnTooltipComp.InitComponent(null);
+		previewBtnTooltipComp.Setup(text);
+	}
+
+	protected void DestroyPreviewBtnTooltip()
+	{
+		if (previewBtnTooltipComp)
+		{
+			previewBtnTooltipComp.Destroy();
+			previewBtnTooltipComp = null;
+		}
 	}
 
 	// === Player preview ===

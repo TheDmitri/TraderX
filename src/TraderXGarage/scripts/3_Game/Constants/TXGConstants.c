@@ -1,0 +1,33 @@
+// TraderXGarage - Constants
+// Wrapped in a class to avoid multiple declaration across script modules.
+
+class TXGConstants
+{
+    static const string RPC_NAMESPACE = "TraderXGarage";
+
+    // Own subfolder under the shared TraderX profile root (was scattered in TraderX/ root).
+    static const string ROOT_DIR    = "$profile:TraderX/";
+    static const string CONFIG_DIR  = "$profile:TraderX/TraderXGarage/";
+    static const string CONFIG_FILE = "$profile:TraderX/TraderXGarage/TraderXGarageConfig.json";
+    static const string DB_DIR      = "$profile:TraderX/TraderXGarage/Database/";
+    static const string LOG_DIR     = "$profile:TraderX/TraderXGarage/Logs/";
+    static const string LOG_FILE    = "$profile:TraderX/TraderXGarage/Logs/TXG_%1.log";
+
+    static const string CONFIG_VERSION = "1.0";
+    static const string DATA_VERSION   = "1.0";
+
+    // NPC id assigned (via TraderX NPC system) to the garage attendant.
+    // 7-bit value (0..127). Banking uses 126 — garage uses 125 to stay distinct.
+    static const int GARAGE_NPC_ID = 125;
+
+    // Ledger labels consumed by the banking payment provider.
+    static const string FEE_LABEL_IN  = "GARAGE_FEE_IN";
+    static const string FEE_LABEL_OUT = "GARAGE_FEE_OUT";
+
+    // Vehicle health levels (mirror TraderX item-state ordering).
+    static const int HEALTH_PRISTINE      = 0;
+    static const int HEALTH_WORN          = 1;
+    static const int HEALTH_DAMAGED       = 2;
+    static const int HEALTH_BADLY_DAMAGED = 3;
+    static const int HEALTH_RUINED        = 4;
+}

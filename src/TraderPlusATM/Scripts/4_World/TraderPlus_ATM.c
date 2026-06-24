@@ -1,0 +1,1 @@
+class TraderPlus_BANK_ATM extends BuildingBase{};

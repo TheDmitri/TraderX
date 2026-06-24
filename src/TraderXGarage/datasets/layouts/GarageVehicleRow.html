@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+  <link rel="stylesheet" href="dzml-icons.css">
+</head>
+<body>
+
+<!-- GarageVehicleRow — one row in the stored-vehicle list.
+     Background button fills the row and fires OnVehicleSelected; labels overlay as
+     dz-noptr siblings (nested buttons get flattened — see dayzular gotchas). -->
+<div data-dz="panel" data-name="vehicleRowRoot" data-style="TXSurface"
+     class="dz-xy-0-0 dz-wh-full dz-c-FE">
+
+  <!-- Click overlay (covers entire row) -->
+  <button data-dz="button" data-name="rowClickBtn" data-style="TXListRow"
+          data-on-click="OnVehicleSelected"
+          class="dz-xy-0-0 dz-wh-full dz-c-00000000"></button>
+
+  <!-- Health accent strip -->
+  <div data-dz="panel" data-name="rowHealthBar"
+       class="dz-xy-0-15 dz-wh-1-70 dz-c-7A9A4A dz-noptr"></div>
+
+  <!-- Vehicle icon -->
+  <img data-dz="image" data-name="rowIcon"
+       data-image="set:traderx_icons image:wrench"
+       class="dz-xy-3-0 dz-wh-22px-22px dz-c-6A6560 dz-blend dz-src-alpha dz-align-y-center dz-noptr" />
+
+  <!-- Vehicle name -->
+  <span data-dz="text" data-name="rowName"
+        data-bind="{{ rowName }}"
+        class="dz-xy-8-8 dz-wh-66-52 dz-c-D8D2C0 dz-font-body-16 dz-noptr dz-exact-text dz-text-vc">
+    Vehicle
+  </span>
+
+  <!-- Health level -->
+  <span data-dz="text" data-name="rowHealth"
+        data-bind="{{ rowHealth }}"
+        class="dz-xy-8-56 dz-wh-66-40 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-text-vc">
+    Pristine
+  </span>
+</div>
+
+<script src="dzml-runtime.js"></script>
+</body>
+</html>

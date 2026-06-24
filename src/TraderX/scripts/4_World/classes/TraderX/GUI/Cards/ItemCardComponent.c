@@ -10,6 +10,7 @@ class ItemCardComponent extends DZlrComponentBase
 
 	string itemName;
 	string itemPrice;
+	string itemSellPrice;
 	string itemStock;
 	string quantityStr;
 	float itemVolume;
@@ -107,6 +108,7 @@ class ItemCardComponent extends DZlrComponentBase
 
 		CreatePreview();
 		itemPrice = GetPriceFromItem();
+		itemSellPrice = GetSellPriceSuffix();
 		SetItemHealth();
 
 		if (item.isSelected)
@@ -265,6 +267,21 @@ class ItemCardComponent extends DZlrComponentBase
 		}
 
 		return string.Empty;
+	}
+
+	// Secondary sell price shown next to the buy price on the purchase tab only:
+	// buy price is the prominent green value, this is a small dim "sell N" in red.
+	// Empty on the sell tab and for unsellable items, so the red widget renders nothing.
+	string GetSellPriceSuffix()
+	{
+		if (tradeMode != ETraderXTradeMode.BUY)
+			return string.Empty;
+
+		int sellPrice = TraderXPricingService.GetInstance().GetPricePreview(_inputProduct.GetProductId(), false, 1, TraderXItemState.PRISTINE);
+		if (sellPrice < 0)
+			return string.Empty;
+
+		return "sell " + sellPrice.ToString();
 	}
 
 	int CalculateAttachmentsPrice()

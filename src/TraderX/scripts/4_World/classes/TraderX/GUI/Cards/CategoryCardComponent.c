@@ -19,6 +19,7 @@ class CategoryCardComponent extends DZlrComponentBase
 	ref array<ref TraderXProduct> _inputItemProducts = new array<ref TraderXProduct>();
 
 	ImageWidget categoryIcon;
+	ImageWidget favStarIcon;
 	ImageWidget croissantIcon;
 	ImageWidget decroissantIcon;
 	TextWidget itemCountText;
@@ -65,9 +66,16 @@ class CategoryCardComponent extends DZlrComponentBase
 		category_name = category.categoryName;
 		item_count = category.productIds.Count().ToString() + " items";
 
+		// The favorites pseudo-category has no icon file — show the star glyph instead.
+		bool isFavoritesCategory = category.categoryName == "#tpm_favorites";
+		if (favStarIcon)
+			favStarIcon.Show(isFavoritesCategory);
+
 		if (categoryIcon)
 		{
-			if (category.icon != string.Empty)
+			if (isFavoritesCategory)
+				categoryIcon.Show(false);
+			else if (category.icon != string.Empty)
 				categoryIcon.LoadImageFile(0, category.icon);
 			else
 				categoryIcon.Show(false);

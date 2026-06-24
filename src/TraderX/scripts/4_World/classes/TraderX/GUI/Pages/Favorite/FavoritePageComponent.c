@@ -32,6 +32,9 @@ class FavoritePageComponent extends DZlrComponentBase
 	{
 		TraderXUINavigationService.GetInstance().SetNavigationId(ENavigationIds.FAVORITE);
 		TraderXTradingService.GetInstance().SetTradeMode(ETraderXTradeMode.BUY);
+		// tx-checkout mounts before this runs, so its OnInit read the stale trade mode —
+		// refresh the button/label text now that BUY is set.
+		if (CheckoutComponent.GetInstance()) CheckoutComponent.GetInstance().UpdateTradeModeText();
 		ShowFavoriteList();
 	}
 

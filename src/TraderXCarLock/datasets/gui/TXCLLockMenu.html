@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+  <link rel="stylesheet" href="dzml-icons.css">
+</head>
+<body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#1a1a1a;">
+
+<!-- Full-screen transparent container. ComponentMenu applies the blur/dim itself. -->
+<div data-dz="panel"
+    data-name="TXCLBackdrop"
+    class="dz-xy-0-0 dz-wh-full">
+
+  <!-- Compact card: header + masked input + message + action row. -->
+  <div data-dz="panel"
+      data-name="lockCard"
+      data-style="TXCard"
+      class="dz-xy-37-25 dz-wh-26-27 dz-c-FE">
+
+    <!-- Header -->
+    <div data-dz="panel"
+        data-name="lockHeader"
+        data-style="TXSurface"
+        class="dz-xy-0-0 dz-wh-100-17 dz-c-FE">
+      <span data-dz="text"
+          data-name="titleText"
+          data-bind="{{ title_text }}"
+          class="dz-xy-6-0 dz-wh-68-100 dz-c-D8D2C0 dz-font-heading-16 dz-bold dz-noptr dz-text-vc dz-exact-text">
+        VEHICLE LOCK
+      </span>
+      <button data-dz="button"
+          data-name="closeBtn"
+          data-style="TXBtnIcon"
+          data-on-click="OnCloseClick"
+          class="dz-xy-85-22 dz-wh-26px-26px dz-tc-C93030 dz-font-body-14">
+        <img data-dz="image"
+            data-name="closeIcon"
+            class="dz-xy-0-0 dz-wh-full dz-align-cc dz-c-F0654A dz-noptr"
+            data-image="set:traderxcarlock_icons image:close"
+            data-image-mode="blend"
+            data-image-src-alpha="1"
+            data-image-stretch="stretch_w_h"/>
+      </button>
+    </div>
+
+    <!-- Masked code input + keypad toggle -->
+    <div data-dz="editbox"
+        data-name="codeInput"
+        data-style="TXInputField"
+        data-on-change="OnCodeChanged"
+        class="dz-xy-5-23 dz-wh-77-18 dz-c-C4A35A dz-font-mono-22 dz-bold dz-text-center dz-text-vc">
+    </div>
+    <button data-dz="button"
+        data-name="kbToggleBtn"
+        data-style="TXBtnIcon"
+        data-on-click="OnToggleKeypad"
+        class="dz-xy-84-23 dz-wh-12-18 dz-tc-C4A35A dz-font-body-14">
+      <img data-dz="image"
+          data-name="kbToggleIcon"
+          class="dz-xy-0-0 dz-wh-60-60 dz-align-cc dz-c-C4A35A dz-noptr"
+          data-image="set:traderxcarlock_icons image:keyboard"
+          data-image-mode="blend"
+          data-image-src-alpha="1"
+          data-image-stretch="stretch_w_h"/>
+    </button>
+
+    <!-- Status / prompt message -->
+    <span data-dz="text"
+        data-name="messageText"
+        data-bind="{{ message_text }}"
+        class="dz-xy-4-45 dz-wh-92-10 dz-c-9A9488 dz-font-body-14 dz-noptr dz-text-center dz-exact-text">
+      ENTER PASSWORD (8 digits)
+    </span>
+
+    <!-- Action row: CLEAR + CONFIRM (always visible, even with keypad hidden) -->
+    <button data-dz="button"
+        data-name="btnClear"
+        data-style="TXBtnDanger"
+        data-on-click="OnClearClick"
+        class="dz-xy-5-60 dz-wh-43-15 dz-font-body-16">
+      <span data-dz="text"
+          data-name="lblClear"
+          class="dz-xy-0-0 dz-wh-full dz-c-E8C0B8 dz-font-body-16 dz-bold dz-noptr dz-text-center dz-text-vc dz-exact-text">
+        CLEAR
+      </span>
+    </button>
+    <button data-dz="button"
+        data-name="btnEnter"
+        data-style="TXBtnPrimary"
+        data-on-click="OnEnterClick"
+        class="dz-xy-52-60 dz-wh-43-15 dz-font-body-16">
+      <span data-dz="text"
+          data-name="lblEnter"
+          class="dz-xy-0-0 dz-wh-full dz-c-D8E8C0 dz-font-body-16 dz-bold dz-noptr dz-text-center dz-text-vc dz-exact-text">
+        CONFIRM
+      </span>
+    </button>
+  </div>
+
+  <!-- Optional on-screen number pad (hidden until the keyboard toggle is clicked). -->
+  <div data-dz="panel"
+      data-name="keypadPanel"
+      data-style="TXCard"
+      class="dz-xy-37-53 dz-wh-26-30 dz-c-FE dz-hidden">
+
+    <button data-dz="button" data-name="btnDigit1" data-style="TXBtnDefault" data-on-click="OnDigit1" class="dz-xy-4-4 dz-wh-28-20 dz-font-body-22">
+      <span data-dz="text" data-name="lblDigit1" class="dz-xy-0-0 dz-wh-full dz-c-D8D2C0 dz-font-body-22 dz-bold dz-noptr dz-text-center dz-text-vc dz-exact-text">1</span>
+    </button>
+    <button data-dz="button" data-name="btnDigit2" data-style="TXBtnDefault" data-on-click="OnDigit2" class="dz-xy-36-4 dz-wh-28-20 dz-font-body-22">
+      <span data-dz="text" data-name="lblDigit2" class="dz-xy-0-0 dz-wh-full dz-c-D8D2C0 dz-font-body-22 dz-bold dz-noptr dz-text-center dz-text-vc dz-exact-text">2</span>
+    </button>
+    <button data-dz="button" data-name="btnDigit3" data-style="TXBtnDefault" data-on-click="OnDigit3" class="dz-xy-68-4 dz-wh-28-20 dz-font-body-22">
+      <span data-dz="text" data-name="lblDigit3" class="dz-xy-0-0 dz-wh-full dz-c-D8D2C0 dz-font-body-22 dz-bold dz-noptr dz-text-center dz-text-vc dz-exact-text">3</span>
+    </button>
+
+    <button data-dz="button" data-name="btnDigit4" data-style="TXBtnDefault" data-on-click="OnDigit4" class="dz-xy-4-27 dz-wh-28-20 dz-font-body-22">
+      <span data-dz="text" data-name="lblDigit4" class="dz-xy-0-0 dz-wh-full dz-c-D8D2C0 dz-font-body-22 dz-bold dz-noptr dz-text-center dz-text-vc dz-exact-text">4</span>
+    </button>
+    <button data-dz="button" data-name="btnDigit5" data-style="TXBtnDefault" data-on-click="OnDigit5" class="dz-xy-36-27 dz-wh-28-20 dz-font-body-22">
+      <span data-dz="text" data-name="lblDigit5" class="dz-xy-0-0 dz-wh-full dz-c-D8D2C0 dz-font-body-22 dz-bold dz-noptr dz-text-center dz-text-vc dz-exact-text">5</span>
+    </button>
+    <button data-dz="button" data-name="btnDigit6" data-style="TXBtnDefault" data-on-click="OnDigit6" class="dz-xy-68-27 dz-wh-28-20 dz-font-body-22">
+      <span data-dz="text" data-name="lblDigit6" class="dz-xy-0-0 dz-wh-full dz-c-D8D2C0 dz-font-body-22 dz-bold dz-noptr dz-text-center dz-text-vc dz-exact-text">6</span>
+    </button>
+
+    <button data-dz="button" data-name="btnDigit7" data-style="TXBtnDefault" data-on-click="OnDigit7" class="dz-xy-4-50 dz-wh-28-20 dz-font-body-22">
+      <span data-dz="text" data-name="lblDigit7" class="dz-xy-0-0 dz-wh-full dz-c-D8D2C0 dz-font-body-22 dz-bold dz-noptr dz-text-center dz-text-vc dz-exact-text">7</span>
+    </button>
+    <button data-dz="button" data-name="btnDigit8" data-style="TXBtnDefault" data-on-click="OnDigit8" class="dz-xy-36-50 dz-wh-28-20 dz-font-body-22">
+      <span data-dz="text" data-name="lblDigit8" class="dz-xy-0-0 dz-wh-full dz-c-D8D2C0 dz-font-body-22 dz-bold dz-noptr dz-text-center dz-text-vc dz-exact-text">8</span>
+    </button>
+    <button data-dz="button" data-name="btnDigit9" data-style="TXBtnDefault" data-on-click="OnDigit9" class="dz-xy-68-50 dz-wh-28-20 dz-font-body-22">
+      <span data-dz="text" data-name="lblDigit9" class="dz-xy-0-0 dz-wh-full dz-c-D8D2C0 dz-font-body-22 dz-bold dz-noptr dz-text-center dz-text-vc dz-exact-text">9</span>
+    </button>
+
+    <button data-dz="button" data-name="btnDigit0" data-style="TXBtnDefault" data-on-click="OnDigit0" class="dz-xy-36-73 dz-wh-28-20 dz-font-body-22">
+      <span data-dz="text" data-name="lblDigit0" class="dz-xy-0-0 dz-wh-full dz-c-D8D2C0 dz-font-body-22 dz-bold dz-noptr dz-text-center dz-text-vc dz-exact-text">0</span>
+    </button>
+  </div>
+</div>
+
+<script src="dzml-runtime.js"></script>
+</body>
+</html>

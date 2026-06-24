@@ -21,4 +21,15 @@ class TraderXLicenseRepository
 
         return playerLicenses;
     }
+
+    static void Save(TraderXPlayerLicenses playerLicenses)
+    {
+        if(!playerLicenses)
+            return;
+
+        MakeDirectoryIFNotExist();
+
+        string filePath = string.Format(TRADERX_PLAYER_LICENSES_FILE, playerLicenses.steamId);
+        JsonFileLoader<TraderXPlayerLicenses>.JsonSaveFile(filePath, playerLicenses);
+    }
 }

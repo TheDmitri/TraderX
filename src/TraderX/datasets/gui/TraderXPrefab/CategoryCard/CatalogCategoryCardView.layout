@@ -27,7 +27,7 @@ GridSpacerWidgetClass categoryCard {
      hexactsize 0
      vexactsize 1
      ignorepointer 1
-     style TXListRow
+     style TXCard
      color 0.9961 0.9961 0.9961 1
     }
     ButtonWidgetClass categoryBtn {
@@ -38,7 +38,7 @@ GridSpacerWidgetClass categoryCard {
      hexactsize 0
      vexactsize 1
      "text color" 0.9961 0.9961 0.9961 1
-     style TXListRow
+     style TXCategoryRow
      color 0.9961 0.9961 0.9961 1
      scriptclass "ButtonBinding"
      {
@@ -217,6 +217,39 @@ GridSpacerWidgetClass categoryCard {
      visible 0
      style TXErrorBox
      color 0.9961 0.9961 0.9961 1
+     {
+      ImageWidgetClass lockIcon {
+       position 0.34 0
+       hexactpos 0
+       vexactpos 0
+       size 36 36
+       hexactsize 1
+       vexactsize 1
+       valign center_ref
+       color 0.8471 0.8235 0.7529 1
+       ignorepointer 1
+       image0 "set:traderx_icons image:padlock"
+       mode blend
+       "src alpha" 1
+       "stretch mode" stretch_w_h
+      }
+      TextWidgetClass lockText {
+       position 0.41 0
+       hexactpos 0
+       vexactpos 0
+       size 0.5 1
+       hexactsize 0
+       vexactsize 0
+       valign center_ref
+       color 0.8471 0.8235 0.7529 1
+       font "TraderX/datasets/fonts/oswalt22"
+       ignorepointer 1
+       "text valign" center
+       "exact text" 1
+       "size to text h" 1
+       text "#tpm_licenses_required"
+      }
+     }
     }
    }
   }
@@ -248,7 +281,7 @@ GridSpacerWidgetClass categoryCard {
    hexactsize 0
    vexactsize 0
    "Size To Content V" 1
-   Columns 3
+   Columns 4
    Rows 100
    Margin 6
    scriptclass "ComponentWidgetBinding"

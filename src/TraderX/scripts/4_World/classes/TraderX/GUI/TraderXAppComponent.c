@@ -45,6 +45,12 @@ class TraderXAppComponent extends DZlrComponentBase
 		m_Instance = null;
 	}
 
+	// Footer "Sponsored By DayZ Beans Launcher" -> open the shared promo modal.
+	void OnLauncherClick()
+	{
+		TXBeansPromoComponent.Open();
+	}
+
 	void Setup()
 	{
 		NavigateTo("tx-favorite-page", favBtn);

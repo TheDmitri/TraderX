@@ -8,6 +8,7 @@ class TraderXNpc
 	vector						orientation;
   ref array<string> categoriesId;
   ref array<string> currenciesAccepted;
+  ref array<string> licensesRequired;
 	ref array<ref TraderXLoadoutItem> loadouts;
 
   void TraderXNpc(int id, string className, string givenName, string role, vector position, vector orientation, array<ref TraderXLoadoutItem> loadouts, array<string> categoriesId, array<string> currenciesAccepted)
@@ -20,6 +21,7 @@ class TraderXNpc
     this.loadouts = loadouts;
     this.categoriesId = categoriesId;
     this.currenciesAccepted = currenciesAccepted;
+    this.licensesRequired = new array<string>();
 
     npcId = TraderXNpcId.Generate().Value();
   }
@@ -33,6 +35,7 @@ class TraderXNpc
   vector GetOrientation() { return orientation; }
   array<string> GetCategories() { return categoriesId; }
   array<string> GetCurrenciesAccepted() { return currenciesAccepted; }
+  array<string> GetLicensesRequired() { return licensesRequired; }
   array<ref TraderXLoadoutItem> GetLoadouts() { return loadouts; }
 
   // Setters
@@ -43,5 +46,6 @@ class TraderXNpc
   void SetOrientation(vector ori) { orientation = ori; }
   void SetCategories(array<string> categories) { categoriesId = categories; }
   void SetCurrenciesAccepted(array<string> currencies) { currenciesAccepted = currencies; }
+  void SetLicensesRequired(array<string> licenses) { licensesRequired = licenses; }
   void SetLoadouts(array<ref TraderXLoadoutItem> items) { loadouts = items; }
 };

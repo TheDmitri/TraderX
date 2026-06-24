@@ -16,11 +16,11 @@
       class="dz-xy-0-0 dz-wh-100-54px dz-noptr">
     <div data-dz="panel"
         data-name="categoryCardPanel"
-        data-style="TXListRow"
+        data-style="TXCard"
         class="dz-xy-0-0 dz-wh-100-52px dz-c-FE dz-noptr"></div>
     <button data-dz="button"
         data-name="categoryBtn"
-        data-style="TXListRow"
+        data-style="TXCategoryRow"
         data-on-click="OnCategoryCardClick"
         class="dz-xy-0-0 dz-wh-100-52px dz-tc-FE"></button>
     <img data-dz="image"
@@ -82,7 +82,20 @@
     <div data-dz="panel"
         data-name="licensePanel"
         data-style="TXErrorBox"
-        class="dz-xy-0-0 dz-wh-100-52px dz-c-FE dz-noptr dz-hidden"></div>
+        class="dz-xy-0-0 dz-wh-100-52px dz-c-FE dz-noptr dz-hidden">
+      <img data-dz="image"
+          data-name="lockIcon"
+          class="dz-xy-34-0 dz-wh-36px-36px dz-align-y-center dz-c-D8D2C0 dz-noptr"
+          data-image="set:traderx_icons image:padlock"
+          data-image-mode="blend"
+          data-image-src-alpha="1"
+          data-image-stretch="stretch_w_h"/>
+      <span data-dz="text"
+          data-name="lockText"
+          class="dz-xy-41-0 dz-wh-50-100 dz-align-y-center dz-c-D8D2C0 dz-font-heading-22 dz-noptr dz-text-vc dz-exact-text dz-size-to-text-h">
+        #tpm_licenses_required
+      </span>
+    </div>
   </div>
   <div data-dz="grid"
       data-name="itemCardGridList"
@@ -95,7 +108,7 @@
       data-foreach="{{ _inputCatalogProducts }}"
       data-template="tx-catalog-item-card-grid"
       data-item="_inputProduct"
-      class="dz-xy-0-0 dz-wh-100-1 dz-fit-v dz-cols-3 dz-rows-100 dz-gap-6"></div>
+      class="dz-xy-0-0 dz-wh-100-1 dz-fit-v dz-cols-4 dz-rows-100 dz-gap-6"></div>
 </div>
 
 <script src="dzml-runtime.js?v=1780762084163"></script>

@@ -12,9 +12,37 @@ class TraderXUIService : DayZularService
 	private ref ComponentMenu m_TraderMenu;
 	private ref TraderXAppComponent m_AppComponent;
 
+	private ref ComponentMenu m_LicenseModalMenu;
+	private ref TraderXLicenseModalComponent m_LicenseModalComp;
+
 	void TraderXUIService()
 	{
 		g_TraderXUIService = this;
+	}
+
+	// License-locked trader warning: own menu, since the trader view never opens.
+	void OpenLicenseModal(array<string> requiredLicenses)
+	{
+		if (m_LicenseModalMenu && m_LicenseModalMenu.IsVisible())
+			return;
+
+		m_LicenseModalMenu = new ComponentMenu();
+		m_LicenseModalMenu.SetUseMouse(true);
+		m_LicenseModalComp = new TraderXLicenseModalComponent();
+		m_LicenseModalComp.InitComponent(null);
+		m_LicenseModalComp.Setup(requiredLicenses);
+		m_LicenseModalMenu.SetRootComponent(m_LicenseModalComp);
+		m_LicenseModalMenu.ShowMenu();
+	}
+
+	void CloseLicenseModal()
+	{
+		if (!m_LicenseModalMenu)
+			return;
+
+		m_LicenseModalMenu.HideMenu();
+		m_LicenseModalComp = null;
+		m_LicenseModalMenu = null;
 	}
 
 	void OpenTraderView()

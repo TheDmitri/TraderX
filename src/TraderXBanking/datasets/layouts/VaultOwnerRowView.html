@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+</head>
+<body>
+
+<!-- VaultOwnerRowView - option row in the owner dropdown.
+     Shows the owner name, capacity summary, and a role badge.
+     Click selects this owner and closes the dropdown. -->
+<div data-dz="panel" data-name="vaultOwnerRoot" data-style="TXListRow"
+     class="dz-xy-0-0 dz-wh-full dz-c-FE">
+
+  <button data-dz="button" data-name="ownerRowClickBtn"
+          data-on-click="OnOwnerRowClicked"
+          class="dz-xy-0-0 dz-wh-full dz-c-00000000"></button>
+
+  <span data-dz="text" data-name="ownerRowName"
+        data-bind="{{ ownerName }}"
+        class="dz-xy-3-15 dz-wh-65-35 dz-tc-D8D2C0 dz-font-body-14 dz-noptr dz-exact-text dz-bold">
+    -
+  </span>
+  <span data-dz="text" data-name="ownerRowSub"
+        data-bind="{{ ownerSub }}"
+        class="dz-xy-3-50 dz-wh-65-35 dz-tc-6A6560 dz-font-body-12 dz-noptr dz-exact-text">
+    -
+  </span>
+  <span data-dz="text" data-name="ownerRowBadge"
+        data-bind="{{ ownerBadge }}"
+        class="dz-xy-70-25 dz-wh-28-50 dz-tc-D4A44C dz-font-body-12 dz-noptr dz-exact-text dz-text-right dz-text-vc dz-bold">
+    -
+  </span>
+</div>
+
+<script src="dzml-runtime.js"></script>
+</body>
+</html>

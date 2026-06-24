@@ -260,7 +260,7 @@ GridSpacerWidgetClass licensePanel {
    hexactsize 1
    vexactsize 1
    valign center_ref
-   color 0.9961 0.9961 0.9961 1
+   color 0.8471 0.8235 0.7529 1
    ignorepointer 1
    image0 "set:traderx_icons image:padlock"
    mode blend
@@ -275,7 +275,7 @@ GridSpacerWidgetClass licensePanel {
    hexactsize 0
    vexactsize 0
    valign center_ref
-   "text color" 0.9961 0.9961 0.9961 1
+   color 0.8471 0.8235 0.7529 1
    font "TraderX/datasets/fonts/oswalt28"
    ignorepointer 1
    "exact text" 1

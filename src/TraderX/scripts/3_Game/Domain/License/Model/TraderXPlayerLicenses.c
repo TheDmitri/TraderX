@@ -39,5 +39,17 @@ class TraderXPlayerLicenses
         }
         return false;
     }
+
+    // Category gating stores license NAMES (TraderXCategory.licensesRequired), so the
+    // ownership check must match by name, not by the generated UUID.
+    bool HasLicenseByName(string licenseName)
+    {
+        for(int i = 0; i < licenses.Count(); i++)
+        {
+            if(CF_String.EqualsIgnoreCase(licenses[i].licenseName, licenseName))
+                return true;
+        }
+        return false;
+    }
 }
 

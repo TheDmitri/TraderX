@@ -51,7 +51,7 @@
           data-image-stretch="stretch_w_h"/>
       <span data-dz="text"
           data-name="emptyCartText"
-          class="dz-xy-0-50 dz-wh-100-30 dz-tc-3A4050 dz-font-body-14 dz-noptr dz-exact-text dz-text-center">
+          class="dz-xy-0-50 dz-wh-100-30 dz-c-6A6560 dz-font-body-14 dz-noptr dz-exact-text dz-text-center">
         #tpm_add_items_to_cart
       </span>
     </div>
@@ -103,19 +103,23 @@
         data-style="TXBtnPrimary"
         data-on-click="OnCheckoutClick"
         class="dz-xy-3-48 dz-wh-94-46 dz-tc-FE dz-tc-D8D2C0 dz-font-heading-22">
-      <img data-dz="image"
-          data-name="purchaseBtnIcon"
-          class="dz-xy-28-0 dz-wh-32px-32px dz-align-y-center dz-c-D8D2C0 dz-noptr"
-          data-image="set:traderx_icons image:checkout"
-          data-image-mode="blend"
-          data-image-src-alpha="1"
-          data-image-stretch="stretch_w_h"/>
-      <span data-dz="text"
-          data-name="purchaseBtnText"
-          data-bind="{{ checkout_btn_text }}"
-          class="dz-xy-36-0 dz-wh-60-full dz-tc-D8D2C0 dz-font-heading-22 dz-noptr dz-bold dz-text-vc">
-        #tpm_purchase
-      </span>
+      <div data-dz="grid"
+          data-name="purchaseBtnRow"
+          class="dz-xy-0-0 dz-wh-100-1 dz-align-cc dz-noptr dz-cols-2 dz-rows-1 dz-gap-8 dz-fit-h dz-fit-v">
+        <img data-dz="image"
+            data-name="purchaseBtnIcon"
+            class="dz-wh-32px-32px dz-align-cc dz-c-D8D2C0 dz-noptr"
+            data-image="set:traderx_icons image:checkout"
+            data-image-mode="blend"
+            data-image-src-alpha="1"
+            data-image-stretch="stretch_w_h"/>
+        <span data-dz="text"
+            data-name="purchaseBtnText"
+            data-bind="{{ checkout_btn_text }}"
+            class="dz-wh-50-32px dz-c-D8D2C0 dz-font-heading-22 dz-noptr dz-bold dz-text-vc dz-text-center dz-size-to-text-h">
+          #tpm_purchase
+        </span>
+      </div>
     </button>
   </div>
 </div>

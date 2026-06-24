@@ -1,0 +1,14 @@
+MetaFileClass {
+ Name "{0C1A2B3C4D5E6F70}TraderXCarLock/datasets/icons/traderxcarlock_icons.edds"
+ Author "dmitri"
+ ChangeDate 0
+ Configurations {
+  PNGResourceClass PC {
+   SourceFile "traderxcarlock_icons.png"
+  }
+  PNGResourceClass XBOX_ONE : PC {
+  }
+  PNGResourceClass PS4 : PC {
+  }
+ }
+}

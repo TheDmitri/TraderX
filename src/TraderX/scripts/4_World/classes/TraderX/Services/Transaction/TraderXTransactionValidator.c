@@ -57,6 +57,11 @@ class TraderXTransactionValidator
             return false;
         }
 
+        // trader license validation
+        if(!ValidateTraderLicenses(npc, player, errorMessage)){
+            return false;
+        }
+
         // money validation - skip if price is zero (free items)
         int totalPrice = transaction.GetTotalPrice().GetAmount();
         if(totalPrice > 0 && TraderXCurrencyService.GetInstance().GetPlayerMoneyFromAllCurrency(player, npc.GetCurrenciesAccepted()) < totalPrice){
@@ -92,7 +97,19 @@ class TraderXTransactionValidator
             GetTraderXLogger().LogDebug("ValidateSellTransaction : " + errorMessage);
             return false;
         }
-        
+
+        // trader license validation
+        TraderXNpc npc = TraderXNpcService.GetInstance().GetNpcById(transaction.GetTraderId());
+        if(!npc){
+            errorMessage = "Npc wasn't found";
+            GetTraderXLogger().LogDebug("ValidateSellTransaction : " + errorMessage);
+            return false;
+        }
+
+        if(!ValidateTraderLicenses(npc, player, errorMessage)){
+            return false;
+        }
+
         // item possession validation
         if (!PlayerHasItem(player, transaction))
         {
@@ -104,6 +121,27 @@ class TraderXTransactionValidator
         return true;
     }
     
+    // Server-side trader gate: the player must own every license the trader requires.
+    // Client hides the trade action too, but this is the authoritative check.
+    private bool ValidateTraderLicenses(TraderXNpc npc, PlayerBase player, out string errorMessage)
+    {
+        if(!npc.GetLicensesRequired() || npc.GetLicensesRequired().Count() == 0)
+            return true;
+
+        string playerId = "";
+        if(player && player.GetIdentity())
+            playerId = player.GetIdentity().GetPlainId();
+
+        if(!TraderXLicenseService.GetInstance().HasLicensesForPlayer(playerId, npc.GetLicensesRequired()))
+        {
+            errorMessage = "Missing required trader license";
+            GetTraderXLogger().LogDebug("ValidateTraderLicenses : " + errorMessage);
+            return false;
+        }
+
+        return true;
+    }
+
     private bool PlayerHasItem(PlayerBase player, TraderXTransaction transaction)
     {
         if (!transaction.HasNetworkId())

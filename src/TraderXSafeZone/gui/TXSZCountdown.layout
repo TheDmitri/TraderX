@@ -1,0 +1,46 @@
+PanelWidgetClass countdownRoot {
+ position 1572 170
+ hexactpos 1
+ vexactpos 1
+ size 330 40
+ hexactsize 1
+ vexactsize 1
+ ignorepointer 1
+ priority 999
+ style TXCard
+ color 0.9961 0.9961 0.9961 1
+ {
+  PanelWidgetClass leftRule {
+   position 0 0
+   hexactpos 1
+   vexactpos 1
+   size 3 40
+   hexactsize 1
+   vexactsize 1
+   color 0.6902 0.2824 0.1647 1
+   ignorepointer 1
+   style rover_sim_colorable
+  }
+  TextWidgetClass countdownLabel {
+   position 14 0
+   hexactpos 1
+   vexactpos 1
+   size 308 40
+   hexactsize 1
+   vexactsize 1
+   ignorepointer 1
+   color 0.8471 0.8235 0.7529 1
+   font "TraderX/datasets/fonts/oswalt14"
+   "exact text" 1
+   "text valign" center
+   wrap 1
+   text "You are leaving the safezone in 30 seconds"
+   scriptclass "TextBinding"
+   {
+    ScriptParamsClass {
+     Binding_Expression "{{ countdownText }}"
+    }
+   }
+  }
+ }
+}

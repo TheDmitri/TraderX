@@ -21,3 +21,51 @@ scope   = "client"
 name    = "TraderX Client Logs"
 path    = "~/.steam/steam/steamapps/compatdata/221100/pfx/drive_c/users/steamuser/Local Settings/Application Data/DayZ/TraderX/TraderXLogs/Logs"
 pattern = '\.log$'
+
+# Per-project standalone loggers. Each mod writes its own files under
+# $profile:TraderX/<Mod>/Logs/<TAG>_<ts>.log (independent of the DayZular logger).
+# The "<Mod> Server|Client Logs" tasks tail these directly — no grep needed.
+
+[[logs.custom]]
+scope   = "server"
+name    = "Banking Server Logs"
+path    = "~/dayz-server-profile/TraderX/TraderXBanking/Logs"
+pattern = '\.log$'
+[[logs.custom]]
+scope   = "client"
+name    = "Banking Client Logs"
+path    = "~/.steam/steam/steamapps/compatdata/221100/pfx/drive_c/users/steamuser/Local Settings/Application Data/DayZ/TraderX/TraderXBanking/Logs"
+pattern = '\.log$'
+
+[[logs.custom]]
+scope   = "server"
+name    = "Garage Server Logs"
+path    = "~/dayz-server-profile/TraderX/TraderXGarage/Logs"
+pattern = '\.log$'
+[[logs.custom]]
+scope   = "client"
+name    = "Garage Client Logs"
+path    = "~/.steam/steam/steamapps/compatdata/221100/pfx/drive_c/users/steamuser/Local Settings/Application Data/DayZ/TraderX/TraderXGarage/Logs"
+pattern = '\.log$'
+
+[[logs.custom]]
+scope   = "server"
+name    = "SafeZone Server Logs"
+path    = "~/dayz-server-profile/TraderX/TraderXSafeZone/Logs"
+pattern = '\.log$'
+[[logs.custom]]
+scope   = "client"
+name    = "SafeZone Client Logs"
+path    = "~/.steam/steam/steamapps/compatdata/221100/pfx/drive_c/users/steamuser/Local Settings/Application Data/DayZ/TraderX/TraderXSafeZone/Logs"
+pattern = '\.log$'
+
+[[logs.custom]]
+scope   = "server"
+name    = "CarLock Server Logs"
+path    = "~/dayz-server-profile/TraderX/TraderXCarLock/Logs"
+pattern = '\.log$'
+[[logs.custom]]
+scope   = "client"
+name    = "CarLock Client Logs"
+path    = "~/.steam/steam/steamapps/compatdata/221100/pfx/drive_c/users/steamuser/Local Settings/Application Data/DayZ/TraderX/TraderXCarLock/Logs"
+pattern = '\.log$'

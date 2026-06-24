@@ -149,7 +149,14 @@ class TraderXTransactionService : DayZularService
                 calculatedPrice, transactionPrice, product.className, product.GetProductId(), currentStock, product.coefficient));
             return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.purchaseFailedPrefix + settings.invalidPrice);
         }
-        
+
+        // License products grant a license to the player instead of spawning an item.
+        // Detected by the product className matching a configured license name.
+        TraderXLicense license = GetTraderXModule().GetSettings().GetLicenseByName(product.className);
+        if (license) {
+            return ProcessLicensePurchase(transaction, player, npc, license, settings);
+        }
+
         // Vehicle multiplier validation - vehicles can only be purchased one at a time
         if (TraderXVehicleTransactionService.GetInstance().IsVehicleProduct(product.className)) {
             if (transaction.GetMultiplier() > 1) {
@@ -291,6 +298,35 @@ class TraderXTransactionService : DayZularService
         return TraderXTransactionResult.CreateSuccess(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.purchaseSuccessful);
     }
     
+    // Handles buying a license: validates ownership, takes payment, grants + persists the
+    // license, and resyncs the client. No item is spawned and product stock is untouched.
+    private TraderXTransactionResult ProcessLicensePurchase(TraderXTransaction transaction, PlayerBase player, TraderXNpc npc, TraderXLicense license, TraderXDynamicTranslationSettings settings)
+    {
+        if (!npc) {
+            return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.purchaseFailedPrefix + settings.traderNotFound);
+        }
+
+        string playerId = player.GetIdentity().GetPlainId();
+        TraderXPlayerLicenses ownedLicenses = TraderXLicenseService.GetInstance().GetServerPlayerLicenses(playerId);
+        if (ownedLicenses && ownedLicenses.HasLicenseByName(license.licenseName)) {
+            return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.purchaseFailedPrefix + "License already owned");
+        }
+
+        int totalPrice = transaction.GetTotalPrice().GetAmount();
+        if (totalPrice > 0) {
+            if (!TraderXCurrencyService.GetInstance().RemoveMoneyAmountFromPlayer(player, totalPrice, npc.GetCurrenciesAccepted())) {
+                return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.purchaseFailedPrefix + settings.insufficientFunds);
+            }
+        }
+
+        if (!TraderXLicenseService.GetInstance().GrantLicense(player, license)) {
+            // Already owned (race) — refund nothing extra; payment already implies ownership.
+            return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.purchaseFailedPrefix + "License already owned");
+        }
+
+        return TraderXTransactionResult.CreateSuccess(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.purchaseSuccessful);
+    }
+
     private TraderXTransactionResult ValidatePresetAttachmentStock(TraderXPreset preset, TraderXTransaction transaction)
     {
         TraderXDynamicTranslationSettings settings = TraderXDynamicTranslationRepository.GetSettings();

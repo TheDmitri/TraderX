@@ -219,22 +219,19 @@ PanelWidgetClass itemCardView {
        }
       }
       GridSpacerWidgetClass priceGrid {
-       position 0.28 0.46
+       position 0.12 0.46
        hexactpos 0
        vexactpos 0
-       size 0.4 0.32
+       size 0.76 0.32
        hexactsize 0
        vexactsize 0
        ignorepointer 1
-       Columns 2
+       Columns 4
        Rows 1
        Margin 6
        "Size To Content H" 1
        {
         ImageWidgetClass priceIcon {
-         position 0.28 0.46
-         hexactpos 0
-         vexactpos 0
          size 32 32
          hexactsize 1
          vexactsize 1
@@ -246,9 +243,6 @@ PanelWidgetClass itemCardView {
          "stretch mode" stretch_w_h
         }
         TextWidgetClass priceText {
-         position 0.38 0.42
-         hexactpos 0
-         vexactpos 0
          size 0.36 0.4
          hexactsize 0
          vexactsize 0
@@ -264,6 +258,31 @@ PanelWidgetClass itemCardView {
          {
           ScriptParamsClass {
            Binding_Expression "{{ itemPrice }}"
+          }
+         }
+        }
+        PanelWidgetClass priceSpacer {
+         size 28 1
+         hexactsize 1
+         vexactsize 1
+         ignorepointer 1
+        }
+        TextWidgetClass sellPriceText {
+         size 0.36 0.4
+         hexactsize 0
+         vexactsize 0
+         color 0.7843 0.4 0.2902 1
+         color 0.6902 0.6902 0.6902 1
+         font "TraderX/datasets/fonts/jet-brains-mono12"
+         ignorepointer 1
+         "exact text" 1
+         "text valign" center
+         "size to text h" 1
+         text "sell 500"
+         scriptclass "TextBinding"
+         {
+          ScriptParamsClass {
+           Binding_Expression "{{ itemSellPrice }}"
           }
          }
         }

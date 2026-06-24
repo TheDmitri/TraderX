@@ -23,6 +23,17 @@ class TraderXGeneralSettings {
 		return null;
 	}
 
+	TraderXLicense GetLicenseByName(string licenseName)
+	{
+		foreach(TraderXLicense license : licenses)
+		{
+			if(CF_String.EqualsIgnoreCase(license.licenseName, licenseName))
+				return license;
+		}
+
+		return null;
+	}
+
 	void DefaultTraderXGeneralSettings()
 	{
 		GenerateServerID(serverID);
@@ -50,6 +61,19 @@ class TraderXGeneralSettings {
 		traderObjects.Insert(new TraderXObject("Land_Misc_Well_Pump_Yellow",Vector(11610.8466796875,58.61098861694336, 14674.2265625), Vector(126, 0.0, 0.0)));
 		traderObjects.Insert(new TraderXObject("Land_Garage_Office",Vector(11627.701171875, 67.97467041015625, 14805.9326171875), Vector(0, 0.0, 0.0)));
 		traderObjects.Insert(new TraderXObject("Land_Garage_Small",Vector( 11615.798828125, 59.178348541259769,14687.2724609375), Vector(50, 0.0, 0.0)));
+
+		// Service NPCs spawned by the TraderX NPC system for the sub-mods (reserved ids).
+		// 125 = TraderXGarage attendant (TXGConstants.GARAGE_NPC_ID),
+		// 126 = TraderXBanking ATM (TXBConstants.BANK_ID).
+		// Coords from the default TraderPlus config (garage trader + BANK_ATM).
+		TraderXNpc garageNpc = new TraderXNpc(0, "SurvivorM_Peter", "Mechanic", "Garage", Vector(11632.63, 58.13, 14658.4), Vector(250, 0, 0), new array<ref TraderXLoadoutItem>(), new array<string>(), new array<string>());
+		garageNpc.npcId = 125;
+		traders.Insert(garageNpc);
+
+		TraderXNpc bankNpc = new TraderXNpc(0, "TraderPlus_BANK_ATM", "ATM", "Bank", Vector(11623.0, 57.91, 14676.0), Vector(-37, 0, 0), new array<ref TraderXLoadoutItem>(), new array<string>(), new array<string>());
+		bankNpc.npcId = 126;
+		traders.Insert(bankNpc);
+
 		TraderXSettingsRepository.Save(this);
 	}
 

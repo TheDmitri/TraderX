@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, initial-scale=1">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+  <style>
+    html, body { margin: 0; padding: 0; overflow: hidden; }
+    body.dz-viewport { width: 1920px; height: 1080px; background: #08090c url('bg-preview.jpg') center/cover no-repeat; }
+    @media (max-width: 1920px) {
+      body.dz-viewport { transform: scale(calc(100vw / 1920)); transform-origin: top left; }
+    }
+  </style>
+
+  <style type="dz-styles">
+    .TXCardElevated { --bg: #0f1218; --border: #3a4050; }
+    .TXDivider      { --bg: #1a1e28; }
+    .TXBtnAccent  { --type: button; --bg: #2a2214; --border: #8a6a30;
+                    --highlight-bg: #3a2e1a; --pushed-bg: #1d180e; }
+    .TXBtnDefault { --type: button; --bg: #14161e; --border: #252a36;
+                    --highlight-bg: #1a1e28; --pushed-bg: #0e1018; }
+    .TXProgressFill { --bg: #d4a44c; --radius: 3; }
+    .TXSurface { --bg: #0c0e13; --border: #252a36; }
+  </style>
+</head>
+<body class="dz-viewport">
+
+<!-- TXBeansPromoComponent - fullscreen auto-advancing carousel. slide0..5 + dot0..5 from the .c. -->
+<div data-dz="panel" data-name="promoRoot" class="dz-xy-0-0 dz-wh-full dz-c-000000E6">
+
+  <button data-dz="button" data-name="promoBackdrop" data-on-click="OnCloseClick"
+          class="dz-xy-0-0 dz-wh-full dz-c-00000000"></button>
+
+  <div data-dz="panel" data-name="promoCard" data-style="TXCardElevated"
+       class="dz-xy-0-0 dz-wh-96-94 dz-align-cc dz-c-FE">
+
+    <div data-dz="panel" data-name="promoTopBar" data-style="TXProgressFill"
+         class="dz-xy-0-0 dz-wh-100-0.4 dz-c-FE dz-noptr"></div>
+
+    <!-- ============ FIXED HEADER ============ -->
+    <img data-dz="image" data-name="promoLogo"
+         data-image="TraderX/datasets/images/dzb_launcher_logo.edds"
+         data-image-mode="blend" data-image-src-alpha="1" data-image-stretch="stretch_w_h"
+         class="dz-xy-2-2 dz-wh-174px-116px dz-c-FF dz-noptr" />
+
+    <span data-dz="text" data-name="promoTitle1"
+          class="dz-xy-13-3 dz-wh-60-6 dz-c-F2F2F2 dz-font-heading-28 dz-noptr dz-exact-text dz-bold">
+      Stop fighting the launcher.
+    </span>
+    <span data-dz="text" data-name="promoTitle2"
+          class="dz-xy-13-9 dz-wh-60-6 dz-c-D4A44C dz-font-heading-28 dz-noptr dz-exact-text dz-bold">
+      Start playing the game.
+    </span>
+    <span data-dz="text" data-name="promoMaker"
+          class="dz-xy-55-5 dz-wh-43-5 dz-c-9A9488 dz-font-body-14 dz-noptr dz-exact-text dz-text-right">
+      Made by Dmitri - for the DayZ community.
+    </span>
+
+    <div data-dz="panel" data-name="promoDiv1" data-style="TXDivider"
+         class="dz-xy-2-17 dz-wh-96-0.2 dz-c-FE dz-noptr"></div>
+
+    <!-- ============ CAROUSEL SLIDES (stacked, one shown at a time) ============ -->
+
+    <!-- slide0 : One-click join (server browser shot) -->
+    <div data-dz="panel" data-name="slide0" class="dz-xy-2-19 dz-wh-96-60 dz-c-00000000 dz-noptr">
+      <span data-dz="text" data-name="s0kick" class="dz-xy-0-0 dz-wh-100-5 dz-c-D4A44C dz-font-body-16 dz-noptr dz-exact-text dz-text-center dz-bold">SERVER BROWSER</span>
+      <div data-dz="panel" data-name="s0frame" data-style="TXSurface" class="dz-xy-24.5-6 dz-wh-51-86 dz-c-FE dz-noptr dz-clip">
+        <img data-dz="image" data-name="shotServers" data-image="TraderX/datasets/images/servers.edds" data-image-stretch="stretch_w_h" class="dz-xy-0-0 dz-wh-full dz-c-FF dz-noptr" />
+      </div>
+      <span data-dz="text" data-name="s0cap" class="dz-xy-0-93 dz-wh-100-7 dz-c-C8BE9A dz-font-body-16 dz-noptr dz-exact-text dz-text-center dz-wrap">Click a server - mods sync, you're in. No copying mod IDs into Steam.</span>
+    </div>
+
+    <!-- slide1 : Every mod (mod manager shot) -->
+    <div data-dz="panel" data-name="slide1" class="dz-xy-2-19 dz-wh-96-60 dz-c-00000000 dz-noptr dz-hidden">
+      <span data-dz="text" data-name="s1kick" class="dz-xy-0-0 dz-wh-100-5 dz-c-D4A44C dz-font-body-16 dz-noptr dz-exact-text dz-text-center dz-bold">MOD MANAGER</span>
+      <div data-dz="panel" data-name="s1frame" data-style="TXSurface" class="dz-xy-24.5-6 dz-wh-51-86 dz-c-FE dz-noptr dz-clip">
+        <img data-dz="image" data-name="shotMods" data-image="TraderX/datasets/images/mods.edds" data-image-stretch="stretch_w_h" class="dz-xy-0-0 dz-wh-full dz-c-FF dz-noptr" />
+      </div>
+      <span data-dz="text" data-name="s1cap" class="dz-xy-0-93 dz-wh-100-7 dz-c-C8BE9A dz-font-body-16 dz-noptr dz-exact-text dz-text-center dz-wrap">One install. Every server, every mod - managed and auto-synced for you.</span>
+    </div>
+
+    <!-- slide2 : Free for players -->
+    <div data-dz="panel" data-name="slide2" class="dz-xy-2-19 dz-wh-96-60 dz-c-00000000 dz-noptr dz-hidden">
+      <span data-dz="text" data-name="s2kick" class="dz-xy-0-16 dz-wh-100-6 dz-c-9A9488 dz-font-body-16 dz-noptr dz-exact-text dz-text-center dz-bold">FOR PLAYERS</span>
+      <span data-dz="text" data-name="s2head" class="dz-xy-5-28 dz-wh-90-22 dz-c-D4A44C dz-font-heading-48 dz-noptr dz-exact-text dz-text-center dz-bold">Free. Actually free.</span>
+      <span data-dz="text" data-name="s2body" class="dz-xy-18-58 dz-wh-64-28 dz-c-C8BE9A dz-font-body-22 dz-noptr dz-exact-text dz-text-center dz-wrap">No premium tier. No "pro" features. No banner ads waiting while servers load.</span>
+    </div>
+
+    <!-- slide3 : Fair for owners - transparent pricing + guaranteed visibility -->
+    <div data-dz="panel" data-name="slide3" class="dz-xy-2-19 dz-wh-96-60 dz-c-00000000 dz-noptr dz-hidden">
+      <span data-dz="text" data-name="s3kick" class="dz-xy-0-16 dz-wh-100-6 dz-c-9A9488 dz-font-body-16 dz-noptr dz-exact-text dz-text-center dz-bold">FOR SERVER OWNERS</span>
+      <span data-dz="text" data-name="s3head" class="dz-xy-5-28 dz-wh-90-22 dz-c-D4A44C dz-font-heading-48 dz-noptr dz-exact-text dz-text-center dz-bold">Transparent pricing.</span>
+      <span data-dz="text" data-name="s3body" class="dz-xy-16-58 dz-wh-68-28 dz-c-C8BE9A dz-font-body-22 dz-noptr dz-exact-text dz-text-center dz-wrap">Every cent disclosed. Buy a boost, get guaranteed visibility time - no auctions, no surprises.</span>
+    </div>
+
+    <!-- slide4 : Community (built in public shot) -->
+    <div data-dz="panel" data-name="slide4" class="dz-xy-2-19 dz-wh-96-60 dz-c-00000000 dz-noptr dz-hidden">
+      <span data-dz="text" data-name="s4kick" class="dz-xy-0-0 dz-wh-100-5 dz-c-D4A44C dz-font-body-16 dz-noptr dz-exact-text dz-text-center dz-bold">BUILT IN PUBLIC</span>
+      <div data-dz="panel" data-name="s4frame" data-style="TXSurface" class="dz-xy-24.5-6 dz-wh-51-86 dz-c-FE dz-noptr dz-clip">
+        <img data-dz="image" data-name="shotCommunity" data-image="TraderX/datasets/images/community.edds" data-image-stretch="stretch_w_h" class="dz-xy-0-0 dz-wh-full dz-c-FF dz-noptr" />
+      </div>
+      <span data-dz="text" data-name="s4cap" class="dz-xy-0-93 dz-wh-100-7 dz-c-C8BE9A dz-font-body-16 dz-noptr dz-exact-text dz-text-center dz-wrap">Roadmap, bug tracker, Discord - all open. Made for the community, not a funnel.</span>
+    </div>
+
+    <!-- slide5 : Verified, safe to install -->
+    <div data-dz="panel" data-name="slide5" class="dz-xy-2-19 dz-wh-96-60 dz-c-00000000 dz-noptr dz-hidden">
+      <span data-dz="text" data-name="s5kick" class="dz-xy-0-16 dz-wh-100-6 dz-c-9A9488 dz-font-body-16 dz-noptr dz-exact-text dz-text-center dz-bold">SAFE TO INSTALL</span>
+      <span data-dz="text" data-name="s5head" class="dz-xy-5-28 dz-wh-90-22 dz-c-D4A44C dz-font-heading-48 dz-noptr dz-exact-text dz-text-center dz-bold">Verified builds.</span>
+      <span data-dz="text" data-name="s5body" class="dz-xy-18-58 dz-wh-64-28 dz-c-C8BE9A dz-font-body-22 dz-noptr dz-exact-text dz-text-center dz-wrap">SHA-256 verified. Auto-updates. Works with Steam DayZ on Windows and Linux.</span>
+    </div>
+
+    <!-- ============ DOT INDICATORS (recolored by the .c) ============ -->
+    <div data-dz="panel" data-name="dot0" data-style="TXProgressFill" class="dz-xy-45.7-81 dz-wh-0.9-1.5 dz-c-FE dz-noptr"></div>
+    <div data-dz="panel" data-name="dot1" data-style="TXProgressFill" class="dz-xy-47.4-81 dz-wh-0.9-1.5 dz-c-FE dz-noptr"></div>
+    <div data-dz="panel" data-name="dot2" data-style="TXProgressFill" class="dz-xy-49.1-81 dz-wh-0.9-1.5 dz-c-FE dz-noptr"></div>
+    <div data-dz="panel" data-name="dot3" data-style="TXProgressFill" class="dz-xy-50.8-81 dz-wh-0.9-1.5 dz-c-FE dz-noptr"></div>
+    <div data-dz="panel" data-name="dot4" data-style="TXProgressFill" class="dz-xy-52.5-81 dz-wh-0.9-1.5 dz-c-FE dz-noptr"></div>
+    <div data-dz="panel" data-name="dot5" data-style="TXProgressFill" class="dz-xy-54.2-81 dz-wh-0.9-1.5 dz-c-FE dz-noptr"></div>
+
+    <!-- ============ ACTIONS + URL ============ -->
+    <span data-dz="text" data-name="promoUrl"
+          class="dz-xy-2-86 dz-wh-30-6 dz-c-D4A44C dz-font-mono-16 dz-noptr dz-exact-text dz-text-vc dz-bold">
+      dayzbeanslauncher.com
+    </span>
+    <button data-dz="button" data-name="promoLaterBtn" data-style="TXBtnDefault" data-on-click="OnCloseClick"
+            class="dz-xy-66-86 dz-wh-15-8 dz-c-FE dz-tc-9A9488 dz-font-body-16 dz-exact-text dz-bold">
+      MAYBE LATER
+    </button>
+    <button data-dz="button" data-name="promoGetBtn" data-style="TXBtnAccent" data-on-click="OnGetLauncher"
+            class="dz-xy-82-86 dz-wh-16-8 dz-c-FE dz-tc-D4A44C dz-font-body-16 dz-exact-text dz-bold">
+      GET THE LAUNCHER
+    </button>
+  </div>
+</div>
+
+<script src="dzml-runtime.js"></script>
+</body>
+</html>

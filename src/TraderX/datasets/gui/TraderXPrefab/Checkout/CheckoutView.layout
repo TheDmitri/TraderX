@@ -121,7 +121,7 @@ PanelWidgetClass CheckOutView {
        size 1 0.3
        hexactsize 0
        vexactsize 0
-       "text color" 0.2275 0.251 0.3137 1
+       color 0.4157 0.3961 0.3765 1
        font "TraderX/datasets/fonts/oswalt14"
        ignorepointer 1
        "exact text" 1
@@ -269,35 +269,53 @@ PanelWidgetClass CheckOutView {
      color 0.9961 0.9961 0.9961 1
      scriptclass "ButtonBinding"
      {
-      ImageWidgetClass purchaseBtnIcon {
-       position 0.28 0
+      GridSpacerWidgetClass purchaseBtnRow {
+       position 0 0
        hexactpos 0
        vexactpos 0
-       size 32 32
-       hexactsize 1
-       vexactsize 1
+       size 1 0.01
+       hexactsize 0
+       vexactsize 0
+       halign center_ref
        valign center_ref
-       color 0.8471 0.8235 0.7529 1
        ignorepointer 1
-       image0 "set:traderx_icons image:checkout"
-       mode blend
-       "src alpha" 1
-       "stretch mode" stretch_w_h
-      }
-      TextWidgetClass purchaseBtnText {
-       position 0.36 0
-       hexactpos 0
-       vexactpos 0
-       "text color" 0.8471 0.8235 0.7529 1
-       font "TraderX/datasets/fonts/oswalt22"
-       ignorepointer 1
-       style Bold
-       "text valign" center
-       text "#tpm_purchase"
-       scriptclass "TextBinding"
+       Columns 2
+       Rows 1
+       Margin 8
+       "Size To Content H" 1
+       "Size To Content V" 1
        {
-        ScriptParamsClass {
-         Binding_Expression "{{ checkout_btn_text }}"
+        ImageWidgetClass purchaseBtnIcon {
+         size 32 32
+         hexactsize 1
+         vexactsize 1
+         halign center_ref
+         valign center_ref
+         color 0.8471 0.8235 0.7529 1
+         ignorepointer 1
+         image0 "set:traderx_icons image:checkout"
+         mode blend
+         "src alpha" 1
+         "stretch mode" stretch_w_h
+        }
+        TextWidgetClass purchaseBtnText {
+         size 0.5 32
+         hexactsize 0
+         vexactsize 1
+         color 0.8471 0.8235 0.7529 1
+         font "TraderX/datasets/fonts/oswalt22"
+         ignorepointer 1
+         style Bold
+         "text valign" center
+         "text halign" center
+         "size to text h" 1
+         text "#tpm_purchase"
+         scriptclass "TextBinding"
+         {
+          ScriptParamsClass {
+           Binding_Expression "{{ checkout_btn_text }}"
+          }
+         }
         }
        }
       }

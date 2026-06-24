@@ -1,0 +1,600 @@
+PanelWidgetClass TXCLBackdrop {
+ position 0 0
+ hexactpos 0
+ vexactpos 0
+ size 1 1
+ hexactsize 0
+ vexactsize 0
+ {
+  PanelWidgetClass lockCard {
+   position 0.37 0.25
+   hexactpos 0
+   vexactpos 0
+   size 0.26 0.27
+   hexactsize 0
+   vexactsize 0
+   style TXCard
+   color 0.9961 0.9961 0.9961 1
+   {
+    PanelWidgetClass lockHeader {
+     position 0 0
+     hexactpos 0
+     vexactpos 0
+     size 1 0.17
+     hexactsize 0
+     vexactsize 0
+     style TXSurface
+     color 0.9961 0.9961 0.9961 1
+     {
+      TextWidgetClass titleText {
+       position 0.06 0
+       hexactpos 0
+       vexactpos 0
+       size 0.68 1
+       hexactsize 0
+       vexactsize 0
+       color 0.8471 0.8235 0.7529 1
+       font "TraderXCarLock/datasets/fonts/oswalt16"
+       style Bold
+       ignorepointer 1
+       "text valign" center
+       "exact text" 1
+       text "VEHICLE LOCK"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ title_text }}"
+        }
+       }
+      }
+      ButtonWidgetClass closeBtn {
+       position 0.85 0.22
+       hexactpos 0
+       vexactpos 0
+       size 26 26
+       hexactsize 1
+       vexactsize 1
+       "text color" 0.7882 0.1882 0.1882 1
+       font "TraderXCarLock/datasets/fonts/oswalt14"
+       style TXBtnIcon
+       color 0.9961 0.9961 0.9961 1
+       scriptclass "ButtonBinding"
+       {
+        ImageWidgetClass closeIcon {
+         position 0 0
+         hexactpos 0
+         vexactpos 0
+         size 1 1
+         hexactsize 0
+         vexactsize 0
+         halign center_ref
+         valign center_ref
+         color 0.9412 0.3961 0.2902 1
+         ignorepointer 1
+         image0 "set:traderxcarlock_icons image:close"
+         mode blend
+         "src alpha" 1
+         "stretch mode" stretch_w_h
+        }
+       }
+       {
+        ScriptParamsClass {
+         OnClick "OnCloseClick"
+        }
+       }
+      }
+     }
+    }
+    EditBoxWidgetClass codeInput {
+     position 0.05 0.23
+     hexactpos 0
+     vexactpos 0
+     size 0.77 0.18
+     hexactsize 0
+     vexactsize 0
+     font "TraderXCarLock/datasets/fonts/jet-brains-mono22"
+     style Bold
+     "text halign" center
+     "text valign" center
+     style TXInputField
+     color 0.9961 0.9961 0.9961 1
+     scriptclass "EditBoxBinding"
+     {
+      ScriptParamsClass {
+       OnChange "OnCodeChanged"
+      }
+     }
+    }
+    ButtonWidgetClass kbToggleBtn {
+     position 0.84 0.23
+     hexactpos 0
+     vexactpos 0
+     size 0.12 0.18
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.7686 0.6392 0.3529 1
+     font "TraderXCarLock/datasets/fonts/oswalt14"
+     style TXBtnIcon
+     color 0.9961 0.9961 0.9961 1
+     scriptclass "ButtonBinding"
+     {
+      ImageWidgetClass kbToggleIcon {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 0.6 0.6
+       hexactsize 0
+       vexactsize 0
+       halign center_ref
+       valign center_ref
+       color 0.7686 0.6392 0.3529 1
+       ignorepointer 1
+       image0 "set:traderxcarlock_icons image:keyboard"
+       mode blend
+       "src alpha" 1
+       "stretch mode" stretch_w_h
+      }
+     }
+     {
+      ScriptParamsClass {
+       OnClick "OnToggleKeypad"
+      }
+     }
+    }
+    TextWidgetClass messageText {
+     position 0.04 0.45
+     hexactpos 0
+     vexactpos 0
+     size 0.92 0.1
+     hexactsize 0
+     vexactsize 0
+     color 0.6039 0.5804 0.5333 1
+     font "TraderXCarLock/datasets/fonts/oswalt14"
+     ignorepointer 1
+     "text halign" center
+     "exact text" 1
+     text "ENTER PASSWORD (8 digits)"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ message_text }}"
+      }
+     }
+    }
+    ButtonWidgetClass btnClear {
+     position 0.05 0.6
+     hexactpos 0
+     vexactpos 0
+     size 0.43 0.15
+     hexactsize 0
+     vexactsize 0
+     font "TraderXCarLock/datasets/fonts/oswalt16"
+     style TXBtnDanger
+     color 0.9961 0.9961 0.9961 1
+     scriptclass "ButtonBinding"
+     {
+      TextWidgetClass lblClear {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 1 1
+       hexactsize 0
+       vexactsize 0
+       color 0.9098 0.7529 0.7216 1
+       font "TraderXCarLock/datasets/fonts/oswalt16"
+       style Bold
+       ignorepointer 1
+       "text halign" center
+       "text valign" center
+       "exact text" 1
+       text "CLEAR"
+      }
+     }
+     {
+      ScriptParamsClass {
+       OnClick "OnClearClick"
+      }
+     }
+    }
+    ButtonWidgetClass btnEnter {
+     position 0.52 0.6
+     hexactpos 0
+     vexactpos 0
+     size 0.43 0.15
+     hexactsize 0
+     vexactsize 0
+     font "TraderXCarLock/datasets/fonts/oswalt16"
+     style TXBtnPrimary
+     color 0.9961 0.9961 0.9961 1
+     scriptclass "ButtonBinding"
+     {
+      TextWidgetClass lblEnter {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 1 1
+       hexactsize 0
+       vexactsize 0
+       color 0.8471 0.9098 0.7529 1
+       font "TraderXCarLock/datasets/fonts/oswalt16"
+       style Bold
+       ignorepointer 1
+       "text halign" center
+       "text valign" center
+       "exact text" 1
+       text "CONFIRM"
+      }
+     }
+     {
+      ScriptParamsClass {
+       OnClick "OnEnterClick"
+      }
+     }
+    }
+   }
+  }
+  PanelWidgetClass keypadPanel {
+   position 0.37 0.53
+   hexactpos 0
+   vexactpos 0
+   size 0.26 0.3
+   hexactsize 0
+   vexactsize 0
+   visible 0
+   style TXCard
+   color 0.9961 0.9961 0.9961 1
+   {
+    ButtonWidgetClass btnDigit1 {
+     position 0.04 0.04
+     hexactpos 0
+     vexactpos 0
+     size 0.28 0.2
+     hexactsize 0
+     vexactsize 0
+     font "TraderXCarLock/datasets/fonts/oswalt22"
+     style TXBtnDefault
+     color 0.9961 0.9961 0.9961 1
+     scriptclass "ButtonBinding"
+     {
+      TextWidgetClass lblDigit1 {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 1 1
+       hexactsize 0
+       vexactsize 0
+       color 0.8471 0.8235 0.7529 1
+       font "TraderXCarLock/datasets/fonts/oswalt22"
+       style Bold
+       ignorepointer 1
+       "text halign" center
+       "text valign" center
+       "exact text" 1
+       text "1"
+      }
+     }
+     {
+      ScriptParamsClass {
+       OnClick "OnDigit1"
+      }
+     }
+    }
+    ButtonWidgetClass btnDigit2 {
+     position 0.36 0.04
+     hexactpos 0
+     vexactpos 0
+     size 0.28 0.2
+     hexactsize 0
+     vexactsize 0
+     font "TraderXCarLock/datasets/fonts/oswalt22"
+     style TXBtnDefault
+     color 0.9961 0.9961 0.9961 1
+     scriptclass "ButtonBinding"
+     {
+      TextWidgetClass lblDigit2 {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 1 1
+       hexactsize 0
+       vexactsize 0
+       color 0.8471 0.8235 0.7529 1
+       font "TraderXCarLock/datasets/fonts/oswalt22"
+       style Bold
+       ignorepointer 1
+       "text halign" center
+       "text valign" center
+       "exact text" 1
+       text "2"
+      }
+     }
+     {
+      ScriptParamsClass {
+       OnClick "OnDigit2"
+      }
+     }
+    }
+    ButtonWidgetClass btnDigit3 {
+     position 0.68 0.04
+     hexactpos 0
+     vexactpos 0
+     size 0.28 0.2
+     hexactsize 0
+     vexactsize 0
+     font "TraderXCarLock/datasets/fonts/oswalt22"
+     style TXBtnDefault
+     color 0.9961 0.9961 0.9961 1
+     scriptclass "ButtonBinding"
+     {
+      TextWidgetClass lblDigit3 {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 1 1
+       hexactsize 0
+       vexactsize 0
+       color 0.8471 0.8235 0.7529 1
+       font "TraderXCarLock/datasets/fonts/oswalt22"
+       style Bold
+       ignorepointer 1
+       "text halign" center
+       "text valign" center
+       "exact text" 1
+       text "3"
+      }
+     }
+     {
+      ScriptParamsClass {
+       OnClick "OnDigit3"
+      }
+     }
+    }
+    ButtonWidgetClass btnDigit4 {
+     position 0.04 0.27
+     hexactpos 0
+     vexactpos 0
+     size 0.28 0.2
+     hexactsize 0
+     vexactsize 0
+     font "TraderXCarLock/datasets/fonts/oswalt22"
+     style TXBtnDefault
+     color 0.9961 0.9961 0.9961 1
+     scriptclass "ButtonBinding"
+     {
+      TextWidgetClass lblDigit4 {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 1 1
+       hexactsize 0
+       vexactsize 0
+       color 0.8471 0.8235 0.7529 1
+       font "TraderXCarLock/datasets/fonts/oswalt22"
+       style Bold
+       ignorepointer 1
+       "text halign" center
+       "text valign" center
+       "exact text" 1
+       text "4"
+      }
+     }
+     {
+      ScriptParamsClass {
+       OnClick "OnDigit4"
+      }
+     }
+    }
+    ButtonWidgetClass btnDigit5 {
+     position 0.36 0.27
+     hexactpos 0
+     vexactpos 0
+     size 0.28 0.2
+     hexactsize 0
+     vexactsize 0
+     font "TraderXCarLock/datasets/fonts/oswalt22"
+     style TXBtnDefault
+     color 0.9961 0.9961 0.9961 1
+     scriptclass "ButtonBinding"
+     {
+      TextWidgetClass lblDigit5 {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 1 1
+       hexactsize 0
+       vexactsize 0
+       color 0.8471 0.8235 0.7529 1
+       font "TraderXCarLock/datasets/fonts/oswalt22"
+       style Bold
+       ignorepointer 1
+       "text halign" center
+       "text valign" center
+       "exact text" 1
+       text "5"
+      }
+     }
+     {
+      ScriptParamsClass {
+       OnClick "OnDigit5"
+      }
+     }
+    }
+    ButtonWidgetClass btnDigit6 {
+     position 0.68 0.27
+     hexactpos 0
+     vexactpos 0
+     size 0.28 0.2
+     hexactsize 0
+     vexactsize 0
+     font "TraderXCarLock/datasets/fonts/oswalt22"
+     style TXBtnDefault
+     color 0.9961 0.9961 0.9961 1
+     scriptclass "ButtonBinding"
+     {
+      TextWidgetClass lblDigit6 {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 1 1
+       hexactsize 0
+       vexactsize 0
+       color 0.8471 0.8235 0.7529 1
+       font "TraderXCarLock/datasets/fonts/oswalt22"
+       style Bold
+       ignorepointer 1
+       "text halign" center
+       "text valign" center
+       "exact text" 1
+       text "6"
+      }
+     }
+     {
+      ScriptParamsClass {
+       OnClick "OnDigit6"
+      }
+     }
+    }
+    ButtonWidgetClass btnDigit7 {
+     position 0.04 0.5
+     hexactpos 0
+     vexactpos 0
+     size 0.28 0.2
+     hexactsize 0
+     vexactsize 0
+     font "TraderXCarLock/datasets/fonts/oswalt22"
+     style TXBtnDefault
+     color 0.9961 0.9961 0.9961 1
+     scriptclass "ButtonBinding"
+     {
+      TextWidgetClass lblDigit7 {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 1 1
+       hexactsize 0
+       vexactsize 0
+       color 0.8471 0.8235 0.7529 1
+       font "TraderXCarLock/datasets/fonts/oswalt22"
+       style Bold
+       ignorepointer 1
+       "text halign" center
+       "text valign" center
+       "exact text" 1
+       text "7"
+      }
+     }
+     {
+      ScriptParamsClass {
+       OnClick "OnDigit7"
+      }
+     }
+    }
+    ButtonWidgetClass btnDigit8 {
+     position 0.36 0.5
+     hexactpos 0
+     vexactpos 0
+     size 0.28 0.2
+     hexactsize 0
+     vexactsize 0
+     font "TraderXCarLock/datasets/fonts/oswalt22"
+     style TXBtnDefault
+     color 0.9961 0.9961 0.9961 1
+     scriptclass "ButtonBinding"
+     {
+      TextWidgetClass lblDigit8 {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 1 1
+       hexactsize 0
+       vexactsize 0
+       color 0.8471 0.8235 0.7529 1
+       font "TraderXCarLock/datasets/fonts/oswalt22"
+       style Bold
+       ignorepointer 1
+       "text halign" center
+       "text valign" center
+       "exact text" 1
+       text "8"
+      }
+     }
+     {
+      ScriptParamsClass {
+       OnClick "OnDigit8"
+      }
+     }
+    }
+    ButtonWidgetClass btnDigit9 {
+     position 0.68 0.5
+     hexactpos 0
+     vexactpos 0
+     size 0.28 0.2
+     hexactsize 0
+     vexactsize 0
+     font "TraderXCarLock/datasets/fonts/oswalt22"
+     style TXBtnDefault
+     color 0.9961 0.9961 0.9961 1
+     scriptclass "ButtonBinding"
+     {
+      TextWidgetClass lblDigit9 {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 1 1
+       hexactsize 0
+       vexactsize 0
+       color 0.8471 0.8235 0.7529 1
+       font "TraderXCarLock/datasets/fonts/oswalt22"
+       style Bold
+       ignorepointer 1
+       "text halign" center
+       "text valign" center
+       "exact text" 1
+       text "9"
+      }
+     }
+     {
+      ScriptParamsClass {
+       OnClick "OnDigit9"
+      }
+     }
+    }
+    ButtonWidgetClass btnDigit0 {
+     position 0.36 0.73
+     hexactpos 0
+     vexactpos 0
+     size 0.28 0.2
+     hexactsize 0
+     vexactsize 0
+     font "TraderXCarLock/datasets/fonts/oswalt22"
+     style TXBtnDefault
+     color 0.9961 0.9961 0.9961 1
+     scriptclass "ButtonBinding"
+     {
+      TextWidgetClass lblDigit0 {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 1 1
+       hexactsize 0
+       vexactsize 0
+       color 0.8471 0.8235 0.7529 1
+       font "TraderXCarLock/datasets/fonts/oswalt22"
+       style Bold
+       ignorepointer 1
+       "text halign" center
+       "text valign" center
+       "exact text" 1
+       text "0"
+      }
+     }
+     {
+      ScriptParamsClass {
+       OnClick "OnDigit0"
+      }
+     }
+    }
+   }
+  }
+ }
+}

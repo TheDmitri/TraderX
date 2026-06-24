@@ -92,6 +92,33 @@ Key patterns:
 - Multi-mod service registration via `AppModule.Event_OnRegisterServices`
 - Bootstrap flow: Game loads → AppModule.Bootstrap() → event bus + logger + pipes init → mods register services → lifecycle events fire
 
+### DayZular RPC rules (CRITICAL — these cost real debug time)
+
+RPC bugs here are **silent**: no error, no log, the feature just looks dead client-side. Follow these exactly.
+
+1. **Handler signature is ALWAYS `(PlayerIdentity sender, ParamsReadContext ctx)`** — for BOTH `DayZularRPCType.Server` and `DayZularRPCType.Client` handlers. On the client `sender` is unused but **must still be the first param**. A handler with the wrong arity (e.g. `void OnX(ParamsReadContext ctx)`) is **never invoked** — DayZular can't match it. When an RPC "doesn't arrive," check the handler signature FIRST.
+
+2. **NEVER send a serialized JSON string over RPC.** `new Param1<string>(json)` with `JsonSerializer.WriteToString(...)` hits the DayZ RPC string size cap (~hundreds of chars); large payloads are truncated → client `ReadFromString` fails silently → data never shows. **Send an array of ref DTO objects instead** — DayZular marshals each element over the wire:
+   ```c
+   // server
+   GetDayZularRPCManager().SendRPC(NS, "OnFooReceived", new Param1<ref array<ref FooDTO>>(items), true, identity);
+   // client
+   void OnFooReceived(PlayerIdentity sender, ParamsReadContext ctx) {
+       Param1<ref array<ref FooDTO>> data = new Param1<ref array<ref FooDTO>>(null);
+       if (!ctx.Read(data)) return;
+       FooRepo.Set(data.param1);
+   }
+   ```
+   A single wrapper object `Param1<ref FooView>` (with nested `ref array<ref DTO>` members) also works.
+
+3. **DTOs must be flat & serializable:** primitives, `string`, and `ref array<ref OtherFlatDTO>` only. **NEVER put a live `EntityAI`/`Object`/`Widget`/`Man` in a model that is JSON-persisted OR sent over RPC** — it crashes on (de)serialize (`JsonFileLoader`/Param read). Keep heavy/recursive data (full item snapshots, attachment trees) **server-only**; build a lean DTO for the wire. Resolve live entities client-side instead of shipping them.
+
+4. **`Param<string>` is fine only for short IDENTIFIERS** (a UID, a className, an ownerKey) — never for a serialized payload.
+
+5. **Registration:** server-received RPCs under `if (GetGame().IsServer() || !GetGame().IsMultiplayer())` with `DayZularRPCType.Server`; client-received under `if (GetGame().IsClient() || !GetGame().IsMultiplayer())` with `DayZularRPCType.Client`. Rate-limit request RPCs with `SetRateLimit`.
+
+Reference implementation: `CourseBarterTrader` `BarterRPCService.c` (array-of-ref sends). In TraderXBanking: vault uses `TXBVaultView`/`TXBVaultItemDTO`, ledger sends `array<ref TXBLedgerEntry>`.
+
 ### UI System (DayZular bindings)
 
 Layouts are `.layout` XML files under `datasets/gui/`. The design language is **"Field Ledger"** — dark tactical aesthetic using the token palette defined in `docs/TraderX_Design_System.md`. All new UI must use those tokens; no ad-hoc colors or padding.

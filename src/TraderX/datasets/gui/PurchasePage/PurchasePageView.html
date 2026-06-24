@@ -16,6 +16,19 @@
       data-name="topBar"
       data-style="TXSurface"
       class="dz-xy-0-0 dz-wh-100-6 dz-c-FE dz-noptr">
+    <button data-dz="button"
+        data-name="previewToggleBtn"
+        data-style="TXBtnIcon"
+        data-on-click="OnPreviewToggleClick"
+        class="dz-xy-31-22 dz-wh-4-56 dz-tc-FE">
+      <img data-dz="image"
+          data-name="previewToggleIcon"
+          class="dz-wh-28px-28px dz-align-cc dz-c-C4A35A dz-noptr"
+          data-image="set:traderx_icons image:person"
+          data-image-mode="blend"
+          data-image-src-alpha="1"
+          data-image-stretch="stretch_w_h"/>
+    </button>
     <div data-dz="panel"
         data-name="SearchBarHost"
         data-component="tx-search-bar"
@@ -44,11 +57,13 @@
     <div data-dz="playerpreview"
         data-name="playerPreview"
         data-enable-rotation="1"
-        class="dz-xy-0-0 dz-wh-94-85 dz-align-cc dz-noptr"></div>
+        class="dz-xy-0-0 dz-wh-94-85 dz-align-cc"></div>
     <button data-dz="button"
         data-name="fittingBtn"
         data-style="TXBtnIcon"
         data-on-click="OnFittingToggleClick"
+        data-on-mouseenter="OnFittingBtnMouseEnter"
+        data-on-mouseleave="OnPreviewBtnMouseLeave"
         class="dz-align-bl dz-xy-2-2 dz-wh-44px-44px dz-tc-FE dz-tc-D8D2C0 dz-font-body-16 dz-exact-text">
       <img data-dz="image"
           data-name="fittingBtnIcon"
@@ -62,6 +77,8 @@
         data-name="stripBtn"
         data-style="TXBtnIcon"
         data-on-click="OnStripClick"
+        data-on-mouseenter="OnStripBtnMouseEnter"
+        data-on-mouseleave="OnPreviewBtnMouseLeave"
         class="dz-align-bc dz-xy-2-2 dz-wh-44px-44px dz-tc-FE dz-tc-D8D2C0 dz-font-body-16 dz-exact-text">
       <img data-dz="image"
           data-name="stripBtnIcon"
@@ -75,6 +92,8 @@
         data-name="resetBtn"
         data-style="TXBtnIcon"
         data-on-click="OnResetClick"
+        data-on-mouseenter="OnResetBtnMouseEnter"
+        data-on-mouseleave="OnPreviewBtnMouseLeave"
         class="dz-align-br dz-xy-2-2 dz-wh-44px-44px dz-tc-FE dz-tc-D8D2C0 dz-font-body-16 dz-exact-text">
       <img data-dz="image"
           data-name="resetBtnIcon"

@@ -154,6 +154,7 @@ PanelWidgetClass itemCardView {
        Rows 1
        Margin 6
        "Size To Content H" 1
+       "Size To Content V" 1
        {
         ImageWidgetClass priceIcon {
          size 32 32

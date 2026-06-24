@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+  <link rel="stylesheet" href="dzml-icons.css">
+</head>
+<!-- TraderXSafeZone persistent "in safe zone" badge — Field Ledger.
+     Discreet top-center card, visible the whole time the player is inside a zone.
+     Shield glyph (loaded in code from shield.paa) + bound status text.
+     data-name contract → AutoLoadWidgets in TXSZIndicatorComponent.c:
+       indicatorRoot, leftRule, shieldIcon, zoneText -->
+<body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#0F1215;">
+
+<div data-dz="panel" data-name="indicatorRoot" data-style="TXCardElevated"
+    class="dz-xy-850px-22px dz-wh-220px-32px dz-noptr dz-priority-999">
+
+  <!-- Olive accent rule -->
+  <div data-dz="panel" data-name="leftRule" class="dz-xy-0px-0px dz-wh-3px-32px dz-c-7a9a4a dz-noptr"></div>
+
+  <!-- Shield glyph (image set at runtime: TraderXSafeZone/datasets/shield.paa) -->
+  <img data-dz="image" data-name="shieldIcon" class="dz-xy-12px-6px dz-wh-20px-20px dz-c-7a9a4a dz-noptr" />
+
+  <!-- Status text "<TITLE> · <ZONE>" -->
+  <span data-dz="text" data-name="zoneText" data-bind="{{ statusText }}"
+      class="dz-xy-40px-0px dz-wh-176px-32px dz-noptr dz-c-d8d2c0 dz-font-body-14 dz-exact-text dz-text-vc">
+    SAFE ZONE
+  </span>
+</div>
+
+<script src="dzml-runtime.js"></script>
+</body>
+</html>

@@ -75,6 +75,17 @@ class TraderXCategory extends TraderXJsonCategory
                 GetTraderXLogger().LogDebug("FindProductByClassName : " + product.className);
                 return product;
             }
+
+            // Variants are separate products (own className/price/stock) referenced by a
+            // base product and never listed directly in a category. A held variant must
+            // resolve to its own product so it can be sold, not just bought.
+            foreach(TraderXProduct variant : product.GetVariants())
+            {
+                if(variant && CF_String.EqualsIgnoreCase(variant.className, className)){
+                    GetTraderXLogger().LogDebug("FindProductByClassName (variant) : " + variant.className);
+                    return variant;
+                }
+            }
         }
 
         return null;

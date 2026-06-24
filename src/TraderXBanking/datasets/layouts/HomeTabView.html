@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, initial-scale=1">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+  <style>
+    html, body { margin: 0; padding: 0; overflow: hidden; }
+    body.dz-viewport {
+      width: 1920px; height: 1080px;
+      background: #08090c url('bg-preview.jpg') center/cover no-repeat;
+    }
+    @media (max-width: 1920px) {
+      body.dz-viewport { transform: scale(calc(100vw / 1920)); transform-origin: top left; }
+    }
+  </style>
+</head>
+<body class="dz-viewport">
+
+<!-- HomeTabView - banking dashboard. Balance hero + primary CTAs, full-height recent activity (left),
+     clickable vault + 30-day stats cards (right). Bindings resolve to TXBHomeTabComponent. -->
+<div data-dz="panel" data-name="homePanel" class="dz-xy-0-0 dz-wh-full dz-c-08090CFA dz-noptr">
+
+  <!-- ════════ BALANCE HERO + QUICK ACTIONS ════════ -->
+  <div data-dz="panel" data-name="balanceHero" data-style="TXCardElevated"
+       class="dz-xy-2-3 dz-wh-96-22 dz-c-FE dz-noptr">
+    <div data-dz="panel" data-name="heroStrip" data-style="TXProgressFill"
+         class="dz-xy-0-0 dz-wh-0.3-100 dz-c-FE dz-noptr"></div>
+
+    <span data-dz="text" data-name="balanceLabel"
+          class="dz-xy-2-12 dz-wh-40-14 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-bold">
+      PERSONAL BALANCE
+    </span>
+    <span data-dz="text" data-name="balanceValue"
+          data-bind="{{ balanceCard.valueText }}"
+          class="dz-xy-2-28 dz-wh-52-44 dz-c-D4A44C dz-font-mono-48 dz-noptr dz-exact-text dz-bold">
+      0
+    </span>
+    <span data-dz="text" data-name="balanceSub"
+          data-bind="{{ balanceCard.subText }}"
+          class="dz-xy-2-78 dz-wh-25-16 dz-c-D4A44C dz-font-body-12 dz-noptr dz-exact-text dz-bold">
+      Roubles
+    </span>
+    <span data-dz="text" data-name="balanceCash"
+          data-bind="{{ balanceCard.footerLeft }}"
+          class="dz-xy-22-78 dz-wh-32-16 dz-c-D4A44C dz-font-body-12 dz-noptr dz-exact-text">
+      On hand: 0
+    </span>
+
+    <!-- Welcome (right) -->
+    <span data-dz="text" data-name="heroWelcome"
+          data-bind="{{ heroCard.formattedWelcome }}"
+          class="dz-xy-56-14 dz-wh-42-22 dz-c-D8D2C0 dz-font-body-14 dz-noptr dz-exact-text dz-text-right dz-bold">
+      Welcome back
+    </span>
+
+    <!-- Quick actions -->
+    <button data-dz="button" data-name="ctaDeposit"
+            data-style="TXBtnPrimary" data-nav-target="banking-account-tab"
+            class="dz-xy-56-50 dz-wh-13-38 dz-c-FE dz-tc-D8D2C0 dz-font-body-14 dz-exact-text dz-bold">
+      DEPOSIT
+    </button>
+    <button data-dz="button" data-name="ctaWithdraw"
+            data-style="TXBtnDefault" data-nav-target="banking-account-tab"
+            class="dz-xy-70-50 dz-wh-13-38 dz-c-FE dz-tc-D8D2C0 dz-font-body-14 dz-exact-text dz-bold">
+      WITHDRAW
+    </button>
+    <button data-dz="button" data-name="ctaTransfer"
+            data-style="TXBtnAccent" data-nav-target="banking-transfer-tab"
+            class="dz-xy-84-50 dz-wh-14-38 dz-c-FE dz-tc-D8D2C0 dz-font-body-14 dz-exact-text dz-bold">
+      TRANSFER
+    </button>
+  </div>
+
+  <!-- ════════ LEFT : RECENT ACTIVITY (full height) ════════ -->
+  <div data-dz="panel" data-name="activityCard" data-style="TXCard"
+       class="dz-xy-2-27 dz-wh-61-70 dz-c-FE dz-noptr">
+    <span data-dz="text" data-name="activityTitle"
+          class="dz-xy-2-3 dz-wh-40-7 dz-c-D8D2C0 dz-font-body-14 dz-noptr dz-exact-text dz-bold">
+      RECENT ACTIVITY
+    </span>
+    <button data-dz="button" data-name="activityViewAll"
+            data-style="TXTab" data-nav-target="txb-ledger-tab"
+            class="dz-xy-78-2 dz-wh-20-8 dz-c-FE dz-tc-D4A44C dz-font-body-12 dz-exact-text dz-bold">
+      VIEW ALL >
+    </button>
+
+    <div data-dz="scroll" data-name="activityScroll"
+         class="dz-xy-2-12 dz-wh-96-86 dz-scroll-v">
+      <div data-dz="grid" data-name="activityList"
+           data-foreach="{{ recentEntries }}"
+           data-template="txb-ledger-row"
+           data-item="_inputEntry"
+           class="dz-wh-100-44px dz-noptr dz-fit-v dz-cols-1 dz-rows-20 dz-gap-1"></div>
+
+      <span data-dz="text" data-name="activityEmpty"
+            data-bind="{{ activityEmptyText }}"
+            class="dz-xy-5-38 dz-wh-90-10 dz-c-6A6560 dz-font-body-12 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+        No recent activity
+      </span>
+    </div>
+  </div>
+
+  <!-- ════════ RIGHT COLUMN : Vault + Stats (clickable) ════════ -->
+
+  <!-- Vault (whole card navigates to vault) -->
+  <div data-dz="panel" data-name="vaultCard" data-style="TXCard"
+       class="dz-xy-65-27 dz-wh-33-33 dz-c-FE">
+    <button data-dz="button" data-name="vaultCardBtn"
+            data-nav-target="banking-vault-tab"
+            class="dz-xy-0-0 dz-wh-full dz-c-00000000"></button>
+    <span data-dz="text" data-name="vaultLabel"
+          class="dz-xy-6-10 dz-wh-60-12 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-bold">
+      PERSONAL VAULT
+    </span>
+    <span data-dz="text" data-name="vaultValue"
+          data-bind="{{ vaultCard.valueText }}"
+          class="dz-xy-6-26 dz-wh-88-30 dz-c-D8D2C0 dz-font-mono-28 dz-noptr dz-exact-text dz-bold">
+      0 / 50
+    </span>
+    <span data-dz="text" data-name="vaultSub"
+          data-bind="{{ vaultCard.subText }}"
+          class="dz-xy-6-58 dz-wh-88-12 dz-c-6A6560 dz-font-body-12 dz-noptr dz-exact-text">
+      slots free
+    </span>
+    <span data-dz="text" data-name="vaultFee"
+          data-bind="{{ vaultCard.footerLeft }}"
+          class="dz-xy-6-78 dz-wh-50-14 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text">
+      No storage fees
+    </span>
+    <span data-dz="text" data-name="vaultOpen"
+          class="dz-xy-60-78 dz-wh-35-14 dz-c-D4A44C dz-font-body-12 dz-noptr dz-exact-text dz-text-right dz-bold">
+      OPEN VAULT >
+    </span>
+  </div>
+
+  <!-- 30-day stats (whole card navigates to ledger) -->
+  <div data-dz="panel" data-name="statsCard" data-style="TXCard"
+       class="dz-xy-65-62 dz-wh-33-35 dz-c-FE">
+    <button data-dz="button" data-name="statsCardBtn"
+            data-nav-target="txb-ledger-tab"
+            class="dz-xy-0-0 dz-wh-full dz-c-00000000"></button>
+    <span data-dz="text" data-name="statsLabel"
+          class="dz-xy-6-8 dz-wh-60-10 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-bold">
+      30-DAY STATS
+    </span>
+
+    <span data-dz="text" data-name="statsInLabel"
+          class="dz-xy-6-26 dz-wh-20-9 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-bold">
+      IN
+    </span>
+    <span data-dz="text" data-name="statsInValue"
+          data-bind="{{ statsCard.inDisplay }}"
+          class="dz-xy-30-25 dz-wh-64-10 dz-c-9AB05A dz-font-body-16 dz-noptr dz-exact-text dz-text-right dz-bold">
+      +0
+    </span>
+
+    <span data-dz="text" data-name="statsOutLabel"
+          class="dz-xy-6-40 dz-wh-20-9 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-bold">
+      OUT
+    </span>
+    <span data-dz="text" data-name="statsOutValue"
+          data-bind="{{ statsCard.outDisplay }}"
+          class="dz-xy-30-39 dz-wh-64-10 dz-c-C8664A dz-font-body-16 dz-noptr dz-exact-text dz-text-right dz-bold">
+      -0
+    </span>
+
+    <span data-dz="text" data-name="statsNetLabel"
+          class="dz-xy-6-54 dz-wh-20-9 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-bold">
+      NET
+    </span>
+    <span data-dz="text" data-name="statsNetValue"
+          data-bind="{{ statsCard.netDisplay }}"
+          class="dz-xy-30-53 dz-wh-64-10 dz-c-D4A44C dz-font-body-16 dz-noptr dz-exact-text dz-text-right dz-bold">
+      +0
+    </span>
+
+    <div data-dz="panel" data-name="statsDivider" data-style="TXDivider"
+         class="dz-xy-6-70 dz-wh-88-0.5 dz-c-FE dz-noptr"></div>
+    <span data-dz="text" data-name="statsFooter"
+          data-bind="{{ statsCard.footerLeft }}"
+          class="dz-xy-6-78 dz-wh-88-14 dz-c-6A6560 dz-font-body-12 dz-noptr dz-exact-text">
+      0 transfers - 0 tx
+    </span>
+  </div>
+</div>
+
+<script src="dzml-runtime.js"></script>
+</body>
+</html>

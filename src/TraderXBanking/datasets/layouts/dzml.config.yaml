@@ -1,0 +1,16 @@
+pipeline:
+  dzmlGlob: "*.html"
+  stylesOutput: ../../styles/banking
+  modPrefix: "Banking"
+
+# Font aliases — semantic names → baked bitmap font path PREFIX (same fonts as TraderX core).
+# Compiler appends the size: dz-font-heading-28 → oswalt28. Baked sizes: 12 14 16 22 28 48 58.
+# Banking hard-depends on the TraderX PBO, so these font paths resolve at runtime.
+#   heading → titles / values / headers
+#   body    → labels / descriptions / most text
+#   mono    → prices, balances, quantities, counts (numeric)
+fonts:
+  default: "TraderX/datasets/fonts/oswalt"
+  heading: "TraderX/datasets/fonts/oswalt"
+  body: "TraderX/datasets/fonts/oswalt"
+  mono: "TraderX/datasets/fonts/jet-brains-mono"

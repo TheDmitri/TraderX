@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+</head>
+<body>
+
+<!-- LedgerRowView - one row in the ledger table (date - type - amount - balance).
+     Transparent click button overlays the row and fires OnRowClicked on
+     TXBLedgerRowComponent, which publishes Event_OnLedgerRowClicked to the
+     ledger tab for selection. Used by LedgerTabView and HomeTabView (recent activity). -->
+<div data-dz="panel" data-name="ledgerRowRoot" data-style="TXSurface"
+     class="dz-xy-0-0 dz-wh-full dz-c-FE">
+
+  <!-- Click overlay (covers entire row) -->
+  <button data-dz="button" data-name="rowClickBtn"
+          data-on-click="OnRowClicked"
+          class="dz-xy-0-0 dz-wh-full dz-c-00000000"></button>
+
+  <!-- Date -->
+  <span data-dz="text" data-name="rowDate"
+        data-bind="{{ rowDateText }}"
+        class="dz-xy-2-0 dz-wh-12-100 dz-c-6A6560 dz-font-body-12 dz-noptr dz-exact-text dz-text-vc">
+    -
+  </span>
+
+  <!-- Type - counterparty -->
+  <span data-dz="text" data-name="rowType"
+        data-bind="{{ rowTypeText }}"
+        class="dz-xy-15-0 dz-wh-48-100 dz-c-D8D2C0 dz-font-body-12 dz-noptr dz-exact-text dz-text-vc">
+    -
+  </span>
+
+  <!-- Amount (right-aligned, bold) -->
+  <span data-dz="text" data-name="rowAmount"
+        data-bind="{{ rowAmountText }}"
+        class="dz-xy-65-0 dz-wh-15-100 dz-c-D8D2C0 dz-font-body-12 dz-noptr dz-exact-text dz-text-right dz-text-vc dz-bold">
+    -
+  </span>
+
+  <!-- Balance after -->
+  <span data-dz="text" data-name="rowBalance"
+        data-bind="{{ rowBalanceText }}"
+        class="dz-xy-82-0 dz-wh-15-100 dz-c-6A6560 dz-font-body-12 dz-noptr dz-exact-text dz-text-right dz-text-vc">
+    -
+  </span>
+</div>
+
+<script src="dzml-runtime.js"></script>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, initial-scale=1">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+  <link rel="stylesheet" href="dzml-icons.css">
+  <style>
+    html, body { margin: 0; padding: 0; overflow: hidden; }
+    body.dz-viewport {
+      width: 1920px; height: 1080px;
+      background: #08090c url('bg-preview.jpg') center/cover no-repeat;
+    }
+    @media (max-width: 1920px) {
+      body.dz-viewport { transform: scale(calc(100vw / 1920)); transform-origin: top left; }
+    }
+  </style>
+
+  <!-- Field Ledger design system — shared with TraderX main, see docs/TraderX_Design_System.md -->
+  <style type="dz-styles">
+    .TXContainer      { --bg: #08090c; --border: #252a36; }
+    .TXHeader         { --bg: #0c0e14; --bottom: #1a1e28; }
+    .TXCard           { --bg: #10131b; --border: #1a1e28; }
+    .TXCardElevated   { --bg: #161a24; --border: #3a4050; }
+    .TXSurface        { --bg: #0c0e14; --border: #1a1e28; }
+    .TXDivider        { --bg: #1a1e28; }
+    .TXBtnPrimary { --type: button; --bg: #2a3a1a; --border: #4a6a2a;
+                    --highlight-bg: #3a5022; --pushed-bg: #1f2a12; }
+    .TXBtnAccent  { --type: button; --bg: #2a2214; --border: #8a6a30;
+                    --highlight-bg: #3a2e1a; --pushed-bg: #1d180e; }
+    .TXBtnDanger  { --type: button; --bg: #2a1410; --border: #7a2a18;
+                    --highlight-bg: #3a1a14; --pushed-bg: #1a0c08; }
+    .TXBtnDefault { --type: button; --bg: #14161e; --border: #252a36;
+                    --highlight-bg: #1a1e28; --pushed-bg: #0e1018; }
+    .TXBtnLeave   { --type: button; --bg: #8B0000;
+                    --highlight-bg: #a52a2a; --pushed-bg: #6B0000; }
+    .TXInfoBox    { --bg: #10121a; --left: #4a7ac7; }
+    .TXSuccessBox { --bg: #12180f; --left: #7a9a4a; }
+    .TXWarningBox { --bg: #10121a; --left: #d4a44c; }
+    .TXErrorBox   { --bg: #1a0f0c; --left: #c93030; }
+    .TXListRow    { --type: button; --bg: #0a0c12;
+                    --highlight-bg: #12141c; --pushed-bg: #0e1018; }
+    .TXBadge { --bg: #14161e; --radius: 3; }
+  </style>
+</head>
+<body class="dz-viewport">
+
+<!-- GaragePageView — Field Ledger shell: vehicle list (left) + detail/actions (right). -->
+<div data-dz="frame" data-name="rootFrame" class="dz-xy-0-0 dz-wh-full dz-align-cc">
+  <div data-dz="panel" data-name="garageRoot" data-style="TXContainer"
+       class="dz-xy-0-0 dz-wh-72-78 dz-align-cc dz-c-CC">
+
+    <!-- ====== HEADER ====== -->
+    <div data-dz="panel" data-name="headerBar" data-style="TXHeader"
+         class="dz-xy-0-0 dz-wh-100-9 dz-c-FE dz-noptr">
+
+      <img data-dz="image" data-name="headerIcon"
+           data-image="set:traderx_icons image:wrench"
+           class="dz-xy-2-0 dz-wh-30px-30px dz-c-D4A44C dz-blend dz-src-alpha dz-align-y-center dz-noptr" />
+      <span data-dz="text" data-name="headerTitle"
+            class="dz-xy-6.5-15 dz-wh-26-45 dz-c-D4A44C dz-font-heading-28 dz-noptr dz-exact-text dz-bold">
+        GARAGE
+      </span>
+      <span data-dz="text" data-name="headerSub"
+            class="dz-xy-6.5-60 dz-wh-40-30 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text">
+        VEHICLE STORAGE / ATTENDANT
+      </span>
+
+      <!-- Slots counter -->
+      <span data-dz="text" data-name="slotsLabel"
+            class="dz-xy-76-20 dz-wh-14-30 dz-c-9A9488 dz-font-body-11 dz-noptr dz-exact-text dz-text-right dz-text-vc">
+        SLOTS
+      </span>
+      <span data-dz="text" data-name="slotsValue"
+            data-bind="{{ vehicleCountDisplay }}"
+            class="dz-xy-76-50 dz-wh-14-35 dz-c-D4A44C dz-font-mono-22 dz-noptr dz-exact-text dz-text-right dz-text-vc dz-bold">
+        0/5
+      </span>
+
+      <!-- Close -->
+      <button data-dz="button" data-name="leaveBtn" data-style="TXBtnLeave"
+              data-on-click="OnClose"
+              class="dz-xy-95-25 dz-wh-3-50 dz-c-FE dz-tc-FFFFFF dz-font-heading-22 dz-exact-text dz-text-center dz-text-vc dz-bold">
+        X
+      </button>
+    </div>
+
+    <div data-dz="panel" data-name="headerDivider" data-style="TXDivider"
+         class="dz-xy-0-9 dz-wh-100-0.3 dz-c-FE dz-noptr"></div>
+
+    <!-- ====== MAIN CONTENT ====== -->
+    <div data-dz="panel" data-name="mainContent" class="dz-xy-0-10 dz-wh-100-86 dz-noptr">
+
+      <!-- LEFT: vehicle list -->
+      <div data-dz="panel" data-name="vehicleListPanel" data-style="TXCard"
+           class="dz-xy-1-1 dz-wh-40-97 dz-c-FE dz-noptr">
+
+        <div data-dz="panel" data-name="listHeader" data-style="TXSurface"
+             class="dz-xy-0-0 dz-wh-100-7 dz-c-FE dz-noptr">
+          <span data-dz="text" data-name="listHeaderLabel"
+                class="dz-xy-4-0 dz-wh-92-100 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-text-vc dz-bold">
+            STORED VEHICLES
+          </span>
+        </div>
+
+        <div data-dz="scroll" data-name="vehicleListScroll"
+             class="dz-xy-0-8 dz-wh-100-91 dz-scroll-v">
+          <div data-dz="grid" data-name="vehicleListGrid"
+               data-foreach="{{ vehicles }}"
+               data-template="txg-vehicle-row"
+               data-item="_inputVehicle"
+               class="dz-wh-100-52px dz-noptr dz-fit-v dz-cols-1 dz-rows-100 dz-gap-1"></div>
+
+          <span data-dz="text" data-name="listEmpty"
+                class="dz-xy-5-40 dz-wh-90-10 dz-c-6A6560 dz-font-body-14 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+            No vehicles stored
+          </span>
+        </div>
+      </div>
+
+      <!-- RIGHT: detail + actions -->
+      <div data-dz="panel" data-name="detailPanel" data-style="TXCardElevated"
+           class="dz-xy-42-1 dz-wh-57-97 dz-c-FE dz-noptr">
+
+        <span data-dz="text" data-name="selectedName"
+              data-bind="{{ selectedVehicleName }}"
+              class="dz-xy-3-3 dz-wh-94-7 dz-c-D8D2C0 dz-font-heading-22 dz-noptr dz-exact-text dz-text-vc dz-bold">
+          Select a vehicle
+        </span>
+
+        <div data-dz="panel" data-name="detailDivider" data-style="TXDivider"
+             class="dz-xy-3-11 dz-wh-94-0.3 dz-c-FE dz-noptr"></div>
+
+        <!-- 3D preview area (static placeholder until a live preview entity is wired) -->
+        <div data-dz="panel" data-name="previewArea" data-style="TXSurface"
+             class="dz-xy-3-13 dz-wh-94-44 dz-c-FE dz-noptr">
+          <img data-dz="image" data-name="previewPlaceholderIcon"
+               data-image="set:traderx_icons image:wrench"
+               class="dz-align-cc dz-wh-72px-72px dz-c-2A2E38 dz-blend dz-src-alpha dz-noptr" />
+          <span data-dz="text" data-name="previewPlaceholderText"
+                class="dz-xy-0-63 dz-wh-100-8 dz-c-3A4050 dz-font-body-12 dz-noptr dz-exact-text dz-text-center dz-text-vc dz-bold">
+            VEHICLE PREVIEW
+          </span>
+          <div data-dz="preview" data-name="vehiclePreviewWidget"
+               data-bind-item="{{ vehiclePreview }}"
+               data-enable-rotation="1" data-enable-scale="1"
+               class="dz-xy-0-0 dz-wh-100-100 dz-align-cc"></div>
+        </div>
+
+        <!-- Cost row -->
+        <div data-dz="panel" data-name="costRow" data-style="TXSurface"
+             class="dz-xy-3-59 dz-wh-94-8 dz-c-FE dz-noptr">
+          <img data-dz="image" data-name="costIcon"
+               data-image="set:traderx_icons image:coins"
+               class="dz-xy-2-0 dz-wh-22px-22px dz-c-D4A44C dz-blend dz-src-alpha dz-align-y-center dz-noptr" />
+          <span data-dz="text" data-name="parkInLabel"
+                class="dz-xy-6-0 dz-wh-22-100 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-text-vc">
+            PARK IN
+          </span>
+          <span data-dz="text" data-name="parkInValue"
+                data-bind="{{ parkInCost | number }}"
+                class="dz-xy-28-0 dz-wh-20-100 dz-c-9AB05A dz-font-mono-16 dz-noptr dz-exact-text dz-text-vc dz-bold">
+            100
+          </span>
+          <span data-dz="text" data-name="parkOutLabel"
+                class="dz-xy-55-0 dz-wh-22-100 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-text-vc">
+            PARK OUT
+          </span>
+          <span data-dz="text" data-name="parkOutValue"
+                data-bind="{{ parkOutCost | number }}"
+                class="dz-xy-77-0 dz-wh-21-100 dz-c-D4A44C dz-font-mono-16 dz-noptr dz-exact-text dz-text-vc dz-bold">
+            100
+          </span>
+        </div>
+
+        <!-- Action buttons (each cell = bg button + dz-noptr icon/label overlay) -->
+        <div data-dz="grid" data-name="actionGrid"
+             class="dz-xy-3-69 dz-wh-94-13 dz-cols-2 dz-rows-1 dz-gap-6">
+
+          <div data-dz="panel" data-name="parkInCell" class="dz-xy-0-0 dz-wh-full dz-noptr">
+            <button data-dz="button" data-name="parkInBtn" data-style="TXBtnPrimary"
+                    data-on-click="OnParkIn"
+                    class="dz-xy-0-0 dz-wh-full dz-c-FE"></button>
+            <img data-dz="image" data-name="parkInIcon"
+                 data-image="set:traderx_icons image:padlock"
+                 class="dz-xy-27-0 dz-wh-36px-36px dz-c-9AB05A dz-blend dz-src-alpha dz-align-y-center dz-noptr" />
+            <span data-dz="text" data-name="parkInBtnLabel"
+                  class="dz-xy-38-0 dz-wh-50-100 dz-c-9AB05A dz-font-heading-16 dz-noptr dz-exact-text dz-text-vc dz-bold">
+              PARK IN
+            </span>
+          </div>
+
+          <div data-dz="panel" data-name="parkOutCell" class="dz-xy-0-0 dz-wh-full dz-noptr">
+            <button data-dz="button" data-name="parkOutBtn" data-style="TXBtnAccent"
+                    data-on-click="OnParkOut"
+                    class="dz-xy-0-0 dz-wh-full dz-c-FE"></button>
+            <img data-dz="image" data-name="parkOutIcon"
+                 data-image="set:traderx_icons image:refresh"
+                 class="dz-xy-23-0 dz-wh-36px-36px dz-c-D4A44C dz-blend dz-src-alpha dz-align-y-center dz-noptr" />
+            <span data-dz="text" data-name="parkOutBtnLabel"
+                  class="dz-xy-34-0 dz-wh-55-100 dz-c-D4A44C dz-font-heading-16 dz-noptr dz-exact-text dz-text-vc dz-bold">
+              PARK OUT
+            </span>
+          </div>
+        </div>
+
+        <!-- Confirmation toast — success / error variants toggled by visibility -->
+        <div data-dz="panel" data-name="toastSuccess" data-style="TXSuccessBox"
+             data-visible="{{ toastSuccessVisible }}"
+             class="dz-xy-3-85 dz-wh-94-11 dz-c-FE dz-noptr">
+          <img data-dz="image" data-name="toastSuccessIcon"
+               data-image="set:traderx_icons image:approved"
+               class="dz-xy-3-0 dz-wh-24px-24px dz-c-9AB05A dz-blend dz-src-alpha dz-align-y-center dz-noptr" />
+          <span data-dz="text" data-name="toastSuccessText"
+                data-bind="{{ toastText }}"
+                class="dz-xy-10-0 dz-wh-88-100 dz-c-9AB05A dz-font-body-14 dz-noptr dz-exact-text dz-text-vc dz-wrap dz-bold">
+          </span>
+        </div>
+
+        <div data-dz="panel" data-name="toastError" data-style="TXErrorBox"
+             data-visible="{{ toastErrorVisible }}"
+             class="dz-xy-3-85 dz-wh-94-11 dz-c-FE dz-noptr">
+          <img data-dz="image" data-name="toastErrorIcon"
+               data-image="set:traderx_icons image:error"
+               class="dz-xy-3-0 dz-wh-24px-24px dz-c-C8664A dz-blend dz-src-alpha dz-align-y-center dz-noptr" />
+          <span data-dz="text" data-name="toastErrorText"
+                data-bind="{{ toastText }}"
+                class="dz-xy-10-0 dz-wh-88-100 dz-c-C8664A dz-font-body-14 dz-noptr dz-exact-text dz-text-vc dz-wrap dz-bold">
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== FOOTER : DayZ Beans Launcher promo (click to open modal) ====== -->
+    <div data-dz="panel" data-name="footerBar" data-style="TXSurface"
+         class="dz-xy-0-96 dz-wh-100-4 dz-c-FE">
+      <button data-dz="button" data-name="footerLauncherBtn" data-on-click="OnLauncher"
+              class="dz-xy-0-0 dz-wh-100-100 dz-c-00000000"></button>
+      <span data-dz="text" data-name="footerSponsorText"
+            class="dz-xy-36-0 dz-wh-16-100 dz-c-6A6560 dz-font-body-12 dz-noptr dz-exact-text dz-text-vc dz-text-right">
+        Sponsored by
+      </span>
+      <span data-dz="text" data-name="footerBrandText"
+            class="dz-xy-53-0 dz-wh-14-100 dz-c-D4A44C dz-font-body-12 dz-noptr dz-exact-text dz-text-vc dz-bold">
+        DayZ Beans Launcher
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- Template import for the ForEach row -->
+<template data-template-id="txg-vehicle-row" data-src="GarageVehicleRow.html"></template>
+
+<script src="dzml-runtime.js"></script>
+</body>
+</html>

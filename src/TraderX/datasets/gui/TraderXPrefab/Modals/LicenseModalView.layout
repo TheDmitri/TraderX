@@ -1,0 +1,135 @@
+PanelWidgetClass modalRoot {
+ position 0 0
+ hexactpos 0
+ vexactpos 0
+ size 1 1
+ hexactsize 0
+ vexactsize 0
+ halign center_ref
+ valign center_ref
+ priority 999
+ {
+  PanelWidgetClass backdrop {
+   position 0 0
+   hexactpos 0
+   vexactpos 0
+   size 1 1
+   hexactsize 0
+   vexactsize 0
+   color 0 0 0 0.7843
+   style rover_sim_colorable
+  }
+  PanelWidgetClass modalCard {
+   position 0 0
+   hexactpos 0
+   vexactpos 0
+   size 0.32 0.46
+   hexactsize 0
+   vexactsize 0
+   halign center_ref
+   valign center_ref
+   style TXCard
+   color 0.9961 0.9961 0.9961 1
+   {
+    ImageWidgetClass lockIcon {
+     position 0 0.06
+     hexactpos 0
+     vexactpos 0
+     size 56 56
+     hexactsize 1
+     vexactsize 1
+     halign center_ref
+     color 0.7843 0.4 0.2902 1
+     ignorepointer 1
+     image0 "set:traderx_icons image:padlock"
+     mode blend
+     "src alpha" 1
+     "stretch mode" stretch_w_h
+    }
+    TextWidgetClass title {
+     position 0 0.24
+     hexactpos 0
+     vexactpos 0
+     size 1 0.12
+     hexactsize 0
+     vexactsize 0
+     halign center_ref
+     color 0.8471 0.8235 0.7529 1
+     font "TraderX/datasets/fonts/oswalt22"
+     ignorepointer 1
+     "exact text" 1
+     "text halign" center
+     "text valign" center
+     text "#tpm_licenses_required"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ title }}"
+      }
+     }
+    }
+    RichTextWidgetClass textContent {
+     position 0.08 0.38
+     hexactpos 0
+     vexactpos 0
+     size 0.84 0.16
+     hexactsize 0
+     vexactsize 0
+     color 0.6588 0.6902 0.6549 1
+     font "TraderX/datasets/fonts/oswalt16"
+     ignorepointer 1
+     wrap 1
+     "exact text" 1
+     "text halign" center
+     text "Access restricted."
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ content }}"
+      }
+     }
+    }
+    RichTextWidgetClass licensesList {
+     position 0.08 0.56
+     hexactpos 0
+     vexactpos 0
+     size 0.84 0.26
+     hexactsize 0
+     vexactsize 0
+     color 0.7686 0.6392 0.3529 1
+     font "TraderX/datasets/fonts/oswalt16"
+     ignorepointer 1
+     wrap 1
+     style Bold
+     "exact text" 1
+     "text halign" center
+     text "- Car License"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ licensesList }}"
+      }
+     }
+    }
+    ButtonWidgetClass closeBtn {
+     position 0.3 0.86
+     hexactpos 0
+     vexactpos 0
+     size 0.4 0.1
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.9961 0.9961 0.9961 1
+     style TXBtnPrimary
+     color 0.9961 0.9961 0.9961 1
+     text "#tpm_close"
+     scriptclass "ButtonBinding"
+     {
+      ScriptParamsClass {
+       OnClick "OnCloseClick"
+      }
+     }
+    }
+   }
+  }
+ }
+}

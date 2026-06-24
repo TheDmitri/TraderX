@@ -1,35 +1,37 @@
 GridSpacerWidgetClass rootFrame {
+ ignorepointer 1
+ color 0.047 0.055 0.078 1
  position 10 10
+ size 300 60
  hexactpos 1
  vexactpos 1
- size 120 34
  hexactsize 1
  vexactsize 1
- "Size To Content V" 1
+ priority 999
+ style Colorable
+ Padding 5
+ Margin 8
  "Size To Content H" 1
  Columns 1
  Rows 1
- Padding 8
- Margin 0
- priority 999
- style TXCardElevated
- color 0.9961 0.9961 0.9961 1
  {
   TextWidgetClass titleText {
-   size 100 20
+   ignorepointer 1
+   color 0.949 0.933 0.894 1
+   position 8 0
+   size 284 60
+   hexactpos 1
+   vexactpos 0
    hexactsize 1
    vexactsize 1
-   halign center_ref
-   valign center_ref
-   color 0.7686 0.6392 0.3529 1
-   font "TraderX/datasets/fonts/oswalt14"
-   ignorepointer 1
-   "text valign" center
-   "text halign" center
-   "size to text h" 1
-   "size to text v" 1
-   text "All"
    scriptclass "TextBinding"
+   style Bold
+   text "All"
+   font "TraderX/datasets/fonts/oswalt16"
+   "exact text" 1
+   "size to text h" 1
+   "text halign" center
+   "text valign" center
    {
     ScriptParamsClass {
      Binding_Expression "{{ title }}"

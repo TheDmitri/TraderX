@@ -198,20 +198,20 @@
       <stop offset="100%" stop-color="#0d1013"/>
     </linearGradient>
     <linearGradient id="g50" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#16191e"/>
+      <stop offset="100%" stop-color="#121519"/>
+    </linearGradient>
+    <linearGradient id="g51" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#20242a"/>
+      <stop offset="100%" stop-color="#1b1e23"/>
+    </linearGradient>
+    <linearGradient id="g52" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#12151a"/>
       <stop offset="100%" stop-color="#0f1116"/>
     </linearGradient>
-    <linearGradient id="g51" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#1a1d21"/>
-      <stop offset="100%" stop-color="#16181c"/>
-    </linearGradient>
-    <linearGradient id="g52" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#15181d"/>
-      <stop offset="100%" stop-color="#111418"/>
-    </linearGradient>
     <linearGradient id="g53" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#15181d"/>
-      <stop offset="100%" stop-color="#111418"/>
+      <stop offset="0%" stop-color="#12151a"/>
+      <stop offset="100%" stop-color="#0f1116"/>
     </linearGradient>
     <linearGradient id="g54" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#1a1d21"/>
@@ -222,42 +222,54 @@
       <stop offset="100%" stop-color="#111418"/>
     </linearGradient>
     <linearGradient id="g56" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#20242a"/>
-      <stop offset="100%" stop-color="#1b1e23"/>
+      <stop offset="0%" stop-color="#15181d"/>
+      <stop offset="100%" stop-color="#111418"/>
     </linearGradient>
     <linearGradient id="g57" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#20242a"/>
-      <stop offset="100%" stop-color="#1b1e23"/>
+      <stop offset="0%" stop-color="#1a1d21"/>
+      <stop offset="100%" stop-color="#16181c"/>
     </linearGradient>
     <linearGradient id="g58" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#15181d"/>
+      <stop offset="100%" stop-color="#111418"/>
+    </linearGradient>
+    <linearGradient id="g59" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#20242a"/>
       <stop offset="100%" stop-color="#1b1e23"/>
     </linearGradient>
-    <linearGradient id="g59" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#1a1d21"/>
-      <stop offset="100%" stop-color="#16181c"/>
-    </linearGradient>
     <linearGradient id="g60" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#14171a"/>
-      <stop offset="100%" stop-color="#111316"/>
+      <stop offset="0%" stop-color="#20242a"/>
+      <stop offset="100%" stop-color="#1b1e23"/>
     </linearGradient>
     <linearGradient id="g61" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#20242a"/>
+      <stop offset="100%" stop-color="#1b1e23"/>
+    </linearGradient>
+    <linearGradient id="g62" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#1a1d21"/>
       <stop offset="100%" stop-color="#16181c"/>
     </linearGradient>
-    <linearGradient id="g62" x1="0%" y1="0%" x2="0%" y2="100%">
+    <linearGradient id="g63" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#14171a"/>
       <stop offset="100%" stop-color="#111316"/>
     </linearGradient>
-    <linearGradient id="g63" x1="0%" y1="0%" x2="0%" y2="100%">
+    <linearGradient id="g64" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#1a1d21"/>
       <stop offset="100%" stop-color="#16181c"/>
     </linearGradient>
-    <linearGradient id="g64" x1="0%" y1="0%" x2="0%" y2="100%">
+    <linearGradient id="g65" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#14171a"/>
+      <stop offset="100%" stop-color="#111316"/>
+    </linearGradient>
+    <linearGradient id="g66" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1a1d21"/>
+      <stop offset="100%" stop-color="#16181c"/>
+    </linearGradient>
+    <linearGradient id="g67" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#6b8e5a"/>
       <stop offset="100%" stop-color="#5a784c"/>
     </linearGradient>
-    <linearGradient id="g65" x1="0%" y1="0%" x2="0%" y2="100%">
+    <linearGradient id="g68" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#14171a"/>
       <stop offset="100%" stop-color="#111316"/>
     </linearGradient>
@@ -374,39 +386,47 @@
   <!-- TXErrorBox_disabled -->
   <path d="M 31 158 H 49 A 3 3 0 0 1 52 161 V 179 A 3 3 0 0 1 49 182 H 31 A 3 3 0 0 1 28 179 V 161 A 3 3 0 0 1 31 158 Z" fill="url(#g49)"  stroke-linejoin="round"/>
   <path d="M 31 158 A 3 3 0 0 0 28 161 V 179 A 3 3 0 0 0 31 182 H 31 V 158 Z" fill="#c45050"/>
+  <!-- TXCategoryRow_normal -->
+  <path d="M 57 158 H 75 A 3 3 0 0 1 78 161 V 179 A 3 3 0 0 1 75 182 H 57 A 3 3 0 0 1 54 179 V 161 A 3 3 0 0 1 57 158 Z" fill="url(#g50)" stroke="#2b3138" stroke-width="1" stroke-linejoin="round"/>
+  <!-- TXCategoryRow_hover -->
+  <path d="M 83 158 H 101 A 3 3 0 0 1 104 161 V 179 A 3 3 0 0 1 101 182 H 83 A 3 3 0 0 1 80 179 V 161 A 3 3 0 0 1 83 158 Z" fill="url(#g51)" stroke="#40454b" stroke-width="1" stroke-linejoin="round"/>
+  <path d="M 83 158 A 3 3 0 0 0 80 161 V 179 A 3 3 0 0 0 83 182 H 83 V 158 Z" fill="#c4a35a"/>
+  <!-- TXCategoryRow_active -->
+  <path d="M 109 158 H 127 A 3 3 0 0 1 130 161 V 179 A 3 3 0 0 1 127 182 H 109 A 3 3 0 0 1 106 179 V 161 A 3 3 0 0 1 109 158 Z" fill="url(#g52)" stroke="#24292f" stroke-width="1" stroke-linejoin="round"/>
+  <path d="M 109 158 A 3 3 0 0 0 106 161 V 179 A 3 3 0 0 0 109 182 H 109 V 158 Z" fill="#c4a35a"/>
   <!-- TXListRow_normal -->
-  <path d="M 57 158 H 75 A 3 3 0 0 1 78 161 V 179 A 3 3 0 0 1 75 182 H 57 A 3 3 0 0 1 54 179 V 161 A 3 3 0 0 1 57 158 Z" fill="url(#g50)"  stroke-linejoin="round"/>
-  <!-- TXListRow_hover -->
-  <path d="M 83 158 H 101 A 3 3 0 0 1 104 161 V 179 A 3 3 0 0 1 101 182 H 83 A 3 3 0 0 1 80 179 V 161 A 3 3 0 0 1 83 158 Z" fill="url(#g51)"  stroke-linejoin="round"/>
-  <!-- TXListRow_active -->
-  <path d="M 109 158 H 127 A 3 3 0 0 1 130 161 V 179 A 3 3 0 0 1 127 182 H 109 A 3 3 0 0 1 106 179 V 161 A 3 3 0 0 1 109 158 Z" fill="url(#g52)"  stroke-linejoin="round"/>
-  <!-- TXListRowAlt_normal -->
   <path d="M 135 158 H 153 A 3 3 0 0 1 156 161 V 179 A 3 3 0 0 1 153 182 H 135 A 3 3 0 0 1 132 179 V 161 A 3 3 0 0 1 135 158 Z" fill="url(#g53)"  stroke-linejoin="round"/>
-  <!-- TXListRowAlt_hover -->
+  <!-- TXListRow_hover -->
   <path d="M 161 158 H 179 A 3 3 0 0 1 182 161 V 179 A 3 3 0 0 1 179 182 H 161 A 3 3 0 0 1 158 179 V 161 A 3 3 0 0 1 161 158 Z" fill="url(#g54)"  stroke-linejoin="round"/>
-  <!-- TXListRowAlt_active -->
+  <!-- TXListRow_active -->
   <path d="M 187 158 H 205 A 3 3 0 0 1 208 161 V 179 A 3 3 0 0 1 205 182 H 187 A 3 3 0 0 1 184 179 V 161 A 3 3 0 0 1 187 158 Z" fill="url(#g55)"  stroke-linejoin="round"/>
-  <!-- TXListRowSelected_normal -->
+  <!-- TXListRowAlt_normal -->
   <path d="M 5 184 H 23 A 3 3 0 0 1 26 187 V 205 A 3 3 0 0 1 23 208 H 5 A 3 3 0 0 1 2 205 V 187 A 3 3 0 0 1 5 184 Z" fill="url(#g56)"  stroke-linejoin="round"/>
-  <path d="M 5 184 A 3 3 0 0 0 2 187 V 205 A 3 3 0 0 0 5 208 H 5 V 184 Z" fill="#c4a35a"/>
-  <!-- TXListRowSelected_hover -->
+  <!-- TXListRowAlt_hover -->
   <path d="M 31 184 H 49 A 3 3 0 0 1 52 187 V 205 A 3 3 0 0 1 49 208 H 31 A 3 3 0 0 1 28 205 V 187 A 3 3 0 0 1 31 184 Z" fill="url(#g57)"  stroke-linejoin="round"/>
-  <path d="M 31 184 A 3 3 0 0 0 28 187 V 205 A 3 3 0 0 0 31 208 H 31 V 184 Z" fill="#c4a35a"/>
-  <!-- TXListRowSelected_active -->
+  <!-- TXListRowAlt_active -->
   <path d="M 57 184 H 75 A 3 3 0 0 1 78 187 V 205 A 3 3 0 0 1 75 208 H 57 A 3 3 0 0 1 54 205 V 187 A 3 3 0 0 1 57 184 Z" fill="url(#g58)"  stroke-linejoin="round"/>
-  <path d="M 57 184 A 3 3 0 0 0 54 187 V 205 A 3 3 0 0 0 57 208 H 57 V 184 Z" fill="#c4a35a"/>
-  <!-- TXBadge_normal -->
+  <!-- TXListRowSelected_normal -->
   <path d="M 83 184 H 101 A 3 3 0 0 1 104 187 V 205 A 3 3 0 0 1 101 208 H 83 A 3 3 0 0 1 80 205 V 187 A 3 3 0 0 1 83 184 Z" fill="url(#g59)"  stroke-linejoin="round"/>
-  <!-- TXBadge_disabled -->
+  <path d="M 83 184 A 3 3 0 0 0 80 187 V 205 A 3 3 0 0 0 83 208 H 83 V 184 Z" fill="#c4a35a"/>
+  <!-- TXListRowSelected_hover -->
   <path d="M 109 184 H 127 A 3 3 0 0 1 130 187 V 205 A 3 3 0 0 1 127 208 H 109 A 3 3 0 0 1 106 205 V 187 A 3 3 0 0 1 109 184 Z" fill="url(#g60)"  stroke-linejoin="round"/>
+  <path d="M 109 184 A 3 3 0 0 0 106 187 V 205 A 3 3 0 0 0 109 208 H 109 V 184 Z" fill="#c4a35a"/>
+  <!-- TXListRowSelected_active -->
+  <path d="M 135 184 H 153 A 3 3 0 0 1 156 187 V 205 A 3 3 0 0 1 153 208 H 135 A 3 3 0 0 1 132 205 V 187 A 3 3 0 0 1 135 184 Z" fill="url(#g61)"  stroke-linejoin="round"/>
+  <path d="M 135 184 A 3 3 0 0 0 132 187 V 205 A 3 3 0 0 0 135 208 H 135 V 184 Z" fill="#c4a35a"/>
+  <!-- TXBadge_normal -->
+  <path d="M 161 184 H 179 A 3 3 0 0 1 182 187 V 205 A 3 3 0 0 1 179 208 H 161 A 3 3 0 0 1 158 205 V 187 A 3 3 0 0 1 161 184 Z" fill="url(#g62)"  stroke-linejoin="round"/>
+  <!-- TXBadge_disabled -->
+  <path d="M 187 184 H 205 A 3 3 0 0 1 208 187 V 205 A 3 3 0 0 1 205 208 H 187 A 3 3 0 0 1 184 205 V 187 A 3 3 0 0 1 187 184 Z" fill="url(#g63)"  stroke-linejoin="round"/>
   <!-- TXProgressBg_normal -->
-  <path d="M 134 184 H 154 A 2 2 0 0 1 156 186 V 206 A 2 2 0 0 1 154 208 H 134 A 2 2 0 0 1 132 206 V 186 A 2 2 0 0 1 134 184 Z" fill="url(#g61)"  stroke-linejoin="round"/>
-  <!-- TXProgressBg_disabled -->
-  <path d="M 160 184 H 180 A 2 2 0 0 1 182 186 V 206 A 2 2 0 0 1 180 208 H 160 A 2 2 0 0 1 158 206 V 186 A 2 2 0 0 1 160 184 Z" fill="url(#g62)"  stroke-linejoin="round"/>
-  <!-- TXProgressFill_normal -->
-  <path d="M 186 184 H 206 A 2 2 0 0 1 208 186 V 206 A 2 2 0 0 1 206 208 H 186 A 2 2 0 0 1 184 206 V 186 A 2 2 0 0 1 186 184 Z" fill="url(#g63)"  stroke-linejoin="round"/>
-  <!-- TXProgressFill_fill -->
   <path d="M 4 210 H 24 A 2 2 0 0 1 26 212 V 232 A 2 2 0 0 1 24 234 H 4 A 2 2 0 0 1 2 232 V 212 A 2 2 0 0 1 4 210 Z" fill="url(#g64)"  stroke-linejoin="round"/>
-  <!-- TXProgressFill_disabled -->
+  <!-- TXProgressBg_disabled -->
   <path d="M 30 210 H 50 A 2 2 0 0 1 52 212 V 232 A 2 2 0 0 1 50 234 H 30 A 2 2 0 0 1 28 232 V 212 A 2 2 0 0 1 30 210 Z" fill="url(#g65)"  stroke-linejoin="round"/>
+  <!-- TXProgressFill_normal -->
+  <path d="M 56 210 H 76 A 2 2 0 0 1 78 212 V 232 A 2 2 0 0 1 76 234 H 56 A 2 2 0 0 1 54 232 V 212 A 2 2 0 0 1 56 210 Z" fill="url(#g66)"  stroke-linejoin="round"/>
+  <!-- TXProgressFill_fill -->
+  <path d="M 82 210 H 102 A 2 2 0 0 1 104 212 V 232 A 2 2 0 0 1 102 234 H 82 A 2 2 0 0 1 80 232 V 212 A 2 2 0 0 1 82 210 Z" fill="url(#g67)"  stroke-linejoin="round"/>
+  <!-- TXProgressFill_disabled -->
+  <path d="M 108 210 H 128 A 2 2 0 0 1 130 212 V 232 A 2 2 0 0 1 128 234 H 108 A 2 2 0 0 1 106 232 V 212 A 2 2 0 0 1 108 210 Z" fill="url(#g68)"  stroke-linejoin="round"/>
 </svg>

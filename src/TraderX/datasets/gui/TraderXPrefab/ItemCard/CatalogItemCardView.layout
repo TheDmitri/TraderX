@@ -116,6 +116,7 @@ PanelWidgetClass CatalogItemCardView {
    Rows 1
    Margin 6
    "Size To Content H" 1
+   "Size To Content V" 1
    valign center_ref
    {
     ImageWidgetClass priceIcon {

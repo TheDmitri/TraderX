@@ -33,6 +33,7 @@ PanelWidgetClass PlayerPreviewPanel {
    vexactsize 0
    halign center_ref
    valign center_ref
+   scriptclass "PlayerPreviewBinding"
    {
     ScriptParamsClass {
      Enable_Rotation 1

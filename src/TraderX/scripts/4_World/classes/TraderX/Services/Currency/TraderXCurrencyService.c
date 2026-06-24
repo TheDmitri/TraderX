@@ -34,6 +34,7 @@ class TraderXCurrencyService : DayZularService
         if(GetGame().IsServer())
         {
             currencySettings = TraderXCurrencyRepository.Load();
+            SortCurrencyDenominations();
             TraderXModule.Event_OnTraderXPlayerJoined.Insert(OnPlayerJoined);
         }
         else
@@ -186,6 +187,22 @@ class TraderXCurrencyService : DayZularService
         
         // Return true if we removed at least the required amount
         return amountRemoved >= amountToRemove;
+    }
+
+    // Ensure every currency type pays out largest denomination first.
+    // Without this the greedy payout loop spends the whole amount on whatever
+    // denomination the config happens to list first, producing thousands of
+    // low-value coin stacks and freezing the server on big sells.
+    void SortCurrencyDenominations()
+    {
+        if(!currencySettings)
+            return;
+
+        foreach(TraderXCurrencyType currencyType : currencySettings.currencyTypes)
+        {
+            if(currencyType)
+                currencyType.SortCurrenciesByValue();
+        }
     }
 
     void AddMoneyToPlayer(PlayerBase player, int amount, ref TStringArray acceptedCurrencyTypes = null)

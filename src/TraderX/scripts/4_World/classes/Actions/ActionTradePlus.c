@@ -35,21 +35,37 @@ class ActionTraderXMenu: ActionInteractBase
 		if(playerNpc && playerNpc.IsTraderNpc())
 		{
 			npc = GetTraderXModule().GetSettings().GetNpcById(playerNpc.GetNpcId());
-			return npc != null;
+			return CanTrade(npc);
 		}
 
 		BuildingBase nObject = BuildingBase.Cast( target.GetObject() );
 		if (nObject && nObject.IsTraderNpc())
 		{
 			npc = GetTraderXModule().GetSettings().GetNpcById(nObject.GetNpcId());
-			return npc != null;
+			return CanTrade(npc);
 		}
 
 		return false;
     }
 
+	// Service NPCs (bank ATM, garage attendant) are spawned via the trader list but carry no
+	// categories — they only expose their own menu action, never the trade menu.
+	bool CanTrade(TraderXNpc n)
+	{
+		return n && n.categoriesId && n.categoriesId.Count() > 0;
+	}
+
     override void OnStartClient(ActionData action_data)
     {
+		// License-locked trader: show the warning modal instead of the trade view.
+		// The server also re-checks licenses on every transaction.
+		if (!TraderXLicenseService.GetInstance().HasLicenses(npc.GetLicensesRequired()))
+		{
+			if (GetTraderXUIService())
+				GetTraderXUIService().OpenLicenseModal(npc.GetLicensesRequired());
+			return;
+		}
+
 		TraderXTradingService.GetInstance().SetTraderNpc(npc);
 		GetTraderXModule().OpenTraderView();
     }

@@ -26,7 +26,26 @@ Cible : serveurs communautaires DayZ voulant une économie structurée sans simu
 
 ---
 
-## 3. Carte des features
+## 3. Sessions parallèles (modules isolés)
+
+Trois modules buildables **en parallèle** par sessions Claude indépendantes — dossiers disjoints, préfixes de classe uniques, zéro conflit de merge. Chaque brief est auto-suffisant (lire CLAUDE.md + le brief).
+
+**Prérequis (à faire AVANT les 3 sessions, par le coordinateur) :** [US-033](docs/stories/US-033-integration-ports.md) — couche d'intégration core (`TraderXProviderRegistry` + interfaces `ITraderX{Payment,Garage,CarLock,SafeZone}Provider`). Sans elle, le provider Banking est dormant et les modules n'ont pas d'interface à implémenter. Chaque module expose ensuite son **port public** (façade provider) décrit dans son brief.
+
+| Module | Dossier (propriété exclusive) | Préfixe | Brief | État |
+|---|---|---|---|---|
+| Intégration ports (core) | `src/TraderX/.../Integration` | `ITraderX*` / `TraderXProviderRegistry` | [US-033](docs/stories/US-033-integration-ports.md) | 🔴 prérequis, n'existe pas |
+| SafeZone — refonte UI + port | `src/TraderXSafeZone` | `TXSZ*` | [US-030](docs/stories/US-030-safezone-ui-rework.md) | 🟡 backend OK, UI à refaire |
+| Garage — build complet + port | `src/TraderXGarage` (à créer) | `TXG*` | [US-031](docs/stories/US-031-garage-rebuild.md) | 🔴 rien en src, porter depuis TraderPlusV1 |
+| CarLock — build complet + port | `src/TraderXCarLock` (à créer) | `TXCL*` | [US-032](docs/stories/US-032-carlock-build.md) | ⚪ from scratch (pattern TheLab) |
+
+**Règle parallélisme :** chaque session n'édite QUE son dossier + son `config.cpp`, et n'enregistre son provider que dans SON `AppModule` (sous `#ifdef TraderX`). Ne pas toucher la racine partagée, `src/TraderX` core (sauf US-033), ni `src/TraderXBanking` (lecture seule). `python detect_redecl.py` avant chaque build.
+
+**Ports cross-mod exposés** (via `TraderXProviderRegistry.GetInstance()`) : payer (`GetBankingProvider().DeductLabeled`), garer (`GetGarageProvider().AddVehicle`), verrouiller (`GetCarLockProvider().AddCarLockWithPassword`), zone sûre (`GetSafeZoneProvider().IsInSafeZone`). Types vanilla only → mod externe compile sans hard-dep.
+
+---
+
+## 4. Carte des features
 
 ### TraderX (core)
 
@@ -95,18 +114,22 @@ Cible : serveurs communautaires DayZ voulant une économie structurée sans simu
 - ✅ Field Ledger UI reskin (tokens TX* harmonisés)
 - ✅ DZML pipeline Banking (4/4 layouts compilent)
 
-### TraderXGarage
+### TraderXSafeZone *(session parallèle — [US-030](docs/stories/US-030-safezone-ui-rework.md))*
 
-- US-010 — Garage : validation backend complet (parking, récupération véhicule) 🔴
-- ✅ DZML pipeline Garage (2/2 layouts compilent)
-- ✅ UI reskinée Field Ledger (vue unifiée, park-in bar contextuel, cargo grid 40 slots)
+- ✅ Backend complet (CF_ModuleWorld) : damage off, melee/fall block, cleanup, AFK kick, admin bypass, influenza reset
+- US-030 — Refonte UI DayZular : indicateur zone persistant + toast entrée/sortie + countdown stylé Field Ledger 🟡
+
+### TraderXGarage *(session parallèle — [US-031](docs/stories/US-031-garage-rebuild.md))*
+
+- US-031 — Build complet : port logique TraderPlusV1 + archi DayZular (services/RPC/composants) 🔴 *(rien en src actuellement)*
+- US-010 — Critères de validation in-game (park-in/out fidèle) 🔴
 - ✅ Cross-module hook Garage → Banking (`GARAGE_FEE_OUT`)
 - ✅ Vehicle orientation fix (roll trick physique)
 
-### TraderXCarLock
+### TraderXCarLock *(session parallèle — [US-032](docs/stories/US-032-carlock-build.md))*
 
-- US-011 — CarLock : implémentation et validation en jeu ⚪
-- ⚪ Actions lock/unlock véhicule
+- US-032 — Build complet : features CarLock + pattern TheLab + UI DayZular + mot de passe 8 chiffres ⚪
+- US-011 — Critères de validation in-game (lock/unlock/lockpick/keypad) ⚪
 
 ### Infrastructure & Toolchain
 
@@ -118,7 +141,7 @@ Cible : serveurs communautaires DayZ voulant une économie structurée sans simu
 
 ---
 
-## 4. Backlog priorisé
+## 5. Backlog priorisé
 
 | Priorité | Story | Raison |
 |---|---|---|
@@ -142,7 +165,7 @@ Cible : serveurs communautaires DayZ voulant une économie structurée sans simu
 
 ---
 
-## 5. Bugs actifs
+## 6. Bugs actifs
 
 ### Page Catalogue
 - [ ] the search icon should be inside the search input field, like we need to make a component that have a border around the input field and the search icon inside it. 
@@ -173,7 +196,7 @@ Cible : serveurs communautaires DayZ voulant une économie structurée sans simu
  
 ---
 
-## 6. Archivé
+## 7. Archivé
 
 ### Features livrées
 
@@ -199,6 +222,6 @@ Cible : serveurs communautaires DayZ voulant une économie structurée sans simu
 
 ---
 
-## 7. Tips
+## 8. Tips
 
 - command to open the workbench in linux from cmd: `"S:\common\DayZ Tools\Bin\Workbench\workbenchApp.exe" "P:\TraderX\Workbench\dayz.gproj"`

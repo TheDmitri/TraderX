@@ -1,0 +1,70 @@
+PanelWidgetClass alertRowRoot {
+ position 0 0
+ hexactpos 0
+ vexactpos 0
+ size 1 1
+ hexactsize 0
+ vexactsize 0
+ style {{ _inputAlert.GetStyleClass() }}
+ color 0.9961 0.9961 0.9961 1
+ {
+  TextWidgetClass alertTitle {
+   position 0.04 0.12
+   hexactpos 0
+   vexactpos 0
+   size 0.92 0.25
+   hexactsize 0
+   vexactsize 0
+   font "TraderX/datasets/fonts/oswalt12"
+   ignorepointer 1
+   "exact text" 1
+   style Bold
+   text "ALERT TITLE"
+   scriptclass "TextBinding"
+   {
+    ScriptParamsClass {
+     Binding_Expression "{{ _inputAlert.title }}"
+    }
+   }
+  }
+  TextWidgetClass alertBody {
+   position 0.04 0.4
+   hexactpos 0
+   vexactpos 0
+   size 0.92 0.5
+   hexactsize 0
+   vexactsize 0
+   font "TraderX/datasets/fonts/oswalt12"
+   ignorepointer 1
+   "exact text" 1
+   wrap 1
+   text "Alert message body text goes here."
+   scriptclass "TextBinding"
+   {
+    ScriptParamsClass {
+     Binding_Expression "{{ _inputAlert.body }}"
+    }
+   }
+  }
+  ButtonWidgetClass alertActionBtn {
+   position 0.7 0.82
+   hexactpos 0
+   vexactpos 0
+   size 0.26 0.14
+   hexactsize 0
+   vexactsize 0
+   font "TraderX/datasets/fonts/oswalt12"
+   "exact text" 1
+   style Bold
+   style TXTab
+   color 0.9961 0.9961 0.9961 1
+   text "ACTION"
+   scriptclass "ButtonBinding"
+   {
+    ScriptParamsClass {
+     OnClick "OnAlertActionClicked"
+    }
+   }
+  }
+ }
+}

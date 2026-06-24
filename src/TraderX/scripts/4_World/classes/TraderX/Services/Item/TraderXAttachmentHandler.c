@@ -86,23 +86,31 @@ class TraderXAttachmentHandler
   static array<EntityAI> GetAttachments(EntityAI item)
   {
     array<EntityAI> attachments = new array<EntityAI>();
-      
+
+    if (!item)
+      return attachments;
+
     Weapon_Base wpn = Weapon_Base.Cast(item);
-      
-    if (wpn && !StaticTraderXCoreLists.blackListWeaponsFromAttachments.Find(wpn.GetType()) != -1)
+    if (!wpn)
+      return attachments;
+
+    if (StaticTraderXCoreLists.blackListWeaponsFromAttachments.Find(wpn.GetType()) != -1)
+      return attachments;
+
+    GameInventory inventory = wpn.GetInventory();
+    if (!inventory)
+      return attachments;
+
+    int slotCount = inventory.GetAttachmentSlotsCount();
+    for (int i = 0; i < slotCount; i++)
     {
-      int slotCountCorrect = wpn.GetSlotsCountCorrect();
-      for (int i = 0; i < slotCountCorrect; i++)
-      {
-        int slotId = wpn.GetInventory().GetAttachmentSlotId(i);
-        EntityAI attachment = EntityAI.Cast(wpn.GetInventory().FindAttachment(slotId));
-              
-        if (attachment){
-          attachments.Insert(attachment);
-        }
-      }
+      int slotId = inventory.GetAttachmentSlotId(i);
+      EntityAI attachment = EntityAI.Cast(inventory.FindAttachment(slotId));
+
+      if (attachment)
+        attachments.Insert(attachment);
     }
-      
+
     return attachments;
   }
 

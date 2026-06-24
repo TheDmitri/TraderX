@@ -1,0 +1,93 @@
+PanelWidgetClass vehicleRowRoot {
+ position 0 0
+ hexactpos 0
+ vexactpos 0
+ size 1 1
+ hexactsize 0
+ vexactsize 0
+ style TXSurface
+ color 0.9961 0.9961 0.9961 1
+ {
+  ButtonWidgetClass rowClickBtn {
+   position 0 0
+   hexactpos 0
+   vexactpos 0
+   size 1 1
+   hexactsize 0
+   vexactsize 0
+   style TXListRow
+   color 0.9961 0.9961 0.9961 1
+   scriptclass "ButtonBinding"
+   {
+    ScriptParamsClass {
+     OnClick "OnVehicleSelected"
+    }
+   }
+  }
+  PanelWidgetClass rowHealthBar {
+   position 0 0.15
+   hexactpos 0
+   vexactpos 0
+   size 0.01 0.7
+   hexactsize 0
+   vexactsize 0
+   color 0.4784 0.6039 0.2902 1
+   ignorepointer 1
+   style rover_sim_colorable
+  }
+  ImageWidgetClass rowIcon {
+   position 0.03 0
+   hexactpos 0
+   vexactpos 0
+   size 22 22
+   hexactsize 1
+   vexactsize 1
+   color 0.4157 0.3961 0.3765 1
+   mode blend
+   "src alpha" 1
+   valign center_ref
+   ignorepointer 1
+   image0 "set:traderx_icons image:wrench"
+  }
+  TextWidgetClass rowName {
+   position 0.08 0.08
+   hexactpos 0
+   vexactpos 0
+   size 0.66 0.52
+   hexactsize 0
+   vexactsize 0
+   color 0.8471 0.8235 0.7529 1
+   font "TraderX/datasets/fonts/oswalt16"
+   ignorepointer 1
+   "exact text" 1
+   "text valign" center
+   text "Vehicle"
+   scriptclass "TextBinding"
+   {
+    ScriptParamsClass {
+     Binding_Expression "{{ rowName }}"
+    }
+   }
+  }
+  TextWidgetClass rowHealth {
+   position 0.08 0.56
+   hexactpos 0
+   vexactpos 0
+   size 0.66 0.4
+   hexactsize 0
+   vexactsize 0
+   color 0.6039 0.5804 0.5333 1
+   font "TraderX/datasets/fonts/oswalt12"
+   ignorepointer 1
+   "exact text" 1
+   "text valign" center
+   text "Pristine"
+   scriptclass "TextBinding"
+   {
+    ScriptParamsClass {
+     Binding_Expression "{{ rowHealth }}"
+    }
+   }
+  }
+ }
+}

@@ -13,6 +13,8 @@ class CheckoutComponent extends DZlrComponentBase
 
 	ref array<ref TraderXProduct> _inputCheckoutItems = new array<ref TraderXProduct>();
 
+	Widget emptyCartPanel;
+
 	private static ref CheckoutComponent m_Instance;
 
 	override protected void RegisterMetadata()
@@ -37,6 +39,7 @@ class CheckoutComponent extends DZlrComponentBase
 	override void OnInit()
 	{
 		m_Instance = this;
+		AutoLoadWidgets();
 		TraderXSelectionService.Event_OnItemSelectionChanged.Insert(OnItemSelectionChanged);
 		SellPageComponent.Event_OnSellQuantityModeChanged.Insert(OnSellQuantityModeChanged);
 		TraderXTradingService.Event_OnTraderXResponseReceived.Insert(OnTraderXResponseReceived);
@@ -81,6 +84,7 @@ class CheckoutComponent extends DZlrComponentBase
 				TraderXCheckoutPricingService.GetInstance().AddItemToCheckout(item.GetProductId(), item.GetMultiplier(), uniqueKey);
 			}
 			_inputCheckoutItems.Insert(item);
+			UpdateEmptyState();
 			MarkForCheck();
 		}
 	}
@@ -114,6 +118,7 @@ class CheckoutComponent extends DZlrComponentBase
 				{
 					TraderXCheckoutPricingService.GetInstance().RemoveItemFromCheckout(item.GetProductId(), item.GetMultiplier());
 					_inputCheckoutItems.Remove(i);
+					UpdateEmptyState();
 					MarkForCheck();
 					return;
 				}
@@ -123,6 +128,7 @@ class CheckoutComponent extends DZlrComponentBase
 				if (item.productId == _inputCheckoutItems[i].productId)
 				{
 					_inputCheckoutItems.Remove(i);
+					UpdateEmptyState();
 					MarkForCheck();
 					return;
 				}
@@ -221,7 +227,15 @@ class CheckoutComponent extends DZlrComponentBase
 	{
 		totalPrice = GetTotalPrice();
 		total_amount = TraderXQuantityManager.GetFormattedMoneyAmount(totalPrice);
+		UpdateEmptyState();
 		MarkForCheck();
+	}
+
+	// "Add items to cart" placeholder only shows while the cart is empty.
+	void UpdateEmptyState()
+	{
+		if (emptyCartPanel)
+			emptyCartPanel.Show(_inputCheckoutItems.Count() == 0);
 	}
 
 	void OnTraderXResponseReceived(int responseReceived, TraderXTransactionResultCollection transactionResultCollection = null)

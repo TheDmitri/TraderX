@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+</head>
+<body>
+
+<!-- VaultActivityRowView - single line in the vault activity log.
+     Date - actor + description - delta. Rendered by txb-vault-activity-row. -->
+<div data-dz="panel" data-name="activityRowRoot"
+     class="dz-xy-0-0 dz-wh-full dz-c-00000000">
+
+  <span data-dz="text" data-name="activityDate"
+        data-bind="{{ activityDateText }}"
+        class="dz-xy-2-0 dz-wh-12-100 dz-c-6A6560 dz-font-body-12 dz-noptr dz-exact-text dz-text-vc">
+    -
+  </span>
+
+  <span data-dz="text" data-name="activityWho"
+        data-bind="{{ activityWhoText }}"
+        class="dz-xy-15-0 dz-wh-20-100 dz-c-D8D2C0 dz-font-body-12 dz-noptr dz-exact-text dz-text-vc dz-bold">
+    -
+  </span>
+
+  <span data-dz="text" data-name="activityDesc"
+        data-bind="{{ activityDescText }}"
+        class="dz-xy-36-0 dz-wh-45-100 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-text-vc">
+    -
+  </span>
+
+  <span data-dz="text" data-name="activityDelta"
+        data-bind="{{ activityDeltaText }}"
+        class="dz-xy-82-0 dz-wh-15-100 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-text-vc dz-text-right">
+    -
+  </span>
+</div>
+
+<script src="dzml-runtime.js"></script>
+</body>
+</html>
