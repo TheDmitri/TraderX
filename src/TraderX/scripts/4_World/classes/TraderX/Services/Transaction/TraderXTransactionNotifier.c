@@ -28,7 +28,7 @@ class TraderXTransactionNotifier
         else if (results.Count() == 1)
         {
             auto result = results.GetTransactionResults()[0];
-            return Ternary<string>.If(result.IsSuccess(), "#tpm_transaction_successful", "#tpm_transaction_failed");
+            return DZTernary<string>.If(result.IsSuccess(), "#tpm_transaction_successful", "#tpm_transaction_failed");
         }
         return "#tpm_transaction_notification";
     }
@@ -70,11 +70,11 @@ class TraderXTransactionNotifier
             
             if (rResult.IsSuccess())
             {
-                return string.Format(Ternary<string>.If(transactionType.IsSell(), settings.successfullySold, settings.successfullyBought), itemName);
+                return string.Format(DZTernary<string>.If(transactionType.IsSell(), settings.successfullySold, settings.successfullyBought), itemName);
             }
             else
             {
-                return string.Format(Ternary<string>.If(transactionType.IsSell(), settings.failedToSell, settings.failedToBuy), itemName, rResult.GetMessage());
+                return string.Format(DZTernary<string>.If(transactionType.IsSell(), settings.failedToSell, settings.failedToBuy), itemName, rResult.GetMessage());
             }
         }
         return "";
@@ -86,7 +86,7 @@ class TraderXTransactionNotifier
         if (results.Count() == 1)
         {
             auto rResult = results.GetTransactionResults()[0];
-            return Ternary<int>.If(rResult.IsSuccess(), ENotificationType.SUCCESS, ENotificationType.ERROR);
+            return DZTernary<int>.If(rResult.IsSuccess(), ENotificationType.SUCCESS, ENotificationType.ERROR);
         }
         
         bool hasSuccess = false;
@@ -144,7 +144,7 @@ class TraderXTransactionNotifier
 
             string line;
             if (r.IsSuccess())
-                line = string.Format("%1 %2", Ternary<string>.If(isSell, "Sold", "Bought"), itemName);
+                line = string.Format("%1 %2", DZTernary<string>.If(isSell, "Sold", "Bought"), itemName);
             else
                 line = string.Format("Failed %1", itemName);
 

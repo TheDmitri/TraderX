@@ -9,6 +9,10 @@ class TraderXAppInit
 	{
 		auto registry = DZlrServiceRegistry.GetInstance();
 
+		// Logger first — other services log during their own construction. Self-registers
+		// into the registry on this first call (replaces the old CF_ModuleGame auto-register).
+		GetTraderXLogger();
+
 		// UI lifecycle (ComponentMenu management) — first DayZular-native service
 		registry.RegisterService(TraderXUIService, new TraderXUIService());
 

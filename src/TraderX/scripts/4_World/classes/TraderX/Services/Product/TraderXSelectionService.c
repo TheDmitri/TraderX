@@ -26,7 +26,7 @@ class TraderXSelectionService : DayZularService
 {
     private static ref TraderXSelectionService m_Instance;
 
-    private ref map<UUID, ref TraderXProduct> m_SelectedItems;
+    private ref map<string, ref TraderXProduct> m_SelectedItems;
 
     // Holds a saved copy of the selection (e.g. the purchase cart) while a sub-flow
     // such as customize temporarily uses the selection for its own configuration.
@@ -51,7 +51,7 @@ class TraderXSelectionService : DayZularService
 
     void TraderXSelectionService()
     {
-        m_SelectedItems = new map<UUID, ref TraderXProduct>();
+        m_SelectedItems = new map<string, ref TraderXProduct>();
     }
 
     // Save the current selection (with each item's quantity + preset) so it can be
@@ -266,7 +266,7 @@ class TraderXSelectionService : DayZularService
         return items;
     }
 
-    void DeselectItems(array<UUID> productIds)
+    void DeselectItems(array<string> productIds)
     {
         // Need to find items by productId and deselect them using their unique IDs
         array<string> uniqueIdsToRemove = new array<string>();

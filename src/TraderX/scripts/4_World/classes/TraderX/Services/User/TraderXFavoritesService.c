@@ -4,14 +4,14 @@ class TraderXFavoritesService
 
     static ref ScriptInvoker Event_OnFavoriteChangedCallBack = new ScriptInvoker();
 
-    ref set<UUID> m_favorites;
+    ref set<string> m_favorites;
     string filePath;
 
     void TraderXFavoritesService()
     {
         string serverID = GetTraderXModule().generalSettings.serverID;
         filePath = string.Format(TRADERX_FAVORITES_FILE, serverID);
-        m_favorites = new set<UUID>();
+        m_favorites = new set<string>();
         LoadTraderXProductsFavorites();
     }
 
@@ -52,7 +52,7 @@ class TraderXFavoritesService
     void StoreTraderXProductsFavorites()
     {
         string errorMessage;
-        JsonFileLoader<set<UUID>>.SaveFile(filePath, m_favorites, errorMessage);
+        JsonFileLoader<set<string>>.SaveFile(filePath, m_favorites, errorMessage);
     }
 
     void LoadTraderXProductsFavorites()
@@ -70,7 +70,7 @@ class TraderXFavoritesService
         if (FileExist(filePath))
         {
             string errorMessage;
-            JsonFileLoader<set<UUID>>.LoadFile(filePath, m_favorites, errorMessage);
+            JsonFileLoader<set<string>>.LoadFile(filePath, m_favorites, errorMessage);
             return;
         }
 

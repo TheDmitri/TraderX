@@ -279,7 +279,7 @@ class TraderXVehicleParkingService
         }
 
         array<ref TraderXCategory> traderCategories = new array<ref TraderXCategory>();
-        foreach(UUID categoryId : npc.categoriesId)
+        foreach(string categoryId : npc.categoriesId)
         {
             TraderXCategory category = TraderXCategoryRepository.GetCategoryById(categoryId);
             if (category) {

@@ -1,12 +1,12 @@
 class TraderXLicense
 {
-    UUID licenseId;
+    string licenseId;
     string licenseName;
     string description;
 
     void TraderXLicense(string licenseName, string description)
     {
-        this.licenseId = UUID.Generate();
+        this.licenseId = TraderXUuid.GenerateUUID();
         this.licenseName = licenseName;
         this.description = description;
     }
