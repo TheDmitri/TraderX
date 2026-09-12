@@ -45,6 +45,7 @@ PanelWidgetClass CatalogPageView {
      "text color" 0.8471 0.8235 0.7529 1
      font "TraderX/datasets/fonts/oswalt12"
      "exact text" 1
+     visible 0
      style "TXBtnDefault"
      style Bold
      color 0.9961 0.9961 0.9961 1
@@ -53,6 +54,45 @@ PanelWidgetClass CatalogPageView {
      {
       ScriptParamsClass {
        OnClick "OnToggleExpandClick"
+      }
+     }
+    }
+    PanelWidgetClass syncIndicator {
+     position 0.64 0.22
+     hexactpos 0
+     vexactpos 0
+     size 0.08 0.56
+     hexactsize 0
+     vexactsize 0
+     ignorepointer 1
+     {
+      ImageWidgetClass syncIcon {
+       position 0.02 0.15
+       hexactpos 0
+       vexactpos 0
+       size 24 24
+       hexactsize 1
+       vexactsize 1
+       color 0.7686 0.6392 0.3529 1
+       ignorepointer 1
+       image0 "set:traderx_icons image:refresh"
+       mode blend
+       "src alpha" 1
+       "stretch mode" stretch_w_h
+      }
+      TextWidgetClass syncText {
+       position 0.24 0
+       hexactpos 0
+       vexactpos 0
+       size 0.76 1
+       hexactsize 0
+       vexactsize 0
+       color 0.6039 0.5804 0.5333 1
+       font "TraderX/datasets/fonts/oswalt12"
+       ignorepointer 1
+       "text valign" center
+       "exact text" 1
+       text "#tpm_syncing"
       }
      }
     }
@@ -104,7 +144,6 @@ PanelWidgetClass CatalogPageView {
      size 0.98 0.92
      hexactsize 0
      vexactsize 0
-     ignorepointer 1
      "Scrollbar V" 1
      {
       GridSpacerWidgetClass categoryGrid {

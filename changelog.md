@@ -1,0 +1,18 @@
+# TraderX Changelog
+
+## 1.1
+
+### Added
+- **Trader menu loading screen.** Opening a trader whose catalog hasn't streamed in yet now shows a full "Loading trader…" overlay instead of a half-built / frozen-looking menu. Products arrive in chunks over the network; the menu opens instantly on the overlay and reveals its content the moment the catalog + stock are ready (with a 15s safety timeout). Traders whose catalog is already cached open straight to content with no flash.
+- **Preset picker on checkout items.** A buy checkout line for a product that has presets shows a "Presets" toggle that expands the card downward into a list of options (server + user presets, plus a "No preset" entry). Picking one swaps the line's configuration, reprices, and renames on the spot — no need to open Customize for a known setup. The list expands inline (the checkout list reflows below it) rather than floating, so it isn't clipped by the checkout scroll. Shown only for normal product buys (not sell, not the Customize page, not player items) and only for same-base presets.
+
+### Changed
+- **Item card tooltip reworked (UX).** The product description tooltip no longer pops up when hovering anywhere on the row — it now appears only when hovering the item thumbnail, and its background is fully opaque for legibility. The interaction hints (left/right-click, favorite) were removed from the tooltip. Variant / attachment availability, previously hidden inside that tooltip, is now shown as persistent icons on the card (palette = variants, wrench = attachments), plus a dedicated gear "Customize" button — a discoverable alternative to right-click. Each icon has its own labelled hover tooltip (Variants / Attachments / Customize). The same affordance icons + labelled tooltips were added to the Catalog cards (list + grid). Also fixes the buy tooltip showing a hardcoded placeholder instead of the real item description.
+
+### Fixed
+- **Trader header had no background.** The top header strip (store name / nav tabs / wallet) rendered transparent (the game world showed through) because its `TXHeader` style draws no fill and the container center is an outline. Added a solid dark header fill.
+- **Trader name truncated.** The header trader-name label was a fixed-width exact-text box that cut off longer names; it now wraps and sizes to its content.
+- **Category icons showed an orange square.** The category `icon` field is usually an emoji (📦/💚/⚙️) or empty — never a texture — so trying to load it produced a blank/orange square. Now only real texture paths (`.edds`/`.paa`) are loaded; emoji/empty fall back to a default grid glyph.
+- **SafeZone badge collided with menus.** The persistent top-center "in safe zone" indicator now hides whenever a menu is open (trader, inventory, …) and reappears on close if still inside a zone.
+- **Customize page client crash.** Opening the Customize page (item card right-click on Purchase / Catalog / Favorites) hard-crashed the game with no error log. The page swap ran synchronously inside the item card's click handler, freeing the card whose handler was still on the stack — engine returned into freed memory. Sub-page open/close is now deferred one frame (`AddSubPage`/`CloseSubPage`) so the click unwinds first. The close button had the same fault and is covered.
+- **Customize preview double-free.** Leaving the Customize page deleted the 3D preview entity while `CustomizePreviewService` still held the same pointer, so the next visit deleted it a second time (dangling-pointer crash). The component now defers to the service (owner) for cleanup and only drops its own reference.

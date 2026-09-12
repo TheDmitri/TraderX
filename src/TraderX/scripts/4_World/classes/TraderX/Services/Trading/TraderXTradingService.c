@@ -20,6 +20,10 @@ class TraderXTradingService
     static ref ScriptInvoker Event_OnTraderXResponseReceived = new ScriptInvoker();
     private bool isMaxQuantity = false;
     private bool m_IsTransactionPending = false;
+    // True once the opened trader's products have fully streamed in (products are sent before
+    // stock, so ALL_STOCK_RECEIVED marks completion). Reset each time a trader menu opens.
+    // Pages read this on mount so a tab opened AFTER completion isn't stuck showing "syncing".
+    private bool m_ProductsReady = false;
 
     int tradeMode = ETraderXTradeMode.SELL;
 
@@ -33,10 +37,15 @@ class TraderXTradingService
         GetTraderXLogger().LogDebug("SetTraderCategoriesFromNpc " + npc.npcId );
         traderNpc = npc;
 
-        GetRPCManager().SendRPC("TraderX", "OnTraderXMenuOpen", new Param1<int>(traderNpc.npcId), true, null);
+        // If the client already holds this trader's products (prewarmed on safezone entry), skip
+        // the product stream: mark ready now (so pages show expand-all with no sync flash) and
+        // tell the server we only need stock. Otherwise the server streams products then stock.
+        bool hasProducts = HasNpcProducts(npc);
+        m_ProductsReady = hasProducts;
+        GetRPCManager().SendRPC("TraderX", "OnTraderXMenuOpen", new Param2<int, bool>(traderNpc.npcId, !hasProducts), true, null);
         
         traderCategories.Clear();
-        foreach(UUID categoryId : npc.categoriesId)
+        foreach(string categoryId : npc.categoriesId)
         {
             TraderXCategory category = TraderXCategoryRepository.GetCategoryById(categoryId);
             if (category)
@@ -76,7 +85,7 @@ class TraderXTradingService
 
     int GetNpcId()
     {
-        return Ternary<int>.If(traderNpc != null, traderNpc.npcId, -1);
+        return DZTernary<int>.If(traderNpc != null, traderNpc.npcId, -1);
     }
 
     int GetPlayerMoneyAmount(PlayerBase player)
@@ -94,7 +103,7 @@ class TraderXTradingService
         traderCategories.Clear();
         if (traderNpc)
         {
-            foreach (UUID categoryId : traderNpc.categoriesId)
+            foreach (string categoryId : traderNpc.categoriesId)
             {
                 TraderXCategory category = TraderXCategoryRepository.GetCategoryById(categoryId);
                 if (category)
@@ -133,7 +142,40 @@ class TraderXTradingService
         GetTraderXLogger().LogDebug("TraderXTradingService::OnTraderXResponseReceived");
         if(response == ETraderXResponse.TRANSACTIONS)
             UnlockTransaction();
+        // Stock is sent after the last product chunk, so this marks the trader's catalog ready.
+        if(response == ETraderXResponse.ALL_STOCK_RECEIVED)
+            m_ProductsReady = true;
         Event_OnTraderXResponseReceived.Invoke(response, transactionResultCollection);
+    }
+
+    // True once the opened trader's products have fully arrived (see m_ProductsReady).
+    bool IsProductsReady()
+    {
+        return m_ProductsReady;
+    }
+
+    // Client-side: does the product repo already hold every product of this trader's categories?
+    // Used to decide whether the server must stream products on open (false) or just stock (true).
+    // Checks category productIds only — if those are present the trader's prewarm ran, which also
+    // pulled their variants/attachments.
+    bool HasNpcProducts(TraderXNpc npc)
+    {
+        if (!npc)
+            return false;
+
+        foreach (string categoryId : npc.categoriesId)
+        {
+            TraderXCategory category = TraderXCategoryRepository.GetCategoryById(categoryId);
+            if (!category)
+                return false;
+
+            foreach (string productId : category.productIds)
+            {
+                if (!TraderXProductRepository.GetItemById(productId))
+                    return false;
+            }
+        }
+        return true;
     }
 
     void GetFavoritesCategories(out array<ref TraderXCategory> categories)

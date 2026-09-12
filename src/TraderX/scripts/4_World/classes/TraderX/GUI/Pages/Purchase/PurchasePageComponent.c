@@ -7,6 +7,9 @@ class PurchasePageComponent extends DZlrComponentBase
 	bool m_AllExpanded = false;
 	TextWidget toggleExpandText;
 	ScrollWidget scrollCategory;
+	// Expand-all is hidden while the trader's products stream in; a sync indicator shows instead.
+	Widget toggleExpandBtn;
+	Widget syncIndicator;
 	ImageWidget fittingBtnIcon;
 	bool m_FittingMode = false;
 
@@ -39,6 +42,9 @@ class PurchasePageComponent extends DZlrComponentBase
 		TraderXSearchBarComponent.Event_OnSearchChangedCallBack.Insert(OnSearchKeyword);
 		TraderXSelectionService.Event_OnItemSelectionChanged.Insert(OnItemSelectionChanged);
 		CategoryCardComponent.Event_OnCategoryCollapsedCallBack.Insert(OnCategoryCollapsed);
+		TraderXTradingService.Event_OnTraderXResponseReceived.Insert(OnTradeResponse);
+		// Reflect current stream state on mount (a tab opened after completion shows expand-all).
+		SetSyncing(!TraderXTradingService.GetInstance().IsProductsReady());
 		// Fitting/outfit mode is opt-in per visit — start off.
 		m_FittingMode = false;
 		TraderXSelectionService.SetFittingMode(false);
@@ -94,6 +100,7 @@ class PurchasePageComponent extends DZlrComponentBase
 		TraderXSearchBarComponent.Event_OnSearchChangedCallBack.Remove(OnSearchKeyword);
 		TraderXSelectionService.Event_OnItemSelectionChanged.Remove(OnItemSelectionChanged);
 		CategoryCardComponent.Event_OnCategoryCollapsedCallBack.Remove(OnCategoryCollapsed);
+		TraderXTradingService.Event_OnTraderXResponseReceived.Remove(OnTradeResponse);
 		// Don't leak fitting mode into other pages.
 		TraderXSelectionService.SetFittingMode(false);
 		DestroyPreviewBtnTooltip();
@@ -328,6 +335,21 @@ class PurchasePageComponent extends DZlrComponentBase
 				card.OnSearch(search_keyword);
 		}
 		ResetCategoryScroll();
+	}
+
+	// Products stream in per-trader on open; hide expand-all + show the sync indicator until
+	// the catalog is complete (stock is sent after the last product chunk, so ALL_STOCK_RECEIVED
+	// marks completion).
+	void OnTradeResponse(int response, TraderXTransactionResultCollection results = null)
+	{
+		if (response == ETraderXResponse.ALL_STOCK_RECEIVED)
+			SetSyncing(false);
+	}
+
+	void SetSyncing(bool syncing)
+	{
+		if (syncIndicator) syncIndicator.Show(syncing);
+		if (toggleExpandBtn) toggleExpandBtn.Show(!syncing);
 	}
 
 	void OnToggleExpandClick()

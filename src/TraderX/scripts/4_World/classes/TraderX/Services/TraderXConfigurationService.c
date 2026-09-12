@@ -154,8 +154,39 @@ class TraderXConfigurationService
             product.LoadCategoryStock();
             processed++;
         }
-        
+
         GetTraderXLogger().LogInfo(string.Format("[TraderX] ApplyStockBehaviorAtRestart - Processed %1 products", processed));
+
+        WarmStockCacheAtBoot();
+    }
+
+    // Preload every finite-stock file into the in-memory cache at server boot.
+    // Products with stockBehavior 0 (persist stock across restart, the common case)
+    // are NOT touched by the loop above, so their stock files were previously read
+    // lazily on the FIRST trader-menu open: ~500 synchronous JsonFileLoader reads on
+    // the main thread froze the whole server ~5s (queued pickups/shots/movement then
+    // fired at once). Doing the read here — during the deferred boot init, with no
+    // players yet acting — moves that one-time cost off the gameplay path.
+    //
+    // Warm straight from the product repository (all products are already loaded above),
+    // NOT via categories: at boot the category->product links aren't built yet, so walking
+    // categories would dereference an unpopulated product list. GetProducts() is also a
+    // superset (includes variants/attachments), so this warms more than the menu path did.
+    private void WarmStockCacheAtBoot()
+    {
+        array<ref TraderXProduct> products = TraderXProductRepository.GetProducts();
+        if (!products)
+            return;
+
+        array<string> productIdsToWarm = new array<string>();
+        foreach(TraderXProduct product: products)
+        {
+            if (product && !product.IsStockUnlimited())
+                productIdsToWarm.Insert(product.GetProductId());
+        }
+
+        TraderXProductStockRepository.LoadStockBulk(productIdsToWarm);
+        GetTraderXLogger().LogInfo(string.Format("[TraderX] WarmStockCacheAtBoot - Warmed stock for %1 products", productIdsToWarm.Count()));
     }
     
     // Helper: Check if Source directory has any CSV or JSON files

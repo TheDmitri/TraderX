@@ -130,11 +130,21 @@ class TraderXSafeZoneModule: CF_ModuleWorld
         
         bool isInZoneClient = data.param1;
         bool isInZoneServer = IsInTXSafeZone(player);
+        bool wasInZone = player.IsInTXSafeZone();
 
         if(isInZoneClient != isInZoneServer)
             Print("[TraderXSafeZone] WARNING: Client/Server mismatch for " + sender.GetName() + " — client=" + isInZoneClient + " server=" + isInZoneServer + " (server wins)");
-        
+
         player.SetTXSafeZoneStatus(isInZoneServer);
+
+        // Just crossed INTO a safezone — ask TraderX to prewarm this zone's traders' catalogs
+        // to the client (no-op unless the TraderX prewarmCatalogInSafeZone option is enabled).
+        if(isInZoneServer && !wasInZone)
+        {
+            TXSafeZoneLocation enteredZone = GetContainingZone(player);
+            if(enteredZone)
+                GetTraderXModule().PrewarmCatalogInZone(sender, enteredZone.position, enteredZone.radius);
+        }
         
         if(isInZoneServer)
         {
@@ -185,6 +195,22 @@ class TraderXSafeZoneModule: CF_ModuleWorld
         }
     }
     
+    // The active safezone the player currently stands in (first match), or null.
+    TXSafeZoneLocation GetContainingZone(PlayerBase player)
+    {
+        if(!settings || !settings.locations)
+            return null;
+
+        foreach(TXSafeZoneLocation location : settings.locations)
+        {
+            if(!location || !location.isActive)
+                continue;
+            if(IsInRadius(player, location))
+                return location;
+        }
+        return null;
+    }
+
     bool IsInRadius(Object obj, TXSafeZoneLocation location)
     {
         vector objectPos = obj.GetPosition();

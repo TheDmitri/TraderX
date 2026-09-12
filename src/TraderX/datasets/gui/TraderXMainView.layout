@@ -31,6 +31,17 @@ FrameWidgetClass rootFrame {
      style TXHeader
      color 0.9961 0.9961 0.9961 1
      {
+      PanelWidgetClass headerBg {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 1 1
+       hexactsize 0
+       vexactsize 0
+       color 0.0431 0.051 0.0706 1
+       ignorepointer 1
+       style rover_sim_colorable
+      }
       PanelWidgetClass TraderInfoPanel {
        position 0.01 0
        hexactpos 0
@@ -73,7 +84,7 @@ FrameWidgetClass rootFrame {
          position 0.15 -0.08
          hexactpos 0
          vexactpos 0
-         size 0.8 0.29
+         size 0.84 0.4
          hexactsize 0
          vexactsize 0
          valign center_ref
@@ -81,7 +92,8 @@ FrameWidgetClass rootFrame {
          font "TraderX/datasets/fonts/oswalt28"
          ignorepointer 1
          style Bold
-         "exact text" 1
+         wrap 1
+         "size to text v" 1
          text "Marie"
          scriptclass "TextBinding"
          {
@@ -305,6 +317,69 @@ FrameWidgetClass rootFrame {
        "text valign" center
        "text halign" right
        text "Sponsored By DayZ Beans Launcher"
+      }
+     }
+    }
+    PanelWidgetClass loadingOverlay {
+     position 0 0
+     hexactpos 0
+     vexactpos 0
+     size 1 1
+     hexactsize 0
+     vexactsize 0
+     color 0.0392 0.0471 0.0627 1
+     priority 999
+     visible 0
+     style rover_sim_colorable
+     {
+      ButtonWidgetClass loadingBlocker {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 1 1
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.9961 0.9961 0.9961 1
+       style Empty
+       color 0.9961 0.9961 0.9961 1
+      }
+      ImageWidgetClass loadingIcon {
+       position 0 -0.06
+       hexactpos 0
+       vexactpos 0
+       size 64 64
+       hexactsize 1
+       vexactsize 1
+       halign center_ref
+       valign center_ref
+       color 0.7686 0.6392 0.3529 1
+       ignorepointer 1
+       image0 "set:traderx_icons image:market"
+       mode blend
+       "src alpha" 1
+       "stretch mode" stretch_w_h
+      }
+      TextWidgetClass loadingText {
+       position 0 0.06
+       hexactpos 0
+       vexactpos 0
+       size 1 0.1
+       hexactsize 0
+       vexactsize 0
+       halign center_ref
+       valign center_ref
+       color 0.8471 0.8235 0.7529 1
+       font "TraderX/datasets/fonts/oswalt22"
+       ignorepointer 1
+       "text halign" center
+       "text valign" center
+       text "Loading trader"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ loading_text }}"
+        }
+       }
       }
      }
     }

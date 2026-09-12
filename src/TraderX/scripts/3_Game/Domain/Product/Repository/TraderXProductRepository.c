@@ -21,6 +21,19 @@ class TraderXProductRepository
         }
     }
 
+    // Append products WITHOUT clearing — used by the chunked client-side catalog sync so a
+    // large catalog can stream in over several frames instead of one blocking RPC read.
+    static void AddProducts(array<ref TraderXProduct> items)
+    {
+        if (!items)
+            return;
+        foreach (TraderXProduct item : items)
+        {
+            if (item)
+                s_Items.Set(item.productId, item);
+        }
+    }
+
     static TraderXProduct GetItemById(string id)
     {
         return s_Items.Get(id);

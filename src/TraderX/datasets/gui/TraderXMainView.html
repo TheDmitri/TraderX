@@ -19,6 +19,12 @@
         data-name="MainPageHeader"
         data-style="TXHeader"
         class="dz-xy-0-0 dz-wh-100-10 dz-c-FE dz-noptr">
+      <!-- Solid header fill. TXHeader draws no background of its own and the container
+           center reads through to the world here, so the header strip looked transparent.
+           Plain panel (no data-style) keeps its dark dz-c fill instead of being tinted white. -->
+      <div data-dz="panel"
+          data-name="headerBg"
+          class="dz-xy-0-0 dz-wh-full dz-c-0B0D12 dz-noptr"></div>
       <div data-dz="panel"
           data-name="TraderInfoPanel"
           class="dz-xy-1-0 dz-wh-22-100 dz-noptr">
@@ -37,7 +43,7 @@
         <span data-dz="text"
             data-name="TraderNameLabel"
             data-bind="{{ trader_name }}"
-            class="dz-xy-15--8 dz-wh-80-29 dz-align-y-center dz-tc-C4A35A dz-font-heading-28 dz-noptr dz-bold dz-exact-text">
+            class="dz-xy-15--8 dz-wh-84-40 dz-align-y-center dz-tc-C4A35A dz-font-heading-28 dz-noptr dz-bold dz-wrap dz-size-to-text-v">
           Marie
         </span>
         <span data-dz="text"
@@ -128,6 +134,31 @@
           data-name="dzbPromoText"
           class="dz-align-cr dz-xy-2-0 dz-wh-16-100 dz-noptr dz-c-C4A35A dz-font-body-12 dz-exact-text dz-text-vc dz-text-right">
         Sponsored By DayZ Beans Launcher
+      </span>
+    </div>
+
+    <!-- Loading overlay: covers the whole menu until the trader's products/stock have
+         arrived, so the menu opens instantly (no frozen/half-built appearance) and reveals
+         content only when it's ready. Shown/hidden from TraderXAppComponent. -->
+    <div data-dz="panel"
+        data-name="loadingOverlay"
+        class="dz-xy-0-0 dz-wh-full dz-c-0A0C10 dz-priority-999 dz-hidden">
+      <button data-dz="button"
+          data-name="loadingBlocker"
+          data-style="Empty"
+          class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
+      <img data-dz="image"
+          data-name="loadingIcon"
+          class="dz-xy-0--6 dz-wh-64px-64px dz-align-cc dz-c-C4A35A dz-noptr"
+          data-image="set:traderx_icons image:market"
+          data-image-mode="blend"
+          data-image-src-alpha="1"
+          data-image-stretch="stretch_w_h"/>
+      <span data-dz="text"
+          data-name="loadingText"
+          data-bind="{{ loading_text }}"
+          class="dz-xy-0-6 dz-wh-100-10 dz-align-cc dz-c-D8D2C0 dz-font-heading-22 dz-noptr dz-text-center dz-text-vc">
+        Loading trader
       </span>
     </div>
   </div>

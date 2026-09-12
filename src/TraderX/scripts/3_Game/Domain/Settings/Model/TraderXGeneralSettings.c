@@ -5,6 +5,11 @@ class TraderXGeneralSettings {
     ref TraderXStates acceptedStates;
     ref array<ref TraderXNpc> traders;
     ref array<ref TraderXObject> traderObjects;
+    // When true, entering a safezone background-streams the products of every trader inside that
+    // zone to the client, so opening those traders is instant (complements the on-demand send).
+    // Default ON; admins can set false in the settings JSON. The version bump below writes this
+    // field into existing config files on first load after update.
+    bool prewarmCatalogInSafeZone = true;
 
     void TraderXGeneralSettings() {
         licenses = new array<ref TraderXLicense>();

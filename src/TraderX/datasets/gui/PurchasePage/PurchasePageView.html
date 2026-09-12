@@ -37,7 +37,7 @@
         data-name="toggleExpandBtn"
         data-style="Bold"
         data-on-click="OnToggleExpandClick"
-        class="dz-xy-62-22 dz-wh-8-56 dz-tc-FE dz-tc-D8D2C0 dz-font-body-12 dz-exact-text"
+        class="dz-xy-62-22 dz-wh-8-56 dz-tc-FE dz-tc-D8D2C0 dz-font-body-12 dz-exact-text dz-hidden"
         data-prop-style="TXBtnDefault">
       <span data-dz="text"
           data-name="toggleExpandText"
@@ -45,6 +45,22 @@
         #tpm_expand_all
       </span>
     </button>
+    <div data-dz="panel"
+        data-name="syncIndicator"
+        class="dz-xy-62-22 dz-wh-8-56 dz-noptr">
+      <img data-dz="image"
+          data-name="syncIcon"
+          class="dz-xy-2-15 dz-wh-24px-24px dz-c-C4A35A dz-noptr"
+          data-image="set:traderx_icons image:refresh"
+          data-image-mode="blend"
+          data-image-src-alpha="1"
+          data-image-stretch="stretch_w_h"/>
+      <span data-dz="text"
+          data-name="syncText"
+          class="dz-xy-24-0 dz-wh-76-100 dz-c-9A9488 dz-font-body-12 dz-noptr dz-text-vc dz-exact-text">
+        #tpm_syncing
+      </span>
+    </div>
     <div data-dz="panel"
         data-name="ViewToggleHost"
         data-component="tx-view-toggle"
@@ -110,7 +126,7 @@
       class="dz-xy-21-7 dz-wh-55-92 dz-c-FE dz-noptr">
     <div data-dz="scroll"
         data-name="scrollCategory"
-        class="dz-xy-1-1 dz-wh-98-98 dz-noptr dz-scroll-v">
+        class="dz-xy-1-1 dz-wh-98-98 dz-scroll-v">
       <div data-dz="grid"
           data-name="categoryGrid"
           data-foreach="{{ _inputCategories }}"

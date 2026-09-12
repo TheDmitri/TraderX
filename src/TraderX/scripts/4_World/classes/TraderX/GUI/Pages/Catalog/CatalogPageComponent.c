@@ -7,6 +7,9 @@ class CatalogPageComponent extends DZlrComponentBase
 	bool m_AllExpanded = false;
 	TextWidget toggleExpandText;
 	ScrollWidget scrollCategory;
+	// Expand-all is hidden while the trader's products stream in; a sync indicator shows instead.
+	Widget toggleExpandBtn;
+	Widget syncIndicator;
 
 	string selected_item_name;
 	string selected_sell_price;
@@ -29,6 +32,8 @@ class CatalogPageComponent extends DZlrComponentBase
 		CatalogItemCardComponent.Event_OnCatalogItemCardClickCallBack.Insert(OnCatalogItemCardClick);
 		TraderXSearchBarComponent.Event_OnSearchChangedCallBack.Insert(OnSearchKeyword);
 		CatalogCategoryCardComponent.Event_OnCategoryCollapsedCallBack.Insert(OnCategoryCollapsed);
+		TraderXTradingService.Event_OnTraderXResponseReceived.Insert(OnTradeResponse);
+		SetSyncing(!TraderXTradingService.GetInstance().IsProductsReady());
 		Setup();
 	}
 
@@ -37,6 +42,21 @@ class CatalogPageComponent extends DZlrComponentBase
 		CatalogItemCardComponent.Event_OnCatalogItemCardClickCallBack.Remove(OnCatalogItemCardClick);
 		TraderXSearchBarComponent.Event_OnSearchChangedCallBack.Remove(OnSearchKeyword);
 		CatalogCategoryCardComponent.Event_OnCategoryCollapsedCallBack.Remove(OnCategoryCollapsed);
+		TraderXTradingService.Event_OnTraderXResponseReceived.Remove(OnTradeResponse);
+	}
+
+	// Hide expand-all + show the sync indicator until the trader's products finish streaming
+	// (ALL_STOCK_RECEIVED — stock is sent after the last product chunk).
+	void OnTradeResponse(int response, TraderXTransactionResultCollection results = null)
+	{
+		if (response == ETraderXResponse.ALL_STOCK_RECEIVED)
+			SetSyncing(false);
+	}
+
+	void SetSyncing(bool syncing)
+	{
+		if (syncIndicator) syncIndicator.Show(syncing);
+		if (toggleExpandBtn) toggleExpandBtn.Show(!syncing);
 	}
 
 	void ResetCategoryScroll()
