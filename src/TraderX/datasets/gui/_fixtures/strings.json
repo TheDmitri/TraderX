@@ -125,5 +125,15 @@
   "tpm_sell_container": "Sell Container",
   "tpm_select_items": "Select Items",
   "tpm_manual": "Manual",
-  "tpm_confirmation": "Confirmation"
+  "tpm_confirmation": "Confirmation",
+  "tpm_no_variants": "No variants available",
+  "tpm_no_presets": "No presets yet",
+  "tpm_preset_created": "Preset created",
+  "tpm_edit_preset_name": "Edit Preset Name",
+  "tpm_preset_renamed": "Preset renamed",
+  "tpm_no_attachments": "No attachments available",
+  "tpm_add_items_to_cart": "Add items to cart",
+  "tpm_no_space_title": "Not Enough Space",
+  "tpm_no_space_content": "Not enough space in your inventory. The items will drop on the ground. Buy them anyway?",
+  "tpm_syncing": "Syncing"
 }

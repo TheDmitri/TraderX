@@ -254,22 +254,30 @@
       <stop offset="100%" stop-color="#111316"/>
     </linearGradient>
     <linearGradient id="g64" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#1a1d21"/>
-      <stop offset="100%" stop-color="#16181c"/>
+      <stop offset="0%" stop-color="#15181d"/>
+      <stop offset="100%" stop-color="#111418"/>
     </linearGradient>
     <linearGradient id="g65" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#14171a"/>
-      <stop offset="100%" stop-color="#111316"/>
+      <stop offset="0%" stop-color="#101317"/>
+      <stop offset="100%" stop-color="#0d1013"/>
     </linearGradient>
     <linearGradient id="g66" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#1a1d21"/>
       <stop offset="100%" stop-color="#16181c"/>
     </linearGradient>
     <linearGradient id="g67" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#14171a"/>
+      <stop offset="100%" stop-color="#111316"/>
+    </linearGradient>
+    <linearGradient id="g68" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1a1d21"/>
+      <stop offset="100%" stop-color="#16181c"/>
+    </linearGradient>
+    <linearGradient id="g69" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#6b8e5a"/>
       <stop offset="100%" stop-color="#5a784c"/>
     </linearGradient>
-    <linearGradient id="g68" x1="0%" y1="0%" x2="0%" y2="100%">
+    <linearGradient id="g70" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#14171a"/>
       <stop offset="100%" stop-color="#111316"/>
     </linearGradient>
@@ -419,14 +427,18 @@
   <path d="M 161 184 H 179 A 3 3 0 0 1 182 187 V 205 A 3 3 0 0 1 179 208 H 161 A 3 3 0 0 1 158 205 V 187 A 3 3 0 0 1 161 184 Z" fill="url(#g62)"  stroke-linejoin="round"/>
   <!-- TXBadge_disabled -->
   <path d="M 187 184 H 205 A 3 3 0 0 1 208 187 V 205 A 3 3 0 0 1 205 208 H 187 A 3 3 0 0 1 184 205 V 187 A 3 3 0 0 1 187 184 Z" fill="url(#g63)"  stroke-linejoin="round"/>
+  <!-- TXToastCard_normal -->
+  <path d="M 5 210 H 23 A 3 3 0 0 1 26 213 V 231 A 3 3 0 0 1 23 234 H 5 A 3 3 0 0 1 2 231 V 213 A 3 3 0 0 1 5 210 Z" fill="url(#g64)" stroke="#20242a" stroke-width="1" stroke-linejoin="round"/>
+  <!-- TXToastCard_disabled -->
+  <path d="M 31 210 H 49 A 3 3 0 0 1 52 213 V 231 A 3 3 0 0 1 49 234 H 31 A 3 3 0 0 1 28 231 V 213 A 3 3 0 0 1 31 210 Z" fill="url(#g65)" stroke="#191c21" stroke-width="1" stroke-linejoin="round"/>
   <!-- TXProgressBg_normal -->
-  <path d="M 4 210 H 24 A 2 2 0 0 1 26 212 V 232 A 2 2 0 0 1 24 234 H 4 A 2 2 0 0 1 2 232 V 212 A 2 2 0 0 1 4 210 Z" fill="url(#g64)"  stroke-linejoin="round"/>
-  <!-- TXProgressBg_disabled -->
-  <path d="M 30 210 H 50 A 2 2 0 0 1 52 212 V 232 A 2 2 0 0 1 50 234 H 30 A 2 2 0 0 1 28 232 V 212 A 2 2 0 0 1 30 210 Z" fill="url(#g65)"  stroke-linejoin="round"/>
-  <!-- TXProgressFill_normal -->
   <path d="M 56 210 H 76 A 2 2 0 0 1 78 212 V 232 A 2 2 0 0 1 76 234 H 56 A 2 2 0 0 1 54 232 V 212 A 2 2 0 0 1 56 210 Z" fill="url(#g66)"  stroke-linejoin="round"/>
-  <!-- TXProgressFill_fill -->
+  <!-- TXProgressBg_disabled -->
   <path d="M 82 210 H 102 A 2 2 0 0 1 104 212 V 232 A 2 2 0 0 1 102 234 H 82 A 2 2 0 0 1 80 232 V 212 A 2 2 0 0 1 82 210 Z" fill="url(#g67)"  stroke-linejoin="round"/>
-  <!-- TXProgressFill_disabled -->
+  <!-- TXProgressFill_normal -->
   <path d="M 108 210 H 128 A 2 2 0 0 1 130 212 V 232 A 2 2 0 0 1 128 234 H 108 A 2 2 0 0 1 106 232 V 212 A 2 2 0 0 1 108 210 Z" fill="url(#g68)"  stroke-linejoin="round"/>
+  <!-- TXProgressFill_fill -->
+  <path d="M 134 210 H 154 A 2 2 0 0 1 156 212 V 232 A 2 2 0 0 1 154 234 H 134 A 2 2 0 0 1 132 232 V 212 A 2 2 0 0 1 134 210 Z" fill="url(#g69)"  stroke-linejoin="round"/>
+  <!-- TXProgressFill_disabled -->
+  <path d="M 160 210 H 180 A 2 2 0 0 1 182 212 V 232 A 2 2 0 0 1 180 234 H 160 A 2 2 0 0 1 158 232 V 212 A 2 2 0 0 1 160 210 Z" fill="url(#g70)"  stroke-linejoin="round"/>
 </svg>

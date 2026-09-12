@@ -74,11 +74,21 @@ class CategoryCardComponent extends DZlrComponentBase
 		if (categoryIcon)
 		{
 			if (isFavoritesCategory)
+			{
 				categoryIcon.Show(false);
-			else if (category.icon != string.Empty)
-				categoryIcon.LoadImageFile(0, category.icon);
+			}
 			else
-				categoryIcon.Show(false);
+			{
+				// category.icon is only usable as an image when it's a real texture path;
+				// it's frequently an emoji (📦/💚/⚙️) or empty, which LoadImageFile can't load.
+				// Fall back to a default glyph then. Always LoadImageFile (not just Show) so a
+				// recycled card doesn't keep the previous category's icon.
+				if (TraderXCategoryIconUtils.IsIconFilePath(category.icon))
+					categoryIcon.LoadImageFile(0, category.icon);
+				// else: keep the layout's built-in imageset default glyph. category.icon here is
+				// an emoji or empty (never a texture), so loading it would blank the widget.
+				categoryIcon.Show(true);
+			}
 		}
 
 		if (!TraderXLicenseService.GetInstance().HasLicenses(category.licensesRequired))

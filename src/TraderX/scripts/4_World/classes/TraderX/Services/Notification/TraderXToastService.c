@@ -30,7 +30,7 @@ class TraderXToastService : DayZularService
     private static const int PHASE_EXIT  = 3;
     private static const int PHASE_GAP   = 4;
 
-    private static const float SLIDE_OFFSET_PX = 420.0;   // offscreen-right start/end
+    private static const float SLIDE_OFFSET_FRAC = 0.25;   // offscreen-right start/end (screen fraction)
 
     private ref array<ref TraderXToastNotification> m_Queue;
     private ref TraderXToastCardComponent m_Card;
@@ -94,8 +94,8 @@ class TraderXToastService : DayZularService
         if (message == "")
             return;
 
-        string type = Ternary<string>.If(isSuccess, TXNOTIF_INFO, TXNOTIF_ERROR);
-        string title = Ternary<string>.If(isSuccess, "Trader", "Action Failed");
+        string type = DZTernary<string>.If(isSuccess, TXNOTIF_INFO, TXNOTIF_ERROR);
+        string title = DZTernary<string>.If(isSuccess, "Trader", "Action Failed");
         ShowToast(type, title, message);
     }
 
@@ -140,10 +140,10 @@ class TraderXToastService : DayZularService
             case PHASE_ENTER:
             {
                 float et = Math.Clamp(m_PhaseMs / TX_TOAST_IN_MS, 0.0, 1.0);
-                m_Card.SetSlideOffsetPx(SLIDE_OFFSET_PX * (1.0 - et));
+                m_Card.SetSlideOffset(SLIDE_OFFSET_FRAC * (1.0 - et));
                 if (m_PhaseMs >= TX_TOAST_IN_MS)
                 {
-                    m_Card.SetSlideOffsetPx(0);
+                    m_Card.SetSlideOffset(0);
                     GoToPhase(PHASE_HOLD);
                     m_Card.StartHold(m_HoldMs);
                 }
@@ -161,7 +161,7 @@ class TraderXToastService : DayZularService
             case PHASE_EXIT:
             {
                 float xt = Math.Clamp(m_PhaseMs / TX_TOAST_OUT_MS, 0.0, 1.0);
-                m_Card.SetSlideOffsetPx(SLIDE_OFFSET_PX * xt);
+                m_Card.SetSlideOffset(SLIDE_OFFSET_FRAC * xt);
                 if (m_PhaseMs >= TX_TOAST_OUT_MS)
                 {
                     m_Card.ShowCard(false);
@@ -195,7 +195,7 @@ class TraderXToastService : DayZularService
 
         m_Card.Apply(notif);
         m_Card.SetQueueCount(m_Queue.Count());    // backlog still waiting
-        m_Card.SetSlideOffsetPx(SLIDE_OFFSET_PX);  // start offscreen
+        m_Card.SetSlideOffset(SLIDE_OFFSET_FRAC);  // start offscreen
         m_Card.ShowCard(true);
         GoToPhase(PHASE_ENTER);
     }

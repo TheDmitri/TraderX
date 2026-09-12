@@ -3,11 +3,6 @@ class BuyTooltipComponent extends DZlrComponentBase
 	private static ref ComponentAutoRegister s_Register = new ComponentAutoRegister("tx-buy-tooltip", BuyTooltipComponent);
 
 	string product_description;
-	string variants_status;
-	string attachments_status;
-
-	TextWidget variantsText;
-	TextWidget attachmentsText;
 
 	override protected void RegisterMetadata()
 	{
@@ -21,32 +16,11 @@ class BuyTooltipComponent extends DZlrComponentBase
 		AutoLoadWidgets();
 	}
 
-	void Setup(string productDescription, bool hasVariants, bool hasAttachments)
+	// Plain description reveal. Variants/attachments state and the interaction hints used
+	// to live here; they now live on the card as persistent icons (UpdateCustomizeAffordance).
+	void Setup(string productDescription)
 	{
 		product_description = productDescription;
-
-		if (!hasVariants)
-		{
-			variants_status = "#tpm_none";
-			if (variantsText) variantsText.SetColor(TraderXTheme.TEXT_WARN);
-		}
-		else
-		{
-			variants_status = "#tpm_available";
-			if (variantsText) variantsText.SetColor(TraderXTheme.TEXT_OK);
-		}
-
-		if (!hasAttachments)
-		{
-			attachments_status = "#tpm_none";
-			if (attachmentsText) attachmentsText.SetColor(TraderXTheme.TEXT_WARN);
-		}
-		else
-		{
-			attachments_status = "#tpm_available";
-			if (attachmentsText) attachmentsText.SetColor(TraderXTheme.TEXT_OK);
-		}
-
 		MarkForCheck();
 		SetPositionTooltip();
 	}

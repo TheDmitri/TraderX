@@ -69,6 +69,13 @@
 
   .TXBadge { --bg: #1a1d21; --radius: 3; }
 
+  /* HUD toast card — the grow-to-content grid needs its own chrome style (mirrors
+     PdaNotifCard). NOTE: no --left here on purpose. PDA bakes its ember rule into the
+     style, but TraderX recolors the rule PER NOTIFICATION TYPE (gold/green/amber/red in
+     ApplyAccent), so the accent stays a separate leftRule widget that SyncOverlays trails
+     against the card's dynamic height. This style is just the card chrome. */
+  .TXToastCard { --bg: #15181d; --border: #20242a; --radius: 4; }
+
   /* Progress / quantity bar */
   .TXProgressBg   { --bg: #1a1d21; --radius: 2; }
   .TXProgressFill { --type: progressbar; --bg: #1a1d21; --fill: #6b8e5a; --radius: 2; }

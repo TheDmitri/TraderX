@@ -742,6 +742,26 @@
   border-radius: 3px;
 }
 
+/* Style: TXToastCard (PanelWidget) */
+[data-style="TXToastCard"] {
+  background-color: #15181d !important;
+  background-image: linear-gradient(to bottom, #15181d, #111418) !important;
+  border: 1px solid #20242a !important;
+  border-radius: 3px;
+}
+[data-style="TXToastCard"]:disabled {
+  background-color: #101317 !important;
+  background-image: linear-gradient(to bottom, #101317, #0d1013) !important;
+  border: 1px solid #191c21 !important;
+  border-radius: 3px;
+}
+[data-style="TXToastCard"].dz-disabled {
+  background-color: #101317 !important;
+  background-image: linear-gradient(to bottom, #101317, #0d1013) !important;
+  border: 1px solid #191c21 !important;
+  border-radius: 3px;
+}
+
 /* Style: TXProgressBg (PanelWidget) */
 [data-style="TXProgressBg"] {
   background-color: #1a1d21 !important;

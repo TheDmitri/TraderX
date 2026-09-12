@@ -7,26 +7,31 @@
   <link rel="stylesheet" href="dzml-icons.css">
 </head>
 <!-- TraderXSafeZone persistent "in safe zone" badge — Field Ledger.
-     Discreet top-center card, visible the whole time the player is inside a zone.
-     Shield glyph (loaded in code from shield.paa) + bound status text.
+     Full-screen root + a centered-top card. Card position/size are FRACTIONAL (%)
+     so it anchors the same on any resolution (px is absolute and drifts/clips).
+     Shield glyph (loaded in code from shield.paa, natural white) + bound status text.
      data-name contract → AutoLoadWidgets in TXSZIndicatorComponent.c:
-       indicatorRoot, leftRule, shieldIcon, zoneText -->
+       indicatorRoot, indicatorCard, leftRule, shieldIcon, zoneText -->
 <body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#0F1215;">
 
-<div data-dz="panel" data-name="indicatorRoot" data-style="TXCardElevated"
-    class="dz-xy-850px-22px dz-wh-220px-32px dz-noptr dz-priority-999">
+<div data-dz="panel" data-name="indicatorRoot" class="dz-xy-0-0 dz-wh-full dz-noptr dz-priority-999">
 
-  <!-- Olive accent rule -->
-  <div data-dz="panel" data-name="leftRule" class="dz-xy-0px-0px dz-wh-3px-32px dz-c-7a9a4a dz-noptr"></div>
+  <div data-dz="panel" data-name="indicatorCard" data-style="TXCardElevated"
+      class="dz-xy-44-2 dz-wh-13-3 dz-noptr">
 
-  <!-- Shield glyph (image set at runtime: TraderXSafeZone/datasets/shield.paa) -->
-  <img data-dz="image" data-name="shieldIcon" class="dz-xy-12px-6px dz-wh-20px-20px dz-c-7a9a4a dz-noptr" />
+    <!-- Olive accent rule (full card height) -->
+    <div data-dz="panel" data-name="leftRule" class="dz-xy-0px-0px dz-wh-3px-100 dz-c-7a9a4a dz-noptr"></div>
 
-  <!-- Status text "<TITLE> · <ZONE>" -->
-  <span data-dz="text" data-name="zoneText" data-bind="{{ statusText }}"
-      class="dz-xy-40px-0px dz-wh-176px-32px dz-noptr dz-c-d8d2c0 dz-font-body-14 dz-exact-text dz-text-vc">
-    SAFE ZONE
-  </span>
+    <!-- Shield glyph from the shared traderx_icons imageset (tinted olive) -->
+    <img data-dz="image" data-name="shieldIcon" data-image="set:traderx_icons image:shield"
+        class="dz-xy-12px-7px dz-wh-20px-20px dz-c-7a9a4a dz-noptr" />
+
+    <!-- Status text "<TITLE> - <ZONE>" -->
+    <span data-dz="text" data-name="zoneText" data-bind="{{ statusText }}"
+        class="dz-xy-42px-0px dz-wh-190px-100 dz-noptr dz-c-d8d2c0 dz-font-body-14 dz-exact-text dz-text-vc">
+      SAFE ZONE
+    </span>
+  </div>
 </div>
 
 <script src="dzml-runtime.js"></script>

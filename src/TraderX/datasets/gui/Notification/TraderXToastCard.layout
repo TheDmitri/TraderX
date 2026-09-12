@@ -8,133 +8,130 @@ PanelWidgetClass cardRoot {
  ignorepointer 1
  priority 999
  {
-  PanelWidgetClass cardSlot {
-   position 1542 18
-   hexactpos 1
-   vexactpos 1
-   size 360 152
-   hexactsize 1
-   vexactsize 1
+  GridSpacerWidgetClass cardSlot {
+   position 0.8 0.02
+   hexactpos 0
+   vexactpos 0
+   size 0.19 0.14
+   hexactsize 0
+   vexactsize 0
    ignorepointer 1
-   style TXCardElevated
+   "Size To Content V" 1
+   Columns 1
+   Padding 8
+   Margin 0
+   style TXToastCard
    color 0.9961 0.9961 0.9961 1
    {
-    PanelWidgetClass leftRule {
-     position 0 0
-     hexactpos 1
-     vexactpos 1
-     size 3 152
-     hexactsize 1
-     vexactsize 1
-     color 0.7686 0.6392 0.3529 1
-     ignorepointer 1
-     style rover_sim_colorable
-    }
-    PanelWidgetClass iconWell {
-     position 14 14
-     hexactpos 1
-     vexactpos 1
-     size 44 44
-     hexactsize 1
+    GridSpacerWidgetClass GridContent {
+     size 1 48
+     hexactsize 0
      vexactsize 1
      ignorepointer 1
-     style TXSurface
-     color 0.9961 0.9961 0.9961 1
+     "Size To Content V" 1
+     Columns 1
+     Padding 8
+     Margin 10
      {
-      ImageWidgetClass iconImg {
-       position 10 10
-       hexactpos 1
-       vexactpos 1
-       size 24 24
-       hexactsize 1
-       vexactsize 1
-       color 0.7686 0.6392 0.3529 1
-       ignorepointer 1
-       image0 "set:traderx_icons image:sale"
-      }
-     }
-    }
-    TextWidgetClass kickerText {
-     position 72 15
-     hexactpos 1
-     vexactpos 1
-     size 200 14
-     hexactsize 1
-     vexactsize 1
-     ignorepointer 1
-     color 0.5412 0.5608 0.5882 1
-     font "TraderX/datasets/fonts/oswalt12"
-     "exact text" 1
-     "text valign" center
-     text "TRADER · SOLD"
-     scriptclass "TextBinding"
-     {
-      ScriptParamsClass {
-       Binding_Expression "{{ _notif.GetKicker() }}"
-      }
-     }
-    }
-    TextWidgetClass timeText {
-     position 18 15
-     hexactpos 1
-     vexactpos 1
-     size 50 14
-     hexactsize 1
-     vexactsize 1
-     ignorepointer 1
-     color 0.5412 0.5608 0.5882 1
-     font "TraderX/datasets/fonts/oswalt12"
-     halign right_ref
-     "exact text" 1
-     "text valign" center
-     text "now"
-     scriptclass "TextBinding"
-     {
-      ScriptParamsClass {
-       Binding_Expression "{{ _notif.time }}"
-      }
-     }
-    }
-    TextWidgetClass titleText {
-     position 72 34
-     hexactpos 1
-     vexactpos 1
-     size 273 22
-     hexactsize 1
-     vexactsize 1
-     ignorepointer 1
-     color 0.9255 0.9098 0.8549 1
-     font "TraderX/datasets/fonts/oswalt16"
-     text "Item Sold"
-     scriptclass "TextBinding"
-     {
-      ScriptParamsClass {
-       Binding_Expression "{{ _notif.title }}"
-      }
-     }
-    }
-    PanelWidgetClass bodyClip {
-     position 72 60
-     hexactpos 1
-     vexactpos 1
-     size 273 44
-     hexactsize 1
-     vexactsize 1
-     ignorepointer 1
-     clipchildren 1
-     {
-      RichTextWidgetClass bodyText {
-       position 0 0
-       hexactpos 1
-       vexactpos 1
-       size 1 1
+      PanelWidgetClass headerRow {
+       size 1 34
        hexactsize 0
-       vexactsize 0
+       vexactsize 1
        ignorepointer 1
+       {
+        PanelWidgetClass iconWell {
+         position 0 0
+         hexactpos 1
+         vexactpos 1
+         size 34 34
+         hexactsize 1
+         vexactsize 1
+         ignorepointer 1
+         style TXSurface
+         color 0.9961 0.9961 0.9961 1
+         {
+          ImageWidgetClass iconImg {
+           position 0.2 0.2
+           hexactpos 0
+           vexactpos 0
+           size 0.6 0.6
+           hexactsize 0
+           vexactsize 0
+           color 0.7686 0.6392 0.3529 1
+           ignorepointer 1
+           image0 "set:traderx_icons image:sale"
+          }
+         }
+        }
+        RichTextWidgetClass kickerText {
+         position 0.16 0
+         hexactpos 0
+         vexactpos 0
+         size 0.54 1
+         hexactsize 0
+         vexactsize 0
+         color 0.5412 0.5608 0.5882 1
+         font "TraderX/datasets/fonts/oswalt12"
+         ignorepointer 1
+         "text valign" center
+         text "TRADER · SOLD"
+         scriptclass "TextBinding"
+         {
+          ScriptParamsClass {
+           Binding_Expression "{{ _notif.GetKicker() }}"
+          }
+         }
+        }
+        RichTextWidgetClass timeText {
+         position 0.7 0
+         hexactpos 0
+         vexactpos 0
+         size 0.3 1
+         hexactsize 0
+         vexactsize 0
+         color 0.5412 0.5608 0.5882 1
+         font "TraderX/datasets/fonts/oswalt12"
+         ignorepointer 1
+         "text valign" center
+         "text halign" right
+         text "now"
+         scriptclass "TextBinding"
+         {
+          ScriptParamsClass {
+           Binding_Expression "{{ _notif.time }}"
+          }
+         }
+        }
+       }
+      }
+      RichTextWidgetClass titleText {
+       size 1 22
+       hexactsize 0
+       vexactsize 1
+       color 0.9255 0.9098 0.8549 1
+       font "TraderX/datasets/fonts/oswalt16"
+       ignorepointer 1
+       wrap 1
+       "strip newlines" 1
+       "size to text v" 1
+       text "Item Sold"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ _notif.title }}"
+        }
+       }
+      }
+      RichTextWidgetClass bodyText {
+       size 1 32
+       hexactsize 0
+       vexactsize 1
        color 0.6588 0.6902 0.6549 1
        font "TraderX/datasets/fonts/oswalt14"
-       "exact text" 1
+       ignorepointer 1
        wrap 1
+       "strip newlines" 1
+       "size to text v" 1
        text "Successfully sold Ammo Box for 800."
        scriptclass "TextBinding"
        {
@@ -143,49 +140,16 @@ PanelWidgetClass cardRoot {
         }
        }
       }
-     }
-    }
-    TextWidgetClass footerText {
-     position 72 120
-     hexactpos 1
-     vexactpos 1
-     size 273 14
-     hexactsize 1
-     vexactsize 1
-     ignorepointer 1
-     color 0.6039 0.6275 0.6039 1
-     font "TraderX/datasets/fonts/oswalt12"
-     "exact text" 1
-     "text valign" center
-     scriptclass "TextBinding"
-     {
-      ScriptParamsClass {
-       Binding_Expression "{{ _notif.footer }}"
-      }
-     }
-    }
-    PanelWidgetClass detailsClip {
-     position 14 110
-     hexactpos 1
-     vexactpos 1
-     size 332 0
-     hexactsize 1
-     vexactsize 1
-     ignorepointer 1
-     clipchildren 1
-     visible 0
-     style TXSurface
-     color 0.9961 0.9961 0.9961 1
-     {
       RichTextWidgetClass detailsText {
-       position 10 8
-       hexactpos 1
-       vexactpos 1
-       ignorepointer 1
+       size 1 16
+       hexactsize 0
+       vexactsize 1
        color 0.6588 0.6902 0.6549 1
        font "TraderX/datasets/fonts/oswalt13"
-       "exact text" 1
+       ignorepointer 1
        wrap 1
+       "size to text v" 1
+       visible 0
        scriptclass "TextBinding"
        {
         ScriptParamsClass {
@@ -193,66 +157,104 @@ PanelWidgetClass cardRoot {
         }
        }
       }
+      RichTextWidgetClass footerText {
+       size 1 14
+       hexactsize 0
+       vexactsize 1
+       color 0.6039 0.6275 0.6039 1
+       font "TraderX/datasets/fonts/oswalt12"
+       ignorepointer 1
+       "text valign" center
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ _notif.footer }}"
+        }
+       }
+      }
      }
     }
-    PanelWidgetClass progressTrack {
-     position 0 149
-     hexactpos 1
-     vexactpos 1
+    PanelWidgetClass progressRow {
+     position 0 0
+     hexactpos 0
+     vexactpos 0
      size 1 3
      hexactsize 0
      vexactsize 1
-     color 0.7686 0.6392 0.3529 0.1412
      ignorepointer 1
-     style rover_sim_colorable
-    }
-    PanelWidgetClass progressFill {
-     position 0 149
-     hexactpos 1
-     vexactpos 1
-     size 1 3
-     hexactsize 0
-     vexactsize 1
-     color 0.7686 0.6392 0.3529 1
-     ignorepointer 1
-     style rover_sim_colorable
+     {
+      PanelWidgetClass progressTrack {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 1 1
+       hexactsize 0
+       vexactsize 0
+       color 0.7686 0.6392 0.3529 0.1412
+       ignorepointer 1
+       style rover_sim_colorable
+      }
+      PanelWidgetClass progressFill {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 1 1
+       hexactsize 0
+       vexactsize 0
+       color 0.7686 0.6392 0.3529 1
+       ignorepointer 1
+       style rover_sim_colorable
+      }
+     }
     }
    }
   }
+  PanelWidgetClass leftRule {
+   position 0.8 0.02
+   hexactpos 0
+   vexactpos 0
+   size 0 0.14
+   hexactsize 0
+   vexactsize 0
+   color 0.7686 0.6392 0.3529 1
+   ignorepointer 1
+   style rover_sim_colorable
+  }
   PanelWidgetClass queuePill {
-   position 1794 178
-   hexactpos 1
-   vexactpos 1
-   size 108 18
-   hexactsize 1
-   vexactsize 1
+   position 0.93 0.17
+   hexactpos 0
+   vexactpos 0
+   size 0.06 0.02
+   hexactsize 0
+   vexactsize 0
    color 0.1176 0.1333 0.1529 0.8784
    visible 0
    ignorepointer 1
    style rover_sim_colorable
    {
     PanelWidgetClass queuePillFill {
-     position 1 1
-     hexactpos 1
-     vexactpos 1
-     size 106 16
-     hexactsize 1
-     vexactsize 1
+     position 0.01 0.06
+     hexactpos 0
+     vexactpos 0
+     size 0.98 0.88
+     hexactsize 0
+     vexactsize 0
      color 0.0588 0.0706 0.0824 0.8
      ignorepointer 1
      style rover_sim_colorable
      {
-      TextWidgetClass queueText {
-       position 9 0
-       hexactpos 1
-       vexactpos 1
-       size 26 16
-       hexactsize 1
-       vexactsize 1
-       ignorepointer 1
+      RichTextWidgetClass queueText {
+       position 0.03 0
+       hexactpos 0
+       vexactpos 0
+       size 0.4 1
+       hexactsize 0
+       vexactsize 0
        color 0.7686 0.6392 0.3529 1
        font "TraderX/datasets/fonts/jet-brains-mono12"
+       ignorepointer 1
        "text valign" center
+       "text halign" right
        text "+3"
        scriptclass "TextBinding"
        {
@@ -261,16 +263,16 @@ PanelWidgetClass cardRoot {
         }
        }
       }
-      TextWidgetClass queueLabel {
-       position 37 0
-       hexactpos 1
-       vexactpos 1
-       size 62 16
-       hexactsize 1
-       vexactsize 1
-       ignorepointer 1
+      RichTextWidgetClass queueLabel {
+       position 0.47 0
+       hexactpos 0
+       vexactpos 0
+       size 0.5 1
+       hexactsize 0
+       vexactsize 0
        color 0.5412 0.5608 0.5882 1
        font "TraderX/datasets/fonts/oswalt12"
+       ignorepointer 1
        "text valign" center
        text "QUEUED"
       }

@@ -336,7 +336,7 @@
                 <Item Name="Top" Image="tc_64" />
             </State>
         </Style>
-        <Style Name="TXProgressBg" Font="" ImageSet="traderx_ui" Color="0">
+        <Style Name="TXToastCard" Font="" ImageSet="traderx_ui" Color="0">
             <State Name="Normal">
                 <Item Name="Bottom" Image="bc_65" />
                 <Item Name="Center" Image="c_65" />
@@ -358,6 +358,30 @@
                 <Item Name="RightBottom" Image="brc_66" />
                 <Item Name="RightTop" Image="trc_66" />
                 <Item Name="Top" Image="tc_66" />
+            </State>
+        </Style>
+        <Style Name="TXProgressBg" Font="" ImageSet="traderx_ui" Color="0">
+            <State Name="Normal">
+                <Item Name="Bottom" Image="bc_67" />
+                <Item Name="Center" Image="c_67" />
+                <Item Name="Left" Image="lc_67" />
+                <Item Name="LeftBottom" Image="blc_67" />
+                <Item Name="LeftTop" Image="tlc_67" />
+                <Item Name="Right" Image="rc_67" />
+                <Item Name="RightBottom" Image="brc_67" />
+                <Item Name="RightTop" Image="trc_67" />
+                <Item Name="Top" Image="tc_67" />
+            </State>
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="bc_68" />
+                <Item Name="Center" Image="c_68" />
+                <Item Name="Left" Image="lc_68" />
+                <Item Name="LeftBottom" Image="blc_68" />
+                <Item Name="LeftTop" Image="tlc_68" />
+                <Item Name="Right" Image="rc_68" />
+                <Item Name="RightBottom" Image="brc_68" />
+                <Item Name="RightTop" Image="trc_68" />
+                <Item Name="Top" Image="tc_68" />
             </State>
         </Style>
         <Style Name="TXTab" Font="" ImageSet="traderx_ui" Color="0">
@@ -650,6 +674,392 @@
         </Style>
         <Style Name="TXProgressFill" Font="" ImageSet="traderx_ui" Color="0">
             <State Name="Normal">
+                <Item Name="Bottom" Image="bc_69" />
+                <Item Name="Center" Image="c_69" />
+                <Item Name="Left" Image="lc_69" />
+                <Item Name="LeftBottom" Image="blc_69" />
+                <Item Name="LeftTop" Image="tlc_69" />
+                <Item Name="Right" Image="rc_69" />
+                <Item Name="RightBottom" Image="brc_69" />
+                <Item Name="RightTop" Image="trc_69" />
+                <Item Name="Top" Image="tc_69" />
+            </State>
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="bc_71" />
+                <Item Name="Center" Image="c_71" />
+                <Item Name="Left" Image="lc_71" />
+                <Item Name="LeftBottom" Image="blc_71" />
+                <Item Name="LeftTop" Image="tlc_71" />
+                <Item Name="Right" Image="rc_71" />
+                <Item Name="RightBottom" Image="brc_71" />
+                <Item Name="RightTop" Image="trc_71" />
+                <Item Name="Top" Image="tc_71" />
+            </State>
+        </Style>
+    </Widget>
+    <Widget Name="GridSpacerWidget">
+        <Style Name="TXContainer" Font="" ImageSet="traderx_ui" Color="0">
+            <State Name="Normal">
+                <Item Name="Bottom" Image="bc_1" />
+                <Item Name="Center" Image="c_1" />
+                <Item Name="Left" Image="lc_1" />
+                <Item Name="LeftBottom" Image="blc_1" />
+                <Item Name="LeftTop" Image="tlc_1" />
+                <Item Name="Right" Image="rc_1" />
+                <Item Name="RightBottom" Image="brc_1" />
+                <Item Name="RightTop" Image="trc_1" />
+                <Item Name="Top" Image="tc_1" />
+            </State>
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="bc_2" />
+                <Item Name="Center" Image="c_2" />
+                <Item Name="Left" Image="lc_2" />
+                <Item Name="LeftBottom" Image="blc_2" />
+                <Item Name="LeftTop" Image="tlc_2" />
+                <Item Name="Right" Image="rc_2" />
+                <Item Name="RightBottom" Image="brc_2" />
+                <Item Name="RightTop" Image="trc_2" />
+                <Item Name="Top" Image="tc_2" />
+            </State>
+        </Style>
+        <Style Name="TXHeader" Font="" ImageSet="traderx_ui" Color="0">
+            <State Name="Normal">
+                <Item Name="Bottom" Image="bc_3" />
+                <Item Name="Center" Image="c_3" />
+                <Item Name="Left" Image="lc_3" />
+                <Item Name="LeftBottom" Image="blc_3" />
+                <Item Name="LeftTop" Image="tlc_3" />
+                <Item Name="Right" Image="rc_3" />
+                <Item Name="RightBottom" Image="brc_3" />
+                <Item Name="RightTop" Image="trc_3" />
+                <Item Name="Top" Image="tc_3" />
+            </State>
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="bc_4" />
+                <Item Name="Center" Image="c_4" />
+                <Item Name="Left" Image="lc_4" />
+                <Item Name="LeftBottom" Image="blc_4" />
+                <Item Name="LeftTop" Image="tlc_4" />
+                <Item Name="Right" Image="rc_4" />
+                <Item Name="RightBottom" Image="brc_4" />
+                <Item Name="RightTop" Image="trc_4" />
+                <Item Name="Top" Image="tc_4" />
+            </State>
+        </Style>
+        <Style Name="TXContent" Font="" ImageSet="traderx_ui" Color="0">
+            <State Name="Normal">
+                <Item Name="Bottom" Image="bc_5" />
+                <Item Name="Center" Image="c_5" />
+                <Item Name="Left" Image="lc_5" />
+                <Item Name="LeftBottom" Image="blc_5" />
+                <Item Name="LeftTop" Image="tlc_5" />
+                <Item Name="Right" Image="rc_5" />
+                <Item Name="RightBottom" Image="brc_5" />
+                <Item Name="RightTop" Image="trc_5" />
+                <Item Name="Top" Image="tc_5" />
+            </State>
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="bc_6" />
+                <Item Name="Center" Image="c_6" />
+                <Item Name="Left" Image="lc_6" />
+                <Item Name="LeftBottom" Image="blc_6" />
+                <Item Name="LeftTop" Image="tlc_6" />
+                <Item Name="Right" Image="rc_6" />
+                <Item Name="RightBottom" Image="brc_6" />
+                <Item Name="RightTop" Image="trc_6" />
+                <Item Name="Top" Image="tc_6" />
+            </State>
+        </Style>
+        <Style Name="TXCard" Font="" ImageSet="traderx_ui" Color="0">
+            <State Name="Normal">
+                <Item Name="Bottom" Image="bc_7" />
+                <Item Name="Center" Image="c_7" />
+                <Item Name="Left" Image="lc_7" />
+                <Item Name="LeftBottom" Image="blc_7" />
+                <Item Name="LeftTop" Image="tlc_7" />
+                <Item Name="Right" Image="rc_7" />
+                <Item Name="RightBottom" Image="brc_7" />
+                <Item Name="RightTop" Image="trc_7" />
+                <Item Name="Top" Image="tc_7" />
+            </State>
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="bc_8" />
+                <Item Name="Center" Image="c_8" />
+                <Item Name="Left" Image="lc_8" />
+                <Item Name="LeftBottom" Image="blc_8" />
+                <Item Name="LeftTop" Image="tlc_8" />
+                <Item Name="Right" Image="rc_8" />
+                <Item Name="RightBottom" Image="brc_8" />
+                <Item Name="RightTop" Image="trc_8" />
+                <Item Name="Top" Image="tc_8" />
+            </State>
+        </Style>
+        <Style Name="TXCardElevated" Font="" ImageSet="traderx_ui" Color="0">
+            <State Name="Normal">
+                <Item Name="Bottom" Image="bc_9" />
+                <Item Name="Center" Image="c_9" />
+                <Item Name="Left" Image="lc_9" />
+                <Item Name="LeftBottom" Image="blc_9" />
+                <Item Name="LeftTop" Image="tlc_9" />
+                <Item Name="Right" Image="rc_9" />
+                <Item Name="RightBottom" Image="brc_9" />
+                <Item Name="RightTop" Image="trc_9" />
+                <Item Name="Top" Image="tc_9" />
+            </State>
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="bc_10" />
+                <Item Name="Center" Image="c_10" />
+                <Item Name="Left" Image="lc_10" />
+                <Item Name="LeftBottom" Image="blc_10" />
+                <Item Name="LeftTop" Image="tlc_10" />
+                <Item Name="Right" Image="rc_10" />
+                <Item Name="RightBottom" Image="brc_10" />
+                <Item Name="RightTop" Image="trc_10" />
+                <Item Name="Top" Image="tc_10" />
+            </State>
+        </Style>
+        <Style Name="TXCardSelected" Font="" ImageSet="traderx_ui" Color="0">
+            <State Name="Normal">
+                <Item Name="Bottom" Image="bc_11" />
+                <Item Name="Center" Image="c_11" />
+                <Item Name="Left" Image="lc_11" />
+                <Item Name="LeftBottom" Image="blc_11" />
+                <Item Name="LeftTop" Image="tlc_11" />
+                <Item Name="Right" Image="rc_11" />
+                <Item Name="RightBottom" Image="brc_11" />
+                <Item Name="RightTop" Image="trc_11" />
+                <Item Name="Top" Image="tc_11" />
+            </State>
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="bc_12" />
+                <Item Name="Center" Image="c_12" />
+                <Item Name="Left" Image="lc_12" />
+                <Item Name="LeftBottom" Image="blc_12" />
+                <Item Name="LeftTop" Image="tlc_12" />
+                <Item Name="Right" Image="rc_12" />
+                <Item Name="RightBottom" Image="brc_12" />
+                <Item Name="RightTop" Image="trc_12" />
+                <Item Name="Top" Image="tc_12" />
+            </State>
+        </Style>
+        <Style Name="TXSurface" Font="" ImageSet="traderx_ui" Color="0">
+            <State Name="Normal">
+                <Item Name="Bottom" Image="bc_13" />
+                <Item Name="Center" Image="c_13" />
+                <Item Name="Left" Image="lc_13" />
+                <Item Name="LeftBottom" Image="blc_13" />
+                <Item Name="LeftTop" Image="tlc_13" />
+                <Item Name="Right" Image="rc_13" />
+                <Item Name="RightBottom" Image="brc_13" />
+                <Item Name="RightTop" Image="trc_13" />
+                <Item Name="Top" Image="tc_13" />
+            </State>
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="bc_14" />
+                <Item Name="Center" Image="c_14" />
+                <Item Name="Left" Image="lc_14" />
+                <Item Name="LeftBottom" Image="blc_14" />
+                <Item Name="LeftTop" Image="tlc_14" />
+                <Item Name="Right" Image="rc_14" />
+                <Item Name="RightBottom" Image="brc_14" />
+                <Item Name="RightTop" Image="trc_14" />
+                <Item Name="Top" Image="tc_14" />
+            </State>
+        </Style>
+        <Style Name="TXDivider" Font="" ImageSet="traderx_ui" Color="0">
+            <State Name="Normal">
+                <Item Name="Bottom" Image="bc_15" />
+                <Item Name="Center" Image="c_15" />
+                <Item Name="Left" Image="lc_15" />
+                <Item Name="LeftBottom" Image="blc_15" />
+                <Item Name="LeftTop" Image="tlc_15" />
+                <Item Name="Right" Image="rc_15" />
+                <Item Name="RightBottom" Image="brc_15" />
+                <Item Name="RightTop" Image="trc_15" />
+                <Item Name="Top" Image="tc_15" />
+            </State>
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="bc_16" />
+                <Item Name="Center" Image="c_16" />
+                <Item Name="Left" Image="lc_16" />
+                <Item Name="LeftBottom" Image="blc_16" />
+                <Item Name="LeftTop" Image="tlc_16" />
+                <Item Name="Right" Image="rc_16" />
+                <Item Name="RightBottom" Image="brc_16" />
+                <Item Name="RightTop" Image="trc_16" />
+                <Item Name="Top" Image="tc_16" />
+            </State>
+        </Style>
+        <Style Name="TXIcon" Font="" ImageSet="traderx_ui" Color="0">
+            <State Name="Normal">
+                <Item Name="Bottom" Image="bc_17" />
+                <Item Name="Center" Image="c_17" />
+                <Item Name="Left" Image="lc_17" />
+                <Item Name="LeftBottom" Image="blc_17" />
+                <Item Name="LeftTop" Image="tlc_17" />
+                <Item Name="Right" Image="rc_17" />
+                <Item Name="RightBottom" Image="brc_17" />
+                <Item Name="RightTop" Image="trc_17" />
+                <Item Name="Top" Image="tc_17" />
+            </State>
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="bc_18" />
+                <Item Name="Center" Image="c_18" />
+                <Item Name="Left" Image="lc_18" />
+                <Item Name="LeftBottom" Image="blc_18" />
+                <Item Name="LeftTop" Image="tlc_18" />
+                <Item Name="Right" Image="rc_18" />
+                <Item Name="RightBottom" Image="brc_18" />
+                <Item Name="RightTop" Image="trc_18" />
+                <Item Name="Top" Image="tc_18" />
+            </State>
+        </Style>
+        <Style Name="TXInfoBox" Font="" ImageSet="traderx_ui" Color="0">
+            <State Name="Normal">
+                <Item Name="Bottom" Image="bc_43" />
+                <Item Name="Center" Image="c_43" />
+                <Item Name="Left" Image="lc_43" />
+                <Item Name="LeftBottom" Image="blc_43" />
+                <Item Name="LeftTop" Image="tlc_43" />
+                <Item Name="Right" Image="rc_43" />
+                <Item Name="RightBottom" Image="brc_43" />
+                <Item Name="RightTop" Image="trc_43" />
+                <Item Name="Top" Image="tc_43" />
+            </State>
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="bc_44" />
+                <Item Name="Center" Image="c_44" />
+                <Item Name="Left" Image="lc_44" />
+                <Item Name="LeftBottom" Image="blc_44" />
+                <Item Name="LeftTop" Image="tlc_44" />
+                <Item Name="Right" Image="rc_44" />
+                <Item Name="RightBottom" Image="brc_44" />
+                <Item Name="RightTop" Image="trc_44" />
+                <Item Name="Top" Image="tc_44" />
+            </State>
+        </Style>
+        <Style Name="TXSuccessBox" Font="" ImageSet="traderx_ui" Color="0">
+            <State Name="Normal">
+                <Item Name="Bottom" Image="bc_45" />
+                <Item Name="Center" Image="c_45" />
+                <Item Name="Left" Image="lc_45" />
+                <Item Name="LeftBottom" Image="blc_45" />
+                <Item Name="LeftTop" Image="tlc_45" />
+                <Item Name="Right" Image="rc_45" />
+                <Item Name="RightBottom" Image="brc_45" />
+                <Item Name="RightTop" Image="trc_45" />
+                <Item Name="Top" Image="tc_45" />
+            </State>
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="bc_46" />
+                <Item Name="Center" Image="c_46" />
+                <Item Name="Left" Image="lc_46" />
+                <Item Name="LeftBottom" Image="blc_46" />
+                <Item Name="LeftTop" Image="tlc_46" />
+                <Item Name="Right" Image="rc_46" />
+                <Item Name="RightBottom" Image="brc_46" />
+                <Item Name="RightTop" Image="trc_46" />
+                <Item Name="Top" Image="tc_46" />
+            </State>
+        </Style>
+        <Style Name="TXWarningBox" Font="" ImageSet="traderx_ui" Color="0">
+            <State Name="Normal">
+                <Item Name="Bottom" Image="bc_47" />
+                <Item Name="Center" Image="c_47" />
+                <Item Name="Left" Image="lc_47" />
+                <Item Name="LeftBottom" Image="blc_47" />
+                <Item Name="LeftTop" Image="tlc_47" />
+                <Item Name="Right" Image="rc_47" />
+                <Item Name="RightBottom" Image="brc_47" />
+                <Item Name="RightTop" Image="trc_47" />
+                <Item Name="Top" Image="tc_47" />
+            </State>
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="bc_48" />
+                <Item Name="Center" Image="c_48" />
+                <Item Name="Left" Image="lc_48" />
+                <Item Name="LeftBottom" Image="blc_48" />
+                <Item Name="LeftTop" Image="tlc_48" />
+                <Item Name="Right" Image="rc_48" />
+                <Item Name="RightBottom" Image="brc_48" />
+                <Item Name="RightTop" Image="trc_48" />
+                <Item Name="Top" Image="tc_48" />
+            </State>
+        </Style>
+        <Style Name="TXErrorBox" Font="" ImageSet="traderx_ui" Color="0">
+            <State Name="Normal">
+                <Item Name="Bottom" Image="bc_49" />
+                <Item Name="Center" Image="c_49" />
+                <Item Name="Left" Image="lc_49" />
+                <Item Name="LeftBottom" Image="blc_49" />
+                <Item Name="LeftTop" Image="tlc_49" />
+                <Item Name="Right" Image="rc_49" />
+                <Item Name="RightBottom" Image="brc_49" />
+                <Item Name="RightTop" Image="trc_49" />
+                <Item Name="Top" Image="tc_49" />
+            </State>
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="bc_50" />
+                <Item Name="Center" Image="c_50" />
+                <Item Name="Left" Image="lc_50" />
+                <Item Name="LeftBottom" Image="blc_50" />
+                <Item Name="LeftTop" Image="tlc_50" />
+                <Item Name="Right" Image="rc_50" />
+                <Item Name="RightBottom" Image="brc_50" />
+                <Item Name="RightTop" Image="trc_50" />
+                <Item Name="Top" Image="tc_50" />
+            </State>
+        </Style>
+        <Style Name="TXBadge" Font="" ImageSet="traderx_ui" Color="0">
+            <State Name="Normal">
+                <Item Name="Bottom" Image="bc_63" />
+                <Item Name="Center" Image="c_63" />
+                <Item Name="Left" Image="lc_63" />
+                <Item Name="LeftBottom" Image="blc_63" />
+                <Item Name="LeftTop" Image="tlc_63" />
+                <Item Name="Right" Image="rc_63" />
+                <Item Name="RightBottom" Image="brc_63" />
+                <Item Name="RightTop" Image="trc_63" />
+                <Item Name="Top" Image="tc_63" />
+            </State>
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="bc_64" />
+                <Item Name="Center" Image="c_64" />
+                <Item Name="Left" Image="lc_64" />
+                <Item Name="LeftBottom" Image="blc_64" />
+                <Item Name="LeftTop" Image="tlc_64" />
+                <Item Name="Right" Image="rc_64" />
+                <Item Name="RightBottom" Image="brc_64" />
+                <Item Name="RightTop" Image="trc_64" />
+                <Item Name="Top" Image="tc_64" />
+            </State>
+        </Style>
+        <Style Name="TXToastCard" Font="" ImageSet="traderx_ui" Color="0">
+            <State Name="Normal">
+                <Item Name="Bottom" Image="bc_65" />
+                <Item Name="Center" Image="c_65" />
+                <Item Name="Left" Image="lc_65" />
+                <Item Name="LeftBottom" Image="blc_65" />
+                <Item Name="LeftTop" Image="tlc_65" />
+                <Item Name="Right" Image="rc_65" />
+                <Item Name="RightBottom" Image="brc_65" />
+                <Item Name="RightTop" Image="trc_65" />
+                <Item Name="Top" Image="tc_65" />
+            </State>
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="bc_66" />
+                <Item Name="Center" Image="c_66" />
+                <Item Name="Left" Image="lc_66" />
+                <Item Name="LeftBottom" Image="blc_66" />
+                <Item Name="LeftTop" Image="tlc_66" />
+                <Item Name="Right" Image="rc_66" />
+                <Item Name="RightBottom" Image="brc_66" />
+                <Item Name="RightTop" Image="trc_66" />
+                <Item Name="Top" Image="tc_66" />
+            </State>
+        </Style>
+        <Style Name="TXProgressBg" Font="" ImageSet="traderx_ui" Color="0">
+            <State Name="Normal">
                 <Item Name="Bottom" Image="bc_67" />
                 <Item Name="Center" Image="c_67" />
                 <Item Name="Left" Image="lc_67" />
@@ -661,15 +1071,15 @@
                 <Item Name="Top" Image="tc_67" />
             </State>
             <State Name="Disabled">
-                <Item Name="Bottom" Image="bc_69" />
-                <Item Name="Center" Image="c_69" />
-                <Item Name="Left" Image="lc_69" />
-                <Item Name="LeftBottom" Image="blc_69" />
-                <Item Name="LeftTop" Image="tlc_69" />
-                <Item Name="Right" Image="rc_69" />
-                <Item Name="RightBottom" Image="brc_69" />
-                <Item Name="RightTop" Image="trc_69" />
-                <Item Name="Top" Image="tc_69" />
+                <Item Name="Bottom" Image="bc_68" />
+                <Item Name="Center" Image="c_68" />
+                <Item Name="Left" Image="lc_68" />
+                <Item Name="LeftBottom" Image="blc_68" />
+                <Item Name="LeftTop" Image="tlc_68" />
+                <Item Name="Right" Image="rc_68" />
+                <Item Name="RightBottom" Image="brc_68" />
+                <Item Name="RightTop" Image="trc_68" />
+                <Item Name="Top" Image="tc_68" />
             </State>
         </Style>
     </Widget>
@@ -1379,26 +1789,6 @@
     <Widget Name="ProgressBarWidget">
         <Style Name="TXProgressFill" Font="" ImageSet="traderx_ui" Color="0">
             <State Name="Normal">
-                <Item Name="Bottom" Image="bc_67" />
-                <Item Name="Center" Image="c_67" />
-                <Item Name="Left" Image="lc_67" />
-                <Item Name="LeftBottom" Image="blc_67" />
-                <Item Name="LeftTop" Image="tlc_67" />
-                <Item Name="Right" Image="rc_67" />
-                <Item Name="RightBottom" Image="brc_67" />
-                <Item Name="RightTop" Image="trc_67" />
-                <Item Name="Top" Image="tc_67" />
-                <Item Name="BarBottom" Image="bc_68" />
-                <Item Name="BarCenter" Image="c_68" />
-                <Item Name="BarLeft" Image="lc_68" />
-                <Item Name="BarLeftBottom" Image="blc_68" />
-                <Item Name="BarLeftTop" Image="tlc_68" />
-                <Item Name="BarRight" Image="rc_68" />
-                <Item Name="BarRightBottom" Image="brc_68" />
-                <Item Name="BarRightTop" Image="trc_68" />
-                <Item Name="BarTop" Image="tc_68" />
-            </State>
-            <State Name="Disabled">
                 <Item Name="Bottom" Image="bc_69" />
                 <Item Name="Center" Image="c_69" />
                 <Item Name="Left" Image="lc_69" />
@@ -1408,15 +1798,35 @@
                 <Item Name="RightBottom" Image="brc_69" />
                 <Item Name="RightTop" Image="trc_69" />
                 <Item Name="Top" Image="tc_69" />
-                <Item Name="BarBottom" Image="bc_68" />
-                <Item Name="BarCenter" Image="c_68" />
-                <Item Name="BarLeft" Image="lc_68" />
-                <Item Name="BarLeftBottom" Image="blc_68" />
-                <Item Name="BarLeftTop" Image="tlc_68" />
-                <Item Name="BarRight" Image="rc_68" />
-                <Item Name="BarRightBottom" Image="brc_68" />
-                <Item Name="BarRightTop" Image="trc_68" />
-                <Item Name="BarTop" Image="tc_68" />
+                <Item Name="BarBottom" Image="bc_70" />
+                <Item Name="BarCenter" Image="c_70" />
+                <Item Name="BarLeft" Image="lc_70" />
+                <Item Name="BarLeftBottom" Image="blc_70" />
+                <Item Name="BarLeftTop" Image="tlc_70" />
+                <Item Name="BarRight" Image="rc_70" />
+                <Item Name="BarRightBottom" Image="brc_70" />
+                <Item Name="BarRightTop" Image="trc_70" />
+                <Item Name="BarTop" Image="tc_70" />
+            </State>
+            <State Name="Disabled">
+                <Item Name="Bottom" Image="bc_71" />
+                <Item Name="Center" Image="c_71" />
+                <Item Name="Left" Image="lc_71" />
+                <Item Name="LeftBottom" Image="blc_71" />
+                <Item Name="LeftTop" Image="tlc_71" />
+                <Item Name="Right" Image="rc_71" />
+                <Item Name="RightBottom" Image="brc_71" />
+                <Item Name="RightTop" Image="trc_71" />
+                <Item Name="Top" Image="tc_71" />
+                <Item Name="BarBottom" Image="bc_70" />
+                <Item Name="BarCenter" Image="c_70" />
+                <Item Name="BarLeft" Image="lc_70" />
+                <Item Name="BarLeftBottom" Image="blc_70" />
+                <Item Name="BarLeftTop" Image="tlc_70" />
+                <Item Name="BarRight" Image="rc_70" />
+                <Item Name="BarRightBottom" Image="brc_70" />
+                <Item Name="BarRightTop" Image="trc_70" />
+                <Item Name="BarTop" Image="tc_70" />
             </State>
         </Style>
     </Widget>

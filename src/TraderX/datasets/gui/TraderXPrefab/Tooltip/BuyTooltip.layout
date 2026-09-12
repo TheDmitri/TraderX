@@ -2,238 +2,67 @@ PanelWidgetClass BuyTooltip {
  position 29.216 30
  hexactpos 1
  vexactpos 1
- size 500 180
+ size 420 120
  hexactsize 1
  vexactsize 1
+ ignorepointer 1
  priority 999
  style TXCardElevated
  color 0.9961 0.9961 0.9961 1
  {
-  PanelWidgetClass PanelWidget4 {
+  PanelWidgetClass opaqueFill {
    position 0 0
    hexactpos 0
    vexactpos 0
-   size 0.99 0.96
+   size 1 1
    hexactsize 0
    vexactsize 0
-   halign center_ref
-   valign center_ref
+   color 0.0431 0.051 0.0706 1
    ignorepointer 1
    priority 999
-   style Empty
-   color 0.9961 0.9961 0.9961 1
+   style rover_sim_colorable
+  }
+  PanelWidgetClass PanelWidget2 {
+   position 0.04 0.08
+   hexactpos 0
+   vexactpos 0
+   size 0.92 0.84
+   hexactsize 0
+   vexactsize 0
+   ignorepointer 1
+   priority 999
    {
-    GridSpacerWidgetClass GridSpacerWidget3 {
+    TextWidgetClass TextWidget8 {
      position 0 0
      hexactpos 0
      vexactpos 0
-     size 1 0.48
+     size 1 0.22
      hexactsize 0
      vexactsize 0
      halign center_ref
+     "text color" 0.6039 0.8039 0.1961 1
+     font "TraderX/datasets/fonts/oswalt16"
      ignorepointer 1
-     "Size To Content H" 1
-     Columns 2
-     Rows 1
-     Margin 3
-     style Empty
-     color 0.9961 0.9961 0.9961 1
-     {
-      PanelWidgetClass PanelWidget2 {
-       position 10 10
-       hexactpos 1
-       vexactpos 1
-       size 0.98 0.42
-       hexactsize 0
-       vexactsize 0
-       ignorepointer 1
-       {
-        TextWidgetClass TextWidget8 {
-         position 0 0
-         hexactpos 0
-         vexactpos 0
-         size 1 0.21
-         hexactsize 0
-         vexactsize 0
-         halign center_ref
-         "text color" 0.6039 0.8039 0.1961 1
-         font "TraderX/datasets/fonts/oswalt16"
-         ignorepointer 1
-         "exact text" 1
-         "text valign" center
-         text "#tpm_product_description"
-        }
-        RichTextWidgetClass RichTextWidget0 {
-         position 0 0.1
-         hexactpos 0
-         vexactpos 0
-         size 1 0.79
-         hexactsize 0
-         vexactsize 0
-         halign center_ref
-         valign center_ref
-         ignorepointer 1
-         wrap 1
-         text "Selective-fire assault rifle fed from a detachable magazine. Export version of modernized KA-74M with compatible"
-        }
-       }
-      }
-     }
+     "exact text" 1
+     "text valign" center
+     text "#tpm_product_description"
     }
-    PanelWidgetClass leftRightClickPanel0 {
-     position 0 0.23
+    RichTextWidgetClass RichTextWidget0 {
+     position 0 0.24
      hexactpos 0
      vexactpos 0
-     size 0.44 0.28
+     size 1 0.74
      hexactsize 0
      vexactsize 0
-     halign right_ref
-     valign bottom_ref
+     halign center_ref
+     color 0.8471 0.8235 0.7529 1
      ignorepointer 1
+     wrap 1
+     text "Selective-fire assault rifle fed from a detachable magazine."
+     scriptclass "TextBinding"
      {
-      ImageWidgetClass ImageWidget6 {
-       position 0.05 0.13
-       hexactpos 0
-       vexactpos 0
-       size 27 36
-       hexactsize 1
-       vexactsize 1
-       ignorepointer 1
-       image0 "set:traderx_icons image:left_right_click"
-       mode blend
-       "src alpha" 1
-       "stretch mode" stretch_w_h
-      }
-      TextWidgetClass TextWidget0 {
-       position 0 0
-       hexactpos 0
-       vexactpos 0
-       size 0.8 0.5
-       hexactsize 0
-       vexactsize 0
-       halign right_ref
-       "text color" 0.702 0.4392 0.5098 1
-       font "TraderX/datasets/fonts/oswalt14"
-       ignorepointer 1
-       "text valign" center
-       text "#tpm_left_click_select"
-      }
-      TextWidgetClass TextWidget10 {
-       position 0 0.5
-       hexactpos 0
-       vexactpos 0
-       size 0.8 0.5
-       hexactsize 0
-       vexactsize 0
-       halign right_ref
-       "text color" 0.6039 0.8039 0.1961 1
-       font "TraderX/datasets/fonts/oswalt14"
-       ignorepointer 1
-       "text valign" center
-       text "#tpm_right_click_customize"
-      }
-     }
-    }
-    PanelWidgetClass leftRightClickPanel1 {
-     position 0 0.03
-     hexactpos 0
-     vexactpos 0
-     size 0.44 0.2
-     hexactsize 0
-     vexactsize 0
-     halign right_ref
-     valign bottom_ref
-     ignorepointer 1
-     {
-      ImageWidgetClass ImageWidget0 {
-       position 0.05 0.1
-       hexactpos 0
-       vexactpos 0
-       size 27 27
-       hexactsize 1
-       vexactsize 1
-       color 0.9961 0.9961 0.9961 1
-       ignorepointer 1
-       image0 "set:traderx_icons image:bookmark"
-       mode blend
-       "src alpha" 1
-       "stretch mode" stretch_w_h
-      }
-      TextWidgetClass TextWidget11 {
-       position 0 0.27
-       hexactpos 0
-       vexactpos 0
-       size 0.8 0.5
-       hexactsize 0
-       vexactsize 0
-       halign right_ref
-       font "TraderX/datasets/fonts/oswalt14"
-       ignorepointer 1
-       "text valign" center
-       text "#tpm_check_add_favorite"
-      }
-     }
-    }
-    GridSpacerWidgetClass GridSpacerWidget0 {
-     position 0.01 0.64
-     hexactpos 0
-     vexactpos 0
-     size 198.96 41.488
-     hexactsize 1
-     vexactsize 1
-     ignorepointer 1
-     Columns 2
-     Rows 2
-     {
-      TextWidgetClass TextWidget1 {
-       position 10 10
-       hexactpos 1
-       vexactpos 1
-       size 48 30
-       hexactsize 1
-       vexactsize 1
-       font "TraderX/datasets/fonts/oswalt14"
-       ignorepointer 1
-       "text valign" center
-       text "#tpm_variants_colon"
-      }
-      TextWidgetClass variantsText {
-       position 10 10
-       hexactpos 1
-       vexactpos 1
-       size 48 48
-       hexactsize 1
-       vexactsize 1
-       "text color" 0.6039 0.8039 0.1961 1
-       font "TraderX/datasets/fonts/oswalt14"
-       ignorepointer 1
-       "text valign" center
-       text "#tpm_available"
-      }
-      TextWidgetClass TextWidget3 {
-       position 10 10
-       hexactpos 1
-       vexactpos 1
-       size 48 48
-       hexactsize 1
-       vexactsize 1
-       font "TraderX/datasets/fonts/oswalt14"
-       ignorepointer 1
-       "text valign" center
-       text "#tpm_attachments_colon"
-      }
-      TextWidgetClass attachmentsText {
-       position 10 10
-       hexactpos 1
-       vexactpos 1
-       size 48 48
-       hexactsize 1
-       vexactsize 1
-       "text color" 0.6039 0.8039 0.1961 1
-       font "TraderX/datasets/fonts/oswalt14"
-       ignorepointer 1
-       "text valign" center
-       text "#tpm_available"
+      ScriptParamsClass {
+       Binding_Expression "{{ product_description }}"
       }
      }
     }

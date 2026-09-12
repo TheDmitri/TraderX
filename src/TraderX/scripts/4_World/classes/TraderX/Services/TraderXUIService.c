@@ -68,6 +68,7 @@ class TraderXUIService : DayZularService
 		if (!m_TraderMenu)
 			return;
 
+		ItemCardComponent.DestroyAllTooltips();
 		TraderXTradingService.GetInstance().ClearNpc();
 		m_TraderMenu.HideMenu();
 		m_AppComponent = null;

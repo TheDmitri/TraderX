@@ -23,8 +23,6 @@ PanelWidgetClass itemCardView {
      OnClick "OnItemCardLeftClick"
      OnRightClick "OnItemCardRightClick"
      OnDoubleClick "OnItemCardDoubleClick"
-     OnMouseEnter "OnItemCardMouseEnter"
-     OnMouseLeave "OnItemCardMouseLeave"
     }
    }
   }
@@ -313,6 +311,144 @@ PanelWidgetClass itemCardView {
    {
     ScriptParamsClass {
      OnClick "OnItemFavClick"
+    }
+   }
+  }
+  ButtonWidgetClass previewHoverBtn {
+   position 0.01 0.09
+   hexactpos 0
+   vexactpos 0
+   size 84 56
+   hexactsize 1
+   vexactsize 1
+   "text color" 0.9961 0.9961 0.9961 1
+   style Empty
+   color 0.9961 0.9961 0.9961 1
+   scriptclass "ButtonBinding"
+   {
+    ScriptParamsClass {
+     OnClick "OnItemCardLeftClick"
+     OnRightClick "OnItemCardRightClick"
+     OnDoubleClick "OnItemCardDoubleClick"
+     OnMouseEnter "OnItemCardMouseEnter"
+     OnMouseLeave "OnItemCardMouseLeave"
+    }
+   }
+  }
+  ButtonWidgetClass variantBtn {
+   position 0.76 0
+   hexactpos 0
+   vexactpos 0
+   size 26 26
+   hexactsize 1
+   vexactsize 1
+   valign center_ref
+   "text color" 0.9961 0.9961 0.9961 1
+   visible 0
+   style Empty
+   color 0.9961 0.9961 0.9961 1
+   scriptclass "ButtonBinding"
+   {
+    ImageWidgetClass variantIcon {
+     position 0 0
+     hexactpos 0
+     vexactpos 0
+     size 1 1
+     hexactsize 0
+     vexactsize 0
+     halign center_ref
+     valign center_ref
+     color 0.6039 0.8039 0.1961 1
+     ignorepointer 1
+     image0 "set:traderx_icons image:palette"
+     mode blend
+     "src alpha" 1
+     "stretch mode" stretch_w_h
+    }
+   }
+   {
+    ScriptParamsClass {
+     OnClick "OnVariantClick"
+     OnMouseEnter "OnVariantEnter"
+     OnMouseLeave "OnAffordanceLeave"
+    }
+   }
+  }
+  ButtonWidgetClass attachBtn {
+   position 0.8 0
+   hexactpos 0
+   vexactpos 0
+   size 26 26
+   hexactsize 1
+   vexactsize 1
+   valign center_ref
+   "text color" 0.9961 0.9961 0.9961 1
+   visible 0
+   style Empty
+   color 0.9961 0.9961 0.9961 1
+   scriptclass "ButtonBinding"
+   {
+    ImageWidgetClass attachIcon {
+     position 0 0
+     hexactpos 0
+     vexactpos 0
+     size 1 1
+     hexactsize 0
+     vexactsize 0
+     halign center_ref
+     valign center_ref
+     color 0.7686 0.6392 0.3529 1
+     ignorepointer 1
+     image0 "set:traderx_icons image:wrench"
+     mode blend
+     "src alpha" 1
+     "stretch mode" stretch_w_h
+    }
+   }
+   {
+    ScriptParamsClass {
+     OnClick "OnAttachClick"
+     OnMouseEnter "OnAttachEnter"
+     OnMouseLeave "OnAffordanceLeave"
+    }
+   }
+  }
+  ButtonWidgetClass customizeBtn {
+   position 0.84 0
+   hexactpos 0
+   vexactpos 0
+   size 26 26
+   hexactsize 1
+   vexactsize 1
+   valign center_ref
+   "text color" 0.9961 0.9961 0.9961 1
+   visible 0
+   style Empty
+   color 0.9961 0.9961 0.9961 1
+   scriptclass "ButtonBinding"
+   {
+    ImageWidgetClass customizeIcon {
+     position 0 0
+     hexactpos 0
+     vexactpos 0
+     size 1 1
+     hexactsize 0
+     vexactsize 0
+     halign center_ref
+     valign center_ref
+     color 0.8471 0.8235 0.7529 1
+     ignorepointer 1
+     image0 "set:traderx_icons image:gear"
+     mode blend
+     "src alpha" 1
+     "stretch mode" stretch_w_h
+    }
+   }
+   {
+    ScriptParamsClass {
+     OnClick "OnCustomizeClick"
+     OnMouseEnter "OnCustomizeEnter"
+     OnMouseLeave "OnAffordanceLeave"
     }
    }
   }

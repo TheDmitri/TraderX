@@ -54,7 +54,7 @@ GridSpacerWidgetClass categoryCard {
          vexactsize 1
          valign center_ref
          ignorepointer 1
-         image0 "set:traderx_icons image:rifle"
+         image0 "set:traderx_icons image:grid"
          mode blend
          "src alpha" 1
          "stretch mode" stretch_w_h

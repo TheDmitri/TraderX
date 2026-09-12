@@ -1,86 +1,97 @@
 PanelWidgetClass toastRoot {
- position 1572 60
- hexactpos 1
- vexactpos 1
- size 330 92
- hexactsize 1
- vexactsize 1
+ position 0 0
+ hexactpos 0
+ vexactpos 0
+ size 1 1
+ hexactsize 0
+ vexactsize 0
  ignorepointer 1
  priority 999
- style TXCardElevated
- color 0.9961 0.9961 0.9961 1
  {
-  PanelWidgetClass leftRule {
-   position 0 0
-   hexactpos 1
-   vexactpos 1
-   size 3 92
-   hexactsize 1
-   vexactsize 1
-   color 0.4784 0.6039 0.2902 1
+  PanelWidgetClass toastCard {
+   position 0.79 0.06
+   hexactpos 0
+   vexactpos 0
+   size 0.2 0.09
+   hexactsize 0
+   vexactsize 0
    ignorepointer 1
-   style rover_sim_colorable
-  }
-  PanelWidgetClass iconWell {
-   position 12 12
-   hexactpos 1
-   vexactpos 1
-   size 44 44
-   hexactsize 1
-   vexactsize 1
-   ignorepointer 1
-   style TXSurface
+   style TXCardElevated
    color 0.9961 0.9961 0.9961 1
    {
-    ImageWidgetClass shieldIcon {
-     position 10 10
+    PanelWidgetClass leftRule {
+     position 0 0
      hexactpos 1
      vexactpos 1
-     size 24 24
+     size 3 1
      hexactsize 1
-     vexactsize 1
+     vexactsize 0
      color 0.4784 0.6039 0.2902 1
      ignorepointer 1
+     style rover_sim_colorable
     }
-   }
-  }
-  TextWidgetClass titleText {
-   position 68 14
-   hexactpos 1
-   vexactpos 1
-   size 250 22
-   hexactsize 1
-   vexactsize 1
-   ignorepointer 1
-   color 0.8471 0.8235 0.7529 1
-   font "TraderX/datasets/fonts/oswalt16"
-   "exact text" 1
-   "text valign" center
-   text "SafeZone"
-   scriptclass "TextBinding"
-   {
-    ScriptParamsClass {
-     Binding_Expression "{{ toastTitle }}"
+    PanelWidgetClass iconWell {
+     position 12 12
+     hexactpos 1
+     vexactpos 1
+     size 44 44
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     style TXSurface
+     color 0.9961 0.9961 0.9961 1
+     {
+      ImageWidgetClass shieldIcon {
+       position 10 10
+       hexactpos 1
+       vexactpos 1
+       size 24 24
+       hexactsize 1
+       vexactsize 1
+       color 0.4784 0.6039 0.2902 1
+       ignorepointer 1
+       image0 "set:traderx_icons image:shield"
+      }
+     }
     }
-   }
-  }
-  RichTextWidgetClass bodyText {
-   position 68 40
-   hexactpos 1
-   vexactpos 1
-   size 250 44
-   hexactsize 1
-   vexactsize 1
-   ignorepointer 1
-   color 0.6039 0.5804 0.5333 1
-   font "TraderX/datasets/fonts/oswalt14"
-   "exact text" 1
-   wrap 1
-   text "You entered the safezone!"
-   scriptclass "TextBinding"
-   {
-    ScriptParamsClass {
-     Binding_Expression "{{ toastBody }}"
+    TextWidgetClass titleText {
+     position 68 14
+     hexactpos 1
+     vexactpos 1
+     size 300 22
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     color 0.8471 0.8235 0.7529 1
+     font "TraderX/datasets/fonts/oswalt16"
+     "exact text" 1
+     "text valign" center
+     text "SafeZone"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ toastTitle }}"
+      }
+     }
+    }
+    RichTextWidgetClass bodyText {
+     position 68 42
+     hexactpos 1
+     vexactpos 1
+     size 300 44
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     color 0.6039 0.5804 0.5333 1
+     font "TraderX/datasets/fonts/oswalt14"
+     wrap 1
+     text "You entered the safezone!"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ toastBody }}"
+      }
+     }
     }
    }
   }

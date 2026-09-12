@@ -10,6 +10,13 @@ class CheckoutCardComponent extends DZlrComponentBase
 	string product_quantity_text;
 	string product_price_text;
 
+	// Preset picker (BUY, non-customize, product with presets). The options are shown in a
+	// collapsible list that expands the card downward (a floating dropdown gets clipped by
+	// the checkout scroll). ForEach source + the current selection label for the toggle.
+	ref array<ref TXCheckoutPresetOption> _presetOptions = new array<ref TXCheckoutPresetOption>();
+	string preset_toggle_label;
+	private bool m_PresetsExpanded;
+
 	private int price;
 	private int quantity;
 	private int tradeMode;
@@ -17,6 +24,11 @@ class CheckoutCardComponent extends DZlrComponentBase
 	Widget btnPlus;
 	Widget btnMinus;
 	Widget removeBtn;
+	Widget presetToggleBtn;      // "Presets" row toggle (shown only when options exist)
+	Widget presetOptionsGrid;    // collapsible ForEach list, hidden until expanded
+	ImageWidget presetChevron;
+
+	private string m_NoPresetLabel;
 
 	override protected void RegisterMetadata()
 	{
@@ -70,9 +82,130 @@ class CheckoutCardComponent extends DZlrComponentBase
 			if (btnMinus) btnMinus.Show(false);
 		}
 
+		SetupPresetPicker();
+
 		RefreshQuantityAndPrice();
 		MarkForCheck();
 		OnSellQuantityModeChanged(TraderXTradingService.GetInstance().IsMaxQuantity());
+	}
+
+	// Build the collapsible preset picker for a normal product buy. Hidden for sell,
+	// customize, player items, and products with no presets. Same-base presets only (a
+	// preset whose productId differs would swap the base weapon — out of scope here).
+	void SetupPresetPicker()
+	{
+		m_PresetsExpanded = false;
+		if (presetToggleBtn) presetToggleBtn.Show(false);
+		if (presetOptionsGrid) presetOptionsGrid.Show(false);
+
+		if (tradeMode != ETraderXTradeMode.BUY) return;
+		if (TraderXUINavigationService.GetInstance().GetNavigationId() == ENavigationIds.CUSTOMIZE) return;
+		if (_inputProduct.GetPlayerItem()) return;
+
+		_presetOptions.Clear();
+		m_NoPresetLabel = Widget.TranslateString("#tpm_no_preset");
+
+		TraderXPresets serverPresets = TraderXPresetsService.GetInstance().GetServerPresets(_inputProduct.productId);
+		if (serverPresets && serverPresets.presets)
+			AddPresetOptions(serverPresets.presets);
+
+		AddPresetOptions(TraderXPresetsService.GetInstance().GetPresets(_inputProduct.productId));
+
+		// No presets for this product -> keep the row simple, no toggle.
+		if (_presetOptions.Count() == 0) return;
+
+		// Leading "No preset" entry so the player can revert to a bare item.
+		TXCheckoutPresetOption none = new TXCheckoutPresetOption();
+		none.owner = this;
+		none.preset = null;
+		none.isNone = true;
+		none.label = m_NoPresetLabel;
+		_presetOptions.InsertAt(none, 0);
+
+		// The select bar now carries the preset, so drop the redundant " [preset]" from the
+		// item name.
+		product_name_text = _inputProduct.GetDisplayName();
+
+		UpdateToggleLabel();
+		if (presetToggleBtn) presetToggleBtn.Show(true);
+	}
+
+	// Insert same-base presets as options, de-duplicating by name.
+	void AddPresetOptions(array<ref TraderXPreset> presets)
+	{
+		if (!presets) return;
+		foreach (TraderXPreset preset : presets)
+		{
+			if (!preset) continue;
+			if (preset.productId != _inputProduct.productId) continue;   // same-base only
+			if (preset.presetName == string.Empty) continue;
+			if (HasOption(preset.presetName)) continue;
+
+			TXCheckoutPresetOption opt = new TXCheckoutPresetOption();
+			opt.owner = this;
+			opt.preset = preset;
+			opt.isNone = false;
+			opt.label = preset.presetName;
+			_presetOptions.Insert(opt);
+		}
+	}
+
+	bool HasOption(string label)
+	{
+		foreach (TXCheckoutPresetOption o : _presetOptions)
+		{
+			if (o && o.label == label)
+				return true;
+		}
+		return false;
+	}
+
+	// Toggle button in the main row shows the current selection.
+	void UpdateToggleLabel()
+	{
+		if (_inputProduct.defaultPreset && _inputProduct.defaultPreset.presetName != string.Empty)
+			preset_toggle_label = _inputProduct.defaultPreset.presetName;
+		else
+			preset_toggle_label = m_NoPresetLabel;
+	}
+
+	// Expand/collapse the option list below the row. The card root is size-to-content, so
+	// showing the ForEach grid grows the card and the checkout list reflows below it.
+	void OnPresetToggle()
+	{
+		m_PresetsExpanded = !m_PresetsExpanded;
+		if (presetOptionsGrid) presetOptionsGrid.Show(m_PresetsExpanded);
+		MarkForCheck();
+	}
+
+	// Apply the chosen preset to this line, reprice + rename, then collapse the list.
+	void ApplyPresetOption(TXCheckoutPresetOption option)
+	{
+		if (!option) return;
+
+		TraderXPreset chosen = option.preset;
+		if (option.isNone)
+			chosen = null;
+
+		_inputProduct.defaultPreset = chosen;
+
+		// Keep the spawned item's attachments in sync with the chosen preset (bare when none).
+		if (chosen)
+			_inputProduct.selectedAttachments = chosen.attachments;
+		else
+			_inputProduct.selectedAttachments = new array<string>();
+
+		// Name stays clean; the select bar reflects the chosen preset.
+		product_name_text = _inputProduct.GetDisplayName();
+
+		UpdateToggleLabel();
+
+		// Collapse after selection.
+		m_PresetsExpanded = false;
+		if (presetOptionsGrid) presetOptionsGrid.Show(false);
+
+		RefreshQuantityAndPrice();
+		MarkForCheck();
 	}
 
 	int GetTradeMode()

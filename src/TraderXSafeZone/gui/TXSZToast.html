@@ -6,35 +6,40 @@
   <link rel="stylesheet" href="dzml-styles.css">
   <link rel="stylesheet" href="dzml-icons.css">
 </head>
-<!-- TraderXSafeZone enter/exit toast — Field Ledger. Single reusable top-right
-     card: shield glyph well + title + body, left accent rule recolored in code
-     (olive = enter, rust = exit). Auto-hides via TXSZToastComponent.
+<!-- TraderXSafeZone enter/exit toast — Field Ledger. Full-screen root + a top-right
+     card. Card position/size are FRACTIONAL (%) so it anchors the same on any
+     resolution (px is absolute and drifts/clips offscreen). Shield glyph well +
+     title + body; left accent rule recolored in code (olive = enter, rust = exit).
      data-name contract → AutoLoadWidgets in TXSZToastComponent.c:
-       toastRoot, leftRule, iconWell, shieldIcon, titleText, bodyText -->
+       toastRoot, toastCard, leftRule, iconWell, shieldIcon, titleText, bodyText -->
 <body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#0F1215;">
 
-<div data-dz="panel" data-name="toastRoot" data-style="TXCardElevated"
-    class="dz-xy-1572px-60px dz-wh-330px-92px dz-noptr dz-priority-999">
+<div data-dz="panel" data-name="toastRoot" class="dz-xy-0-0 dz-wh-full dz-noptr dz-priority-999">
 
-  <!-- Accent rule (recolored per transition in code) -->
-  <div data-dz="panel" data-name="leftRule" class="dz-xy-0px-0px dz-wh-3px-92px dz-c-7a9a4a dz-noptr"></div>
+  <div data-dz="panel" data-name="toastCard" data-style="TXCardElevated"
+      class="dz-xy-79-6 dz-wh-20-9 dz-noptr">
 
-  <!-- Icon well: dark surface + tinted shield glyph (loaded + recolored in code) -->
-  <div data-dz="panel" data-name="iconWell" data-style="TXSurface" class="dz-xy-12px-12px dz-wh-44px-44px dz-noptr">
-    <img data-dz="image" data-name="shieldIcon" class="dz-xy-10px-10px dz-wh-24px-24px dz-c-7a9a4a dz-noptr" />
+    <!-- Accent rule (full card height; recolored per transition in code) -->
+    <div data-dz="panel" data-name="leftRule" class="dz-xy-0px-0px dz-wh-3px-100 dz-c-7a9a4a dz-noptr"></div>
+
+    <!-- Icon well: dark surface + shield glyph from traderx_icons (recolored per accent in code) -->
+    <div data-dz="panel" data-name="iconWell" data-style="TXSurface" class="dz-xy-12px-12px dz-wh-44px-44px dz-noptr">
+      <img data-dz="image" data-name="shieldIcon" data-image="set:traderx_icons image:shield"
+          class="dz-xy-10px-10px dz-wh-24px-24px dz-c-7a9a4a dz-noptr" />
+    </div>
+
+    <!-- Title -->
+    <span data-dz="text" data-name="titleText" data-bind="{{ toastTitle }}"
+        class="dz-xy-68px-14px dz-wh-300px-22px dz-noptr dz-c-d8d2c0 dz-font-body-16 dz-exact-text dz-text-vc">
+      SafeZone
+    </span>
+
+    <!-- Body (multiline, wraps) -->
+    <p data-dz="richtext" data-name="bodyText" data-bind="{{ toastBody }}"
+        class="dz-xy-68px-42px dz-wh-300px-44px dz-noptr dz-c-9a9488 dz-font-body-14 dz-wrap">
+      You entered the safezone!
+    </p>
   </div>
-
-  <!-- Title -->
-  <span data-dz="text" data-name="titleText" data-bind="{{ toastTitle }}"
-      class="dz-xy-68px-14px dz-wh-250px-22px dz-noptr dz-c-d8d2c0 dz-font-body-16 dz-exact-text dz-text-vc">
-    SafeZone
-  </span>
-
-  <!-- Body (multiline) -->
-  <p data-dz="richtext" data-name="bodyText" data-bind="{{ toastBody }}"
-      class="dz-xy-68px-40px dz-wh-250px-44px dz-noptr dz-c-9a9488 dz-font-body-14 dz-exact-text dz-wrap">
-    You entered the safezone!
-  </p>
 </div>
 
 <script src="dzml-runtime.js"></script>

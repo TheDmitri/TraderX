@@ -1,0 +1,50 @@
+PanelWidgetClass presetOptionView {
+ position 0 0
+ hexactpos 0
+ vexactpos 0
+ size 1 30
+ hexactsize 0
+ vexactsize 1
+ ignorepointer 1
+ {
+  ButtonWidgetClass presetOptionBtn {
+   position 0 0
+   hexactpos 0
+   vexactpos 0
+   size 1 1
+   hexactsize 0
+   vexactsize 0
+   "text color" 0.9961 0.9961 0.9961 1
+   style TXListRow
+   color 0.9961 0.9961 0.9961 1
+   scriptclass "ButtonBinding"
+   {
+    TextWidgetClass presetOptionLabel {
+     position 0.06 0
+     hexactpos 0
+     vexactpos 0
+     size 0.9 1
+     hexactsize 0
+     vexactsize 0
+     color 0.8471 0.8235 0.7529 1
+     font "TraderX/datasets/fonts/oswalt14"
+     ignorepointer 1
+     "exact text" 1
+     "text valign" center
+     text "Preset Name"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ option_label }}"
+      }
+     }
+    }
+   }
+   {
+    ScriptParamsClass {
+     OnClick "OnOptionClick"
+    }
+   }
+  }
+ }
+}

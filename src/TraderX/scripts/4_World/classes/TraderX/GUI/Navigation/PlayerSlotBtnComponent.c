@@ -37,10 +37,15 @@ class PlayerSlotBtnComponent extends DZlrComponentBase
 			navBtnId = _inputSlot.navBtnId;
 		if (navBtnId > 0)
 			mPlayerSlotsButtons.Set(navBtnId, this);
+		// Central tooltip teardown (page nav, menu close via escape) — the hover
+		// tooltip is a standalone root widget, so without this it survives the menu.
+		ItemCardComponent.Event_OnDestroyAllTooltips.Insert(OnSlotMouseLeave);
 	}
 
 	override void OnDestroy()
 	{
+		ItemCardComponent.Event_OnDestroyAllTooltips.Remove(OnSlotMouseLeave);
+		OnSlotMouseLeave();
 		mPlayerSlotsButtons.Remove(navBtnId);
 	}
 

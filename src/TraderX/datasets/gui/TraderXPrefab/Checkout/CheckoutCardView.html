@@ -8,67 +8,105 @@
 </head>
 <body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#1a1a1a;">
 
-<div data-dz="panel"
+<!-- Root is a size-to-content grid: each shown child is a stacked row, so the preset
+     select bar and its expanded option list grow the card and the checkout list (also
+     fit-v) reflows below. Rows: main row, preset select bar, option list.
+     A floating dropdown would be clipped by the checkout scroll — this flows inline. -->
+<div data-dz="grid"
     data-name="CheckoutCardView"
-    data-style="blank"
-    class="dz-xy-0-0 dz-wh-100-60px dz-c-FE dz-noptr">
-  <span data-dz="text"
-      data-name="productName"
-      data-bind="{{ product_name_text }}"
-      class="dz-xy-3-6 dz-wh-56-44 dz-c-D8D2C0 dz-font-body-14 dz-noptr dz-bold dz-exact-text dz-text-vc">
-    Item Name
-  </span>
-  <span data-dz="text"
-      data-name="productPrice"
-      data-bind="{{ product_price_text }}"
-      class="dz-xy-3-52 dz-wh-56-40 dz-c-C4A35A dz-font-mono-14 dz-noptr dz-exact-text dz-text-vc">
-    1,250
-  </span>
+    class="dz-xy-0-0 dz-wh-100-1 dz-noptr dz-fit-v dz-cols-1 dz-rows-100 dz-gap-3">
+  <div data-dz="panel"
+      data-name="checkoutMainRow"
+      data-style="blank"
+      class="dz-xy-0-0 dz-wh-100-46px dz-c-FE dz-noptr">
+    <span data-dz="text"
+        data-name="productName"
+        data-bind="{{ product_name_text }}"
+        class="dz-xy-3-4 dz-wh-52-30 dz-c-D8D2C0 dz-font-body-14 dz-noptr dz-bold dz-exact-text dz-text-vc">
+      Item Name
+    </span>
+    <span data-dz="text"
+        data-name="productPrice"
+        data-bind="{{ product_price_text }}"
+        class="dz-xy-3-54 dz-wh-52-40 dz-c-C4A35A dz-font-mono-14 dz-noptr dz-exact-text dz-text-vc">
+      1,250
+    </span>
+    <button data-dz="button"
+        data-name="btnMinus"
+        data-style="TXBtnIcon"
+        data-on-click="OnMinusClick"
+        class="dz-xy-60-0 dz-wh-32px-32px dz-align-y-center dz-tc-FE dz-tc-D8D2C0 dz-font-body-16">
+      <img data-dz="image"
+          data-name="btnMinusIcon"
+          class="dz-xy-0-0 dz-wh-26px-26px dz-align-cc dz-noptr"
+          data-image="set:traderx_icons image:minus"
+          data-image-mode="blend"
+          data-image-src-alpha="1"
+          data-image-stretch="stretch_w_h"/>
+    </button>
+    <span data-dz="text"
+        data-name="productQty"
+        data-bind="{{ product_quantity_text }}"
+        class="dz-xy-68-0 dz-wh-14-100 dz-c-D8D2C0 dz-font-mono-16 dz-noptr dz-bold dz-exact-text dz-text-center dz-text-vc">
+      1
+    </span>
+    <button data-dz="button"
+        data-name="btnPlus"
+        data-style="TXBtnIcon"
+        data-on-click="OnPlusClick"
+        class="dz-xy-80-0 dz-wh-32px-32px dz-align-y-center dz-tc-FE dz-tc-D8D2C0 dz-font-body-16">
+      <img data-dz="image"
+          data-name="btnPlusIcon"
+          class="dz-xy-0-0 dz-wh-26px-26px dz-align-cc dz-noptr"
+          data-image="set:traderx_icons image:add"
+          data-image-mode="blend"
+          data-image-src-alpha="1"
+          data-image-stretch="stretch_w_h"/>
+    </button>
+    <button data-dz="button"
+        data-name="removeBtn"
+        data-style="TXBtnIcon"
+        data-on-click="OnRemoveClick"
+        class="dz-xy-90-0 dz-wh-32px-32px dz-align-y-center dz-tc-FE dz-tc-C93030 dz-font-body-16">
+      <img data-dz="image"
+          data-name="removeBtnIcon"
+          class="dz-xy-0-0 dz-wh-26px-26px dz-align-cc dz-c-F0654A dz-noptr"
+          data-image="set:traderx_icons image:trash"
+          data-image-mode="blend"
+          data-image-src-alpha="1"
+          data-image-stretch="stretch_w_h"/>
+    </button>
+  </div>
+  <!-- Full-width preset select bar (row 2). Shown only when the product has presets
+       (CheckoutCardComponent.SetupPresetPicker); hidden -> row collapses, card stays compact.
+       Value on the left, chevron on the right — reads as a select control. -->
   <button data-dz="button"
-      data-name="btnMinus"
-      data-style="TXBtnIcon"
-      data-on-click="OnMinusClick"
-      class="dz-xy-60-0 dz-wh-32px-32px dz-align-y-center dz-tc-FE dz-tc-D8D2C0 dz-font-body-16">
+      data-name="presetToggleBtn"
+      data-style="TXListRow"
+      data-on-click="OnPresetToggle"
+      class="dz-xy-0-0 dz-wh-100-30px dz-c-FE dz-hidden">
+    <span data-dz="text"
+        data-name="presetToggleLabel"
+        data-bind="{{ preset_toggle_label }}"
+        class="dz-xy-3-0 dz-wh-88-100 dz-c-C4A35A dz-font-body-13 dz-noptr dz-bold dz-exact-text dz-text-vc">
+      Presets
+    </span>
     <img data-dz="image"
-        data-name="btnMinusIcon"
-        class="dz-xy-0-0 dz-wh-26px-26px dz-align-cc dz-noptr"
-        data-image="set:traderx_icons image:minus"
+        data-name="presetChevron"
+        class="dz-xy-93-0 dz-wh-18px-18px dz-align-y-center dz-c-9A9488 dz-noptr"
+        data-image="set:traderx_icons image:chevron_down"
         data-image-mode="blend"
         data-image-src-alpha="1"
         data-image-stretch="stretch_w_h"/>
   </button>
-  <span data-dz="text"
-      data-name="productQty"
-      data-bind="{{ product_quantity_text }}"
-      class="dz-xy-68-0 dz-wh-14-100 dz-c-D8D2C0 dz-font-mono-16 dz-noptr dz-bold dz-exact-text dz-text-center dz-text-vc">
-    1
-  </span>
-  <button data-dz="button"
-      data-name="btnPlus"
-      data-style="TXBtnIcon"
-      data-on-click="OnPlusClick"
-      class="dz-xy-80-0 dz-wh-32px-32px dz-align-y-center dz-tc-FE dz-tc-D8D2C0 dz-font-body-16">
-    <img data-dz="image"
-        data-name="btnPlusIcon"
-        class="dz-xy-0-0 dz-wh-26px-26px dz-align-cc dz-noptr"
-        data-image="set:traderx_icons image:add"
-        data-image-mode="blend"
-        data-image-src-alpha="1"
-        data-image-stretch="stretch_w_h"/>
-  </button>
-  <button data-dz="button"
-      data-name="removeBtn"
-      data-style="TXBtnIcon"
-      data-on-click="OnRemoveClick"
-      class="dz-xy-90-0 dz-wh-32px-32px dz-align-y-center dz-tc-FE dz-tc-C93030 dz-font-body-16">
-    <img data-dz="image"
-        data-name="removeBtnIcon"
-        class="dz-xy-0-0 dz-wh-26px-26px dz-align-cc dz-c-F0654A dz-noptr"
-        data-image="set:traderx_icons image:trash"
-        data-image-mode="blend"
-        data-image-src-alpha="1"
-        data-image-stretch="stretch_w_h"/>
-  </button>
+  <!-- Collapsible preset options (row 3) — one tx-checkout-preset-option per entry, same
+       width as the select bar. Hidden until expanded; contributes no height when hidden. -->
+  <div data-dz="grid"
+      data-name="presetOptionsGrid"
+      data-foreach="{{ _presetOptions }}"
+      data-template="tx-checkout-preset-option"
+      data-item="_inputOption"
+      class="dz-xy-0-0 dz-wh-100-1 dz-noptr dz-fit-v dz-cols-1 dz-rows-100 dz-gap-2 dz-hidden"></div>
 </div>
 
 <script src="dzml-runtime.js?v=1780762085514"></script>

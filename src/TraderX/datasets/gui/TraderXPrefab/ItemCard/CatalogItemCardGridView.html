@@ -35,7 +35,7 @@
     <div data-dz="preview"
         data-name="itemPreview"
         data-bind-item="{{ preview }}"
-        class="dz-xy-4-5 dz-wh-92-50 dz-noptr dz-clip dz-priority-1"></div>
+        class="dz-xy-6-14 dz-wh-88-40 dz-noptr dz-clip dz-priority-1"></div>
     <img data-dz="image"
         data-name="healthImg"
         class="dz-xy-8-5 dz-wh-12px-12px dz-c-6B8E5A dz-noptr dz-hidden"
@@ -78,6 +78,53 @@
       </div>
     </div>
   </div>
+  <!-- Persistent customize affordance (labelled hover tooltips; gear opens customize).
+       Shown/hidden from CatalogItemCardComponent.UpdateCustomizeAffordance(). -->
+  <button data-dz="button"
+      data-name="variantBtn"
+      data-style="Empty"
+      data-on-click="OnVariantClick"
+      data-on-mouseenter="OnVariantEnter"
+      data-on-mouseleave="OnAffordanceLeave"
+      class="dz-xy-55-4 dz-wh-26px-26px dz-c-FE dz-tc-FE dz-hidden">
+    <img data-dz="image"
+        data-name="variantIcon"
+        class="dz-xy-0-0 dz-wh-full dz-align-cc dz-c-9ACD32 dz-noptr"
+        data-image="set:traderx_icons image:palette"
+        data-image-mode="blend"
+        data-image-src-alpha="1"
+        data-image-stretch="stretch_w_h"/>
+  </button>
+  <button data-dz="button"
+      data-name="attachBtn"
+      data-style="Empty"
+      data-on-click="OnAttachClick"
+      data-on-mouseenter="OnAttachEnter"
+      data-on-mouseleave="OnAffordanceLeave"
+      class="dz-xy-67-4 dz-wh-26px-26px dz-c-FE dz-tc-FE dz-hidden">
+    <img data-dz="image"
+        data-name="attachIcon"
+        class="dz-xy-0-0 dz-wh-full dz-align-cc dz-c-C4A35A dz-noptr"
+        data-image="set:traderx_icons image:wrench"
+        data-image-mode="blend"
+        data-image-src-alpha="1"
+        data-image-stretch="stretch_w_h"/>
+  </button>
+  <button data-dz="button"
+      data-name="customizeBtn"
+      data-style="Empty"
+      data-on-click="OnCustomizeClick"
+      data-on-mouseenter="OnCustomizeEnter"
+      data-on-mouseleave="OnAffordanceLeave"
+      class="dz-xy-79-4 dz-wh-26px-26px dz-c-FE dz-tc-FE dz-hidden">
+    <img data-dz="image"
+        data-name="customizeIcon"
+        class="dz-xy-0-0 dz-wh-full dz-align-cc dz-c-D8D2C0 dz-noptr"
+        data-image="set:traderx_icons image:gear"
+        data-image-mode="blend"
+        data-image-src-alpha="1"
+        data-image-stretch="stretch_w_h"/>
+  </button>
 </div>
 
 <script src="dzml-runtime.js"></script>

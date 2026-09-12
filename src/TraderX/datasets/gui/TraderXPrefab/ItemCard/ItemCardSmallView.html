@@ -17,8 +17,6 @@
       data-on-click="OnItemCardLeftClick"
       data-on-rclick="OnItemCardRightClick"
       data-on-dblclick="OnItemCardDoubleClick"
-      data-on-mouseenter="OnItemCardMouseEnter"
-      data-on-mouseleave="OnItemCardMouseLeave"
       class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
   <div data-dz="panel"
       data-name="itemCardOutline"
@@ -119,6 +117,66 @@
         data-name="unfavIcon"
         class="dz-xy-0-0 dz-wh-full dz-c-9A9488 dz-noptr dz-hidden"
         data-image="set:traderx_icons image:star"
+        data-image-mode="blend"
+        data-image-src-alpha="1"
+        data-image-stretch="stretch_w_h"/>
+  </button>
+  <!-- Transparent hover-catcher over the thumbnail: the description tooltip now shows ONLY
+       when hovering the image, not the whole row. Carries the click handlers too so the
+       image still selects/customizes like the rest of the row. -->
+  <button data-dz="button"
+      data-name="previewHoverBtn"
+      data-style="Empty"
+      data-on-click="OnItemCardLeftClick"
+      data-on-rclick="OnItemCardRightClick"
+      data-on-dblclick="OnItemCardDoubleClick"
+      data-on-mouseenter="OnItemCardMouseEnter"
+      data-on-mouseleave="OnItemCardMouseLeave"
+      class="dz-xy-1-9 dz-wh-84px-56px dz-c-00000000 dz-tc-FE"></button>
+  <!-- Persistent customize affordance (replaces the hover-only variant/attachment hints).
+       Each button raises its own labelled tooltip; the gear also opens customize.
+       Shown/hidden from ItemCardComponent.UpdateCustomizeAffordance(). -->
+  <button data-dz="button"
+      data-name="variantBtn"
+      data-style="Empty"
+      data-on-click="OnVariantClick"
+      data-on-mouseenter="OnVariantEnter"
+      data-on-mouseleave="OnAffordanceLeave"
+      class="dz-xy-76-0 dz-wh-26px-26px dz-align-y-center dz-c-FE dz-tc-FE dz-hidden">
+    <img data-dz="image"
+        data-name="variantIcon"
+        class="dz-xy-0-0 dz-wh-full dz-align-cc dz-c-9ACD32 dz-noptr"
+        data-image="set:traderx_icons image:palette"
+        data-image-mode="blend"
+        data-image-src-alpha="1"
+        data-image-stretch="stretch_w_h"/>
+  </button>
+  <button data-dz="button"
+      data-name="attachBtn"
+      data-style="Empty"
+      data-on-click="OnAttachClick"
+      data-on-mouseenter="OnAttachEnter"
+      data-on-mouseleave="OnAffordanceLeave"
+      class="dz-xy-80-0 dz-wh-26px-26px dz-align-y-center dz-c-FE dz-tc-FE dz-hidden">
+    <img data-dz="image"
+        data-name="attachIcon"
+        class="dz-xy-0-0 dz-wh-full dz-align-cc dz-c-C4A35A dz-noptr"
+        data-image="set:traderx_icons image:wrench"
+        data-image-mode="blend"
+        data-image-src-alpha="1"
+        data-image-stretch="stretch_w_h"/>
+  </button>
+  <button data-dz="button"
+      data-name="customizeBtn"
+      data-style="Empty"
+      data-on-click="OnCustomizeClick"
+      data-on-mouseenter="OnCustomizeEnter"
+      data-on-mouseleave="OnAffordanceLeave"
+      class="dz-xy-84-0 dz-wh-26px-26px dz-align-y-center dz-c-FE dz-tc-FE dz-hidden">
+    <img data-dz="image"
+        data-name="customizeIcon"
+        class="dz-xy-0-0 dz-wh-full dz-align-cc dz-c-D8D2C0 dz-noptr"
+        data-image="set:traderx_icons image:gear"
         data-image-mode="blend"
         data-image-src-alpha="1"
         data-image-stretch="stretch_w_h"/>

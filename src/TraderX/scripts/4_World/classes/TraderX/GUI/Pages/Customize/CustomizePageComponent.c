@@ -18,6 +18,11 @@ class CustomizePageComponent extends DZlrComponentBase
 	string current_tab = "tx-customize-presets";
 	string current_modal = "";
 
+	// Tab the page should open on, set by the card affordance icons before mount:
+	// palette -> variants, wrench -> attachments, gear/right-click -> presets. Consumed
+	// once in OnInit. Empty = default (presets).
+	static string s_PendingTab = "";
+
 	// Display bindings
 	string product_classname;
 	string base_price;
@@ -88,6 +93,14 @@ class CustomizePageComponent extends DZlrComponentBase
 		// component mounts, so the OnPreviewUpdated event already fired — seed it directly.
 		preview = CustomizePreviewService.GetInstance().GetCurrentPreview();
 
+		// Land on the tab the card icon requested (palette->variants, wrench->attachments),
+		// else the default presets tab. Consumed once.
+		if (s_PendingTab != "")
+		{
+			current_tab = s_PendingTab;
+			s_PendingTab = "";
+		}
+
 		SelectDefaultPresetIfExists();
 		UpdateTabHighlight();
 		MarkForCheck();
@@ -96,11 +109,12 @@ class CustomizePageComponent extends DZlrComponentBase
 	override void OnDestroy()
 	{
 		UnregisterServiceEvents();
-		if (preview)
-		{
-			GetGame().ObjectDelete(preview);
-			preview = null;
-		}
+		// The preview entity is OWNED by CustomizePreviewService (it created it and
+		// still holds m_CurrentPreview). Deleting it here left the service with a
+		// dangling pointer, and the next CreatePreview -> CleanupCurrentPreview deleted
+		// it a second time. Let the owner clean up; we only drop our reference.
+		CustomizePreviewService.GetInstance().CleanupCurrentPreview();
+		preview = null;
 		// Cleanup must run on EVERY exit, not just the close button. Leaving via the
 		// top nav (Purchase/Sell) unmounts this component without calling OnClose, which
 		// otherwise leaked the snapshot and left stale customize identity behind.

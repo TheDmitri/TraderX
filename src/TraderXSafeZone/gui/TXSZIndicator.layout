@@ -1,53 +1,65 @@
 PanelWidgetClass indicatorRoot {
- position 850 22
- hexactpos 1
- vexactpos 1
- size 220 32
- hexactsize 1
- vexactsize 1
+ position 0 0
+ hexactpos 0
+ vexactpos 0
+ size 1 1
+ hexactsize 0
+ vexactsize 0
  ignorepointer 1
  priority 999
- style TXCardElevated
- color 0.9961 0.9961 0.9961 1
  {
-  PanelWidgetClass leftRule {
-   position 0 0
-   hexactpos 1
-   vexactpos 1
-   size 3 32
-   hexactsize 1
-   vexactsize 1
-   color 0.4784 0.6039 0.2902 1
+  PanelWidgetClass indicatorCard {
+   position 0.44 0.02
+   hexactpos 0
+   vexactpos 0
+   size 0.13 0.03
+   hexactsize 0
+   vexactsize 0
    ignorepointer 1
-   style rover_sim_colorable
-  }
-  ImageWidgetClass shieldIcon {
-   position 12 6
-   hexactpos 1
-   vexactpos 1
-   size 20 20
-   hexactsize 1
-   vexactsize 1
-   color 0.4784 0.6039 0.2902 1
-   ignorepointer 1
-  }
-  TextWidgetClass zoneText {
-   position 40 0
-   hexactpos 1
-   vexactpos 1
-   size 176 32
-   hexactsize 1
-   vexactsize 1
-   ignorepointer 1
-   color 0.8471 0.8235 0.7529 1
-   font "TraderX/datasets/fonts/oswalt14"
-   "exact text" 1
-   "text valign" center
-   text "SAFE ZONE"
-   scriptclass "TextBinding"
+   style TXCardElevated
+   color 0.9961 0.9961 0.9961 1
    {
-    ScriptParamsClass {
-     Binding_Expression "{{ statusText }}"
+    PanelWidgetClass leftRule {
+     position 0 0
+     hexactpos 1
+     vexactpos 1
+     size 3 1
+     hexactsize 1
+     vexactsize 0
+     color 0.4784 0.6039 0.2902 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
+    ImageWidgetClass shieldIcon {
+     position 12 7
+     hexactpos 1
+     vexactpos 1
+     size 20 20
+     hexactsize 1
+     vexactsize 1
+     color 0.4784 0.6039 0.2902 1
+     ignorepointer 1
+     image0 "set:traderx_icons image:shield"
+    }
+    TextWidgetClass zoneText {
+     position 42 0
+     hexactpos 1
+     vexactpos 1
+     size 190 1
+     hexactsize 1
+     vexactsize 0
+     ignorepointer 1
+     color 0.8471 0.8235 0.7529 1
+     font "TraderX/datasets/fonts/oswalt14"
+     "exact text" 1
+     "text valign" center
+     text "SAFE ZONE"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ statusText }}"
+      }
+     }
     }
    }
   }

@@ -1,6 +1,6 @@
 ImageSetClass {
  Name "traderx_icons"
- RefSize 2048 1536
+ RefSize 2048 1792
  Textures {
   ImageSetTextureClass {
    mpix 1
@@ -128,171 +128,183 @@ ImageSetClass {
    Size 256 256
    Flags 0
   }
+  ImageSetDefClass gear {
+   Name "gear"
+   Pos 1024 512
+   Size 256 256
+   Flags 0
+  }
   ImageSetDefClass grid {
    Name "grid"
-   Pos 1024 512
+   Pos 1280 512
    Size 256 256
    Flags 0
   }
   ImageSetDefClass info {
    Name "info"
-   Pos 1280 512
+   Pos 1536 512
    Size 256 256
    Flags 0
   }
   ImageSetDefClass left_click {
    Name "left_click"
-   Pos 1536 512
+   Pos 1792 512
    Size 256 256
    Flags 0
   }
   ImageSetDefClass left_right_click {
    Name "left_right_click"
-   Pos 1792 512
+   Pos 0 768
    Size 256 256
    Flags 0
   }
   ImageSetDefClass list {
    Name "list"
-   Pos 0 768
+   Pos 256 768
    Size 256 256
    Flags 0
   }
   ImageSetDefClass market {
    Name "market"
-   Pos 256 768
+   Pos 512 768
    Size 256 256
    Flags 0
   }
   ImageSetDefClass minus {
    Name "minus"
-   Pos 512 768
+   Pos 768 768
    Size 256 256
    Flags 0
   }
   ImageSetDefClass padlock {
    Name "padlock"
-   Pos 768 768
+   Pos 1024 768
    Size 256 256
    Flags 0
   }
   ImageSetDefClass palette {
    Name "palette"
-   Pos 1024 768
+   Pos 1280 768
    Size 256 256
    Flags 0
   }
   ImageSetDefClass person {
    Name "person"
-   Pos 1280 768
+   Pos 1536 768
    Size 256 256
    Flags 0
   }
   ImageSetDefClass purchase {
    Name "purchase"
-   Pos 1536 768
+   Pos 1792 768
    Size 256 256
    Flags 0
   }
   ImageSetDefClass quantity {
    Name "quantity"
-   Pos 1792 768
+   Pos 0 1024
    Size 256 256
    Flags 0
   }
   ImageSetDefClass ready_stock {
    Name "ready_stock"
-   Pos 0 1024
+   Pos 256 1024
    Size 256 256
    Flags 0
   }
   ImageSetDefClass refresh {
    Name "refresh"
-   Pos 256 1024
+   Pos 512 1024
    Size 256 256
    Flags 0
   }
   ImageSetDefClass rifle {
    Name "rifle"
-   Pos 512 1024
+   Pos 768 1024
    Size 256 256
    Flags 0
   }
   ImageSetDefClass right_click {
    Name "right_click"
-   Pos 768 1024
+   Pos 1024 1024
    Size 256 256
    Flags 0
   }
   ImageSetDefClass sale {
    Name "sale"
-   Pos 1024 1024
+   Pos 1280 1024
    Size 256 256
    Flags 0
   }
   ImageSetDefClass search {
    Name "search"
-   Pos 1280 1024
+   Pos 1536 1024
+   Size 256 256
+   Flags 0
+  }
+  ImageSetDefClass shield {
+   Name "shield"
+   Pos 1792 1024
    Size 256 256
    Flags 0
   }
   ImageSetDefClass shift {
    Name "shift"
-   Pos 1536 1024
+   Pos 0 1280
    Size 256 256
    Flags 0
   }
   ImageSetDefClass simpleCoins {
    Name "simpleCoins"
-   Pos 1792 1024
+   Pos 256 1280
    Size 256 256
    Flags 0
   }
   ImageSetDefClass star {
    Name "star"
-   Pos 0 1280
+   Pos 512 1280
    Size 256 256
    Flags 0
   }
   ImageSetDefClass star_full {
    Name "star_full"
-   Pos 256 1280
+   Pos 768 1280
    Size 256 256
    Flags 0
   }
   ImageSetDefClass stockSimple {
    Name "stockSimple"
-   Pos 512 1280
+   Pos 1024 1280
    Size 256 256
    Flags 0
   }
   ImageSetDefClass trash {
    Name "trash"
-   Pos 768 1280
+   Pos 1280 1280
    Size 256 256
    Flags 0
   }
   ImageSetDefClass unapproved {
    Name "unapproved"
-   Pos 1024 1280
+   Pos 1536 1280
    Size 256 256
    Flags 0
   }
   ImageSetDefClass wallet {
    Name "wallet"
-   Pos 1280 1280
+   Pos 1792 1280
    Size 256 256
    Flags 0
   }
   ImageSetDefClass warning {
    Name "warning"
-   Pos 1536 1280
+   Pos 0 1536
    Size 256 256
    Flags 0
   }
   ImageSetDefClass wrench {
    Name "wrench"
-   Pos 1792 1280
+   Pos 256 1536
    Size 256 256
    Flags 0
   }

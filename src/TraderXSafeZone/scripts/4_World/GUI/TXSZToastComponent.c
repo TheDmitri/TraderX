@@ -32,13 +32,6 @@ class TXSZToastComponent extends DZlrComponentBase
     override void OnInit()
     {
         super.OnInit();
-
-        if (shieldIcon)
-        {
-            shieldIcon.LoadImageFile(0, "TraderXSafeZone/datasets/shield.paa");
-            shieldIcon.SetImage(0);
-        }
-
         Hide();
     }
 

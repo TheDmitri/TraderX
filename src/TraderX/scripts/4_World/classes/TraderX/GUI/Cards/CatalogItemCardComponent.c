@@ -18,6 +18,14 @@ class CatalogItemCardComponent extends DZlrComponentBase
 	ImageWidget healthImg;
 	ButtonWidget itemCardMainBtn;
 
+	// Persistent customize affordance (palette = variants, wrench = attachments, gear =
+	// customize). All buttons so each can raise its own labelled hover tooltip; the gear
+	// also opens the customize page via the RCLICK event.
+	ButtonWidget variantBtn;
+	ButtonWidget attachBtn;
+	ButtonWidget customizeBtn;
+	ref SimpleBtnTooltipComponent simpleTooltipComp;
+
 	override protected void RegisterMetadata()
 	{
 		m_Metadata = new ComponentMetadata();
@@ -37,6 +45,7 @@ class CatalogItemCardComponent extends DZlrComponentBase
 	override void OnDestroy()
 	{
 		TraderXTradingService.Event_OnTraderXResponseReceived.Remove(OnTraderXResponseReceived);
+		DestroySimpleTooltip();
 	}
 
 	// Rebound by the ForEach binding after a sort — refresh when the product changed so the
@@ -56,7 +65,19 @@ class CatalogItemCardComponent extends DZlrComponentBase
 		UpdateStock();
 		CreatePreview();
 		itemPrice = GetSellPrice();
+		UpdateCustomizeAffordance();
 		MarkForCheck();
+	}
+
+	void UpdateCustomizeAffordance()
+	{
+		bool hasV = _inputProduct.HasVariants();
+		bool hasA = _inputProduct.HasAttachments();
+		bool customizable = hasV || hasA;
+
+		if (variantBtn) variantBtn.Show(customizable && hasV);
+		if (attachBtn) attachBtn.Show(customizable && hasA);
+		if (customizeBtn) customizeBtn.Show(customizable);
 	}
 
 	void ShowName()
@@ -150,6 +171,39 @@ class CatalogItemCardComponent extends DZlrComponentBase
 	{
 		Event_OnCatalogItemCardClickCallBack.Invoke(this, ETraderXClickEvents.DOUBLE_CLICK);
 	}
+
+	// The affordance icons open Customize on the tab that matches what they depict, so a
+	// click does what its icon/label promises. All route through the RCLICK path (handled by
+	// CatalogPageComponent); the target tab is handed to the page via s_PendingTab.
+	void OpenCustomizeOnTab(string tabSelector)
+	{
+		CustomizePageComponent.s_PendingTab = tabSelector;
+		Event_OnCatalogItemCardClickCallBack.Invoke(this, ETraderXClickEvents.RCLICK);
+	}
+
+	void OnCustomizeClick() { OpenCustomizeOnTab("tx-customize-presets"); }
+	void OnVariantClick()   { OpenCustomizeOnTab("tx-customize-variants"); }
+	void OnAttachClick()    { OpenCustomizeOnTab("tx-customize-attachments"); }
+
+	// Labelled hover tooltips on the affordance icons (gear = Customize, palette = Variants,
+	// wrench = Attachments) so their meaning is explicit.
+	void ShowSimpleTooltip(string label)
+	{
+		DestroySimpleTooltip();
+		simpleTooltipComp = new SimpleBtnTooltipComponent();
+		simpleTooltipComp.InitComponent(null);
+		simpleTooltipComp.Setup(label);
+	}
+
+	void DestroySimpleTooltip()
+	{
+		if (simpleTooltipComp) { simpleTooltipComp.Destroy(); simpleTooltipComp = null; }
+	}
+
+	void OnCustomizeEnter() { ShowSimpleTooltip("#tpm_customize"); }
+	void OnVariantEnter()   { ShowSimpleTooltip("#tpm_variants"); }
+	void OnAttachEnter()    { ShowSimpleTooltip("#tpm_attachments"); }
+	void OnAffordanceLeave() { DestroySimpleTooltip(); }
 
 	void OnTraderXResponseReceived(int response, TraderXTransactionResultCollection transactionResultCollection = null)
 	{

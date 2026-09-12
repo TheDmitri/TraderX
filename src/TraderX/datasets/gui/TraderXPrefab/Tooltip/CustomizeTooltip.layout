@@ -5,6 +5,7 @@ PanelWidgetClass BuyTooltip {
  size 266 130
  hexactsize 1
  vexactsize 1
+ ignorepointer 1
  priority 999
  style TXCardElevated
  color 0.9961 0.9961 0.9961 1

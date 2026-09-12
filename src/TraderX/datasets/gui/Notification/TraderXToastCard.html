@@ -6,86 +6,94 @@
   <link rel="stylesheet" href="dzml-styles.css">
   <link rel="stylesheet" href="dzml-icons.css">
 </head>
-<!-- TraderX marketplace HUD toast — port of CourseBarterTrader's BarterToastCard.
-     360x152, top-right inset 18px, gold accent left rule, glyph well + kicker /
-     title / body / footer, draining 3px progress rule. Themed with the TraderX
-     Field-Ledger 9-slice styles (TXCardElevated card, TXSurface well) and the
-     gold/bronze palette. The FIFO runner (TraderXToastService) slides cardSlot
-     in/out; this layout only renders ONE notification + its progress rule.
-     data-name contract → AutoLoadWidgets in TraderXToastCardComponent.c:
-       cardSlot, leftRule, iconImg, progressTrack, progressFill, queuePill -->
+<!-- TraderX marketplace HUD toast — GROW-TO-CONTENT model ported from PDANotifications.
+     cardSlot is a GRID with Size-To-Content-V (dz-fit-v), so the card grows TALLER for a
+     long title / body / per-transaction breakdown instead of clipping it. Every text row is
+     a richtext with dz-size-to-text-v so the row grows to its wrapped height; the grid then
+     grows the card. NO dz-clip and NO runtime height math anywhere.
+
+     Everything is authored in % so the card keeps its proportions and stays pinned to the
+     right edge at 1080p / 1440p / 4K (card x 80% + width 19% -> right edge at 99%).
+
+     Overlay siblings (cannot live inside the grid — a GridSpacer turns every child into a
+     row): leftRule (accent bar, trails the card's live left edge + height) and queuePill
+     (sits below the card's live bottom). Both are driven by SyncOverlays() in the component.
+
+     data-name contract -> AutoLoadWidgets in TraderXToastCardComponent.c:
+       cardSlot, leftRule, iconImg, detailsText, footerText,
+       progressTrack, progressFill, queuePill -->
 <body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#0F1215;">
 
 <div data-dz="panel" data-name="cardRoot" class="dz-xy-0-0 dz-wh-full dz-noptr dz-priority-999">
 
-  <!-- Animated slot: the 360x152 card surface (themed 9-slice; runner slides this) -->
-  <div data-dz="panel" data-name="cardSlot" data-style="TXCardElevated" class="dz-xy-1542px-18px dz-wh-360px-152px dz-noptr">
+  <!-- Animated card: grid, grows vertically to fit its rows. The runner slides this. -->
+  <div data-dz="grid" data-name="cardSlot" data-style="TXToastCard"
+      class="dz-xy-80-2 dz-wh-19-14 dz-c-FE dz-noptr dz-fit-v dz-cols-1 dz-pad-8 dz-gap-0">
 
-    <!-- Signature gold left rule (recolored per type in code) -->
-    <div data-dz="panel" data-name="leftRule" class="dz-xy-0px-0px dz-wh-3px-152px dz-c-c4a35a dz-noptr"></div>
+    <!-- Content rows -->
+    <div data-dz="grid" data-name="GridContent"
+        class="dz-wh-100-48px dz-noptr dz-fit-v dz-cols-1 dz-pad-8 dz-gap-10">
 
-    <!-- Icon well: dark surface panel + tinted atlas glyph (recolored per type in code).
-         Frame loaded at runtime from traderx_icons via TraderXToastNotification.GetIconImageRef(). -->
-    <div data-dz="panel" data-name="iconWell" data-style="TXSurface" class="dz-xy-14px-14px dz-wh-44px-44px dz-noptr">
-      <img data-dz="image" data-name="iconImg" data-image="set:traderx_icons image:sale"
-          class="dz-xy-10px-10px dz-wh-24px-24px dz-c-C4A35A dz-noptr" />
-    </div>
+      <!-- Header: icon well + kicker + right-aligned time -->
+      <div data-dz="panel" data-name="headerRow" class="dz-wh-100-34px dz-noptr">
+        <div data-dz="panel" data-name="iconWell" data-style="TXSurface"
+            class="dz-xy-0px-0px dz-wh-34px-34px dz-c-FE dz-noptr">
+          <img data-dz="image" data-name="iconImg" data-image="set:traderx_icons image:sale"
+              class="dz-xy-20-20 dz-wh-60-60 dz-c-C4A35A dz-noptr" />
+        </div>
+        <p data-dz="richtext" data-name="kickerText" data-bind="{{ _notif.GetKicker() }}"
+            class="dz-xy-16-0 dz-wh-54-100 dz-c-8A8F96 dz-font-body-12 dz-noptr dz-text-vc">
+          TRADER · SOLD
+        </p>
+        <p data-dz="richtext" data-name="timeText" data-bind="{{ _notif.time }}"
+            class="dz-xy-70-0 dz-wh-30-100 dz-c-8A8F96 dz-font-body-12 dz-noptr dz-text-vc dz-text-right">
+          now
+        </p>
+      </div>
 
-    <!-- Kicker: "TRADER · SOLD" + right-aligned time -->
-    <span data-dz="text" data-name="kickerText" data-bind="{{ _notif.GetKicker() }}"
-        class="dz-xy-72px-15px dz-wh-200px-14px dz-noptr dz-c-8A8F96 dz-font-body-12 dz-exact-text dz-text-vc">
-      TRADER · SOLD
-    </span>
-    <span data-dz="text" data-name="timeText" data-bind="{{ _notif.time }}"
-        class="dz-xy-18px-15px dz-wh-50px-14px dz-noptr dz-c-8A8F96 dz-font-body-12 dz-align-x-right dz-exact-text dz-text-vc">
-      now
-    </span>
+      <!-- Title — grows to its wrapped height -->
+      <p data-dz="richtext" data-name="titleText" data-bind="{{ _notif.title }}"
+          class="dz-wh-100-22px dz-c-ECE8DA dz-font-body-16 dz-noptr dz-wrap dz-strip-newlines dz-size-to-text-v">
+        Item Sold
+      </p>
 
-    <!-- Title -->
-    <span data-dz="text" data-name="titleText" data-bind="{{ _notif.title }}"
-        class="dz-xy-72px-34px dz-wh-273px-22px dz-noptr dz-c-ECE8DA dz-font-body-16">
-      Item Sold
-    </span>
-
-    <!-- Body (multiline, clipped so it never spills into footer) -->
-    <div data-dz="panel" data-name="bodyClip" class="dz-xy-72px-60px dz-wh-273px-44px dz-noptr dz-clip">
+      <!-- Body — grows to its wrapped height (was clipped before) -->
       <p data-dz="richtext" data-name="bodyText" data-bind="{{ _notif.body }}"
-          class="dz-xy-0px-0px dz-wh-full dz-noptr dz-c-A8B0A7 dz-font-body-14 dz-exact-text dz-wrap">
+          class="dz-wh-100-32px dz-c-A8B0A7 dz-font-body-14 dz-noptr dz-wrap dz-strip-newlines dz-size-to-text-v">
         Successfully sold Ammo Box for 800.
       </p>
-    </div>
 
-    <!-- Footer (optional) -->
-    <span data-dz="text" data-name="footerText" data-bind="{{ _notif.footer }}"
-        class="dz-xy-72px-120px dz-wh-273px-14px dz-noptr dz-c-9AA09A dz-font-body-12 dz-exact-text dz-text-vc">
-    </span>
-
-    <!-- Per-transaction breakdown for bulk trades. Hidden + zero-height by default;
-         TraderXToastCardComponent shows it, sizes it to the line count and grows the
-         card whenever the notification HasDetails(). One transaction per line. -->
-    <div data-dz="panel" data-name="detailsClip" data-style="TXSurface"
-        class="dz-xy-14px-110px dz-wh-332px-0px dz-noptr dz-clip dz-hidden">
+      <!-- Per-transaction breakdown for bulk trades. One line per transaction; the row grows
+           to fit ALL lines (no clip, no line-count math). Component toggles it vs footer. -->
       <p data-dz="richtext" data-name="detailsText" data-bind="{{ _notif.GetDetailsText() }}"
-          class="dz-xy-10px-8px dz-wh-312px-full dz-noptr dz-c-A8B0A7 dz-font-body-13 dz-exact-text dz-wrap">
+          class="dz-wh-100-16px dz-c-A8B0A7 dz-font-body-13 dz-noptr dz-wrap dz-size-to-text-v dz-hidden">
+      </p>
+
+      <!-- Footer (shown when there is no breakdown) -->
+      <p data-dz="richtext" data-name="footerText" data-bind="{{ _notif.footer }}"
+          class="dz-wh-100-14px dz-c-9AA09A dz-font-body-12 dz-noptr dz-text-vc">
       </p>
     </div>
 
-    <!-- Progress rule: 3px bottom bar. Track (low-alpha accent) + fill (drains 1->0).
-         The component repositions these to the card bottom when expanded. -->
-    <div data-dz="panel" data-name="progressTrack" class="dz-xy-0px-149px dz-wh-100-3px dz-c-c4a35a24 dz-noptr"></div>
-    <div data-dz="panel" data-name="progressFill" class="dz-xy-0px-149px dz-wh-100-3px dz-c-c4a35a dz-noptr"></div>
-
+    <!-- Progress rule: last grid row, so it always sits at the card's live bottom. -->
+    <div data-dz="panel" data-name="progressRow" class="dz-xy-0-0 dz-wh-100-3px dz-noptr">
+      <div data-dz="panel" data-name="progressTrack" class="dz-xy-0-0 dz-wh-full dz-c-c4a35a24 dz-noptr"></div>
+      <div data-dz="panel" data-name="progressFill" class="dz-xy-0-0 dz-wh-full dz-c-c4a35a dz-noptr"></div>
+    </div>
   </div>
 
-  <!-- Backlog pill — sibling of the card (so it stays put while the card slides).
-       Card rests at 1542,18 (360x152) → pill bottom-right at 1794,178.
-       Hidden until queue_count > 0; the component toggles it. -->
-  <div data-dz="panel" data-name="queuePill" class="dz-xy-1794px-178px dz-wh-108px-18px dz-c-1E2227E0 dz-hidden dz-noptr">
-    <div data-dz="panel" data-name="queuePillFill" class="dz-xy-1px-1px dz-wh-106px-16px dz-c-0F1215CC dz-noptr">
-      <span data-dz="text" data-name="queueText" data-bind="{{ queue_count }}"
-          class="dz-xy-9px-0px dz-wh-26px-16px dz-noptr dz-c-C4A35A dz-font-mono-12 dz-text-vc">+3</span>
-      <span data-dz="text" data-name="queueLabel"
-          class="dz-xy-37px-0px dz-wh-62px-16px dz-noptr dz-c-8A8F96 dz-font-body-12 dz-text-vc">QUEUED</span>
+  <!-- Overlay siblings: driven by SyncOverlays() against the card's LIVE geometry. -->
+
+  <!-- Signature accent left rule — trails the card's left edge and dynamic height. -->
+  <div data-dz="panel" data-name="leftRule" class="dz-xy-80-2 dz-wh-0.2-14 dz-c-c4a35a dz-noptr"></div>
+
+  <!-- Backlog pill — sits just below the card's live bottom edge. -->
+  <div data-dz="panel" data-name="queuePill" class="dz-xy-93-17 dz-wh-6-2 dz-c-1E2227E0 dz-hidden dz-noptr">
+    <div data-dz="panel" data-name="queuePillFill" class="dz-xy-1-6 dz-wh-98-88 dz-c-0F1215CC dz-noptr">
+      <p data-dz="richtext" data-name="queueText" data-bind="{{ queue_count }}"
+          class="dz-xy-3-0 dz-wh-40-100 dz-c-C4A35A dz-font-mono-12 dz-noptr dz-text-vc dz-text-right">+3</p>
+      <p data-dz="richtext" data-name="queueLabel"
+          class="dz-xy-47-0 dz-wh-50-100 dz-c-8A8F96 dz-font-body-12 dz-noptr dz-text-vc">QUEUED</p>
     </div>
   </div>
 </div>

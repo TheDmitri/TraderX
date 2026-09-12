@@ -6,24 +6,28 @@
   <link rel="stylesheet" href="dzml-styles.css">
   <link rel="stylesheet" href="dzml-icons.css">
 </head>
-<!-- TraderXSafeZone leave countdown — Field Ledger. Single bound text line that
-     ticks every second via DayZular TextBinding ({{ countdownText }}). Replaces
-     the raw SafeZoneNotification.layout. Rust accent rule (leaving = inverse).
+<!-- TraderXSafeZone leave countdown — Field Ledger. Full-screen root + a top-right
+     card under the toast. Card position/size are FRACTIONAL (%) so it anchors the
+     same on any resolution. Single bound text line ticking every second via DayZular
+     TextBinding ({{ countdownText }}). Replaces the raw SafeZoneNotification.layout.
      data-name contract → AutoLoadWidgets in TXSZCountdownComponent.c:
-       countdownRoot, leftRule, countdownLabel -->
+       countdownRoot, countdownCard, leftRule, countdownLabel -->
 <body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#0F1215;">
 
-<div data-dz="panel" data-name="countdownRoot" data-style="TXCard"
-    class="dz-xy-1572px-170px dz-wh-330px-40px dz-noptr dz-priority-999">
+<div data-dz="panel" data-name="countdownRoot" class="dz-xy-0-0 dz-wh-full dz-noptr dz-priority-999">
 
-  <!-- Rust accent rule -->
-  <div data-dz="panel" data-name="leftRule" class="dz-xy-0px-0px dz-wh-3px-40px dz-c-b0482a dz-noptr"></div>
+  <div data-dz="panel" data-name="countdownCard" data-style="TXCardElevated"
+      class="dz-xy-79-15 dz-wh-20-4 dz-noptr">
 
-  <!-- Countdown line -->
-  <span data-dz="text" data-name="countdownLabel" data-bind="{{ countdownText }}"
-      class="dz-xy-14px-0px dz-wh-308px-40px dz-noptr dz-c-d8d2c0 dz-font-body-14 dz-exact-text dz-text-vc dz-wrap">
-    You are leaving the safezone in 30 seconds
-  </span>
+    <!-- Rust accent rule (full card height) -->
+    <div data-dz="panel" data-name="leftRule" class="dz-xy-0px-0px dz-wh-3px-100 dz-c-b0482a dz-noptr"></div>
+
+    <!-- Countdown line -->
+    <span data-dz="text" data-name="countdownLabel" data-bind="{{ countdownText }}"
+        class="dz-xy-16px-0px dz-wh-352px-100 dz-noptr dz-c-d8d2c0 dz-font-body-14 dz-text-vc dz-wrap">
+      You are leaving the safezone in 30 seconds
+    </span>
+  </div>
 </div>
 
 <script src="dzml-runtime.js"></script>

@@ -34,6 +34,13 @@ class ItemCardComponent extends DZlrComponentBase
 	ImageWidget healthImg;
 	ButtonWidget itemCardMainBtn;
 	ButtonWidget volumeBtn;
+	// Persistent customize affordance on the card (replaces the hover-only tooltip hints).
+	// All three are buttons so they can raise their own labelled hover tooltip; customizeBtn
+	// also acts as the discoverable customize click target (gear icon).
+	ButtonWidget variantBtn;
+	ButtonWidget attachBtn;
+	ButtonWidget customizeBtn;
+	ref SimpleBtnTooltipComponent simpleTooltipComp;
 
 	ref NavBtnTooltipComponent navBtnTooltipComp;
 	ref SellTooltipComponent sellTooltipComp;
@@ -110,6 +117,7 @@ class ItemCardComponent extends DZlrComponentBase
 		itemPrice = GetPriceFromItem();
 		itemSellPrice = GetSellPriceSuffix();
 		SetItemHealth();
+		UpdateCustomizeAffordance();
 
 		if (item.isSelected)
 			Event_OnItemCardSelectCallBack.Invoke(this);
@@ -288,7 +296,7 @@ class ItemCardComponent extends DZlrComponentBase
 	{
 		int price = 0;
 		if (!_inputProduct.selectedAttachments) return price;
-		foreach (UUID productId : _inputProduct.selectedAttachments)
+		foreach (string productId : _inputProduct.selectedAttachments)
 		{
 			TraderXProduct attachment = TraderXProductRepository.GetItemById(productId);
 			if (!attachment) continue;
@@ -419,7 +427,9 @@ class ItemCardComponent extends DZlrComponentBase
 		{
 			buyTooltipComp = new BuyTooltipComponent();
 			buyTooltipComp.InitComponent(null);
-			buyTooltipComp.Setup(GetItemDescription(), _inputProduct.HasVariants(), _inputProduct.HasAttachments());
+			// Variants/attachments state now lives on the card as persistent icons, and the
+			// click hints are gone — the tooltip is a plain description reveal on image hover.
+			buyTooltipComp.Setup(GetItemDescription());
 			return;
 		}
 
@@ -445,7 +455,57 @@ class ItemCardComponent extends DZlrComponentBase
 		if (buyTooltipComp) { buyTooltipComp.Destroy(); buyTooltipComp = null; }
 		if (sellTooltipComp) { sellTooltipComp.Destroy(); sellTooltipComp = null; }
 		if (customizeTooltipComp) { customizeTooltipComp.Destroy(); customizeTooltipComp = null; }
+		DestroySimpleTooltip();
 	}
+
+	// Persistent, always-visible customize signalling on the card. The variant/attachment
+	// icons tell the player at a glance what the item supports (no hover needed), and the
+	// customize button is a discoverable click target for the right-click customize action.
+	// Only shown for buyable top-level products (not sub-rows in the customize page).
+	void UpdateCustomizeAffordance()
+	{
+		bool hasV = _inputProduct.HasVariants();
+		bool hasA = _inputProduct.HasAttachments();
+		bool customizable = (hasV || hasA) && tradeMode == ETraderXTradeMode.BUY && categoryType == ETraderXCategoryType.NONE;
+
+		if (variantBtn) variantBtn.Show(customizable && hasV);
+		if (attachBtn) attachBtn.Show(customizable && hasA);
+		if (customizeBtn) customizeBtn.Show(customizable);
+	}
+
+	// The affordance icons open Customize on the tab that matches what they depict, so a
+	// click does what its icon/label promises. All route through the RCLICK path (handled by
+	// the page components); the target tab is handed to the page via s_PendingTab.
+	void OpenCustomizeOnTab(string tabSelector)
+	{
+		if (!selectable) return;
+		CustomizePageComponent.s_PendingTab = tabSelector;
+		Event_OnItemCardClickEventCallBack.Invoke(this, ETraderXClickEvents.RCLICK);
+	}
+
+	void OnCustomizeClick() { OpenCustomizeOnTab("tx-customize-presets"); }
+	void OnVariantClick()   { OpenCustomizeOnTab("tx-customize-variants"); }
+	void OnAttachClick()    { OpenCustomizeOnTab("tx-customize-attachments"); }
+
+	// Labelled hover tooltips on the affordance icons so their meaning is explicit
+	// (gear = Customize, palette = Variants, wrench = Attachments).
+	void ShowSimpleTooltip(string label)
+	{
+		DestroySimpleTooltip();
+		simpleTooltipComp = new SimpleBtnTooltipComponent();
+		simpleTooltipComp.InitComponent(null);
+		simpleTooltipComp.Setup(label);
+	}
+
+	void DestroySimpleTooltip()
+	{
+		if (simpleTooltipComp) { simpleTooltipComp.Destroy(); simpleTooltipComp = null; }
+	}
+
+	void OnCustomizeEnter() { ShowSimpleTooltip("#tpm_customize"); }
+	void OnVariantEnter()   { ShowSimpleTooltip("#tpm_variants"); }
+	void OnAttachEnter()    { ShowSimpleTooltip("#tpm_attachments"); }
+	void OnAffordanceLeave() { DestroySimpleTooltip(); }
 
 	void OnItemFavClick()
 	{

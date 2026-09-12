@@ -2,31 +2,41 @@ GridSpacerWidgetClass rootFrame {
  position 10 10
  hexactpos 1
  vexactpos 1
- size 94 33
+ size 160 36
  hexactsize 1
  vexactsize 1
- color 0.9961 0.9961 0.9961 1
+ color 0.0471 0.0549 0.0784 1
+ priority 999
+ ignorepointer 1
  "Size To Content V" 1
  "Size To Content H" 1
  Columns 1
  Rows 1
- Padding 0
+ Padding 6
  Margin 8
- priority 999
  style Colorable
  {
   TextWidgetClass TextWidget0 {
-   size 48 20
+   size 48 22
    hexactsize 1
    vexactsize 1
    halign center_ref
    valign center_ref
-   font "TraderX/datasets/fonts/oswalt22"
+   color 0.949 0.9333 0.8941 1
+   font "TraderX/datasets/fonts/oswalt16"
    ignorepointer 1
+   style Bold
    "text valign" center
+   "text halign" center
    "size to text h" 1
    "size to text v" 1
-   text "All"
+   text "Customize"
+   scriptclass "TextBinding"
+   {
+    ScriptParamsClass {
+     Binding_Expression "{{ title }}"
+    }
+   }
   }
  }
 }
