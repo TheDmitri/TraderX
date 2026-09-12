@@ -26,8 +26,6 @@ GameProjectClass {
 				"gui/imagesets/playstation_buttons.imageset"
 				"gui/imagesets/selection.imageset"
 				"gui/imagesets/console_toolbar.imageset"
-				"TraderX_GUI/gui/Data/square_shadow.imageset"
-				"TraderX_GUI/gui/Data/first.imageset"
 				"TraderX/datasets/images/notification_ui.imageset"
 				"TraderX/datasets/traderplus_ui.imageset"
 				"TraderX/datasets/styles/traderx_ui.imageset"
@@ -37,7 +35,6 @@ GameProjectClass {
 			widgetStyles {
 				"gui/looknfeel/dayzwidgets.styles" 
 				"gui/looknfeel/widgets.styles"
-				"TraderX_GUI/gui/Styles.styles"
 				"TraderX/datasets/Styles.styles"
 				"TraderX/datasets/styles/traderx_styles.styles"
 				"CourseBarterTrader/datasets/gui/barter_trader_ui_styles.styles"
