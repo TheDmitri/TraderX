@@ -1,0 +1,68 @@
+# Template for publishing ANOTHER mod with this same CI.
+#
+# Copy it, fill it in, and point the scripts at it with CONFIG=:
+#
+#   cp ci/build.template.yaml ci/build.mymod.yaml
+#   docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/repo" -w /repo \
+#     -e CONFIG=/repo/ci/build.mymod.yaml traderx-ci 'bash ci/pack-linux.sh'
+#
+# Everything below is per-mod; one file = one Workshop item.
+
+# Mod folder name produced under target/ (keep the leading @).
+mod_name: "@MyMod"
+
+# Where this mod's packages live. Each SUBFOLDER becomes one .pbo.
+# Relative to the repo root, or an absolute path for a mod in another checkout.
+#   src_dir: "src"                     # this repo's layout
+#   src_dir: "/home/dmitri/DayZWorkspace/SomeOtherMod/src"
+src_dir: "src"
+
+# 0 = create a NEW Workshop item on first publish. The publish script writes the
+# assigned id back here automatically — then REBUILD so meta.cpp picks it up.
+workshop_item_id: 0
+
+# --- new-item metadata (only read while workshop_item_id is 0) ---------------
+# After the id exists, the Workshop page is the source of truth for these.
+title: "My Mod"
+# description: "What this mod does."
+# preview_image: "ci/preview.png"   # 512x512+, under 1MB
+visibility: 2                        # 0=public 1=friends 2=private 3=unlisted
+
+# --- change note -------------------------------------------------------------
+# Steam renders BBCode, not Markdown. CHANGENOTE env overrides both of these.
+changenote_file: "ci/CHANGENOTE.md"
+changenote: "Initial release"
+
+# --- packages NOT to rebuild -------------------------------------------------
+# Their prebuilt .pbo must already sit in target/<mod_name>/addons/ — the build
+# leaves those untouched. Leave empty to build everything in src_dir.
+skip: []
+
+# --- files excluded from every PBO (rsync patterns) --------------------------
+exclude_files:
+  - "*.html"
+  - "*.css"
+  - "*.js"
+  - "*.md"
+  - "*.psd"
+  - "*.svg"
+  - "*.png"
+  - "*.tga"
+  - "*.dep"
+  - "*.log"
+  - "*.rpt"
+  - "*.bak"
+  - "*.zip"
+  - "*.7z"
+  - "*.scc"
+  - "*.biedi"
+  - "*.pbo"
+  - "*.ebo"
+  - "*.bisign"
+  - "*.bikey"
+  - "*.biprivatekey"
+  - "_fixtures/"
+  - ".git/"
+  - "Source/"
+  - "Temp/"
+  - "Doc/"

@@ -10,3 +10,8 @@ gallery.html
 # DZML generated preview artifacts
 *.bundle.html
 components.manifest.json
+
+# CI signing private key (never commit)
+ci/keys/*.biprivatekey
+.traderx-ci.env
+ci/.steam-session/

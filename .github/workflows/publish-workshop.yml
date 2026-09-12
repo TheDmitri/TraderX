@@ -1,0 +1,99 @@
+name: Build & Publish to Steam Workshop
+
+# Pure-Linux pipeline on a GitHub-hosted runner — no Wine, no DayZ Tools, no
+# self-hosted box. Works because the .p3d models are pre-binarized and committed
+# (ci/binarize-models.sh); there is no Linux p3d binarizer.
+#
+# Build needs NO secrets. Only the publish job touches Steam credentials.
+on:
+  workflow_dispatch:
+    inputs:
+      changenote:
+        description: "Workshop change note"
+        required: false
+        default: "CI build"
+      publish:
+        description: "Publish to Workshop? (false = build + sign only)"
+        type: boolean
+        default: false
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # BUILD — no credentials at all. Always runs.
+  # ---------------------------------------------------------------------------
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build CI image
+        run: docker build -t traderx-ci ./ci
+
+      - name: Restore signing key
+        env:
+          DAYZ_PRIVATE_KEY_B64: ${{ secrets.DAYZ_PRIVATE_KEY_B64 }}
+        run: |
+          [ -n "$DAYZ_PRIVATE_KEY_B64" ] || { echo "::error::DAYZ_PRIVATE_KEY_B64 secret not set"; exit 1; }
+          mkdir -p ci/keys
+          echo "$DAYZ_PRIVATE_KEY_B64" | base64 -d > ci/keys/TraderX.biprivatekey
+
+      # Packages listed under `skip:` in ci/build.yaml are not rebuilt; their
+      # prebuilt .pbo must be committed/placed in target/@TraderX/addons/.
+      # --user keeps the output owned by the runner user, not root.
+      #
+      # NOTE: Mikero's depbo-tools is NOT available on a hosted runner, so this
+      # falls back to armake2 (no texHeaders.bin). To match local output, vendor
+      # depbo-tools into the repo or fetch it here and mount it at
+      # /opt/depbo-tools. Local builds use the real makepbo.
+      - name: Pack + sign PBOs
+        env:
+          WORKSHOP_ITEM_ID: ${{ vars.WORKSHOP_ITEM_ID }}
+        run: |
+          docker run --rm --user "$(id -u):$(id -g)" \
+            -v "$PWD:/repo" -w /repo \
+            -e WORKSHOP_ITEM_ID="${WORKSHOP_ITEM_ID:-0}" \
+            traderx-ci 'bash ci/pack-linux.sh'
+
+      - name: Upload mod artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: TraderX-mod
+          path: target/@TraderX/**
+          retention-days: 7
+
+  # ---------------------------------------------------------------------------
+  # PUBLISH — only if build succeeded AND publish=true. Secret-bearing job.
+  # ---------------------------------------------------------------------------
+  publish:
+    needs: build
+    if: ${{ inputs.publish }}
+    runs-on: ubuntu-latest
+    # Gate behind an environment so a reviewer must approve each publish and the
+    # Steam secrets are not readable by ordinary workflow runs. Configure
+    # "steam-publish" in repo Settings → Environments with yourself as reviewer.
+    environment: steam-publish
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build CI image
+        run: docker build -t traderx-ci ./ci
+
+      - name: Download mod artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: TraderX-mod
+          path: target/@TraderX
+
+      - name: Publish to Steam Workshop
+        env:
+          STEAM_USERNAME:   ${{ secrets.STEAM_USERNAME }}
+          STEAM_PASSWORD:   ${{ secrets.STEAM_PASSWORD }}
+          STEAM_TFASEED:    ${{ secrets.STEAM_TFASEED }}
+          WORKSHOP_ITEM_ID: ${{ vars.WORKSHOP_ITEM_ID }}
+          CHANGENOTE:       ${{ inputs.changenote }}
+        run: |
+          docker run --rm --user "$(id -u):$(id -g)" \
+            -v "$PWD:/repo" -w /repo \
+            -e STEAM_USERNAME -e STEAM_PASSWORD -e STEAM_TFASEED \
+            -e WORKSHOP_ITEM_ID -e CHANGENOTE \
+            traderx-ci 'bash ci/publish-workshop.sh'

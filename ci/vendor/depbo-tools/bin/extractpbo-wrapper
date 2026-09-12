@@ -1,0 +1,11 @@
+#!/bin/bash
+export LD_LIBRARY_PATH=/home/dmitri/depbo-tools-0.10.13/lib:$LD_LIBRARY_PATH
+
+# extractpbo requires a destination path, if not provided use current directory
+if [ $# -eq 1 ]; then
+    # Single argument - the PBO file, add current directory as destination
+    exec /home/dmitri/depbo-tools-0.10.13/bin/extractpbo "$1" "$(pwd)"
+else
+    # Pass all arguments as-is
+    exec /home/dmitri/depbo-tools-0.10.13/bin/extractpbo "$@"
+fi
