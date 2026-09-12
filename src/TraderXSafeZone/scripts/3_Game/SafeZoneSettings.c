@@ -53,11 +53,28 @@ class TXSafeZoneSettings
             MakeDirectory(Safe_Zone_Config_Dir_Server);
     }
 
+    // One-time relocation: pre-relocation builds stored settings inside core's
+    // TraderXConfig/ dir under a double-prefixed name (TraderXTXSafeZoneSettings.json).
+    // Move it into the mod's own folder so core config migration/backup never touches it.
+    static void MigrateLegacyConfig()
+    {
+        if (FileExist(Safe_Zone_Config_Filename))
+            return;
+        if (!FileExist(Safe_Zone_Legacy_Config_Filename))
+            return;
+
+        TXSafeZoneSettings legacy = new TXSafeZoneSettings();
+        JsonFileLoader<TXSafeZoneSettings>.JsonLoadFile(Safe_Zone_Legacy_Config_Filename, legacy);
+        JsonFileLoader<TXSafeZoneSettings>.JsonSaveFile(Safe_Zone_Config_Filename, legacy);
+        DeleteFile(Safe_Zone_Legacy_Config_Filename);
+    }
+
     static TXSafeZoneSettings Load()
     {
         TXSafeZoneSettings settings = new TXSafeZoneSettings();
 
         CheckDirectories();
+        MigrateLegacyConfig();
 
         if (FileExist(Safe_Zone_Config_Filename))
         {

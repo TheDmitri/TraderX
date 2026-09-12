@@ -10,6 +10,8 @@ class TXBConfigService extends DayZularService
 	{
 		if (GetGame().IsServer() || !GetGame().IsMultiplayer())
 		{
+			// Migrate a TraderPlus V1 banking config first (no-op if none / already configured).
+			oldTraderPlusBankingConfig.ConvertIfPresent();
 			m_ServerSettings = TXBSettings.Load();
 		}
 

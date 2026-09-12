@@ -48,6 +48,7 @@ class CfgMods
 				value="";
 				files[]=
 				{
+					"TraderX/scripts/3_Game",
 					"TraderXCarLock/scripts/3_Game"
 				};
 			};
@@ -56,6 +57,7 @@ class CfgMods
 				value="";
 				files[]=
 				{
+					"TraderX/scripts/4_World",
 					"TraderXCarLock/scripts/4_World"
 				};
 			};

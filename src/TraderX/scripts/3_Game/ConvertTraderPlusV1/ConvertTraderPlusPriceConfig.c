@@ -137,6 +137,9 @@ class oldTraderXPriceConfig
 	int EnableDefaultTraderStock;
 	ref array<ref oldTraderXCategory>TraderCategories;
 
+	// Path the config was actually loaded from (TraderX dir or TraderPlus dir) — archived after convert.
+	string sourcePath = "";
+
 	void oldTraderXPriceConfig()
 	{
 		TraderCategories = new array<ref oldTraderXCategory>;
@@ -192,39 +195,20 @@ class oldTraderXPriceConfig
             TraderXCategoryRepository.Save(category);
         }
         GetTraderXLogger().LogInfo("convert done.");
-        
-        // Move old config file to deleted folder after successful conversion
-        MoveOldConfigToDeletedFolder("TraderXPriceConfig.json");
-    }
-    
-    private void MoveOldConfigToDeletedFolder(string fileName)
-    {
-        string oldFilePath = TRADERX_CONFIG_DIR_SERVER + fileName;
-        string deletedDirPath = TRADERX_CONFIG_DIR_SERVER + "deleted\\";
-        string newFilePath = deletedDirPath + fileName;
-        
-        // Create deleted directory if it doesn't exist
-        if (!FileExist(deletedDirPath)) {
-            MakeDirectory(deletedDirPath);
-            GetTraderXLogger().LogInfo("Created deleted directory: " + deletedDirPath);
-        }
-        
-        // Move file to deleted folder
-        if (FileExist(oldFilePath)) {
-            CopyFile(oldFilePath, newFilePath);
-            DeleteFile(oldFilePath);
-            GetTraderXLogger().LogInfo("Moved old config file to deleted folder: " + fileName);
-        }
+
+        // Archive the consumed source so the migration won't run again.
+        TraderXLegacyConfigPath.Archive(sourcePath, "TraderPlusPriceConfig.json");
     }
 
 	static void ConvertOldConfigToNew()	{
-		oldTraderXPriceConfig config = new oldTraderXPriceConfig();
-		if (FileExist(TRADERX_CONFIG_DIR_SERVER + "TraderXPriceConfig.json")) {
-			GetTraderXLogger().LogInfo("Load old V1 PriceConfig for conversion...");
-			TraderXJsonLoader<oldTraderXPriceConfig>.LoadFromFile(TRADERX_CONFIG_DIR_SERVER + "TraderXPriceConfig.json", config);
-            GetTraderXLogger().LogInfo("Load done.");
-		}
+		string path = TraderXLegacyConfigPath.Resolve("TraderXPriceConfig.json", "TraderPlusPriceConfig.json");
+		if (path == string.Empty)
+			return;
 
-        config.ConvertToNewConfig();
+		oldTraderXPriceConfig config = new oldTraderXPriceConfig();
+		GetTraderXLogger().LogInfo("[TraderX Migration] Loading legacy price config: " + path);
+		TraderXJsonLoader<oldTraderXPriceConfig>.LoadFromFile(path, config);
+		config.sourcePath = path;
+		config.ConvertToNewConfig();
 	}
 }

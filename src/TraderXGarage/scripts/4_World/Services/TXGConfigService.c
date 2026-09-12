@@ -16,6 +16,8 @@ class TXGConfigService extends DayZularService
     {
         if (GetGame().IsServer() || !GetGame().IsMultiplayer())
         {
+            // Migrate a TraderPlus V1 garage config first (no-op if none / already configured).
+            oldTraderPlusGarageConfig.ConvertIfPresent();
             m_ServerSettings = TXGSettings.Load();
         }
     }

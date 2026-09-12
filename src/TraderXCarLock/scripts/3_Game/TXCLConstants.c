@@ -3,11 +3,11 @@
 
 const string TXCL_VERSION = "1.0";
 
-const string TXCL_PROFILE_ROOT     = "$profile:TraderX\\";
-const string TXCL_CONFIG_ROOT      = "$profile:TraderX\\TraderXCarLock\\";
+const string TXCL_PROFILE_ROOT     = "$profile:TraderX/";
+const string TXCL_CONFIG_ROOT      = "$profile:TraderX/TraderXCarLock/";
 const string TXCL_CONFIG_FILENAME  = TXCL_CONFIG_ROOT + "TXCLSettings.json";
-const string TXCL_DB_DIR           = TXCL_CONFIG_ROOT + "Database\\";
-const string TXCL_LOG_DIR          = TXCL_CONFIG_ROOT + "Logs\\";
+const string TXCL_DB_DIR           = TXCL_CONFIG_ROOT + "Database/";
+const string TXCL_LOG_DIR          = TXCL_CONFIG_ROOT + "Logs/";
 const string TXCL_LOG_FILE         = TXCL_LOG_DIR + "TXCL_%1.log";
 const string TXCL_DB_FILENAME      = TXCL_DB_DIR + "%1.json";
 

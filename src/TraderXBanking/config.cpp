@@ -52,6 +52,7 @@ class CfgMods
 				files[]=
 				{
 					"DayZular/scripts/3_Game",
+					"TraderX/scripts/3_Game",
 					"TraderXBanking/scripts/Common",
 					"TraderXBanking/scripts/3_Game"
 				};
@@ -62,6 +63,7 @@ class CfgMods
 				files[]=
 				{
 					"DayZular/scripts/4_World",
+					"TraderX/scripts/4_World",
 					"TraderXBanking/scripts/Common",
 					"TraderXBanking/scripts/4_World"
 				};
@@ -72,6 +74,7 @@ class CfgMods
 				files[]=
 				{
 					"DayZular/scripts/5_Mission",
+					"TraderX/scripts/5_Mission",
 					"TraderXBanking/scripts/Common",
 					"TraderXBanking/scripts/5_Mission"
 				};

@@ -32,8 +32,9 @@ class oldTraderXIDsSettings
 
 	static void GetCategoriesFromId(int id, out array<string> categories)	{
 		oldTraderXIDsSettings settings = new oldTraderXIDsSettings();
-		if (FileExist(TRADERX_CONFIG_DIR_SERVER + "TraderXIDsConfig.json")) {
-			TraderXJsonLoader<oldTraderXIDsSettings>.LoadFromFile(TRADERX_CONFIG_DIR_SERVER + "TraderXIDsConfig.json", settings);
+		string idsPath = TraderXLegacyConfigPath.Resolve("TraderXIDsConfig.json", "TraderPlusIDsConfig.json");
+		if (idsPath != string.Empty) {
+			TraderXJsonLoader<oldTraderXIDsSettings>.LoadFromFile(idsPath, settings);
 		}
 
         foreach(oldTraderXIDs tpId: settings.IDs)
@@ -47,8 +48,9 @@ class oldTraderXIDsSettings
 
 	static void GetCurrenciesFromId(int id, out array<string> currencies)	{
 		oldTraderXIDsSettings settings = new oldTraderXIDsSettings();
-		if (FileExist(TRADERX_CONFIG_DIR_SERVER + "TraderXIDsConfig.json")) {
-			TraderXJsonLoader<oldTraderXIDsSettings>.LoadFromFile(TRADERX_CONFIG_DIR_SERVER + "TraderXIDsConfig.json", settings);
+		string idsPath = TraderXLegacyConfigPath.Resolve("TraderXIDsConfig.json", "TraderPlusIDsConfig.json");
+		if (idsPath != string.Empty) {
+			TraderXJsonLoader<oldTraderXIDsSettings>.LoadFromFile(idsPath, settings);
 		}
 
         foreach(oldTraderXIDs tpId: settings.IDs)
@@ -104,6 +106,9 @@ class oldTraderXGeneralSettings
 	ref array<ref oldTraderXData>	       Traders;
 	ref array<ref oldTraderXObject>		   TraderObjects;
 
+	// Paths the configs were actually loaded from — archived after a successful convert.
+	string generalSourcePath = "";
+
 	void TraderXGeneralSettings()
 	{
 		Licences = new TStringArray();
@@ -123,7 +128,7 @@ class oldTraderXGeneralSettings
 
         foreach(string categoryName: categoryNames)
         {
-			UUID categoryId = TraderXCategoryRepository.GetCategoryIdByName(categoryName);
+			string categoryId = TraderXCategoryRepository.GetCategoryIdByName(categoryName);
             if(categoryId != string.Empty)
 			{
 				categoriesId.Insert(categoryId);
@@ -140,7 +145,7 @@ class oldTraderXGeneralSettings
         TraderXGeneralSettings newSettings = new TraderXGeneralSettings();
 
         newSettings.version = TRADERX_CURRENT_VERSION;
-		newSettings.serverID = UUID.Generate();
+		newSettings.serverID = TraderXUuid.GenerateUUID();
 		foreach(string license: Licences)
 		{
 			newSettings.licenses.Insert(new TraderXLicense(license, string.Empty));
@@ -170,10 +175,11 @@ class oldTraderXGeneralSettings
         }
 
 		TraderXSettingsRepository.Save(newSettings);
-        
-        // Move old config files to deleted folder after successful conversion
-        MoveOldConfigToDeletedFolder("TraderXGeneralConfig.json");
-        MoveOldConfigToDeletedFolder("TraderXIDsConfig.json");
+
+        // Archive the consumed sources so the migration won't run again.
+        TraderXLegacyConfigPath.Archive(generalSourcePath, "TraderPlusGeneralConfig.json");
+        string idsPath = TraderXLegacyConfigPath.Resolve("TraderXIDsConfig.json", "TraderPlusIDsConfig.json");
+        TraderXLegacyConfigPath.Archive(idsPath, "TraderPlusIDsConfig.json");
     }
     
     private void ConvertCurrenciesToNewFormat(TraderXGeneralSettings newSettings)
@@ -251,32 +257,15 @@ class oldTraderXGeneralSettings
         return "UNKNOWN";
     }
     
-    private void MoveOldConfigToDeletedFolder(string fileName)
-    {
-        string oldFilePath = TRADERX_CONFIG_DIR_SERVER + fileName;
-        string deletedDirPath = TRADERX_CONFIG_DIR_SERVER + "deleted\\";
-        string newFilePath = deletedDirPath + fileName;
-        
-        // Create deleted directory if it doesn't exist
-        if (!FileExist(deletedDirPath)) {
-            MakeDirectory(deletedDirPath);
-            GetTraderXLogger().LogInfo("Created deleted directory: " + deletedDirPath);
-        }
-        
-        // Move file to deleted folder
-        if (FileExist(oldFilePath)) {
-            CopyFile(oldFilePath, newFilePath);
-            DeleteFile(oldFilePath);
-            GetTraderXLogger().LogInfo("Moved old config file to deleted folder: " + fileName);
-        }
-    }
-
 	static void ConvertOldConfigToNew()	{
+		string path = TraderXLegacyConfigPath.Resolve("TraderXGeneralConfig.json", "TraderPlusGeneralConfig.json");
+		if (path == string.Empty)
+			return;
+
 		oldTraderXGeneralSettings settings = new oldTraderXGeneralSettings();
-		if (FileExist(TRADERX_CONFIG_DIR_SERVER + "TraderXGeneralConfig.json")) {
-			GetTraderXLogger().LogInfo("Load old V1 GeneralConfig for conversion...");
-			TraderXJsonLoader<oldTraderXGeneralSettings>.LoadFromFile(TRADERX_CONFIG_DIR_SERVER + "TraderXGeneralConfig.json", settings);
-            settings.ConvertToNewConfig();
-		}
+		GetTraderXLogger().LogInfo("[TraderX Migration] Loading legacy general config: " + path);
+		TraderXJsonLoader<oldTraderXGeneralSettings>.LoadFromFile(path, settings);
+		settings.generalSourcePath = path;
+		settings.ConvertToNewConfig();
 	}
 }

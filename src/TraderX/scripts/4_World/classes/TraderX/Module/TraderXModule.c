@@ -25,6 +25,11 @@ class TraderXModule : CF_ModuleWorld
             // Convert old V1 configs to V2 format before loading repositories
             oldTraderXPriceConfig.ConvertOldConfigToNew();
             oldTraderXGeneralSettings.ConvertOldConfigToNew();
+            oldTraderPlusVehiclesConfig.ConvertOldConfigToNew();
+
+            // Import catalogs from other trader mods (one-shot, sentinel-guarded, non-destructive).
+            ConvertDrJonesTrader.ConvertIfPresent();
+            ConvertExpansionMarket.ConvertIfPresent();
 
             // Load user's source format preference
             TraderXSourceConfig sourceConfig = TraderXSourceConfigLoader.LoadConfig();
