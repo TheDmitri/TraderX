@@ -17,6 +17,11 @@ class CheckoutComponent extends DZlrComponentBase
 
 	private static ref CheckoutComponent m_Instance;
 
+	// The last buy/sell collection sent to the server, kept so a "not enough space" rejection
+	// can be re-sent with ground-drop confirmed once the player accepts the prompt.
+	private ref TraderXTransactionCollection m_PendingTransactions;
+	private int m_PendingNpcId;
+
 	override protected void RegisterMetadata()
 	{
 		m_Metadata = new ComponentMetadata();
@@ -71,6 +76,9 @@ class CheckoutComponent extends DZlrComponentBase
 		SellPageComponent.Event_OnSellQuantityModeChanged.Remove(OnSellQuantityModeChanged);
 		TraderXTradingService.Event_OnTraderXResponseReceived.Remove(OnTraderXResponseReceived);
 		CheckoutCardComponent.Event_OnPriceChanged.Remove(OnPriceChanged);
+		// Drop any pending no-space modal subscriptions so the static invokers don't retain
+		// this destroyed component.
+		CleanupNoSpaceModal();
 		m_Instance = null;
 	}
 
@@ -242,7 +250,7 @@ class CheckoutComponent extends DZlrComponentBase
 	{
 		if (responseReceived != ETraderXResponse.TRANSACTIONS || !transactionResultCollection) return;
 
-		array<UUID> itemsToDeselect = new array<UUID>();
+		array<string> itemsToDeselect = new array<string>();
 		for (int i = 0; i < transactionResultCollection.GetTransactionResults().Count(); i++)
 		{
 			TraderXTransactionResult transactionResult = transactionResultCollection.GetTransactionResults()[i];
@@ -258,6 +266,11 @@ class CheckoutComponent extends DZlrComponentBase
 		}
 
 		UpdateCheckoutView();
+
+		// Lines rejected only for lack of inventory space were NOT bought or charged. They stay
+		// in the cart (successful lines above were removed); offer a ground-drop confirm for them.
+		if (transactionResultCollection.HasNoSpace())
+			PromptGroundDropForNoSpace(transactionResultCollection);
 	}
 
 	void OnClearCheckoutClick()
@@ -326,8 +339,7 @@ class CheckoutComponent extends DZlrComponentBase
 		{
 			if (!BuildCustomizeBuyTransaction(transactions, npcId))
 				return;
-			TraderXTradingService.GetInstance().LockTransaction();
-			GetRPCManager().SendRPC("TraderX", "GetTransactionsRequest", new Param2<TraderXTransactionCollection, int>(transactions, npcId));
+			SendTransactions(transactions, npcId);
 			return;
 		}
 
@@ -354,7 +366,80 @@ class CheckoutComponent extends DZlrComponentBase
 			}
 		}
 
+		SendTransactions(transactions, npcId);
+	}
+
+	// Send a transaction collection to the server, remembering it so a NO_SPACE rejection can
+	// be retried with ground-drop confirmed.
+	private void SendTransactions(TraderXTransactionCollection transactions, int npcId)
+	{
+		m_PendingTransactions = transactions;
+		m_PendingNpcId = npcId;
 		TraderXTradingService.GetInstance().LockTransaction();
 		GetRPCManager().SendRPC("TraderX", "GetTransactionsRequest", new Param2<TraderXTransactionCollection, int>(transactions, npcId));
+	}
+
+	// Narrow the pending collection to just the lines the server rejected for lack of space,
+	// then ask the player whether to buy those anyway (items drop at their feet).
+	void PromptGroundDropForNoSpace(TraderXTransactionResultCollection resultCollection)
+	{
+		if (!m_PendingTransactions)
+			return;
+
+		TraderXTransactionCollection retry = new TraderXTransactionCollection();
+		foreach (TraderXTransaction pendingTx : m_PendingTransactions.GetAllTransactions())
+		{
+			if (pendingTx && IsNoSpaceProduct(resultCollection, pendingTx.GetProductId()))
+				retry.AddTransaction(pendingTx);
+		}
+
+		if (retry.GetAllTransactions().Count() == 0)
+			return;
+
+		m_PendingTransactions = retry;
+		ShowNoSpaceConfirm();
+	}
+
+	bool IsNoSpaceProduct(TraderXTransactionResultCollection resultCollection, string productId)
+	{
+		foreach (TraderXTransactionResult result : resultCollection.GetTransactionResults())
+		{
+			if (result && result.NeedsSpaceConfirm() && result.GetProductId() == productId)
+				return true;
+		}
+		return false;
+	}
+
+	void ShowNoSpaceConfirm()
+	{
+		ModalConfirmationComponent.Event_OnConfirmClickCallBack.Insert(OnNoSpaceConfirm);
+		ModalConfirmationComponent.Event_OnCancelClickCallBack.Insert(OnNoSpaceCancel);
+		ModalConfirmationComponent.Open(Widget.TranslateString("#tpm_no_space_title"), Widget.TranslateString("#tpm_no_space_content"));
+	}
+
+	void OnNoSpaceConfirm()
+	{
+		CleanupNoSpaceModal();
+		if (!m_PendingTransactions)
+			return;
+
+		foreach (TraderXTransaction pendingTx : m_PendingTransactions.GetAllTransactions())
+		{
+			if (pendingTx)
+				pendingTx.SetAllowGroundDrop(true);
+		}
+		SendTransactions(m_PendingTransactions, m_PendingNpcId);
+	}
+
+	void OnNoSpaceCancel()
+	{
+		CleanupNoSpaceModal();
+	}
+
+	private void CleanupNoSpaceModal()
+	{
+		ModalConfirmationComponent.Event_OnConfirmClickCallBack.Remove(OnNoSpaceConfirm);
+		ModalConfirmationComponent.Event_OnCancelClickCallBack.Remove(OnNoSpaceCancel);
+		ModalConfirmationComponent.Close();
 	}
 }

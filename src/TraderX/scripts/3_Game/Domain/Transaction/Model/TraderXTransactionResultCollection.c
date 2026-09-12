@@ -47,6 +47,19 @@ class TraderXTransactionResultCollection
         return false;
     }
 
+    // True if any result is a "not enough space" rejection awaiting a ground-drop confirm.
+    bool HasNoSpace()
+    {
+        foreach (auto noSpaceResult : transactionResults)
+        {
+            if (noSpaceResult && noSpaceResult.NeedsSpaceConfirm())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     int Count()
     {
         return transactionResults.Count();

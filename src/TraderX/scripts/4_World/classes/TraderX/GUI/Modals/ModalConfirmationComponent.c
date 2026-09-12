@@ -13,6 +13,10 @@ class ModalConfirmationComponent extends DZlrComponentBase
 	string title;
 	string content;
 
+	// Standalone overlay instance (mounted over an already-open trader menu, like the promo
+	// modal) so any component can raise a confirm dialog without owning a modal host.
+	protected static ref ModalConfirmationComponent s_Overlay;
+
 	override protected void RegisterMetadata()
 	{
 		m_Metadata = new ComponentMetadata();
@@ -46,5 +50,45 @@ class ModalConfirmationComponent extends DZlrComponentBase
 	void OnCancelClick()
 	{
 		Event_OnCancelClickCallBack.Invoke();
+	}
+
+	// Mount the confirm dialog as a full-screen overlay. Idempotent — an existing overlay is
+	// closed first. Listen on Event_OnConfirmClickCallBack / Event_OnCancelClickCallBack for
+	// the choice, and call Close() when done.
+	static void Open(string modalTitle, string modalContent)
+	{
+		Close();
+
+		s_PendingTitle = modalTitle;
+		s_PendingContent = modalContent;
+
+		s_Overlay = new ModalConfirmationComponent();
+		s_Overlay.InitComponent(null);
+
+		Widget root = s_Overlay.GetRoot();
+		if (!root)
+		{
+			s_Overlay = null;
+			s_PendingTitle = "";
+			s_PendingContent = "";
+			return;
+		}
+
+		s_Overlay.title = modalTitle;
+		s_Overlay.content = modalContent;
+		s_Overlay.MarkForCheck();
+		root.Show(true);
+		GetGame().GetUIManager().ShowUICursor(true);
+	}
+
+	static void Close()
+	{
+		s_PendingTitle = "";
+		s_PendingContent = "";
+		if (s_Overlay)
+		{
+			s_Overlay.Destroy();
+			s_Overlay = null;
+		}
 	}
 }

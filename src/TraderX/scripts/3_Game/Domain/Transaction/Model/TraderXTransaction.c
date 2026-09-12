@@ -11,7 +11,12 @@ class TraderXTransaction
     private ref TraderXNetworkIdentifier networkId;
     private int depth;
     private int traderId;
-    
+    // When false (default), a BUY that doesn't fit in the player's inventory is REJECTED
+    // with a NO_SPACE result instead of dropping items on the ground — the client then asks
+    // the player to confirm the ground-drop and re-sends with this set true. Sell/other flows
+    // leave it default. Serialized with the transaction so the choice survives the RPC.
+    private bool allowGroundDrop;
+
     void TraderXTransaction(TraderXTransactionId id, TraderXTransactionType type, string _id, string _parentItemId, int multi, TraderXTransactionPrice price, TraderXNetworkIdentifier netId = null, int itemDepth = 0, int npcId = 0, TraderXPreset tpPreset = null)
     {
         transactionId = id;
@@ -66,6 +71,8 @@ class TraderXTransaction
     int GetDepth() { return depth; }
     int GetTraderId() { return traderId; }
     TraderXPreset GetPreset() { return preset; }
+    bool IsGroundDropAllowed() { return allowGroundDrop; }
+    void SetAllowGroundDrop(bool value) { allowGroundDrop = value; }
     
     // Query methods
     bool IsBuy() { return transactionType.IsBuy(); }
@@ -93,10 +100,10 @@ class TraderXTransaction
         string result = "";
         result += "{\n";
         result += "  transactionId: " + transactionId.ToString() + "\n";
-        result += "  type: " + Ternary<string>.If(IsBuy(), "BUY", "SELL") + "\n";
+        result += "  type: " + DZTernary<string>.If(IsBuy(), "BUY", "SELL") + "\n";
         result += "  productId: " + productId + "\n";
         result += "  parentItemId: " + parentItemId + "\n";
-        result += "  multiplier: " + Ternary<string>.If(IsBuy(), multiplier.ToString(), "-" + multiplier.ToString()) + "\n";
+        result += "  multiplier: " + DZTernary<string>.If(IsBuy(), multiplier.ToString(), "-" + multiplier.ToString()) + "\n";
         result += "  unitPrice: " + unitPrice.ToStringFormatted() + "\n";
         result += "  totalPrice: " + totalPrice.ToStringFormatted() + "\n";
         result += "  depth: " + depth.ToString() + "\n";

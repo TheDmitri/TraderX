@@ -73,7 +73,7 @@ class TraderXItemFactory
   // 		return null;
   // }
 
-  static ItemBase CreateInInventory(PlayerBase player, string className, int quantity = 1, int healthLevel = TraderXProductState.PRISTINE)
+  static ItemBase CreateInInventory(PlayerBase player, string className, int quantity = 1, int healthLevel = TraderXProductState.PRISTINE, bool allowGroundDrop = true)
   {
       if(!player)
           return NULL;
@@ -110,7 +110,7 @@ class TraderXItemFactory
           // Create full stacks with progress logging for large operations
           for(int i = 0; i < fullStacks; i++)
           {
-              lastCreated = CreateSingleItem(player, className, maxQuantity, healthLevel);
+              lastCreated = CreateSingleItem(player, className, maxQuantity, healthLevel, allowGroundDrop);
               if(!lastCreated)
               {
                   GetTraderXLogger().LogError("Failed to create stack " + (i+1).ToString() + " of " + fullStacks.ToString() + " for " + className);
@@ -127,18 +127,18 @@ class TraderXItemFactory
           // Create remaining items if any
           if(remainder > 0)
           {
-              lastCreated = CreateSingleItem(player, className, remainder, healthLevel);
+              lastCreated = CreateSingleItem(player, className, remainder, healthLevel, allowGroundDrop);
           }
-          
+
           return lastCreated;
       }
-      
+
       // Single stack case
-      return CreateSingleItem(player, className, quantity, healthLevel);
+      return CreateSingleItem(player, className, quantity, healthLevel, allowGroundDrop);
   }
 
   // Helper method to create a single item/stack using vanilla DayZ patterns
-  private static ItemBase CreateSingleItem(PlayerBase player, string className, int quantity, int healthLevel)
+  private static ItemBase CreateSingleItem(PlayerBase player, string className, int quantity, int healthLevel, bool allowGroundDrop = true)
   {
       GetTraderXLogger().LogDebug(string.Format("[STACKING] CreateSingleItem called for %1 x%2", className, quantity.ToString()));
       
@@ -156,7 +156,7 @@ class TraderXItemFactory
       }
       
       // Try multiple placement strategies following vanilla patterns
-      ItemBase newItem = TryCreateInInventoryHierarchy(player, className, quantity, healthLevel);
+      ItemBase newItem = TryCreateInInventoryHierarchy(player, className, quantity, healthLevel, allowGroundDrop);
       if(newItem)
       {
           GetTraderXLogger().LogDebug(string.Format("[STACKING] Successfully created new item: %1 x%2 (amount: %3)", className, quantity.ToString(), TraderXQuantityManager.GetItemAmount(newItem).ToString()));
@@ -168,7 +168,7 @@ class TraderXItemFactory
   }
   
   // Enhanced creation method following vanilla inventory hierarchy
-  private static ItemBase TryCreateInInventoryHierarchy(PlayerBase player, string className, int quantity, int healthLevel)
+  private static ItemBase TryCreateInInventoryHierarchy(PlayerBase player, string className, int quantity, int healthLevel, bool allowGroundDrop = true)
   {
       ItemBase newItem;
       
@@ -196,7 +196,16 @@ class TraderXItemFactory
           return FinalizeItem(newItem, quantity, healthLevel);
       }
       
-      // 4. Try ground placement - vanilla ground placement pattern
+      // 4. Try ground placement - vanilla ground placement pattern.
+      // Skipped when the caller (a BUY awaiting the player's ground-drop confirmation) forbids
+      // it: returning NULL here makes the transaction report NO_SPACE instead of silently
+      // dropping the item at the player's feet.
+      if(!allowGroundDrop)
+      {
+          GetTraderXLogger().LogDebug("Inventory full and ground-drop not allowed: " + className);
+          return NULL;
+      }
+
       newItem = TryCreateOnGround(player, className, quantity, healthLevel);
       if(newItem)
       {

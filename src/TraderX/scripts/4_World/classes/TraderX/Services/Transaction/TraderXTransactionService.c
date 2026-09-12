@@ -195,17 +195,23 @@ class TraderXTransactionService : DayZularService
         // Création de l'item principal
         int baseQuantity = TraderXTradeQuantity.GetItemBuyQuantity(product.className, product.tradeQuantity);
         array<ItemBase> allCreatedItems = new array<ItemBase>();
+        // When the client hasn't confirmed a ground-drop, item creation stops at the inventory
+        // (no ground fallback). A failed placement then means "no space" rather than a hard error.
+        bool allowGroundDrop = transaction.IsGroundDropAllowed();
         int j = 0;
         TraderXTransactionResult presetResult;
         // For weapons with presets and multiplier > 1, create each weapon individually to apply presets
         if (preset && preset.attachments && preset.attachments.Count() > 0 && transaction.GetMultiplier() > 1) {
             // Create each weapon individually and apply preset to each
             for (i = 0; i < transaction.GetMultiplier(); i++) {
-                ItemBase weaponItem = TraderXItemFactory.CreateInInventory(player, product.className, baseQuantity);
+                ItemBase weaponItem = TraderXItemFactory.CreateInInventory(player, product.className, baseQuantity, TraderXProductState.PRISTINE, allowGroundDrop);
                 if (!weaponItem) {
                     // Rollback: remove all previously created items
                     for (j = 0; j < allCreatedItems.Count(); j++) {
                         GetGame().ObjectDelete(allCreatedItems[j]);
+                    }
+                    if (!allowGroundDrop) {
+                        return TraderXTransactionResult.CreateNoSpace(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.purchaseFailedPrefix + string.Format(settings.couldNotCreateWeapon, (i + 1).ToString()));
                     }
                     return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.purchaseFailedPrefix + string.Format(settings.couldNotCreateWeapon, (i + 1).ToString()));
                 }
@@ -225,11 +231,14 @@ class TraderXTransactionService : DayZularService
         } else {
             // Standard creation for items without presets - create each item individually for multiplier > 1
             for (i = 0; i < transaction.GetMultiplier(); i++) {
-                ItemBase item = TraderXItemFactory.CreateInInventory(player, product.className, baseQuantity);
+                ItemBase item = TraderXItemFactory.CreateInInventory(player, product.className, baseQuantity, TraderXProductState.PRISTINE, allowGroundDrop);
                 if (!item) {
                     // Rollback: remove all previously created items
                     for (j = 0; j < allCreatedItems.Count(); j++) {
                         GetGame().ObjectDelete(allCreatedItems[j]);
+                    }
+                    if (!allowGroundDrop) {
+                        return TraderXTransactionResult.CreateNoSpace(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.purchaseFailedPrefix + string.Format(settings.couldNotCreateItem + " (item %1 of %2)", (i + 1).ToString(), transaction.GetMultiplier().ToString()));
                     }
                     return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.purchaseFailedPrefix + string.Format(settings.couldNotCreateItem + " (item %1 of %2)", (i + 1).ToString(), transaction.GetMultiplier().ToString()));
                 }
