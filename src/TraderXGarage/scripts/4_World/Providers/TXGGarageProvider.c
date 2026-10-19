@@ -65,5 +65,20 @@ class TXGGarageProvider : ITraderXGarageProvider
         }
         return result;
     }
+
+    override bool IsResaleBlocked(EntityAI vehicle)
+    {
+        TXGInsuranceService ins = GetTXGInsuranceService();
+        if (!ins)
+            return false;
+        return ins.IsResaleBlocked(vehicle);
+    }
+
+    override void OnVehicleSold(EntityAI vehicle, string sellerUid)
+    {
+        TXGInsuranceService ins = GetTXGInsuranceService();
+        if (ins)
+            ins.OnVehicleSold(vehicle, sellerUid);
+    }
 }
 #endif // TraderX

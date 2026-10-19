@@ -17,25 +17,25 @@ FrameWidgetClass rootFrame {
    vexactsize 0
    halign center_ref
    valign center_ref
-   style TXContainer
+   style TXSurface
    color 0.9961 0.9961 0.9961 1
    {
     PanelWidgetClass headerBar {
      position 0 0
      hexactpos 0
      vexactpos 0
-     size 1 0.09
+     size 1 0.08
      hexactsize 0
      vexactsize 0
      ignorepointer 1
-     style TXHeader
+     style TXCard
      color 0.9961 0.9961 0.9961 1
      {
       ImageWidgetClass headerIcon {
-       position 0.02 0
+       position 0.01 0
        hexactpos 0
        vexactpos 0
-       size 30 30
+       size 28 28
        hexactsize 1
        vexactsize 1
        color 0.8314 0.6431 0.298 1
@@ -46,85 +46,95 @@ FrameWidgetClass rootFrame {
        image0 "set:traderx_icons image:wrench"
       }
       TextWidgetClass headerTitle {
-       position 0.06 0.15
+       position 0.04 0
        hexactpos 0
        vexactpos 0
-       size 0.26 0.45
+       size 0.2 1
        hexactsize 0
        vexactsize 0
        color 0.8314 0.6431 0.298 1
-       font "TraderX/datasets/fonts/oswalt28"
+       font "TraderX/datasets/fonts/oswalt26"
        ignorepointer 1
        "exact text" 1
+       "text valign" center
        style Bold
        text "GARAGE"
       }
-      TextWidgetClass headerSub {
-       position 0.06 0.6
+      TextWidgetClass balanceLabel {
+       position 0.48 0
        hexactpos 0
        vexactpos 0
-       size 0.4 0.3
+       size 0.1 1
        hexactsize 0
        vexactsize 0
-       color 0.6039 0.5804 0.5333 1
+       color 0.4157 0.3961 0.3765 1
        font "TraderX/datasets/fonts/oswalt12"
        ignorepointer 1
        "exact text" 1
-       text "VEHICLE STORAGE / ATTENDANT"
-      }
-      TextWidgetClass slotsLabel {
-       position 0.76 0.2
-       hexactpos 0
-       vexactpos 0
-       size 0.14 0.3
-       hexactsize 0
-       vexactsize 0
-       color 0.6039 0.5804 0.5333 1
-       font "TraderX/datasets/fonts/oswalt11"
-       ignorepointer 1
-       "exact text" 1
        "text halign" right
        "text valign" center
-       text "SLOTS"
+       text "YOU HAVE"
       }
-      TextWidgetClass slotsValue {
-       position 0.76 0.5
+      TextWidgetClass balanceValue {
+       position 0.59 0
        hexactpos 0
        vexactpos 0
-       size 0.14 0.35
+       size 0.25 1
        hexactsize 0
        vexactsize 0
-       color 0.8314 0.6431 0.298 1
-       font "TraderX/datasets/fonts/jet-brains-mono22"
+       color 0.8471 0.8235 0.7529 1
+       font "TraderX/datasets/fonts/jet-brains-mono14"
        ignorepointer 1
        "exact text" 1
-       "text halign" right
        "text valign" center
        style Bold
-       text "0/5"
+       text "Bank 12 400 - Cash 300"
        scriptclass "TextBinding"
        {
         ScriptParamsClass {
-         Binding_Expression "{{ vehicleCountDisplay }}"
+         Binding_Expression "{{ balanceText }}"
+        }
+       }
+      }
+      ButtonWidgetClass adminMenuBtn {
+       position 0.85 0.22
+       hexactpos 0
+       vexactpos 0
+       size 0.03 0.56
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.7843 0.4 0.2902 1
+       font "TraderX/datasets/fonts/oswalt16"
+       "exact text" 1
+       "text halign" center
+       "text valign" center
+       style Bold
+       style TXBtnDefault
+       color 0.9961 0.9961 0.9961 1
+       text "⋮"
+       scriptclass "ButtonBinding"
+       {
+        ScriptParamsClass {
+         OnClick "OnAdminMenu"
         }
        }
       }
       ButtonWidgetClass leaveBtn {
-       position 0.95 0.25
+       position 0.89 0.22
        hexactpos 0
        vexactpos 0
-       size 0.03 0.5
+       size 0.1 0.56
        hexactsize 0
        vexactsize 0
        "text color" 1 1 1 1
-       font "TraderX/datasets/fonts/oswalt22"
+       font "TraderX/datasets/fonts/oswalt12"
        "exact text" 1
        "text halign" center
        "text valign" center
        style Bold
        style TXBtnLeave
        color 0.9961 0.9961 0.9961 1
-       text "X"
+       text "CLOSE - ESC"
        scriptclass "ButtonBinding"
        {
         ScriptParamsClass {
@@ -134,83 +144,324 @@ FrameWidgetClass rootFrame {
       }
      }
     }
-    PanelWidgetClass headerDivider {
-     position 0 0.09
+    PanelWidgetClass leftColumn {
+     position 0.01 0.09
      hexactpos 0
      vexactpos 0
-     size 1 0
-     hexactsize 0
-     vexactsize 0
-     ignorepointer 1
-     style TXDivider
-     color 0.9961 0.9961 0.9961 1
-    }
-    PanelWidgetClass mainContent {
-     position 0 0.1
-     hexactpos 0
-     vexactpos 0
-     size 1 0.86
+     size 0.35 0.85
      hexactsize 0
      vexactsize 0
      ignorepointer 1
      {
-      PanelWidgetClass vehicleListPanel {
-       position 0.01 0.01
+      TextWidgetClass nearbyHeader {
+       position 0 0
        hexactpos 0
        vexactpos 0
-       size 0.4 0.97
+       size 1 0.04
        hexactsize 0
        vexactsize 0
+       color 0.6039 0.5804 0.5333 1
+       font "TraderX/datasets/fonts/oswalt12"
        ignorepointer 1
+       "exact text" 1
+       "text valign" center
+       style Bold
+       text "AT THE GARAGE DOOR"
+      }
+      PanelWidgetClass nearbyCard {
+       position 0 0.05
+       hexactpos 0
+       vexactpos 0
+       size 1 0.21
+       hexactsize 0
+       vexactsize 0
        style TXCard
        color 0.9961 0.9961 0.9961 1
        {
-        PanelWidgetClass listHeader {
+        ButtonWidgetClass nearbyBtn {
          position 0 0
          hexactpos 0
          vexactpos 0
-         size 1 0.07
+         size 1 1
          hexactsize 0
          vexactsize 0
-         ignorepointer 1
-         style TXSurface
+         style TXListRow
          color 0.9961 0.9961 0.9961 1
+         scriptclass "ButtonBinding"
          {
-          TextWidgetClass listHeaderLabel {
-           position 0.04 0
+          ScriptParamsClass {
+           OnClick "OnSelectNearby"
+          }
+         }
+        }
+        PanelWidgetClass nearbySelectedBg {
+         position 0 0
+         hexactpos 0
+         vexactpos 0
+         size 1 1
+         hexactsize 0
+         vexactsize 0
+         color 0.0863 0.102 0.1412 1
+         ignorepointer 1
+         style rover_sim_colorable
+        }
+        ImageWidgetClass nearbyIcon {
+         position 0.04 0.12
+         hexactpos 0
+         vexactpos 0
+         size 34 34
+         hexactsize 1
+         vexactsize 1
+         color 0.6039 0.5804 0.5333 1
+         mode blend
+         "src alpha" 1
+         ignorepointer 1
+         image0 "set:traderx_icons image:wrench"
+        }
+        TextWidgetClass nearbyName {
+         position 0.16 0.08
+         hexactpos 0
+         vexactpos 0
+         size 0.58 0.24
+         hexactsize 0
+         vexactsize 0
+         color 0.8471 0.8235 0.7529 1
+         font "TraderX/datasets/fonts/oswalt16"
+         ignorepointer 1
+         "exact text" 1
+         "text valign" center
+         style Bold
+         text "Ada 4x4"
+         scriptclass "TextBinding"
+         {
+          ScriptParamsClass {
+           Binding_Expression "{{ nearbyNameText }}"
+          }
+         }
+        }
+        TextWidgetClass nearbyState {
+         position 0.16 0.32
+         hexactpos 0
+         vexactpos 0
+         size 0.58 0.18
+         hexactsize 0
+         vexactsize 0
+         color 0.6039 0.5804 0.5333 1
+         font "TraderX/datasets/fonts/oswalt12"
+         ignorepointer 1
+         "exact text" 1
+         "text valign" center
+         text "Pristine - Fuel 100% - 11 parts"
+         scriptclass "TextBinding"
+         {
+          ScriptParamsClass {
+           Binding_Expression "{{ nearbyStateText }}"
+          }
+         }
+        }
+        PanelWidgetClass nearbyChipOk {
+         position 0.76 0.1
+         hexactpos 0
+         vexactpos 0
+         size 0.21 0.2
+         hexactsize 0
+         vexactsize 0
+         color 0 0 0 0
+         ignorepointer 1
+         style rover_sim_colorable
+         {
+          TextWidgetClass nearbyChipOkText {
+           position 0 0
            hexactpos 0
            vexactpos 0
-           size 0.92 1
+           size 1 1
            hexactsize 0
            vexactsize 0
-           color 0.6039 0.5804 0.5333 1
-           font "TraderX/datasets/fonts/oswalt12"
+           color 0.6039 0.6902 0.3529 1
+           font "TraderX/datasets/fonts/oswalt11"
+           "text halign" right
            ignorepointer 1
            "exact text" 1
            "text valign" center
            style Bold
-           text "STORED VEHICLES"
+           text "READY"
           }
          }
         }
-        ScrollWidgetClass vehicleListScroll {
-         position 0 0.08
+        PanelWidgetClass nearbyChipBlocked {
+         position 0.76 0.1
          hexactpos 0
          vexactpos 0
-         size 1 0.91
+         size 0.21 0.2
+         hexactsize 0
+         vexactsize 0
+         color 0 0 0 0
+         ignorepointer 1
+         style rover_sim_colorable
+         {
+          TextWidgetClass nearbyChipBlockedText {
+           position 0 0
+           hexactpos 0
+           vexactpos 0
+           size 1 1
+           hexactsize 0
+           vexactsize 0
+           color 0.7843 0.4 0.2902 1
+           font "TraderX/datasets/fonts/oswalt11"
+           "text halign" right
+           ignorepointer 1
+           "exact text" 1
+           "text valign" center
+           style Bold
+           text "BLOCKED"
+          }
+         }
+        }
+        TextWidgetClass nearbyReason {
+         position 0.04 0.56
+         hexactpos 0
+         vexactpos 0
+         size 0.5 0.36
+         hexactsize 0
+         vexactsize 0
+         color 0.7843 0.4 0.2902 1
+         font "TraderX/datasets/fonts/oswalt12"
+         ignorepointer 1
+         "exact text" 1
+         "text valign" center
+         wrap 1
+         text "Locked by another player"
+         scriptclass "TextBinding"
+         {
+          ScriptParamsClass {
+           Binding_Expression "{{ nearbyStatusText }}"
+          }
+         }
+        }
+        ButtonWidgetClass nearbyParkBtn {
+         position 0.56 0.56
+         hexactpos 0
+         vexactpos 0
+         size 0.41 0.34
+         hexactsize 0
+         vexactsize 0
+         "text color" 0.6039 0.6902 0.3529 1
+         font "TraderX/datasets/fonts/oswalt14"
+         "exact text" 1
+         "text halign" center
+         "text valign" center
+         style Bold
+         style TXBtnPrimary
+         color 0.9961 0.9961 0.9961 1
+         text "PARK IN - 100"
+         scriptclass "ButtonBinding"
+         {
+          ScriptParamsClass {
+           OnClick "OnParkNearby"
+          }
+         }
+        }
+       }
+      }
+      TextWidgetClass nearbyEmpty {
+       position 0 0.05
+       hexactpos 0
+       vexactpos 0
+       size 1 0.06
+       hexactsize 0
+       vexactsize 0
+       color 0.4157 0.3961 0.3765 1
+       font "TraderX/datasets/fonts/oswalt12"
+       ignorepointer 1
+       "exact text" 1
+       "text valign" center
+       text "Drive a vehicle next to the attendant to park it."
+      }
+      TextWidgetClass listHeaderLabel {
+       position 0 0.28
+       hexactpos 0
+       vexactpos 0
+       size 0.5 0.04
+       hexactsize 0
+       vexactsize 0
+       color 0.6039 0.5804 0.5333 1
+       font "TraderX/datasets/fonts/oswalt12"
+       ignorepointer 1
+       "exact text" 1
+       "text valign" center
+       style Bold
+       text "STORED VEHICLES"
+      }
+      TextWidgetClass slotsValue {
+       position 0.5 0.28
+       hexactpos 0
+       vexactpos 0
+       size 0.5 0.04
+       hexactsize 0
+       vexactsize 0
+       color 0.6039 0.5804 0.5333 1
+       font "TraderX/datasets/fonts/jet-brains-mono12"
+       ignorepointer 1
+       "exact text" 1
+       "text halign" right
+       "text valign" center
+       text "2 / 5"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ vehicleCountDisplay }}"
+        }
+       }
+      }
+      PanelWidgetClass slotsTrack {
+       position 0 0.33
+       hexactpos 0
+       vexactpos 0
+       size 1 0
+       hexactsize 0
+       vexactsize 0
+       color 0.102 0.1176 0.1569 1
+       ignorepointer 1
+       style rover_sim_colorable
+      }
+      PanelWidgetClass slotsBar {
+       position 0 0.33
+       hexactpos 0
+       vexactpos 0
+       size 0.4 0
+       hexactsize 0
+       vexactsize 0
+       color 0.8314 0.6431 0.298 1
+       ignorepointer 1
+       style rover_sim_colorable
+      }
+      PanelWidgetClass vehicleListPanel {
+       position 0 0.35
+       hexactpos 0
+       vexactpos 0
+       size 1 0.65
+       hexactsize 0
+       vexactsize 0
+       ignorepointer 1
+       {
+        ScrollWidgetClass vehicleListScroll {
+         position 0 0
+         hexactpos 0
+         vexactpos 0
+         size 1 1
          hexactsize 0
          vexactsize 0
          "Scrollbar V" 1
          {
           GridSpacerWidgetClass vehicleListGrid {
-           size 1 52
+           size 1 64
            hexactsize 0
            vexactsize 1
            ignorepointer 1
            "Size To Content V" 1
            Columns 1
            Rows 100
-           Margin 1
+           Margin 4
            scriptclass "ComponentWidgetBinding"
            {
             ScriptParamsClass {
@@ -220,444 +471,1297 @@ FrameWidgetClass rootFrame {
             }
            }
           }
-          TextWidgetClass listEmpty {
-           position 0.05 0.4
-           hexactpos 0
-           vexactpos 0
-           size 0.9 0.1
-           hexactsize 0
-           vexactsize 0
-           color 0.4157 0.3961 0.3765 1
-           font "TraderX/datasets/fonts/oswalt14"
-           ignorepointer 1
-           "exact text" 1
-           "text halign" center
-           "text valign" center
-           text "No vehicles stored"
+         }
+        }
+        TextWidgetClass listEmpty {
+         position 0.05 0.3
+         hexactpos 0
+         vexactpos 0
+         size 0.9 0.2
+         hexactsize 0
+         vexactsize 0
+         color 0.4157 0.3961 0.3765 1
+         font "TraderX/datasets/fonts/oswalt13"
+         ignorepointer 1
+         "exact text" 1
+         "text halign" center
+         "text valign" center
+         wrap 1
+         text "Your garage is empty. Park the vehicle at the door to store it with its parts and cargo."
+        }
+       }
+      }
+     }
+    }
+    PanelWidgetClass detailPanel {
+     position 0.37 0.09
+     hexactpos 0
+     vexactpos 0
+     size 0.62 0.85
+     hexactsize 0
+     vexactsize 0
+     ignorepointer 1
+     style TXCardElevated
+     color 0.9961 0.9961 0.9961 1
+     {
+      TextWidgetClass selectedName {
+       position 0.03 0.01
+       hexactpos 0
+       vexactpos 0
+       size 0.6 0.06
+       hexactsize 0
+       vexactsize 0
+       color 0.8471 0.8235 0.7529 1
+       font "TraderX/datasets/fonts/oswalt22"
+       ignorepointer 1
+       "exact text" 1
+       "text valign" center
+       style Bold
+       text "Olga 24"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ selectedVehicleName }}"
+        }
+       }
+      }
+      TextWidgetClass selectedBadges {
+       position 0.03 0.07
+       hexactpos 0
+       vexactpos 0
+       size 0.94 0.04
+       hexactsize 0
+       vexactsize 0
+       color 0.8314 0.6431 0.298 1
+       font "TraderX/datasets/fonts/jet-brains-mono12"
+       ignorepointer 1
+       "exact text" 1
+       "text valign" center
+       text "INSURED 2D   CARLOCK   SHARED x1"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ selectedBadgesText }}"
+        }
+       }
+      }
+      PanelWidgetClass previewArea {
+       position 0.03 0.12
+       hexactpos 0
+       vexactpos 0
+       size 0.94 0.45
+       hexactsize 0
+       vexactsize 0
+       ignorepointer 1
+       style TXSurface
+       color 0.9961 0.9961 0.9961 1
+       {
+        TextWidgetClass previewPlaceholderText {
+         position 0 0
+         hexactpos 0
+         vexactpos 0
+         size 1 1
+         hexactsize 0
+         vexactsize 0
+         color 0.2275 0.251 0.3137 1
+         font "TraderX/datasets/fonts/oswalt14"
+         ignorepointer 1
+         "exact text" 1
+         "text halign" center
+         "text valign" center
+         style Bold
+         text "Choose a vehicle on the left"
+        }
+        ItemPreviewWidgetClass vehiclePreviewWidget {
+         position 0 0
+         hexactpos 0
+         vexactpos 0
+         size 1 1
+         hexactsize 0
+         vexactsize 0
+         halign center_ref
+         valign center_ref
+         scriptclass "ItemPreviewBinding"
+         {
+          ScriptParamsClass {
+           Binding_Item "{{ vehiclePreview }}"
+           Enable_Rotation 1
+           Enable_Scale 1
+          }
+         }
+        }
+        TextWidgetClass previewHint {
+         position 0.03 0.88
+         hexactpos 0
+         vexactpos 0
+         size 0.5 0.09
+         hexactsize 0
+         vexactsize 0
+         color 0.2275 0.251 0.3137 1
+         font "TraderX/datasets/fonts/oswalt11"
+         ignorepointer 1
+         "exact text" 1
+         "text valign" center
+         text "Drag to rotate - scroll to zoom"
+        }
+        ButtonWidgetClass viewAtSpotBtn {
+         position 0.71 0.04
+         hexactpos 0
+         vexactpos 0
+         size 0.26 0.11
+         hexactsize 0
+         vexactsize 0
+         "text color" 0.8471 0.8235 0.7529 1
+         font "TraderX/datasets/fonts/oswalt12"
+         "exact text" 1
+         "text halign" center
+         "text valign" center
+         style Bold
+         style TXBtnDefault
+         color 0.9961 0.9961 0.9961 1
+         text "VIEW ON PARKING SPOT"
+         scriptclass "ButtonBinding"
+         {
+          ScriptParamsClass {
+           OnClick "OnViewAtSpot"
           }
          }
         }
        }
       }
-      PanelWidgetClass detailPanel {
-       position 0.42 0.01
+      GridSpacerWidgetClass tilesGrid {
+       position 0.03 0.59
        hexactpos 0
        vexactpos 0
-       size 0.57 0.97
+       size 0.94 0.11
+       hexactsize 0
+       vexactsize 0
+       Columns 4
+       Rows 1
+       Margin 6
+       ignorepointer 1
+       {
+        PanelWidgetClass tileBody {
+         position 0 0
+         hexactpos 0
+         vexactpos 0
+         size 1 1
+         hexactsize 0
+         vexactsize 0
+         ignorepointer 1
+         style TXSurface
+         color 0.9961 0.9961 0.9961 1
+         {
+          TextWidgetClass tileBodyLabel {
+           position 0.06 0.08
+           hexactpos 0
+           vexactpos 0
+           size 0.6 0.32
+           hexactsize 0
+           vexactsize 0
+           color 0.4157 0.3961 0.3765 1
+           font "TraderX/datasets/fonts/oswalt11"
+           ignorepointer 1
+           "exact text" 1
+           "text valign" center
+           text "BODY"
+          }
+          TextWidgetClass tileBodyValue {
+           position 0.06 0.4
+           hexactpos 0
+           vexactpos 0
+           size 0.9 0.34
+           hexactsize 0
+           vexactsize 0
+           color 0.8471 0.8235 0.7529 1
+           font "TraderX/datasets/fonts/jet-brains-mono14"
+           ignorepointer 1
+           "exact text" 1
+           "text valign" center
+           style Bold
+           text "Damaged"
+           scriptclass "TextBinding"
+           {
+            ScriptParamsClass {
+             Binding_Expression "{{ tileBodyText }}"
+            }
+           }
+          }
+          PanelWidgetClass tileBodyTrack {
+           position 0.06 0.8
+           hexactpos 0
+           vexactpos 0
+           size 0.88 0.08
+           hexactsize 0
+           vexactsize 0
+           color 0.102 0.1176 0.1569 1
+           ignorepointer 1
+           style rover_sim_colorable
+          }
+          PanelWidgetClass tileBodyBar {
+           position 0.06 0.8
+           hexactpos 0
+           vexactpos 0
+           size 0.45 0.08
+           hexactsize 0
+           vexactsize 0
+           color 0.8314 0.6431 0.298 1
+           ignorepointer 1
+           style rover_sim_colorable
+          }
+         }
+        }
+        PanelWidgetClass tileEngine {
+         position 0 0
+         hexactpos 0
+         vexactpos 0
+         size 1 1
+         hexactsize 0
+         vexactsize 0
+         ignorepointer 1
+         style TXSurface
+         color 0.9961 0.9961 0.9961 1
+         {
+          TextWidgetClass tileEngineLabel {
+           position 0.06 0.08
+           hexactpos 0
+           vexactpos 0
+           size 0.6 0.32
+           hexactsize 0
+           vexactsize 0
+           color 0.4157 0.3961 0.3765 1
+           font "TraderX/datasets/fonts/oswalt11"
+           ignorepointer 1
+           "exact text" 1
+           "text valign" center
+           text "ENGINE"
+          }
+          TextWidgetClass tileEngineValue {
+           position 0.06 0.4
+           hexactpos 0
+           vexactpos 0
+           size 0.9 0.34
+           hexactsize 0
+           vexactsize 0
+           color 0.8471 0.8235 0.7529 1
+           font "TraderX/datasets/fonts/jet-brains-mono14"
+           ignorepointer 1
+           "exact text" 1
+           "text valign" center
+           style Bold
+           text "Worn"
+           scriptclass "TextBinding"
+           {
+            ScriptParamsClass {
+             Binding_Expression "{{ tileEngineText }}"
+            }
+           }
+          }
+          PanelWidgetClass tileEngineTrack {
+           position 0.06 0.8
+           hexactpos 0
+           vexactpos 0
+           size 0.88 0.08
+           hexactsize 0
+           vexactsize 0
+           color 0.102 0.1176 0.1569 1
+           ignorepointer 1
+           style rover_sim_colorable
+          }
+          PanelWidgetClass tileEngineBar {
+           position 0.06 0.8
+           hexactpos 0
+           vexactpos 0
+           size 0.65 0.08
+           hexactsize 0
+           vexactsize 0
+           color 0.6039 0.6902 0.3529 1
+           ignorepointer 1
+           style rover_sim_colorable
+          }
+         }
+        }
+        PanelWidgetClass tileFuel {
+         position 0 0
+         hexactpos 0
+         vexactpos 0
+         size 1 1
+         hexactsize 0
+         vexactsize 0
+         ignorepointer 1
+         style TXSurface
+         color 0.9961 0.9961 0.9961 1
+         {
+          TextWidgetClass tileFuelLabel {
+           position 0.06 0.08
+           hexactpos 0
+           vexactpos 0
+           size 0.6 0.32
+           hexactsize 0
+           vexactsize 0
+           color 0.4157 0.3961 0.3765 1
+           font "TraderX/datasets/fonts/oswalt11"
+           ignorepointer 1
+           "exact text" 1
+           "text valign" center
+           text "FUEL"
+          }
+          TextWidgetClass tileFuelValue {
+           position 0.06 0.4
+           hexactpos 0
+           vexactpos 0
+           size 0.9 0.34
+           hexactsize 0
+           vexactsize 0
+           color 0.8471 0.8235 0.7529 1
+           font "TraderX/datasets/fonts/jet-brains-mono14"
+           ignorepointer 1
+           "exact text" 1
+           "text valign" center
+           style Bold
+           text "35 %"
+           scriptclass "TextBinding"
+           {
+            ScriptParamsClass {
+             Binding_Expression "{{ tileFuelText }}"
+            }
+           }
+          }
+          PanelWidgetClass tileFuelTrack {
+           position 0.06 0.8
+           hexactpos 0
+           vexactpos 0
+           size 0.88 0.08
+           hexactsize 0
+           vexactsize 0
+           color 0.102 0.1176 0.1569 1
+           ignorepointer 1
+           style rover_sim_colorable
+          }
+          PanelWidgetClass tileFuelBar {
+           position 0.06 0.8
+           hexactpos 0
+           vexactpos 0
+           size 0.35 0.08
+           hexactsize 0
+           vexactsize 0
+           color 0.8314 0.6431 0.298 1
+           ignorepointer 1
+           style rover_sim_colorable
+          }
+         }
+        }
+        PanelWidgetClass tileParts {
+         position 0 0
+         hexactpos 0
+         vexactpos 0
+         size 1 1
+         hexactsize 0
+         vexactsize 0
+         ignorepointer 1
+         style TXSurface
+         color 0.9961 0.9961 0.9961 1
+         {
+          TextWidgetClass tilePartsLabel {
+           position 0.06 0.08
+           hexactpos 0
+           vexactpos 0
+           size 0.6 0.32
+           hexactsize 0
+           vexactsize 0
+           color 0.4157 0.3961 0.3765 1
+           font "TraderX/datasets/fonts/oswalt11"
+           ignorepointer 1
+           "exact text" 1
+           "text valign" center
+           text "PARTS / CARGO"
+          }
+          TextWidgetClass tilePartsValue {
+           position 0.06 0.4
+           hexactpos 0
+           vexactpos 0
+           size 0.9 0.34
+           hexactsize 0
+           vexactsize 0
+           color 0.8471 0.8235 0.7529 1
+           font "TraderX/datasets/fonts/jet-brains-mono14"
+           ignorepointer 1
+           "exact text" 1
+           "text valign" center
+           style Bold
+           text "9 / 4"
+           scriptclass "TextBinding"
+           {
+            ScriptParamsClass {
+             Binding_Expression "{{ tilePartsText }}"
+            }
+           }
+          }
+          PanelWidgetClass tilePartsTrack {
+           position 0.06 0.8
+           hexactpos 0
+           vexactpos 0
+           size 0.88 0.08
+           hexactsize 0
+           vexactsize 0
+           color 0.102 0.1176 0.1569 1
+           ignorepointer 1
+           style rover_sim_colorable
+          }
+          PanelWidgetClass tilePartsBar {
+           position 0.06 0.8
+           hexactpos 0
+           vexactpos 0
+           size 0.82 0.08
+           hexactsize 0
+           vexactsize 0
+           color 0.4784 0.6039 0.2902 1
+           ignorepointer 1
+           style rover_sim_colorable
+          }
+         }
+        }
+       }
+      }
+      ButtonWidgetClass primaryBtn {
+       position 0.03 0.72
+       hexactpos 0
+       vexactpos 0
+       size 0.94 0.09
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.8314 0.6431 0.298 1
+       font "TraderX/datasets/fonts/oswalt18"
+       "exact text" 1
+       "text valign" center
+       style Bold
+       style TXBtnAccent
+       color 0.9961 0.9961 0.9961 1
+       scriptclass "ButtonBinding"
+       {
+        ScriptParamsClass {
+         OnClick "OnPrimary"
+        }
+       }
+      }
+      TextWidgetClass primaryLabel {
+       position 0.06 0.72
+       hexactpos 0
+       vexactpos 0
+       size 0.6 0.09
+       hexactsize 0
+       vexactsize 0
+       color 0.8314 0.6431 0.298 1
+       font "TraderX/datasets/fonts/oswalt18"
+       ignorepointer 1
+       "exact text" 1
+       "text valign" center
+       style Bold
+       text "TAKE OUT"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ primaryText }}"
+        }
+       }
+      }
+      TextWidgetClass primaryPrice {
+       position 0.66 0.72
+       hexactpos 0
+       vexactpos 0
+       size 0.28 0.09
+       hexactsize 0
+       vexactsize 0
+       color 0.8314 0.6431 0.298 1
+       font "TraderX/datasets/fonts/jet-brains-mono18"
+       ignorepointer 1
+       "exact text" 1
+       "text halign" right
+       "text valign" center
+       style Bold
+       text "100"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ primaryPriceText }}"
+        }
+       }
+      }
+      PanelWidgetClass servicesBar {
+       position 0.03 0.84
+       hexactpos 0
+       vexactpos 0
+       size 0.94 0.06
        hexactsize 0
        vexactsize 0
        ignorepointer 1
-       style TXCardElevated
+       {
+        ButtonWidgetClass repairBtn {
+         position 0 0
+         hexactpos 0
+         vexactpos 0
+         size 0.32 1
+         hexactsize 0
+         vexactsize 0
+         "text color" 0.6039 0.5804 0.5333 1
+         font "TraderX/datasets/fonts/oswalt12"
+         "exact text" 1
+         "text halign" center
+         "text valign" center
+         style TXBtnDefault
+         color 0.9961 0.9961 0.9961 1
+         text "SERVICE - 300"
+         scriptclass "ButtonBinding"
+         {
+          ScriptParamsClass {
+           OnClick "OnRepair"
+          }
+         }
+        }
+        ButtonWidgetClass insureBtn {
+         position 0.34 0
+         hexactpos 0
+         vexactpos 0
+         size 0.32 1
+         hexactsize 0
+         vexactsize 0
+         "text color" 0.6039 0.5804 0.5333 1
+         font "TraderX/datasets/fonts/oswalt12"
+         "exact text" 1
+         "text halign" center
+         "text valign" center
+         style TXBtnDefault
+         color 0.9961 0.9961 0.9961 1
+         text "INSURANCE - 2 DAYS LEFT"
+         scriptclass "ButtonBinding"
+         {
+          ScriptParamsClass {
+           OnClick "OnOpenInsurance"
+          }
+         }
+        }
+        ButtonWidgetClass shareBtn {
+         position 0.68 0
+         hexactpos 0
+         vexactpos 0
+         size 0.32 1
+         hexactsize 0
+         vexactsize 0
+         "text color" 0.6039 0.5804 0.5333 1
+         font "TraderX/datasets/fonts/oswalt12"
+         "exact text" 1
+         "text halign" center
+         "text valign" center
+         style TXBtnDefault
+         color 0.9961 0.9961 0.9961 1
+         text "SHARE ACCESS - 1"
+         scriptclass "ButtonBinding"
+         {
+          ScriptParamsClass {
+           OnClick "OnOpenShare"
+          }
+         }
+        }
+       }
+      }
+      TextWidgetClass servicesHint {
+       position 0.03 0.91
+       hexactpos 0
+       vexactpos 0
+       size 0.94 0.04
+       hexactsize 0
+       vexactsize 0
+       color 0.4157 0.3961 0.3765 1
+       font "TraderX/datasets/fonts/oswalt11"
+       ignorepointer 1
+       "exact text" 1
+       "text valign" center
+       text "Not enough money? Bank is used first, then cash in your inventory."
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ servicesHintText }}"
+        }
+       }
+      }
+      PanelWidgetClass insurancePanel {
+       position 0.03 0.12
+       hexactpos 0
+       vexactpos 0
+       size 0.94 0.69
+       hexactsize 0
+       vexactsize 0
+       ignorepointer 1
+       style TXSurface
        color 0.9961 0.9961 0.9961 1
        {
-        TextWidgetClass selectedName {
+        TextWidgetClass insTitle {
          position 0.03 0.03
+         hexactpos 0
+         vexactpos 0
+         size 0.5 0.08
+         hexactsize 0
+         vexactsize 0
+         color 0.8471 0.8235 0.7529 1
+         font "TraderX/datasets/fonts/oswalt18"
+         ignorepointer 1
+         "exact text" 1
+         "text valign" center
+         style Bold
+         text "INSURANCE"
+        }
+        TextWidgetClass insStatus {
+         position 0.5 0.03
+         hexactpos 0
+         vexactpos 0
+         size 0.47 0.08
+         hexactsize 0
+         vexactsize 0
+         color 0.6039 0.6902 0.3529 1
+         font "TraderX/datasets/fonts/oswalt13"
+         ignorepointer 1
+         "exact text" 1
+         "text halign" right
+         "text valign" center
+         style Bold
+         text "Covered until Oct 18"
+         scriptclass "TextBinding"
+         {
+          ScriptParamsClass {
+           Binding_Expression "{{ insStatusText }}"
+          }
+         }
+        }
+        GridSpacerWidgetClass insSteps {
+         position 0.03 0.14
+         hexactpos 0
+         vexactpos 0
+         size 0.94 0.16
+         hexactsize 0
+         vexactsize 0
+         Columns 3
+         Rows 1
+         Margin 6
+         ignorepointer 1
+         {
+          PanelWidgetClass insStep1 {
+           position 0 0
+           hexactpos 0
+           vexactpos 0
+           size 1 1
+           hexactsize 0
+           vexactsize 0
+           ignorepointer 1
+           style TXCard
+           color 0.9961 0.9961 0.9961 1
+           {
+            TextWidgetClass insStep1Num {
+             position 0.05 0
+             hexactpos 0
+             vexactpos 0
+             size 0.14 1
+             hexactsize 0
+             vexactsize 0
+             color 0.8314 0.6431 0.298 1
+             font "TraderX/datasets/fonts/jet-brains-mono22"
+             ignorepointer 1
+             "exact text" 1
+             "text valign" center
+             style Bold
+             text "1"
+            }
+            TextWidgetClass insStep1Text {
+             position 0.2 0
+             hexactpos 0
+             vexactpos 0
+             size 0.76 1
+             hexactsize 0
+             vexactsize 0
+             color 0.8471 0.8235 0.7529 1
+             font "TraderX/datasets/fonts/oswalt12"
+             ignorepointer 1
+             "exact text" 1
+             "text valign" center
+             wrap 1
+             text "Your vehicle is destroyed"
+            }
+           }
+          }
+          PanelWidgetClass insStep2 {
+           position 0 0
+           hexactpos 0
+           vexactpos 0
+           size 1 1
+           hexactsize 0
+           vexactsize 0
+           ignorepointer 1
+           style TXCard
+           color 0.9961 0.9961 0.9961 1
+           {
+            TextWidgetClass insStep2Num {
+             position 0.05 0
+             hexactpos 0
+             vexactpos 0
+             size 0.14 1
+             hexactsize 0
+             vexactsize 0
+             color 0.8314 0.6431 0.298 1
+             font "TraderX/datasets/fonts/jet-brains-mono22"
+             ignorepointer 1
+             "exact text" 1
+             "text valign" center
+             style Bold
+             text "2"
+            }
+            TextWidgetClass insStep2Text {
+             position 0.2 0
+             hexactpos 0
+             vexactpos 0
+             size 0.76 1
+             hexactsize 0
+             vexactsize 0
+             color 0.8471 0.8235 0.7529 1
+             font "TraderX/datasets/fonts/oswalt12"
+             ignorepointer 1
+             "exact text" 1
+             "text valign" center
+             wrap 1
+             text "A new one waits in this garage"
+            }
+           }
+          }
+          PanelWidgetClass insStep3 {
+           position 0 0
+           hexactpos 0
+           vexactpos 0
+           size 1 1
+           hexactsize 0
+           vexactsize 0
+           ignorepointer 1
+           style TXCard
+           color 0.9961 0.9961 0.9961 1
+           {
+            TextWidgetClass insStep3Num {
+             position 0.05 0
+             hexactpos 0
+             vexactpos 0
+             size 0.14 1
+             hexactsize 0
+             vexactsize 0
+             color 0.8314 0.6431 0.298 1
+             font "TraderX/datasets/fonts/jet-brains-mono22"
+             ignorepointer 1
+             "exact text" 1
+             "text valign" center
+             style Bold
+             text "3"
+            }
+            TextWidgetClass insStep3Text {
+             position 0.2 0
+             hexactpos 0
+             vexactpos 0
+             size 0.76 1
+             hexactsize 0
+             vexactsize 0
+             color 0.8471 0.8235 0.7529 1
+             font "TraderX/datasets/fonts/oswalt12"
+             ignorepointer 1
+             "exact text" 1
+             "text valign" center
+             wrap 1
+             text "Pay the deductible to take it out"
+            }
+           }
+          }
+         }
+        }
+        TextWidgetClass insRules {
+         position 0.03 0.32
+         hexactpos 0
+         vexactpos 0
+         size 0.94 0.06
+         hexactsize 0
+         vexactsize 0
+         color 0.4157 0.3961 0.3765 1
+         font "TraderX/datasets/fonts/oswalt11"
+         ignorepointer 1
+         "exact text" 1
+         "text valign" center
+         text "No cash payout - Selling the vehicle or losing it another way cancels the policy"
+        }
+        GridSpacerWidgetClass insTiles {
+         position 0.03 0.42
+         hexactpos 0
+         vexactpos 0
+         size 0.94 0.14
+         hexactsize 0
+         vexactsize 0
+         Columns 3
+         Rows 1
+         Margin 6
+         ignorepointer 1
+         {
+          PanelWidgetClass insTileValue {
+           position 0 0
+           hexactpos 0
+           vexactpos 0
+           size 1 1
+           hexactsize 0
+           vexactsize 0
+           ignorepointer 1
+           style TXCard
+           color 0.9961 0.9961 0.9961 1
+           {
+            TextWidgetClass insTileValueLabel {
+             position 0.06 0.08
+             hexactpos 0
+             vexactpos 0
+             size 0.9 0.36
+             hexactsize 0
+             vexactsize 0
+             color 0.4157 0.3961 0.3765 1
+             font "TraderX/datasets/fonts/oswalt11"
+             ignorepointer 1
+             "exact text" 1
+             "text valign" center
+             text "VEHICLE VALUE"
+            }
+            TextWidgetClass insTileValueText {
+             position 0.06 0.46
+             hexactpos 0
+             vexactpos 0
+             size 0.9 0.46
+             hexactsize 0
+             vexactsize 0
+             color 0.8471 0.8235 0.7529 1
+             font "TraderX/datasets/fonts/jet-brains-mono16"
+             ignorepointer 1
+             "exact text" 1
+             "text valign" center
+             style Bold
+             text "14 000"
+             scriptclass "TextBinding"
+             {
+              ScriptParamsClass {
+               Binding_Expression "{{ insCoveredText }}"
+              }
+             }
+            }
+           }
+          }
+          PanelWidgetClass insTilePremium {
+           position 0 0
+           hexactpos 0
+           vexactpos 0
+           size 1 1
+           hexactsize 0
+           vexactsize 0
+           ignorepointer 1
+           style TXCard
+           color 0.9961 0.9961 0.9961 1
+           {
+            TextWidgetClass insTilePremiumLabel {
+             position 0.06 0.08
+             hexactpos 0
+             vexactpos 0
+             size 0.9 0.36
+             hexactsize 0
+             vexactsize 0
+             color 0.4157 0.3961 0.3765 1
+             font "TraderX/datasets/fonts/oswalt11"
+             ignorepointer 1
+             "exact text" 1
+             "text valign" center
+             text "PRICE PER DAY"
+            }
+            TextWidgetClass insTilePremiumText {
+             position 0.06 0.46
+             hexactpos 0
+             vexactpos 0
+             size 0.9 0.46
+             hexactsize 0
+             vexactsize 0
+             color 0.8471 0.8235 0.7529 1
+             font "TraderX/datasets/fonts/jet-brains-mono16"
+             ignorepointer 1
+             "exact text" 1
+             "text valign" center
+             style Bold
+             text "280"
+             scriptclass "TextBinding"
+             {
+              ScriptParamsClass {
+               Binding_Expression "{{ insPerDayText }}"
+              }
+             }
+            }
+           }
+          }
+          PanelWidgetClass insTileDeductible {
+           position 0 0
+           hexactpos 0
+           vexactpos 0
+           size 1 1
+           hexactsize 0
+           vexactsize 0
+           ignorepointer 1
+           style TXCard
+           color 0.9961 0.9961 0.9961 1
+           {
+            TextWidgetClass insTileDeductibleLabel {
+             position 0.06 0.08
+             hexactpos 0
+             vexactpos 0
+             size 0.9 0.36
+             hexactsize 0
+             vexactsize 0
+             color 0.4157 0.3961 0.3765 1
+             font "TraderX/datasets/fonts/oswalt11"
+             ignorepointer 1
+             "exact text" 1
+             "text valign" center
+             text "DEDUCTIBLE"
+            }
+            TextWidgetClass insTileDeductibleText {
+             position 0.06 0.46
+             hexactpos 0
+             vexactpos 0
+             size 0.9 0.46
+             hexactsize 0
+             vexactsize 0
+             color 0.8471 0.8235 0.7529 1
+             font "TraderX/datasets/fonts/jet-brains-mono16"
+             ignorepointer 1
+             "exact text" 1
+             "text valign" center
+             style Bold
+             text "3 500"
+             scriptclass "TextBinding"
+             {
+              ScriptParamsClass {
+               Binding_Expression "{{ insDeductibleText }}"
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+        TextWidgetClass insDaysLabel {
+         position 0.03 0.62
+         hexactpos 0
+         vexactpos 0
+         size 0.2 0.1
+         hexactsize 0
+         vexactsize 0
+         color 0.6039 0.5804 0.5333 1
+         font "TraderX/datasets/fonts/oswalt12"
+         ignorepointer 1
+         "exact text" 1
+         "text valign" center
+         style Bold
+         text "DURATION"
+        }
+        ButtonWidgetClass insDaysMinus {
+         position 0.2 0.62
+         hexactpos 0
+         vexactpos 0
+         size 0.06 0.1
+         hexactsize 0
+         vexactsize 0
+         "text color" 0.8471 0.8235 0.7529 1
+         font "TraderX/datasets/fonts/oswalt18"
+         "exact text" 1
+         "text halign" center
+         "text valign" center
+         style Bold
+         style TXBtnDefault
+         color 0.9961 0.9961 0.9961 1
+         text "-"
+         scriptclass "ButtonBinding"
+         {
+          ScriptParamsClass {
+           OnClick "OnInsDaysMinus"
+          }
+         }
+        }
+        TextWidgetClass insDaysValue {
+         position 0.27 0.62
+         hexactpos 0
+         vexactpos 0
+         size 0.14 0.1
+         hexactsize 0
+         vexactsize 0
+         color 0.8471 0.8235 0.7529 1
+         font "TraderX/datasets/fonts/jet-brains-mono16"
+         ignorepointer 1
+         "exact text" 1
+         "text halign" center
+         "text valign" center
+         style Bold
+         text "3 DAYS"
+         scriptclass "TextBinding"
+         {
+          ScriptParamsClass {
+           Binding_Expression "{{ insDaysText }}"
+          }
+         }
+        }
+        ButtonWidgetClass insDaysPlus {
+         position 0.42 0.62
+         hexactpos 0
+         vexactpos 0
+         size 0.06 0.1
+         hexactsize 0
+         vexactsize 0
+         "text color" 0.8471 0.8235 0.7529 1
+         font "TraderX/datasets/fonts/oswalt18"
+         "exact text" 1
+         "text halign" center
+         "text valign" center
+         style Bold
+         style TXBtnDefault
+         color 0.9961 0.9961 0.9961 1
+         text "+"
+         scriptclass "ButtonBinding"
+         {
+          ScriptParamsClass {
+           OnClick "OnInsDaysPlus"
+          }
+         }
+        }
+        TextWidgetClass insUntil {
+         position 0.5 0.62
+         hexactpos 0
+         vexactpos 0
+         size 0.47 0.1
+         hexactsize 0
+         vexactsize 0
+         color 0.6039 0.5804 0.5333 1
+         font "TraderX/datasets/fonts/oswalt12"
+         ignorepointer 1
+         "exact text" 1
+         "text halign" right
+         "text valign" center
+         text "covered until Oct 21"
+         scriptclass "TextBinding"
+         {
+          ScriptParamsClass {
+           Binding_Expression "{{ insUntilText }}"
+          }
+         }
+        }
+        ButtonWidgetClass insBackBtn {
+         position 0.03 0.8
+         hexactpos 0
+         vexactpos 0
+         size 0.22 0.13
+         hexactsize 0
+         vexactsize 0
+         "text color" 0.6039 0.5804 0.5333 1
+         font "TraderX/datasets/fonts/oswalt14"
+         "exact text" 1
+         "text halign" center
+         "text valign" center
+         style Bold
+         style TXBtnDefault
+         color 0.9961 0.9961 0.9961 1
+         text "BACK"
+         scriptclass "ButtonBinding"
+         {
+          ScriptParamsClass {
+           OnClick "OnClosePanels"
+          }
+         }
+        }
+        ButtonWidgetClass insConfirmBtn {
+         position 0.27 0.8
+         hexactpos 0
+         vexactpos 0
+         size 0.7 0.13
+         hexactsize 0
+         vexactsize 0
+         "text color" 0.8314 0.6431 0.298 1
+         font "TraderX/datasets/fonts/oswalt14"
+         "exact text" 1
+         "text valign" center
+         style Bold
+         style TXBtnAccent
+         color 0.9961 0.9961 0.9961 1
+         scriptclass "ButtonBinding"
+         {
+          ScriptParamsClass {
+           OnClick "OnInsure"
+          }
+         }
+        }
+        TextWidgetClass insConfirmLabel {
+         position 0.3 0.8
+         hexactpos 0
+         vexactpos 0
+         size 0.4 0.13
+         hexactsize 0
+         vexactsize 0
+         color 0.8314 0.6431 0.298 1
+         font "TraderX/datasets/fonts/oswalt14"
+         ignorepointer 1
+         "exact text" 1
+         "text valign" center
+         style Bold
+         text "EXTEND BY 3 DAYS"
+         scriptclass "TextBinding"
+         {
+          ScriptParamsClass {
+           Binding_Expression "{{ insConfirmText }}"
+          }
+         }
+        }
+        TextWidgetClass insConfirmPrice {
+         position 0.7 0.8
+         hexactpos 0
+         vexactpos 0
+         size 0.25 0.13
+         hexactsize 0
+         vexactsize 0
+         color 0.8314 0.6431 0.298 1
+         font "TraderX/datasets/fonts/jet-brains-mono16"
+         ignorepointer 1
+         "exact text" 1
+         "text halign" right
+         "text valign" center
+         style Bold
+         text "840"
+         scriptclass "TextBinding"
+         {
+          ScriptParamsClass {
+           Binding_Expression "{{ insTotalText }}"
+          }
+         }
+        }
+       }
+      }
+      PanelWidgetClass sharePanel {
+       position 0.03 0.12
+       hexactpos 0
+       vexactpos 0
+       size 0.94 0.69
+       hexactsize 0
+       vexactsize 0
+       ignorepointer 1
+       style TXSurface
+       color 0.9961 0.9961 0.9961 1
+       {
+        TextWidgetClass shareTitle {
+         position 0.03 0.03
+         hexactpos 0
+         vexactpos 0
+         size 0.6 0.08
+         hexactsize 0
+         vexactsize 0
+         color 0.8471 0.8235 0.7529 1
+         font "TraderX/datasets/fonts/oswalt18"
+         ignorepointer 1
+         "exact text" 1
+         "text valign" center
+         style Bold
+         text "SHARE ACCESS"
+        }
+        TextWidgetClass shareRules {
+         position 0.03 0.11
          hexactpos 0
          vexactpos 0
          size 0.94 0.07
          hexactsize 0
          vexactsize 0
-         color 0.8471 0.8235 0.7529 1
-         font "TraderX/datasets/fonts/oswalt22"
+         color 0.6039 0.5804 0.5333 1
+         font "TraderX/datasets/fonts/oswalt12"
          ignorepointer 1
          "exact text" 1
          "text valign" center
+         text "They can take this vehicle out and bring it back here. It stays yours."
+        }
+        ScrollWidgetClass shareScroll {
+         position 0.03 0.2
+         hexactpos 0
+         vexactpos 0
+         size 0.94 0.56
+         hexactsize 0
+         vexactsize 0
+         "Scrollbar V" 1
+         {
+          GridSpacerWidgetClass shareGrid {
+           size 1 44
+           hexactsize 0
+           vexactsize 1
+           ignorepointer 1
+           "Size To Content V" 1
+           Columns 1
+           Rows 100
+           Margin 2
+           scriptclass "ComponentWidgetBinding"
+           {
+            ScriptParamsClass {
+             Component_ForEach "{{ sharePlayers }}"
+             Component_Template "txg-share-row"
+             Component_ItemProperty "_inputPlayer"
+            }
+           }
+          }
+         }
+        }
+        TextWidgetClass shareEmpty {
+         position 0.03 0.4
+         hexactpos 0
+         vexactpos 0
+         size 0.94 0.1
+         hexactsize 0
+         vexactsize 0
+         color 0.4157 0.3961 0.3765 1
+         font "TraderX/datasets/fonts/oswalt13"
+         ignorepointer 1
+         "exact text" 1
+         "text halign" center
+         "text valign" center
+         wrap 1
+         text "Nobody to add yet. Players near you and people you shared with before appear here."
+        }
+        ButtonWidgetClass shareBackBtn {
+         position 0.03 0.8
+         hexactpos 0
+         vexactpos 0
+         size 0.22 0.13
+         hexactsize 0
+         vexactsize 0
+         "text color" 0.6039 0.5804 0.5333 1
+         font "TraderX/datasets/fonts/oswalt14"
+         "exact text" 1
+         "text halign" center
+         "text valign" center
          style Bold
-         text "Select a vehicle"
-         scriptclass "TextBinding"
+         style TXBtnDefault
+         color 0.9961 0.9961 0.9961 1
+         text "BACK"
+         scriptclass "ButtonBinding"
          {
           ScriptParamsClass {
-           Binding_Expression "{{ selectedVehicleName }}"
+           OnClick "OnClosePanels"
           }
          }
         }
-        PanelWidgetClass detailDivider {
-         position 0.03 0.11
+        TextWidgetClass shareNote {
+         position 0.27 0.8
          hexactpos 0
          vexactpos 0
-         size 0.94 0
+         size 0.7 0.13
          hexactsize 0
          vexactsize 0
+         color 0.4157 0.3961 0.3765 1
+         font "TraderX/datasets/fonts/oswalt11"
          ignorepointer 1
-         style TXDivider
-         color 0.9961 0.9961 0.9961 1
-        }
-        PanelWidgetClass previewArea {
-         position 0.03 0.13
-         hexactpos 0
-         vexactpos 0
-         size 0.94 0.44
-         hexactsize 0
-         vexactsize 0
-         ignorepointer 1
-         style TXSurface
-         color 0.9961 0.9961 0.9961 1
-         {
-          ImageWidgetClass previewPlaceholderIcon {
-           halign center_ref
-           valign center_ref
-           size 72 72
-           hexactsize 1
-           vexactsize 1
-           color 0.1647 0.1804 0.2196 1
-           mode blend
-           "src alpha" 1
-           ignorepointer 1
-           image0 "set:traderx_icons image:wrench"
-          }
-          TextWidgetClass previewPlaceholderText {
-           position 0 0.63
-           hexactpos 0
-           vexactpos 0
-           size 1 0.08
-           hexactsize 0
-           vexactsize 0
-           color 0.2275 0.251 0.3137 1
-           font "TraderX/datasets/fonts/oswalt12"
-           ignorepointer 1
-           "exact text" 1
-           "text halign" center
-           "text valign" center
-           style Bold
-           text "VEHICLE PREVIEW"
-          }
-          ItemPreviewWidgetClass vehiclePreviewWidget {
-           position 0 0
-           hexactpos 0
-           vexactpos 0
-           size 1 1
-           hexactsize 0
-           vexactsize 0
-           halign center_ref
-           valign center_ref
-           scriptclass "ItemPreviewBinding"
-           {
-            ScriptParamsClass {
-             Binding_Item "{{ vehiclePreview }}"
-             Enable_Rotation 1
-             Enable_Scale 1
-            }
-           }
-          }
-         }
-        }
-        PanelWidgetClass costRow {
-         position 0.03 0.59
-         hexactpos 0
-         vexactpos 0
-         size 0.94 0.08
-         hexactsize 0
-         vexactsize 0
-         ignorepointer 1
-         style TXSurface
-         color 0.9961 0.9961 0.9961 1
-         {
-          ImageWidgetClass costIcon {
-           position 0.02 0
-           hexactpos 0
-           vexactpos 0
-           size 22 22
-           hexactsize 1
-           vexactsize 1
-           color 0.8314 0.6431 0.298 1
-           mode blend
-           "src alpha" 1
-           valign center_ref
-           ignorepointer 1
-           image0 "set:traderx_icons image:coins"
-          }
-          TextWidgetClass parkInLabel {
-           position 0.06 0
-           hexactpos 0
-           vexactpos 0
-           size 0.22 1
-           hexactsize 0
-           vexactsize 0
-           color 0.6039 0.5804 0.5333 1
-           font "TraderX/datasets/fonts/oswalt12"
-           ignorepointer 1
-           "exact text" 1
-           "text valign" center
-           text "PARK IN"
-          }
-          TextWidgetClass parkInValue {
-           position 0.28 0
-           hexactpos 0
-           vexactpos 0
-           size 0.2 1
-           hexactsize 0
-           vexactsize 0
-           color 0.6039 0.6902 0.3529 1
-           font "TraderX/datasets/fonts/jet-brains-mono16"
-           ignorepointer 1
-           "exact text" 1
-           "text valign" center
-           style Bold
-           text "100"
-           scriptclass "TextBinding"
-           {
-            ScriptParamsClass {
-             Binding_Expression "{{ parkInCost | number }}"
-            }
-           }
-          }
-          TextWidgetClass parkOutLabel {
-           position 0.55 0
-           hexactpos 0
-           vexactpos 0
-           size 0.22 1
-           hexactsize 0
-           vexactsize 0
-           color 0.6039 0.5804 0.5333 1
-           font "TraderX/datasets/fonts/oswalt12"
-           ignorepointer 1
-           "exact text" 1
-           "text valign" center
-           text "PARK OUT"
-          }
-          TextWidgetClass parkOutValue {
-           position 0.77 0
-           hexactpos 0
-           vexactpos 0
-           size 0.21 1
-           hexactsize 0
-           vexactsize 0
-           color 0.8314 0.6431 0.298 1
-           font "TraderX/datasets/fonts/jet-brains-mono16"
-           ignorepointer 1
-           "exact text" 1
-           "text valign" center
-           style Bold
-           text "100"
-           scriptclass "TextBinding"
-           {
-            ScriptParamsClass {
-             Binding_Expression "{{ parkOutCost | number }}"
-            }
-           }
-          }
-         }
-        }
-        GridSpacerWidgetClass actionGrid {
-         position 0.03 0.69
-         hexactpos 0
-         vexactpos 0
-         size 0.94 0.13
-         hexactsize 0
-         vexactsize 0
-         Columns 2
-         Rows 1
-         Margin 6
-         {
-          PanelWidgetClass parkInCell {
-           position 0 0
-           hexactpos 0
-           vexactpos 0
-           size 1 1
-           hexactsize 0
-           vexactsize 0
-           ignorepointer 1
-           {
-            ButtonWidgetClass parkInBtn {
-             position 0 0
-             hexactpos 0
-             vexactpos 0
-             size 1 1
-             hexactsize 0
-             vexactsize 0
-             style TXBtnPrimary
-             color 0.9961 0.9961 0.9961 1
-             scriptclass "ButtonBinding"
-             {
-              ScriptParamsClass {
-               OnClick "OnParkIn"
-              }
-             }
-            }
-            ImageWidgetClass parkInIcon {
-             position 0.27 0
-             hexactpos 0
-             vexactpos 0
-             size 36 36
-             hexactsize 1
-             vexactsize 1
-             color 0.6039 0.6902 0.3529 1
-             mode blend
-             "src alpha" 1
-             valign center_ref
-             ignorepointer 1
-             image0 "set:traderx_icons image:padlock"
-            }
-            TextWidgetClass parkInBtnLabel {
-             position 0.38 0
-             hexactpos 0
-             vexactpos 0
-             size 0.5 1
-             hexactsize 0
-             vexactsize 0
-             color 0.6039 0.6902 0.3529 1
-             font "TraderX/datasets/fonts/oswalt16"
-             ignorepointer 1
-             "exact text" 1
-             "text valign" center
-             style Bold
-             text "PARK IN"
-            }
-           }
-          }
-          PanelWidgetClass parkOutCell {
-           position 0 0
-           hexactpos 0
-           vexactpos 0
-           size 1 1
-           hexactsize 0
-           vexactsize 0
-           ignorepointer 1
-           {
-            ButtonWidgetClass parkOutBtn {
-             position 0 0
-             hexactpos 0
-             vexactpos 0
-             size 1 1
-             hexactsize 0
-             vexactsize 0
-             style TXBtnAccent
-             color 0.9961 0.9961 0.9961 1
-             scriptclass "ButtonBinding"
-             {
-              ScriptParamsClass {
-               OnClick "OnParkOut"
-              }
-             }
-            }
-            ImageWidgetClass parkOutIcon {
-             position 0.23 0
-             hexactpos 0
-             vexactpos 0
-             size 36 36
-             hexactsize 1
-             vexactsize 1
-             color 0.8314 0.6431 0.298 1
-             mode blend
-             "src alpha" 1
-             valign center_ref
-             ignorepointer 1
-             image0 "set:traderx_icons image:refresh"
-            }
-            TextWidgetClass parkOutBtnLabel {
-             position 0.34 0
-             hexactpos 0
-             vexactpos 0
-             size 0.55 1
-             hexactsize 0
-             vexactsize 0
-             color 0.8314 0.6431 0.298 1
-             font "TraderX/datasets/fonts/oswalt16"
-             ignorepointer 1
-             "exact text" 1
-             "text valign" center
-             style Bold
-             text "PARK OUT"
-            }
-           }
-          }
-         }
-        }
-        PanelWidgetClass toastSuccess {
-         position 0.03 0.85
-         hexactpos 0
-         vexactpos 0
-         size 0.94 0.11
-         hexactsize 0
-         vexactsize 0
-         ignorepointer 1
-         style TXSuccessBox
-         color 0.9961 0.9961 0.9961 1
-         {
-          ImageWidgetClass toastSuccessIcon {
-           position 0.03 0
-           hexactpos 0
-           vexactpos 0
-           size 24 24
-           hexactsize 1
-           vexactsize 1
-           color 0.6039 0.6902 0.3529 1
-           mode blend
-           "src alpha" 1
-           valign center_ref
-           ignorepointer 1
-           image0 "set:traderx_icons image:approved"
-          }
-          TextWidgetClass toastSuccessText {
-           position 0.1 0
-           hexactpos 0
-           vexactpos 0
-           size 0.88 1
-           hexactsize 0
-           vexactsize 0
-           color 0.6039 0.6902 0.3529 1
-           font "TraderX/datasets/fonts/oswalt14"
-           ignorepointer 1
-           "exact text" 1
-           "text valign" center
-           wrap 1
-           style Bold
-           scriptclass "TextBinding"
-           {
-            ScriptParamsClass {
-             Binding_Expression "{{ toastText }}"
-            }
-           }
-          }
-         }
-        }
-        PanelWidgetClass toastError {
-         position 0.03 0.85
-         hexactpos 0
-         vexactpos 0
-         size 0.94 0.11
-         hexactsize 0
-         vexactsize 0
-         ignorepointer 1
-         style TXErrorBox
-         color 0.9961 0.9961 0.9961 1
-         {
-          ImageWidgetClass toastErrorIcon {
-           position 0.03 0
-           hexactpos 0
-           vexactpos 0
-           size 24 24
-           hexactsize 1
-           vexactsize 1
-           color 0.7843 0.4 0.2902 1
-           mode blend
-           "src alpha" 1
-           valign center_ref
-           ignorepointer 1
-           image0 "set:traderx_icons image:error"
-          }
-          TextWidgetClass toastErrorText {
-           position 0.1 0
-           hexactpos 0
-           vexactpos 0
-           size 0.88 1
-           hexactsize 0
-           vexactsize 0
-           color 0.7843 0.4 0.2902 1
-           font "TraderX/datasets/fonts/oswalt14"
-           ignorepointer 1
-           "exact text" 1
-           "text valign" center
-           wrap 1
-           style Bold
-           scriptclass "TextBinding"
-           {
-            ScriptParamsClass {
-             Binding_Expression "{{ toastText }}"
-            }
-           }
-          }
-         }
+         "exact text" 1
+         "text halign" right
+         "text valign" center
+         text "NEARBY = within 50 m - RECENT = shared with before"
         }
        }
       }
@@ -695,8 +1799,8 @@ FrameWidgetClass rootFrame {
        size 0.16 1
        hexactsize 0
        vexactsize 0
-       color 0.4157 0.3961 0.3765 1
-       font "TraderX/datasets/fonts/oswalt12"
+       color 0.2902 0.2745 0.251 1
+       font "TraderX/datasets/fonts/oswalt11"
        ignorepointer 1
        "exact text" 1
        "text valign" center
@@ -710,13 +1814,368 @@ FrameWidgetClass rootFrame {
        size 0.14 1
        hexactsize 0
        vexactsize 0
-       color 0.8314 0.6431 0.298 1
-       font "TraderX/datasets/fonts/oswalt12"
+       color 0.4784 0.4157 0.2824 1
+       font "TraderX/datasets/fonts/oswalt11"
+       ignorepointer 1
+       "exact text" 1
+       "text valign" center
+       text "DayZ Beans Launcher"
+      }
+     }
+    }
+   }
+  }
+  PanelWidgetClass toastSuccess {
+   position 0 0.06
+   hexactpos 0
+   vexactpos 0
+   size 0.3 0.04
+   hexactsize 0
+   vexactsize 0
+   halign center_ref
+   valign top_ref
+   ignorepointer 1
+   style TXSuccessBox
+   color 0.9961 0.9961 0.9961 1
+   {
+    TextWidgetClass toastSuccessText {
+     position 0.04 0
+     hexactpos 0
+     vexactpos 0
+     size 0.92 1
+     hexactsize 0
+     vexactsize 0
+     color 0.6039 0.6902 0.3529 1
+     font "TraderX/datasets/fonts/oswalt14"
+     ignorepointer 1
+     "exact text" 1
+     "text valign" center
+     style Bold
+     text "Vehicle parked"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ toastText }}"
+      }
+     }
+    }
+   }
+  }
+  PanelWidgetClass toastError {
+   position 0 0.06
+   hexactpos 0
+   vexactpos 0
+   size 0.3 0.04
+   hexactsize 0
+   vexactsize 0
+   halign center_ref
+   valign top_ref
+   ignorepointer 1
+   style TXErrorBox
+   color 0.9961 0.9961 0.9961 1
+   {
+    TextWidgetClass toastErrorText {
+     position 0.04 0
+     hexactpos 0
+     vexactpos 0
+     size 0.92 1
+     hexactsize 0
+     vexactsize 0
+     color 0.7843 0.4 0.2902 1
+     font "TraderX/datasets/fonts/oswalt14"
+     ignorepointer 1
+     "exact text" 1
+     "text valign" center
+     style Bold
+     text "Not enough money (100 required)"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ toastText }}"
+      }
+     }
+    }
+   }
+  }
+  PanelWidgetClass spotBar {
+   position 0 0.04
+   hexactpos 0
+   vexactpos 0
+   size 0.66 0.1
+   hexactsize 0
+   vexactsize 0
+   halign center_ref
+   valign bottom_ref
+   style TXCardElevated
+   color 0.9961 0.9961 0.9961 1
+   {
+    TextWidgetClass spotTitle {
+     position 0.02 0.08
+     hexactpos 0
+     vexactpos 0
+     size 0.26 0.4
+     hexactsize 0
+     vexactsize 0
+     color 0.8471 0.8235 0.7529 1
+     font "TraderX/datasets/fonts/oswalt18"
+     ignorepointer 1
+     "exact text" 1
+     "text valign" center
+     style Bold
+     text "Olga 24"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ selectedVehicleName }}"
+      }
+     }
+    }
+    PanelWidgetClass spotChipFree {
+     position 0.02 0.56
+     hexactpos 0
+     vexactpos 0
+     size 0.14 0.32
+     hexactsize 0
+     vexactsize 0
+     color 0 0 0 0
+     ignorepointer 1
+     style rover_sim_colorable
+     {
+      TextWidgetClass spotChipFreeText {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 1 1
+       hexactsize 0
+       vexactsize 0
+       color 0.6039 0.6902 0.3529 1
+       font "TraderX/datasets/fonts/oswalt11"
        ignorepointer 1
        "exact text" 1
        "text valign" center
        style Bold
-       text "DayZ Beans Launcher"
+       text "SPOT FREE"
+      }
+     }
+    }
+    PanelWidgetClass spotChipBlocked {
+     position 0.02 0.56
+     hexactpos 0
+     vexactpos 0
+     size 0.24 0.32
+     hexactsize 0
+     vexactsize 0
+     color 0 0 0 0
+     ignorepointer 1
+     style rover_sim_colorable
+     {
+      TextWidgetClass spotChipBlockedText {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 1 1
+       hexactsize 0
+       vexactsize 0
+       color 0.7843 0.4 0.2902 1
+       font "TraderX/datasets/fonts/oswalt11"
+       ignorepointer 1
+       "exact text" 1
+       "text valign" center
+       style Bold
+       text "SPOT BLOCKED BY AN OBJECT"
+      }
+     }
+    }
+    ButtonWidgetClass spotLeftBtn {
+     position 0.29 0.18
+     hexactpos 0
+     vexactpos 0
+     size 0.04 0.5
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "TraderX/datasets/fonts/oswalt18"
+     "exact text" 1
+     "text halign" center
+     "text valign" center
+     style Bold
+     style TXBtnDefault
+     color 0.9961 0.9961 0.9961 1
+     text "<"
+     scriptclass "ButtonBinding"
+     {
+      ScriptParamsClass {
+       OnClick "OnSpotRotateLeft"
+      }
+     }
+    }
+    ButtonWidgetClass spotRightBtn {
+     position 0.34 0.18
+     hexactpos 0
+     vexactpos 0
+     size 0.04 0.5
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "TraderX/datasets/fonts/oswalt18"
+     "exact text" 1
+     "text halign" center
+     "text valign" center
+     style Bold
+     style TXBtnDefault
+     color 0.9961 0.9961 0.9961 1
+     text ">"
+     scriptclass "ButtonBinding"
+     {
+      ScriptParamsClass {
+       OnClick "OnSpotRotateRight"
+      }
+     }
+    }
+    ButtonWidgetClass spotZoomInBtn {
+     position 0.39 0.18
+     hexactpos 0
+     vexactpos 0
+     size 0.04 0.5
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "TraderX/datasets/fonts/oswalt18"
+     "exact text" 1
+     "text halign" center
+     "text valign" center
+     style Bold
+     style TXBtnDefault
+     color 0.9961 0.9961 0.9961 1
+     text "+"
+     scriptclass "ButtonBinding"
+     {
+      ScriptParamsClass {
+       OnClick "OnSpotZoomIn"
+      }
+     }
+    }
+    ButtonWidgetClass spotZoomOutBtn {
+     position 0.44 0.18
+     hexactpos 0
+     vexactpos 0
+     size 0.04 0.5
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "TraderX/datasets/fonts/oswalt18"
+     "exact text" 1
+     "text halign" center
+     "text valign" center
+     style Bold
+     style TXBtnDefault
+     color 0.9961 0.9961 0.9961 1
+     text "-"
+     scriptclass "ButtonBinding"
+     {
+      ScriptParamsClass {
+       OnClick "OnSpotZoomOut"
+      }
+     }
+    }
+    TextWidgetClass spotHint {
+     position 0.29 0.72
+     hexactpos 0
+     vexactpos 0
+     size 0.21 0.24
+     hexactsize 0
+     vexactsize 0
+     color 0.4157 0.3961 0.3765 1
+     font "TraderX/datasets/fonts/oswalt11"
+     ignorepointer 1
+     "exact text" 1
+     "text valign" center
+     text "A / D rotate - W / S zoom"
+    }
+    ButtonWidgetClass spotPrimaryBtn {
+     position 0.51 0.18
+     hexactpos 0
+     vexactpos 0
+     size 0.3 0.64
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8314 0.6431 0.298 1
+     font "TraderX/datasets/fonts/oswalt14"
+     "exact text" 1
+     "text valign" center
+     style Bold
+     style TXBtnAccent
+     color 0.9961 0.9961 0.9961 1
+     scriptclass "ButtonBinding"
+     {
+      ScriptParamsClass {
+       OnClick "OnPrimary"
+      }
+     }
+    }
+    TextWidgetClass spotPrimaryLabel {
+     position 0.53 0.18
+     hexactpos 0
+     vexactpos 0
+     size 0.17 0.64
+     hexactsize 0
+     vexactsize 0
+     color 0.8314 0.6431 0.298 1
+     font "TraderX/datasets/fonts/oswalt14"
+     ignorepointer 1
+     "exact text" 1
+     "text valign" center
+     style Bold
+     text "TAKE OUT"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ primaryText }}"
+      }
+     }
+    }
+    TextWidgetClass spotPrimaryPrice {
+     position 0.7 0.18
+     hexactpos 0
+     vexactpos 0
+     size 0.1 0.64
+     hexactsize 0
+     vexactsize 0
+     color 0.8314 0.6431 0.298 1
+     font "TraderX/datasets/fonts/jet-brains-mono16"
+     ignorepointer 1
+     "exact text" 1
+     "text halign" right
+     "text valign" center
+     style Bold
+     text "100"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ primaryPriceText }}"
+      }
+     }
+    }
+    ButtonWidgetClass spotExitBtn {
+     position 0.83 0.18
+     hexactpos 0
+     vexactpos 0
+     size 0.15 0.64
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.6039 0.5804 0.5333 1
+     font "TraderX/datasets/fonts/oswalt12"
+     "exact text" 1
+     "text halign" center
+     "text valign" center
+     style Bold
+     style TXBtnDefault
+     color 0.9961 0.9961 0.9961 1
+     text "BACK - ESC"
+     scriptclass "ButtonBinding"
+     {
+      ScriptParamsClass {
+       OnClick "OnExitSpotView"
       }
      }
     }

@@ -87,6 +87,12 @@ class TXGNpcService extends DayZularService
             if (!entry || entry.className == "")
                 continue;
 
+            if (vector.Distance(entry.position, Vector(11632.63, 58.13, 14658.4)) < 1.0 && !TXGSettings.IsChernarusWorld())
+            {
+                GetTXGLog().LogWarning("[TXG] Skipping default Chernarus garage NPC '" + entry.name + "' on non-Chernarus map — set coordinates in " + TXGConstants.CONFIG_FILE);
+                continue;
+            }
+
             Object obj = GetGame().CreateObject(entry.className, entry.position, false, false);
             if (!obj)
             {

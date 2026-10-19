@@ -26,7 +26,7 @@ Either way: everything lives in the file above.
   "npcs": [
     {
       "npcId": 125,                      // 0..127, unique per garage. Ties the attendant to its spots.
-      "className": "TraderPlusSign",     // the NPC/object spawned (survivor, sign, building...)
+      "className": "SurvivorM_Mirek",    // the NPC/object spawned (survivor, sign, building...)
       "position": "11632.6 58.1 14658.4",
       "orientation": "250 0 0",
       "name": "Garage",
@@ -42,10 +42,36 @@ Either way: everything lives in the file above.
   "parkInCost": 100,
   "parkOutCost": 100,
   "maxVehicleStored": 5,
+  "vehicleMustHaveLock": false,
+  "saveVehicleLock": true,
   "saveVehicleCargo": true,
   "saveVehicleHealth": true,
   "saveVehicleFuel": true,
-  "payWithBank": true                    // use the Banking ledger if present; else cash fallback
+  "payWithBank": true,                   // use the Banking ledger if present; else cash fallback
+  "enableRepairs": true,
+  "repairFluidCost": 100,
+  "repairBodyCost": 300,
+  "repairBodyPercent": 10,
+  "repairWornPartCost": 150,
+  "repairRuinedPartCost": 300,
+  "impoundFee": 500,
+  "adminSteamIds": [],
+  "noRetrieveZones": [],
+  "insurance": {
+    "enabled": false,
+    "recoveryMode": "INSURED_ONLY",      // "NONE" | "INSURED_ONLY" | "ALL_OWNED"
+    "premiumPercentPerDay": 2.0,
+    "minDays": 1,
+    "maxDays": 30,
+    "deductiblePercent": 25.0,
+    "deductibleMin": 500,
+    "claimCooldownHours": 24,
+    "maxActivePoliciesPerPlayer": 3,
+    "replacementNoResaleHours": 72,
+    "replacementSpec": "CATALOG_PRESET", // "CATALOG_PRESET" | "BARE"
+    "holdCountsAgainstSlots": false,
+    "insurableClasses": []
+  }
 }
 ```
 

@@ -75,3 +75,27 @@ Une décision annulée est taguée `[ANNULÉ]` — jamais supprimée. Une `D-XXX
 - **Contexte** : Le dossier `src/TraderX/datasets/gui/v2/` contient une UI intermédiaire.
 - **Choix** : **Ne jamais modifier ce dossier.** Directive utilisateur explicite.
 - **Raison** : Non documentée — à ne pas remettre en question.
+
+## D-012 — TraderXGarage v2 : architecture lean, preview ECE_LOCAL, index sans FindFile et contrats CarLock/Assurance (2026-10-15)
+- **Contexte** : Refonte de `TraderXGarage` pour atteindre et dépasser les fonctionnalités de Modern Garage (~81.5k LOC) tout en restant ultra-léger (~3.5k–4.5k LOC) et idiomatique TraderX/DayZular.
+- **Choix** :
+  1. **Pas de duplication de catalogue/shop véhicule** : l'achat/vente reste dans `TraderX` core (`TraderXVehicleTransactionService`) ; le garage utilise uniquement les `parkSpots[]` des NPCs configurés (pas de spawn au viseur au sol).
+  2. **Persistance JSON v2 + `PlayerIndex.json`** : `TXGGarageData` persiste les zones de dégâts (`zones[]`), les 4 fluides (`fuel`, `oil`, `coolant`, `brake`), l'état CarLock et les champs d'assurance en JSON pur. Un index `$profile:TraderX/TraderXGarage/Database/PlayerIndex.json` évite tout appel à `FindFile` (cassé sur les chemins hors cwd en DayZ 1.30).
+  3. **Preview 3D client (`TXGPreviewService`)** : entité locale `ECE_LOCAL | ECE_NOLIFETIME` sans physique avec montage des pièces réelles via `CreateAttachmentEx` / `LocationCreateLocalEntity` + `EEItemAttached`, visible dans le viewport UI et en hologramme sur le `parkSpot` du NPC.
+  4. **Extension des ports cross-module (`US-033`)** :
+     - `ITraderXCarLockProvider` (+) : `HasCarLock(vehicle)`, `IsOwner(vehicle, playerUid)`, `GetPassword(vehicle)`, `RestoreCarLock(vehicle, ownerUid, password, isLocked)` pour préserver le CarLock et vérifier le propriétaire au park-in/out.
+     - `ITraderXGarageProvider` (+) : `IsResaleBlocked(vehicle)` et `OnVehicleSold(vehicle, sellerUid)` (cf. `docs/handoff/INSURANCE_SPEC.md`).
+- **Raison** : Réutilisation directe des briques TraderX existantes, zéro bloat d'adapters externes ou de format binaire `.bin`, conformité DayZ 1.30.
+
+## D-013 — TraderXGarage : correctifs de revue (2026-10-15)
+- **Contexte** : Revue du garage v2 (D-012) et tests serveur (`dayz-autotest`, mission `txgtest`, 25 scénarios).
+- **Choix** :
+  1. **Le serveur vérifie la présence au garage** : toute requête (park-in/out, service, assurance, partage) exige d'être à `GARAGE_INTERACT_DISTANCE` (12 m) d'un NPC garage ; park-out exige le NPC cliqué. Sans ça, un client modifié garait/sortait un véhicule de n'importe où.
+  2. **Épave = épave** : park-in refusé pour un véhicule ruiné ou tamponné `CLAIMED` (sinon service + 2e réclamation = duplication).
+  3. **Arrêt serveur ≠ suppression** : `MissionServer.OnMissionFinish` lève `TXGVehicleStampHelper.s_ServerShuttingDown` ; sans ça chaque redémarrage annulait (`VOID DELETED`) toutes les polices.
+  4. **Franchise ≥ prix de revente** : la franchise est relevée automatiquement au prix de vente trader du véhicule (au lieu d'un simple avertissement) — détruire-réclamer ne bat jamais la revente.
+  5. **Partage porté par le véhicule** : la liste `sharedWith` voyage dans le tampon CF ModStorage (`storageVersion=2`) ; un invité qui gare le véhicule le rend au garage du propriétaire. Index inverse invité→propriétaires en mémoire (plus de lecture de tous les garages à chaque ouverture).
+  6. **Paiement** : banque si le solde suffit, sinon cash via `TraderXCurrencyService` (piles + monnaie rendue) ; en standalone, calcul par quantité avec rendu de monnaie.
+  7. **God mode 30 s du core** : la restauration de santé/zones lève temporairement `SetAllowDamage` (sinon un véhicule abîmé ressortait neuf).
+  8. **NPC de service** : le core ne spawn plus 125 quand TraderXGarage est chargé (le garage spawn son propre NPC dans tous les modes) — fin des NPC en double. 126 (ATM) reste spawné par le core : TraderXBanking s'appuie dessus en mode TraderX.
+  9. **Véhicule de remplacement** : pièces du preset par défaut du produit (4 roues = 4 entrées), plus la liste brute des attachments autorisés.

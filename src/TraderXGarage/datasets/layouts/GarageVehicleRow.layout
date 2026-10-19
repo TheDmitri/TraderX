@@ -24,36 +24,33 @@ PanelWidgetClass vehicleRowRoot {
     }
    }
   }
-  PanelWidgetClass rowHealthBar {
-   position 0 0.15
+  PanelWidgetClass rowSelectedBg {
+   position 0 0
    hexactpos 0
    vexactpos 0
-   size 0.01 0.7
+   size 1 1
    hexactsize 0
    vexactsize 0
+   ignorepointer 1
+   style TXCardElevated
+   color 0.9961 0.9961 0.9961 1
+  }
+  PanelWidgetClass rowHealthBar {
+   position 0.03 0.28
+   hexactpos 0
+   vexactpos 0
+   size 8 8
+   hexactsize 1
+   vexactsize 1
    color 0.4784 0.6039 0.2902 1
    ignorepointer 1
    style rover_sim_colorable
   }
-  ImageWidgetClass rowIcon {
-   position 0.03 0
-   hexactpos 0
-   vexactpos 0
-   size 22 22
-   hexactsize 1
-   vexactsize 1
-   color 0.4157 0.3961 0.3765 1
-   mode blend
-   "src alpha" 1
-   valign center_ref
-   ignorepointer 1
-   image0 "set:traderx_icons image:wrench"
-  }
   TextWidgetClass rowName {
-   position 0.08 0.08
+   position 0.06 0.1
    hexactpos 0
    vexactpos 0
-   size 0.66 0.52
+   size 0.6 0.45
    hexactsize 0
    vexactsize 0
    color 0.8471 0.8235 0.7529 1
@@ -61,6 +58,7 @@ PanelWidgetClass vehicleRowRoot {
    ignorepointer 1
    "exact text" 1
    "text valign" center
+   style Bold
    text "Vehicle"
    scriptclass "TextBinding"
    {
@@ -70,10 +68,10 @@ PanelWidgetClass vehicleRowRoot {
    }
   }
   TextWidgetClass rowHealth {
-   position 0.08 0.56
+   position 0.06 0.55
    hexactpos 0
    vexactpos 0
-   size 0.66 0.4
+   size 0.6 0.35
    hexactsize 0
    vexactsize 0
    color 0.6039 0.5804 0.5333 1
@@ -81,11 +79,32 @@ PanelWidgetClass vehicleRowRoot {
    ignorepointer 1
    "exact text" 1
    "text valign" center
-   text "Pristine"
+   text "Pristine - Fuel 100%"
    scriptclass "TextBinding"
    {
     ScriptParamsClass {
      Binding_Expression "{{ rowHealth }}"
+    }
+   }
+  }
+  TextWidgetClass rowBadge {
+   position 0.66 0
+   hexactpos 0
+   vexactpos 0
+   size 0.31 1
+   hexactsize 0
+   vexactsize 0
+   color 0.8314 0.6431 0.298 1
+   font "TraderX/datasets/fonts/jet-brains-mono11"
+   ignorepointer 1
+   "exact text" 1
+   "text halign" right
+   "text valign" center
+   style Bold
+   scriptclass "TextBinding"
+   {
+    ScriptParamsClass {
+     Binding_Expression "{{ rowBadgeText }}"
     }
    }
   }

@@ -35,6 +35,56 @@ class TXGCurrencyEntry
     }
 }
 
+class TXGInsuranceSettings
+{
+    bool   enabled = false;
+    string recoveryMode = "INSURED_ONLY";       // "NONE" | "INSURED_ONLY" | "ALL_OWNED"
+    float  premiumPercentPerDay = 2.0;          // % of coveredValue per day
+    int    minDays = 1;
+    int    maxDays = 30;
+    float  deductiblePercent = 25.0;            // % of coveredValue
+    int    deductibleMin = 500;
+    int    claimCooldownHours = 24;
+    int    maxActivePoliciesPerPlayer = 3;
+    int    replacementNoResaleHours = 72;
+    string replacementSpec = "CATALOG_PRESET";  // "CATALOG_PRESET" | "BARE"
+    bool   holdCountsAgainstSlots = false;
+    ref array<string> insurableClasses;
+
+    void TXGInsuranceSettings()
+    {
+        insurableClasses = new array<string>();
+    }
+}
+
+class TXGVehiclePriceEntry
+{
+    string className;
+    int    buyPrice;
+    int    sellPrice;
+
+    void TXGVehiclePriceEntry(string _className = "", int _buyPrice = 0, int _sellPrice = 0)
+    {
+        className = _className;
+        buyPrice = _buyPrice;
+        sellPrice = _sellPrice;
+    }
+}
+
+class TXGZoneEntry
+{
+    string name;
+    vector position;
+    float  radius;
+
+    void TXGZoneEntry(string _name = "", vector _position = vector.Zero, float _radius = 0)
+    {
+        name = _name;
+        position = _position;
+        radius = _radius;
+    }
+}
+
 class TXGSettings
 {
     // Inline help — serialized at the top of the JSON so the file explains itself.
@@ -45,12 +95,32 @@ class TXGSettings
     int    parkInCost = 100;
     int    parkOutCost = 100;
     int    maxVehicleStored = 5;
+    bool   vehicleMustHaveLock = false;
+    bool   saveVehicleLock = true;
     bool   saveVehicleCargo = true;
     bool   saveVehicleHealth = true;
     bool   saveVehicleFuel = true;
     bool   payWithBank = true;      // prefer banking provider; falls back to cash
     float  parkRadius = 15.0;       // search radius for a vehicle to park in
     float  parkClaimDistance = 6.0; // how close the player must be to an NPC park spot
+
+    // Per-category repair pricing
+    bool   enableRepairs = true;
+    int    repairFluidCost = 100;
+    int    repairBodyCost = 300;
+    int    repairBodyPercent = 10;
+    int    repairWornPartCost = 150;
+    int    repairRuinedPartCost = 300;
+
+    // Admin, Impound & Zones
+    int    impoundFee = 500;
+    ref array<string> adminSteamIds = new array<string>();
+    ref array<ref TXGZoneEntry> noRetrieveZones = new array<ref TXGZoneEntry>();
+
+    // Vehicle Insurance block (see docs/handoff/INSURANCE_SPEC.md)
+    ref TXGInsuranceSettings insurance = new TXGInsuranceSettings();
+    // Standalone fallback vehicle catalog values (used when TraderX core catalog is absent)
+    ref array<ref TXGVehiclePriceEntry> vehicleValues = new array<ref TXGVehiclePriceEntry>();
 
     ref array<ref TXGNpcEntry> npcs = new array<ref TXGNpcEntry>();
     // Cash fallback currency table (used only when banking is unavailable).
@@ -87,10 +157,22 @@ class TXGSettings
 
         if (npcs.Count() == 0)
         {
-            TXGNpcEntry e = new TXGNpcEntry(TXGConstants.GARAGE_NPC_ID, "TraderPlusSign", Vector(11632.63, 58.13, 14658.4), Vector(250, 0, 0), "Garage");
+            TXGNpcEntry e = new TXGNpcEntry(TXGConstants.GARAGE_NPC_ID, "SurvivorM_Mirek", Vector(11632.63, 58.13, 14658.4), Vector(250, 0, 0), "Garage");
             e.parkSpots.Insert(new TXGParkSpot(Vector(11633.36, 57.81, 14650.17), Vector(250, 0, 0), Vector(6, 3, 12)));
             npcs.Insert(e);
         }
+    }
+
+    static bool IsChernarusWorld()
+    {
+        if (!GetGame())
+            return true;
+        string worldName = "";
+        GetGame().GetWorldName(worldName);
+        worldName.ToLower();
+        if (worldName == "chernarusplus" || worldName == "chernarus")
+            return true;
+        return false;
     }
 
     bool IsCurrency(string _className)
@@ -147,6 +229,31 @@ class TXGSettings
         GetTXGLog().LogInfo("[TXG] Config saved to " + TXGConstants.CONFIG_FILE);
     }
 
+    // Config 1.0 (TraderX stable) had one parkPosition/parkOrientation per NPC and no npcId.
+    // Carry them into parkSpots and give each garage a distinct id (first = the reserved garage id).
+    void UpgradeLegacyNpcs()
+    {
+        TXGLegacySettings legacy = new TXGLegacySettings();
+        JsonFileLoader<TXGLegacySettings>.JsonLoadFile(TXGConstants.CONFIG_FILE, legacy);
+        if (!legacy.npcs)
+            return;
+
+        for (int i = 0; i < npcs.Count() && i < legacy.npcs.Count(); i++)
+        {
+            TXGNpcEntry npc = npcs[i];
+            TXGLegacyNpcEntry old = legacy.npcs[i];
+            if (!npc || !old)
+                continue;
+            if (npc.npcId <= 0)
+                npc.npcId = TXGConstants.GARAGE_NPC_ID - i;
+            if (!npc.parkSpots)
+                npc.parkSpots = new array<ref TXGParkSpot>();
+            if (npc.parkSpots.Count() == 0 && old.parkPosition != vector.Zero)
+                npc.parkSpots.Insert(new TXGParkSpot(old.parkPosition, old.parkOrientation, Vector(6, 3, 12)));
+            GetTXGLog().LogInfo("[TXG] Config 1.0 upgrade: garage '" + npc.name + "' npcId=" + npc.npcId.ToString() + " parkSpots=" + npc.parkSpots.Count().ToString());
+        }
+    }
+
     static ref TXGSettings Load()
     {
         TXGSettings settings;
@@ -161,6 +268,20 @@ class TXGSettings
             settings = new TXGSettings();
             JsonFileLoader<TXGSettings>.JsonLoadFile(TXGConstants.CONFIG_FILE, settings);
             GetTXGLog().LogInfo("[TXG] Config loaded from " + TXGConstants.CONFIG_FILE);
+
+            if (!settings.insurance)
+                settings.insurance = new TXGInsuranceSettings();
+            if (!settings.insurance.insurableClasses)
+                settings.insurance.insurableClasses = new array<string>();
+            if (!settings.adminSteamIds)
+                settings.adminSteamIds = new array<string>();
+            if (!settings.noRetrieveZones)
+                settings.noRetrieveZones = new array<ref TXGZoneEntry>();
+            if (!settings.vehicleValues)
+                settings.vehicleValues = new array<ref TXGVehiclePriceEntry>();
+
+            if (settings.version == "1.0")
+                settings.UpgradeLegacyNpcs();
 
             if (settings.version != TXGConstants.CONFIG_VERSION)
             {
@@ -177,4 +298,15 @@ class TXGSettings
 
         return settings;
     }
+}
+
+class TXGLegacyNpcEntry
+{
+    vector parkPosition;
+    vector parkOrientation;
+}
+
+class TXGLegacySettings
+{
+    ref array<ref TXGLegacyNpcEntry> npcs;
 }

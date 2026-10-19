@@ -54,6 +54,7 @@ class TXGGarageData
             MakeDirectory(TXGConstants.DB_DIR);
 
         JsonFileLoader<TXGGarageData>.JsonSaveFile(GetFilePath(ownerUID), this);
+        TXGPlayerIndex.Get().Touch(ownerUID, ownerName);
     }
 
     static ref TXGGarageData Load(string uid, string name)
@@ -62,20 +63,35 @@ class TXGGarageData
             MakeDirectory(TXGConstants.DB_DIR);
 
         string path = GetFilePath(uid);
-        ref TXGGarageData data;
+        TXGGarageData data;
 
         if (FileExist(path))
         {
             data = new TXGGarageData();
             JsonFileLoader<TXGGarageData>.JsonLoadFile(path, data);
 
+            if (data.ownerUID == "")
+                data.ownerUID = uid;
+            if (name != "" && data.ownerName != name)
+                data.ownerName = name;
+
             if (!data.vehicles)
                 data.vehicles = new array<ref TXGVehicleData>();
+
+            foreach (TXGVehicleData v : data.vehicles)
+            {
+                if (v)
+                    v.NormalizeAfterLoad();
+            }
 
             if (data.version != TXGConstants.DATA_VERSION)
             {
                 data.version = TXGConstants.DATA_VERSION;
                 data.Save();
+            }
+            else
+            {
+                TXGPlayerIndex.Get().Touch(uid, data.ownerName);
             }
         }
         else

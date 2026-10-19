@@ -20,11 +20,17 @@ class TXGAppInit
         // Core garage service (depends on config).
         registry.RegisterService(TXGGarageService, new TXGGarageService());
 
-        // RPC service (depends on config + garage).
+        // Insurance service (server policy lifecycle & EEKilled/EEDelete hooks).
+        registry.RegisterService(TXGInsuranceService, new TXGInsuranceService());
+
+        // RPC service (depends on config + garage + insurance).
         registry.RegisterService(TXGRPCService, new TXGRPCService());
 
         // UI service (client-only menu lifecycle).
         registry.RegisterService(TXGUIService, new TXGUIService());
+
+        // Client 3D preview service (ECE_LOCAL vehicle + fitted attachments + spot hologram).
+        registry.RegisterService(TXGPreviewService, new TXGPreviewService());
 
         // NPC service — spawns garage NPCs in standalone mode.
         registry.RegisterService(TXGNpcService, new TXGNpcService());

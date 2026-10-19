@@ -16,10 +16,18 @@ class TXGRPCService extends DayZularService
             GetDayZularRPCManager().AddRPC(TXGConstants.RPC_NAMESPACE, "RequestGarage", this, DayZularRPCType.Server);
             GetDayZularRPCManager().AddRPC(TXGConstants.RPC_NAMESPACE, "RequestParkIn", this, DayZularRPCType.Server);
             GetDayZularRPCManager().AddRPC(TXGConstants.RPC_NAMESPACE, "RequestParkOut", this, DayZularRPCType.Server);
+            GetDayZularRPCManager().AddRPC(TXGConstants.RPC_NAMESPACE, "RequestRepair", this, DayZularRPCType.Server);
+            GetDayZularRPCManager().AddRPC(TXGConstants.RPC_NAMESPACE, "RequestInsure", this, DayZularRPCType.Server);
+            GetDayZularRPCManager().AddRPC(TXGConstants.RPC_NAMESPACE, "RequestShare", this, DayZularRPCType.Server);
+            GetDayZularRPCManager().AddRPC(TXGConstants.RPC_NAMESPACE, "RequestAdminImpound", this, DayZularRPCType.Server);
 
             GetDayZularRPCManager().SetRateLimit(TXGConstants.RPC_NAMESPACE, "RequestGarage", 4, 1.0);
             GetDayZularRPCManager().SetRateLimit(TXGConstants.RPC_NAMESPACE, "RequestParkIn", 3, 1.0);
             GetDayZularRPCManager().SetRateLimit(TXGConstants.RPC_NAMESPACE, "RequestParkOut", 3, 1.0);
+            GetDayZularRPCManager().SetRateLimit(TXGConstants.RPC_NAMESPACE, "RequestRepair", 3, 1.0);
+            GetDayZularRPCManager().SetRateLimit(TXGConstants.RPC_NAMESPACE, "RequestInsure", 3, 1.0);
+            GetDayZularRPCManager().SetRateLimit(TXGConstants.RPC_NAMESPACE, "RequestShare", 3, 1.0);
+            GetDayZularRPCManager().SetRateLimit(TXGConstants.RPC_NAMESPACE, "RequestAdminImpound", 3, 1.0);
         }
 
         if (GetGame().IsClient() || !GetGame().IsMultiplayer())
@@ -45,13 +53,52 @@ class TXGRPCService extends DayZularService
         dto.parkInCost = settings.parkInCost;
         dto.parkOutCost = settings.parkOutCost;
         dto.maxSlots = settings.maxVehicleStored;
+        dto.enableRepairs = settings.enableRepairs;
+        if (settings.insurance)
+        {
+            dto.enableInsurance = settings.insurance.enabled;
+            dto.insuranceDefaultDays = settings.insurance.minDays;
+            dto.insuranceMaxDays = settings.insurance.maxDays;
+        }
+        dto.isAdmin = GetTXGGarageService().IsPlayerAdmin(identity.GetPlainId());
         foreach (TXGNpcEntry npc : settings.npcs)
         {
-            if (npc && npc.className != "")
+            if (!npc)
+                continue;
+            if (npc.className != "")
                 dto.npcClasses.Insert(npc.className);
+            if (npc.npcId >= 0)
+                dto.npcIds.Insert(npc.npcId);
+            if (npc.parkSpots)
+            {
+                foreach (TXGParkSpot sp : npc.parkSpots)
+                {
+                    if (sp)
+                        dto.npcSpots.Insert(new TXGNpcSpotDTO(npc.npcId, npc.position, sp.position, sp.orientation, sp.size));
+                }
+            }
         }
 
         GetDayZularRPCManager().SendRPC(TXGConstants.RPC_NAMESPACE, "OnGarageConfig", new Param1<ref TXGConfigDTO>(dto), true, identity);
+        NotifyPendingHolds(identity);
+    }
+
+    // Insurance replacements are created while the owner may be offline: tell them at login.
+    protected void NotifyPendingHolds(PlayerIdentity identity)
+    {
+        string uid = identity.GetPlainId();
+        if (!FileExist(TXGGarageData.GetFilePath(uid)))
+            return;
+
+        TXGGarageData data = TXGGarageData.Load(uid, identity.GetName());
+        int holds = 0;
+        foreach (TXGVehicleData v : data.vehicles)
+        {
+            if (v && v.holdReason == TXGConstants.HOLD_INSURANCE)
+                holds++;
+        }
+        if (holds > 0)
+            NotificationSystem.SendNotificationToPlayerIdentityExtended(identity, 10, "Garage", holds.ToString() + " insurance replacement vehicle(s) waiting at the garage.", "set:dayz_gui image:icon_info");
     }
 
     // --- Server handlers ---
@@ -96,6 +143,69 @@ class TXGRPCService extends DayZularService
         SendGarageList(player);
     }
 
+    void RequestRepair(PlayerIdentity sender, ParamsReadContext ctx)
+    {
+        Param1<ref TXGVehicleActionRequest> data = new Param1<ref TXGVehicleActionRequest>(null);
+        if (!ctx.Read(data) || !data.param1)
+            return;
+
+        PlayerBase player = GetPlayerByIdentity(sender);
+        if (!player)
+            return;
+
+        bool ok = false;
+        string msg = GetTXGGarageService().RepairStoredVehicle(player, data.param1.vehicleId, ok);
+        Notify(player, msg, ok);
+        SendGarageList(player);
+    }
+
+    void RequestInsure(PlayerIdentity sender, ParamsReadContext ctx)
+    {
+        Param1<ref TXGVehicleActionRequest> data = new Param1<ref TXGVehicleActionRequest>(null);
+        if (!ctx.Read(data) || !data.param1)
+            return;
+
+        PlayerBase player = GetPlayerByIdentity(sender);
+        if (!player)
+            return;
+
+        bool ok = false;
+        int days = data.param1.intParam;
+        if (days <= 0)
+            days = 1;
+        string msg = GetTXGInsuranceService().SubscribeStoredVehicle(player, data.param1.vehicleId, days, ok);
+        Notify(player, msg, ok);
+        SendGarageList(player);
+    }
+
+    void RequestShare(PlayerIdentity sender, ParamsReadContext ctx)
+    {
+        Param1<ref TXGVehicleActionRequest> data = new Param1<ref TXGVehicleActionRequest>(null);
+        if (!ctx.Read(data) || !data.param1)
+            return;
+
+        PlayerBase player = GetPlayerByIdentity(sender);
+        if (!player)
+            return;
+
+        bool ok = false;
+        string msg = GetTXGGarageService().ShareStoredVehicle(player, data.param1.vehicleId, data.param1.strParam, data.param1.intParam, ok);
+        Notify(player, msg, ok);
+        SendGarageList(player);
+    }
+
+    void RequestAdminImpound(PlayerIdentity sender, ParamsReadContext ctx)
+    {
+        PlayerBase player = GetPlayerByIdentity(sender);
+        if (!player)
+            return;
+
+        bool ok = false;
+        string msg = GetTXGGarageService().AdminImpoundNearby(player, ok);
+        Notify(player, msg, ok);
+        SendGarageList(player);
+    }
+
     // --- Server senders ---
 
     void SendGarageList(PlayerBase player)
@@ -117,6 +227,12 @@ class TXGRPCService extends DayZularService
         payload.ownerUID = uid;
         payload.maxSlots = maxSlots;
         payload.vehicles = GetTXGGarageService().BuildVehicleList(data);
+        TXGVehicleRowVM nearbyRow = GetTXGGarageService().BuildNearbyRow(player);
+        if (nearbyRow)
+            payload.nearby.Insert(nearbyRow);
+        GetTXGGarageService().BuildPeople(player, data, payload.people);
+        payload.nowUnix = TXGInsuranceService.GetNowUnix();
+        GetTXGGarageService().GetBalances(player, payload.bankBalance, payload.cashBalance);
 
         // Real object over the wire — DayZular marshals the nested ref array (no JSON string).
         GetDayZularRPCManager().SendRPC(TXGConstants.RPC_NAMESPACE, "OnGarageList", new Param1<ref TXGVehicleListFile>(payload), true, player.GetIdentity());
@@ -139,7 +255,8 @@ class TXGRPCService extends DayZularService
             return;
 
         TXGVehicleListFile payload = data.param1;
-        GetTXGGarageService().SetClientVehicles(payload.vehicles, payload.maxSlots);
+        GetTXGGarageService().SetClientExtras(payload.people, payload.bankBalance, payload.cashBalance, payload.nowUnix);
+        GetTXGGarageService().SetClientVehicles(payload.vehicles, payload.maxSlots, payload.nearby);
     }
 
     void OnGarageConfig(PlayerIdentity sender, ParamsReadContext ctx)
@@ -149,7 +266,7 @@ class TXGRPCService extends DayZularService
             return;
 
         TXGConfigDTO dto = data.param1;
-        GetTXGConfigService().SetClientConfig(dto.parkInCost, dto.parkOutCost, dto.maxSlots, dto.npcClasses);
+        GetTXGConfigService().SetClientConfig(dto.parkInCost, dto.parkOutCost, dto.maxSlots, dto.npcClasses, dto.npcIds, dto.npcSpots, dto.enableRepairs, dto.enableInsurance, dto.insuranceDefaultDays, dto.isAdmin, dto.insuranceMaxDays);
     }
 
     void OnGarageNotify(PlayerIdentity sender, ParamsReadContext ctx)

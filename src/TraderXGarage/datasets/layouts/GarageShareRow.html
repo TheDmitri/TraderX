@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+  <link rel="stylesheet" href="dzml-icons.css">
+</head>
+<body>
+
+<!-- GarageShareRow - one player in the share panel: name, access state, ADD / REMOVE. -->
+<div data-dz="panel" data-name="shareRowRoot" data-style="TXCard"
+     class="dz-xy-0-0 dz-wh-full dz-c-FE">
+  <span data-dz="text" data-name="sharePlayerName"
+        data-bind="{{ playerNameText }}"
+        class="dz-xy-3-0 dz-wh-50-100 dz-c-D8D2C0 dz-font-body-14 dz-noptr dz-exact-text dz-text-vc dz-bold">
+    Survivor
+  </span>
+  <span data-dz="text" data-name="shareAccess"
+        data-bind="{{ accessText }}"
+        class="dz-xy-46-0 dz-wh-28-100 dz-c-6A6560 dz-font-mono-11 dz-noptr dz-exact-text dz-text-vc">
+    NEARBY
+  </span>
+  <button data-dz="button" data-name="shareAddBtn" data-style="TXBtnPrimary"
+          data-on-click="OnToggle"
+          class="dz-xy-78-15 dz-wh-20-70 dz-c-FE dz-tc-9AB05A dz-font-heading-12 dz-exact-text dz-text-center dz-text-vc dz-bold">
+    ADD
+  </button>
+  <button data-dz="button" data-name="shareRemoveBtn" data-style="TXBtnDefault"
+          data-on-click="OnToggle"
+          class="dz-xy-78-15 dz-wh-20-70 dz-c-FE dz-tc-C8664A dz-font-heading-12 dz-exact-text dz-text-center dz-text-vc dz-bold">
+    REMOVE
+  </button>
+  <button data-dz="button" data-name="shareConfirmBtn" data-style="TXBtnDanger"
+          data-on-click="OnConfirmRemove"
+          class="dz-xy-78-15 dz-wh-20-70 dz-c-FE dz-tc-FFFFFF dz-font-heading-12 dz-exact-text dz-text-center dz-text-vc dz-bold">
+    CONFIRM?
+  </button>
+</div>
+
+<script src="dzml-runtime.js"></script>
+</body>
+</html>

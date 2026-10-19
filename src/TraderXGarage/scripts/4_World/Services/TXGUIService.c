@@ -13,6 +13,34 @@ class TXGUIService extends DayZularService
         return m_IsMenuOpen;
     }
 
+    // ESC: leave the camera view first, close the window otherwise.
+    void OnEscape()
+    {
+        if (m_Component && m_Component.IsSpotView())
+        {
+            m_Component.OnExitSpotView();
+            return;
+        }
+        CloseGarageMenu();
+    }
+
+    // SelectPlayer (leaving the camera view) resets the player's input state: lock it again.
+    void ReapplyInputLock()
+    {
+        if (!m_IsMenuOpen)
+            return;
+        GetGame().GetMission().PlayerControlDisable(INPUT_EXCLUDE_ALL);
+        GetGame().GetUIManager().ShowUICursor(true);
+        GetUApi().GetInputByID(UAUIMenu).ForceDisable(true);
+    }
+
+    bool HandleKey(int key)
+    {
+        if (!m_IsMenuOpen || !m_Component)
+            return false;
+        return m_Component.HandleSpotKey(key);
+    }
+
     void OpenGarageMenu(int npcId = -1)
     {
         if (m_IsMenuOpen)
@@ -32,6 +60,8 @@ class TXGUIService extends DayZularService
             m_IsMenuOpen = true;
 
             GetGame().GetMission().PlayerControlDisable(INPUT_EXCLUDE_ALL);
+            // ESC belongs to the garage while it is open (vanilla would also open the pause menu).
+            GetUApi().GetInputByID(UAUIMenu).ForceDisable(true);
             GetGame().GetUIManager().ShowUICursor(true);
             GetGame().GetMission().GetHud().Show(false);
         }
@@ -49,6 +79,7 @@ class TXGUIService extends DayZularService
         }
 
         m_IsMenuOpen = false;
+        GetUApi().GetInputByID(UAUIMenu).ForceDisable(false);
 
         GetGame().GetMission().PlayerControlEnable(true);
         GetGame().GetUIManager().ShowUICursor(false);

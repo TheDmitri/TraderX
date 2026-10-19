@@ -34,23 +34,21 @@ class ActionTXGOpenGarage extends ActionInteractBase
 
 #ifdef TraderX
         PlayerBase targetPlayer = PlayerBase.Cast(targetObject);
-        if (targetPlayer && targetPlayer.GetNpcId() == TXGConstants.GARAGE_NPC_ID)
+        if (targetPlayer && GetTXGConfigService().IsGarageNpcId(targetPlayer.GetNpcId()))
         {
             isGarage = true;
             m_NpcId = targetPlayer.GetNpcId();
         }
 
         BuildingBase targetBuilding = BuildingBase.Cast(targetObject);
-        if (targetBuilding && targetBuilding.GetNpcId() == TXGConstants.GARAGE_NPC_ID)
+        if (targetBuilding && GetTXGConfigService().IsGarageNpcId(targetBuilding.GetNpcId()))
         {
             isGarage = true;
             m_NpcId = targetBuilding.GetNpcId();
         }
-#else
-        // Standalone: no GetNpcId — match by class; server falls back to nearest configured NPC.
-        if (GetTXGConfigService().IsGarageNpcClass(targetObject.GetType()))
-            isGarage = true;
 #endif
+        if (!isGarage && GetTXGConfigService().IsGarageNpcClass(targetObject.GetType()))
+            isGarage = true;
 
         return isGarage;
     }
