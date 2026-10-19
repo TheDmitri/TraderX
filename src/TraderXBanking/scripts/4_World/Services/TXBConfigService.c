@@ -21,10 +21,42 @@ class TXBConfigService extends DayZularService
 		}
 	}
 
+	protected bool m_CurrenciesSyncedFromCore = false;
+
 	TXBSettings GetServerSettings()
 	{
+#ifdef TraderX
+		if (m_ServerSettings && !m_CurrenciesSyncedFromCore)
+		{
+			SyncCurrenciesFromTraderX();
+		}
+#endif
 		return m_ServerSettings;
 	}
+
+#ifdef TraderX
+	protected void SyncCurrenciesFromTraderX()
+	{
+		TraderXCurrencyService curSvc = TraderXCurrencyService.m_instance;
+		if (!curSvc || !curSvc.currencySettings || !curSvc.currencySettings.currencyTypes)
+			return;
+		m_CurrenciesSyncedFromCore = true;
+		foreach (TraderXCurrencyType curType : curSvc.currencySettings.currencyTypes)
+		{
+			if (!curType || !curType.currencies)
+				continue;
+			foreach (TraderXCurrency cur : curType.currencies)
+			{
+				if (!cur || cur.className == "" || cur.value <= 0)
+					continue;
+				if (!m_ServerSettings.IsCurrency(cur.className))
+				{
+					m_ServerSettings.currencies.Insert(new TXBCurrencyEntry(cur.className, cur.value));
+				}
+			}
+		}
+	}
+#endif
 
 	TXBSettings GetClientSettings()
 	{

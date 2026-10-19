@@ -26,8 +26,23 @@ PanelWidgetClass ledgerPanel {
     ScriptParamsClass {
      Binding_Expression "{{ ledgerSearch }}"
      Two_Way_Binding 1
+     OnChange "OnSearchChanged"
     }
    }
+  }
+  TextWidgetClass ledgerSearchHint {
+   position 0.02 0.02
+   hexactpos 0
+   vexactpos 0
+   size 0.19 0.05
+   hexactsize 0
+   vexactsize 0
+   color 0.4157 0.3961 0.3765 1
+   font "TraderX/datasets/fonts/oswalt12"
+   ignorepointer 1
+   "exact text" 1
+   "text valign" center
+   text "Search name, type or note"
   }
   GridSpacerWidgetClass filterBar {
    position 0.24 0.02
@@ -213,39 +228,11 @@ PanelWidgetClass ledgerPanel {
       }
      }
     }
-    PanelWidgetClass dayGroup {
+    ScrollWidgetClass entriesScroll {
      position 0 0.05
      hexactpos 0
      vexactpos 0
-     size 1 0.04
-     hexactsize 0
-     vexactsize 0
-     ignorepointer 1
-     style TXSurface
-     color 0.9961 0.9961 0.9961 1
-     {
-      TextWidgetClass dayGroupLabel {
-       position 0.02 0
-       hexactpos 0
-       vexactpos 0
-       size 0.6 1
-       hexactsize 0
-       vexactsize 0
-       color 0.4157 0.3961 0.3765 1
-       font "TraderX/datasets/fonts/oswalt12"
-       ignorepointer 1
-       "exact text" 1
-       "text valign" center
-       style Bold
-       text "TODAY - 2026-04-18"
-      }
-     }
-    }
-    ScrollWidgetClass entriesScroll {
-     position 0 0.09
-     hexactpos 0
-     vexactpos 0
-     size 1 0.91
+     size 1 0.94
      hexactsize 0
      vexactsize 0
      "Scrollbar V" 1
@@ -290,6 +277,35 @@ PanelWidgetClass ledgerPanel {
        }
       }
      }
+    }
+   }
+  }
+  PanelWidgetClass detailEmpty {
+   position 0.7 0.09
+   hexactpos 0
+   vexactpos 0
+   size 0.28 0.88
+   hexactsize 0
+   vexactsize 0
+   ignorepointer 1
+   style TXCardElevated
+   color 0.9961 0.9961 0.9961 1
+   {
+    TextWidgetClass detailEmptyText {
+     position 0.08 0.4
+     hexactpos 0
+     vexactpos 0
+     size 0.84 0.2
+     hexactsize 0
+     vexactsize 0
+     color 0.4157 0.3961 0.3765 1
+     font "TraderX/datasets/fonts/oswalt13"
+     ignorepointer 1
+     "exact text" 1
+     "text halign" center
+     "text valign" center
+     wrap 1
+     text "Select a transaction to see its details and receipt."
     }
    }
   }

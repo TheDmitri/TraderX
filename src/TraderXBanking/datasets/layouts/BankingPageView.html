@@ -83,10 +83,14 @@
 <div data-dz="frame" data-name="rootFrame" class="dz-xy-0-0 dz-wh-full dz-align-cc">
   <div data-dz="panel" data-name="bankingRoot" data-style="TXContainer"
        class="dz-xy-0-0 dz-wh-96-92 dz-align-cc dz-c-CC">
+    <!-- Solid fills: TXContainer / TXHeader centers read through to the world in game (same fix as
+         TraderXMainView). Plain panels keep their dark dz-c instead of being tinted white. -->
+    <div data-dz="panel" data-name="bankingRootBg" class="dz-xy-0-0 dz-wh-full dz-c-08090C dz-noptr"></div>
 
     <!-- ====== HEADER : identity + tabs + close ====== -->
     <div data-dz="panel" data-name="headerBar" data-style="TXHeader"
          class="dz-xy-0-0 dz-wh-100-9 dz-c-FE dz-noptr">
+      <div data-dz="panel" data-name="headerBg" class="dz-xy-0-0 dz-wh-full dz-c-0B0D12 dz-noptr"></div>
 
       <!-- Identity (NPC name + role) -->
       <div data-dz="panel" data-name="identityPanel"

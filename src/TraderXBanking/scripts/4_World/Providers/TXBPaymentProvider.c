@@ -185,7 +185,7 @@ class TXBPaymentProvider : ITraderXPaymentProvider
 
     protected int MapCategoryToEntryType(string category, bool isDeduct)
     {
-        if (category == "GARAGE_FEE_OUT") return TXBLedgerEntryType.GARAGE_FEE_OUT;
+        if (category == "GARAGE_FEE_OUT" || category == "GARAGE_REPAIR" || category == "GARAGE_INSURANCE") return TXBLedgerEntryType.GARAGE_FEE_OUT;
         if (category == "GARAGE_FEE_IN")  return TXBLedgerEntryType.GARAGE_FEE_IN;
         if (category == "TRADER_BUY")     return TXBLedgerEntryType.TRADER_BUY;
         if (category == "TRADER_SELL")    return TXBLedgerEntryType.TRADER_SELL;
@@ -195,7 +195,7 @@ class TXBPaymentProvider : ITraderXPaymentProvider
 
     protected string CategoryToCounterparty(string category)
     {
-        if (category == "GARAGE_FEE_OUT" || category == "GARAGE_FEE_IN") return "Garage";
+        if (category == "GARAGE_FEE_OUT" || category == "GARAGE_FEE_IN" || category == "GARAGE_REPAIR" || category == "GARAGE_INSURANCE") return "Garage";
         return "Trader";
     }
 }

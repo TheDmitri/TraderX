@@ -182,11 +182,42 @@
            data-style="TXInputField"
            data-bind="{{ contactsSearch }}"
            data-two-way="1"
+           data-on-change="OnContactsSearchChanged"
            class="dz-xy-40-3 dz-wh-57-6 dz-c-FE dz-tc-D8D2C0 dz-font-body-12 dz-exact-text" />
     <span data-dz="text" data-name="contactsSubtitle"
           class="dz-xy-3-11 dz-wh-94-3 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text">
       Click a contact to pre-fill the recipient ID
     </span>
+    <button data-dz="button" data-name="contactRow0"
+            data-style="TXListRow" data-on-click="OnContact0"
+            class="dz-xy-3-17 dz-wh-94-12 dz-c-FE dz-tc-D8D2C0 dz-font-body-13 dz-exact-text dz-hidden">
+      <span data-dz="text" data-name="contact0Text" data-bind="{{ contact0Label }}"
+            class="dz-xy-3-0 dz-wh-94-100 dz-c-D8D2C0 dz-font-body-13 dz-noptr dz-exact-text dz-text-vc"></span>
+    </button>
+    <button data-dz="button" data-name="contactRow1"
+            data-style="TXListRow" data-on-click="OnContact1"
+            class="dz-xy-3-31 dz-wh-94-12 dz-c-FE dz-tc-D8D2C0 dz-font-body-13 dz-exact-text dz-hidden">
+      <span data-dz="text" data-name="contact1Text" data-bind="{{ contact1Label }}"
+            class="dz-xy-3-0 dz-wh-94-100 dz-c-D8D2C0 dz-font-body-13 dz-noptr dz-exact-text dz-text-vc"></span>
+    </button>
+    <button data-dz="button" data-name="contactRow2"
+            data-style="TXListRow" data-on-click="OnContact2"
+            class="dz-xy-3-45 dz-wh-94-12 dz-c-FE dz-tc-D8D2C0 dz-font-body-13 dz-exact-text dz-hidden">
+      <span data-dz="text" data-name="contact2Text" data-bind="{{ contact2Label }}"
+            class="dz-xy-3-0 dz-wh-94-100 dz-c-D8D2C0 dz-font-body-13 dz-noptr dz-exact-text dz-text-vc"></span>
+    </button>
+    <button data-dz="button" data-name="contactRow3"
+            data-style="TXListRow" data-on-click="OnContact3"
+            class="dz-xy-3-59 dz-wh-94-12 dz-c-FE dz-tc-D8D2C0 dz-font-body-13 dz-exact-text dz-hidden">
+      <span data-dz="text" data-name="contact3Text" data-bind="{{ contact3Label }}"
+            class="dz-xy-3-0 dz-wh-94-100 dz-c-D8D2C0 dz-font-body-13 dz-noptr dz-exact-text dz-text-vc"></span>
+    </button>
+    <button data-dz="button" data-name="contactRow4"
+            data-style="TXListRow" data-on-click="OnContact4"
+            class="dz-xy-3-73 dz-wh-94-12 dz-c-FE dz-tc-D8D2C0 dz-font-body-13 dz-exact-text dz-hidden">
+      <span data-dz="text" data-name="contact4Text" data-bind="{{ contact4Label }}"
+            class="dz-xy-3-0 dz-wh-94-100 dz-c-D8D2C0 dz-font-body-13 dz-noptr dz-exact-text dz-text-vc"></span>
+    </button>
     <span data-dz="text" data-name="contactsEmpty"
           class="dz-xy-5-50 dz-wh-90-10 dz-c-6A6560 dz-font-body-12 dz-noptr dz-exact-text dz-text-center dz-text-vc">
       No recent transfers

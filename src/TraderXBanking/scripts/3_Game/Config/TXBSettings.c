@@ -65,11 +65,23 @@ class TXBSettings
 			currencies.Insert(new TXBCurrencyEntry("TraderX_Money_Ruble1_Coin", 1));
 		}
 
-		// Default ATM location at TraderPlus trader hub (Krasnostav airfield)
-		if (bankNpcs.Count() == 0)
+		// Default ATM location at TraderPlus trader hub (Krasnostav airfield — Chernarus only)
+		if (bankNpcs.Count() == 0 && IsChernarusWorld())
 		{
 			bankNpcs.Insert(new TXBBankNpcEntry("TraderPlus_BANK_ATM", Vector(11623.0, 57.91, 14676.0), Vector(-37.0, 0.0, 0.0), "ATM"));
 		}
+	}
+
+	static bool IsChernarusWorld()
+	{
+		if (!GetGame())
+			return true;
+		string worldName = "";
+		GetGame().GetWorldName(worldName);
+		worldName.ToLower();
+		if (worldName == "" || worldName == "empty" || worldName == "chernarusplus" || worldName == "chernarus")
+			return true;
+		return false;
 	}
 
 	void Save()

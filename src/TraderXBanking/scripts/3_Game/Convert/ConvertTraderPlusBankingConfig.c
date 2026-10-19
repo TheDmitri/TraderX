@@ -43,12 +43,26 @@ class oldTraderPlusBankingConfig
         if (sourcePath == string.Empty || !FileExist(sourcePath))
             return;
 
+        // TraderPlus may still be loaded on this server: never touch its own config folder.
+        // The TraderX-side config written by this migration already prevents a re-run.
+        if (sourcePath.IndexOf("$profile:TraderPlus/") == 0)
+        {
+            GetTXBLog().LogInfo("[TXB Migration] Imported " + sourcePath + " (left in place)");
+            return;
+        }
+
         string deletedDir = TXBConstants.CONFIG_DIR + "deleted/";
         if (!FileExist(deletedDir))
             MakeDirectory(deletedDir);
 
         string dest = deletedDir + "TraderPlusBankingConfig.json";
         CopyFile(sourcePath, dest);
+        if (!FileExist(dest))
+        {
+            GetTXBLog().LogError("[TXB Migration] Could not archive " + sourcePath + " to " + dest + " - keeping the original");
+            return;
+        }
+
         DeleteFile(sourcePath);
         GetTXBLog().LogInfo("[TXB Migration] Archived consumed legacy banking config: " + sourcePath + " -> " + dest);
     }
@@ -64,6 +78,7 @@ class oldTraderPlusBankingConfig
         settings.defaultMaxBalance     = DefaultMaxCurrency;
         // currencies + bankNpcs intentionally kept at TraderXBanking defaults (see header note).
 
+        TXBTraderPlusCurrencyImport.Apply(settings.currencies, CurrenciesAccepted);
         settings.Save();
         GetTXBLog().LogInfo("[TXB Migration] Converted TraderPlus banking config: fee=" + settings.transactionFeePercent + " creditCard=" + settings.requireCreditCard + " startBal=" + settings.defaultStartBalance + " maxBal=" + settings.defaultMaxBalance);
     }
@@ -83,5 +98,51 @@ class oldTraderPlusBankingConfig
         JsonFileLoader<oldTraderPlusBankingConfig>.JsonLoadFile(path, old);
         old.ConvertAndSave();
         ArchiveSource(path);
+    }
+}
+
+// TraderPlus currencies live in TraderPlusGeneralConfig.json: [{"ClassName": "a,b", "Value": n}].
+class TXBTraderPlusCurrency
+{
+    string ClassName;
+    int    Value;
+}
+
+class TXBTraderPlusCurrencyList
+{
+    ref array<ref TXBTraderPlusCurrency> Currencies;
+}
+
+class TXBTraderPlusCurrencyImport
+{
+    static const string GENERAL_CONFIG = "$profile:TraderPlus/TraderPlusConfig/TraderPlusGeneralConfig.json";
+
+    // Replaces the default TraderX_Money_* list with the notes TraderPlus players actually hold.
+    static void Apply(array<ref TXBCurrencyEntry> currencies, array<string> acceptedOnly)
+    {
+        if (!FileExist(GENERAL_CONFIG))
+            return;
+
+        TXBTraderPlusCurrencyList list = new TXBTraderPlusCurrencyList();
+        string error;
+        if (!JsonFileLoader<TXBTraderPlusCurrencyList>.LoadFile(GENERAL_CONFIG, list, error) || !list.Currencies || list.Currencies.Count() == 0)
+            return;
+
+        currencies.Clear();
+        foreach (TXBTraderPlusCurrency currency : list.Currencies)
+        {
+            TStringArray classNames = new TStringArray();
+            currency.ClassName.Split(",", classNames);
+            foreach (string className : classNames)
+            {
+                className.TrimInPlace();
+                if (className == string.Empty)
+                    continue;
+                if (acceptedOnly && acceptedOnly.Count() > 0 && acceptedOnly.Find(className) == -1)
+                    continue;
+                currencies.Insert(new TXBCurrencyEntry(className, currency.Value));
+            }
+        }
+        GetTXBLog().LogInfo("[TXB Migration] Imported " + currencies.Count() + " TraderPlus currency class(es)");
     }
 }

@@ -510,6 +510,7 @@ PanelWidgetClass transferPanel {
       ScriptParamsClass {
        Binding_Expression "{{ contactsSearch }}"
        Two_Way_Binding 1
+       OnChange "OnContactsSearchChanged"
       }
      }
     }
@@ -525,6 +526,211 @@ PanelWidgetClass transferPanel {
      ignorepointer 1
      "exact text" 1
      text "Click a contact to pre-fill the recipient ID"
+    }
+    ButtonWidgetClass contactRow0 {
+     position 0.03 0.17
+     hexactpos 0
+     vexactpos 0
+     size 0.94 0.12
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "TraderX/datasets/fonts/oswalt13"
+     "exact text" 1
+     visible 0
+     style TXListRow
+     color 0.9961 0.9961 0.9961 1
+     scriptclass "ButtonBinding"
+     {
+      TextWidgetClass contact0Text {
+       position 0.03 0
+       hexactpos 0
+       vexactpos 0
+       size 0.94 1
+       hexactsize 0
+       vexactsize 0
+       color 0.8471 0.8235 0.7529 1
+       font "TraderX/datasets/fonts/oswalt13"
+       ignorepointer 1
+       "exact text" 1
+       "text valign" center
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ contact0Label }}"
+        }
+       }
+      }
+     }
+     {
+      ScriptParamsClass {
+       OnClick "OnContact0"
+      }
+     }
+    }
+    ButtonWidgetClass contactRow1 {
+     position 0.03 0.31
+     hexactpos 0
+     vexactpos 0
+     size 0.94 0.12
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "TraderX/datasets/fonts/oswalt13"
+     "exact text" 1
+     visible 0
+     style TXListRow
+     color 0.9961 0.9961 0.9961 1
+     scriptclass "ButtonBinding"
+     {
+      TextWidgetClass contact1Text {
+       position 0.03 0
+       hexactpos 0
+       vexactpos 0
+       size 0.94 1
+       hexactsize 0
+       vexactsize 0
+       color 0.8471 0.8235 0.7529 1
+       font "TraderX/datasets/fonts/oswalt13"
+       ignorepointer 1
+       "exact text" 1
+       "text valign" center
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ contact1Label }}"
+        }
+       }
+      }
+     }
+     {
+      ScriptParamsClass {
+       OnClick "OnContact1"
+      }
+     }
+    }
+    ButtonWidgetClass contactRow2 {
+     position 0.03 0.45
+     hexactpos 0
+     vexactpos 0
+     size 0.94 0.12
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "TraderX/datasets/fonts/oswalt13"
+     "exact text" 1
+     visible 0
+     style TXListRow
+     color 0.9961 0.9961 0.9961 1
+     scriptclass "ButtonBinding"
+     {
+      TextWidgetClass contact2Text {
+       position 0.03 0
+       hexactpos 0
+       vexactpos 0
+       size 0.94 1
+       hexactsize 0
+       vexactsize 0
+       color 0.8471 0.8235 0.7529 1
+       font "TraderX/datasets/fonts/oswalt13"
+       ignorepointer 1
+       "exact text" 1
+       "text valign" center
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ contact2Label }}"
+        }
+       }
+      }
+     }
+     {
+      ScriptParamsClass {
+       OnClick "OnContact2"
+      }
+     }
+    }
+    ButtonWidgetClass contactRow3 {
+     position 0.03 0.59
+     hexactpos 0
+     vexactpos 0
+     size 0.94 0.12
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "TraderX/datasets/fonts/oswalt13"
+     "exact text" 1
+     visible 0
+     style TXListRow
+     color 0.9961 0.9961 0.9961 1
+     scriptclass "ButtonBinding"
+     {
+      TextWidgetClass contact3Text {
+       position 0.03 0
+       hexactpos 0
+       vexactpos 0
+       size 0.94 1
+       hexactsize 0
+       vexactsize 0
+       color 0.8471 0.8235 0.7529 1
+       font "TraderX/datasets/fonts/oswalt13"
+       ignorepointer 1
+       "exact text" 1
+       "text valign" center
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ contact3Label }}"
+        }
+       }
+      }
+     }
+     {
+      ScriptParamsClass {
+       OnClick "OnContact3"
+      }
+     }
+    }
+    ButtonWidgetClass contactRow4 {
+     position 0.03 0.73
+     hexactpos 0
+     vexactpos 0
+     size 0.94 0.12
+     hexactsize 0
+     vexactsize 0
+     "text color" 0.8471 0.8235 0.7529 1
+     font "TraderX/datasets/fonts/oswalt13"
+     "exact text" 1
+     visible 0
+     style TXListRow
+     color 0.9961 0.9961 0.9961 1
+     scriptclass "ButtonBinding"
+     {
+      TextWidgetClass contact4Text {
+       position 0.03 0
+       hexactpos 0
+       vexactpos 0
+       size 0.94 1
+       hexactsize 0
+       vexactsize 0
+       color 0.8471 0.8235 0.7529 1
+       font "TraderX/datasets/fonts/oswalt13"
+       ignorepointer 1
+       "exact text" 1
+       "text valign" center
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ contact4Label }}"
+        }
+       }
+      }
+     }
+     {
+      ScriptParamsClass {
+       OnClick "OnContact4"
+      }
+     }
     }
     TextWidgetClass contactsEmpty {
      position 0.05 0.5

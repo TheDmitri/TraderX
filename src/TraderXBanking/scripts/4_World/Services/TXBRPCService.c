@@ -33,6 +33,7 @@ class TXBRPCService extends DayZularService
 			GetDayZularRPCManager().AddRPC(TXBConstants.RPC_NAMESPACE, "OnAccountReceived", this, DayZularRPCType.Client);
 			GetDayZularRPCManager().AddRPC(TXBConstants.RPC_NAMESPACE, "OnSettingsReceived", this, DayZularRPCType.Client);
 			GetDayZularRPCManager().AddRPC(TXBConstants.RPC_NAMESPACE, "OnLedgerReceived", this, DayZularRPCType.Client);
+			GetDayZularRPCManager().AddRPC(TXBConstants.RPC_NAMESPACE, "OnContactsReceived", this, DayZularRPCType.Client);
 		}
 	}
 
@@ -46,6 +47,8 @@ class TXBRPCService extends DayZularService
 		TXBSettings settings = GetTXBConfigService().GetServerSettings();
 		if (!settings)
 			return;
+
+		TXBExpansionAtmImport.TryImport(identity, settings);
 
 		// Send relevant config to the client (fee percent, credit card requirement)
 		GetDayZularRPCManager().SendRPC( TXBConstants.RPC_NAMESPACE, "OnSettingsReceived", new Param2<float, bool>(settings.transactionFeePercent, settings.requireCreditCard), true, identity );
@@ -73,6 +76,7 @@ class TXBRPCService extends DayZularService
 				account.Save();
 			}
 			bankService.SendAccountToClient(player, account);
+			bankService.SendContactsToClient(player);
 		}
 	}
 
@@ -123,7 +127,7 @@ class TXBRPCService extends DayZularService
 		string destUID = data.param1;
 		int amount = data.param2;
 		string note = data.param3;
-		if (amount <= 0 || destUID == "")
+		if (amount <= 0 || destUID == "" || destUID == sender.GetPlainId())
 			return;
 
 		GetTXBBankingService().EnqueueTransaction(new TXBTransaction(player, amount, TXBConstants.TRANSACTION_TRANSFER, destUID, note));
@@ -189,6 +193,15 @@ class TXBRPCService extends DayZularService
 			return;
 
 		GetTXBBankingService().SetClientLedger(data.param1);
+	}
+
+	void OnContactsReceived(PlayerIdentity sender, ParamsReadContext ctx)
+	{
+		Param1<ref array<ref TXBContact>> data = new Param1<ref array<ref TXBContact>>(null);
+		if (!ctx.Read(data))
+			return;
+
+		GetTXBBankingService().SetClientContacts(data.param1);
 	}
 
 	// --- Helpers ---

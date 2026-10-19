@@ -15,9 +15,11 @@ class TXBBankingService extends DayZularService
 	// Event fired server-side after a ledger entry is persisted (for UI push / aggregates).
 	// Also fired client-side after the client receives a synced ledger from the server.
 	static ref ScriptInvoker Event_OnLedgerUpdated = new ScriptInvoker();
+	static ref ScriptInvoker Event_OnContactsUpdated = new ScriptInvoker();
 
 	// Client-side cache of recently synced ledger entries
 	protected ref array<ref TXBLedgerEntry> m_ClientLedger;
+	protected ref array<ref TXBContact> m_ClientContacts;
 
 	void TXBBankingService()
 	{
@@ -123,6 +125,26 @@ class TXBBankingService extends DayZularService
 		Event_OnLedgerUpdated.Invoke("", null);
 	}
 
+	ref array<ref TXBContact> GetClientContacts()
+	{
+		if (!m_ClientContacts)
+			m_ClientContacts = new array<ref TXBContact>();
+		return m_ClientContacts;
+	}
+
+	void SetClientContacts(array<ref TXBContact> contacts)
+	{
+		m_ClientContacts = new array<ref TXBContact>();
+		if (contacts)
+		{
+			foreach (TXBContact c : contacts)
+			{
+				if (c) m_ClientContacts.Insert(c);
+			}
+		}
+		Event_OnContactsUpdated.Invoke();
+	}
+
 	void EnqueueTransaction(TXBTransaction transaction)
 	{
 		m_Queue.Enqueue(transaction);
@@ -225,7 +247,22 @@ class TXBBankingService extends DayZularService
 	{
 		string uid = tx.player.GetIdentity().GetPlainId();
 		string name = tx.player.GetIdentity().GetName();
+		// Self-transfer would load the same file twice and the credit save would
+		// overwrite the debit save, minting the amount.
+		if (tx.amount <= 0 || tx.destinationUID == uid)
+		{
+			GetTXBLog().LogWarning("[TXB] Transfer rejected: invalid amount or self-transfer from " + name);
+			return;
+		}
+
 		TXBAccountData srcAccount = TXBAccountData.Load(uid, name, settings.defaultMaxBalance, settings.defaultStartBalance);
+
+		// Bounding amount by balance keeps amount + fees far from int overflow.
+		if (tx.amount > srcAccount.balance)
+		{
+			GetTXBLog().LogWarning("[TXB] Transfer failed: insufficient balance for " + name);
+			return;
+		}
 
 		if (!TXBAccountData.AccountExists(tx.destinationUID))
 		{
@@ -267,6 +304,7 @@ class TXBBankingService extends DayZularService
 		TXBContactData senderContacts = TXBContactData.Load(uid);
 		senderContacts.RecordTransfer(tx.destinationUID, destName, TXBLedgerEntry.GetUtcStamp());
 		senderContacts.Save();
+		SendContactsToClient(tx.player);
 
 		if (settings.enableLogs)
 			GetTXBLog().LogInfo("[TXB] Transfer: " + name + " sent " + transferable + " to " + tx.destinationUID + " (fees: " + fees + ") | balance: " + srcAccount.balance);
@@ -423,6 +461,17 @@ class TXBBankingService extends DayZularService
 			return;
 
 		GetDayZularRPCManager().SendRPC( TXBConstants.RPC_NAMESPACE, "OnAccountReceived", new Param3<int, int, string>(account.balance, account.maxBalance, account.playerUID), true, player.GetIdentity() );
+	}
+
+	void SendContactsToClient(Man player)
+	{
+		if (!player || !player.GetIdentity())
+			return;
+		string uid = player.GetIdentity().GetPlainId();
+		TXBContactData cdata = TXBContactData.Load(uid);
+		if (!cdata || !cdata.contacts)
+			return;
+		GetDayZularRPCManager().SendRPC( TXBConstants.RPC_NAMESPACE, "OnContactsReceived", new Param1<ref array<ref TXBContact>>(cdata.contacts), true, player.GetIdentity() );
 	}
 
 	// Send the last N ledger entries to a client. Entries are JSON-serialised into a

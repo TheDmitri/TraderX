@@ -44,7 +44,7 @@ class TXBLedgerRepository
 		return file;
 	}
 
-	static void Append(string uid, ref TXBLedgerEntry entry)
+	static void Append(string uid, TXBLedgerEntry entry)
 	{
 		if (!entry) return;
 

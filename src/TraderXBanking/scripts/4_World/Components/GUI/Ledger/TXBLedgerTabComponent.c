@@ -31,6 +31,12 @@ class TXBLedgerTabComponent extends DZlrComponentBase
 	string stat_withdrawals;
 	string stat_transfers;
 
+	// Search box (two-way bound) + widgets whose visibility is driven here.
+	string ledgerSearch;
+	Widget ledgerSearchHint;
+	Widget detailPanel;
+	Widget detailEmpty;
+
 	// Internal cache
 	protected ref array<ref TXBLedgerEntry> m_AllEntries;
 
@@ -49,6 +55,7 @@ class TXBLedgerTabComponent extends DZlrComponentBase
 		m_AllEntries = new array<ref TXBLedgerEntry>();
 		active_filter = -1;
 		selected_visible = false;
+		UpdateDetailVisibility();
 
 		TXBBankingService.Event_OnLedgerUpdated.Insert(OnLedgerUpdated);
 		TXBLedgerRowComponent.Event_OnLedgerRowClicked.Insert(OnRowClicked);
@@ -103,15 +110,39 @@ class TXBLedgerTabComponent extends DZlrComponentBase
 	bool OnFilterTransfer(){ active_filter = TXBLedgerEntryType.TRANSFER_OUT; ApplyFilter(); MarkForCheck(); return true; }
 	bool OnFilterTrader()  { active_filter = TXBLedgerEntryType.TRADER_BUY; ApplyFilter(); MarkForCheck(); return true; }
 
+	void OnSearchChanged()
+	{
+		if (ledgerSearchHint)
+			ledgerSearchHint.Show(ledgerSearch == "");
+		ApplyFilter();
+		MarkForCheck();
+	}
+
+	protected bool MatchesSearch(TXBLedgerEntry e, string needle)
+	{
+		if (needle == "")
+			return true;
+		string hay = e.counterpartyName + " " + e.note + " " + TXBLedgerEntryType.GetLabel(e.type) + " " + e.location;
+		hay.ToLower();
+		return hay.Contains(needle);
+	}
+
 	protected void ApplyFilter()
 	{
 		_visibleEntries.Clear();
 		emptyLedgerText = "No transactions yet";
 		if (!m_AllEntries) return;
 
+		string needle = ledgerSearch;
+		needle.TrimInPlace();
+		needle.ToLower();
+		if (needle != "")
+			emptyLedgerText = "No transaction matches your search";
+
 		foreach (TXBLedgerEntry e : m_AllEntries)
 		{
 			if (!e) continue;
+			if (!MatchesSearch(e, needle)) continue;
 
 			if (active_filter < 0)
 			{
@@ -141,6 +172,29 @@ class TXBLedgerTabComponent extends DZlrComponentBase
 
 		if (_visibleEntries.Count() > 0)
 			emptyLedgerText = "";
+
+		// Keep the detail panel meaningful: the selection must be one of the visible rows,
+		// else show the most recent visible one (or the "select a transaction" state).
+		bool selectionVisible = false;
+		foreach (TXBLedgerEntry v : _visibleEntries)
+		{
+			if (v && v.id == selected_id)
+				selectionVisible = true;
+		}
+		if (!selectionVisible)
+		{
+			selected_visible = false;
+			selected_id = "";
+			if (_visibleEntries.Count() > 0)
+				SelectEntry(_visibleEntries[0].id);
+		}
+		UpdateDetailVisibility();
+	}
+
+	protected void UpdateDetailVisibility()
+	{
+		if (detailPanel) detailPanel.Show(selected_visible);
+		if (detailEmpty) detailEmpty.Show(!selected_visible);
 	}
 
 	// --- Stats (30-day rolling) ---
@@ -193,6 +247,7 @@ class TXBLedgerTabComponent extends DZlrComponentBase
 			selected_location = e.location;
 			selected_note = e.note;
 			selected_visible = true;
+			UpdateDetailVisibility();
 			MarkForCheck();
 			ApplyDetailAmountColor(inflow);
 			return;

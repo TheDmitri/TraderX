@@ -5,6 +5,7 @@
 class TXBVaultService extends DayZularService
 {
 	protected ref TXBVaultData m_ClientVault;
+	protected static int s_ItemSeq = 0;
 
 	static ref ScriptInvoker Event_OnVaultUpdated = new ScriptInvoker();
 
@@ -475,16 +476,19 @@ class TXBVaultService extends DayZularService
 	{
 		if (!snap || snap.className == "") return false;
 
-		EntityAI spawned = EntityAI.Cast(GetGame().CreateObjectEx(snap.className, player.GetPosition(), ECE_PLACE_ON_SURFACE));
+		EntityAI spawned = player.GetInventory().CreateInInventory(snap.className);
+		bool placedInInv = (spawned != null);
+		if (!spawned)
+			spawned = EntityAI.Cast(GetGame().CreateObjectEx(snap.className, player.GetPosition(), ECE_PLACE_ON_SURFACE));
 		if (!spawned) return false;
 
 		if (snap.snapshotData)
 		{
-			// Apply root item state before moving to inventory
+			// Apply root item state
 			ApplyItemData(spawned, snap.snapshotData);
-			if (player.GetInventory().CanAddEntityToInventory(spawned))
+			if (!placedInInv && player.GetInventory().CanAddEntityToInventory(spawned))
 				player.GetInventory().TakeEntityToInventory(InventoryMode.SERVER, FindInventoryLocationType.CARGO, spawned);
-			// Restore attachments + cargo after item is in inventory
+			// Restore attachments + cargo
 			if (snap.snapshotData.children.Count() > 0)
 				RestoreItemChildren(spawned, snap.snapshotData.children);
 		}
@@ -495,7 +499,7 @@ class TXBVaultService extends DayZularService
 			spawned.SetHealth01("", "", healthVal);
 			if (spawned.HasQuantity() && snap.quantity > 0)
 				spawned.SetQuantity(snap.quantity);
-			if (player.GetInventory().CanAddEntityToInventory(spawned))
+			if (!placedInInv && player.GetInventory().CanAddEntityToInventory(spawned))
 				player.GetInventory().TakeEntityToInventory(InventoryMode.SERVER, FindInventoryLocationType.CARGO, spawned);
 		}
 
@@ -536,9 +540,17 @@ class TXBVaultService extends DayZularService
 
 			EntityAI child = null;
 			if (childData.locType == InventoryLocationType.ATTACHMENT)
+			{
 				child = inv.CreateAttachmentEx(childData.className, childData.slot);
+				if (!child)
+					child = inv.CreateAttachment(childData.className);
+			}
 			else
+			{
 				child = inv.CreateEntityInCargoEx(childData.className, childData.locIdx, childData.locRow, childData.locCol, childData.locFlip);
+				if (!child)
+					child = inv.CreateInInventory(childData.className);
+			}
 
 			if (!child) continue;
 
@@ -594,9 +606,10 @@ class TXBVaultService extends DayZularService
 
 	protected string GenerateItemId(string uid, string className)
 	{
+		s_ItemSeq = s_ItemSeq + 1;
 		string uidPart = uid.Substring(0, Math.Min(8, uid.Length()));
 		string clsPart = className.Substring(0, Math.Min(8, className.Length()));
-		return uidPart + "_" + clsPart + "_" + GetCurrentUtcStamp().ToString();
+		return uidPart + "_" + clsPart + "_" + GetCurrentUtcStamp().ToString() + "_" + s_ItemSeq.ToString();
 	}
 
 	int GetCurrentUtcStamp()

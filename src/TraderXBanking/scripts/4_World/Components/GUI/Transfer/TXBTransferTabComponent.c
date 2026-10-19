@@ -4,8 +4,7 @@
 
 class TXBTransferTabComponent extends DZlrComponentBase
 {
-	private static ref ComponentAutoRegister s_Register =
-		new ComponentAutoRegister("banking-transfer-tab", TXBTransferTabComponent);
+	private static ref ComponentAutoRegister s_Register = new ComponentAutoRegister("banking-transfer-tab", TXBTransferTabComponent);
 
 	// Form (two-way bindings)
 	string destinationAccountId;
@@ -17,6 +16,20 @@ class TXBTransferTabComponent extends DZlrComponentBase
 	string transferFeesDisplay;
 	string transferBalanceText;
 	string transferStatusText;
+
+	// Contact row labels (up to 5 recent recipients)
+	string contact0Label;
+	string contact1Label;
+	string contact2Label;
+	string contact3Label;
+	string contact4Label;
+	Widget contactRow0;
+	Widget contactRow1;
+	Widget contactRow2;
+	Widget contactRow3;
+	Widget contactRow4;
+	Widget contactsEmpty;
+	protected ref array<ref TXBContact> m_FilteredContacts = new array<ref TXBContact>();
 
 	// Internal state
 	protected int m_BankBalance;
@@ -34,6 +47,7 @@ class TXBTransferTabComponent extends DZlrComponentBase
 
 	override void OnInit()
 	{
+		AutoLoadWidgets();
 		PlayerIdentity identity = GetGame().GetPlayer().GetIdentity();
 		if (identity)
 			m_PlayerUID = identity.GetPlainId();
@@ -45,18 +59,99 @@ class TXBTransferTabComponent extends DZlrComponentBase
 		ResetForm();
 
 		TXBBankingService.Event_OnAccountUpdated.Insert(OnAccountUpdated);
+		TXBBankingService.Event_OnContactsUpdated.Insert(OnContactsUpdated);
 
 		GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(PeriodicUpdate, 500, true);
 
 		RefreshFromAccount();
+		RefreshContactsList();
 		MarkForCheck();
 	}
 
 	override void OnDestroy()
 	{
 		TXBBankingService.Event_OnAccountUpdated.Remove(OnAccountUpdated);
+		TXBBankingService.Event_OnContactsUpdated.Remove(OnContactsUpdated);
 		GetGame().GetCallQueue(CALL_CATEGORY_GUI).Remove(PeriodicUpdate);
 	}
+
+	void OnContactsUpdated()
+	{
+		RefreshContactsList();
+		MarkForCheck();
+	}
+
+	void OnContactsSearchChanged()
+	{
+		RefreshContactsList();
+		MarkForCheck();
+	}
+
+	protected void RefreshContactsList()
+	{
+		m_FilteredContacts.Clear();
+		array<ref TXBContact> allContacts = GetTXBBankingService().GetClientContacts();
+		string needle = contactsSearch;
+		needle.TrimInPlace();
+		needle.ToLower();
+
+		if (allContacts)
+		{
+			for (int i = allContacts.Count() - 1; i >= 0; i--)
+			{
+				TXBContact c = allContacts[i];
+				if (!c || c.uid == "") continue;
+				if (needle != "")
+				{
+					string hay = c.name + " " + c.uid;
+					hay.ToLower();
+					if (!hay.Contains(needle))
+						continue;
+				}
+				m_FilteredContacts.Insert(c);
+				if (m_FilteredContacts.Count() >= 5)
+					break;
+			}
+		}
+
+		contact0Label = FormatContactRow(0, contactRow0);
+		contact1Label = FormatContactRow(1, contactRow1);
+		contact2Label = FormatContactRow(2, contactRow2);
+		contact3Label = FormatContactRow(3, contactRow3);
+		contact4Label = FormatContactRow(4, contactRow4);
+
+		if (contactsEmpty)
+			contactsEmpty.Show(m_FilteredContacts.Count() == 0);
+	}
+
+	protected string FormatContactRow(int idx, Widget rowWidget)
+	{
+		if (idx < 0 || idx >= m_FilteredContacts.Count())
+		{
+			if (rowWidget) rowWidget.Show(false);
+			return "";
+		}
+		TXBContact c = m_FilteredContacts[idx];
+		if (rowWidget) rowWidget.Show(true);
+		string displayName = c.name;
+		if (displayName == "")
+			displayName = "Recipient";
+		return displayName + "  —  " + c.uid;
+	}
+
+	protected void SelectContactAt(int idx)
+	{
+		if (idx < 0 || idx >= m_FilteredContacts.Count())
+			return;
+		destinationAccountId = m_FilteredContacts[idx].uid;
+		MarkForCheck();
+	}
+
+	void OnContact0() { SelectContactAt(0); }
+	void OnContact1() { SelectContactAt(1); }
+	void OnContact2() { SelectContactAt(2); }
+	void OnContact3() { SelectContactAt(3); }
+	void OnContact4() { SelectContactAt(4); }
 
 	void OnAccountUpdated()
 	{
