@@ -33,10 +33,16 @@ class TraderXModule : CF_ModuleWorld
     {
         if(GetGame().IsServer())
         {
-            // Convert old V1 configs to V2 format before loading repositories
-            oldTraderXPriceConfig.ConvertOldConfigToNew();
-            oldTraderXGeneralSettings.ConvertOldConfigToNew();
-            oldTraderPlusVehiclesConfig.ConvertOldConfigToNew();
+            // Import TraderPlus V1 configs into an empty TraderX install (never over an existing one)
+            if (TraderXLegacyConfigPath.ShouldImport())
+            {
+                TraderXLegacyConfigPath.EnsureTraderXDirs();
+                oldTraderXPriceConfig.ConvertOldConfigToNew();
+                oldTraderXGeneralSettings.ConvertOldConfigToNew();
+                oldTraderPlusVehiclesConfig.ConvertOldConfigToNew();
+                TraderXLegacyConfigPath.MarkImported();
+                TraderXMigrationReport.Write("TraderPlus");
+            }
 
             // Import catalogs from other trader mods (one-shot, sentinel-guarded, non-destructive).
             ConvertDrJonesTrader.ConvertIfPresent();
@@ -215,7 +221,7 @@ class TraderXModule : CF_ModuleWorld
             return;
         }
 
-        GetTraderXLogger().LogDebug("GetConfigResponse serverId " + data.param1.serverID);
+        GetTraderXLogger().LogDebug("GetConfigResponse serverId " + data.param1.serverID + " traders=" + data.param1.traders.Count());
 
         generalSettings = data.param1;
         TraderXInventoryManager.CheckEntityNetworkId(PlayerBase.Cast(GetGame().GetPlayer()));
@@ -234,7 +240,14 @@ class TraderXModule : CF_ModuleWorld
             return;
         }
 
-        GetTraderXLogger().LogDebug("GetTraderCategoriesResponse:: data read");
+        GetTraderXLogger().LogDebug("GetTraderCategoriesResponse:: data read count=" + data.param1.Count());
+        if (data.param1.Count() > 0 && data.param1[0])
+        {
+            TraderXCategory firstCat = data.param1[0];
+            int pidCount = 0;
+            if (firstCat.productIds) pidCount = firstCat.productIds.Count();
+            GetTraderXLogger().LogDebug("GetTraderCategoriesResponse:: first cat id=" + firstCat.categoryId + " name=" + firstCat.categoryName + " productIds=" + pidCount);
+        }
         TraderXCategoryRepository.SetCategories(data.param1);
     }
 
@@ -254,6 +267,11 @@ class TraderXModule : CF_ModuleWorld
         // preserved — product ids are unique and immutable, so re-adding is idempotent.
         // param2 (isFirst) / param3 (isLast) are kept for the wire format but need no special
         // handling here; the server sends stock after the last chunk to gate the client render.
+        int chunkCount = 0;
+        if (data.param1) chunkCount = data.param1.Count();
+        string firstPid = "";
+        if (chunkCount > 0 && data.param1[0]) firstPid = data.param1[0].productId;
+        GetTraderXLogger().LogDebug("GetTraderProductsResponse:: chunk=" + chunkCount + " isFirst=" + data.param2 + " isLast=" + data.param3 + " firstPid=" + firstPid);
         TraderXProductRepository.AddProducts(data.param1);
     }
 

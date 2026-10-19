@@ -17,13 +17,29 @@ class TraderXPresetRepository
         string productId;
         
         GetTraderXLogger().LogDebug("[TraderX] Starting file search in: " + TRADERX_PRESETS);
-        FindFileHandle findHandle = FindFile(TRADERX_PRESETS + "*.json", filename, attr, FindFileFlags.ALL);
+        FindFileHandle findHandle = TraderXFileSystem.Find(TRADERX_PRESETS + "*.json", filename, attr, FindFileFlags.ALL);
         
         GetTraderXLogger().LogDebug("[TraderX] First filename found: " + filename);
         
         if (findHandle == 0){
-            GetTraderXLogger().LogError("[TraderX] ERROR: File handle is 0, no preset files found or directory error");
             CloseFindFile(findHandle);
+            array<ref TraderXProduct> loadedProducts = TraderXProductRepository.GetProducts();
+            if (loadedProducts)
+            {
+                foreach (TraderXProduct prod : loadedProducts)
+                {
+                    if (!prod || prod.productId == "")
+                        continue;
+                    string directPresetPath = TRADERX_PRESETS + "presets_" + prod.productId + ".json";
+                    if (FileExist(directPresetPath))
+                    {
+                        TraderXPresets directPresets = LoadPresetFile(directPresetPath);
+                        if (directPresets)
+                            allPresets.Set(prod.productId, directPresets);
+                    }
+                }
+            }
+            GetTraderXLogger().LogInfo(string.Format("[TraderX] LoadAllPresets (direct fallback) - Total preset files loaded: %1", allPresets.Count()));
             return allPresets;
         }
 

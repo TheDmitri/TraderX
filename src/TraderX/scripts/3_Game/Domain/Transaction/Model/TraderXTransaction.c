@@ -53,10 +53,17 @@ class TraderXTransaction
         TraderXTransactionId id = TraderXTransactionId.Generate();
         TraderXTransactionType type = TraderXTransactionType.CreateSell();
         TraderXTransactionPrice priceObj = TraderXTransactionPrice.CreateFromAmount(price);
-        TraderXNetworkIdentifier netId = TraderXNetworkIdentifier.CreateFromIds(item.GetPlayerItem().GetNetworkIdLow(), item.GetPlayerItem().GetNetworkIdHigh());
-        TraderXTransaction transaction = new TraderXTransaction(id, type, item.productId, string.Empty, multi, priceObj, netId, item.GetPlayerItem().GetDepth(), npcId);
-        GetTraderXLogger().LogInfo(string.Format("CreateSellTransaction - Created transaction, IsValid=%1", transaction.IsValid()));
-        return transaction;
+        int low = 0;
+        int high = 0;
+        int itemDepth = 0;
+        if (item.GetPlayerItem())
+        {
+            low = item.GetPlayerItem().GetNetworkIdLow();
+            high = item.GetPlayerItem().GetNetworkIdHigh();
+            itemDepth = item.GetPlayerItem().GetDepth();
+        }
+        TraderXNetworkIdentifier netId = TraderXNetworkIdentifier.CreateFromIds(low, high);
+        return new TraderXTransaction(id, type, item.productId, string.Empty, multi, priceObj, netId, itemDepth, npcId);
     }
     
     // Getters

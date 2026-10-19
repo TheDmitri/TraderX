@@ -279,6 +279,6 @@ class TraderXItemFactory
       TraderXQuantityManager.SetQuantity(ItemBase.Cast(entAttachment), quantity);
     }
 
-    return entAttachment;
+    return ItemBase.Cast(entAttachment);
   }
 }

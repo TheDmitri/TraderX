@@ -128,7 +128,7 @@ class TraderXTestCaseLoader
         string filename;
         FileAttr attr;
         
-        FindFileHandle findHandle = FindFile(directory + "*.json", filename, attr, FindFileFlags.ALL);
+        FindFileHandle findHandle = TraderXFileSystem.Find(directory + "*.json", filename, attr, FindFileFlags.ALL);
         
         if (findHandle == 0)
         {

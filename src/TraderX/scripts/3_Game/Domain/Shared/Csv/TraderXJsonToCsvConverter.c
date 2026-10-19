@@ -41,7 +41,7 @@ class TraderXJsonToCsvConverter
         
         string filename;
         FileAttr attr;
-        FindFileHandle findHandle = FindFile(TRADERX_PRODUCTS_DIR + "*.json", filename, attr, FindFileFlags.ALL);
+        FindFileHandle findHandle = TraderXFileSystem.Find(TRADERX_PRODUCTS_DIR + "*.json", filename, attr, FindFileFlags.ALL);
         
         if (findHandle == 0)
         {
@@ -100,7 +100,7 @@ class TraderXJsonToCsvConverter
         
         string filename;
         FileAttr attr;
-        FindFileHandle findHandle = FindFile(TRADERX_CATEGORIES_DIR + "*.json", filename, attr, FindFileFlags.ALL);
+        FindFileHandle findHandle = TraderXFileSystem.Find(TRADERX_CATEGORIES_DIR + "*.json", filename, attr, FindFileFlags.ALL);
         
         if (findHandle == 0)
         {

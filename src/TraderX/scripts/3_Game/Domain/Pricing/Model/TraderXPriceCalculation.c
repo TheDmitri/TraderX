@@ -34,8 +34,8 @@ class TraderXPriceCalculation
     
     private int CalculatePrice()
     {
-        // Return -1 for invalid prices (item cannot be traded)
-        if (basePrice == -1)
+        // Return -1 for invalid prices (item cannot be traded) or ruined items (stateMultiplier <= 0)
+        if (basePrice == -1 || stateMultiplier <= 0.0)
             return -1;
             
         // For unlimited stock OR static pricing (coefficient=1), use simple multiplication
@@ -65,8 +65,8 @@ class TraderXPriceCalculation
     
     private int CalculateSellPrice()
     {
-        // Return -1 for invalid prices (item cannot be traded)
-        if (basePrice == -1)
+        // Return -1 for invalid prices (item cannot be traded) or ruined items (stateMultiplier <= 0)
+        if (basePrice == -1 || stateMultiplier <= 0.0)
             return -1;
             
         // For unlimited stock OR static pricing (coefficient=1), use simple multiplication

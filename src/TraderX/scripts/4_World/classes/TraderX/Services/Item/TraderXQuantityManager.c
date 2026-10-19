@@ -311,6 +311,10 @@ class TraderXQuantityManager
         
         // Handle magazines/ammunition differently
         Magazine mag = Magazine.Cast(item);
+        // A weapon magazine is its own item: buying 2 must give 2 magazines, never top up the
+        // first one. Only loose ammo piles (Ammunition_Base) merge into an existing stack.
+        if (mag && !mag.IsInherited(Ammunition_Base))
+          continue;
         if (mag)
         {
           int currentAmmo = mag.GetAmmoCount();

@@ -57,6 +57,14 @@ class TraderXTransactionValidator
             return false;
         }
 
+        // catalog validation - only products listed in this trader's categories can be bought on their own
+        // (preset-only parts, e.g. imported vehicle parts priced 0, are bought through their vehicle's preset)
+        if(!IsSoldByTrader(npc, transaction.GetProductId())){
+            errorMessage = "Product not sold by this trader: " + transaction.GetProductId();
+            GetTraderXLogger().LogWarning("ValidateBuyTransaction : " + errorMessage);
+            return false;
+        }
+
         // trader license validation
         if(!ValidateTraderLicenses(npc, player, errorMessage)){
             return false;
@@ -140,6 +148,44 @@ class TraderXTransactionValidator
         }
 
         return true;
+    }
+
+    private bool IsSoldByTrader(TraderXNpc npc, string productId)
+    {
+        array<string> traderCategories = npc.GetCategories();
+        if(!traderCategories)
+            return false;
+
+        foreach (string categoryId : traderCategories)
+        {
+            TraderXCategory category = TraderXCategoryRepository.GetCategoryById(categoryId);
+            if (category && category.ContainsProduct(productId))
+                return true;
+        }
+
+        // Variants and attachments shown on a listed product's card are buyable too, unless free:
+        // a 0-priced attachment only exists to be bundled in its parent's preset.
+        TraderXProduct target = TraderXProductRepository.GetItemById(productId);
+        if (!target || target.buyPrice <= 0)
+            return false;
+
+        foreach (string catId : traderCategories)
+        {
+            TraderXCategory cat = TraderXCategoryRepository.GetCategoryById(catId);
+            if (!cat || !cat.productIds)
+                continue;
+            foreach (string listedId : cat.productIds)
+            {
+                TraderXProduct listed = TraderXProductRepository.GetItemById(listedId);
+                if (!listed)
+                    continue;
+                if (listed.variants && listed.variants.Find(productId) != -1)
+                    return true;
+                if (listed.attachments && listed.attachments.Find(productId) != -1)
+                    return true;
+            }
+        }
+        return false;
     }
 
     private bool PlayerHasItem(PlayerBase player, TraderXTransaction transaction)

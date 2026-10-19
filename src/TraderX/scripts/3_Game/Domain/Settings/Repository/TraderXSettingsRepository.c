@@ -20,10 +20,79 @@ class TraderXSettingsRepository
 			updated = true;
 		}
 
+		if (MoveTradersOffReservedNpcIds(settings))
+			updated = true;
+
 		if (updated)
 		{
 			Save(settings);
 		}
+	}
+
+	// npcId 125 opens TraderXGarage and 126 opens TraderXBanking (TXGConstants.GARAGE_NPC_ID,
+	// TXBConstants.BANK_ID). A trading NPC that used one of them in an older config would open the
+	// garage/bank instead of its shop, so it is moved to a free id (its parking file follows).
+	static bool IsReservedNpcId(int npcId)
+	{
+		return npcId == 125 || npcId == 126;
+	}
+
+	static bool MoveTradersOffReservedNpcIds(TraderXGeneralSettings settings)
+	{
+		bool moved = false;
+		foreach (TraderXNpc npc : settings.traders)
+		{
+			if (!npc || !IsReservedNpcId(npc.npcId) || !npc.categoriesId || npc.categoriesId.Count() == 0)
+				continue;
+
+			int newId = FindFreeNpcId(settings);
+			if (newId < 0)
+			{
+				GetTraderXLogger().LogError("[TraderX] Trader '" + npc.givenName + "' uses reserved npcId " + npc.npcId + " and no free id is left - it will open the garage/bank instead of its shop");
+				continue;
+			}
+
+			MoveParkingFile(npc.npcId, newId);
+			GetTraderXLogger().LogWarning("[TraderX] Trader '" + npc.givenName + "' used reserved npcId " + npc.npcId + " (garage/bank) - moved to npcId " + newId);
+			npc.npcId = newId;
+			moved = true;
+		}
+
+		if (moved)
+			TraderXVehicleParkingRepository.LoadAllParkingCollections();
+
+		return moved;
+	}
+
+	static int FindFreeNpcId(TraderXGeneralSettings settings)
+	{
+		for (int id = 1; id < 125; id++)
+		{
+			bool used = false;
+			foreach (TraderXNpc npc : settings.traders)
+			{
+				if (npc && npc.npcId == id)
+				{
+					used = true;
+					break;
+				}
+			}
+			if (!used)
+				return id;
+		}
+		return -1;
+	}
+
+	static void MoveParkingFile(int oldId, int newId)
+	{
+		string oldFile = string.Format(TRADERX_VEHICLE_PARKING_FILE, oldId);
+		string newFile = string.Format(TRADERX_VEHICLE_PARKING_FILE, newId);
+		if (!FileExist(oldFile) || FileExist(newFile))
+			return;
+
+		CopyFile(oldFile, newFile);
+		if (FileExist(newFile))
+			DeleteFile(oldFile);
 	}
 
 	static void MakeDirectoriesIfNotExist()

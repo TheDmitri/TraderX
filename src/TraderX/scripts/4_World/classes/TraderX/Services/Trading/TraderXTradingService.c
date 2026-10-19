@@ -42,6 +42,9 @@ class TraderXTradingService
         // tell the server we only need stock. Otherwise the server streams products then stock.
         bool hasProducts = HasNpcProducts(npc);
         m_ProductsReady = hasProducts;
+        int catCount = 0;
+        if (npc.categoriesId) catCount = npc.categoriesId.Count();
+        GetTraderXLogger().LogDebug("SetTraderNpc npc=" + npc.npcId + " categoriesId=" + catCount + " hasProducts=" + hasProducts);
         GetRPCManager().SendRPC("TraderX", "OnTraderXMenuOpen", new Param2<int, bool>(traderNpc.npcId, !hasProducts), true, null);
         
         traderCategories.Clear();
@@ -167,13 +170,25 @@ class TraderXTradingService
         {
             TraderXCategory category = TraderXCategoryRepository.GetCategoryById(categoryId);
             if (!category)
+            {
+                GetTraderXLogger().LogDebug("HasNpcProducts: category not found in client repo: " + categoryId);
                 return false;
+            }
 
+            int pidCount = 0;
+            if (category.productIds) pidCount = category.productIds.Count();
+            int resolved = 0;
             foreach (string productId : category.productIds)
             {
-                if (!TraderXProductRepository.GetItemById(productId))
+                if (TraderXProductRepository.GetItemById(productId))
+                    resolved++;
+                else
+                {
+                    GetTraderXLogger().LogDebug("HasNpcProducts: missing product in client repo: " + productId + " (cat " + categoryId + ", productIds=" + pidCount + ", resolved " + resolved + ")");
                     return false;
+                }
             }
+            GetTraderXLogger().LogDebug("HasNpcProducts: cat " + categoryId + " productIds=" + pidCount + " all resolved");
         }
         return true;
     }

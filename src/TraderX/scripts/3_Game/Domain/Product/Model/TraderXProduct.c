@@ -71,8 +71,10 @@ class TraderXProduct extends TraderXJsonProduct
         if (destockInt > 100) destockInt = 100;
         _product.stockSettings = (destockInt & 0x7F) | ((_stockBehaviorAtRestart & 0x03) << 7);
 
-        _product.attachments = _attachments;
-        _product.variants = _variants;
+        if (_attachments)
+            _product.attachments = _attachments;
+        if (_variants)
+            _product.variants = _variants;
 
         TraderXProductId.AssignUUIDIfNot(_product, _productId);
 
@@ -137,14 +139,30 @@ class TraderXProduct extends TraderXJsonProduct
         return string.Empty;
     }
 
-    static TraderXProduct CreateAsPlayerItem(string classname, int idHigh, int idLow, int depthLevel, TraderXProduct prod, int healthLevel)
+    void CopyFromProduct(TraderXProduct prod)
     {
-        TraderXProduct tpItem = TraderXProduct.CreateCopy(prod);
+        if (!prod)
+            return;
+        this.className = prod.className;
+        this.productId = prod.productId;
+        this.coefficient = prod.coefficient;
+        this.maxStock = prod.maxStock;
+        this.tradeQuantity = prod.tradeQuantity;
+        this.buyPrice = prod.buyPrice;
+        this.sellPrice = prod.sellPrice;
+        this.stockSettings = prod.stockSettings;
+        this.attachments = prod.attachments;
+        this.variants = prod.variants;
+    }
+
+    static ref TraderXProduct CreateAsPlayerItem(string classname, int idHigh, int idLow, int depthLevel, TraderXProduct prod, int healthLevel)
+    {
+        ref TraderXProduct tpItem = new TraderXProduct();
+        tpItem.CopyFromProduct(prod);
 
         classname.ToLower();
-        tpItem.playerItem = TraderXPlayerItem.CreateAsPlayerItem(classname, idHigh, idLow, depthLevel, prod.productId, healthLevel);
+        tpItem.playerItem = new TraderXPlayerItem(classname, idHigh, idLow, depthLevel, tpItem.productId, healthLevel);
         tpItem.className = classname;
-        TraderXProductId.AssignUUIDIfNot(tpItem, string.Empty);
 
         return tpItem;
     }
@@ -218,19 +236,10 @@ class TraderXProduct extends TraderXJsonProduct
         return playerItem;
     }
 
-    static TraderXProduct CreateCopy(TraderXProduct prod)
+    static ref TraderXProduct CreateCopy(TraderXProduct prod)
     {
-        TraderXProduct tpItem = new TraderXProduct();
-        tpItem.className = prod.className;
-        tpItem.productId = prod.productId;
-        tpItem.coefficient = prod.coefficient;
-        tpItem.maxStock = prod.maxStock;
-        tpItem.tradeQuantity = prod.tradeQuantity;
-        tpItem.buyPrice = prod.buyPrice;
-        tpItem.sellPrice = prod.sellPrice;
-        tpItem.stockSettings = prod.stockSettings;
-        tpItem.attachments = prod.attachments;
-        tpItem.variants = prod.variants;
+        ref TraderXProduct tpItem = new TraderXProduct();
+        tpItem.CopyFromProduct(prod);
         return tpItem;
     }
     

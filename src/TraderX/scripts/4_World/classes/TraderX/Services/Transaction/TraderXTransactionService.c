@@ -91,9 +91,10 @@ class TraderXTransactionService : DayZularService
 
         TraderXNpc npc = GetTraderXModule().GetSettings().GetNpcById(transaction.GetTraderId());
         GetTraderXLogger().LogInfo(string.Format("[TRANSACTION] Retrieved NPC: %1, TraderId: %2", npc != null, transaction.GetTraderId()));
-        if (npc) {
-            GetTraderXLogger().LogInfo(string.Format("[TRANSACTION] NPC currencies count: %1", npc.GetCurrenciesAccepted().Count()));
+        if (!npc) {
+            return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.purchaseFailedPrefix + settings.traderNotFound);
         }
+        GetTraderXLogger().LogInfo(string.Format("[TRANSACTION] NPC currencies count: %1", npc.GetCurrenciesAccepted().Count()));
         
         // Calculate price using preset service if preset exists, otherwise use regular pricing
         TraderXPreset preset = transaction.GetPreset();
@@ -129,18 +130,14 @@ class TraderXTransactionService : DayZularService
         // Validate that the transaction price matches the calculated price (prevent client-side price manipulation)
         int transactionPrice = transaction.GetTotalPrice().GetAmount();
         
-        // For preset transactions with multipliers, allow small rounding differences due to integer division
+        // For transactions with multipliers > 1, allow up to multiplier rounding difference due to unitPrice integer division (total / mult * mult)
         bool priceValid = false;
-        if (preset && preset.attachments && preset.attachments.Count() > 0 && transaction.GetMultiplier() > 1) {
-            // Allow up to 1€ per unit difference for preset multipliers due to rounding
+        if (transaction.GetMultiplier() > 1) {
             int maxAllowedDifference = transaction.GetMultiplier();
             int priceDifference = Math.AbsInt(calculatedPrice - transactionPrice);
             priceValid = (priceDifference <= maxAllowedDifference);
-            
-            GetTraderXLogger().LogInfo(string.Format("[TRANSACTION] Preset price validation - Expected: %1, Received: %2, Difference: %3, MaxAllowed: %4, Valid: %5", 
-                calculatedPrice, transactionPrice, priceDifference, maxAllowedDifference, priceValid));
         } else {
-            // Exact match required for non-preset transactions
+            // Exact match required for single-unit transactions
             priceValid = (transactionPrice == calculatedPrice);
         }
         
@@ -154,7 +151,7 @@ class TraderXTransactionService : DayZularService
         // Detected by the product className matching a configured license name.
         TraderXLicense license = GetTraderXModule().GetSettings().GetLicenseByName(product.className);
         if (license) {
-            return ProcessLicensePurchase(transaction, player, npc, license, settings);
+            return ProcessLicensePurchase(transaction, player, npc, license, settings, calculatedPrice);
         }
 
         // Vehicle multiplier validation - vehicles can only be purchased one at a time
@@ -219,7 +216,7 @@ class TraderXTransactionService : DayZularService
                 allCreatedItems.Insert(weaponItem);
                 
                 // Apply preset to this weapon
-                presetResult = ApplyPresetToItem(weaponItem, preset, transaction);
+                presetResult = ApplyPresetToItem(player, weaponItem, preset, transaction);
                 if (!presetResult.IsSuccess()) {
                     // Rollback: remove all created items including this one
                     for (j = 0; j < allCreatedItems.Count(); j++) {
@@ -248,7 +245,7 @@ class TraderXTransactionService : DayZularService
                 
                 // Application du preset (attachments) for each item if preset exists
                 if (preset && preset.attachments && preset.attachments.Count() > 0) {
-                    presetResult = ApplyPresetToItem(item, preset, transaction);
+                    presetResult = ApplyPresetToItem(player, item, preset, transaction);
                     if (!presetResult.IsSuccess()) {
                         // Rollback: remove all created items including this one
                         for (j = 0; j < allCreatedItems.Count(); j++) {
@@ -279,14 +276,16 @@ class TraderXTransactionService : DayZularService
         
         // Mise à jour du stock des attachments
         if (preset && preset.attachments && preset.attachments.Count() > 0) {
-            UpdatePresetAttachmentStock(preset);
+            UpdatePresetAttachmentStock(preset, transaction.GetMultiplier());
         }
         
         // Retrait de la monnaie - skip if price is zero (free items)
-        int tTotalPrice = transaction.GetTotalPrice().GetAmount();
+        // Always charge the server-computed price: the client price is only checked
+        // within a rounding tolerance above, so charging it would let a client underpay.
+        int tTotalPrice = calculatedPrice;
         GetTraderXLogger().LogInfo(string.Format("[TRANSACTION] Processing payment: totalPrice=%1, npcCurrencies=%2", tTotalPrice, npc.GetCurrenciesAccepted().Count()));
         if (tTotalPrice > 0) {
-            bool currencyResult = TraderXCurrencyService.GetInstance().RemoveMoneyAmountFromPlayer(player, tTotalPrice, npc.GetCurrenciesAccepted());
+            bool currencyResult = TraderXCurrencyService.GetInstance().RemoveMoneyWithBankFallback(player, tTotalPrice, npc.GetCurrenciesAccepted(), "TRADER_BUY", "Trader");
             GetTraderXLogger().LogInfo(string.Format("[TRANSACTION] Currency removal result: %1", currencyResult));
             if (!currencyResult) {
                 // Rollback: remove all created items and restore stock
@@ -297,7 +296,7 @@ class TraderXTransactionService : DayZularService
                     TraderXProductStockRepository.IncreaseStock(transaction.GetProductId(), transaction.GetMultiplier());
                 }
                 if (preset && preset.attachments && preset.attachments.Count() > 0) {
-                    RestorePresetAttachmentStock(preset);
+                    RestorePresetAttachmentStock(preset, transaction.GetMultiplier());
                 }
                 GetTraderXLogger().LogError("[TRANSACTION] Transaction failed due to insufficient funds - rolled back");
                 return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.purchaseFailedPrefix + settings.insufficientFunds);
@@ -309,7 +308,7 @@ class TraderXTransactionService : DayZularService
     
     // Handles buying a license: validates ownership, takes payment, grants + persists the
     // license, and resyncs the client. No item is spawned and product stock is untouched.
-    private TraderXTransactionResult ProcessLicensePurchase(TraderXTransaction transaction, PlayerBase player, TraderXNpc npc, TraderXLicense license, TraderXDynamicTranslationSettings settings)
+    private TraderXTransactionResult ProcessLicensePurchase(TraderXTransaction transaction, PlayerBase player, TraderXNpc npc, TraderXLicense license, TraderXDynamicTranslationSettings settings, int calculatedPrice)
     {
         if (!npc) {
             return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.purchaseFailedPrefix + settings.traderNotFound);
@@ -321,9 +320,9 @@ class TraderXTransactionService : DayZularService
             return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.purchaseFailedPrefix + "License already owned");
         }
 
-        int totalPrice = transaction.GetTotalPrice().GetAmount();
+        int totalPrice = calculatedPrice;
         if (totalPrice > 0) {
-            if (!TraderXCurrencyService.GetInstance().RemoveMoneyAmountFromPlayer(player, totalPrice, npc.GetCurrenciesAccepted())) {
+            if (!TraderXCurrencyService.GetInstance().RemoveMoneyWithBankFallback(player, totalPrice, npc.GetCurrenciesAccepted(), "TRADER_BUY", "Trader")) {
                 return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.purchaseFailedPrefix + settings.insufficientFunds);
             }
         }
@@ -339,6 +338,7 @@ class TraderXTransactionService : DayZularService
     private TraderXTransactionResult ValidatePresetAttachmentStock(TraderXPreset preset, TraderXTransaction transaction)
     {
         TraderXDynamicTranslationSettings settings = TraderXDynamicTranslationRepository.GetSettings();
+        int mult = Math.Max(1, transaction.GetMultiplier());
                 
         for (int i = 0; i < preset.attachments.Count(); i++) {
             string attachmentId = preset.attachments.Get(i);
@@ -349,17 +349,22 @@ class TraderXTransactionService : DayZularService
             }
             
             if (!attachmentProduct.IsStockUnlimited()) {
-                if (!TraderXProductStockRepository.HasStock(attachmentId)) {
+                int sameAttCount = 0;
+                for (int j = 0; j < preset.attachments.Count(); j++) {
+                    if (preset.attachments.Get(j) == attachmentId)
+                        sameAttCount++;
+                }
+                int neededStock = sameAttCount * mult;
+                if (TraderXProductStockRepository.GetStockAmount(attachmentId) < neededStock) {
                     return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.purchaseFailedPrefix + string.Format(settings.attachmentOutOfStock, attachmentId));
                 }
             }
         }
         
         return TraderXTransactionResult.CreateSuccess(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.presetValidationSuccessful);
-        return TraderXTransactionResult.CreateSuccess(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.presetValidationSuccessful);
     }
     
-    private TraderXTransactionResult ApplyPresetToItem(ItemBase item, TraderXPreset preset, TraderXTransaction transaction)
+    private TraderXTransactionResult ApplyPresetToItem(PlayerBase player, ItemBase item, TraderXPreset preset, TraderXTransaction transaction)
     {
         TraderXDynamicTranslationSettings settings = TraderXDynamicTranslationRepository.GetSettings();
                 
@@ -379,7 +384,6 @@ class TraderXTransactionService : DayZularService
                 GetTraderXLogger().LogWarning("ApplyPresetToItem: Failed to create attachment, trying as regular item: " + attachmentId);
                 
                 // Fallback: Create as regular item in player inventory
-                PlayerBase player = PlayerBase.Cast(GetGame().GetPlayer());
                 if (player) {
                     attachmentItem = TraderXItemFactory.CreateInInventory(player, attachmentProduct.className, attachmentQuantity);
                     if (!attachmentItem) {
@@ -400,31 +404,33 @@ class TraderXTransactionService : DayZularService
         return TraderXTransactionResult.CreateSuccess(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.presetAppliedSuccessfully);
     }
     
-    private void UpdatePresetAttachmentStock(TraderXPreset preset)
+    private void UpdatePresetAttachmentStock(TraderXPreset preset, int multiplier = 1)
     {
-        GetTraderXLogger().LogDebug("UpdatePresetAttachmentStock: Updating stock for " + preset.attachments.Count() + " attachments");
+        int mult = Math.Max(1, multiplier);
+        GetTraderXLogger().LogDebug("UpdatePresetAttachmentStock: Updating stock for " + preset.attachments.Count() + " attachments x" + mult);
         
         for (int i = 0; i < preset.attachments.Count(); i++) {
             string attachmentId = preset.attachments.Get(i);
             TraderXProduct attachmentProduct = TraderXProductRepository.GetItemById(attachmentId);
             
             if (attachmentProduct && !attachmentProduct.IsStockUnlimited()) {
-                TraderXProductStockRepository.DecreaseStock(attachmentId);
+                TraderXProductStockRepository.DecreaseStock(attachmentId, mult);
                 GetTraderXLogger().LogDebug("UpdatePresetAttachmentStock: Decreased stock for attachment: " + attachmentId);
             }
         }
     }
     
-    private void RestorePresetAttachmentStock(TraderXPreset preset)
+    private void RestorePresetAttachmentStock(TraderXPreset preset, int multiplier = 1)
     {
-        GetTraderXLogger().LogDebug("RestorePresetAttachmentStock: Restoring stock for " + preset.attachments.Count() + " attachments");
+        int mult = Math.Max(1, multiplier);
+        GetTraderXLogger().LogDebug("RestorePresetAttachmentStock: Restoring stock for " + preset.attachments.Count() + " attachments x" + mult);
         
         for (int i = 0; i < preset.attachments.Count(); i++) {
             string attachmentId = preset.attachments.Get(i);
             TraderXProduct attachmentProduct = TraderXProductRepository.GetItemById(attachmentId);
             
             if (attachmentProduct && !attachmentProduct.IsStockUnlimited()) {
-                TraderXProductStockRepository.IncreaseStock(attachmentId);
+                TraderXProductStockRepository.IncreaseStock(attachmentId, mult);
                 GetTraderXLogger().LogDebug("RestorePresetAttachmentStock: Restored stock for attachment: " + attachmentId);
             }
         }
@@ -447,13 +453,34 @@ class TraderXTransactionService : DayZularService
 
         // Vérification de l'item à vendre et récupération de son état
         ItemBase itemToRemove = ItemBase.Cast(GetGame().GetObjectByNetworkId(transaction.GetNetworkId().GetLowId(), transaction.GetNetworkId().GetHighId()));
-        
+        if (!itemToRemove && transaction.GetNetworkId().IsEmpty())
+        {
+            array<EntityAI> invItems = TraderXInventoryManager.GetItemsArray(player);
+            foreach (EntityAI invEnt : invItems)
+            {
+                ItemBase candidate = ItemBase.Cast(invEnt);
+                if (candidate && CF_String.EqualsIgnoreCase(candidate.GetType(), product.className))
+                {
+                    itemToRemove = candidate;
+                    break;
+                }
+            }
+        }
         if (!itemToRemove) {
             return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.saleFailedPrefix + settings.itemNotFoundInInventory);
         }
         
         // Get the actual item condition for accurate pricing
         int itemState = itemToRemove.GetHealthLevel();
+        if (itemState == TraderXItemState.RUINED) {
+            return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.saleFailedPrefix + "Ruined items cannot be sold");
+        }
+        TraderXGeneralSettings genSettings = GetTraderXModule().GetSettings();
+        if (genSettings && genSettings.acceptedStates) {
+            if (!TraderXItemState.IsStateAcceptable(itemState, genSettings.acceptedStates.acceptWorn, genSettings.acceptedStates.acceptDamaged, genSettings.acceptedStates.acceptBadlyDamaged)) {
+                return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.saleFailedPrefix + "Item condition is not accepted");
+            }
+        }
         
         // Calculate dynamic sell price based on current stock, coefficient, and actual item condition
         TraderXPriceCalculation priceCalculation = TraderXPricingService.GetInstance().CalculateSellPrice(product, transaction.GetMultiplier(), itemState);
@@ -489,13 +516,36 @@ class TraderXTransactionService : DayZularService
         
         // Stock validation for sell transactions
         if (!product.IsStockUnlimited()) {
-            if (!TraderXProductStockRepository.CanIncreaseStock(transaction.GetProductId(), product.maxStock)) {
+            if (!TraderXProductStockRepository.CanIncreaseStock(transaction.GetProductId(), product.maxStock, transaction.GetMultiplier())) {
                 return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.saleFailedPrefix + settings.traderStockFull);
             }
         }
         
-        // Retrait de l'item du joueur
-        int remainingQty = TraderXInventoryManager.RemoveItem(player, itemToRemove, TraderXTradeQuantity.GetItemSellQuantity(product.className, product.tradeQuantity, TraderXQuantityManager.GetItemAmount(itemToRemove)) * transaction.GetMultiplier());
+        // Validate and remove required quantity from player (prevents selling a partial stack or 1 item with multiplier > 1)
+        int unitSellQty = TraderXTradeQuantity.GetItemSellQuantity(product.className, product.tradeQuantity, TraderXQuantityManager.GetItemAmount(itemToRemove));
+        int totalSellQty = unitSellQty * transaction.GetMultiplier();
+        int itemCurrentQty = TraderXQuantityManager.GetItemAmount(itemToRemove);
+        int sellMode = TraderXTradeQuantity.GetSellQuantityMode(product.tradeQuantity);
+        if (sellMode != TraderXTradeQuantity.SELL_EMPTY) {
+            if (totalSellQty <= 0)
+                totalSellQty = transaction.GetMultiplier();
+            if (transaction.GetMultiplier() == 1 && itemCurrentQty < totalSellQty) {
+                return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.saleFailedPrefix + "Insufficient item quantity");
+            }
+            if (transaction.GetMultiplier() > 1) {
+                int totalAvailable = TraderXQuantityManager.GetTotalQuantityOfItem(player, product.className, itemState);
+                if (totalAvailable < totalSellQty) {
+                    return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.saleFailedPrefix + "Insufficient item quantity");
+                }
+            }
+        }
+
+        int remainingQty = TraderXInventoryManager.RemoveItem(player, itemToRemove, totalSellQty);
+        if (remainingQty > 0 && sellMode != TraderXTradeQuantity.SELL_EMPTY) {
+            if (!TraderXInventoryManager.RemoveOurProduct(player, product.className, remainingQty, itemState)) {
+                return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.saleFailedPrefix + "Could not remove all items");
+            }
+        }
         
         // Mise à jour du stock
         if (!product.IsStockUnlimited()) {

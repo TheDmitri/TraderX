@@ -126,7 +126,7 @@ class TraderXConfigCompiler
         // Check for CSV files first
         string filename;
         FileAttr attr;
-        FindFileHandle csvHandle = FindFile(TRADERX_CSV_SOURCE_DIR + "*.csv", filename, attr, FindFileFlags.ALL);
+        FindFileHandle csvHandle = TraderXFileSystem.Find(TRADERX_CSV_SOURCE_DIR + "*.csv", filename, attr, FindFileFlags.ALL);
         
         if (csvHandle != 0)
         {
@@ -136,7 +136,7 @@ class TraderXConfigCompiler
         }
         
         // Check for JSON files
-        FindFileHandle jsonHandle = FindFile(TRADERX_CSV_SOURCE_DIR + "*.json", filename, attr, FindFileFlags.ALL);
+        FindFileHandle jsonHandle = TraderXFileSystem.Find(TRADERX_CSV_SOURCE_DIR + "*.json", filename, attr, FindFileFlags.ALL);
         
         if (jsonHandle != 0)
         {
@@ -159,7 +159,7 @@ class TraderXConfigCompiler
         string filename;
         FileAttr attr;
         
-        FindFileHandle findHandle = FindFile(TRADERX_CSV_SOURCE_DIR + "*.csv", filename, attr, FindFileFlags.ALL);
+        FindFileHandle findHandle = TraderXFileSystem.Find(TRADERX_CSV_SOURCE_DIR + "*.csv", filename, attr, FindFileFlags.ALL);
         
         if (findHandle == 0)
         {
@@ -679,14 +679,14 @@ class TraderXConfigCompiler
         bool hasCsv = false;
         bool hasJson = false;
         
-        FindFileHandle csvHandle = FindFile(TRADERX_CSV_SOURCE_DIR + "*.csv", filename, attr, FindFileFlags.ALL);
+        FindFileHandle csvHandle = TraderXFileSystem.Find(TRADERX_CSV_SOURCE_DIR + "*.csv", filename, attr, FindFileFlags.ALL);
         if (csvHandle != 0)
         {
             hasCsv = true;
             CloseFindFile(csvHandle);
         }
         
-        FindFileHandle jsonHandle = FindFile(TRADERX_CSV_SOURCE_DIR + "*.json", filename, attr, FindFileFlags.ALL);
+        FindFileHandle jsonHandle = TraderXFileSystem.Find(TRADERX_CSV_SOURCE_DIR + "*.json", filename, attr, FindFileFlags.ALL);
         if (jsonHandle != 0)
         {
             hasJson = true;
@@ -723,12 +723,12 @@ class TraderXConfigCompiler
         string productsJsonPath = TRADERX_CSV_SOURCE_DIR + "products.json";
         if (FileExist(productsJsonPath))
         {
-            ref array<ref TraderXJsonProduct> jsonProducts = new array<ref TraderXJsonProduct>;
-            JsonFileLoader<array<ref TraderXJsonProduct>>.JsonLoadFile(productsJsonPath, jsonProducts);
+            ref array<ref TraderXCompiledProduct> jsonProducts = new array<ref TraderXCompiledProduct>;
+            JsonFileLoader<array<ref TraderXCompiledProduct>>.JsonLoadFile(productsJsonPath, jsonProducts);
             
             if (jsonProducts)
             {
-                foreach (TraderXJsonProduct jsonProd : jsonProducts)
+                foreach (TraderXCompiledProduct jsonProd : jsonProducts)
                 {
                     TraderXCsvProduct csvProd = ConvertJsonProductToCsv(jsonProd);
                     if (csvProd)
@@ -742,12 +742,12 @@ class TraderXConfigCompiler
         string categoriesJsonPath = TRADERX_CSV_SOURCE_DIR + "categories.json";
         if (FileExist(categoriesJsonPath))
         {
-            ref array<ref TraderXJsonCategory> jsonCategories = new array<ref TraderXJsonCategory>;
-            JsonFileLoader<array<ref TraderXJsonCategory>>.JsonLoadFile(categoriesJsonPath, jsonCategories);
+            ref array<ref TraderXCompiledCategory> jsonCategories = new array<ref TraderXCompiledCategory>;
+            JsonFileLoader<array<ref TraderXCompiledCategory>>.JsonLoadFile(categoriesJsonPath, jsonCategories);
             
             if (jsonCategories)
             {
-                foreach (TraderXJsonCategory jsonCat : jsonCategories)
+                foreach (TraderXCompiledCategory jsonCat : jsonCategories)
                 {
                     TraderXCsvCategory csvCat = ConvertJsonCategoryToCsv(jsonCat);
                     if (csvCat)

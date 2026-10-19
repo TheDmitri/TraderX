@@ -64,7 +64,7 @@ class CatalogCategoryCardComponent extends DZlrComponentBase
 		categoryType = catType;
 
 		category_name = category.categoryName;
-		item_count = category.productIds.Count().ToString() + " items";
+		item_count = GetDisplayableProductCount().ToString() + " items";
 
 		if (categoryIcon)
 		{
@@ -86,7 +86,7 @@ class CatalogCategoryCardComponent extends DZlrComponentBase
 			isBlocked = true;
 		}
 
-		if (category.productIds.Count() == 0)
+		if (GetDisplayableProductCount() == 0)
 		{
 			if (categoryCardPanel) categoryCardPanel.SetAlpha(0.7);
 		}
@@ -94,6 +94,21 @@ class CatalogCategoryCardComponent extends DZlrComponentBase
 		isExpanded = expand;
 		HandleCollapse();
 		MarkForCheck();
+	}
+
+	// Products this card will actually list when expanded — sell pages filter CanBeSold.
+	// The label/count must match what the expand reveals or an empty-filtered category shows
+	// "10 items" then opens an empty list (reads like "products don't load").
+	int GetDisplayableProductCount()
+	{
+		int count = 0;
+		array<ref TraderXProduct> products = _inputCategory.GetProducts();
+		foreach (TraderXProduct item : products)
+		{
+			if (item && item.CanBeSold())
+				count++;
+		}
+		return count;
 	}
 
 	void OnCategoryCardClick()
@@ -104,7 +119,7 @@ class CatalogCategoryCardComponent extends DZlrComponentBase
 
 	void HandleCollapse()
 	{
-		if (_inputCategory.GetProducts().Count() == 0 || isBlocked) return;
+		if (GetDisplayableProductCount() == 0 || isBlocked) return;
 		isExpanded = !isExpanded;
 		if (dropdownParentPanel) dropdownParentPanel.Show(!isExpanded);
 		if (itemCountText) itemCountText.Show(isExpanded);
@@ -124,7 +139,7 @@ class CatalogCategoryCardComponent extends DZlrComponentBase
 
 	void SetExpanded(bool expand)
 	{
-		if (_inputCategory.GetProducts().Count() == 0 || isBlocked) return;
+		if (GetDisplayableProductCount() == 0 || isBlocked) return;
 		if (isExpanded == expand) return;
 		isExpanded = expand;
 		if (dropdownParentPanel) dropdownParentPanel.Show(!isExpanded);

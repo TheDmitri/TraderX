@@ -193,7 +193,7 @@ class ItemCardComponent extends DZlrComponentBase
 	{
 		if (tradeMode == ETraderXTradeMode.SELL)
 		{
-			preview = GetGame().GetObjectByNetworkId(_inputProduct.playerItem.networkIdLow, _inputProduct.playerItem.networkIdHigh);
+			preview = EntityAI.Cast(GetGame().GetObjectByNetworkId(_inputProduct.playerItem.networkIdLow, _inputProduct.playerItem.networkIdHigh));
 			if (!preview)
 				preview = EntityAI.Cast(GetGame().CreateObjectEx(_inputProduct.className, vector.Zero, ECE_LOCAL|ECE_NOLIFETIME));
 		}

@@ -93,17 +93,24 @@ class TraderXToastNotification
         return "set:traderx_icons image:" + ResolvedType();
     }
 
-    // Kicker line shown above the title: "TRADER · PURCHASED" etc.
+    // Kicker beside the icon: "<SOURCE> - <STATUS>". The source is the footer field when set
+    // (e.g. "Garage"), else TRADER. The game font has no middle dot, hence " - ".
     string GetKicker()
     {
+        string source = "TRADER";
+        if (footer != string.Empty)
+        {
+            source = footer;
+            source.ToUpper();
+        }
         switch (ResolvedType())
         {
-            case TXNOTIF_PURCHASE: return "TRADER · PURCHASED";
-            case TXNOTIF_SALE:     return "TRADER · SOLD";
-            case TXNOTIF_WARNING:  return "TRADER · PARTIAL";
-            case TXNOTIF_ERROR:    return "TRADER · FAILED";
+            case TXNOTIF_PURCHASE: return source + " - PURCHASED";
+            case TXNOTIF_SALE:     return source + " - SOLD";
+            case TXNOTIF_WARNING:  return source + " - PARTIAL";
+            case TXNOTIF_ERROR:    return source + " - FAILED";
         }
-        return "TRADER";
+        return source;
     }
 
     // Accent for the left rule / glyph / progress fill (barter theme: gold default,

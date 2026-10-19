@@ -103,35 +103,36 @@ class TraderXPresetsService
         int totalPrice = 0;
         
         for (int i = 0; i < multiplier; i++) {
-            // Calculate main item price at current stock level (decreases with each unit)
-            TraderXPriceCalculation mainItemCalc = TraderXPricingService.GetInstance().CalculateBuyPrice(mainProduct, 1, TraderXItemState.PRISTINE);
-            
-            // Manually adjust for stock decrease - simulate buying i units already
+            // Match TraderXPriceCalculation.CalculatePrice progressive step (currentStock + i)
             int currentMainStock = TraderXProductStockRepository.GetStockAmount(preset.productId);
-            int effectiveMainStock = currentMainStock - i;
+            int effectiveMainStock = currentMainStock + i;
+            if (effectiveMainStock <= 0)
+                effectiveMainStock = 1;
             
             int mainItemPrice;
             if (mainProduct.IsStockUnlimited() || mainProduct.coefficient == 1.0) {
                 mainItemPrice = mainProduct.buyPrice;
             } else {
-                mainItemPrice = Math.Pow(mainProduct.coefficient, Math.Max(0, effectiveMainStock - 1)) * mainProduct.buyPrice;
+                mainItemPrice = Math.Round(Math.Pow(mainProduct.coefficient, Math.Max(0, effectiveMainStock - 1)) * mainProduct.buyPrice);
             }
             
             int presetUnitPrice = mainItemPrice;
             
-            // Add attachment prices with progressive stock decrease
+            // Add attachment prices with progressive stock step
             for (int j = 0; j < preset.attachments.Count(); j++) {
                 string attachmentId = preset.attachments.Get(j);
                 TraderXProduct attachmentProduct = TraderXProductRepository.GetItemById(attachmentId);
                 if (attachmentProduct) {
                     int currentAttachmentStock = TraderXProductStockRepository.GetStockAmount(attachmentId);
-                    int effectiveAttachmentStock = currentAttachmentStock - i;
+                    int effectiveAttachmentStock = currentAttachmentStock + i;
+                    if (effectiveAttachmentStock <= 0)
+                        effectiveAttachmentStock = 1;
                     
                     int attachmentPrice;
                     if (attachmentProduct.IsStockUnlimited() || attachmentProduct.coefficient == 1.0) {
                         attachmentPrice = attachmentProduct.buyPrice;
                     } else {
-                        attachmentPrice = Math.Pow(attachmentProduct.coefficient, Math.Max(0, effectiveAttachmentStock - 1)) * attachmentProduct.buyPrice;
+                        attachmentPrice = Math.Round(Math.Pow(attachmentProduct.coefficient, Math.Max(0, effectiveAttachmentStock - 1)) * attachmentProduct.buyPrice);
                     }
                     
                     presetUnitPrice += attachmentPrice;
@@ -170,8 +171,9 @@ class TraderXPresetsService
         return m_presets[productId].presets;
     }
 
-    void AddPreset(string storageProductId, string presetName, ref array<string> attachments, string targetProductId = "")
+    void AddPreset(string storageProductId, string presetName, array<string> attachmentsIn, string targetProductId = "")
     {
+        ref array<string> attachments = attachmentsIn;
         if (!attachments)
             attachments = new array<string>();
         
@@ -306,16 +308,49 @@ class TraderXPresetsService
         {
             array<ref TraderXPresets> presetList = new array<ref TraderXPresets>();
             string errorMessage;
-            JsonFileLoader<array<ref TraderXPresets>>.LoadFile(filePath, presetList, errorMessage);
-
             m_presets.Clear();
-            foreach (TraderXPresets presets : presetList)
+            if (JsonFileLoader<array<ref TraderXPresets>>.LoadFile(filePath, presetList, errorMessage))
             {
-                if (presets) m_presets.Insert(presets.productId, presets);
+                foreach (TraderXPresets presets : presetList)
+                {
+                    if (presets) m_presets.Insert(presets.productId, presets);
+                }
+                return;
             }
+
+            LoadLegacyPresetsFile(errorMessage);
             return;
         }
 
+        StoreTraderXProductsPresets();
+    }
+
+    // TraderX 1.x stored user presets as a productId -> presets object. Read that format once,
+    // keep a backup, and rewrite the file in the current array format.
+    private void LoadLegacyPresetsFile(string arrayError)
+    {
+        map<string, ref TraderXPresets> legacyPresets = new map<string, ref TraderXPresets>();
+        string legacyError;
+        bool loaded = JsonFileLoader<map<string, ref TraderXPresets>>.LoadFile(filePath, legacyPresets, legacyError);
+
+        CopyFile(filePath, filePath + ".v1.bak");
+
+        if (!loaded)
+        {
+            GetTraderXLogger().LogError("LoadTraderXProductsFavorites: could not read " + filePath + " (" + arrayError + " / " + legacyError + ") - a copy was kept as .v1.bak");
+            return;
+        }
+
+        foreach (string productId, TraderXPresets presets : legacyPresets)
+        {
+            if (!presets)
+                continue;
+            if (presets.productId == string.Empty)
+                presets.productId = productId;
+            m_presets.Insert(presets.productId, presets);
+        }
+
+        GetTraderXLogger().LogInfo("LoadTraderXProductsFavorites: migrated " + m_presets.Count() + " preset group(s) from the 1.x format (backup: .v1.bak)");
         StoreTraderXProductsPresets();
     }
 

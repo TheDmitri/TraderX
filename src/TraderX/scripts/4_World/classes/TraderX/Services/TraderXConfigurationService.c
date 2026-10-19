@@ -46,10 +46,50 @@ class TraderXConfigurationService
         
         TraderXProductRepository.LoadAllProducts();
         TraderXCategoryRepository.LoadAllCategories();
+
+        // DayZ 1.30 fallback: when -profiles is an external/absolute path where FindFile returns 0,
+        // walk the trader -> categoryId -> productId/variant/attachment graph via exact $profile: paths.
+        if (TraderXCategoryRepository.GetCategories().Count() == 0 || TraderXProductRepository.GetProducts().Count() == 0)
+        {
+            LoadLegacyGraphFromSettings();
+        }
+
         TraderXVehicleParkingRepository.LoadAllParkingCollections();
         ApplyStockBehaviorAtRestart();
         
         GetTraderXLogger().LogInfo("[TraderX] Legacy configuration loaded successfully");
+    }
+
+    private void LoadLegacyGraphFromSettings()
+    {
+        TraderXGeneralSettings settings = TraderXSettingsRepository.Load();
+        if (!settings || !settings.traders)
+            return;
+
+        int catCount = 0;
+        foreach (TraderXNpc npc : settings.traders)
+        {
+            if (!npc || !npc.categoriesId)
+                continue;
+            foreach (string catId : npc.categoriesId)
+            {
+                if (catId == "")
+                    continue;
+                TraderXCategory cat = TraderXCategoryRepository.LoadCategoryById(catId);
+                if (!cat)
+                    continue;
+                catCount++;
+                if (cat.productIds)
+                {
+                    foreach (string prodId : cat.productIds)
+                    {
+                        if (prodId != "")
+                            TraderXProductRepository.LoadProductByIdRecursive(prodId);
+                    }
+                }
+            }
+        }
+        GetTraderXLogger().LogInfo(string.Format("[TraderX] Direct graph fallback loaded %1 categories and %2 products without FindFile", TraderXCategoryRepository.GetCategories().Count(), TraderXProductRepository.GetProducts().Count()));
     }
     
     // Load configuration using CSV format (Source/*.csv files)
@@ -196,7 +236,7 @@ class TraderXConfigurationService
         FileAttr attr;
 
         // Check for CSV files
-        FindFileHandle csvHandle = FindFile(TRADERX_CSV_SOURCE_DIR + "*.csv", filename, attr, FindFileFlags.ALL);
+        FindFileHandle csvHandle = TraderXFileSystem.Find(TRADERX_CSV_SOURCE_DIR + "*.csv", filename, attr, FindFileFlags.ALL);
         if (csvHandle != 0)
         {
             CloseFindFile(csvHandle);
@@ -204,7 +244,7 @@ class TraderXConfigurationService
         }
 
         // Check for JSON files
-        FindFileHandle jsonHandle = FindFile(TRADERX_CSV_SOURCE_DIR + "*.json", filename, attr, FindFileFlags.ALL);
+        FindFileHandle jsonHandle = TraderXFileSystem.Find(TRADERX_CSV_SOURCE_DIR + "*.json", filename, attr, FindFileFlags.ALL);
         if (jsonHandle != 0)
         {
             CloseFindFile(jsonHandle);
@@ -222,7 +262,7 @@ class TraderXConfigurationService
         {
             string filename1;
             FileAttr attr;
-            FindFileHandle findHandle1 = FindFile(TRADERX_PRODUCTS_DIR + "*.json", filename1, attr, FindFileFlags.ALL);
+            FindFileHandle findHandle1 = TraderXFileSystem.Find(TRADERX_PRODUCTS_DIR + "*.json", filename1, attr, FindFileFlags.ALL);
             if (findHandle1 != 0)
             {
                 CloseFindFile(findHandle1);
@@ -235,7 +275,7 @@ class TraderXConfigurationService
         {
             string filename2;
             FileAttr attr2;
-            FindFileHandle findHandle2 = FindFile(TRADERX_CATEGORIES_DIR + "*.json", filename2, attr2, FindFileFlags.ALL);
+            FindFileHandle findHandle2 = TraderXFileSystem.Find(TRADERX_CATEGORIES_DIR + "*.json", filename2, attr2, FindFileFlags.ALL);
             if (findHandle2 != 0)
             {
                 CloseFindFile(findHandle2);

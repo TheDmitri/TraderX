@@ -64,7 +64,7 @@ class CategoryCardComponent extends DZlrComponentBase
 		categoryType = catType;
 
 		category_name = category.categoryName;
-		item_count = category.productIds.Count().ToString() + " items";
+		item_count = GetDisplayableProductCount().ToString() + " items";
 
 		// The favorites pseudo-category has no icon file — show the star glyph instead.
 		bool isFavoritesCategory = category.categoryName == "#tpm_favorites";
@@ -98,7 +98,7 @@ class CategoryCardComponent extends DZlrComponentBase
 			isBlocked = true;
 		}
 
-		if (category.productIds.Count() == 0)
+		if (GetDisplayableProductCount() == 0)
 		{
 			if (categoryCardPanel) categoryCardPanel.SetAlpha(0.7);
 		}
@@ -106,6 +106,21 @@ class CategoryCardComponent extends DZlrComponentBase
 		isExpanded = expand;
 		HandleCollapse();
 		MarkForCheck();
+	}
+
+	// Products this card will actually list when expanded — buy pages filter CanBeBought.
+	// The label/count must match what the expand reveals or a sell-only category shows
+	// "10 items" then opens an empty list (reads like "products don't load").
+	int GetDisplayableProductCount()
+	{
+		int count = 0;
+		array<ref TraderXProduct> products = _inputCategory.GetProducts();
+		foreach (TraderXProduct item : products)
+		{
+			if (item && item.CanBeBought())
+				count++;
+		}
+		return count;
 	}
 
 	void OnCategoryCardClick()
@@ -116,7 +131,7 @@ class CategoryCardComponent extends DZlrComponentBase
 
 	void HandleCollapse()
 	{
-		if (_inputCategory.GetProducts().Count() == 0 || isBlocked) return;
+		if (GetDisplayableProductCount() == 0 || isBlocked) return;
 
 		isExpanded = !isExpanded;
 		if (dropdownParentPanel) dropdownParentPanel.Show(!isExpanded);
@@ -139,7 +154,7 @@ class CategoryCardComponent extends DZlrComponentBase
 
 	void SetExpanded(bool expand)
 	{
-		if (_inputCategory.GetProducts().Count() == 0 || isBlocked) return;
+		if (GetDisplayableProductCount() == 0 || isBlocked) return;
 		if (isExpanded == expand) return;
 		isExpanded = expand;
 		if (dropdownParentPanel) dropdownParentPanel.Show(!isExpanded);

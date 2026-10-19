@@ -31,7 +31,7 @@ class TraderXLicenseService
         LoadPlayerLicenses(player);
     }
 
-    // Category gating: licensesRequired holds license NAMES, so match by name.
+    // Category gating: licensesRequired holds license names (or ids, in configs from TraderX 1.x).
     bool HasLicenses(array<string> licenseNames)
     {
         if(!licenseNames || licenseNames.Count() == 0)
@@ -43,7 +43,7 @@ class TraderXLicenseService
 
         foreach(string licenseName : licenseNames)
         {
-            if (!playerLicenses.HasLicenseByName(licenseName))
+            if (!playerLicenses.HasRequiredLicense(licenseName))
                 return false;
         }
 
@@ -81,7 +81,7 @@ class TraderXLicenseService
 
         foreach(string licenseName : licenseNames)
         {
-            if(!licenses.HasLicenseByName(licenseName))
+            if(!licenses.HasRequiredLicense(licenseName))
                 return false;
         }
 

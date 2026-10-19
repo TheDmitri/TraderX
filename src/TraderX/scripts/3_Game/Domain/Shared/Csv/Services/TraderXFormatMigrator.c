@@ -147,7 +147,7 @@ class TraderXFormatMigrator
         
         string filename;
         FileAttr attr;
-        FindFileHandle findHandle = FindFile(m_sourceDirectory + "*.csv", filename, attr, FindFileFlags.ALL);
+        FindFileHandle findHandle = TraderXFileSystem.Find(m_sourceDirectory + "*.csv", filename, attr, FindFileFlags.ALL);
         
         if (findHandle == 0)
         {

@@ -251,10 +251,10 @@ class TraderXProductStockRepository
         return GetStockAmount(productId) >= amount;
     }
     
-    static bool CanIncreaseStock(string productId, int maxStock)
+    static bool CanIncreaseStock(string productId, int maxStock, int amount = 1)
     {
         if (maxStock == -1) return true; // Unlimited stock
-        return GetStockAmount(productId) < maxStock;
+        return (GetStockAmount(productId) + Math.Max(1, amount)) <= maxStock;
     }
     
     static bool DecreaseStock(string productId, int amount = 1)

@@ -116,6 +116,28 @@ class TraderXCategoryRepository
         return null;
     }
 
+    // Direct load by categoryId using exact $profile: path (no FindFile needed on DayZ 1.30)
+    static TraderXCategory LoadCategoryById(string categoryId)
+    {
+        if (categoryId == "")
+            return null;
+        TraderXCategory existing = s_Categories.Get(categoryId);
+        if (existing)
+            return existing;
+
+        string filePath = TRADERX_CATEGORIES_DIR + categoryId + ".json";
+        if (!FileExist(filePath))
+            return null;
+
+        TraderXCategory category = LoadCategory(filePath);
+        if (!category)
+            return null;
+
+        TraderXCategoryId.AssignIdIfNot(category, categoryId);
+        s_Categories.Set(categoryId, category);
+        return category;
+    }
+
     static void DebugSaveAllCategories()
     {
         GetTraderXLogger().LogDebug("DebugSaveAllCategories");
@@ -235,7 +257,7 @@ class TraderXCategoryRepository
         FileAttr attr;
         
         GetTraderXLogger().LogDebug("[TraderX] Starting file search in: " + TRADERX_CATEGORIES_DIR);
-        FindFileHandle findHandle = FindFile(TRADERX_CATEGORIES_DIR + "*.json", filename, attr, FindFileFlags.ALL);
+        FindFileHandle findHandle = TraderXFileSystem.Find(TRADERX_CATEGORIES_DIR + "*.json", filename, attr, FindFileFlags.ALL);
         
         GetTraderXLogger().LogDebug("[TraderX] First filename found: " + filename);
         

@@ -88,7 +88,7 @@ class TraderXTradeQuantity
 
   static int CreateTradeQuantity(int buyMode, int sellMode, int buyQuantity, int sellQuantity)
   {
-    return sellMode | (buyMode << 3) | ((sellQuantity << 6) & 0x1FFF) | (buyQuantity << 19);
+    return sellMode | (buyMode << 3) | ((sellQuantity & 0x1FFF) << 6) | (buyQuantity << 19);
   }
 
   static int GetBuyQuantityMode(int tradeQuantity)

@@ -26,11 +26,22 @@ class TraderXNpcService
         return npcs.Get(id);
     }
 
+    // TraderXGarage spawns its own attendant (125) from its own config in every mode; spawning the
+    // reserved entry here too would put two NPCs on the same spot. TraderXBanking does NOT: with
+    // TraderX loaded it relies on this service for its ATM (126), so 126 is always spawned here.
+    // Runtime check: nothing defines a TraderXGarage preprocessor symbol, so #ifdef never matched.
+    static bool IsSpawnedBySubMod(int npcId)
+    {
+        return npcId == 125 && GetGame().ConfigIsExisting("CfgPatches TraderXGarage_Script");
+    }
+
     void CreateNpcs()
     {
         GetTraderXLogger().LogDebug("[TraderX] CreateNpcs initiated");
         foreach(TraderXNpc npc: GetTraderXModule().GetSettings().traders)
         {
+            if (IsSpawnedBySubMod(npc.npcId))
+                continue;
             npcs.Insert(npc.npcId, npc);
             Object obj = GetGame().CreateObject(npc.className, vector.Zero, false, false);
             if (!obj)

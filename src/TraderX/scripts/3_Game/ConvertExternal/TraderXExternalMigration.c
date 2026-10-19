@@ -23,8 +23,39 @@ class TraderXExternalMigration
         }
     }
 
+    // Imports add to the catalog but never overwrite what the admin already has.
+    static bool SaveProductIfNew(TraderXProduct product)
+    {
+        if (FileExist(string.Format(TRADERX_PRODUCT_FILE, product.productId)))
+            return false;
+
+        TraderXProductRepository.Save(product);
+        return true;
+    }
+
+    static bool SaveCategoryIfNew(TraderXCategory category)
+    {
+        if (FileExist(string.Format(TRADERX_CATEGORY_FILE, category.categoryId)))
+        {
+            GetTraderXLogger().LogWarning("[TraderX Migration] Category " + category.categoryId + " already exists - kept the existing file, imported products are not added to it");
+            return false;
+        }
+
+        TraderXCategoryRepository.Save(category);
+        return true;
+    }
+
     static void EnsureCatalogDirs()
     {
+        // MakeDirectory does not create parents.
+        if (!FileExist(TRADERX_CONFIG_ROOT_SERVER))
+            MakeDirectory(TRADERX_CONFIG_ROOT_SERVER);
+        if (!FileExist(TRADERX_CONFIG_DIR_SERVER))
+            MakeDirectory(TRADERX_CONFIG_DIR_SERVER);
+        if (!FileExist(TRADERX_DB_DIR_SERVER))
+            MakeDirectory(TRADERX_DB_DIR_SERVER);
+        if (!FileExist(TRADERX_STOCK_DIR))
+            MakeDirectory(TRADERX_STOCK_DIR);
         if (!FileExist(TRADERX_CATEGORIES_DIR))
             MakeDirectory(TRADERX_CATEGORIES_DIR);
         if (!FileExist(TRADERX_PRODUCTS_DIR))
@@ -32,14 +63,31 @@ class TraderXExternalMigration
     }
 
     // Strip a trailing "//" line comment and surrounding whitespace. Returns "" for comment-only lines.
+    // Ids must not collide with NPCs already in the settings nor with the reserved garage/bank ids.
+    static int NextFreeNpcId(TraderXGeneralSettings settings)
+    {
+        int id = 1;
+        foreach (TraderXNpc existing : settings.traders)
+        {
+            if (existing && existing.npcId >= id && existing.npcId != 125 && existing.npcId != 126)
+                id = existing.npcId + 1;
+        }
+        if (id == 125 || id == 126)
+            id = 127;
+        return id;
+    }
+
     static string CleanLine(string line)
     {
+        // Trim() only strips spaces; Dr Jones files are tab-aligned with CRLF endings.
+        line.Replace("\t", " ");
+        line.Replace("\r", "");
         int idx = line.IndexOf("//");
         if (idx == 0)
             return "";
         if (idx > 0)
             line = line.Substring(0, idx);
-        line.Trim();
+        line.TrimInPlace();
         return line;
     }
 
@@ -52,7 +100,7 @@ class TraderXExternalMigration
     static string AfterTag(string line, string tag)
     {
         string v = line.Substring(tag.Length(), line.Length() - tag.Length());
-        v.Trim();
+        v.TrimInPlace();
         return v;
     }
 
@@ -60,6 +108,6 @@ class TraderXExternalMigration
     // modes: 0x0 EMPTY/NO_MATTER, 0x1 (sell empty), 0x2 FULL, 0x3 COEFFICIENT, 0x4 STATIC.
     static int PackTradeQuantity(int buyMode, int sellMode, int buyQuantity, int sellQuantity)
     {
-        return sellMode | (buyMode << 3) | ((sellQuantity << 6) & 0x1FFF) | (buyQuantity << 19);
+        return sellMode | (buyMode << 3) | ((sellQuantity & 0x1FFF) << 6) | (buyQuantity << 19);
     }
 }

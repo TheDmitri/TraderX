@@ -1,6 +1,6 @@
 class TraderXAttachmentHandler
 {
-  static TStringArray GetAttachmentSlots(ItemBase parent)
+  static TStringArray GetAttachmentSlots(EntityAI parent)
     {
         TStringArray searching_in = new TStringArray();
 		searching_in.Insert(CFG_VEHICLESPATH);
@@ -23,7 +23,7 @@ class TraderXAttachmentHandler
         return attachmentSlots;
     }
 
-    static bool CanAttachToSlot(ItemBase attachment, string slotName)
+    static bool CanAttachToSlot(EntityAI attachment, string slotName)
     {
         TStringArray searching_in = new TStringArray;
 		searching_in.Insert(CFG_VEHICLESPATH);

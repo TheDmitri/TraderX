@@ -1,11 +1,11 @@
 class TraderXVehicleParkingCollection
 {
     string traderId;
-    ref array<TraderXVehicleParkingPosition> positions;
+    ref array<ref TraderXVehicleParkingPosition> positions;
 
     void TraderXVehicleParkingCollection(string traderId)
     {
         this.traderId = traderId;
-        this.positions = new array<TraderXVehicleParkingPosition>;
+        this.positions = new array<ref TraderXVehicleParkingPosition>;
     }
 }

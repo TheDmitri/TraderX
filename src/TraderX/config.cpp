@@ -14,7 +14,7 @@ class CfgPatches
 		units[] = {};
 		weapons[] = {};
 		requiredVersion = 0.1;
-		requiredAddons[] = {"DZ_Data"};
+		requiredAddons[] = {"DZ_Data","JM_CF_Scripts","DayZular_Script"};
 	};
 };
 class CfgMods
@@ -57,17 +57,17 @@ class CfgMods
 			class gameScriptModule
 			{
 				value = "";
-				files[] = {"DabsFramework/scripts/3_Game","DayZular/scripts/Common","DayZular/scripts/3_Game","TraderPlus/scripts/Common","TraderX/scripts/Common","TraderX/scripts/3_Game"};
+				files[] = {"DayZular/scripts/Common","DayZular/scripts/3_Game","TraderPlus/scripts/Common","TraderX/scripts/Common","TraderX/scripts/3_Game"};
 			};
 			class worldScriptModule
 			{
 				value = "";
-				files[] = {"DabsFramework/scripts/4_World","DayZular/scripts/Common","DayZular/scripts/4_World","TraderPlus/scripts/Common","TraderX/scripts/Common","TraderX/scripts/4_World"};
+				files[] = {"DayZular/scripts/Common","DayZular/scripts/4_World","TraderPlus/scripts/Common","TraderX/scripts/Common","TraderX/scripts/4_World"};
 			};
 			class missionScriptModule
 			{
 				value = "";
-				files[] = {"DabsFramework/scripts/5_Mission","DayZular/scripts/Common","DayZular/scripts/5_Mission","TraderPlus/scripts/Common","TraderX/scripts/Common","TraderX/scripts/5_Mission"};
+				files[] = {"DayZular/scripts/Common","DayZular/scripts/5_Mission","TraderPlus/scripts/Common","TraderX/scripts/Common","TraderX/scripts/5_Mission"};
 			};
 		};
 	};

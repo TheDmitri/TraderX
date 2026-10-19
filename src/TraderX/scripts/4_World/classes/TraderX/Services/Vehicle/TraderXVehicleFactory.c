@@ -10,7 +10,7 @@ class TraderXVehicleFactory
         }
         
         // Spawn the base vehicle
-        EntityAI vehicle = GetGame().CreateObjectEx(vehicleClassName, position, ECE_SETUP | ECE_UPDATEPATHGRAPH | ECE_CREATEPHYSICS);
+        EntityAI vehicle = EntityAI.Cast(GetGame().CreateObjectEx(vehicleClassName, position, ECE_SETUP | ECE_UPDATEPATHGRAPH | ECE_CREATEPHYSICS));
         if (!vehicle)
         {
             GetTraderXLogger().LogError("Failed to spawn vehicle: " + vehicleClassName);

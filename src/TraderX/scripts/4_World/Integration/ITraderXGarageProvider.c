@@ -16,4 +16,6 @@ class ITraderXGarageProvider
     int  GetMaxSlots() { return 0; }
     bool HasFreeSlot(string playerUid) { return false; }
     array<ref TraderXGarageVehicleInfo> ListVehicles(string playerUid) { return null; }
+    bool IsResaleBlocked(EntityAI vehicle) { return false; }
+    void OnVehicleSold(EntityAI vehicle, string sellerUid) { }
 }

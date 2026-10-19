@@ -13,6 +13,12 @@ class TraderXProviderRegistry
     protected ref ITraderXGarageProvider   m_Garage;
     protected ref ITraderXCarLockProvider  m_CarLock;
     protected ref ITraderXSafeZoneProvider m_SafeZone;
+    protected ref ITraderXCatalogProvider  m_Catalog;
+
+    void TraderXProviderRegistry()
+    {
+        m_Catalog = new TraderXCoreCatalogProvider();
+    }
 
     static TraderXProviderRegistry GetInstance()
     {
@@ -24,14 +30,17 @@ class TraderXProviderRegistry
     void RegisterGarageProvider(ITraderXGarageProvider p)    { m_Garage = p; }
     void RegisterCarLockProvider(ITraderXCarLockProvider p)  { m_CarLock = p; }
     void RegisterSafeZoneProvider(ITraderXSafeZoneProvider p){ m_SafeZone = p; }
+    void RegisterCatalogProvider(ITraderXCatalogProvider p)  { m_Catalog = p; }
 
     ITraderXPaymentProvider  GetBankingProvider()  { return m_Payment; }
     ITraderXGarageProvider   GetGarageProvider()   { return m_Garage; }
     ITraderXCarLockProvider  GetCarLockProvider()  { return m_CarLock; }
     ITraderXSafeZoneProvider GetSafeZoneProvider() { return m_SafeZone; }
+    ITraderXCatalogProvider  GetCatalogProvider()  { return m_Catalog; }
 
     bool HasBanking()  { return m_Payment  != null; }
     bool HasGarage()   { return m_Garage   != null; }
     bool HasCarLock()  { return m_CarLock  != null; }
     bool HasSafeZone() { return m_SafeZone != null; }
+    bool HasCatalog()  { return m_Catalog  != null; }
 }

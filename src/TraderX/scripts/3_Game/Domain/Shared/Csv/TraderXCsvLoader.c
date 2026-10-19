@@ -27,7 +27,7 @@ class TraderXCsvLoader
             lineNumber++;
             
             // Skip empty lines
-            line.Trim();
+            line.TrimInPlace();
             if (line.Length() == 0)
                 continue;
             
@@ -66,7 +66,7 @@ class TraderXCsvLoader
             // Handle delimiter
             if (ch == delimiter && !inQuotes)
             {
-                currentField.Trim();
+                currentField.TrimInPlace();
                 columns.Insert(currentField);
                 currentField = "";
                 continue;
@@ -77,7 +77,7 @@ class TraderXCsvLoader
         }
         
         // Add last field
-        currentField.Trim();
+        currentField.TrimInPlace();
         columns.Insert(currentField);
     }
     
@@ -134,14 +134,14 @@ class TraderXCsvLoader
             string attachmentsStr = GetCsvValue(row, columnMap, "attachments");
             if (attachmentsStr.Length() > 0)
             {
-                product.attachments = new ref array<string>;
+                product.attachments = new array<string>;
                 ParseSemicolonList(attachmentsStr, product.attachments);
             }
             
             string variantsStr = GetCsvValue(row, columnMap, "variants");
             if (variantsStr.Length() > 0)
             {
-                product.variants = new ref array<string>;
+                product.variants = new array<string>;
                 ParseSemicolonList(variantsStr, product.variants);
             }
             
@@ -198,14 +198,14 @@ class TraderXCsvLoader
             string licensesStr = GetCsvValue(row, columnMap, "licensesrequired");
             if (licensesStr.Length() > 0)
             {
-                category.licensesRequired = new ref array<string>;
+                category.licensesRequired = new array<string>;
                 ParseSemicolonList(licensesStr, category.licensesRequired);
             }
             
             string productsStr = GetCsvValue(row, columnMap, "productkeys");
             if (productsStr.Length() > 0)
             {
-                category.productKeys = new ref array<string>;
+                category.productKeys = new array<string>;
                 ParseSemicolonList(productsStr, category.productKeys);
             }
             
@@ -261,7 +261,7 @@ class TraderXCsvLoader
             string attachmentsStr = GetCsvValue(row, columnMap, "attachments");
             if (attachmentsStr.Length() > 0)
             {
-                preset.attachments = new ref array<string>;
+                preset.attachments = new array<string>;
                 ParseSemicolonList(attachmentsStr, preset.attachments);
             }
             
@@ -284,7 +284,7 @@ class TraderXCsvLoader
             if (idx < row.Count())
             {
                 string val = row.Get(idx);
-                val.Trim();
+                val.TrimInPlace();
                 return val;
             }
         }
@@ -325,7 +325,7 @@ class TraderXCsvLoader
         
         foreach (string part : parts)
         {
-            part.Trim();
+            part.TrimInPlace();
             if (part.Length() > 0)
             {
                 output.Insert(part);

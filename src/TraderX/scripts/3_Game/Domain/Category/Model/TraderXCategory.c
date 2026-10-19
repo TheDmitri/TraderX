@@ -35,11 +35,9 @@ class TraderXCategory extends TraderXJsonCategory
         if (!product || !productIds)
             return;
 
+        // Links only; saving the product is the caller's decision (importers never overwrite).
         if (productIds.Find(product.productId) == -1)
-        {
             productIds.Insert(product.productId);
-            TraderXProductRepository.Save(product);
-        }
     }
 
     void RemoveProduct(TraderXProduct product)

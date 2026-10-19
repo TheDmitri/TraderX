@@ -58,8 +58,9 @@ class TraderXCurrencyService : DayZularService
 	//Currency Methods
 	//----------------------------------------------------------------//
 
-    int GetPlayerMoneyFromAllCurrency(PlayerBase player, ref TStringArray acceptedCurrencyTypes = null)
+    int GetPlayerMoneyFromAllCurrency(PlayerBase player, TStringArray acceptedCurrencyTypesIn = null)
     {
+      ref TStringArray acceptedCurrencyTypes = acceptedCurrencyTypesIn;
       if(!acceptedCurrencyTypes)
         acceptedCurrencyTypes = new TStringArray();
 
@@ -100,6 +101,48 @@ class TraderXCurrencyService : DayZularService
     }
 
     /**
+    * Trader purchase payment: cash first, then the Banking provider (whole amount, or the cash shortfall).
+    *
+    * @param label Ledger label for the bank debit (e.g. "TRADER_BUY").
+    * @param source Ledger source shown to the player (e.g. "Trader").
+    */
+    bool RemoveMoneyWithBankFallback(PlayerBase player, int amountToRemove, TStringArray acceptedCurrencyTypes, string label, string source)
+    {
+        if(!player || amountToRemove <= 0)
+            return false;
+
+        if (RemoveMoneyAmountFromPlayer(player, amountToRemove, acceptedCurrencyTypes))
+            return true;
+
+        if (!TraderXProviderRegistry.GetInstance().HasBanking())
+            return false;
+
+        ITraderXPaymentProvider bankProv = TraderXProviderRegistry.GetInstance().GetBankingProvider();
+        if (!bankProv || !bankProv.IsAvailable(player))
+            return false;
+
+        int bankBal = bankProv.GetBalance(player);
+        if (bankBal >= amountToRemove)
+            return bankProv.DeductLabeled(player, amountToRemove, label, source);
+
+        TStringArray currencies = acceptedCurrencyTypes;
+        if (!currencies)
+            currencies = new TStringArray();
+        int playerMoney = GetPlayerMoneyFromAllCurrency(player, currencies);
+        if (playerMoney > 0 && (playerMoney + bankBal) >= amountToRemove)
+        {
+            int bankNeeded = amountToRemove - playerMoney;
+            if (RemoveMoneyAmountFromPlayer(player, playerMoney, currencies))
+            {
+                if (bankProv.DeductLabeled(player, bankNeeded, label, source))
+                    return true;
+                AddMoneyToPlayer(player, playerMoney, currencies);
+            }
+        }
+        return false;
+    }
+
+    /**
     * Removes the specified amount of money from the player's inventory for the accepted currency types.
     *
     * @param player The player whose inventory to check and remove money from.
@@ -108,15 +151,17 @@ class TraderXCurrencyService : DayZularService
     *
     * @return true if the required amount has been successfully removed.
     */
-    bool RemoveMoneyAmountFromPlayer(PlayerBase player, int amountToRemove, ref TStringArray acceptedCurrencyTypes = null)
+    bool RemoveMoneyAmountFromPlayer(PlayerBase player, int amountToRemove, TStringArray acceptedCurrencyTypesIn = null)
     {
+        ref TStringArray acceptedCurrencyTypes = acceptedCurrencyTypesIn;
         if(!player || amountToRemove <= 0)
             return false;
 
         if(!acceptedCurrencyTypes)
             acceptedCurrencyTypes = new TStringArray();
 
-        // First check if player has enough money
+        // Cash only. Trader purchases that may also draw on the bank go through RemoveMoneyWithBankFallback,
+        // so other callers (e.g. TraderXGarage with payWithBank=false) are never charged from the bank.
         int playerMoney = GetPlayerMoneyFromAllCurrency(player, acceptedCurrencyTypes);
         if(playerMoney < amountToRemove)
             return false;
@@ -132,8 +177,10 @@ class TraderXCurrencyService : DayZularService
             if(acceptedCurrencyTypes.Count() > 0 && acceptedCurrencyTypes.Find(currencyType.currencyName) == -1)
                 continue;
             
-            foreach(TraderXCurrency currency: currencyType.currencies)
+            // Iterate from smallest denomination to largest so exact small notes are spent before breaking larger notes
+            for (int cIdx = currencyType.currencies.Count() - 1; cIdx >= 0; cIdx--)
             {
+                TraderXCurrency currency = currencyType.currencies[cIdx];
                 if(moneyAmountRemaining <= 0)
                     break;
 
@@ -141,9 +188,11 @@ class TraderXCurrencyService : DayZularService
                 if(currentCurrencyQuantity <= 0)
                     continue;
 
-                // Calculate how many of this currency we need to take
+                // Calculate how many of this currency we need to take (force float division so moneyAmountRemaining < currencyValue yields 1, not 0)
                 int currencyValue = currency.GetCurrencyValue();
-                int needed = Math.Ceil(moneyAmountRemaining / currencyValue);
+                if (currencyValue <= 0)
+                    continue;
+                int needed = Math.Ceil(moneyAmountRemaining / (currencyValue * 1.0));
                 
                 // If we have exact change, use that
                 if (moneyAmountRemaining % currencyValue == 0 && currentCurrencyQuantity >= needed)
@@ -167,13 +216,13 @@ class TraderXCurrencyService : DayZularService
                     amountRemoved += removedValue;
                     moneyAmountRemaining = Math.Max(0, amountToRemove - amountRemoved);
                     
-                    // If we've removed exactly the amount needed, we're done
+                    // If we've removed at least the amount needed, we're done
                     if (amountRemoved >= amountToRemove)
                         break;
                 }
             }
 
-            // Early exit if we've removed exactly the amount needed
+            // Early exit if we've removed at least the amount needed
             if (exactAmountFound || amountRemoved >= amountToRemove)
                 break;
         }
@@ -205,8 +254,9 @@ class TraderXCurrencyService : DayZularService
         }
     }
 
-    void AddMoneyToPlayer(PlayerBase player, int amount, ref TStringArray acceptedCurrencyTypes = null)
+    void AddMoneyToPlayer(PlayerBase player, int amount, TStringArray acceptedCurrencyTypesIn = null)
     {
+        ref TStringArray acceptedCurrencyTypes = acceptedCurrencyTypesIn;
         if(!acceptedCurrencyTypes)
             acceptedCurrencyTypes = new TStringArray();
 
@@ -247,8 +297,9 @@ class TraderXCurrencyService : DayZularService
     /**
      * Calculates and warns about maximum practical currency amounts based on configuration
      */
-    void CheckCurrencyLimitsAndWarn(int requestedAmount, ref TStringArray acceptedCurrencyTypes = null)
+    void CheckCurrencyLimitsAndWarn(int requestedAmount, TStringArray acceptedCurrencyTypesIn = null)
     {
+        ref TStringArray acceptedCurrencyTypes = acceptedCurrencyTypesIn;
         if(!acceptedCurrencyTypes)
             acceptedCurrencyTypes = new TStringArray();
 

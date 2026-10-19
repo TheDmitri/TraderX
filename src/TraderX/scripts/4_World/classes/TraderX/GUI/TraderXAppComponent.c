@@ -68,6 +68,12 @@ class TraderXAppComponent extends DZlrComponentBase
 
 	void Setup()
 	{
+		if (TraderXProviderRegistry.GetInstance().HasBanking())
+		{
+			ITraderXPaymentProvider bankProv = TraderXProviderRegistry.GetInstance().GetBankingProvider();
+			if (bankProv)
+				bankProv.RequestBalanceRefresh();
+		}
 		UpdateTraderInfo();
 		UpdateWallet();
 
@@ -127,7 +133,13 @@ class TraderXAppComponent extends DZlrComponentBase
 		TraderXNpc npc = GetTraderXModule().GetSettings().GetNpcById(npcId);
 		if (npc) accepted = npc.GetCurrenciesAccepted();
 		int money = TraderXCurrencyService.GetInstance().GetPlayerMoneyFromAllCurrency(player, accepted);
-		wallet_amount = money.ToString();
+		if (TraderXProviderRegistry.GetInstance().HasBanking())
+		{
+			ITraderXPaymentProvider bankProv = TraderXProviderRegistry.GetInstance().GetBankingProvider();
+			if (bankProv && bankProv.IsAvailable(player))
+				money += bankProv.GetClientBalance();
+		}
+		wallet_amount = TraderXQuantityManager.GetFormattedMoneyAmount(money);
 		MarkForCheck();
 	}
 

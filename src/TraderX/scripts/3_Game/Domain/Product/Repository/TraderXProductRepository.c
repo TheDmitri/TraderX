@@ -85,6 +85,45 @@ class TraderXProductRepository
         return null;	
     }
 
+    // Direct load by productId using exact $profile: path (no FindFile needed on DayZ 1.30)
+    static TraderXProduct LoadProductByIdRecursive(string productId)
+    {
+        if (productId == "")
+            return null;
+        TraderXProduct existing = s_Items.Get(productId);
+        if (existing)
+            return existing;
+
+        string filePath = TRADERX_PRODUCTS_DIR + productId + ".json";
+        if (!FileExist(filePath))
+            return null;
+
+        TraderXProduct tProduct = LoadProduct(filePath);
+        if (!tProduct)
+            return null;
+
+        TraderXProductId.AssignUUIDIfNot(tProduct, productId);
+        s_Items.Set(productId, tProduct);
+
+        if (tProduct.attachments)
+        {
+            foreach (string attId : tProduct.attachments)
+            {
+                if (attId != "" && !s_Items.Contains(attId))
+                    LoadProductByIdRecursive(attId);
+            }
+        }
+        if (tProduct.variants)
+        {
+            foreach (string varId : tProduct.variants)
+            {
+                if (varId != "" && !s_Items.Contains(varId))
+                    LoadProductByIdRecursive(varId);
+            }
+        }
+        return tProduct;
+    }
+
     static void LoadAllProducts()
     {
         GetTraderXLogger().LogInfo("[TraderX] LoadAllProducts - Starting");
@@ -187,7 +226,7 @@ class TraderXProductRepository
         FileAttr attr;
         
         GetTraderXLogger().LogDebug("[TraderX] Starting file search in: " + TRADERX_PRODUCTS_DIR);
-        FindFileHandle findHandle = FindFile(TRADERX_PRODUCTS_DIR + "*.json", filename, attr, FindFileFlags.ALL);
+        FindFileHandle findHandle = TraderXFileSystem.Find(TRADERX_PRODUCTS_DIR + "*.json", filename, attr, FindFileFlags.ALL);
         
         GetTraderXLogger().LogDebug("[TraderX] First filename found: " + filename);
         

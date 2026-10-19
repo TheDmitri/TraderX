@@ -37,47 +37,41 @@ class oldTraderXCategory
         return arr[2].ToFloat();
     }
 
+    // TraderPlus TradeQty: -1 = full, 0 = empty, 0<x<1 = fraction of the max quantity, >1 = fixed amount.
     int GetTradeQuantityFromProduct(string product)
     {
         TStringArray arr = GetStringArrayFromString(product);
         if(arr.Count() < 4)
-            return -1;
+            return CreateTradeQuantity(0x2, 0x2, 0, 0);
 
-        int oldTradeQuantity = arr[3].ToInt();
-        float oldCoefficientQuantity = arr[3].ToFloat();
-        int sellMode;
-        int buyMode;
-        int buyQuantity;
-        int sellQuantity;
+        string raw = arr[3];
+        raw.TrimInPlace();
+        float quantity = raw.ToFloat();
 
-        if(oldTradeQuantity == -1){
-            buyMode = 0x2;
-            sellMode = 0x2;
-            buyQuantity = 0;
-            sellQuantity = 0;
-        } else if(oldTradeQuantity == 0){
-            buyMode = 0x0;
-            sellMode = 0x1;
-            buyQuantity = 0;
-            sellQuantity = 0;
-        } else if(oldCoefficientQuantity < 1.0 && oldCoefficientQuantity != 0.0 && oldCoefficientQuantity != -1.0){
-            buyMode =  0x3;
-            sellMode = 0x3;
-            buyQuantity = oldCoefficientQuantity*100;
-            sellQuantity = oldCoefficientQuantity*100;
-        } else {
-            buyMode = 0x4;
-            sellMode = 0x4;
-            buyQuantity = oldTradeQuantity;
-            sellQuantity = oldTradeQuantity;
+        if (quantity == -1.0)
+            return CreateTradeQuantity(0x2, 0x2, 0, 0);
+
+        if (quantity == 0.0)
+            return CreateTradeQuantity(0x0, 0x1, 0, 0);
+
+        if (quantity > 0.0 && quantity < 1.0)
+        {
+            int percent = Math.Round(quantity * 100);
+            return CreateTradeQuantity(0x3, 0x3, percent, percent);
         }
 
-        return CreateTradeQuantity(buyMode, sellMode, buyQuantity, sellQuantity);
+        int amount = Math.Round(quantity);
+        int buyAmount = Math.Min(amount, 4095);
+        int sellAmount = Math.Min(amount, 8191);
+        if (buyAmount != amount)
+            TraderXMigrationReport.Approx("TraderPlus", string.Format("%1: trade quantity %2 capped to %3 (TraderX maximum)", GetClassNameFromProduct(product), amount, buyAmount));
+
+        return CreateTradeQuantity(0x4, 0x4, buyAmount, sellAmount);
     }
 
     int CreateTradeQuantity(int buyMode, int sellMode, int buyQuantity, int sellQuantity)
     {
-        return sellMode | (buyMode << 3) | ((sellQuantity << 6) & 0x1FFF) | (buyQuantity << 19);
+        return sellMode | (buyMode << 3) | ((sellQuantity & 0x1FFF) << 6) | (buyQuantity << 19);
     }
 
     int GetBuyPriceFromProduct(string product)
@@ -89,25 +83,38 @@ class oldTraderXCategory
         return arr[4].ToInt();
     }
 
+    // TraderPlus SellPrice: -1 = not sellable, below 1 = ratio of the buy price, otherwise a price.
     int GetSellPriceFromProduct(string product)
     {
         TStringArray arr = GetStringArrayFromString(product);
         if(arr.Count() < 6)
             return -1;
-        
-        return arr[5].ToInt();
+
+        float sell = arr[5].ToFloat();
+        if (sell == -1.0)
+            return -1;
+
+        if (sell >= 0.0 && sell < 1.0)
+            return Math.Round(arr[4].ToFloat() * sell);
+
+        return Math.Round(sell);
     }
 
-    float GetDeStockCoefficientFromProduct(string product)
+    // TraderPlus only destocks at restart when EnableAutoDestockAtRestart is on; a line without a
+    // 7th column is then wiped (coefficient 1).
+    float GetDeStockCoefficientFromProduct(string product, bool autoDestock)
     {
+        if (!autoDestock)
+            return 0.0;
+
         TStringArray arr = GetStringArrayFromString(product);
         if(arr.Count() < 7)
-            return 0.0;
-        
+            return 1.0;
+
         return arr[6].ToFloat();
     }
 
-    TraderXProduct GetTraderXProductFromProduct(string product)
+    TraderXProduct GetTraderXProductFromProduct(string product, int stockBehaviorAtRestart = 0, bool autoDestock = false)
     {
         string className = GetClassNameFromProduct(product);
         float coefficient= GetCoefficientFromProduct(product);
@@ -115,7 +122,7 @@ class oldTraderXCategory
         int tradeQuantity = GetTradeQuantityFromProduct(product);
         int buyPrice = GetBuyPriceFromProduct(product);
         int sellPrice = GetSellPriceFromProduct(product);
-        float deStockCoefficient = GetDeStockCoefficientFromProduct(product);
+        float deStockCoefficient = GetDeStockCoefficientFromProduct(product, autoDestock);
 
         // Generate a unique product ID based on the class name
         string productId = TraderXProductId.GenerateProductId(className);
@@ -125,7 +132,7 @@ class oldTraderXCategory
             return null;
         }
 
-        return TraderXProduct.CreateProduct(className, coefficient, maxStock, tradeQuantity, buyPrice, sellPrice, deStockCoefficient, 0, null, null, productId);
+        return TraderXProduct.CreateProduct(className, coefficient, maxStock, tradeQuantity, buyPrice, sellPrice, deStockCoefficient, stockBehaviorAtRestart, null, null, productId);
     }
 };
 
@@ -145,21 +152,13 @@ class oldTraderXPriceConfig
 		TraderCategories = new array<ref oldTraderXCategory>;
 	}
 
-    int GetTraderStockAtRestart()
-    {
-        int data;
-        if(EnableAutoDestockAtRestart){
-            data = data | 0x0001000;
-        }
-
-        data = data | EnableDefaultTraderStock;
-
-        return data;
-    }
-
     void ConvertToNewConfig()
     {
         GetTraderXLogger().LogInfo("ConvertToNewConfig");
+        if (EnableAutoCalculation)
+            TraderXMigrationReport.Skipped("TraderPlus", "EnableAutoCalculation (was not functional in TraderPlus either)");
+        if (EnableAutoDestockAtRestart)
+            TraderXMigrationReport.Approx("TraderPlus", "EnableAutoDestockAtRestart: TraderPlus removed stock*coefficient only when stock reached max; TraderX keeps stock*(1-coefficient) at every restart");
 
         if (!FileExist(TRADERX_CATEGORIES_DIR)){
             GetTraderXLogger().LogDebug("[TraderX] Categories directory doesn't exist, creating: " + TRADERX_CATEGORIES_DIR);
@@ -184,12 +183,13 @@ class oldTraderXPriceConfig
             TraderXCategory category = TraderXCategory.CreateCategory(oldCategory.CategoryName, 0, categoryId);
             foreach(string product: oldCategory.Products)
             {
-                TraderXProduct newProduct = oldCategory.GetTraderXProductFromProduct(product);
+                TraderXProduct newProduct = oldCategory.GetTraderXProductFromProduct(product, EnableDefaultTraderStock, EnableAutoDestockAtRestart);
                 if (newProduct)
                 {
                     // Save the product individually to ensure it's persisted
                     TraderXProductRepository.Save(newProduct);
                     category.AddProduct(newProduct);
+                    ConvertTraderPlusPlayerData.RegisterProduct(oldCategory.CategoryName, newProduct);
                 }
             }
             TraderXCategoryRepository.Save(category);

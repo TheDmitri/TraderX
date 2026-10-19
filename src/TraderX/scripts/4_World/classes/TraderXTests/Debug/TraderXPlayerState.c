@@ -46,7 +46,7 @@ class TraderXPlayerState
             {
                 TraderXTestInventoryItem invItem = new TraderXTestInventoryItem();
                 invItem.className = item.GetType();
-                invItem.quantity = TraderXQuantityManager.GetItemAmount(item);
+                invItem.quantity = TraderXQuantityManager.GetItemAmount(ItemBase.Cast(item));
                 
                 // Get network ID for items that might be sold
                 int lowId, highId;

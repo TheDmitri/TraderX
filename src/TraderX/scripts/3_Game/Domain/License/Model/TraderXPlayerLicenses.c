@@ -42,6 +42,15 @@ class TraderXPlayerLicenses
 
     // Category gating stores license NAMES (TraderXCategory.licensesRequired), so the
     // ownership check must match by name, not by the generated UUID.
+    // licensesRequired entries are license names, but configs written by TraderX 1.x hold
+    // license ids: accept either so existing gated categories and traders keep working.
+    bool HasRequiredLicense(string nameOrId)
+    {
+        if (HasLicenseByName(nameOrId))
+            return true;
+        return HasLicense(nameOrId);
+    }
+
     bool HasLicenseByName(string licenseName)
     {
         for(int i = 0; i < licenses.Count(); i++)

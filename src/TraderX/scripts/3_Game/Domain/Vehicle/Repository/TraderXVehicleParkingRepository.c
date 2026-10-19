@@ -25,13 +25,13 @@ class TraderXVehicleParkingRepository
         
         GetTraderXLogger().LogDebug("[TraderX] Starting file search in parking directory");
         GetTraderXLogger().LogDebug("[TraderX] Full parking directory path: " + TRADERX_VEHICLE_PARKING_DIR);
-        FindFileHandle findHandle = FindFile(TRADERX_VEHICLE_PARKING_DIR + "parkings_*.json", filename, attr, FindFileFlags.ALL);
+        FindFileHandle findHandle = TraderXFileSystem.Find(TRADERX_VEHICLE_PARKING_DIR + "parkings_*.json", filename, attr, FindFileFlags.ALL);
         
         GetTraderXLogger().LogDebug("[TraderX] First filename found: " + filename);
         
         if (findHandle == 0){
-            GetTraderXLogger().LogError("[TraderX] ERROR: File handle is 0, no parking files found or directory error");
-            GetTraderXLogger().LogError("[TraderX] Directory exists check completed");
+            // DayZ 1.30 FindFile cannot list external -profiles folders; GetParkingCollection loads parkings_<traderId>.json by exact path on demand.
+            GetTraderXLogger().LogWarning("[TraderX] No parking files listed; parkings will be loaded per trader on demand");
             CloseFindFile(findHandle);
             return;
         }

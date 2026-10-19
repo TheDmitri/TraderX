@@ -23,18 +23,14 @@ class TraderXVehicleTransactionService
     
     bool IsVehicleProduct(string className)
     {
-        EntityAI ent = EntityAI.Cast(GetGame().CreateObject(className , "0 0 0"));
-        if(!ent)
-          return false;
-    
-        Transport transport;
-        if(Class.CastTo(transport, ent))
-        {
-          GetGame().ObjectDelete(transport);
-          return true;
-        }
-
-        GetGame().ObjectDelete(ent);
+        if (className == "")
+            return false;
+        if (!GetGame().ConfigIsExisting("CfgVehicles " + className))
+            return false;
+        if (GetGame().IsKindOf(className, "Transport"))
+            return true;
+        if (GetGame().IsKindOf(className, "CarScript") || GetGame().IsKindOf(className, "BoatScript"))
+            return true;
         return false;
     }
     
@@ -237,7 +233,7 @@ class TraderXVehicleTransactionService
         
         // Currency validation and removal
         if (calculatedPrice > 0) {
-            bool currencyResult = TraderXCurrencyService.GetInstance().RemoveMoneyAmountFromPlayer(player, calculatedPrice, npc.GetCurrenciesAccepted());
+            bool currencyResult = TraderXCurrencyService.GetInstance().RemoveMoneyWithBankFallback(player, calculatedPrice, npc.GetCurrenciesAccepted(), "TRADER_BUY", "Trader");
             if (!currencyResult) {
                 return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), "Vehicle purchase failed: Insufficient funds");
             }
@@ -278,6 +274,14 @@ class TraderXVehicleTransactionService
         if (!parkingReserved) {
             GetTraderXLogger().LogWarning("Failed to reserve parking position for vehicle: " + vehicle.GetType() + " - continuing with transaction");
         }
+
+        // Automatically bind vehicle ownership to buyer when CarLock provider is present
+        if (TraderXProviderRegistry.GetInstance().HasCarLock() && player.GetIdentity()) {
+            ITraderXCarLockProvider buyLockProv = TraderXProviderRegistry.GetInstance().GetCarLockProvider();
+            if (buyLockProv) {
+                buyLockProv.SetOwner(vehicle, player.GetIdentity().GetPlainId());
+            }
+        }
         
         // Update stock
         if (!product.IsStockUnlimited()) {
@@ -305,7 +309,7 @@ class TraderXVehicleTransactionService
         }
 
         // Get vehicle to sell
-        EntityAI vehicleToSell = GetGame().GetObjectByNetworkId(transaction.GetNetworkId().GetLowId(), transaction.GetNetworkId().GetHighId());
+        EntityAI vehicleToSell = EntityAI.Cast(GetGame().GetObjectByNetworkId(transaction.GetNetworkId().GetLowId(), transaction.GetNetworkId().GetHighId()));
         if (!vehicleToSell) {
             GetTraderXLogger().LogError("Vehicle not found for network ID: " + transaction.GetNetworkId().ToString());
             return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), "Vehicle sale failed: Vehicle not found");
@@ -316,14 +320,31 @@ class TraderXVehicleTransactionService
             return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), "Vehicle sale failed: Invalid vehicle");
         }
 
-        CarScript car = CarScript.Cast(vehicleToSell);
-        if(car && !car.IsLastDriver(player)){
-            return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), "Vehicle sale failed: Vehicle is not owned by player");
+        if (TraderXProviderRegistry.GetInstance().HasGarage() && TraderXProviderRegistry.GetInstance().GetGarageProvider().IsResaleBlocked(vehicleToSell)) {
+            return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), "Vehicle sale failed: Insurance replacement cannot be sold yet");
         }
 
-        BoatScript boat = BoatScript.Cast(vehicleToSell);
-        if(boat && !boat.IsLastDriver(player)){
-            return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), "Vehicle sale failed: Vehicle is not owned by player");
+        bool verifiedByLock = false;
+        if (TraderXProviderRegistry.GetInstance().HasCarLock() && player.GetIdentity()) {
+            ITraderXCarLockProvider sellLockProv = TraderXProviderRegistry.GetInstance().GetCarLockProvider();
+            if (sellLockProv && sellLockProv.HasCarLock(vehicleToSell)) {
+                if (!sellLockProv.IsOwner(vehicleToSell, player.GetIdentity().GetPlainId())) {
+                    return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), "Vehicle sale failed: Vehicle is locked/owned by another player");
+                }
+                verifiedByLock = true;
+            }
+        }
+
+        if (!verifiedByLock) {
+            CarScript car = CarScript.Cast(vehicleToSell);
+            if(car && !car.IsLastDriver(player)){
+                return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), "Vehicle sale failed: Vehicle is not owned by player");
+            }
+
+            BoatScript boat = BoatScript.Cast(vehicleToSell);
+            if(boat && !boat.IsLastDriver(player)){
+                return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), "Vehicle sale failed: Vehicle is not owned by player");
+            }
         }
         
         // Validate vehicle type matches product
@@ -396,6 +417,10 @@ class TraderXVehicleTransactionService
             GetTraderXLogger().LogWarning("Failed to properly prepare vehicle for sale, continuing anyway");
         }
         
+        if (TraderXProviderRegistry.GetInstance().HasGarage() && player.GetIdentity()) {
+            TraderXProviderRegistry.GetInstance().GetGarageProvider().OnVehicleSold(vehicleToSell, player.GetIdentity().GetPlainId());
+        }
+
         // Remove vehicle from world
         GetGame().ObjectDelete(vehicleToSell);
         GetTraderXLogger().LogInfo("Vehicle successfully removed from world: " + vehicleToSell.GetType());

@@ -32,34 +32,30 @@
 
     <!-- Content rows -->
     <div data-dz="grid" data-name="GridContent"
-        class="dz-wh-100-48px dz-noptr dz-fit-v dz-cols-1 dz-pad-8 dz-gap-10">
+        class="dz-wh-100-48px dz-noptr dz-fit-v dz-cols-1 dz-pad-4 dz-gap-4">
 
-      <!-- Header: icon well + kicker + right-aligned time -->
-      <div data-dz="panel" data-name="headerRow" class="dz-wh-100-34px dz-noptr">
+      <!-- Header: icon well + kicker (source - status) beside it -->
+      <div data-dz="panel" data-name="headerRow" class="dz-wh-100-30px dz-noptr">
         <div data-dz="panel" data-name="iconWell" data-style="TXSurface"
-            class="dz-xy-0px-0px dz-wh-34px-34px dz-c-FE dz-noptr">
+            class="dz-xy-0px-0px dz-wh-30px-30px dz-c-FE dz-noptr">
           <img data-dz="image" data-name="iconImg" data-image="set:traderx_icons image:sale"
               class="dz-xy-20-20 dz-wh-60-60 dz-c-C4A35A dz-noptr" />
         </div>
         <p data-dz="richtext" data-name="kickerText" data-bind="{{ _notif.GetKicker() }}"
-            class="dz-xy-16-0 dz-wh-54-100 dz-c-8A8F96 dz-font-body-12 dz-noptr dz-text-vc">
-          TRADER · SOLD
-        </p>
-        <p data-dz="richtext" data-name="timeText" data-bind="{{ _notif.time }}"
-            class="dz-xy-70-0 dz-wh-30-100 dz-c-8A8F96 dz-font-body-12 dz-noptr dz-text-vc dz-text-right">
-          now
+            class="dz-xy-40px-0 dz-wh-80-100 dz-c-8A8F96 dz-font-body-12 dz-noptr dz-text-vc">
+          TRADER - SOLD
         </p>
       </div>
 
       <!-- Title — grows to its wrapped height -->
       <p data-dz="richtext" data-name="titleText" data-bind="{{ _notif.title }}"
-          class="dz-wh-100-22px dz-c-ECE8DA dz-font-body-16 dz-noptr dz-wrap dz-strip-newlines dz-size-to-text-v">
+          class="dz-wh-100-20px dz-c-ECE8DA dz-font-body-16 dz-noptr dz-wrap dz-strip-newlines dz-size-to-text-v">
         Item Sold
       </p>
 
       <!-- Body — grows to its wrapped height (was clipped before) -->
       <p data-dz="richtext" data-name="bodyText" data-bind="{{ _notif.body }}"
-          class="dz-wh-100-32px dz-c-A8B0A7 dz-font-body-14 dz-noptr dz-wrap dz-strip-newlines dz-size-to-text-v">
+          class="dz-wh-100-18px dz-c-A8B0A7 dz-font-body-14 dz-noptr dz-wrap dz-strip-newlines dz-size-to-text-v">
         Successfully sold Ammo Box for 800.
       </p>
 
@@ -71,7 +67,7 @@
 
       <!-- Footer (shown when there is no breakdown) -->
       <p data-dz="richtext" data-name="footerText" data-bind="{{ _notif.footer }}"
-          class="dz-wh-100-14px dz-c-9AA09A dz-font-body-12 dz-noptr dz-text-vc">
+          class="dz-wh-100-14px dz-c-9AA09A dz-font-body-12 dz-noptr dz-text-vc dz-hidden">
       </p>
     </div>
 

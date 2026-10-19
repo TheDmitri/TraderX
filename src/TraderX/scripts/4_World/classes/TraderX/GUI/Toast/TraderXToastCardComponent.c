@@ -41,6 +41,7 @@ class TraderXToastCardComponent extends DZlrComponentBase
     Widget queuePill;
     Widget detailsText;
     Widget footerText;
+    Widget bodyText;
 
     // Gap below the card for the queue pill, in px (converted to a screen fraction at runtime).
     private static const float PILL_GAP_PX = 6.0;
@@ -151,10 +152,21 @@ class TraderXToastCardComponent extends DZlrComponentBase
     // math (the old fixed 18px-per-line estimate is what used to cut the breakdown off).
     void ApplyDetailsLayout()
     {
-        bool expanded = _notif && _notif.HasDetails();
+        // Empty rows still take a grid row (+ gap): only show what has content, so a one-line
+        // toast stays compact. A single detail line is shown too (it used to be dropped).
+        bool expanded = false;
+        bool hasFooter = false;
+        bool hasBody = false;
+        if (_notif)
+        {
+            expanded = _notif.details && _notif.details.Count() > 0 && _notif.GetDetailsText() != _notif.body;
+            hasFooter = _notif.footer != string.Empty;
+            hasBody = _notif.body != string.Empty;
+        }
 
         if (detailsText) detailsText.Show(expanded);
-        if (footerText) footerText.Show(!expanded);
+        if (footerText) footerText.Show(false);   // footer = kicker source now
+        if (bodyText) bodyText.Show(hasBody);
     }
 
     // Load the type's frame from the traderx_icons atlas. The widget's accent

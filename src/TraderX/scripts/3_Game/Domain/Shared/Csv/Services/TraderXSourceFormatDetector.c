@@ -69,7 +69,7 @@ class TraderXSourceFormatDetector
         string filename;
         FileAttr attr;
         
-        FindFileHandle csvHandle = FindFile(m_sourceDirectory + "*.csv", filename, attr, FindFileFlags.ALL);
+        FindFileHandle csvHandle = TraderXFileSystem.Find(m_sourceDirectory + "*.csv", filename, attr, FindFileFlags.ALL);
         
         if (csvHandle != 0)
         {
@@ -90,7 +90,7 @@ class TraderXSourceFormatDetector
         string filename;
         FileAttr attr;
         
-        FindFileHandle jsonHandle = FindFile(m_sourceDirectory + "*.json", filename, attr, FindFileFlags.ALL);
+        FindFileHandle jsonHandle = TraderXFileSystem.Find(m_sourceDirectory + "*.json", filename, attr, FindFileFlags.ALL);
         
         if (jsonHandle != 0)
         {

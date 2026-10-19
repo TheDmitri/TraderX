@@ -10,12 +10,12 @@ class TraderXPreset
         attachments = new array<string>;
     }
 
-    static TraderXPreset CreatePreset(string _presetName, TraderXProduct _item)
+    static TraderXPreset CreatePreset(string _presetName, TraderXProduct product)
     {
         TraderXPreset preset = new TraderXPreset();
         preset.presetName = _presetName;
-        preset.productId = _item.productId;
-        preset.attachments = _item.GetSelectedAttachments();
+        preset.productId = product.productId;
+        preset.attachments = product.GetSelectedAttachments();
         preset.presetId = string.Empty;
         
         // Generate preset ID using the new system

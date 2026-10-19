@@ -189,7 +189,15 @@ class CheckoutComponent extends DZlrComponentBase
 		PlayerBase player = PlayerBase.Cast(GetGame().GetPlayer());
 		if (!player) return;
 		int playerMoney = TraderXTradingService.GetInstance().GetPlayerMoneyAmount(player);
-		money_amount = TraderXQuantityManager.GetFormattedMoneyAmount(playerMoney);
+		int bankBalance = 0;
+		if (TraderXProviderRegistry.GetInstance().HasBanking())
+		{
+			ITraderXPaymentProvider bankProv = TraderXProviderRegistry.GetInstance().GetBankingProvider();
+			if (bankProv && bankProv.IsAvailable(player))
+				bankBalance = bankProv.GetClientBalance();
+		}
+		bank_amount = TraderXQuantityManager.GetFormattedMoneyAmount(bankBalance);
+		money_amount = TraderXQuantityManager.GetFormattedMoneyAmount(playerMoney + bankBalance);
 		MarkForCheck();
 	}
 
