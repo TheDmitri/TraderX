@@ -1,3 +1,5 @@
+#ifndef CarLock
+// TraderPlus V1 defines "CarLock" and owns the CarLock item: TraderX CarLock stands down when it is loaded (see TXCLTraderPlusNotice).
 // Per-player persistence: which locks they have unlocked + active wrong-code cooldowns.
 // JSON at $profile:TraderX\TraderXCarLock\Database\<steamId>.json.
 // JsonFileLoader can't round-trip map<> (see memory dayz-jsonfileloader-no-map), so the
@@ -17,12 +19,18 @@ class TXCLPlayerDb
         _cooldowns = new array<ref TXCLCooldownState>();
     }
 
-    // TheLab-compatible owner id: digits 9..17 of the steam64 string.
+    // TheLab-compatible owner id: digits 9..17 of the steam64 string (or already-converted low id).
     static int SteamIdToOwnerId(string steamId)
     {
-        if (steamId.Length() < 17)
-            return TXCL_UNDEFINED;
-        return steamId.Substring(8, 9).ToInt();
+        if (steamId.Length() >= 17)
+            return steamId.Substring(8, 9).ToInt();
+        if (steamId.Length() > 0 && steamId.Length() <= 10)
+        {
+            int directId = steamId.ToInt();
+            if (directId > 0)
+                return directId;
+        }
+        return TXCL_UNDEFINED;
     }
 
     string GetSteamId()
@@ -126,7 +134,7 @@ class TXCLPlayerDb
 
         string filename;
         FileAttr attr;
-        FindFileHandle findHandle = FindFile(TXCL_DB_DIR + "*.json", filename, attr, FindFileFlags.ALL);
+        FindFileHandle findHandle = TXCLFileSystem.Find(TXCL_DB_DIR + "*.json", filename, attr, FindFileFlags.ALL);
         if (findHandle)
         {
             ProcessOfflinePlayerFile(filename, lockId, players);
@@ -224,3 +232,4 @@ class TXCLPlayerDb
             Save();
     }
 }
+#endif

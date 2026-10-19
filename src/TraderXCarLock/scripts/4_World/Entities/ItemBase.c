@@ -1,3 +1,5 @@
+#ifndef CarLock
+// TraderPlus V1 defines "CarLock" and owns the CarLock item: TraderX CarLock stands down when it is loaded (see TXCLTraderPlusNotice).
 // Holds the configured lock / lockpick class names and registers the item-held lock actions.
 
 modded class ItemBase
@@ -28,3 +30,4 @@ modded class ItemBase
         AddAction(ActionTXCLLockpick);
     }
 }
+#endif

@@ -1,3 +1,5 @@
+#ifndef CarLock
+// TraderPlus V1 defines "CarLock" and owns the CarLock item: TraderX CarLock stands down when it is loaded (see TXCLTraderPlusNotice).
 // Open the keypad. Shown to a NOT-yet-authorized player on a vehicle that has a lock
 // (enter password), and to the owner with no password set yet (set password).
 
@@ -40,3 +42,4 @@ class ActionTXCLLockMenu : ActionInteractBase
             GetTXCLModule().OpenLockMenu(manager);
     }
 }
+#endif

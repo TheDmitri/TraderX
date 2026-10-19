@@ -1,3 +1,5 @@
+#ifndef CarLock
+// TraderPlus V1 defines "CarLock" and owns the CarLock item: TraderX CarLock stands down when it is loaded (see TXCLTraderPlusNotice).
 // Block normal interactions (enter, doors, wheel detach, push) while a vehicle is TXCL-locked.
 
 modded class ActionGetInTransport
@@ -62,3 +64,4 @@ modded class ActionPushObject
         return super.ActionCondition(player, target, item);
     }
 }
+#endif

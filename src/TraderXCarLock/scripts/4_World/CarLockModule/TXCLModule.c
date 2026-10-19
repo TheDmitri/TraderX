@@ -1,3 +1,5 @@
+#ifndef CarLock
+// TraderPlus V1 defines "CarLock" and owns the CarLock item: TraderX CarLock stands down when it is loaded (see TXCLTraderPlusNotice).
 static TXCLModule GetTXCLModule()
 {
     return TXCLModule.Cast(CF_ModuleCoreManager.Get(TXCLModule));
@@ -18,6 +20,10 @@ class TXCLModule : CF_ModuleWorld
         super.OnInit();
         EnableInvokeConnect();
         EnableMissionStart();
+
+        // Decide the vehicle-storage mode before the world (and its vehicles) is loaded.
+        if (GetGame().IsDedicatedServer())
+            TXCLStorageMode.Resolve();
     }
 
     override void OnMissionStart(Class sender, CF_EventArgs args)
@@ -324,3 +330,4 @@ class TXCLModule : CF_ModuleWorld
         return PlayerBase.Cast(GetGame().GetObjectByNetworkId(low, high));
     }
 }
+#endif

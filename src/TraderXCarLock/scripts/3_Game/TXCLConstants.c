@@ -9,6 +9,8 @@ const string TXCL_CONFIG_FILENAME  = TXCL_CONFIG_ROOT + "TXCLSettings.json";
 const string TXCL_DB_DIR           = TXCL_CONFIG_ROOT + "Database/";
 const string TXCL_LOG_DIR          = TXCL_CONFIG_ROOT + "Logs/";
 const string TXCL_LOG_FILE         = TXCL_LOG_DIR + "TXCL_%1.log";
+// CfgMods class carrying storageVersion; the CF ModStorage key for vehicle lock data.
+const string TXCL_STORAGE_MOD      = "TraderXCarLock";
 const string TXCL_DB_FILENAME      = TXCL_DB_DIR + "%1.json";
 
 // Sentinel for "no owner / no password set".

@@ -1,3 +1,5 @@
+#ifndef CarLock
+// TraderPlus V1 defines "CarLock" and owns the CarLock item: TraderX CarLock stands down when it is loaded (see TXCLTraderPlusNotice).
 // Unlock the vehicle. Single-use. Only for an authorized player on a locked car.
 
 class ActionTXCLUnlock : ActionSingleUseBase
@@ -50,3 +52,4 @@ class ActionTXCLUnlock : ActionSingleUseBase
             manager.SetVehicleLock(false);
     }
 }
+#endif

@@ -1,3 +1,5 @@
+#ifndef CarLock
+// TraderPlus V1 defines "CarLock" and owns the CarLock item: TraderX CarLock stands down when it is loaded (see TXCLTraderPlusNotice).
 // Register the TXCL actions with the action system.
 
 modded class ActionConstructor
@@ -13,3 +15,4 @@ modded class ActionConstructor
         actions.Insert(ActionTXCLLockMenu);
     }
 }
+#endif

@@ -1,3 +1,5 @@
+#ifndef CarLock
+// TraderPlus V1 defines "CarLock" and owns the CarLock item: TraderX CarLock stands down when it is loaded (see TXCLTraderPlusNotice).
 // Server-side password validation + cooldown bookkeeping for one attempt.
 // Correct code (or admin) unlocks and remembers the player as authorized.
 
@@ -55,3 +57,4 @@ class TXCLAttemptService
         GetRPCManager().SendRPC(TXCL_RPC_NAMESPACE, "GetPlayerDbResponse", new Param1<TXCLPlayerDb>(player.GetTXCLPlayerDb()), true, player.GetIdentity());
     }
 }
+#endif

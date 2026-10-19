@@ -1,3 +1,5 @@
+#ifndef CarLock
+// TraderPlus V1 defines "CarLock" and owns the CarLock item: TraderX CarLock stands down when it is loaded (see TXCLTraderPlusNotice).
 // DayZular keypad for the 8-digit vehicle lock. Two flows:
 //  - SET   : owner with no password yet -> type code -> confirm -> LockingRequest (sets pwd).
 //  - ENTER : anyone else -> type code -> EnterPasswordAttempt (server validates, cooldown on miss).
@@ -355,3 +357,4 @@ class TXCLLockMenuComponent extends DZlrComponentBase
             GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(module.CloseLockMenu, 1, false);
     }
 }
+#endif

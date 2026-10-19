@@ -1,3 +1,5 @@
+#ifndef CarLock
+// TraderPlus V1 defines "CarLock" and owns the CarLock item: TraderX CarLock stands down when it is loaded (see TXCLTraderPlusNotice).
 // Attach a lock item to an unlocked vehicle. The attacher becomes the owner (no password yet);
 // they then set the password through the keypad (Open Lock Menu shows for non-authorized owner).
 
@@ -60,3 +62,4 @@ class ActionTXCLAttachLock : ActionSingleUseBase
         GetTXCLModule().OpenLockMenu(manager);
     }
 }
+#endif

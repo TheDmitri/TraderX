@@ -5,7 +5,7 @@ class CfgPatches
 		units[]={};
 		weapons[]={};
 		requiredVersion=0.1;
-		requiredAddons[]={"DZ_Data"};
+		requiredAddons[] = {"DZ_Data","JM_CF_Scripts","DayZular_Script"};
 	};
 };
 class CfgMods
@@ -13,6 +13,7 @@ class CfgMods
 	class TraderXCarLock
 	{
 		dir="TraderXCarLock";
+		storageVersion=1;
 		picture="";
 		action="";
 		hideName=1;

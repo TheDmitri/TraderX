@@ -1,3 +1,5 @@
+#ifndef CarLock
+// TraderPlus V1 defines "CarLock" and owns the CarLock item: TraderX CarLock stands down when it is loaded (see TXCLTraderPlusNotice).
 // Detach the lock from a vehicle (authorized players only). Continuous; on finish resets the
 // lock data and drops a lock item back on the ground.
 
@@ -53,3 +55,4 @@ class ActionTXCLDetachLock : ActionContinuousBase
         }
     }
 }
+#endif

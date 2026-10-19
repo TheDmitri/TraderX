@@ -1,3 +1,5 @@
+#ifndef CarLock
+// TraderPlus V1 defines "CarLock" and owns the CarLock item: TraderX CarLock stands down when it is loaded (see TXCLTraderPlusNotice).
 // Per-player carlock DB cache + authorization check + registers the player-held lock actions.
 
 modded class PlayerBase
@@ -47,3 +49,4 @@ modded class PlayerBase
         AddAction(ActionTXCLDetachLock);
     }
 }
+#endif

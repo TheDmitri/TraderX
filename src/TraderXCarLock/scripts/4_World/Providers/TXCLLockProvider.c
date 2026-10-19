@@ -1,3 +1,5 @@
+#ifndef CarLock
+// TraderPlus V1 defines "CarLock" and owns the CarLock item: TraderX CarLock stands down when it is loaded (see TXCLTraderPlusNotice).
 // TraderXCarLock implementation of the core ITraderXCarLockProvider port.
 // Thin façade over TXCLVehicleLockManager. Server-side, in-process. 8-digit passwords.
 // Registered by TXCLModule when TraderX is present. Only compiled with TraderX (needs the port).
@@ -56,6 +58,50 @@ class TXCLLockProvider : ITraderXCarLockProvider
         if (!manager)
             return false;
         return manager.IsVehicleLocked();
+    }
+
+    override bool HasCarLock(EntityAI vehicle)
+    {
+        TXCLVehicleLockManager manager = TXCLVehicleLockManager.Get(vehicle);
+        if (!manager)
+            return false;
+        return manager.HasVehicleLock();
+    }
+
+    override bool IsOwner(EntityAI vehicle, string playerUid)
+    {
+        TXCLVehicleLockManager manager = TXCLVehicleLockManager.Get(vehicle);
+        if (!manager || !manager.HasVehicleLock())
+            return true;
+        int expectedOwner = TXCLPlayerDb.SteamIdToOwnerId(playerUid);
+        if (expectedOwner == TXCL_UNDEFINED)
+            return false;
+        return manager.GetVehicleLockOwner() == expectedOwner;
+    }
+
+    override int GetPassword(EntityAI vehicle)
+    {
+        TXCLVehicleLockManager manager = TXCLVehicleLockManager.Get(vehicle);
+        if (!manager || !manager.HasVehicleLock())
+            return TXCL_UNDEFINED;
+        return manager.GetVehicleLockPassword();
+    }
+
+    override bool RestoreCarLock(EntityAI vehicle, string ownerUid, int password, bool isLocked)
+    {
+        if (!GetGame().IsServer())
+            return false;
+
+        TXCLVehicleLockManager manager = TXCLVehicleLockManager.Get(vehicle);
+        if (!manager)
+            return false;
+
+        int ownerId = TXCLPlayerDb.SteamIdToOwnerId(ownerUid);
+        if (ownerId == TXCL_UNDEFINED)
+            return false;
+
+        manager.RestoreVehicleLockData(ownerId, password, isLocked, CF_Date.Now().GetTimestamp());
+        return true;
     }
 
     override bool SetOwner(EntityAI vehicle, string ownerUid)
@@ -123,3 +169,4 @@ class TXCLLockProvider : ITraderXCarLockProvider
     }
 }
 #endif // TraderX
+#endif

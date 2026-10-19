@@ -1,3 +1,5 @@
+#ifndef CarLock
+// TraderPlus V1 defines "CarLock" and owns the CarLock item: TraderX CarLock stands down when it is loaded (see TXCLTraderPlusNotice).
 // Holds the actual lock state for one vehicle (owner / password / locked / timestamp / sound).
 // Composition target of TXCLVehicleLockManager - never inherits from the vehicle.
 
@@ -21,6 +23,9 @@ class TXCLVehicleLockComponent
 
     void ~TXCLVehicleLockComponent()
     {
+        if (!GetGame())
+            return;
+
         StopAlarm();
         GetGame().GetCallQueue(CALL_CATEGORY_SYSTEM).Remove(ResetSound);
     }
@@ -226,35 +231,54 @@ class TXCLVehicleLockComponent
             m_AlarmSound.SoundStop();
     }
 
-    void SaveData(ParamsWriteContext ctx)
+    // CF ModStorage, storageVersion 1: isLocked, owner, password, timestamp.
+    void SaveData(CF_ModStorage ctx)
     {
-        Param4<bool, int, int, int> data = new Param4<bool, int, int, int>(m_IsLocked, m_LockOwner, m_LockPassword, m_LockTimestamp);
-        ctx.Write(data);
+        ctx.Write(m_IsLocked);
+        ctx.Write(m_LockOwner);
+        ctx.Write(m_LockPassword);
+        ctx.Write(m_LockTimestamp);
     }
 
-    bool LoadData(ParamsReadContext ctx)
+    bool LoadData(CF_ModStorage ctx)
+    {
+        bool isLocked;
+        int owner;
+        int password;
+        int timestamp;
+        if (!ctx.Read(isLocked) || !ctx.Read(owner) || !ctx.Read(password) || !ctx.Read(timestamp))
+            return false;
+
+        ApplyLoadedState(isLocked, owner, password, timestamp);
+        return true;
+    }
+
+    // Raw Param4 written straight into the vehicle save by TraderXCarLock builds that predate
+    // CF ModStorage (see TXCLStorageMode). Read once so the data after it stays aligned.
+    void LoadLegacyData(ParamsReadContext ctx)
     {
         Param4<bool, int, int, int> data = new Param4<bool, int, int, int>(false, TXCL_UNDEFINED, TXCL_UNDEFINED, TXCL_UNDEFINED);
         if (ctx.Read(data))
+            ApplyLoadedState(data.param1, data.param2, data.param3, data.param4);
+    }
+
+    protected void ApplyLoadedState(bool isLocked, int owner, int password, int timestamp)
+    {
+        m_IsLocked = isLocked;
+        m_LockOwner = owner;
+        m_LockPassword = password;
+        m_LockTimestamp = timestamp;
+
+        // No valid owner -> there is no lock; force a clean unlocked state.
+        if (m_LockOwner == TXCL_UNDEFINED || m_LockOwner == 0)
         {
-            m_IsLocked = data.param1;
-            m_LockOwner = data.param2;
-            m_LockPassword = data.param3;
-            m_LockTimestamp = data.param4;
-
-            // No valid owner -> there is no lock; force a clean unlocked state.
-            if (m_LockOwner == TXCL_UNDEFINED || m_LockOwner == 0)
-            {
-                m_IsLocked = false;
-                m_LockOwner = TXCL_UNDEFINED;
-                m_LockPassword = TXCL_UNDEFINED;
-                m_LockTimestamp = 0;
-            }
-
-            SynchronizeLocking();
+            m_IsLocked = false;
+            m_LockOwner = TXCL_UNDEFINED;
+            m_LockPassword = TXCL_UNDEFINED;
+            m_LockTimestamp = 0;
         }
-        // Always true - a false return from OnStoreLoad can corrupt other mods' data.
-        return true;
+
+        SynchronizeLocking();
     }
 
     // Getters for the vehicle net-sync mirror.
@@ -271,3 +295,4 @@ class TXCLVehicleLockComponent
     void SetLockTimestamp_NoSync(int timestamp) { m_LockTimestamp = timestamp; }
     void SetSoundToPlayDirect(int sound) { m_SoundToPlay = sound | ((sound & 0xFF) << 8); }
 }
+#endif

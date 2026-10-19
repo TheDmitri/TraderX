@@ -1,3 +1,5 @@
+#ifndef CarLock
+// TraderPlus V1 defines "CarLock" and owns the CarLock item: TraderX CarLock stands down when it is loaded (see TXCLTraderPlusNotice).
 // Composition wrapper around any Transport (Car/Boat). Owns a TXCLVehicleLockComponent and
 // bridges it to the vehicle's net-sync variables. Resolved via TXCLVehicleLockManager.Get(entity).
 
@@ -183,20 +185,29 @@ class TXCLVehicleLockManager
             m_LockComponent.HandleSoundSync();
     }
 
-    void SaveData(ParamsWriteContext ctx)
+    void SaveData(CF_ModStorage ctx)
     {
         if (m_LockComponent)
             m_LockComponent.SaveData(ctx);
     }
 
-    bool LoadData(ParamsReadContext ctx)
+    bool LoadData(CF_ModStorage ctx)
     {
-        if (m_LockComponent)
-        {
-            m_LockComponent.LoadData(ctx);
-            SyncFromComponent();
-        }
-        return true;
+        if (!m_LockComponent)
+            return true;
+
+        bool loaded = m_LockComponent.LoadData(ctx);
+        SyncFromComponent();
+        return loaded;
+    }
+
+    void LoadLegacyData(ParamsReadContext ctx)
+    {
+        if (!m_LockComponent)
+            return;
+
+        m_LockComponent.LoadLegacyData(ctx);
+        SyncFromComponent();
     }
 
     void PlayLockSound()
@@ -326,3 +337,4 @@ class TXCLBoatLockManager : TXCLVehicleLockManagerT<BoatScript>
         }
     }
 }
+#endif

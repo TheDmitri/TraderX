@@ -1,3 +1,5 @@
+#ifndef CarLock
+// TraderPlus V1 defines "CarLock" and owns the CarLock item: TraderX CarLock stands down when it is loaded (see TXCLTraderPlusNotice).
 // Lockpick a locked vehicle. Continuous, full-body, config-driven time. Triggers the alarm on
 // start; on finish rolls the configured chance to break the lock open.
 
@@ -102,3 +104,4 @@ class ActionTXCLLockpick : ActionContinuousBase
         }
     }
 }
+#endif

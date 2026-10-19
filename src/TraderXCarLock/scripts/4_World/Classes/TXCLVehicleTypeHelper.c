@@ -1,3 +1,5 @@
+#ifndef CarLock
+// TraderPlus V1 defines "CarLock" and owns the CarLock item: TraderX CarLock stands down when it is loaded (see TXCLTraderPlusNotice).
 // Classifies a vehicle into a lock type and resolves its lockpick config from module settings.
 
 class TXCLVehicleTypeHelper
@@ -55,3 +57,4 @@ class TXCLVehicleTypeHelper
         return module.GetSettings().lockpickingSettings.GetConfigForVehicleType(vehicleType);
     }
 }
+#endif
