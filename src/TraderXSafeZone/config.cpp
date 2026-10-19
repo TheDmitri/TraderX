@@ -5,7 +5,7 @@ class CfgPatches
 		units[]={};
 		weapons[]={};
 		requiredVersion=0.1;
-		requiredAddons[]={"TraderX_Script"};
+		requiredAddons[] = {"TraderX_Script","JM_CF_Scripts","DayZular_Script"};
 	};
 };
 

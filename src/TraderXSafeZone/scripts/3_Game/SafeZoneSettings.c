@@ -1,3 +1,28 @@
+// TraderPlus V1 TraderPlusSafeZoneConfig.json (only the fields TraderX supports are read; the
+// TraderPlus stash/hideout feature is intentionally not migrated).
+class TXSZTraderPlusZone
+{
+    string SafeZoneStatut;
+    float  X;
+    float  Y;
+    float  Radius;
+    int    Countdown;
+}
+
+class TXSZTraderPlusConfig
+{
+    bool   EnableAfkDisconnect;
+    int    KickAfterDelay;
+    string MsgEnterZone;
+    string MsgExitZone;
+    string MsgOnLeavingZone;
+    int    CleanUpTimer;
+    ref array<ref TXSZTraderPlusZone> SafeAreaLocation;
+    ref array<string> WhitelistEntities;
+    ref array<string> ObjectsToDelete;
+    ref array<string> SZSteamUIDs;
+}
+
 class TXSafeZoneSettings
 {
     string version = "";
@@ -83,7 +108,65 @@ class TXSafeZoneSettings
             return settings;
         }
 
+        if (settings.ImportTraderPlus())
+            return settings;
+
         settings.DefaultSettings();
         return settings;
+    }
+
+    static const string TRADERPLUS_SAFEZONE_CONFIG = "$profile:TraderPlus/TraderPlusConfig/TraderPlusSafeZoneConfig.json";
+
+    // First boot without a TraderX safezone config: start from the TraderPlus one if present.
+    bool ImportTraderPlus()
+    {
+        if (!FileExist(TRADERPLUS_SAFEZONE_CONFIG))
+            return false;
+
+        TXSZTraderPlusConfig old = new TXSZTraderPlusConfig();
+        string error;
+        if (!JsonFileLoader<TXSZTraderPlusConfig>.LoadFile(TRADERPLUS_SAFEZONE_CONFIG, old, error))
+            return false;
+
+        version = "1.0.0";
+        enableAfkDisconnect = old.EnableAfkDisconnect;
+        kickAfterDelay = old.KickAfterDelay;
+        cleanupTimer = old.CleanUpTimer;
+        if (old.MsgEnterZone != string.Empty)
+            msgOnEnteringZone = old.MsgEnterZone;
+        if (old.MsgExitZone != string.Empty)
+            msgOnLeavingZone = old.MsgExitZone;
+        if (old.MsgOnLeavingZone != string.Empty)
+            msgOnLeavingZoneCountdown = old.MsgOnLeavingZone + " %1";
+        if (old.SZSteamUIDs)
+            adminSteamUIDs.Copy(old.SZSteamUIDs);
+        if (old.ObjectsToDelete)
+            objectsToDelete.Copy(old.ObjectsToDelete);
+
+        array<string> allowedAnimals = new array<string>();
+        if (old.WhitelistEntities)
+            allowedAnimals.Copy(old.WhitelistEntities);
+
+        int id = 1;
+        if (old.SafeAreaLocation)
+        {
+            foreach (TXSZTraderPlusZone zone : old.SafeAreaLocation)
+            {
+                if (!zone)
+                    continue;
+                array<string> zoneAnimals = new array<string>();
+                zoneAnimals.Copy(allowedAnimals);
+                locations.Insert(new TXSafeZoneLocation(true, id, zone.SafeZoneStatut, Vector(zone.X, 0, zone.Y), Math.Round(zone.Radius), true, zoneAnimals));
+                // TraderPlus counts down per zone; TraderX has one countdown for every zone.
+                if (zone.Countdown > 0)
+                    leaveZoneCountdown = zone.Countdown;
+                id++;
+            }
+        }
+
+        CheckDirectories();
+        SaveSettings();
+        GetTXSZLog().LogInfo("[TXSZ Migration] Imported " + locations.Count() + " TraderPlus safezone(s) (stash/hideout not migrated)");
+        return true;
     }
 }
