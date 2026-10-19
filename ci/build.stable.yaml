@@ -1,0 +1,83 @@
+# STABLE TraderX build config (Workshop item 3560310973, ~22k subscribers).
+# Use it explicitly:  CONFIG=ci/build.stable.yaml bash ci/pack-linux.sh
+#                     CONFIG=ci/build.stable.yaml CONFIRM_STABLE=1 bash ci/publish-workshop.sh
+# The default ci/build.yaml keeps targeting TraderXExperimental.
+# TraderX CI build config.
+#
+# Consumed by ci/pack-linux.sh. Environment variables override any value here
+# (MOD_NAME, WORKSHOP_ITEM_ID, BUILD_SKIP), which is handy for one-off CI runs.
+
+mod_name: "@TraderX"
+
+# Steam Workshop item id baked into meta.cpp.
+# 0 = steamcmd creates a NEW item. Set this to your real published id, or
+# override with the WORKSHOP_ITEM_ID repo variable in Actions.
+workshop_item_id: 3560310973
+
+# Steam Workshop change note for the next publish.
+# Edit ci/CHANGENOTE.md (BBCode, not Markdown). Set changenote_file: "" to use
+# the inline `changenote:` below instead. The CHANGENOTE env var overrides both.
+changenote_file: "ci/CHANGENOTE.stable.md"
+changenote: "CI build"
+
+# ---------------------------------------------------------------------------
+# NEW items only (workshop_item_id: 0). Ignored once the id is set — after that
+# the Workshop page is the source of truth for title/description/visibility.
+# ---------------------------------------------------------------------------
+# title: "TraderX"
+# description: "Trading system for DayZ."
+# preview_image: "ci/preview.png"     # 512x512+, <1MB
+# visibility: 2                        # 0=public 1=friends 2=private 3=unlisted
+
+# ---------------------------------------------------------------------------
+# Packages under src/ that CI must NOT rebuild.
+#
+# Their .pbo (+ .bisign) are expected to ALREADY be present in
+# target/@TraderX/addons/ — placed there by hand, release-ready. The build
+# leaves them completely untouched and only replaces the packages it builds.
+#
+# A skipped package with no .pbo in the output is reported as a warning, since
+# that would ship an incomplete mod.
+# ---------------------------------------------------------------------------
+skip:
+  - DayZular          # framework dependency, shipped separately
+  # Model packages: still MLOD, need ci/binarize-models.sh before CI can build
+  # them. Drop these entries once the .p3d are ODOL and committed.
+  - TraderPlusMoney
+  - Keypads
+  - TraderPlusATM
+
+# ---------------------------------------------------------------------------
+# File patterns excluded from every PBO (rsync syntax, applied while staging).
+#
+# DZML authoring artifacts (.html/.css/.js/_fixtures) are browser-preview only —
+# the game loads the compiled .layout. DayZ Tools' own exclude.lst does NOT
+# filter these, so without this the PBOs carry a lot of dead weight.
+# ---------------------------------------------------------------------------
+exclude_files:
+  - "*.html"
+  - "*.css"
+  - "*.js"
+  - "*.md"
+  - "*.psd"
+  - "*.svg"
+  - "*.png"
+  - "*.tga"
+  - "*.dep"
+  - "*.log"
+  - "*.rpt"
+  - "*.bak"
+  - "*.zip"
+  - "*.7z"
+  - "*.scc"
+  - "*.biedi"
+  - "*.pbo"
+  - "*.ebo"
+  - "*.bisign"
+  - "*.bikey"
+  - "*.biprivatekey"
+  - "_fixtures/"
+  - ".git/"
+  - "Source/"
+  - "Temp/"
+  - "Doc/"

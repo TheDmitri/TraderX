@@ -41,6 +41,13 @@ CHANGENOTE="$(printf '%s' "$CHANGENOTE" | sed -e '/./,$!d' -e ':a' -e '/^\n*$/{$
 : "${STEAM_USERNAME:?set STEAM_USERNAME}"
 : "${WORKSHOP_ITEM_ID:?set WORKSHOP_ITEM_ID}"
 
+# The stable item has ~22k subscribers: never publish to it by accident.
+STABLE_ITEM_ID=3560310973
+if [[ "$WORKSHOP_ITEM_ID" == "$STABLE_ITEM_ID" && "${CONFIRM_STABLE:-0}" != "1" ]]; then
+  echo "FATAL: refusing to publish to the STABLE TraderX item ($STABLE_ITEM_ID) without CONFIRM_STABLE=1" >&2
+  exit 1
+fi
+
 # --- Steam Guard ---------------------------------------------------------------
 # Three ways in, in order of preference:
 #   1. CACHED SESSION  — after ONE successful interactive login, steamcmd stores a
