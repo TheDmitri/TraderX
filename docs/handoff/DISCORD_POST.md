@@ -45,6 +45,8 @@ I know a lot of you are still running TraderPlus, and that's totally fine with m
 
 **Migrating is easy.** TraderX imports your TraderPlus server for you: config, traders, stock, licences, bank accounts, vehicles and their locks, and even the TraderPlus money your players carry. Your TraderPlus files are never touched, and a report tells you exactly what was imported.
 
+Running **Expansion Market** or **Dr Jones Trader** instead? TraderX can import those too: traders, products, prices, stock and NPCs.
+
 So give it a try on a **test server**: add TraderX, boot it, read the report, and see how it feels. If it works for you, move your live server over in the coming weeks.
 
 From now on I build, test and ship TraderX with the help of AI. That means many more fixes, delivered faster, and development that keeps moving.
