@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="dzml-styles.css">
+  <link rel="stylesheet" href="dzml-icons.css">
+</head>
+<body data-dzml class="dz-viewport" style="width:312px; height:53px; background:#1c1813;">
+
+<!-- Purchase sidebar category entry (Nasdara): 53 px row, Rajdhani 20 name, mono count;
+     selected = Raised #2e2720 fill + bold cream name. -->
+<div data-dz="panel"
+    data-name="categoryNavItem"
+    class="dz-xy-0-0 dz-wh-100-53px dz-noptr">
+  <div data-dz="panel"
+      data-name="navSelectedBg"
+      class="dz-xy-0-0 dz-wh-full dz-c-2E2720 dz-noptr dz-hidden"></div>
+  <button data-dz="button"
+      data-name="categoryNavBtn"
+      data-style="TXCategoryRow"
+      data-on-click="OnNavClick"
+      class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
+  <span data-dz="text"
+      data-name="navName"
+      data-bind="{{ nav_name }}"
+      class="dz-xy-24px-0 dz-wh-220px-53px dz-c-C2B59C dz-font-nb-20 dz-noptr dz-exact-text dz-text-vc">
+    Vegetables
+  </span>
+  <span data-dz="text"
+      data-name="navNameBold"
+      data-bind="{{ nav_name }}"
+      class="dz-xy-24px-0 dz-wh-220px-53px dz-c-F2E9D8 dz-font-nbb-20 dz-noptr dz-exact-text dz-text-vc dz-hidden">
+    Vegetables
+  </span>
+  <img data-dz="image"
+      data-name="navLockIcon"
+      class="dz-xy-62px-0 dz-wh-14px-14px dz-align-cr dz-c-E07A63 dz-noptr dz-hidden"
+      data-image="set:traderx_icons image:padlock"
+      data-image-mode="blend"
+      data-image-src-alpha="1"
+      data-image-stretch="stretch_w_h"/>
+  <span data-dz="text"
+      data-name="navCount"
+      data-bind="{{ nav_count }}"
+      class="dz-xy-24px-0 dz-wh-60px-53px dz-align-x-right dz-c-A39276 dz-font-nm-16 dz-noptr dz-exact-text dz-text-vc dz-text-right">
+    21
+  </span>
+</div>
+
+<script src="dzml-runtime.js"></script>
+</body>
+</html>

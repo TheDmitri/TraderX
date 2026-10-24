@@ -12,6 +12,8 @@ class TraderXSearchBarComponent extends DZlrComponentBase
 
 	EditBoxWidget searchInput;
 	ImageWidget searchHint;
+	// "Item name" hint, hidden while there is text
+	Widget searchPlaceholder;
 
 	override protected void RegisterMetadata()
 	{
@@ -33,6 +35,7 @@ class TraderXSearchBarComponent extends DZlrComponentBase
 	// Two-way bound editbox change -> debounce -> emit.
 	void OnSearchChanged()
 	{
+		if (searchPlaceholder && searchInput) searchPlaceholder.Show(searchInput.GetText() == "");
 		GetGame().GetCallQueue(CALL_CATEGORY_GUI).Remove(EmitSearch);
 		GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(EmitSearch, 300, false);
 	}

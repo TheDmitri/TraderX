@@ -2,10 +2,10 @@ PanelWidgetClass vehicleRowRoot {
  position 0 0
  hexactpos 0
  vexactpos 0
- size 1 1
+ size 1 84
  hexactsize 0
- vexactsize 0
- style TXSurface
+ vexactsize 1
+ style TXCard
  color 0.9961 0.9961 0.9961 1
  {
   ButtonWidgetClass rowClickBtn {
@@ -15,6 +15,7 @@ PanelWidgetClass vehicleRowRoot {
    size 1 1
    hexactsize 0
    vexactsize 0
+   "text color" 0.9961 0.9961 0.9961 1
    style TXListRow
    color 0.9961 0.9961 0.9961 1
    scriptclass "ButtonBinding"
@@ -32,33 +33,33 @@ PanelWidgetClass vehicleRowRoot {
    hexactsize 0
    vexactsize 0
    ignorepointer 1
-   style TXCardElevated
+   style TXCardSelected
    color 0.9961 0.9961 0.9961 1
   }
   PanelWidgetClass rowHealthBar {
-   position 0.03 0.28
-   hexactpos 0
+   position 24 0
+   hexactpos 1
    vexactpos 0
-   size 8 8
+   size 10 10
    hexactsize 1
    vexactsize 1
-   color 0.4784 0.6039 0.2902 1
+   valign center_ref
+   color 0.498 0.651 0.3529 1
    ignorepointer 1
    style rover_sim_colorable
   }
   TextWidgetClass rowName {
-   position 0.06 0.1
-   hexactpos 0
-   vexactpos 0
-   size 0.6 0.45
+   position 52 14
+   hexactpos 1
+   vexactpos 1
+   size 0.6 28
    hexactsize 0
-   vexactsize 0
-   color 0.8471 0.8235 0.7529 1
-   font "TraderX/datasets/fonts/oswalt16"
+   vexactsize 1
+   color 0.949 0.9137 0.8471 1
+   font "TraderX/datasets/fonts/rajdhanibpx20"
    ignorepointer 1
    "exact text" 1
    "text valign" center
-   style Bold
    text "Vehicle"
    scriptclass "TextBinding"
    {
@@ -68,14 +69,14 @@ PanelWidgetClass vehicleRowRoot {
    }
   }
   TextWidgetClass rowHealth {
-   position 0.06 0.55
-   hexactpos 0
-   vexactpos 0
-   size 0.6 0.35
+   position 52 44
+   hexactpos 1
+   vexactpos 1
+   size 0.6 24
    hexactsize 0
-   vexactsize 0
-   color 0.6039 0.5804 0.5333 1
-   font "TraderX/datasets/fonts/oswalt12"
+   vexactsize 1
+   color 0.6392 0.5725 0.4627 1
+   font "TraderX/datasets/fonts/rajdhanibpx17"
    ignorepointer 1
    "exact text" 1
    "text valign" center
@@ -88,19 +89,19 @@ PanelWidgetClass vehicleRowRoot {
    }
   }
   TextWidgetClass rowBadge {
-   position 0.66 0
-   hexactpos 0
+   position 24 0
+   hexactpos 1
    vexactpos 0
-   size 0.31 1
+   size 0.33333 84
    hexactsize 0
-   vexactsize 0
-   color 0.8314 0.6431 0.298 1
-   font "TraderX/datasets/fonts/jet-brains-mono11"
+   vexactsize 1
+   halign right_ref
+   color 0.9098 0.5373 0.2902 1
+   font "TraderX/datasets/fonts/monopx14"
    ignorepointer 1
    "exact text" 1
    "text halign" right
    "text valign" center
-   style Bold
    scriptclass "TextBinding"
    {
     ScriptParamsClass {

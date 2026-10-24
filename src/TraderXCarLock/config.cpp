@@ -5,7 +5,7 @@ class CfgPatches
 		units[]={};
 		weapons[]={};
 		requiredVersion=0.1;
-		requiredAddons[] = {"DZ_Data","JM_CF_Scripts","DayZular_Script"};
+		requiredAddons[] = {"DZ_Data","JM_CF_Scripts","TraderX_DayZular"};
 	};
 };
 class CfgMods
@@ -132,5 +132,16 @@ class CfgSoundSets
 		{
 			"TXCL_CarUnlock_SoundShader"
 		};
+	};
+};
+class CfgVehicles
+{
+	class Lockpick;
+	// Lockpick of TraderPlus V1 CarLock, and the default lockpickClassName of TXCLSettings.json
+	class CarLockPick: Lockpick
+	{
+		scope = 2;
+		displayName = "$STR_txcl_carlockpick";
+		descriptionShort = "$STR_txcl_carlockpick_des";
 	};
 };

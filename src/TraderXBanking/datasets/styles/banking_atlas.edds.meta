@@ -1,7 +1,7 @@
 MetaFileClass {
  Name "{5F5BAA874D85E4D0}TraderXBanking/datasets/styles/banking_atlas.edds"
  Author "dmitri"
- ChangeDate 1453618322
+ ChangeDate 0
  Configurations {
   PNGResourceClass PC {
    SourceFile "banking_atlas.png"

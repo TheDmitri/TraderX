@@ -27,7 +27,7 @@ class ModalCreatePresetComponent extends DZlrComponentBase
 	override void OnInit()
 	{
 		AutoLoadWidgets();
-		modal_title = s_PendingTitle;
+		modal_title = CheckoutComponent.Upper(s_PendingTitle);
 		input_text = s_PendingName;
 		error_text = "";
 		if (nameInput)

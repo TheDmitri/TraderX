@@ -79,126 +79,137 @@
 </head>
 <body class="dz-viewport">
 
-<!-- BankingPageView - Field Ledger shell (96x92 root, identity left, tabs centered, close right). -->
+<!-- Bank shell (Nasdara, board "Bank · Home"): full screen, header 82 px with the bank
+     identity, five tabs (ember underline on the active one), ONLINE + close; tab content;
+     DayZ Beans Launcher footer strip. -->
 <div data-dz="frame" data-name="rootFrame" class="dz-xy-0-0 dz-wh-full dz-align-cc">
-  <div data-dz="panel" data-name="bankingRoot" data-style="TXContainer"
-       class="dz-xy-0-0 dz-wh-96-92 dz-align-cc dz-c-CC">
-    <!-- Solid fills: TXContainer / TXHeader centers read through to the world in game (same fix as
-         TraderXMainView). Plain panels keep their dark dz-c instead of being tinted white. -->
-    <div data-dz="panel" data-name="bankingRootBg" class="dz-xy-0-0 dz-wh-full dz-c-08090C dz-noptr"></div>
+  <div data-dz="panel" data-name="bankingRoot" class="dz-xy-0-0 dz-wh-full dz-c-13100C">
+    <div data-dz="panel" data-name="bankingRootBg" class="dz-xy-0-0 dz-wh-full dz-c-13100C dz-noptr"></div>
 
-    <!-- ====== HEADER : identity + tabs + close ====== -->
-    <div data-dz="panel" data-name="headerBar" data-style="TXHeader"
-         class="dz-xy-0-0 dz-wh-100-9 dz-c-FE dz-noptr">
-      <div data-dz="panel" data-name="headerBg" class="dz-xy-0-0 dz-wh-full dz-c-0B0D12 dz-noptr"></div>
-
-      <!-- Identity (NPC name + role) -->
-      <div data-dz="panel" data-name="identityPanel"
-           class="dz-xy-2-0 dz-wh-22-100 dz-noptr">
-        <span data-dz="text" data-name="bankerName"
-              data-bind="{{ bankerName }}"
-              class="dz-xy-0-15 dz-wh-100-45 dz-tc-D4A44C dz-font-heading-28 dz-noptr dz-exact-text dz-bold">
-          Banker
+    <!-- HEADER -->
+    <div data-dz="panel" data-name="headerBar" data-style="TXBHeader"
+         class="dz-xy-0-0 dz-wh-100-82px dz-c-FE dz-noptr">
+      <div data-dz="panel" data-name="identityPanel" class="dz-xy-29px-0 dz-wh-400px-82px dz-noptr">
+        <div data-dz="panel" data-name="bankIconBox" data-style="TXBIcon"
+             class="dz-xy-0-0 dz-wh-48px-48px dz-align-y-center dz-c-FE dz-noptr">
+          <img data-dz="image" data-name="bankIcon"
+               class="dz-xy-0-0 dz-wh-27px-27px dz-align-cc dz-c-1A0D04 dz-noptr"
+               data-image="set:traderx_icons image:bank"
+               data-image-mode="blend" data-image-src-alpha="1" data-image-stretch="stretch_w_h"/>
+        </div>
+        <span data-dz="text" data-name="bankerName" data-bind="{{ bankerName }}"
+              class="dz-xy-65px-11px dz-wh-330px-42px dz-c-F2E9D8 dz-font-nh-29 dz-noptr dz-exact-text dz-text-vc">
+          BANK
         </span>
-        <span data-dz="text" data-name="bankerRole"
-              class="dz-xy-0-60 dz-wh-100-30 dz-tc-9A9488 dz-font-body-12 dz-noptr dz-exact-text">
-          BANKING - BANK TELLER
+        <span data-dz="text" data-name="bankerRole" data-bind="{{ bankerRole }}"
+              class="dz-xy-65px-50px dz-wh-330px-18px dz-c-A39276 dz-font-nb-16 dz-noptr dz-exact-text dz-text-vc">
+          TELLER
         </span>
       </div>
 
-      <!-- Tab Navigation centered - 5 tabs: Home - Account - Vault - Transfer - Ledger -->
       <div data-dz="grid" data-name="tabNavGrid"
-           class="dz-xy-22-25 dz-wh-70-50 dz-noptr dz-cols-5 dz-rows-1 dz-gap-4">
-        <button data-dz="button" data-name="tabHome"
-                data-style="TXTab"
-                data-nav-target="banking-home-tab"
-                class="dz-c-FE dz-tc-D8D2C0 dz-font-body-14 dz-exact-text dz-bold">
+           class="dz-xy-0-0 dz-wh-750px-82px dz-align-x-center dz-cols-5 dz-rows-1 dz-gap-5">
+      <div data-dz="panel" data-name="tabHomeCell" class="dz-wh-146px-82px dz-noptr">
+        <button data-dz="button" data-name="tabHome" data-style="Empty" data-nav-target="banking-home-tab"
+                class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
+        <span data-dz="text" data-name="tabHomeLabel"
+              class="dz-xy-0-0 dz-wh-full dz-c-A39276 dz-font-nh-20 dz-noptr dz-exact-text dz-text-center dz-text-vc">
           HOME
-        </button>
-        <button data-dz="button" data-name="tabAccount"
-                data-style="TXTab"
-                data-nav-target="banking-account-tab"
-                class="dz-c-FE dz-tc-D8D2C0 dz-font-body-14 dz-exact-text dz-bold">
+        </span>
+        <div data-dz="panel" data-name="homeLine"
+             class="dz-xy-0-0 dz-wh-100-3px dz-align-bc dz-c-D9762F dz-noptr dz-hidden"></div>
+      </div>
+      <div data-dz="panel" data-name="tabAccountCell" class="dz-wh-146px-82px dz-noptr">
+        <button data-dz="button" data-name="tabAccount" data-style="Empty" data-nav-target="banking-account-tab"
+                class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
+        <span data-dz="text" data-name="tabAccountLabel"
+              class="dz-xy-0-0 dz-wh-full dz-c-A39276 dz-font-nh-20 dz-noptr dz-exact-text dz-text-center dz-text-vc">
           ACCOUNT
-        </button>
-        <button data-dz="button" data-name="tabVault"
-                data-style="TXTab"
-                data-nav-target="banking-vault-tab"
-                class="dz-c-FE dz-tc-D8D2C0 dz-font-body-14 dz-exact-text dz-bold">
+        </span>
+        <div data-dz="panel" data-name="accountLine"
+             class="dz-xy-0-0 dz-wh-100-3px dz-align-bc dz-c-D9762F dz-noptr dz-hidden"></div>
+      </div>
+      <div data-dz="panel" data-name="tabVaultCell" class="dz-wh-146px-82px dz-noptr">
+        <button data-dz="button" data-name="tabVault" data-style="Empty" data-nav-target="banking-vault-tab"
+                class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
+        <span data-dz="text" data-name="tabVaultLabel"
+              class="dz-xy-0-0 dz-wh-full dz-c-A39276 dz-font-nh-20 dz-noptr dz-exact-text dz-text-center dz-text-vc">
           VAULT
-        </button>
-        <button data-dz="button" data-name="tabTransfer"
-                data-style="TXTab"
-                data-nav-target="banking-transfer-tab"
-                class="dz-c-FE dz-tc-D8D2C0 dz-font-body-14 dz-exact-text dz-bold">
+        </span>
+        <div data-dz="panel" data-name="vaultLine"
+             class="dz-xy-0-0 dz-wh-100-3px dz-align-bc dz-c-D9762F dz-noptr dz-hidden"></div>
+      </div>
+      <div data-dz="panel" data-name="tabTransferCell" class="dz-wh-146px-82px dz-noptr">
+        <button data-dz="button" data-name="tabTransfer" data-style="Empty" data-nav-target="banking-transfer-tab"
+                class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
+        <span data-dz="text" data-name="tabTransferLabel"
+              class="dz-xy-0-0 dz-wh-full dz-c-A39276 dz-font-nh-20 dz-noptr dz-exact-text dz-text-center dz-text-vc">
           TRANSFER
-        </button>
-        <button data-dz="button" data-name="tabLedger"
-                data-style="TXTab"
-                data-nav-target="txb-ledger-tab"
-                class="dz-c-FE dz-tc-D8D2C0 dz-font-body-14 dz-exact-text dz-bold">
+        </span>
+        <div data-dz="panel" data-name="transferLine"
+             class="dz-xy-0-0 dz-wh-100-3px dz-align-bc dz-c-D9762F dz-noptr dz-hidden"></div>
+      </div>
+      <div data-dz="panel" data-name="tabLedgerCell" class="dz-wh-146px-82px dz-noptr">
+        <button data-dz="button" data-name="tabLedger" data-style="Empty" data-nav-target="txb-ledger-tab"
+                class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
+        <span data-dz="text" data-name="tabLedgerLabel"
+              class="dz-xy-0-0 dz-wh-full dz-c-A39276 dz-font-nh-20 dz-noptr dz-exact-text dz-text-center dz-text-vc">
           LEDGER
-        </button>
+        </span>
+        <div data-dz="panel" data-name="ledgerLine"
+             class="dz-xy-0-0 dz-wh-100-3px dz-align-bc dz-c-D9762F dz-noptr dz-hidden"></div>
+      </div>
       </div>
 
-      <!-- Close button (Leave) -->
-      <button data-dz="button" data-name="tabLeave"
-              data-style="TXBtnLeave"
-              data-on-click="OnClose"
-              class="dz-xy-95-25 dz-wh-3-50 dz-c-FE dz-tc-FFFFFF dz-font-body-22 dz-exact-text dz-bold">
-        X
-      </button>
-    </div>
-
-    <!-- ====== SUBNAV : context info (online pill + fee pill on the right) ====== -->
-    <div data-dz="panel" data-name="subnav" data-style="TXSurface"
-         class="dz-xy-0-9 dz-wh-100-3.5 dz-c-FE dz-noptr">
-      <span data-dz="text" data-name="subnavLeft"
-            data-bind="{{ subnavContext }}"
-            class="dz-xy-2-0 dz-wh-60-100 dz-tc-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-text-vc">
-        SVETLOYARSK - CENTRAL BANK BRANCH
-      </span>
-      <!-- Online pill -->
-      <div data-dz="panel" data-name="onlinePill" data-style="TXSuccessBox"
-           class="dz-xy-86-20 dz-wh-5-60 dz-c-FE dz-noptr">
+      <div data-dz="panel" data-name="closeHost" class="dz-xy-29px-0 dz-wh-53px-53px dz-align-cr dz-noptr">
+        <button data-dz="button" data-name="tabLeave" data-style="TXBBtnLeave" data-on-click="OnClose"
+                class="dz-xy-0-0 dz-wh-full dz-tc-FE">
+          <img data-dz="image" data-name="tabLeaveIcon"
+               class="dz-xy-0-0 dz-wh-20px-20px dz-align-cc dz-c-C2B59C dz-noptr"
+               data-image="set:traderx_icons image:close"
+               data-image-mode="blend" data-image-src-alpha="1" data-image-stretch="stretch_w_h"/>
+        </button>
+      </div>
+      <div data-dz="panel" data-name="onlinePill" data-style="TXBFrame"
+           class="dz-xy-94px-0 dz-wh-120px-36px dz-align-cr dz-c-FE dz-noptr">
+        <div data-dz="panel" data-name="onlineDot" class="dz-xy-14px-0 dz-wh-10px-10px dz-align-y-center dz-c-7FA65A dz-noptr"></div>
         <span data-dz="text" data-name="onlinePillText"
-              class="dz-xy-0-0 dz-wh-100-100 dz-tc-9AB05A dz-font-body-12 dz-noptr dz-exact-text dz-text-center dz-text-vc dz-bold">
+              class="dz-xy-32px-0 dz-wh-80px-36px dz-c-7FA65A dz-font-nbb-16 dz-noptr dz-exact-text dz-text-vc">
           ONLINE
         </span>
       </div>
-      <!-- Fee pill -->
-      <div data-dz="panel" data-name="feePill" data-style="TXCardElevated"
-           class="dz-xy-92-20 dz-wh-5-60 dz-c-FE dz-noptr">
-        <span data-dz="text" data-name="feePillText"
-              data-bind="{{ feesText }}"
-              class="dz-xy-0-0 dz-wh-100-100 dz-tc-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-text-center dz-text-vc dz-bold">
-          FEE 2%
+    </div>
+
+    <!-- CONTENT -->
+    <div data-dz="panel" data-name="tabContent" data-component="{{ current_tab }}"
+         class="dz-xy-0-82px dz-wh-100-950px dz-clip"></div>
+
+    <!-- FOOTER: DayZ Beans Launcher strip (click opens the promo) -->
+    <div data-dz="panel" data-name="footerBar" data-style="TXBFooter"
+         class="dz-align-bc dz-wh-100-48px dz-c-FE">
+      <button data-dz="button" data-name="footerLauncherBtn" data-style="Empty" data-on-click="OnLauncher"
+              class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
+      <img data-dz="image" data-name="footerCan"
+           class="dz-xy-24px-0 dz-wh-32px-32px dz-align-y-center dz-c-FF dz-noptr"
+           data-image="TraderX/datasets/images/beans_can.edds"
+           data-image-mode="blend" data-image-src-alpha="1" data-image-stretch="stretch_w_h"/>
+      <div data-dz="wrap" data-name="footerPromoRow" class="dz-xy-62px-0 dz-wh-1100px-48px dz-noptr">
+        <span data-dz="text" data-name="footerSponsorText"
+              class="dz-wh-1px-48px dz-c-C2B59C dz-font-nb-17 dz-noptr dz-exact-text dz-text-vc dz-size-to-text-h">
+          #txb_beans_playing_with
+        </span>
+        <span data-dz="text" data-name="footerBrandText"
+              class="dz-wh-1px-48px dz-c-F2E9D8 dz-font-nbb-17 dz-noptr dz-exact-text dz-text-vc dz-size-to-text-h">
+          DayZ Beans Launcher
+        </span>
+        <span data-dz="text" data-name="footerTagline"
+              class="dz-wh-1px-48px dz-c-C2B59C dz-font-nb-17 dz-noptr dz-exact-text dz-text-vc dz-size-to-text-h">
+          #txb_beans_tagline
         </span>
       </div>
-    </div>
-
-    <!-- Tab Divider -->
-    <div data-dz="panel" data-name="tabDivider" data-style="TXDivider"
-         class="dz-xy-0-12.5 dz-wh-100-0.3 dz-c-FE dz-noptr"></div>
-
-    <!-- Dynamic Tab Content -->
-    <div data-dz="panel" data-name="tabContent"
-         data-component="{{ current_tab }}"
-         class="dz-xy-0-13 dz-wh-100-83 dz-clip">
-    </div>
-
-    <!-- ====== FOOTER : DayZ Beans Launcher promo (click to open modal) ====== -->
-    <div data-dz="panel" data-name="footerBar" data-style="TXSurface"
-         class="dz-xy-0-96 dz-wh-100-4 dz-c-FE">
-      <button data-dz="button" data-name="footerLauncherBtn" data-on-click="OnLauncher"
-              class="dz-xy-0-0 dz-wh-100-100 dz-c-00000000"></button>
-      <span data-dz="text" data-name="footerSponsorText"
-            class="dz-xy-36-0 dz-wh-16-100 dz-c-6A6560 dz-font-body-12 dz-noptr dz-exact-text dz-text-vc dz-text-right">
-        Sponsored by
-      </span>
-      <span data-dz="text" data-name="footerBrandText"
-            class="dz-xy-53-0 dz-wh-14-100 dz-c-D4A44C dz-font-body-12 dz-noptr dz-exact-text dz-text-vc dz-bold">
-        DayZ Beans Launcher
+      <span data-dz="text" data-name="footerHints"
+            class="dz-xy-29px-0 dz-wh-400px-48px dz-align-x-right dz-c-A39276 dz-font-nb-16 dz-noptr dz-exact-text dz-text-right dz-text-vc">
+        #txb_footer_esc_close
       </span>
     </div>
   </div>

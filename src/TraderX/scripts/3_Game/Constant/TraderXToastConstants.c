@@ -11,6 +11,7 @@ const string TXNOTIF_SALE     = "sale";        // item sold (success)
 const string TXNOTIF_INFO     = "info";        // generic info / bulk success
 const string TXNOTIF_WARNING  = "warning";     // partial result (mixed success/fail)
 const string TXNOTIF_ERROR    = "error";       // failed action
+const string TXNOTIF_BEANS    = "beans";       // DayZ Beans Launcher welcome (beans can icon)
 
 // Toast lifecycle timing (ms) — matches CBT's slide-in / hold / slide-out / gap.
 const int TX_TOAST_HOLD_MS = 5000;

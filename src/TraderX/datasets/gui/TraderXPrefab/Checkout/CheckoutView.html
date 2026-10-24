@@ -6,121 +6,163 @@
   <link rel="stylesheet" href="dzml-styles.css">
   <link rel="stylesheet" href="dzml-icons.css">
 </head>
-<body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#1a1a1a;">
+<body data-dzml class="dz-viewport" style="width:456px; height:950px; background:#1c1813;">
 
+<!-- Cart (Nasdara): CART title + "Clear all", rows, empty state with the beans can
+     (DayZ Beans Launcher placement 3), summary and the BUY button. -->
 <div data-dz="panel"
     data-name="CheckOutView"
-    data-style="TXCard"
+    data-style="TXSideRight"
     class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr">
   <div data-dz="panel"
       data-name="checkoutHeader"
-      data-style="TXSurface"
-      class="dz-xy-0-0 dz-wh-100-8 dz-c-FE dz-noptr">
+      data-style="TXRowRule"
+      class="dz-xy-0-0 dz-wh-100-77px dz-c-FE dz-noptr">
     <span data-dz="text"
         data-name="checkoutTitle"
-        data-bind="{{ checkout_label }}"
-        class="dz-xy-6-0 dz-wh-70-100 dz-tc-D8D2C0 dz-font-body-16 dz-noptr dz-bold dz-exact-text dz-text-vc">
-      #tpm_shopping_cart
+        data-bind="{{ checkout_title }}"
+        class="dz-xy-24px-0 dz-wh-250px-77px dz-c-F2E9D8 dz-font-nh-29 dz-noptr dz-exact-text dz-text-vc">
+      CART
     </span>
     <button data-dz="button"
         data-name="clearCheckoutBtn"
-        data-style="TXBtnIcon"
+        data-style="Empty"
         data-on-click="OnClearCheckoutClick"
-        class="dz-xy-90-18 dz-wh-32px-32px dz-tc-FE dz-tc-C93030 dz-font-body-16">
-      <img data-dz="image"
-          data-name="ImageWidget0"
-          class="dz-xy-0-0 dz-wh-69-70 dz-align-cc dz-c-F0654A dz-noptr"
-          data-image="set:traderx_icons image:delete"
-          data-image-mode="blend"
-          data-image-src-alpha="1"
-          data-image-stretch="stretch_w_h"/>
+        class="dz-xy-14px-17px dz-wh-110px-43px dz-align-x-right dz-tc-FE">
+      <span data-dz="text"
+          data-name="clearCheckoutText"
+          class="dz-xy-10px-0 dz-wh-100px-43px dz-align-x-right dz-c-C2B59C dz-font-nbb-17 dz-noptr dz-exact-text dz-text-vc dz-text-right">
+        #tpm_clear_all
+      </span>
     </button>
   </div>
   <div data-dz="scroll"
       data-name="CheckoutScroll"
-      class="dz-xy-2-9 dz-wh-96-58 dz-noptr dz-scroll-v">
-    <div data-dz="panel"
-        data-name="emptyCartPanel"
-        class="dz-xy-0-20 dz-wh-100-40 dz-noptr">
-      <img data-dz="image"
-          data-name="emptyCartIcon"
-          class="dz-xy-38-0 dz-wh-24-40 dz-c-1A1E28 dz-noptr dz-align-x-center"
-          data-image="set:traderx_icons image:checkout"
-          data-image-mode="blend"
-          data-image-src-alpha="1"
-          data-image-stretch="stretch_w_h"/>
-      <span data-dz="text"
-          data-name="emptyCartText"
-          class="dz-xy-0-50 dz-wh-100-30 dz-c-6A6560 dz-font-body-14 dz-noptr dz-exact-text dz-text-center">
-        #tpm_add_items_to_cart
-      </span>
-    </div>
+      class="dz-xy-0-78px dz-wh-100-646px dz-noptr dz-scroll-v">
     <div data-dz="grid"
         data-name="checkoutGrid"
         data-foreach="{{ _inputCheckoutItems }}"
         data-template="tx-checkout-card"
         data-item="_inputProduct"
-        class="dz-xy-0-0 dz-wh-100-1 dz-fit-v dz-cols-1 dz-rows-100 dz-gap-4"></div>
+        class="dz-xy-0-0 dz-wh-100-1 dz-fit-v dz-cols-1 dz-rows-100 dz-gap-0"></div>
   </div>
   <div data-dz="panel"
-      data-name="checkoutFooter"
-      data-style="TXSurface"
-      class="dz-xy-0-68 dz-wh-100-32 dz-c-FE dz-noptr">
+      data-name="emptyCartPanel"
+      class="dz-xy-0-78px dz-wh-100-646px dz-noptr">
     <div data-dz="panel"
-        data-name="rowToPay"
-        class="dz-xy-4-4 dz-wh-92-20 dz-noptr">
-      <span data-dz="text"
-          data-name="LabelTotal"
-          class="dz-xy-0-0 dz-wh-40-100 dz-tc-6A6560 dz-font-body-14 dz-noptr dz-exact-text dz-text-vc">
-        #tpm_to_pay
-      </span>
-      <span data-dz="text"
-          data-name="totalAmount"
-          data-bind="{{ total_amount }}"
-          class="dz-xy-30-0 dz-wh-70-100 dz-tc-C4A35A dz-font-mono-28 dz-noptr dz-bold dz-text-vc dz-text-right">
-        13,350
-      </span>
-    </div>
-    <div data-dz="panel"
-        data-name="rowWallet"
-        class="dz-xy-4-28 dz-wh-92-14 dz-noptr">
+        data-name="emptyCartGroup"
+        class="dz-xy-0-0 dz-wh-100-330px dz-align-cc dz-noptr">
       <img data-dz="image"
-          data-name="walletIcon"
-          class="dz-xy-0-0 dz-wh-24px-24px dz-align-y-center dz-c-9A9488 dz-noptr"
-          data-image="set:traderx_icons image:wallet"
+          data-name="emptyCartIcon"
+          class="dz-xy-0-0 dz-wh-115px-115px dz-align-x-center dz-c-FF dz-alpha-85 dz-noptr"
+          data-image="TraderX/datasets/images/beans_can.edds"
           data-image-mode="blend"
           data-image-src-alpha="1"
           data-image-stretch="stretch_w_h"/>
       <span data-dz="text"
-          data-name="moneyAmount"
-          data-bind="{{ money_amount }}"
-          class="dz-xy-40-0 dz-wh-60-100 dz-tc-D8D2C0 dz-font-mono-16 dz-noptr dz-text-vc dz-text-right">
-        34,000
+          data-name="emptyCartTitle"
+          class="dz-xy-0-130px dz-wh-100-37px dz-c-F2E9D8 dz-font-nh-26 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+        #tpm_cart_empty
       </span>
+      <span data-dz="text"
+          data-name="emptyCartText"
+          data-bind="{{ empty_cart_text }}"
+          class="dz-xy-0-176px dz-wh-80-52px dz-align-x-center dz-c-C2B59C dz-font-nb-18 dz-noptr dz-exact-text dz-text-center dz-wrap">
+        Click an item to add it. Survivors' choice: a can of beans.
+      </span>
+      <div data-dz="panel"
+          data-name="addBeansHost"
+          class="dz-xy-0-250px dz-wh-270px-48px dz-align-x-center dz-noptr">
+        <button data-dz="button"
+            data-name="addBeansBtn"
+            data-style="TXBtnAccent"
+            data-on-click="OnAddBeansClick"
+            class="dz-xy-0-0 dz-wh-full dz-tc-FE">
+          <span data-dz="text"
+              data-name="addBeansText"
+              data-bind="{{ add_beans_text }}"
+              class="dz-xy-0-0 dz-wh-full dz-c-F2E9D8 dz-font-nbb-18 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+            Add Baked Beans · € 5
+          </span>
+        </button>
+      </div>
     </div>
-    <button data-dz="button"
-        data-name="purchaseBtn"
-        data-style="TXBtnPrimary"
-        data-on-click="OnCheckoutClick"
-        class="dz-xy-3-48 dz-wh-94-46 dz-tc-FE dz-tc-D8D2C0 dz-font-heading-22">
-      <div data-dz="grid"
-          data-name="purchaseBtnRow"
-          class="dz-xy-0-0 dz-wh-100-1 dz-align-cc dz-noptr dz-cols-2 dz-rows-1 dz-gap-8 dz-fit-h dz-fit-v">
-        <img data-dz="image"
-            data-name="purchaseBtnIcon"
-            class="dz-wh-32px-32px dz-align-cc dz-c-D8D2C0 dz-noptr"
-            data-image="set:traderx_icons image:checkout"
-            data-image-mode="blend"
-            data-image-src-alpha="1"
-            data-image-stretch="stretch_w_h"/>
+  </div>
+
+  <!-- Summary + action -->
+  <div data-dz="panel"
+      data-name="checkoutFooter"
+      class="dz-xy-0-0 dz-wh-100-226px dz-align-bl dz-c-171410 dz-noptr">
+    <div data-dz="panel"
+        data-name="checkoutFooterRule"
+        class="dz-xy-0-0 dz-wh-100-1px dz-c-3A3127 dz-noptr"></div>
+    <span data-dz="text"
+        data-name="summaryLabel1"
+        data-bind="{{ summary_label_1 }}"
+        class="dz-xy-24px-24px dz-wh-250px-22px dz-c-C2B59C dz-font-nb-18 dz-noptr dz-exact-text dz-text-vc">
+      Paid from cash
+    </span>
+    <span data-dz="text"
+        data-name="summaryValue1"
+        data-bind="{{ summary_value_1 }}"
+        class="dz-xy-24px-24px dz-wh-150px-22px dz-align-x-right dz-c-C2B59C dz-font-nm-18 dz-noptr dz-exact-text dz-text-vc dz-text-right">
+      € 14
+    </span>
+    <span data-dz="text"
+        data-name="summaryLabel2"
+        data-bind="{{ summary_label_2 }}"
+        class="dz-xy-24px-58px dz-wh-250px-22px dz-c-C2B59C dz-font-nb-18 dz-noptr dz-exact-text dz-text-vc">
+      Cash after
+    </span>
+    <span data-dz="text"
+        data-name="summaryValue2"
+        data-bind="{{ summary_value_2 }}"
+        class="dz-xy-24px-58px dz-wh-150px-22px dz-align-x-right dz-c-C2B59C dz-font-nm-18 dz-noptr dz-exact-text dz-text-vc dz-text-right">
+      € 486
+    </span>
+    <span data-dz="text"
+        data-name="LabelTotal"
+        class="dz-xy-24px-88px dz-wh-150px-43px dz-c-F2E9D8 dz-font-nh-24 dz-noptr dz-exact-text dz-text-vb">
+      #tpm_total_caps
+    </span>
+    <span data-dz="text"
+        data-name="totalAmount"
+        data-bind="{{ total_amount }}"
+        class="dz-xy-24px-86px dz-wh-260px-45px dz-align-x-right dz-c-E8894A dz-font-nm-36 dz-noptr dz-exact-text dz-text-vb dz-text-right">
+      € 14
+    </span>
+    <!-- Customize only: Save as preset (outline) above the buy button -->
+    <div data-dz="panel"
+        data-name="savePresetHost"
+        class="dz-xy-24px-81px dz-wh-408px-53px dz-noptr dz-hidden">
+      <button data-dz="button"
+          data-name="savePresetBtn"
+          data-style="TXBtnAccent"
+          data-on-click="OnSavePresetClick"
+          class="dz-xy-0-0 dz-wh-full dz-tc-FE">
+        <span data-dz="text"
+            data-name="savePresetText"
+            class="dz-xy-0-0 dz-wh-full dz-c-F2E9D8 dz-font-nbb-19 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+          #tpm_save_as_preset
+        </span>
+      </button>
+    </div>
+    <div data-dz="panel"
+        data-name="purchaseBtnHost"
+        class="dz-xy-24px-139px dz-wh-408px-67px dz-noptr">
+      <button data-dz="button"
+          data-name="purchaseBtn"
+          data-style="TXBtnPrimary"
+          data-on-click="OnCheckoutClick"
+          class="dz-xy-0-0 dz-wh-full dz-tc-FE">
         <span data-dz="text"
             data-name="purchaseBtnText"
             data-bind="{{ checkout_btn_text }}"
-            class="dz-wh-50-32px dz-c-D8D2C0 dz-font-heading-22 dz-noptr dz-bold dz-text-vc dz-text-center dz-size-to-text-h">
-          #tpm_purchase
+            class="dz-xy-0-0 dz-wh-full dz-c-1A0D04 dz-font-nh-26 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+          BUY 3 ITEMS
         </span>
-      </div>
-    </button>
+      </button>
+    </div>
   </div>
 </div>
 

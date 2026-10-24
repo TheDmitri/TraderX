@@ -36,7 +36,7 @@ changenote: "CI build"
 # that would ship an incomplete mod.
 # ---------------------------------------------------------------------------
 skip:
-  - DayZular          # framework dependency, shipped separately
+  - DayZular          # standalone mod; TraderX ships its own copy, src/TraderXDayZular (ci/bundle-dayzular.py)
   # Model packages: still MLOD, need ci/binarize-models.sh before CI can build
   # them. Drop these entries once the .p3d are ODOL and committed.
   - TraderPlusMoney
@@ -59,6 +59,7 @@ exclude_files:
   - "*.svg"
   - "*.png"
   - "*.tga"
+  - "*.ttf"
   - "*.dep"
   - "*.log"
   - "*.rpt"

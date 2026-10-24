@@ -19,7 +19,7 @@ PanelWidgetClass PlayerPreviewPanel {
    halign right_ref
    "text color" 0.9961 0.9961 0.9961 1
    "text color" 0.1137 0.1137 0.1137 1
-   font "TraderX/datasets/fonts/oswalt28"
+   font "TraderX/datasets/fonts/anton28"
    style TXCardElevated
    color 0.9961 0.9961 0.9961 1
    text "X"

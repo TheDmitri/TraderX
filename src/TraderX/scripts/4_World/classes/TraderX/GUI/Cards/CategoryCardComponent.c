@@ -6,13 +6,21 @@ class CategoryCardComponent extends DZlrComponentBase
 	static ref ScriptInvoker Event_OnCategoryCollapsedCallBack = new ScriptInvoker();
 
 	ref TraderXCategory _inputCategory;
+	// Category the card was last filled from (see OnChanges).
+	private TraderXCategory m_BoundCategory;
 	int itemCardViewSize;
 	int categoryType;
 
 	string category_name;
 	string item_count;
+	// "Licenses Required: Car Licence" — bound into the licensePanel badge.
+	string license_text;
 
 	bool isExpanded;
+	// Purchase / favorites pages: the section never collapses (no accordion).
+	bool m_AlwaysExpanded;
+	// Licence-locked: the card stays browsable but is greyed (licenseDimPanel) and shows the
+	// licensePanel badge. Buying is refused by the item card / checkout and by the server.
 	bool isBlocked = false;
 	int sorting = ETraderXCategorySort.MINTOMAX;
 
@@ -26,6 +34,7 @@ class CategoryCardComponent extends DZlrComponentBase
 	Widget categoryCardPanel;
 	Widget dropdownParentPanel;
 	Widget licensePanel;
+	Widget licenseDimPanel;
 
 	// List/grid view containers (toggled by TraderXViewModeService).
 	Widget itemCardGridList;
@@ -42,6 +51,7 @@ class CategoryCardComponent extends DZlrComponentBase
 	{
 		AutoLoadWidgets();
 		TraderXViewModeService.Event_OnViewModeChangedCallBack.Insert(OnViewModeChanged);
+		TraderXLicenseService.Event_OnPlayerLicensesChanged.Insert(OnPlayerLicensesChanged);
 		if (_inputCategory)
 			SetCategoryCardData(_inputCategory, 0);
 		TraderXViewModeBinder.Apply(itemCardGridList, itemCardGridTiles);
@@ -50,6 +60,29 @@ class CategoryCardComponent extends DZlrComponentBase
 	override void OnDestroy()
 	{
 		TraderXViewModeService.Event_OnViewModeChangedCallBack.Remove(OnViewModeChanged);
+		TraderXLicenseService.Event_OnPlayerLicensesChanged.Remove(OnPlayerLicensesChanged);
+	}
+
+	// Licence bought (or licences synced late): un-grey without reopening the menu.
+	void OnPlayerLicensesChanged()
+	{
+		if (!_inputCategory) return;
+		ApplyLicenseState();
+		MarkForCheck();
+	}
+
+	// Greyed-but-browsable state for categories whose licensesRequired the player lacks.
+	void ApplyLicenseState()
+	{
+		isBlocked = !TraderXLicenseService.GetInstance().HasLicenses(_inputCategory.licensesRequired);
+		license_text = string.Empty;
+		if (isBlocked)
+			license_text = TraderXLicenseService.FormatRequiredLabel(_inputCategory.licensesRequired);
+
+		if (licensePanel) licensePanel.Show(isBlocked);
+		if (licenseDimPanel) licenseDimPanel.Show(isBlocked);
+		if (categoryCardPanel)
+			categoryCardPanel.SetAlpha(DZTernaryFloat.If(isBlocked || GetDisplayableProductCount() == 0, 0.7, 1.0));
 	}
 
 	void OnViewModeChanged(bool grid)
@@ -57,13 +90,37 @@ class CategoryCardComponent extends DZlrComponentBase
 		TraderXViewModeBinder.Apply(itemCardGridList, itemCardGridTiles);
 	}
 
+	// DayZular's ForEach reuses this card when the list keeps its length and only calls
+	// OnChanges with the new item (the Favorites page rebuilds its single category on every
+	// star toggle). Re-read the category then, keeping the open/closed state.
+	override void OnChanges()
+	{
+		if (!_inputCategory || _inputCategory == m_BoundCategory)
+			return;
+
+		bool wasCollapsed = isExpanded; // isExpanded == true means collapsed (see HandleCollapse)
+		SetCategoryCardData(_inputCategory, itemCardViewSize, !wasCollapsed, categoryType);
+
+		// HandleCollapse ignores empty categories, so drop the old item cards here.
+		if (GetDisplayableProductCount() == 0)
+		{
+			isExpanded = true;
+			_inputItemProducts.Clear();
+			if (dropdownParentPanel) dropdownParentPanel.Show(false);
+			if (itemCountText) itemCountText.Show(true);
+			MarkForCheck();
+		}
+	}
+
 	void SetCategoryCardData(TraderXCategory category, int cardSize, bool expand = false, int catType = ETraderXCategoryType.NONE)
 	{
 		_inputCategory = category;
+		m_BoundCategory = category;
 		itemCardViewSize = cardSize;
 		categoryType = catType;
 
-		category_name = category.categoryName;
+		// translated here so the layout's uppercase pipe works on text, not on a #key
+		category_name = Widget.TranslateString(category.categoryName);
 		item_count = GetDisplayableProductCount().ToString() + " items";
 
 		// The favorites pseudo-category has no icon file — show the star glyph instead.
@@ -91,17 +148,7 @@ class CategoryCardComponent extends DZlrComponentBase
 			}
 		}
 
-		if (!TraderXLicenseService.GetInstance().HasLicenses(category.licensesRequired))
-		{
-			if (licensePanel) licensePanel.Show(true);
-			if (categoryCardPanel) categoryCardPanel.SetAlpha(0.7);
-			isBlocked = true;
-		}
-
-		if (GetDisplayableProductCount() == 0)
-		{
-			if (categoryCardPanel) categoryCardPanel.SetAlpha(0.7);
-		}
+		ApplyLicenseState();
 
 		isExpanded = expand;
 		HandleCollapse();
@@ -129,13 +176,22 @@ class CategoryCardComponent extends DZlrComponentBase
 		HandleCollapse();
 	}
 
+	// Page-level section: expand now and ignore collapse clicks from then on.
+	void ExpandAlways()
+	{
+		m_AlwaysExpanded = true;
+		SetExpanded(false);
+		if (itemCountText) itemCountText.Show(true);
+	}
+
 	void HandleCollapse()
 	{
-		if (GetDisplayableProductCount() == 0 || isBlocked) return;
+		if (GetDisplayableProductCount() == 0) return;
+		if (m_AlwaysExpanded && !isExpanded) return;
 
 		isExpanded = !isExpanded;
 		if (dropdownParentPanel) dropdownParentPanel.Show(!isExpanded);
-		if (itemCountText) itemCountText.Show(isExpanded);
+		if (itemCountText) itemCountText.Show(isExpanded || m_AlwaysExpanded);
 
 		if (isExpanded)
 		{
@@ -154,11 +210,11 @@ class CategoryCardComponent extends DZlrComponentBase
 
 	void SetExpanded(bool expand)
 	{
-		if (GetDisplayableProductCount() == 0 || isBlocked) return;
+		if (GetDisplayableProductCount() == 0) return;
 		if (isExpanded == expand) return;
 		isExpanded = expand;
 		if (dropdownParentPanel) dropdownParentPanel.Show(!isExpanded);
-		if (itemCountText) itemCountText.Show(isExpanded);
+		if (itemCountText) itemCountText.Show(isExpanded || m_AlwaysExpanded);
 		if (isExpanded)
 			_inputItemProducts.Clear();
 		else
@@ -249,8 +305,22 @@ class CategoryCardComponent extends DZlrComponentBase
 	// expands the category to its filtered matches (or collapses if there are none).
 	void OnSearch(string keyword)
 	{
-		if (isBlocked) return;
-
+		// page section: an empty search shows the whole category again, a keyword filters it
+		if (m_AlwaysExpanded)
+		{
+			if (keyword == "")
+			{
+				isExpanded = true;
+				SetExpanded(false);
+			}
+			else
+			{
+				FilterList(keyword);
+				TraderXViewModeBinder.Apply(itemCardGridList, itemCardGridTiles);
+			}
+			if (itemCountText) itemCountText.Show(true);
+			return;
+		}
 		if (keyword == "")
 		{
 			isExpanded = true;

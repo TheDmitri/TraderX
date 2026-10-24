@@ -29,6 +29,23 @@ class CustomizePageComponent extends DZlrComponentBase
 	string product_description;
 	string preset_name;
 	string variant_name;
+	// Nasdara: title, breadcrumb, tab titles and subtitles ("2 saved", "4 of 5 slots")
+	string product_title;
+	string breadcrumb_path;
+	string tab_presets_title;
+	string tab_variants_title;
+	string tab_attachments_title;
+	string tab_presets_sub;
+	string tab_attachments_sub;
+	Widget presetsTabBg;
+	Widget variantsTabBg;
+	Widget attachmentsTabBg;
+	Widget presetsTabLine;
+	Widget variantsTabLine;
+	Widget attachmentsTabLine;
+	TextWidget presetsTabTitle;
+	TextWidget variantsTabTitle;
+	TextWidget attachmentsTabTitle;
 
 	// Preview widgets (AutoLoadWidgets)
 	ItemPreviewWidget itemPreview;
@@ -87,7 +104,17 @@ class CustomizePageComponent extends DZlrComponentBase
 
 		product_classname = originalItem.GetDisplayName();
 		product_description = CustomizePreviewService.GetInstance().GetItemDescription();
-		base_price = TraderXQuantityManager.GetFormattedMoneyAmount(originalItem.buyPrice);
+		base_price = TraderXCurrencyService.GetInstance().GetTraderCurrencySymbol() + TraderXQuantityManager.GetFormattedMoneyAmount(originalItem.buyPrice);
+		product_title = product_classname;
+		product_title.ToUpper();
+		breadcrumb_path = Widget.TranslateString("#tpm_purchase") + " / ";
+		TraderXCategory category = FindCategoryOf(originalItem);
+		if (category) breadcrumb_path += Widget.TranslateString(category.categoryName) + " / ";
+		tab_presets_title = CheckoutComponent.Upper("#tpm_presets");
+		tab_variants_title = CheckoutComponent.Upper("#tpm_variants");
+		tab_attachments_title = CheckoutComponent.Upper("#tpm_attachments");
+		CustomizePreviewService.Event_OnAttachmentsChanged.Insert(OnAttachmentsChanged);
+		UpdateTabSubtitles();
 
 		// The preview entity is created by CustomizeStateService.Initialize before this
 		// component mounts, so the OnPreviewUpdated event already fired — seed it directly.
@@ -101,6 +128,8 @@ class CustomizePageComponent extends DZlrComponentBase
 			s_PendingTab = "";
 		}
 
+		// the tx-checkout child mounted before the nav id was CUSTOMIZE
+		if (CheckoutComponent.GetInstance()) CheckoutComponent.GetInstance().UpdateTradeModeText();
 		SelectDefaultPresetIfExists();
 		UpdateTabHighlight();
 		MarkForCheck();
@@ -109,6 +138,7 @@ class CustomizePageComponent extends DZlrComponentBase
 	override void OnDestroy()
 	{
 		UnregisterServiceEvents();
+		CustomizePreviewService.Event_OnAttachmentsChanged.Remove(OnAttachmentsChanged);
 		// The preview entity is OWNED by CustomizePreviewService (it created it and
 		// still holds m_CurrentPreview). Deleting it here left the service with a
 		// dangling pointer, and the next CreatePreview -> CleanupCurrentPreview deleted
@@ -157,6 +187,7 @@ class CustomizePageComponent extends DZlrComponentBase
 		current_tab = selector;
 		Event_OnComponentChanged.Invoke(selector);
 		UpdateTabHighlight();
+		UpdateTabSubtitles();
 		MarkForCheck();
 	}
 
@@ -177,12 +208,55 @@ class CustomizePageComponent extends DZlrComponentBase
 		SelectComponent("tx-customize-attachments");
 	}
 
-	// Active tab full alpha, inactive dimmed — mirrors the old NavButtonBinding feedback.
+	// Active tab: Raised fill, cream title, ember underline.
 	void UpdateTabHighlight()
 	{
-		if (tabPresetsBtn) tabPresetsBtn.SetAlpha(DZTernaryFloat.If(current_tab == "tx-customize-presets", 1.0, 0.6));
-		if (tabVariantsBtn) tabVariantsBtn.SetAlpha(DZTernaryFloat.If(current_tab == "tx-customize-variants", 1.0, 0.6));
-		if (tabAttachmentsBtn) tabAttachmentsBtn.SetAlpha(DZTernaryFloat.If(current_tab == "tx-customize-attachments", 1.0, 0.6));
+		ApplyTab(current_tab == "tx-customize-presets", presetsTabBg, presetsTabLine, presetsTabTitle);
+		ApplyTab(current_tab == "tx-customize-variants", variantsTabBg, variantsTabLine, variantsTabTitle);
+		ApplyTab(current_tab == "tx-customize-attachments", attachmentsTabBg, attachmentsTabLine, attachmentsTabTitle);
+	}
+
+	void ApplyTab(bool active, Widget bg, Widget line, TextWidget title)
+	{
+		if (bg) bg.Show(active);
+		if (line) line.Show(active);
+		if (title) title.SetColor(DZTernaryInt.If(active, TraderXTheme.NAV_ACTIVE, TraderXTheme.NAV_INACTIVE));
+	}
+
+	// "2 saved" / "4 of 5 slots"
+	void UpdateTabSubtitles()
+	{
+		if (!originalItem) return;
+		int presets = TraderXPresetsService.GetInstance().GetPresets(originalItem.productId).Count();
+		TraderXPresets serverPresets = TraderXPresetsService.GetInstance().GetServerPresets(originalItem.productId);
+		if (serverPresets && serverPresets.presets) presets += serverPresets.presets.Count();
+		tab_presets_sub = string.Format(Widget.TranslateString("#tpm_presets_saved"), presets);
+
+		array<ref TXCustomizeSlot> slots = new array<ref TXCustomizeSlot>();
+		TXCustomizeSlot.Build(originalItem, slots);
+		int fitted = 0;
+		foreach (TXCustomizeSlot slot : slots)
+		{
+			if (slot.GetFitted()) fitted++;
+		}
+		tab_attachments_sub = string.Format(Widget.TranslateString("#tpm_slots_fitted"), fitted, slots.Count());
+		MarkForCheck();
+	}
+
+	void OnAttachmentsChanged(array<ref TraderXProduct> attachments)
+	{
+		UpdateTabSubtitles();
+	}
+
+	static TraderXCategory FindCategoryOf(TraderXProduct item)
+	{
+		if (!item) return null;
+		foreach (TraderXCategory category : TraderXTradingService.GetInstance().GetTraderCategories())
+		{
+			if (category && category.productIds && category.productIds.Find(item.productId) != -1)
+				return category;
+		}
+		return null;
 	}
 
 	// Close the customize overlay and return to the underlying page.
@@ -270,6 +344,7 @@ class CustomizePageComponent extends DZlrComponentBase
 
 	void OnPresetChanged(TraderXPreset preset)
 	{
+		UpdateTabSubtitles();
 		if (preset)
 		{
 			preset_name = CustomizeStateService.GetInstance().GetCurrentPresetName();
@@ -286,7 +361,27 @@ class CustomizePageComponent extends DZlrComponentBase
 	void OnConfigurationChanged(TraderXProduct configuration)
 	{
 		currentItem = configuration;
+		UpdateTabSubtitles();
 		MarkForCheck();
+	}
+
+	// "Save as preset" in the configuration panel: the presets tab owns the name dialog.
+	void OpenSavePreset()
+	{
+		if (current_tab == "tx-customize-presets")
+		{
+			foreach (DZlrComponentBase child : m_ChildComponents)
+			{
+				TXCustomizePresetsTabComponent tab = TXCustomizePresetsTabComponent.Cast(child);
+				if (tab)
+				{
+					tab.OnNewPresetClick();
+					return;
+				}
+			}
+		}
+		TXCustomizePresetsTabComponent.s_OpenCreateOnInit = true;
+		OnTabPresets();
 	}
 
 	// Item preview rotation/scale is handled by the ItemPreviewBinding

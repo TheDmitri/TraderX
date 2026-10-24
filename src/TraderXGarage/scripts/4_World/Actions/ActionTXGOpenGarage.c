@@ -11,7 +11,7 @@ class ActionTXGOpenGarage extends ActionInteractBase
         m_CommandUID = DayZPlayerConstants.CMD_ACTIONMOD_INTERACTONCE;
         m_StanceMask = DayZPlayerConstants.STANCEMASK_ERECT | DayZPlayerConstants.STANCEMASK_CROUCH;
         m_HUDCursorIcon = CursorIcons.CloseHood;
-        m_Text = "Open Garage";
+        m_Text = "#txg_open_garage";
     }
 
     override void CreateConditionComponents()

@@ -30,17 +30,33 @@ class TraderXProductStockRepository
                 if (product.variants)
                 {
                     foreach(string variantId: product.variants)
-                        if (variantId != "" && outIds.Find(variantId) == -1)
+                    {
+                        if (variantId == "")
+                            continue;
+                        if (outIds.Find(variantId) == -1)
                             outIds.Insert(variantId);
+                        // A variant has its own attachment list (shown in Customize once the
+                        // variant is picked) — stream those too, or they are missing client-side.
+                        TraderXProduct variantProduct = TraderXProductRepository.GetItemById(variantId);
+                        if (variantProduct)
+                            CollectAttachmentIds(variantProduct, outIds);
+                    }
                 }
 
-                if (product.attachments)
-                {
-                    foreach(string attachmentId: product.attachments)
-                        if (attachmentId != "" && outIds.Find(attachmentId) == -1)
-                            outIds.Insert(attachmentId);
-                }
+                CollectAttachmentIds(product, outIds);
             }
+        }
+    }
+
+    static void CollectAttachmentIds(TraderXProduct product, array<string> outIds)
+    {
+        if (!product || !product.attachments)
+            return;
+
+        foreach(string attachmentId: product.attachments)
+        {
+            if (attachmentId != "" && outIds.Find(attachmentId) == -1)
+                outIds.Insert(attachmentId);
         }
     }
 
@@ -152,11 +168,21 @@ class TraderXProductStockRepository
                     s_itemsStockByItemId.Set(productId, itemStock); // Use default stock
                 }
             } else {
-                // Create new stock file for products that don't have one
+                // Create new stock file for products that don't have one: a limited product starts full
+                itemStock.SetStock(GetInitialStock(productId));
                 s_itemsStockByItemId.Set(productId, itemStock);
                 Save(itemStock);
             }
         }
+    }
+
+    // First-time stock for a product with no stock file: maxStock for limited products, 0 otherwise.
+    static int GetInitialStock(string productId)
+    {
+        TraderXProduct product = TraderXProductRepository.GetItemById(productId);
+        if (product && product.maxStock > 0)
+            return product.maxStock;
+        return 0;
     }
 
     static void SetStockMax(string productId, int maxStock)
@@ -311,6 +337,7 @@ class TraderXProductStockRepository
 		}
 
         GetTraderXLogger().LogDebug("Stock file " + filePath + " doesn't exist, creating new stock");
+        itemStock.SetStock(GetInitialStock(id));
         s_itemsStockByItemId.Set(id, itemStock);
         Save(itemStock);
 		return itemStock;

@@ -292,7 +292,11 @@ class TraderXQuantityManager
   static ItemBase CheckForStackableItem(PlayerBase player, string className, int quantity = 1)
   {
     GetTraderXLogger().LogDebug(string.Format("[STACKING] CheckForStackableItem called for %1 x%2", className, quantity.ToString()));
-    
+
+    // Adding nothing to a stack would report success without creating an item.
+    if (quantity <= 0)
+      return null;
+
     ItemBase item;
     array<EntityAI> itemsArray = TraderXInventoryManager.GetItemsArray(player);
     array<ItemBase> stackableItems = new array<ItemBase>;
@@ -335,6 +339,11 @@ class TraderXQuantityManager
         }
         else
         {
+          // Only real piles (canBeSplit: money, nails, rags...) merge. Food/liquid quantity is not a unit
+          // count: merging there "bought" into an existing apple and created nothing.
+          if (quantity <= 0 || !item.ConfigGetBool("canBeSplit"))
+            continue;
+
           // Handle regular stackable items
           float currentQuantity, minQuantity, maxQuantity;
           QuantityConversions.GetItemQuantity(item, currentQuantity, minQuantity, maxQuantity);

@@ -19,13 +19,17 @@ class oldTraderXCategory
         return arr[0];
     }
 
+    // TraderPlus prices with coefficient 1 when it is 0 or negative (CalculatePriceForThatItem).
     float GetCoefficientFromProduct(string product)
     {
         TStringArray arr = GetStringArrayFromString(product);
         if(arr.Count() < 2)
             return 1.0;
 
-        return arr[1].ToFloat();
+        float coefficient = arr[1].ToFloat();
+        if (coefficient <= 0)
+            return 1.0;
+        return coefficient;
     }
 
     int GetMaxStockFromProduct(string product)
@@ -37,36 +41,71 @@ class oldTraderXCategory
         return arr[2].ToFloat();
     }
 
-    // TraderPlus TradeQty: -1 = full, 0 = empty, 0<x<1 = fraction of the max quantity, >1 = fixed amount.
+    // Max quantity exactly as TraderPlus reads it (TraderPlusHelper.GetMaxItemQuantityClient).
+    static int GetTraderPlusMaxQuantity(string className)
+    {
+        string path = CFG_VEHICLESPATH + " " + className + " varQuantityMax";
+        if (GetGame().ConfigIsExisting(path))
+            return GetGame().ConfigGetInt(path);
+
+        path = CFG_WEAPONSPATH + " " + className + " varQuantityMax";
+        if (GetGame().ConfigIsExisting(path))
+            return GetGame().ConfigGetInt(path);
+
+        path = CFG_MAGAZINESPATH + " " + className + " varQuantityMax";
+        if (className.Contains("Ammo_") || className.Contains("Mag_"))
+            path = CFG_MAGAZINESPATH + " " + className + " count";
+        if (GetGame().ConfigIsExisting(path))
+            return GetGame().ConfigGetInt(path);
+
+        return 0;
+    }
+
+    // TraderPlus resolves TradeQty against the item's max quantity (TraderClient.CalculateTradeQty) and
+    // uses the result for buying and selling: above the max = full, magazines are traded empty (the
+    // ammo stays with the player), 0<x<1 = that share of the max, -1 = full, 0 = empty / any amount,
+    // otherwise that many units. The TraderX modes reproduce the resolved quantity.
     int GetTradeQuantityFromProduct(string product)
     {
         TStringArray arr = GetStringArrayFromString(product);
         if(arr.Count() < 4)
             return CreateTradeQuantity(0x2, 0x2, 0, 0);
 
+        string className = GetClassNameFromProduct(product);
         string raw = arr[3];
         raw.TrimInPlace();
         float quantity = raw.ToFloat();
-
-        if (quantity == -1.0)
-            return CreateTradeQuantity(0x2, 0x2, 0, 0);
+        int maxQuantity = GetTraderPlusMaxQuantity(className);
 
         if (quantity == 0.0)
             return CreateTradeQuantity(0x0, 0x1, 0, 0);
 
+        if (quantity > maxQuantity)
+            return CreateTradeQuantity(0x2, 0x2, 0, 0);
+
+        if (className.Contains("Mag_"))
+            return CreateTradeQuantity(0x0, 0x1, 0, 0);
+
+        if (quantity == -1.0)
+            return CreateTradeQuantity(0x2, 0x2, 0, 0);
+
+        int amount = quantity;
         if (quantity > 0.0 && quantity < 1.0)
-        {
-            int percent = Math.Round(quantity * 100);
-            return CreateTradeQuantity(0x3, 0x3, percent, percent);
-        }
+            amount = quantity * maxQuantity;
 
-        int amount = Math.Round(quantity);
-        int buyAmount = Math.Min(amount, 4095);
-        int sellAmount = Math.Min(amount, 8191);
-        if (buyAmount != amount)
-            TraderXMigrationReport.Approx("TraderPlus", string.Format("%1: trade quantity %2 capped to %3 (TraderX maximum)", GetClassNameFromProduct(product), amount, buyAmount));
+        if (amount <= 0)
+            return CreateTradeQuantity(0x0, 0x1, 0, 0);
+        if (amount >= maxQuantity)
+            return CreateTradeQuantity(0x2, 0x2, 0, 0);
 
-        return CreateTradeQuantity(0x4, 0x4, buyAmount, sellAmount);
+        // A fixed amount, like TraderPlus (a share would apply to TraderX's max, which can differ from the config one)
+        if (amount <= 4095)
+            return CreateTradeQuantity(0x4, 0x4, amount, amount);
+
+        int percent = Math.Round(amount * 100.0 / maxQuantity);
+        int byPercent = maxQuantity * (percent / 100.0);
+        TraderXMigrationReport.Approx("TraderPlus", string.Format("%1: trade quantity %2 of %3 above the TraderX fixed-amount maximum, traded as %4 percent (%5)", className, amount, maxQuantity, percent, byPercent));
+        return CreateTradeQuantity(0x3, 0x3, percent, percent);
     }
 
     int CreateTradeQuantity(int buyMode, int sellMode, int buyQuantity, int sellQuantity)
@@ -94,10 +133,14 @@ class oldTraderXCategory
         if (sell == -1.0)
             return -1;
 
-        if (sell >= 0.0 && sell < 1.0)
-            return Math.Round(arr[4].ToFloat() * sell);
+        if (sell < 1.0)
+            sell = arr[4].ToFloat() * sell;
 
-        return Math.Round(sell);
+        // TraderPlus stores the price in an int: the decimals are dropped, not rounded
+        int price = sell;
+        if (price < 0)
+            return -1;
+        return price;
     }
 
     // TraderPlus only destocks at restart when EnableAutoDestockAtRestart is on; a line without a

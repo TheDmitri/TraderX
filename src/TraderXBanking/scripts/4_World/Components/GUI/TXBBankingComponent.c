@@ -13,7 +13,19 @@ class TXBBankingComponent extends DZlrComponentBase
 
 	// Header bindings
 	string bankerName;
+	string bankerRole;
 	string subnavContext;
+	// Active tab: cream label + ember underline (Nasdara)
+	TextWidget tabHomeLabel;
+	TextWidget tabAccountLabel;
+	TextWidget tabVaultLabel;
+	TextWidget tabTransferLabel;
+	TextWidget tabLedgerLabel;
+	Widget homeLine;
+	Widget accountLine;
+	Widget vaultLine;
+	Widget transferLine;
+	Widget ledgerLine;
 	string feesText;
 
 	// Pending tab change (applied next frame — see SelectComponent).
@@ -28,7 +40,9 @@ class TXBBankingComponent extends DZlrComponentBase
 
 	override void OnInit()
 	{
-		bankerName = "Banker";
+		AutoLoadWidgets();
+		bankerName = TXBUpper("#txb_bank");
+		bankerRole = TXBUpper("#txb_bank_teller");
 		subnavContext = "SVETLOYARSK - CENTRAL BANK BRANCH";
 
 		TXBSettings settings = GetTXBConfigService().GetClientSettings();
@@ -37,6 +51,29 @@ class TXBBankingComponent extends DZlrComponentBase
 		feesText = "FEE " + Math.Round(feePct * 100).ToString() + "%";
 
 		TXBHomeTabComponent.Event_OnNavigateRequest.Insert(SelectComponent);
+		UpdateTabs();
+	}
+
+	static string TXBUpper(string key)
+	{
+		string s = Widget.TranslateString(key);
+		s.ToUpper();
+		return s;
+	}
+
+	void UpdateTabs()
+	{
+		ApplyTab(current_tab == "banking-home-tab", tabHomeLabel, homeLine);
+		ApplyTab(current_tab == "banking-account-tab", tabAccountLabel, accountLine);
+		ApplyTab(current_tab == "banking-vault-tab", tabVaultLabel, vaultLine);
+		ApplyTab(current_tab == "banking-transfer-tab", tabTransferLabel, transferLine);
+		ApplyTab(current_tab == "txb-ledger-tab", tabLedgerLabel, ledgerLine);
+	}
+
+	void ApplyTab(bool active, TextWidget label, Widget line)
+	{
+		if (label) label.SetColor(DZTernaryInt.If(active, ARGB(255, 242, 233, 216), ARGB(255, 163, 146, 118)));
+		if (line) line.Show(active);
 	}
 
 	override void OnDestroy()
@@ -66,6 +103,7 @@ class TXBBankingComponent extends DZlrComponentBase
 		current_tab = m_PendingTab;
 		m_PendingTab = "";
 		Event_OnComponentChanged.Invoke(current_tab);
+		UpdateTabs();
 		MarkForCheck();
 	}
 

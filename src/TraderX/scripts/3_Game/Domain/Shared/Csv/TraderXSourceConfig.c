@@ -10,8 +10,8 @@ enum ETraderXSourceFormat
 class TraderXSourceConfig
 {
     string preferredFormat;     // "LEGACY", "CSV", or "COMPILED"
-    bool autoMigrate;          // Auto-migrate from legacy when starting fresh
-    bool allowCompilation;     // Allow CSV -> Compiled JSON compilation
+    bool autoMigrate;          // CSV/COMPILED: export the legacy Products/ + Categories/ files to Source/ once when Source/ is empty
+    bool allowCompilation;     // CSV: compile Source/ -> Compiled/ at each boot (false = keep the current Compiled/ files)
     
     void TraderXSourceConfig()
     {
@@ -55,25 +55,34 @@ class TraderXSourceConfig
 class TraderXSourceConfigLoader
 {
     private static string CONFIG_PATH = "$profile:TraderX/TraderXConfig/SourceConfig.json";
-    
-    static TraderXSourceConfig LoadConfig()
+
+    // freshInstall: no TraderXGeneralSettings.json existed before this boot. A new server starts on CSV;
+    // an existing server without SourceConfig.json keeps the per-file JSON it was already edited with.
+    static TraderXSourceConfig LoadConfig(bool freshInstall = false)
     {
         TraderXSourceConfig config = new TraderXSourceConfig();
-        
+
         if (FileExist(CONFIG_PATH))
         {
             JsonFileLoader<TraderXSourceConfig>.JsonLoadFile(CONFIG_PATH, config);
             GetTraderXLogger().LogInfo(string.Format("Source config loaded - Preferred format: %1, Auto-migrate: %2", config.preferredFormat, config.autoMigrate));
+            return config;
+        }
+
+        if (freshInstall)
+        {
+            config.preferredFormat = "CSV";
+            config.autoMigrate = true;
+            GetTraderXLogger().LogInfo("No SourceConfig.json on a new install: using CSV (Source/*.csv)");
         }
         else
         {
-            GetTraderXLogger().LogInfo("No SourceConfig.json found, using defaults (CSV, auto-migrate enabled)");
-            SaveConfig(config);
+            GetTraderXLogger().LogInfo("No SourceConfig.json on an existing install: keeping LEGACY (Products/*.json, Categories/*.json)");
         }
-        
+        SaveConfig(config);
         return config;
     }
-    
+
     static void SaveConfig(TraderXSourceConfig config)
     {
         JsonFileLoader<TraderXSourceConfig>.JsonSaveFile(CONFIG_PATH, config);

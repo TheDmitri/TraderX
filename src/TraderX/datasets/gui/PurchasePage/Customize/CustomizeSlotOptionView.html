@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../../dzml.css">
+  <link rel="stylesheet" href="../../dzml-styles.css">
+  <link rel="stylesheet" href="../../dzml-icons.css">
+</head>
+<body data-dzml class="dz-viewport" style="width:552px; height:50px; background:#171410;">
+
+<!-- Option of an attachment slot: name, price, check when fitted. -->
+<div data-dz="panel"
+    data-name="slotOption"
+    class="dz-xy-0-0 dz-wh-100-50px dz-c-171410 dz-noptr">
+  <button data-dz="button"
+      data-name="slotOptionBtn"
+      data-style="TXListRow"
+      data-on-click="OnOptionClick"
+      class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
+  <img data-dz="image"
+      data-name="optionFittedIcon"
+      class="dz-xy-76px-0 dz-wh-18px-18px dz-align-y-center dz-c-D9762F dz-noptr dz-hidden"
+      data-image="set:traderx_icons image:approved"
+      data-image-mode="blend"
+      data-image-src-alpha="1"
+      data-image-stretch="stretch_w_h"/>
+  <span data-dz="text"
+      data-name="optionName"
+      data-bind="{{ option_name }}"
+      class="dz-xy-108px-0 dz-wh-280px-50px dz-c-F2E9D8 dz-font-nb-18 dz-noptr dz-exact-text dz-text-vc">
+    KA Polymer Handguard
+  </span>
+  <span data-dz="text"
+      data-name="optionPrice"
+      data-bind="{{ option_price }}"
+      class="dz-xy-134px-0 dz-wh-100px-50px dz-align-x-right dz-c-A39276 dz-font-nm-16 dz-noptr dz-exact-text dz-text-vc dz-text-right">
+    € 150
+  </span>
+</div>
+
+<script src="../../dzml-runtime.js"></script>
+</body>
+</html>

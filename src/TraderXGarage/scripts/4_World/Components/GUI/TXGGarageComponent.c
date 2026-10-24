@@ -18,7 +18,7 @@ class TXGGarageComponent extends DZlrComponentBase
     string nearbyNameText = "";
     string nearbyStateText = "";
     string nearbyStatusText = "";
-    string nearbyParkText = "PARK IN";
+    string nearbyParkText = "#txg_park_in";
     string selectedVehicleName = "";
     string selectedBadgesText = "";
     string tileBodyText = "-";
@@ -27,9 +27,9 @@ class TXGGarageComponent extends DZlrComponentBase
     string tilePartsText = "-";
     string primaryText = "";
     string primaryPriceText = "";
-    string repairBtnText = "SERVICE";
-    string insureBtnText = "INSURANCE";
-    string shareBtnText = "SHARE ACCESS";
+    string repairBtnText = "#txg_service";
+    string insureBtnText = "#txg_insurance";
+    string shareBtnText = "#txg_share_access";
     string servicesHintText = "";
     string insStatusText = "";
     string insCoveredText = "";
@@ -93,11 +93,12 @@ class TXGGarageComponent extends DZlrComponentBase
     protected int    m_InsDays = 1;
     protected bool   m_AdminArmed = false;
     // Title of the toast answering the last request (the server sends the body).
-    protected string m_ActionDone = "Garage";
-    protected string m_ActionFailed = "Garage";
+    protected string m_ActionDone = "#txg_garage";
+    protected string m_ActionFailed = "#txg_garage";
     protected ref TXGSpotCamera m_SpotCamera;
 
-    static const float TILE_BAR_WIDTH = 0.88;
+    // tile bars sit inside their track and are sized relative to it
+    static const float TILE_BAR_WIDTH = 1.0;
 
     override protected void RegisterMetadata()
     {
@@ -200,9 +201,9 @@ class TXGGarageComponent extends DZlrComponentBase
     protected string BuildBalanceText()
     {
         TXGGarageService svc = GetTXGGarageService();
-        string text = "Cash " + FormatMoney(svc.GetClientCash());
+        string text = TXGText.Get("#txg_balance_cash", FormatMoney(svc.GetClientCash()));
         if (svc.GetClientBank() >= 0)
-            text = "Bank " + FormatMoney(svc.GetClientBank()) + "  -  " + text;
+            text = TXGText.Get("#txg_balance_bank", FormatMoney(svc.GetClientBank()), text);
         return text;
     }
 
@@ -226,9 +227,9 @@ class TXGGarageComponent extends DZlrComponentBase
 
         bool canPark = (nearby.parkInBlockedReason == "");
         nearbyNameText = nearby.displayName;
-        nearbyStateText = nearby.healthText + " - Fuel " + nearby.fuelPercent.ToString() + "% - " + nearby.attachmentClasses.Count().ToString() + " parts";
+        nearbyStateText = TXGText.Get("#txg_row_state", TXGText.Localize(nearby.healthText), nearby.fuelPercent.ToString(), nearby.attachmentClasses.Count().ToString());
         nearbyStatusText = nearby.parkInBlockedReason;
-        nearbyParkText = "PARK IN  -  " + FormatMoney(GetTXGConfigService().GetClientParkInCost());
+        nearbyParkText = TXGText.Get("#txg_park_in_cost", FormatMoney(GetTXGConfigService().GetClientParkInCost()));
         if (nearbyChipOk) nearbyChipOk.Show(canPark);
         if (nearbyChipBlocked) nearbyChipBlocked.Show(!canPark);
         if (nearbyReason) nearbyReason.Show(!canPark);
@@ -291,8 +292,8 @@ class TXGGarageComponent extends DZlrComponentBase
 
         selectedVehicleName = row.displayName;
         selectedBadgesText = BuildBadges(row);
-        tileBodyText = TXGGarageService.GetHealthLevelText(row.chassisHealthLevel);
-        tileEngineText = TXGGarageService.GetHealthLevelText(row.engineHealthLevel);
+        tileBodyText = TXGText.Localize(TXGGarageService.GetHealthLevelText(row.chassisHealthLevel));
+        tileEngineText = TXGText.Localize(TXGGarageService.GetHealthLevelText(row.engineHealthLevel));
         tileFuelText = row.fuelPercent.ToString() + " %";
         tilePartsText = row.attachmentClasses.Count().ToString() + " / " + row.cargoCount.ToString();
         SetTileBar(tileBodyBar, HealthFraction(row.chassisHealthLevel));
@@ -304,21 +305,21 @@ class TXGGarageComponent extends DZlrComponentBase
         int price = 0;
         if (row.isNearby)
         {
-            primaryText = "PARK IN";
+            primaryText = "#txg_park_in";
             price = cfg.GetClientParkInCost();
             if (row.parkInBlockedReason != "")
                 primaryText = row.parkInBlockedReason;
         }
         else if (row.holdReason != "" && row.releaseFee > 0)
         {
-            primaryText = "TAKE OUT REPLACEMENT";
+            primaryText = "#txg_take_out_replacement";
             if (row.holdReason == TXGConstants.HOLD_IMPOUND)
-                primaryText = "RELEASE FROM IMPOUND";
+                primaryText = "#txg_release_impound";
             price = row.releaseFee;
         }
         else
         {
-            primaryText = "TAKE OUT";
+            primaryText = "#txg_take_out";
             price = cfg.GetClientParkOutCost();
         }
         primaryPriceText = FormatMoney(price);
@@ -332,11 +333,11 @@ class TXGGarageComponent extends DZlrComponentBase
 
         servicesHintText = "";
         if (!canAfford)
-            servicesHintText = "Not enough money: " + FormatMoney(price) + " needed, you have " + FormatMoney(AvailableMoney()) + ".";
+            servicesHintText = TXGText.Get("#txg_hint_no_money", FormatMoney(price), FormatMoney(AvailableMoney()));
         else if (row.isShared)
-            servicesHintText = "Shared with you by its owner: you can take it out and bring it back.";
+            servicesHintText = "#txg_hint_shared";
         else if (isStored)
-            servicesHintText = "Bank is used first, then cash in your inventory.";
+            servicesHintText = "#txg_hint_bank_first";
 
         if (!isStored)
             return;
@@ -348,35 +349,45 @@ class TXGGarageComponent extends DZlrComponentBase
         if (shareBtn) shareBtn.Show(!row.isShared);
 
         if (row.repairQuote > 0)
-            repairBtnText = "SERVICE  -  " + FormatMoney(row.repairQuote);
+            repairBtnText = TXGText.Get("#txg_service_cost", FormatMoney(row.repairQuote));
         else
-            repairBtnText = "SERVICE  -  OK";
+            repairBtnText = "#txg_service_ok";
 
         if (row.isInsured)
-            insureBtnText = "INSURANCE  -  " + DaysLeft(row).ToString() + " DAYS LEFT";
+            insureBtnText = TXGText.Get("#txg_insurance_days_left", DaysLeft(row).ToString());
         else
-            insureBtnText = "INSURANCE";
+            insureBtnText = "#txg_insurance";
 
         if (row.sharedWith.Count() > 0)
-            shareBtnText = "SHARE ACCESS  -  " + row.sharedWith.Count().ToString();
+            shareBtnText = TXGText.Get("#txg_share_access_n", row.sharedWith.Count().ToString());
         else
-            shareBtnText = "SHARE ACCESS";
+            shareBtnText = "#txg_share_access";
     }
 
     protected string BuildBadges(TXGVehicleRowVM row)
     {
         string text = "";
         if (row.holdReason != "")
-            text = AddBadge(text, row.holdReason + " HOLD");
+            text = AddBadge(text, TXGText.Get("#txg_badge_hold", HoldLabel(row.holdReason)));
         if (row.isShared)
-            text = AddBadge(text, "SHARED WITH YOU");
+            text = AddBadge(text, TXGText.Localize("#txg_badge_shared_with_you"));
         if (row.isInsured)
-            text = AddBadge(text, "INSURED " + DaysLeft(row).ToString() + "D");
+            text = AddBadge(text, TXGText.Get("#txg_badge_insured", DaysLeft(row).ToString()));
         if (row.hasCarLock)
-            text = AddBadge(text, "CARLOCK");
+            text = AddBadge(text, TXGText.Localize("#txg_badge_carlock"));
         if (row.sharedWith.Count() > 0)
-            text = AddBadge(text, "SHARED x" + row.sharedWith.Count().ToString());
+            text = AddBadge(text, TXGText.Get("#txg_badge_shared_n", row.sharedWith.Count().ToString()));
         return text;
+    }
+
+    // "INSURANCE" / "IMPOUND" hold constants as player text
+    static string HoldLabel(string holdReason)
+    {
+        if (holdReason == TXGConstants.HOLD_IMPOUND)
+            return TXGText.Localize("#txg_hold_impound");
+        if (holdReason == TXGConstants.HOLD_INSURANCE)
+            return TXGText.Localize("#txg_hold_insurance");
+        return holdReason;
     }
 
     protected string AddBadge(string text, string badge)
@@ -436,20 +447,20 @@ class TXGGarageComponent extends DZlrComponentBase
         int left = DaysLeft(row);
 
         if (row.isInsured)
-            insStatusText = "Covered for " + left.ToString() + " more day(s)";
+            insStatusText = TXGText.Get("#txg_ins_covered_for", left.ToString());
         else
-            insStatusText = "Not insured";
+            insStatusText = "#txg_ins_not_insured";
         insCoveredText = FormatMoney(row.insuranceCoveredValue);
         insPerDayText = FormatMoney(row.insurancePerDay);
         insDeductibleText = FormatMoney(row.insuranceDeductibleQuote);
-        insDaysText = m_InsDays.ToString() + " DAY";
+        insDaysText = TXGText.Get("#txg_ins_day", m_InsDays.ToString());
         if (m_InsDays > 1)
-            insDaysText = insDaysText + "S";
-        insUntilText = "covered for " + (left + m_InsDays).ToString() + " days from now";
+            insDaysText = TXGText.Get("#txg_ins_days", m_InsDays.ToString());
+        insUntilText = TXGText.Get("#txg_ins_until", (left + m_InsDays).ToString());
         if (row.isInsured)
-            insConfirmText = "EXTEND BY " + insDaysText;
+            insConfirmText = TXGText.Get("#txg_ins_extend", insDaysText);
         else
-            insConfirmText = "INSURE FOR " + insDaysText;
+            insConfirmText = TXGText.Get("#txg_ins_insure_for", insDaysText);
         insTotalText = FormatMoney(total);
     }
 
@@ -505,7 +516,7 @@ class TXGGarageComponent extends DZlrComponentBase
         int mode = 2;
         if (add)
             mode = 1;
-        ExpectResult("Shared access", "Sharing failed");
+        ExpectResult("#txg_t_shared_access", "#txg_t_sharing_failed");
         TXGVehicleActionRequest req = new TXGVehicleActionRequest(vehicleId, mode, uid);
         GetDayZularRPCManager().SendRPC(TXGConstants.RPC_NAMESPACE, "RequestShare", new Param1<ref TXGVehicleActionRequest>(req), true, null);
     }
@@ -533,12 +544,12 @@ class TXGGarageComponent extends DZlrComponentBase
                 title = m_ActionDone;
                 kind = TXNOTIF_INFO;
             }
-            toasts.ShowToast(kind, title, message, "Garage");
-            ExpectResult("Garage", "Garage");
+            toasts.ShowToast(kind, TXGText.Localize(title), TXGText.Localize(message), TXGText.Localize("#txg_garage"));
+            ExpectResult("#txg_garage", "#txg_garage");
             return;
         }
 #endif
-        toastText = message;
+        toastText = TXGText.Localize(message);
         toastSuccessVisible = success;
         toastErrorVisible = !success;
         if (toastSuccess) toastSuccess.Show(success);
@@ -595,8 +606,8 @@ class TXGGarageComponent extends DZlrComponentBase
         Man player = GetGame().GetPlayer();
         if (!player || !GetTXGConfigService().ResolveClientParkSpotEx(m_NpcId, player.GetPosition(), spotPos, spotOri, spotSize))
         {
-            ExpectResult("Garage", "Parking spot");
-            OnNotify("No parking spot configured for this garage", false);
+            ExpectResult("#txg_garage", "#txg_t_parking_spot");
+            OnNotify("#txg_err_no_spot_configured", false);
             return;
         }
 
@@ -604,8 +615,8 @@ class TXGGarageComponent extends DZlrComponentBase
             m_SpotCamera = new TXGSpotCamera();
         if (!m_SpotCamera.Start(spotPos, spotOri))
         {
-            ExpectResult("Garage", "Parking spot");
-            OnNotify("Camera unavailable", false);
+            ExpectResult("#txg_garage", "#txg_t_parking_spot");
+            OnNotify("#txg_err_camera", false);
             return;
         }
 
@@ -689,7 +700,7 @@ class TXGGarageComponent extends DZlrComponentBase
             return;
         }
 
-        ExpectResult("Vehicle taken out", "Cannot take the vehicle out");
+        ExpectResult("#txg_t_taken_out", "#txg_t_cannot_take_out");
         if (IsSpotView())
             OnExitSpotView();
         TXGParkOutRequest req = new TXGParkOutRequest(m_SelectedId, m_NpcId);
@@ -703,11 +714,11 @@ class TXGGarageComponent extends DZlrComponentBase
             return;
         if (nearby.parkInBlockedReason != "")
         {
-            ExpectResult("Garage", "Cannot park this vehicle");
+            ExpectResult("#txg_garage", "#txg_t_cannot_park");
             OnNotify(nearby.parkInBlockedReason, false);
             return;
         }
-        ExpectResult("Vehicle parked", "Cannot park this vehicle");
+        ExpectResult("#txg_msg_parked", "#txg_t_cannot_park");
         GetDayZularRPCManager().SendRPC(TXGConstants.RPC_NAMESPACE, "RequestParkIn", null, true, null);
     }
 
@@ -715,7 +726,7 @@ class TXGGarageComponent extends DZlrComponentBase
     {
         if (!IsStoredSelected())
             return;
-        ExpectResult("Vehicle serviced", "Service failed");
+        ExpectResult("#txg_t_serviced", "#txg_t_service_failed");
         TXGVehicleActionRequest req = new TXGVehicleActionRequest(m_SelectedId, 0, "");
         GetDayZularRPCManager().SendRPC(TXGConstants.RPC_NAMESPACE, "RequestRepair", new Param1<ref TXGVehicleActionRequest>(req), true, null);
     }
@@ -724,7 +735,7 @@ class TXGGarageComponent extends DZlrComponentBase
     {
         if (!IsStoredSelected())
             return;
-        ExpectResult("Insurance", "Insurance refused");
+        ExpectResult("#txg_t_insurance", "#txg_t_insurance_refused");
         TXGVehicleActionRequest req = new TXGVehicleActionRequest(m_SelectedId, m_InsDays, "");
         GetDayZularRPCManager().SendRPC(TXGConstants.RPC_NAMESPACE, "RequestInsure", new Param1<ref TXGVehicleActionRequest>(req), true, null);
         ShowPanel("");
@@ -736,13 +747,13 @@ class TXGGarageComponent extends DZlrComponentBase
         if (!m_AdminArmed)
         {
             m_AdminArmed = true;
-            ExpectResult("Admin", "Admin");
-            OnNotify("Admin: click the admin button again to impound the nearest vehicle into its owner's garage", false);
+            ExpectResult("#txg_t_admin", "#txg_t_admin");
+            OnNotify("#txg_admin_hint", false);
             GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(DisarmAdmin, 3000, false);
             return;
         }
         DisarmAdmin();
-        ExpectResult("Admin impound", "Impound failed");
+        ExpectResult("#txg_t_admin_impound", "#txg_t_impound_failed");
         GetDayZularRPCManager().SendRPC(TXGConstants.RPC_NAMESPACE, "RequestAdminImpound", null, true, null);
     }
 
@@ -787,12 +798,13 @@ class TXGGarageComponent extends DZlrComponentBase
         SetBarFraction(bar, fraction, TILE_BAR_WIDTH);
         if (!bar)
             return;
+        // Nasdara Good / Gold / Bad
         if (fraction > 0.66)
-            bar.SetColor(ARGB(255, 154, 176, 90));
+            bar.SetColor(ARGB(255, 127, 166, 90));
         else if (fraction > 0.33)
-            bar.SetColor(ARGB(255, 212, 164, 76));
+            bar.SetColor(ARGB(255, 224, 163, 58));
         else
-            bar.SetColor(ARGB(255, 201, 48, 48));
+            bar.SetColor(ARGB(255, 224, 122, 99));
     }
 
     // Bars are laid out in relative units: keep the height, scale the width.

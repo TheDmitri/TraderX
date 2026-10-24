@@ -85,6 +85,44 @@ class TXGZoneEntry
     }
 }
 
+// Vehicle receipts: a vehicle packed into an item (TraderPlus V1 "receipts"). The full vehicle state is
+// kept server side (TraderXGarage/Receipts/<id>.json); the item only carries its id and display class.
+class TXGReceiptSettings
+{
+    bool  enabled = false;          // players can pack vehicles (taking a vehicle out of a receipt always works)
+    bool  traderOnly = true;        // pack and take out only near a trader or garage
+    float traderDistance = 50.0;    // TraderPlus used 50 m
+    bool  saveCargo = true;         // false: only empty vehicles can be packed
+    bool  saveLock = true;          // keep the CarLock code (the player taking the vehicle out becomes the owner)
+    float deployDistance = 6.0;     // the vehicle appears this far in front of the player
+    vector deployBoxSize = "3 3 6"; // must be free of objects ('0 0 0' = no check)
+
+    // TraderPlus V1 server: start with receipts on and its receipt options (TraderPlusGeneralConfig.json)
+    void ImportTraderPlus()
+    {
+        string path = "$profile:TraderPlus/TraderPlusConfig/TraderPlusGeneralConfig.json";
+        if (!FileExist(path))
+            return;
+
+        TXGTraderPlusReceiptOptions old = new TXGTraderPlusReceiptOptions();
+        string error;
+        if (!JsonFileLoader<TXGTraderPlusReceiptOptions>.LoadFile(path, old, error))
+            return;
+
+        enabled = true;
+        traderOnly = old.IsReceiptTraderOnly;
+        saveCargo = old.IsReceiptSaveCargo;
+        saveLock = old.IsReceiptSaveLock;
+    }
+}
+
+class TXGTraderPlusReceiptOptions
+{
+    bool IsReceiptTraderOnly = true;
+    bool IsReceiptSaveLock;
+    bool IsReceiptSaveCargo;
+}
+
 class TXGSettings
 {
     // Inline help — serialized at the top of the JSON so the file explains itself.
@@ -116,6 +154,9 @@ class TXGSettings
     int    impoundFee = 500;
     ref array<string> adminSteamIds = new array<string>();
     ref array<ref TXGZoneEntry> noRetrieveZones = new array<ref TXGZoneEntry>();
+
+    // Vehicle receipts (TraderPlus V1 compatible)
+    ref TXGReceiptSettings receipts = new TXGReceiptSettings();
 
     // Vehicle Insurance block (see docs/handoff/INSURANCE_SPEC.md)
     ref TXGInsuranceSettings insurance = new TXGInsuranceSettings();
@@ -279,6 +320,8 @@ class TXGSettings
                 settings.noRetrieveZones = new array<ref TXGZoneEntry>();
             if (!settings.vehicleValues)
                 settings.vehicleValues = new array<ref TXGVehiclePriceEntry>();
+            if (!settings.receipts)
+                settings.receipts = new TXGReceiptSettings();
 
             if (settings.version == "1.0")
                 settings.UpgradeLegacyNpcs();
@@ -292,6 +335,7 @@ class TXGSettings
         else
         {
             settings = new TXGSettings();
+            settings.receipts.ImportTraderPlus();
             settings.Save();
             GetTXGLog().LogInfo("[TXG] Default config created at " + TXGConstants.CONFIG_FILE);
         }

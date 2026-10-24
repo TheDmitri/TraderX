@@ -59,7 +59,7 @@ class TraderXTransactionValidator
 
         // catalog validation - only products listed in this trader's categories can be bought on their own
         // (preset-only parts, e.g. imported vehicle parts priced 0, are bought through their vehicle's preset)
-        if(!IsSoldByTrader(npc, transaction.GetProductId())){
+        if(!IsSoldByTrader(npc, transaction.GetProductId(), "", false)){
             errorMessage = "Product not sold by this trader: " + transaction.GetProductId();
             GetTraderXLogger().LogWarning("ValidateBuyTransaction : " + errorMessage);
             return false;
@@ -70,9 +70,17 @@ class TraderXTransactionValidator
             return false;
         }
 
+        // category license validation - the product must be reachable through at least one of
+        // this trader's categories whose licensesRequired the player owns (client greys locked
+        // categories but still lets players browse them, so this is the authoritative gate)
+        if(!ValidateCategoryLicenses(npc, player, transaction.GetProductId(), errorMessage)){
+            return false;
+        }
+
         // money validation - skip if price is zero (free items)
         int totalPrice = transaction.GetTotalPrice().GetAmount();
-        if(totalPrice > 0 && TraderXCurrencyService.GetInstance().GetPlayerMoneyFromAllCurrency(player, npc.GetCurrenciesAccepted()) < totalPrice){
+        // Cash + bank: the purchase is charged through RemoveMoneyWithBankFallback.
+        if(totalPrice > 0 && TraderXCurrencyService.GetInstance().GetPlayerSpendableMoney(player, npc.GetCurrenciesAccepted()) < totalPrice){
             errorMessage = "Not enough money";
             GetTraderXLogger().LogDebug("ValidateBuyTransaction : " + errorMessage);
             return false;
@@ -150,16 +158,52 @@ class TraderXTransactionValidator
         return true;
     }
 
-    private bool IsSoldByTrader(TraderXNpc npc, string productId)
+    // Server-side category gate for buys. IsSoldByTrader already passed without licence
+    // filtering; re-run it skipping the categories whose licenses the player lacks.
+    private bool ValidateCategoryLicenses(TraderXNpc npc, PlayerBase player, string productId, out string errorMessage)
+    {
+        string playerId = "";
+        if(player && player.GetIdentity())
+            playerId = player.GetIdentity().GetPlainId();
+
+        if(IsSoldByTrader(npc, productId, playerId, true))
+            return true;
+
+        errorMessage = "Missing required category license";
+        array<string> traderCategories = npc.GetCategories();
+        if(traderCategories)
+        {
+            foreach (string lockedCategoryId : traderCategories)
+            {
+                TraderXCategory lockedCategory = TraderXCategoryRepository.GetCategoryById(lockedCategoryId);
+                if (lockedCategory && lockedCategory.ContainsProduct(productId) && !TraderXLicenseService.GetInstance().HasLicensesForPlayer(playerId, lockedCategory.licensesRequired))
+                {
+                    errorMessage = "Missing required license: " + TraderXLicenseService.JoinLicenseNames(lockedCategory.licensesRequired);
+                    break;
+                }
+            }
+        }
+        GetTraderXLogger().LogDebug("ValidateCategoryLicenses : " + errorMessage + " product=" + productId);
+        return false;
+    }
+
+    // requireLicenses: skip categories whose licensesRequired the player (playerId) doesn't own.
+    private bool IsSoldByTrader(TraderXNpc npc, string productId, string playerId, bool requireLicenses)
     {
         array<string> traderCategories = npc.GetCategories();
         if(!traderCategories)
             return false;
 
+        TraderXLicenseService licenseService = TraderXLicenseService.GetInstance();
+
         foreach (string categoryId : traderCategories)
         {
             TraderXCategory category = TraderXCategoryRepository.GetCategoryById(categoryId);
-            if (category && category.ContainsProduct(productId))
+            if (!category)
+                continue;
+            if (requireLicenses && !licenseService.HasLicensesForPlayer(playerId, category.licensesRequired))
+                continue;
+            if (category.ContainsProduct(productId))
                 return true;
         }
 
@@ -174,6 +218,8 @@ class TraderXTransactionValidator
             TraderXCategory cat = TraderXCategoryRepository.GetCategoryById(catId);
             if (!cat || !cat.productIds)
                 continue;
+            if (requireLicenses && !licenseService.HasLicensesForPlayer(playerId, cat.licensesRequired))
+                continue;
             foreach (string listedId : cat.productIds)
             {
                 TraderXProduct listed = TraderXProductRepository.GetItemById(listedId);
@@ -183,6 +229,16 @@ class TraderXTransactionValidator
                     return true;
                 if (listed.attachments && listed.attachments.Find(productId) != -1)
                     return true;
+                // Attachments of a listed product's variants (streamed with the catalog too).
+                if (listed.variants)
+                {
+                    foreach (string listedVariantId : listed.variants)
+                    {
+                        TraderXProduct listedVariant = TraderXProductRepository.GetItemById(listedVariantId);
+                        if (listedVariant && listedVariant.attachments && listedVariant.attachments.Find(productId) != -1)
+                            return true;
+                    }
+                }
             }
         }
         return false;

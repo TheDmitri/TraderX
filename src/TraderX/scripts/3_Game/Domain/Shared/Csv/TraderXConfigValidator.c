@@ -28,291 +28,142 @@ class TraderXConfigValidator
         return errors.Count() == 0;
     }
     
-    // Validate products
-    void ValidateProducts(array<ref TraderXCsvProduct> products, string source = "products.csv")
+    // ERROR = the catalog would be ambiguous or unreadable (duplicate key, unknown mode name, key unusable as a
+    // file name, unknown restart behaviour): the compile is refused and the last good catalog is kept.
+    // WARNING = compiled as written (the server tolerates it today): a dangling reference is ignored at runtime,
+    // out-of-range quantities are clamped. Data exported from a running server therefore always compiles.
+    // Duplicate keys inside one file are reported by the compiler while merging.
+    void ValidateProducts(array<ref TraderXCsvProduct> products)
     {
-        GetTraderXLogger().LogDebug("[TraderXConfigValidator] Validating products...");
-        
-        // Track product keys for duplicate detection
-        map<string, int> productKeyMap = new map<string, int>;
-        
-        for (int i = 0; i < products.Count(); i++)
+        foreach (TraderXCsvProduct product : products)
         {
-            TraderXCsvProduct product = products.Get(i);
-            int rowNum = i + 2; // +2 because row 1 is header, array is 0-indexed
-            
-            // Validate productKey
-            if (product.productKey.Length() == 0)
-            {
-                AddError(source, rowNum, "productKey", "productKey is empty", "");
-            }
-            else
-            {
-                // Check for duplicates
-                int existingRow;
-                if (productKeyMap.Find(product.productKey, existingRow))
-                {
-                    AddError(source, rowNum, "productKey", "Duplicate productKey (first seen at row " + existingRow + ")", product.productKey);
-                }
-                else
-                {
-                    productKeyMap.Set(product.productKey, rowNum);
-                }
-            }
-            
-            // Validate className
+            string src = product.sourceFile;
+            int row = product.sourceRow;
+
+            if (!IsValidKey(product.productKey))
+                AddError(src, row, "productKey", "productKey must not contain / \\ or : (it is used as a file name)", product.productKey);
             if (product.className.Length() == 0)
-            {
-                AddError(source, rowNum, "className", "className is empty", "");
-            }
-            
-            // Validate buyPrice
+                AddWarning(src, row, "className", "className is empty", "");
             if (product.buyPrice < -1)
-            {
-                AddError(source, rowNum, "buyPrice", "buyPrice must be >= -1", product.buyPrice.ToString());
-            }
-            
-            // Validate sellPrice
+                AddWarning(src, row, "buyPrice", "buyPrice must be -1 (not for sale) or >= 0", product.buyPrice.ToString());
             if (product.sellPrice < -1)
-            {
-                AddError(source, rowNum, "sellPrice", "sellPrice must be >= -1", product.sellPrice.ToString());
-            }
-            
-            // Validate maxStock
+                AddWarning(src, row, "sellPrice", "sellPrice must be -1 (cannot be sold) or >= 0", product.sellPrice.ToString());
+            if (product.buyPrice == -1 && product.sellPrice == -1)
+                AddWarning(src, row, "buyPrice", "buyPrice and sellPrice are both -1 (blank): the product can be neither bought nor sold", "");
             if (product.maxStock < -1)
-            {
-                AddError(source, rowNum, "maxStock", "maxStock must be -1 (unlimited) or >= 0", product.maxStock.ToString());
-            }
-            
-            // Validate buyQtyMode
+                AddWarning(src, row, "maxStock", "maxStock must be -1 (unlimited) or >= 0", product.maxStock.ToString());
+            if (product.coefficient <= 0 && product.maxStock > 1)
+                AddWarning(src, row, "coefficient", "coefficient <= 0 with a limited stock: the price collapses to 1 once stock reaches 2 (use 1 for a flat price)", product.coefficient.ToString());
+
             if (!IsValidQtyMode(product.buyQtyMode, false))
-            {
-                AddError(source, rowNum, "buyQtyMode", "Invalid buyQtyMode (must be EMPTY, FULL, COEFFICIENT, or STATIC)", product.buyQtyMode);
-            }
-            
-            // Validate sellQtyMode
+                AddError(src, row, "buyQtyMode", "Invalid buyQtyMode (must be EMPTY, FULL, COEFFICIENT, or STATIC)", product.buyQtyMode);
             if (!IsValidQtyMode(product.sellQtyMode, true))
-            {
-                AddError(source, rowNum, "sellQtyMode", "Invalid sellQtyMode (must be NO_MATTER, EMPTY, FULL, COEFFICIENT, or STATIC)", product.sellQtyMode);
-            }
-            
-            // Validate buyQtyValue if needed
-            if ((product.buyQtyMode == "COEFFICIENT" || product.buyQtyMode == "STATIC") && product.buyQtyValue == 0)
-            {
-                AddWarning(source, rowNum, "buyQtyValue", "buyQtyValue is 0 but buyQtyMode is " + product.buyQtyMode, product.buyQtyValue.ToString());
-            }
-            
-            // Validate sellQtyValue if needed
-            if ((product.sellQtyMode == "COEFFICIENT" || product.sellQtyMode == "STATIC") && product.sellQtyValue == 0)
-            {
-                AddWarning(source, rowNum, "sellQtyValue", "sellQtyValue is 0 but sellQtyMode is " + product.sellQtyMode, product.sellQtyValue.ToString());
-            }
-            
-            // Validate destockCoefficient
-            if (product.destockCoefficient < 0.0 || product.destockCoefficient > 1.0)
-            {
-                AddError(source, rowNum, "destockCoefficient", "destockCoefficient must be between 0.0 and 1.0", product.destockCoefficient.ToString());
-            }
-            
-            // Validate stockBehaviorAtRestart
+                AddError(src, row, "sellQtyMode", "Invalid sellQtyMode (must be NO_MATTER, EMPTY, FULL, COEFFICIENT, or STATIC)", product.sellQtyMode);
+            ValidateQtyValue(src, row, "buyQtyValue", product.buyQtyMode, product.buyQtyValue, TraderXBitfieldPacker.MAX_BUY_STATIC);
+            ValidateQtyValue(src, row, "sellQtyValue", product.sellQtyMode, product.sellQtyValue, TraderXBitfieldPacker.MAX_SELL_STATIC);
+
+            if (product.destockCoefficient < 0.0 || product.destockCoefficient > 100.0)
+                AddWarning(src, row, "destockCoefficient", "destockCoefficient must be a fraction (0.1 = 10%) or a percent up to 100", product.destockCoefficient.ToString());
             if (product.stockBehaviorAtRestart < 0 || product.stockBehaviorAtRestart > 2)
-            {
-                AddError(source, rowNum, "stockBehaviorAtRestart", "stockBehaviorAtRestart must be 0, 1, or 2", product.stockBehaviorAtRestart.ToString());
-            }
+                AddError(src, row, "stockBehaviorAtRestart", "stockBehaviorAtRestart must be 0 (keep), 1 (reset to maxStock) or 2 (random)", product.stockBehaviorAtRestart.ToString());
+            if (product.maxStock == -1 && (product.stockBehaviorAtRestart != 0 || product.destockCoefficient > 0))
+                AddWarning(src, row, "maxStock", "stock settings have no effect with maxStock -1 (unlimited)", "");
         }
-        
-        GetTraderXLogger().LogDebug(string.Format("[TraderXConfigValidator] Products validation complete. Errors: %1, Warnings: %2", errors.Count(), warnings.Count()));
     }
-    
-    // Validate categories
-    void ValidateCategories(array<ref TraderXCsvCategory> categories, array<ref TraderXCsvProduct> products, string source = "categories.csv")
+
+    // Out-of-range quantities are clamped when packed: warn, never block (legacy data must always migrate)
+    private void ValidateQtyValue(string src, int row, string column, string mode, float value, int maxStatic)
     {
-        GetTraderXLogger().LogDebug("[TraderXConfigValidator] Validating categories...");
-        
-        // Build product key set for reference validation
-        map<string, bool> productKeySet = new map<string, bool>;
-        foreach (TraderXCsvProduct product : products)
+        if (mode == "COEFFICIENT")
         {
-            if (product.productKey.Length() > 0)
-            {
-                productKeySet.Set(product.productKey, true);
-            }
+            if (value <= 0 || value > 100)
+                AddWarning(src, row, column, "COEFFICIENT needs a fraction (0.5 = 50%) or a percent up to 100; clamped to 0..100%", value.ToString());
         }
-        
-        // Track category keys for duplicate detection
-        map<string, int> categoryKeyMap = new map<string, int>;
-        
-        for (int i = 0; i < categories.Count(); i++)
+        else if (mode == "STATIC")
         {
-            TraderXCsvCategory category = categories.Get(i);
-            int rowNum = i + 2;
-            
-            // Validate categoryKey
-            if (category.categoryKey.Length() == 0)
-            {
-                AddError(source, rowNum, "categoryKey", "categoryKey is empty", "");
-            }
-            else
-            {
-                // Check for duplicates
-                int existingRow;
-                if (categoryKeyMap.Find(category.categoryKey, existingRow))
-                {
-                    AddError(source, rowNum, "categoryKey", "Duplicate categoryKey (first seen at row " + existingRow + ")", category.categoryKey);
-                }
-                else
-                {
-                    categoryKeyMap.Set(category.categoryKey, rowNum);
-                }
-            }
-            
-            // Validate categoryName
+            if (value < 1 || value > maxStatic)
+                AddWarning(src, row, column, string.Format("STATIC needs a whole number of units between 1 and %1; clamped to 0..%1, fix this row", maxStatic), value.ToString());
+        }
+    }
+
+    void ValidateCategories(array<ref TraderXCsvCategory> categories, array<ref TraderXCsvProduct> products)
+    {
+        map<string, bool> productKeySet = BuildProductKeySet(products);
+        foreach (TraderXCsvCategory category : categories)
+        {
+            if (!IsValidKey(category.categoryKey))
+                AddError(category.sourceFile, category.sourceRow, "categoryKey", "categoryKey must not contain / \\ or :", category.categoryKey);
             if (category.categoryName.Length() == 0)
+                AddWarning(category.sourceFile, category.sourceRow, "categoryName", "categoryName is empty", "");
+            if (!category.productKeys)
+                continue;
+            foreach (string productKey : category.productKeys)
             {
-                AddWarning(source, rowNum, "categoryName", "categoryName is empty", "");
-            }
-            
-            // Validate product references
-            if (category.productKeys)
-            {
-                foreach (string productKey : category.productKeys)
-                {
-                    bool prodExists;
-                    if (!productKeySet.Find(productKey, prodExists))
-                    {
-                        AddError(source, rowNum, "productKeys", "Product reference not found: " + productKey, productKey);
-                    }
-                }
+                if (!productKeySet.Contains(productKey))
+                    AddWarning(category.sourceFile, category.sourceRow, "productKeys", "Product reference not found: " + productKey, productKey);
             }
         }
-        
-        GetTraderXLogger().LogDebug(string.Format("[TraderXConfigValidator] Categories validation complete. Errors: %1, Warnings: %2", errors.Count(), warnings.Count()));
     }
-    
-    // Validate presets
-    void ValidatePresets(array<ref TraderXCsvPreset> presets, array<ref TraderXCsvProduct> products, string source = "presets.csv")
+
+    void ValidatePresets(array<ref TraderXCsvPreset> presets, array<ref TraderXCsvProduct> products)
     {
-        GetTraderXLogger().LogDebug("[TraderXConfigValidator] Validating presets...");
-        
-        // Build product key set
-        map<string, bool> productKeySet = new map<string, bool>;
-        foreach (TraderXCsvProduct product : products)
+        map<string, bool> productKeySet = BuildProductKeySet(products);
+        foreach (TraderXCsvPreset preset : presets)
         {
-            if (product.productKey.Length() > 0)
-            {
-                productKeySet.Set(product.productKey, true);
-            }
-        }
-        
-        // Track preset keys for duplicate detection
-        map<string, int> presetKeyMap = new map<string, int>;
-        
-        for (int i = 0; i < presets.Count(); i++)
-        {
-            TraderXCsvPreset preset = presets.Get(i);
-            int rowNum = i + 2;
-            
-            // Validate presetKey
-            if (preset.presetKey.Length() == 0)
-            {
-                AddError(source, rowNum, "presetKey", "presetKey is empty", "");
-            }
-            else
-            {
-                // Check for duplicates
-                int existingRow;
-                if (presetKeyMap.Find(preset.presetKey, existingRow))
-                {
-                    AddError(source, rowNum, "presetKey", "Duplicate presetKey (first seen at row " + existingRow + ")", preset.presetKey);
-                }
-                else
-                {
-                    presetKeyMap.Set(preset.presetKey, rowNum);
-                }
-            }
-            
-            // Validate productKey reference
             if (preset.productKey.Length() == 0)
+                AddWarning(preset.sourceFile, preset.sourceRow, "productKey", "productKey is empty", "");
+            else if (!productKeySet.Contains(preset.productKey))
+                AddWarning(preset.sourceFile, preset.sourceRow, "productKey", "Product reference not found: " + preset.productKey, preset.productKey);
+            if (!preset.attachments)
+                continue;
+            foreach (string attachmentKey : preset.attachments)
             {
-                AddError(source, rowNum, "productKey", "productKey is empty", "");
-            }
-            else
-            {
-                bool exists;
-                if (!productKeySet.Find(preset.productKey, exists))
-                {
-                    AddError(source, rowNum, "productKey", "Product reference not found: " + preset.productKey, preset.productKey);
-                }
-            }
-            
-            // Validate attachment references
-            if (preset.attachments)
-            {
-                foreach (string attachmentKey : preset.attachments)
-                {
-                    bool attExists;
-                    if (!productKeySet.Find(attachmentKey, attExists))
-                    {
-                        AddError(source, rowNum, "attachments", "Attachment reference not found: " + attachmentKey, attachmentKey);
-                    }
-                }
+                if (!productKeySet.Contains(attachmentKey))
+                    AddWarning(preset.sourceFile, preset.sourceRow, "attachments", "Attachment reference not found: " + attachmentKey, attachmentKey);
             }
         }
-        
-        GetTraderXLogger().LogDebug(string.Format("[TraderXConfigValidator] Presets validation complete. Errors: %1, Warnings: %2", errors.Count(), warnings.Count()));
     }
-    
-    // Validate cross-references (attachments, variants)
-    void ValidateCrossReferences(array<ref TraderXCsvProduct> products, string source = "products.csv")
+
+    void ValidateCrossReferences(array<ref TraderXCsvProduct> products)
     {
-        GetTraderXLogger().LogDebug("[TraderXConfigValidator] Validating cross-references...");
-        
-        // Build product key set
-        map<string, bool> productKeySet = new map<string, bool>;
-        foreach (TraderXCsvProduct product : products)
+        map<string, bool> productKeySet = BuildProductKeySet(products);
+        foreach (TraderXCsvProduct prod : products)
         {
-            if (product.productKey.Length() > 0)
-            {
-                productKeySet.Set(product.productKey, true);
-            }
-        }
-        
-        // Validate attachments and variants
-        for (int i = 0; i < products.Count(); i++)
-        {
-            TraderXCsvProduct prod = products.Get(i);
-            int rowNum = i + 2;
-            
-            // Validate attachments
             if (prod.attachments)
             {
                 foreach (string attachmentKey : prod.attachments)
                 {
-                    bool attRefExists;
-                    if (!productKeySet.Find(attachmentKey, attRefExists))
-                    {
-                        AddError(source, rowNum, "attachments", "Attachment reference not found: " + attachmentKey, attachmentKey);
-                    }
+                    if (!productKeySet.Contains(attachmentKey))
+                        AddWarning(prod.sourceFile, prod.sourceRow, "attachments", "Attachment reference not found: " + attachmentKey, attachmentKey);
                 }
             }
-            
-            // Validate variants
             if (prod.variants)
             {
                 foreach (string variantKey : prod.variants)
                 {
-                    bool varExists;
-                    if (!productKeySet.Find(variantKey, varExists))
-                    {
-                        AddError(source, rowNum, "variants", "Variant reference not found: " + variantKey, variantKey);
-                    }
+                    if (!productKeySet.Contains(variantKey))
+                        AddWarning(prod.sourceFile, prod.sourceRow, "variants", "Variant reference not found: " + variantKey, variantKey);
                 }
             }
         }
-        
-        GetTraderXLogger().LogDebug(string.Format("[TraderXConfigValidator] Cross-reference validation complete. Errors: %1, Warnings: %2", errors.Count(), warnings.Count()));
     }
-    
+
+    private bool IsValidKey(string key)
+    {
+        return key.IndexOf("/") == -1 && key.IndexOf("\\") == -1 && key.IndexOf(":") == -1;
+    }
+
+    private map<string, bool> BuildProductKeySet(array<ref TraderXCsvProduct> products)
+    {
+        map<string, bool> keys = new map<string, bool>;
+        foreach (TraderXCsvProduct product : products)
+        {
+            if (product.productKey.Length() > 0)
+                keys.Set(product.productKey, true);
+        }
+        return keys;
+    }
+
     // Generate validation report
     void GenerateReport(string outputPath)
     {
@@ -340,7 +191,7 @@ class TraderXConfigValidator
             FPrintln(file, "-------");
             foreach (TraderXValidationError error : errors)
             {
-                FPrintln(file, string.Format("[ERROR] %1 (Row %2, Column '%3'): %4 | Value: '%5'", error.source, error.row, error.column, error.message, error.value));
+                FPrintln(file, string.Format("[ERROR] %1 (line %2, column '%3'): %4 | Value: '%5'", error.source, error.row, error.column, error.message, error.value));
             }
             FPrintln(file, "");
         }
@@ -352,7 +203,7 @@ class TraderXConfigValidator
             FPrintln(file, "---------");
             foreach (TraderXValidationError warning : warnings)
             {
-                FPrintln(file, string.Format("[WARNING] %1 (Row %2, Column '%3'): %4 | Value: '%5'", warning.source, warning.row, warning.column, warning.message, warning.value));
+                FPrintln(file, string.Format("[WARNING] %1 (line %2, column '%3'): %4 | Value: '%5'", warning.source, warning.row, warning.column, warning.message, warning.value));
             }
             FPrintln(file, "");
         }
@@ -376,14 +227,12 @@ class TraderXConfigValidator
         GetTraderXLogger().LogInfo("[TraderXConfigValidator] Validation report generated successfully");
     }
     
-    // Helper: Add error
-    private void AddError(string source, int row, string column, string message, string value)
+    void AddError(string source, int row, string column, string message, string value)
     {
         errors.Insert(new TraderXValidationError("ERROR", source, row, column, message, value));
     }
     
-    // Helper: Add warning
-    private void AddWarning(string source, int row, string column, string message, string value)
+    void AddWarning(string source, int row, string column, string message, string value)
     {
         warnings.Insert(new TraderXValidationError("WARNING", source, row, column, message, value));
     }

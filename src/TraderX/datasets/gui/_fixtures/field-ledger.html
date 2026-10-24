@@ -3,82 +3,85 @@
 <head>
 <meta charset="UTF-8">
 <!--
-  TraderX Field-Ledger design tokens — SINGLE SOURCE for all TraderX UI styles.
+  TraderX design tokens (Nasdara theme) — SINGLE SOURCE for all TraderX UI styles.
   Shared with TraderXBanking. See docs/TraderX_Design_System.md.
 
   Regenerate browser CSS:  dzml previewcss _fixtures/field-ledger.html -o dzml-styles.css
   (Generate in-game .styles/atlas from the same tokens via stylesToJsonConfig + generate_styles.py.)
 -->
 <style type="dz-styles">
-  /* Containers & surfaces — CBT-aligned cool slate ramp (#0F1215 / #1A1D21) */
-  .TXContainer    { --bg: #0b0e12; --border: #2b3138; }
-  .TXHeader       { --bg: #1a1d21; --bottom: #20242a; }
-  .TXContent      { --bg: #0f1215; }
-  .TXCard         { --bg: #15181d; --border: #20242a; }
-  .TXCardElevated { --bg: #20242a; --border: #3a424b; }
-  .TXCardSelected { --bg: #15181d00; --border: #c4a35a; }   /* gold selection RING — transparent center (00 alpha = no fill, never blanks card) */
-  .TXSurface      { --bg: #1a1d21; --border: #20242a; }
-  .TXDivider      { --bg: #20242a; }
-  .TXIcon         { --bg: #1a1d21; --border: #2b3138; }
+  /* Nasdara theme (DayZ Beans Launcher): warm night, ember accent, cream text.
+     Deep #0f0d0a (bars) · Night #13100c (page) · Surface #1c1813 (panels) ·
+     Raised #262019 (hover/active) · Line #3a3127 (borders) · Ember #d9762f / #e8894a.
+     Square corners everywhere (no radius); one accent per screen. */
+  .TXContainer    { --bg: #13100c; --border: #3a3127; }
+  .TXHeader       { --bg: #0f0d0a; --bottom: #3a3127; }
+  .TXFooter       { --bg: #0f0d0a; --top: #3a3127; }
+  .TXSideLeft     { --bg: #1c1813; --right: #3a3127; }   /* left column, Line rule on its right */
+  .TXSideRight    { --bg: #1c1813; --left: #3a3127; }    /* right column, Line rule on its left */
+  .TXInset        { --bg: #0f0d0a; --border: #3a3127; }  /* wells: inputs, previews, chips */
+  .TXRowRule      { --bg: #1c181300; --bottom: #2e2720; } /* list row separator */
+  .TXFrame        { --bg: #1c181300; --border: #3a3127; }  /* border only, drawn over content */
+  .TXContent      { --bg: #13100c; }
+  .TXCard         { --bg: #1c1813; --border: #3a3127; }
+  .TXCardElevated { --bg: #262019; --border: #3a3127; }
+  .TXCardSelected { --bg: #1c181300; --border: #d9762f; }   /* ember selection ring, transparent centre */
+  .TXSurface      { --bg: #1c1813; --border: #3a3127; }
+  .TXDivider      { --bg: #3a3127; }
+  .TXIcon         { --bg: #d9762f; --border: #d9762f; }
 
-  /* Tabs — gold underline on active/hover (#C4A35A) */
+  /* Tabs — no fill, 3 px ember underline when active/hovered */
   .TXTab {
-    --type: button; --bg: #1a1d21;
-    --highlight-bg: #20242a; --highlight-bottom: #c4a35a;
-    --pushed-bg: #15181d;    --pushed-bottom: #c4a35a;
-    --focus-bg: #20242a;     --focus-bottom: #c4a35a;
+    --type: button; --bg: #0f0d0a;
+    --highlight-bg: #0f0d0a; --highlight-bottom: #d9762f;
+    --pushed-bg: #0f0d0a;    --pushed-bottom: #d9762f;
+    --focus-bg: #0f0d0a;     --focus-bottom: #d9762f;
   }
 
-  /* Buttons — green primary, gold accent, rust danger, neutral default, blood leave */
-  .TXBtnPrimary { --type: button; --bg: #1e2a16; --border: #6b8e5a;
-                  --highlight-bg: #2a3a1f; --pushed-bg: #16200f; }
-  .TXBtnAccent  { --type: button; --bg: #241d12; --border: #c4a35a;
-                  --highlight-bg: #322816; --pushed-bg: #18130b; }
-  .TXBtnDanger  { --type: button; --bg: #2a1410; --border: #b0482a;
-                  --highlight-bg: #3a1a14; --pushed-bg: #1a0c08; }
-  .TXBtnDefault { --type: button; --bg: #1a1d21; --border: #2b3138;
-                  --highlight-bg: #20242a; --pushed-bg: #15181d; }
-  .TXBtnLeave   { --type: button; --bg: #8B0000;
-                  --highlight-bg: #a52a2a; --pushed-bg: #6B0000; }
-  .TXBtnIcon    { --type: button; --bg: #1a1d21; --border: #2b3138;
-                  --highlight-bg: #20242a; --pushed-bg: #15181d; }
+  /* Buttons — ember primary (filled), ember outline accent, neutral default */
+  .TXBtnPrimary { --type: button; --bg: #d9762f; --border: #d9762f;
+                  --highlight-bg: #e8894a; --pushed-bg: #c4692a; }
+  .TXBtnAccent  { --type: button; --bg: #13100c00; --border: #d9762f;
+                  --highlight-bg: #262019; --pushed-bg: #1c1813; }
+  .TXBtnDanger  { --type: button; --bg: #1c1813; --border: #e07a63;
+                  --highlight-bg: #2e1f19; --pushed-bg: #13100c; }
+  .TXBtnDefault { --type: button; --bg: #1c1813; --border: #3a3127;
+                  --highlight-bg: #262019; --pushed-bg: #13100c; }
+  .TXBtnLeave   { --type: button; --bg: #13100c00; --border: #3a3127;
+                  --highlight-bg: #262019; --pushed-bg: #13100c; }
+  .TXBtnIcon    { --type: button; --bg: #13100c00; --border: #3a3127;
+                  --highlight-bg: #262019; --pushed-bg: #13100c; }
 
-  /* Inputs — gold focus border */
-  .TXInputField { --type: editbox; --bg: #1a1d21; --border: #2b3138;
-                  --focus-bg: #20242a; --focus-border: #c4a35a; }
+  /* Inputs — ember focus border */
+  .TXInputField { --type: editbox; --bg: #0f0d0a; --border: #3a3127;
+                  --focus-bg: #0f0d0a; --focus-border: #d9762f; }
 
-  /* Status boxes — left accent strip per sentiment (CBT gold/green/blue/red) */
-  .TXInfoBox    { --bg: #15181d; --left: #5c8fc7; }
-  .TXSuccessBox { --bg: #15181d; --left: #6b8e5a; }
-  .TXWarningBox { --bg: #15181d; --left: #c4a35a; }
-  .TXErrorBox   { --bg: #15181d; --left: #c45050; }
+  /* Status boxes */
+  .TXInfoBox    { --bg: #1c1813; --border: #3a3127; }
+  .TXSuccessBox { --bg: #1c1813; --border: #7fa65a; }
+  .TXWarningBox { --bg: #1c1813; --border: #e0a33a; }
+  .TXErrorBox   { --bg: #1c1813; --border: #e07a63; }
 
-  /* Category row — reads as a defined card, gold left-accent on hover, darker pressed */
-  .TXCategoryRow     { --type: button; --bg: #16191e; --border: #2b3138;
-                       --highlight-bg: #20242a; --highlight-left: #c4a35a;
-                       --pushed-bg: #12151a;    --pushed-left: #c4a35a; }
+  /* Category nav row — filled Raised when hovered/selected */
+  .TXCategoryRow     { --type: button; --bg: #1c181300;
+                       --highlight-bg: #262019; --pushed-bg: #2e2720; }
 
-  /* List rows */
-  .TXListRow         { --type: button; --bg: #12151a;
-                       --highlight-bg: #1a1d21; --pushed-bg: #15181d; }
-  .TXListRowAlt      { --type: button; --bg: #15181d;
-                       --highlight-bg: #1a1d21; --pushed-bg: #15181d; }
-  .TXListRowSelected { --type: button; --bg: #20242a; --left: #c4a35a;
-                       --highlight-bg: #20242a; --highlight-left: #c4a35a;
-                       --pushed-bg: #20242a;    --pushed-left: #c4a35a; }
+  /* List rows — rows separated by a Line rule */
+  .TXListRow         { --type: button; --bg: #1c1813; --bottom: #2e2720;
+                       --highlight-bg: #262019; --pushed-bg: #1c1813; }
+  .TXListRowAlt      { --type: button; --bg: #1c1813; --bottom: #2e2720;
+                       --highlight-bg: #262019; --pushed-bg: #1c1813; }
+  .TXListRowSelected { --type: button; --bg: #2e2720; --bottom: #2e2720;
+                       --highlight-bg: #2e2720; --pushed-bg: #2e2720; }
 
-  .TXBadge { --bg: #1a1d21; --radius: 3; }
+  .TXBadge { --bg: #d9762f; }
 
-  /* HUD toast card — the grow-to-content grid needs its own chrome style (mirrors
-     PdaNotifCard). NOTE: no --left here on purpose. PDA bakes its ember rule into the
-     style, but TraderX recolors the rule PER NOTIFICATION TYPE (gold/green/amber/red in
-     ApplyAccent), so the accent stays a separate leftRule widget that SyncOverlays trails
-     against the card's dynamic height. This style is just the card chrome. */
-  .TXToastCard { --bg: #15181d; --border: #20242a; --radius: 4; }
+  /* HUD toast card (the accent rule stays a separate widget, recoloured per type) */
+  .TXToastCard { --bg: #1c1813; --border: #d9762f; }
 
   /* Progress / quantity bar */
-  .TXProgressBg   { --bg: #1a1d21; --radius: 2; }
-  .TXProgressFill { --type: progressbar; --bg: #1a1d21; --fill: #6b8e5a; --radius: 2; }
+  .TXProgressBg   { --bg: #0f0d0a; }
+  .TXProgressFill { --type: progressbar; --bg: #0f0d0a; --fill: #d9762f; }
 </style>
 </head>
 <body data-dzml></body>

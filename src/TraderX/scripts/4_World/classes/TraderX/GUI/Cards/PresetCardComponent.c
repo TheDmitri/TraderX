@@ -13,6 +13,8 @@ class PresetCardComponent extends DZlrComponentBase
 	EntityAI preview;
 	string price;
 	string preset_name;
+	// \"server default\" / \"yours\" (Nasdara preset row)
+	string preset_owner;
 
 	ButtonWidget defaultPresetBtn;
 	ButtonWidget editBtn;
@@ -48,13 +50,14 @@ class PresetCardComponent extends DZlrComponentBase
 		_inputPreset = preset;
 		isServerPreset = serverPreset;
 
+		preset_name = preset.presetName;
 		if (isServerPreset)
-			preset_name = "[SERVER] " + preset.presetName;
+			preset_owner = Widget.TranslateString("#tpm_preset_server_default");
 		else
-			preset_name = preset.presetName;
+			preset_owner = Widget.TranslateString("#tpm_preset_yours");
 
 		int intPrice = TraderXPresetsService.GetInstance().CalculateTotalPricePreset(preset);
-		price = TraderXQuantityManager.GetFormattedMoneyAmount(intPrice);
+		price = TraderXCurrencyService.GetInstance().GetTraderCurrencySymbol() + TraderXQuantityManager.GetFormattedMoneyAmount(intPrice);
 
 		TraderXProduct item = TraderXProductRepository.GetItemById(preset.productId);
 		preview = EntityAI.Cast(GetGame().CreateObjectEx(item.className, vector.Zero, ECE_LOCAL|ECE_NOLIFETIME));

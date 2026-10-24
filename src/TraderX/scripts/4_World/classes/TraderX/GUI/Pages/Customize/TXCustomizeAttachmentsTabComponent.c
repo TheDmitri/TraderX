@@ -7,6 +7,10 @@ class TXCustomizeAttachmentsTabComponent extends DZlrComponentBase
 	private static ref ComponentAutoRegister s_Register = new ComponentAutoRegister("tx-customize-attachments", TXCustomizeAttachmentsTabComponent);
 
 	ref array<ref TraderXProduct> _inputAttachments = new array<ref TraderXProduct>();
+	// Nasdara: slot rows and the preset chips below them.
+	ref array<ref TXCustomizeSlot> _inputSlots = new array<ref TXCustomizeSlot>();
+	ref array<ref TraderXPreset> _inputPresetChips = new array<ref TraderXPreset>();
+	string presets_label;
 	string empty_label;
 	ref TraderXProduct originalItem;
 
@@ -49,10 +53,21 @@ class TXCustomizeAttachmentsTabComponent extends DZlrComponentBase
 		array<ref TraderXProduct> attachments = originalItem.GetAttachments();
 		foreach (TraderXProduct attachment : attachments)
 			_inputAttachments.Insert(attachment);
+		TXCustomizeSlot.Build(originalItem, _inputSlots);
+
+		_inputPresetChips.Clear();
+		TraderXPresets serverPresets = TraderXPresetsService.GetInstance().GetServerPresets(originalItem.productId);
+		if (serverPresets && serverPresets.presets)
+		{
+			foreach (TraderXPreset serverPreset : serverPresets.presets)
+				_inputPresetChips.Insert(serverPreset);
+		}
+		foreach (TraderXPreset userPreset : TraderXPresetsService.GetInstance().GetPresets(originalItem.productId))
+			_inputPresetChips.Insert(userPreset);
+		presets_label = CheckoutComponent.Upper("#tpm_your_presets");
 
 		empty_label = TernaryString(_inputAttachments.Count() == 0, "#tpm_no_attachments", "");
 		MarkForCheck();
-		TraderXViewModeBinder.Apply(attachmentGridList, attachmentGridTiles);
 	}
 
 	bool IsAttachment(TraderXProduct product)

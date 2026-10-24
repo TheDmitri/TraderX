@@ -1,0 +1,93 @@
+PanelWidgetClass presetChip {
+ position 0 0
+ hexactpos 0
+ vexactpos 0
+ size 1 67
+ hexactsize 0
+ vexactsize 1
+ color 0.149 0.1255 0.098 1
+ ignorepointer 1
+ style rover_sim_colorable
+ {
+  ButtonWidgetClass presetChipBtn {
+   position 0 0
+   hexactpos 0
+   vexactpos 0
+   size 1 1
+   hexactsize 0
+   vexactsize 0
+   "text color" 0.9961 0.9961 0.9961 1
+   style Empty
+   color 0.9961 0.9961 0.9961 1
+   scriptclass "ButtonBinding"
+   {
+    ScriptParamsClass {
+     OnClick "OnChipClick"
+    }
+   }
+  }
+  TextWidgetClass chipName {
+   position 14 9
+   hexactpos 1
+   vexactpos 1
+   size 0.9 24
+   hexactsize 0
+   vexactsize 1
+   color 0.949 0.9137 0.8471 1
+   font "TraderX/datasets/fonts/rajdhanibpx19"
+   ignorepointer 1
+   "exact text" 1
+   "text valign" center
+   text "Preset - 2"
+   scriptclass "TextBinding"
+   {
+    ScriptParamsClass {
+     Binding_Expression "{{ chip_name }}"
+    }
+   }
+  }
+  TextWidgetClass chipDetail {
+   position 14 36
+   hexactpos 1
+   vexactpos 1
+   size 0.9 20
+   hexactsize 0
+   vexactsize 1
+   color 0.6392 0.5725 0.4627 1
+   font "TraderX/datasets/fonts/monopx16"
+   ignorepointer 1
+   "exact text" 1
+   "text valign" center
+   text "€ 670 · server default"
+   scriptclass "TextBinding"
+   {
+    ScriptParamsClass {
+     Binding_Expression "{{ chip_detail }}"
+    }
+   }
+  }
+  PanelWidgetClass chipFrame {
+   position 0 0
+   hexactpos 0
+   vexactpos 0
+   size 1 1
+   hexactsize 0
+   vexactsize 0
+   ignorepointer 1
+   style TXFrame
+   color 0.9961 0.9961 0.9961 1
+  }
+  PanelWidgetClass chipActiveFrame {
+   position 0 0
+   hexactpos 0
+   vexactpos 0
+   size 1 1
+   hexactsize 0
+   vexactsize 0
+   ignorepointer 1
+   visible 0
+   style TXCardSelected
+   color 0.9961 0.9961 0.9961 1
+  }
+ }
+}

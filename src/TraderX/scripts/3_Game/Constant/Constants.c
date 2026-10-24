@@ -33,6 +33,9 @@ const string TRADERX_STOCK_DIR = TRADERX_DB_DIR_SERVER + "Stock/";
 const string TRADERX_STOCK_FILE = TRADERX_STOCK_DIR + "%1.json";  // %1 = stockId
 
 
+// Currency items: most stacks one CreateInInventory call creates (performance guard)
+const int TRADERX_MAX_PAYOUT_STACKS = 1000;
+
 // Player Licenses
 const string TRADERX_PLAYER_LICENSES_DIR = TRADERX_DB_DIR_SERVER + "PlayerLicenses/";
 const string TRADERX_PLAYER_LICENSES_FILE = TRADERX_PLAYER_LICENSES_DIR + "playerLicense_%1.json";  // %1 = playerId
@@ -77,3 +80,5 @@ const string TRADERX_CONFIG_REPORT_FILE = TRADERX_LOGGER_CONFIG_DIR + "ConfigRep
 // Version — bump forces TraderXSettingsRepository.CheckVersion to re-save the general settings
 // file, writing any newly added fields (e.g. prewarmCatalogInSafeZone) into existing configs.
 const string TRADERX_CURRENT_VERSION = "1.0.2";
+// CF ModStorage key of the TraderX core (CfgMods class with storageVersion)
+const string TRADERX_STORAGE_MOD = "TraderX";

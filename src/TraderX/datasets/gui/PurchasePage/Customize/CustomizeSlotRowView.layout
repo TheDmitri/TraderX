@@ -1,0 +1,201 @@
+GridSpacerWidgetClass slotRow {
+ position 0 0
+ hexactpos 0
+ vexactpos 0
+ size 1 0.01
+ hexactsize 0
+ vexactsize 0
+ ignorepointer 1
+ "Size To Content V" 1
+ Columns 1
+ Rows 100
+ Padding 0
+ {
+  PanelWidgetClass slotMainRow {
+   position 0 0
+   hexactpos 0
+   vexactpos 0
+   size 1 96
+   hexactsize 0
+   vexactsize 1
+   ignorepointer 1
+   style TXRowRule
+   color 0.9961 0.9961 0.9961 1
+   {
+    PanelWidgetClass slotFittedPreview {
+     position 24 14
+     hexactpos 1
+     vexactpos 1
+     size 67 67
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     style TXInset
+     color 0.9961 0.9961 0.9961 1
+    }
+    ItemPreviewWidgetClass slotFittedItem {
+     position 26 16
+     hexactpos 1
+     vexactpos 1
+     size 63 63
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     clipchildren 1
+     scriptclass "ItemPreviewBinding"
+     {
+      ScriptParamsClass {
+       Binding_Item "{{ fitted_preview }}"
+      }
+     }
+    }
+    TextWidgetClass slotLabel {
+     position 0.19565 22
+     hexactpos 0
+     vexactpos 1
+     size 0.36232 18
+     hexactsize 0
+     vexactsize 1
+     color 0.6392 0.5725 0.4627 1
+     font "TraderX/datasets/fonts/rajdhanibpx14"
+     ignorepointer 1
+     "exact text" 1
+     "text valign" center
+     text "HANDGUARD"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ slot_label }}"
+      }
+     }
+    }
+    TextWidgetClass fittedName {
+     position 0.19565 44
+     hexactpos 0
+     vexactpos 1
+     size 0.36232 26
+     hexactsize 0
+     vexactsize 1
+     color 0.949 0.9137 0.8471 1
+     font "TraderX/datasets/fonts/rajdhanibpx20"
+     ignorepointer 1
+     "exact text" 1
+     "text valign" center
+     text "KA Rail Handguard"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ fitted_name }}"
+      }
+     }
+    }
+    TextWidgetClass emptyName {
+     position 0.19565 44
+     hexactpos 0
+     vexactpos 1
+     size 0.36232 26
+     hexactsize 0
+     vexactsize 1
+     color 0.549 0.4902 0.4 1
+     font "TraderX/datasets/fonts/rajdhanibpx20"
+     ignorepointer 1
+     "exact text" 1
+     "text valign" center
+     visible 0
+     text "#tpm_empty"
+    }
+    TextWidgetClass fittedPrice {
+     position 0.24638 0
+     hexactpos 0
+     vexactpos 0
+     size 84 96
+     hexactsize 1
+     vexactsize 1
+     halign right_ref
+     color 0.7608 0.7098 0.6118 1
+     font "TraderX/datasets/fonts/monopx18"
+     ignorepointer 1
+     "exact text" 1
+     "text valign" center
+     "text halign" right
+     text "€ 200"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ fitted_price }}"
+      }
+     }
+    }
+    PanelWidgetClass slotChangeHost {
+     position 24 0
+     hexactpos 1
+     vexactpos 0
+     size 0.18116 41
+     hexactsize 0
+     vexactsize 1
+     halign right_ref
+     valign center_ref
+     ignorepointer 1
+     {
+      ButtonWidgetClass slotChangeBtn {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 1 1
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.9961 0.9961 0.9961 1
+       style TXBtnDefault
+       color 0.9961 0.9961 0.9961 1
+       scriptclass "ButtonBinding"
+       {
+        TextWidgetClass slotChangeText {
+         position 0 0
+         hexactpos 0
+         vexactpos 0
+         size 1 1
+         hexactsize 0
+         vexactsize 0
+         color 0.7608 0.7098 0.6118 1
+         font "TraderX/datasets/fonts/rajdhanibpx17"
+         ignorepointer 1
+         "exact text" 1
+         "text halign" center
+         "text valign" center
+         text "#tpm_change"
+        }
+       }
+       {
+        ScriptParamsClass {
+         OnClick "OnChangeClick"
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+  GridSpacerWidgetClass slotOptionsGrid {
+   position 0 0
+   hexactpos 0
+   vexactpos 0
+   size 1 0.01
+   hexactsize 0
+   vexactsize 0
+   ignorepointer 1
+   "Size To Content V" 1
+   Columns 1
+   Rows 100
+   visible 0
+   Padding 0
+   scriptclass "ComponentWidgetBinding"
+   {
+    ScriptParamsClass {
+     Component_ForEach "{{ _inputOptions }}"
+     Component_Template "tx-customize-slot-option"
+     Component_ItemProperty "_inputProduct"
+    }
+   }
+  }
+ }
+}

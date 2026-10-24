@@ -30,11 +30,11 @@ class TXGShareRowComponent extends DZlrComponentBase
             return;
 
         playerNameText = _inputPlayer.name;
-        string where = "SHARED BEFORE";
+        string where = TXGText.Localize("#txg_shared_before");
         if (_inputPlayer.distance >= 0)
-            where = "NEARBY - " + _inputPlayer.distance.ToString() + " m";
+            where = TXGText.Get("#txg_nearby_m", _inputPlayer.distance.ToString());
         if (_inputPlayer.hasAccess)
-            accessText = "HAS ACCESS  -  " + where;
+            accessText = TXGText.Get("#txg_has_access", where);
         else
             accessText = where;
 

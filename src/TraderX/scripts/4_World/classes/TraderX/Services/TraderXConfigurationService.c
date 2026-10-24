@@ -15,37 +15,41 @@ class TraderXConfigurationService
         return s_Instance;
     }
     
-    // Main entry point: Initialize configuration based on user preferences
-    void Initialize(TraderXSourceConfig sourceConfig)
+    // Main entry point: Initialize configuration based on user preferences.
+    // importedThisBoot: an importer (TraderPlus / Dr Jones / Expansion) just wrote per-file JSON products.
+    void Initialize(TraderXSourceConfig sourceConfig, bool importedThisBoot = false)
     {
         ETraderXSourceFormat format = sourceConfig.GetFormatEnum();
-        
+
         GetTraderXLogger().LogInfo(string.Format("[TraderX] Configuration format selected: %1", sourceConfig.preferredFormat));
-        
-        // Handle configuration based on user's choice
+
         switch (format)
         {
             case ETraderXSourceFormat.LEGACY:
-                LoadLegacyConfiguration();
+                LoadLegacyCatalog();
                 break;
-                
+
             case ETraderXSourceFormat.CSV:
-                LoadCsvConfiguration(sourceConfig);
+                LoadCsvConfiguration(sourceConfig, importedThisBoot);
                 break;
-                
+
             case ETraderXSourceFormat.COMPILED:
-                LoadCompiledConfiguration(sourceConfig);
+                LoadCompiledConfiguration(sourceConfig, importedThisBoot);
                 break;
         }
+
+        TraderXVehicleParkingRepository.LoadAllParkingCollections();
+        ApplyStockBehaviorAtRestart();
+        GetTraderXLogger().LogInfo(string.Format("[TraderX] Catalog loaded: %1 products, %2 categories", TraderXProductRepository.GetProducts().Count(), TraderXCategoryRepository.GetCategories().Count()));
     }
-    
-    // Load configuration using LEGACY format (individual JSON files)
-    private void LoadLegacyConfiguration()
+
+    // LEGACY format: Products/*.json + Categories/*.json (one file per entry, the file name is the id)
+    private void LoadLegacyCatalog()
     {
-        GetTraderXLogger().LogInfo("[TraderX] Loading configuration using LEGACY format (individual JSON files)");
-        
-        TraderXProductRepository.LoadAllProducts();
-        TraderXCategoryRepository.LoadAllCategories();
+        GetTraderXLogger().LogInfo("[TraderX] Loading the per-file JSON catalog (Products/, Categories/)");
+
+        TraderXProductRepository.LoadAllProducts(false);
+        TraderXCategoryRepository.LoadAllCategories(false);
 
         // DayZ 1.30 fallback: when -profiles is an external/absolute path where FindFile returns 0,
         // walk the trader -> categoryId -> productId/variant/attachment graph via exact $profile: paths.
@@ -53,11 +57,6 @@ class TraderXConfigurationService
         {
             LoadLegacyGraphFromSettings();
         }
-
-        TraderXVehicleParkingRepository.LoadAllParkingCollections();
-        ApplyStockBehaviorAtRestart();
-        
-        GetTraderXLogger().LogInfo("[TraderX] Legacy configuration loaded successfully");
     }
 
     private void LoadLegacyGraphFromSettings()
@@ -66,7 +65,6 @@ class TraderXConfigurationService
         if (!settings || !settings.traders)
             return;
 
-        int catCount = 0;
         foreach (TraderXNpc npc : settings.traders)
         {
             if (!npc || !npc.categoriesId)
@@ -76,110 +74,102 @@ class TraderXConfigurationService
                 if (catId == "")
                     continue;
                 TraderXCategory cat = TraderXCategoryRepository.LoadCategoryById(catId);
-                if (!cat)
+                if (!cat || !cat.productIds)
                     continue;
-                catCount++;
-                if (cat.productIds)
+                foreach (string prodId : cat.productIds)
                 {
-                    foreach (string prodId : cat.productIds)
-                    {
-                        if (prodId != "")
-                            TraderXProductRepository.LoadProductByIdRecursive(prodId);
-                    }
+                    if (prodId != "")
+                        TraderXProductRepository.LoadProductByIdRecursive(prodId);
                 }
             }
         }
         GetTraderXLogger().LogInfo(string.Format("[TraderX] Direct graph fallback loaded %1 categories and %2 products without FindFile", TraderXCategoryRepository.GetCategories().Count(), TraderXProductRepository.GetProducts().Count()));
     }
-    
-    // Load configuration using CSV format (Source/*.csv files)
-    private void LoadCsvConfiguration(TraderXSourceConfig sourceConfig)
+
+    // CSV format: Source/*.csv is the catalog, compiled to Compiled/ at each boot and loaded from there
+    private void LoadCsvConfiguration(TraderXSourceConfig sourceConfig, bool importedThisBoot)
     {
         GetTraderXLogger().LogInfo("[TraderX] Loading configuration using CSV format");
-        
-        // Check if source files exist, if not and auto-migrate is enabled, migrate from legacy
-        if (!HasSourceFiles())
+
+        if (!TraderXConfigCompiler.HasSourceFiles())
         {
-            if (sourceConfig.autoMigrate && HasLegacyConfigFiles())
+            if (sourceConfig.autoMigrate)
             {
-                GetTraderXLogger().LogInfo("[TraderX] No CSV source files found, auto-migrating from legacy...");
-                TraderXJsonToCsvConverter.ConvertAllJsonToCsv();
-                
-                // Disable autoMigrate after successful migration
-                if (HasSourceFiles())
-                {
-                    sourceConfig.autoMigrate = false;
-                    TraderXSourceConfigLoader.SaveConfig(sourceConfig);
-                    GetTraderXLogger().LogInfo("[TraderX] Migration complete. autoMigrate automatically disabled to prevent re-conversion.");
-                }
+                // First CSV boot: turn the per-file JSON catalog (own or just imported) into Source/*.csv
+                MigrateLegacyToCsv("products.csv", "categories.csv", "presets.csv");
+                sourceConfig.autoMigrate = false;
+                TraderXSourceConfigLoader.SaveConfig(sourceConfig);
             }
-            else
+            if (!TraderXConfigCompiler.HasSourceFiles())
             {
-                GetTraderXLogger().LogWarning("[TraderX] No CSV source files found and auto-migrate disabled or no legacy files");
+                TraderXJsonToCsvConverter.WriteEmptyTemplates();
+                GetTraderXLogger().LogWarning("[TraderX] Source/ is empty: wrote header-only products.csv, categories.csv and presets.csv to fill in");
             }
         }
-        
-        // Compile and validate CSV configuration
+        else if (importedThisBoot)
+        {
+            // Importers write per-file JSON. Hand it to the compiler as the lowest-priority pack: rows the admin
+            // already has in Source/ win, new imported products and categories are added.
+            MigrateLegacyToCsv("00_imported_products.csv", "00_imported_categories.csv", "00_imported_presets.csv");
+            GetTraderXLogger().LogWarning("[TraderX] Imported catalog added to Source/00_imported_*.csv: review it, then move what you keep into your own CSV files");
+        }
+
         if (sourceConfig.allowCompilation)
         {
-            bool compilationSuccess = TraderXConfigCompiler.CompileAndValidate();
-            if (!compilationSuccess)
-            {
-                GetTraderXLogger().LogWarning("[TraderX] CSV compilation failed or used backup. Check ConfigReport.log for details.");
-            }
+            if (!TraderXConfigCompiler.CompileAndValidate())
+                GetTraderXLogger().LogWarning("[TraderX] CSV not compiled this boot (errors or empty Source/). See TraderXLogs/Config/ConfigReport.log; the last good Compiled/ catalog is used.");
         }
-        
-        // Load from compiled JSON (which was just created from CSV)
-        TraderXProductRepository.LoadAllProducts();
-        TraderXCategoryRepository.LoadAllCategories();
-        TraderXVehicleParkingRepository.LoadAllParkingCollections();
-        ApplyStockBehaviorAtRestart();
-        
-        GetTraderXLogger().LogInfo("[TraderX] CSV configuration loaded successfully");
+
+        TraderXProductRepository.LoadAllProducts(true);
+        TraderXCategoryRepository.LoadAllCategories(true);
     }
-    
-    // Load configuration using COMPILED format (Compiled/*.json files)
-    private void LoadCompiledConfiguration(TraderXSourceConfig sourceConfig)
+
+    // COMPILED format: Compiled/*_compiled.json is edited directly (created once from Source/ or the per-file JSON)
+    private void LoadCompiledConfiguration(TraderXSourceConfig sourceConfig, bool importedThisBoot)
     {
         GetTraderXLogger().LogInfo("[TraderX] Loading configuration using COMPILED format");
-        
-        // Check if compiled files exist
+
         bool hasCompiledFiles = FileExist(TRADERX_COMPILED_PRODUCTS_FILE) && FileExist(TRADERX_COMPILED_CATEGORIES_FILE);
-        
-        // If no compiled files but auto-migrate is enabled, try to create them from CSV or legacy
         if (!hasCompiledFiles && sourceConfig.autoMigrate)
         {
-            if (HasSourceFiles())
-            {
-                GetTraderXLogger().LogInfo("[TraderX] No compiled files found, compiling from source...");
-                TraderXConfigCompiler.CompileAndValidate();
-            }
-            else if (HasLegacyConfigFiles())
-            {
-                GetTraderXLogger().LogInfo("[TraderX] No compiled or source files found, migrating from legacy to CSV then compiling...");
-                TraderXJsonToCsvConverter.ConvertAllJsonToCsv();
-                TraderXConfigCompiler.CompileAndValidate();
-            }
-            
-            // Disable autoMigrate after successful migration/compilation
-            bool nowHasCompiledFiles = FileExist(TRADERX_COMPILED_PRODUCTS_FILE) && FileExist(TRADERX_COMPILED_CATEGORIES_FILE);
-            if (nowHasCompiledFiles)
+            if (!TraderXConfigCompiler.HasSourceFiles())
+                MigrateLegacyToCsv("products.csv", "categories.csv", "presets.csv");
+            if (TraderXConfigCompiler.CompileAndValidate())
             {
                 sourceConfig.autoMigrate = false;
                 TraderXSourceConfigLoader.SaveConfig(sourceConfig);
-                GetTraderXLogger().LogInfo("[TraderX] Migration/Compilation complete. autoMigrate automatically disabled to prevent re-conversion.");
             }
         }
-        
-        // Load from compiled JSON
-        TraderXProductRepository.LoadAllProducts();
-        TraderXCategoryRepository.LoadAllCategories();
-        TraderXVehicleParkingRepository.LoadAllParkingCollections();
-        ApplyStockBehaviorAtRestart();
-        
-        GetTraderXLogger().LogInfo("[TraderX] Compiled configuration loaded successfully");
+        else if (importedThisBoot)
+        {
+            GetTraderXLogger().LogWarning("[TraderX] COMPILED format: the catalog just imported into Products/ and Categories/ is not used. Switch to CSV to merge it.");
+        }
+
+        TraderXProductRepository.LoadAllProducts(true);
+        TraderXCategoryRepository.LoadAllCategories(true);
     }
-    
+
+    private void MigrateLegacyToCsv(string productsFile, string categoriesFile, string presetsFile)
+    {
+        LoadLegacyCatalog();
+        int exported = TraderXJsonToCsvConverter.ExportLoadedCatalog(TRADERX_CSV_SOURCE_DIR + productsFile, TRADERX_CSV_SOURCE_DIR + categoriesFile, TRADERX_CSV_SOURCE_DIR + presetsFile);
+        if (exported == 0)
+            return;
+
+        string note = "This server uses the CSV catalog: edit TraderXConfig/Source/*.csv. The files in this folder are kept as a backup and are no longer read.";
+        WriteNote(TRADERX_PRODUCTS_DIR + "_NOT_USED_SEE_Source.txt", note);
+        WriteNote(TRADERX_CATEGORIES_DIR + "_NOT_USED_SEE_Source.txt", note);
+    }
+
+    private void WriteNote(string path, string text)
+    {
+        FileHandle file = OpenFile(path, FileMode.WRITE);
+        if (!file)
+            return;
+        FPrintln(file, text);
+        CloseFile(file);
+    }
+
     // Apply stock behavior at restart for all products (reset, random, destock)
     private void ApplyStockBehaviorAtRestart()
     {
@@ -227,62 +217,5 @@ class TraderXConfigurationService
 
         TraderXProductStockRepository.LoadStockBulk(productIdsToWarm);
         GetTraderXLogger().LogInfo(string.Format("[TraderX] WarmStockCacheAtBoot - Warmed stock for %1 products", productIdsToWarm.Count()));
-    }
-    
-    // Helper: Check if Source directory has any CSV or JSON files
-    private bool HasSourceFiles()
-    {
-        string filename;
-        FileAttr attr;
-
-        // Check for CSV files
-        FindFileHandle csvHandle = TraderXFileSystem.Find(TRADERX_CSV_SOURCE_DIR + "*.csv", filename, attr, FindFileFlags.ALL);
-        if (csvHandle != 0)
-        {
-            CloseFindFile(csvHandle);
-            return true;
-        }
-
-        // Check for JSON files
-        FindFileHandle jsonHandle = TraderXFileSystem.Find(TRADERX_CSV_SOURCE_DIR + "*.json", filename, attr, FindFileFlags.ALL);
-        if (jsonHandle != 0)
-        {
-            CloseFindFile(jsonHandle);
-            return true;
-        }
-
-        return false;
-    }
-    
-    // Helper: Check if legacy config files exist (individual JSON files)
-    private bool HasLegacyConfigFiles()
-    {
-        // Check for legacy product files
-        if (FileExist(TRADERX_PRODUCTS_DIR))
-        {
-            string filename1;
-            FileAttr attr;
-            FindFileHandle findHandle1 = TraderXFileSystem.Find(TRADERX_PRODUCTS_DIR + "*.json", filename1, attr, FindFileFlags.ALL);
-            if (findHandle1 != 0)
-            {
-                CloseFindFile(findHandle1);
-                return true;
-            }
-        }
-
-        // Check for legacy category files
-        if (FileExist(TRADERX_CATEGORIES_DIR))
-        {
-            string filename2;
-            FileAttr attr2;
-            FindFileHandle findHandle2 = TraderXFileSystem.Find(TRADERX_CATEGORIES_DIR + "*.json", filename2, attr2, FindFileFlags.ALL);
-            if (findHandle2 != 0)
-            {
-                CloseFindFile(findHandle2);
-                return true;
-            }
-        }
-
-        return false;
     }
 }

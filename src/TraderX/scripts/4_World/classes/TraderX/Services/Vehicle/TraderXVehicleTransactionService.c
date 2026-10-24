@@ -405,6 +405,11 @@ class TraderXVehicleTransactionService
         if (IsVehicleInUse(vehicleToSell)) {
             return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), "Vehicle sale failed: Vehicle is in use");
         }
+
+        // Refuse before the vehicle is deleted when the price cannot be paid out.
+        if (!TraderXCurrencyService.GetInstance().CanPayOut(calculatedPrice, npc.GetCurrenciesAccepted())) {
+            return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), "Vehicle sale failed: Trader cannot pay this amount");
+        }
         
         // Release parking position if vehicle was in a parking spot
         TraderXVehicleParkingService parkingService = TraderXVehicleParkingService.GetInstance();

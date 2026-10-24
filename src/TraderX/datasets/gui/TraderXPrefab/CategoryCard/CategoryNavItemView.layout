@@ -1,0 +1,120 @@
+PanelWidgetClass categoryNavItem {
+ position 0 0
+ hexactpos 0
+ vexactpos 0
+ size 1 53
+ hexactsize 0
+ vexactsize 1
+ ignorepointer 1
+ {
+  PanelWidgetClass navSelectedBg {
+   position 0 0
+   hexactpos 0
+   vexactpos 0
+   size 1 1
+   hexactsize 0
+   vexactsize 0
+   color 0.1804 0.1529 0.1255 1
+   ignorepointer 1
+   visible 0
+   style rover_sim_colorable
+  }
+  ButtonWidgetClass categoryNavBtn {
+   position 0 0
+   hexactpos 0
+   vexactpos 0
+   size 1 1
+   hexactsize 0
+   vexactsize 0
+   "text color" 0.9961 0.9961 0.9961 1
+   style TXCategoryRow
+   color 0.9961 0.9961 0.9961 1
+   scriptclass "ButtonBinding"
+   {
+    ScriptParamsClass {
+     OnClick "OnNavClick"
+    }
+   }
+  }
+  TextWidgetClass navName {
+   position 24 0
+   hexactpos 1
+   vexactpos 0
+   size 0.70513 53
+   hexactsize 0
+   vexactsize 1
+   color 0.7608 0.7098 0.6118 1
+   font "TraderX/datasets/fonts/rajdhanipx20"
+   ignorepointer 1
+   "exact text" 1
+   "text valign" center
+   text "Vegetables"
+   scriptclass "TextBinding"
+   {
+    ScriptParamsClass {
+     Binding_Expression "{{ nav_name }}"
+    }
+   }
+  }
+  TextWidgetClass navNameBold {
+   position 24 0
+   hexactpos 1
+   vexactpos 0
+   size 0.70513 53
+   hexactsize 0
+   vexactsize 1
+   color 0.949 0.9137 0.8471 1
+   font "TraderX/datasets/fonts/rajdhanibpx20"
+   ignorepointer 1
+   "exact text" 1
+   "text valign" center
+   visible 0
+   text "Vegetables"
+   scriptclass "TextBinding"
+   {
+    ScriptParamsClass {
+     Binding_Expression "{{ nav_name }}"
+    }
+   }
+  }
+  ImageWidgetClass navLockIcon {
+   position 0.19872 0
+   hexactpos 0
+   vexactpos 0
+   size 14 14
+   hexactsize 1
+   vexactsize 1
+   halign right_ref
+   valign center_ref
+   color 0.8784 0.4784 0.3882 1
+   ignorepointer 1
+   visible 0
+   image0 "set:traderx_icons image:padlock"
+   mode blend
+   "src alpha" 1
+   "stretch mode" stretch_w_h
+  }
+  TextWidgetClass navCount {
+   position 24 0
+   hexactpos 1
+   vexactpos 0
+   size 60 53
+   hexactsize 1
+   vexactsize 1
+   halign right_ref
+   color 0.6392 0.5725 0.4627 1
+   font "TraderX/datasets/fonts/monopx16"
+   ignorepointer 1
+   "exact text" 1
+   "text valign" center
+   "text halign" right
+   text "21"
+   scriptclass "TextBinding"
+   {
+    ScriptParamsClass {
+     Binding_Expression "{{ nav_count }}"
+    }
+   }
+  }
+ }
+}

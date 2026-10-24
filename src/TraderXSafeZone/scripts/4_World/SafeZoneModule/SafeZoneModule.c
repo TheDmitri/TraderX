@@ -179,8 +179,15 @@ class TraderXSafeZoneModule: CF_ModuleWorld
         if(!ctx.Read(data))
             return;
 
-        TXSafeZoneLocation location = data.param1;
-        if(!location)
+        // The client only signals "clean my zone": the zone (position, radius, allowed animals) is taken
+        // from the server settings for the sender's real position, never from the client payload.
+        if(!sender)
+            return;
+        PlayerBase player = GetPlayerByIdentity(sender);
+        if(!player)
+            return;
+        TXSafeZoneLocation location = GetContainingZone(player);
+        if(!location || !location.isEntitiesCleanActive)
             return;
 
         array<Object> safeZoneCleanUpList = new array<Object>();

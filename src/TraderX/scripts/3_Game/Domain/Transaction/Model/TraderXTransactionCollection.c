@@ -22,8 +22,12 @@ class TraderXTransactionCollection
         
         GetTraderXLogger().LogDebug(string.Format("AddTransaction - transaction null: %1", transaction == null));
         if (transaction) {
-            GetTraderXLogger().LogDebug(string.Format("AddTransaction - transaction.IsValid(): %1", transaction.IsValid()));
-            if (transaction.IsValid()) {
+            // Evaluate IsValid() into a local: it logs through GetTraderXLogger() itself, and nesting
+            // that call inside another GetTraderXLogger().LogX(...) argument list raises a VM
+            // "NULL pointer to instance" on DayZ 1.30 (the outer logger call target is lost).
+            bool isValid = transaction.IsValid();
+            GetTraderXLogger().LogDebug(string.Format("AddTransaction - transaction.IsValid(): %1", isValid));
+            if (isValid) {
                 transactions.Insert(transaction);
                 GetTraderXLogger().LogDebug(string.Format("AddTransaction - Transaction added, collection count: %1", transactions.Count()));
             } else {

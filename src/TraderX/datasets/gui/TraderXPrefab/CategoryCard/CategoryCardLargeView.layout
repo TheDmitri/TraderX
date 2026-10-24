@@ -9,12 +9,13 @@ GridSpacerWidgetClass categoryCard {
  "Size To Content V" 1
  Columns 1
  Rows 100
+ Padding 22
  {
   PanelWidgetClass categoryHeader {
    position 0 0
    hexactpos 0
    vexactpos 0
-   size 1 54
+   size 1 60
    hexactsize 0
    vexactsize 1
    ignorepointer 1
@@ -23,22 +24,22 @@ GridSpacerWidgetClass categoryCard {
      position 0 0
      hexactpos 0
      vexactpos 0
-     size 1 52
+     size 1 1
      hexactsize 0
-     vexactsize 1
+     vexactsize 0
+     color 0.0745 0.0627 0.0471 0
      ignorepointer 1
-     style TXCard
-     color 0.9961 0.9961 0.9961 1
+     style rover_sim_colorable
     }
     ButtonWidgetClass categoryBtn {
      position 0 0
      hexactpos 0
      vexactpos 0
-     size 1 52
+     size 0.7 60
      hexactsize 0
      vexactsize 1
      "text color" 0.9961 0.9961 0.9961 1
-     style TXCategoryRow
+     style Empty
      color 0.9961 0.9961 0.9961 1
      scriptclass "ButtonBinding"
      {
@@ -48,129 +49,166 @@ GridSpacerWidgetClass categoryCard {
      }
     }
     ImageWidgetClass categoryIcon {
-     position 0.01 11
+     position 0 0
      hexactpos 0
-     vexactpos 1
-     size 30 30
+     vexactpos 0
+     size 1 1
      hexactsize 1
      vexactsize 1
-     color 0.7686 0.6392 0.3529 1
+     color 0 0 0 0
      ignorepointer 1
+     visible 0
      image0 "set:traderx_icons image:grid"
      mode blend
      "src alpha" 1
      "stretch mode" stretch_w_h
     }
-    ImageWidgetClass favStarIcon {
-     position 0.01 11
-     hexactpos 0
-     vexactpos 1
-     size 30 30
-     hexactsize 1
-     vexactsize 1
-     color 0.7686 0.6392 0.3529 1
-     ignorepointer 1
-     visible 0
-     image0 "set:traderx_icons image:star"
-     mode blend
-     "src alpha" 1
-     "stretch mode" stretch_w_h
-    }
-    TextWidgetClass CategoryName {
-     position 0.05 0
+    WrapSpacerWidgetClass categoryTitleRow {
+     position 0 0
      hexactpos 0
      vexactpos 0
-     size 0.5 52
+     size 0.75 60
      hexactsize 0
      vexactsize 1
-     "text color" 0.8471 0.8235 0.7529 1
-     font "TraderX/datasets/fonts/oswalt16"
      ignorepointer 1
-     style Bold
-     "exact text" 1
-     "text valign" center
-     text "Category Name"
-     scriptclass "TextBinding"
+     Padding 19
      {
-      ScriptParamsClass {
-       Binding_Expression "{{ category_name }}"
+      ImageWidgetClass favStarIcon {
+       size 30 56
+       hexactsize 1
+       vexactsize 1
+       color 0.8784 0.6392 0.2275 1
+       ignorepointer 1
+       visible 0
+       image0 "set:traderx_icons image:star_full"
+       mode blend
+       "src alpha" 1
+       "stretch mode" stretch_w_h
       }
-     }
-    }
-    TextWidgetClass itemCountText {
-     position 0.56 0
-     hexactpos 0
-     vexactpos 0
-     size 0.24 52
-     hexactsize 0
-     vexactsize 1
-     "text color" 0.4157 0.3961 0.3765 1
-     font "TraderX/datasets/fonts/jet-brains-mono12"
-     ignorepointer 1
-     "exact text" 1
-     "text valign" center
-     "text halign" right
-     text "146 items"
-     scriptclass "TextBinding"
-     {
-      ScriptParamsClass {
-       Binding_Expression "{{ item_count }}"
+      TextWidgetClass CategoryName {
+       size 1 57
+       hexactsize 1
+       vexactsize 1
+       color 0.949 0.9137 0.8471 1
+       font "TraderX/datasets/fonts/antonpx41"
+       ignorepointer 1
+       "exact text" 1
+       "text valign" bottom
+       "size to text h" 1
+       text "PACKAGED FOOD"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ category_name | uppercase }}"
+        }
+       }
+      }
+      GridSpacerWidgetClass itemCountCol {
+       size 1 54
+       hexactsize 1
+       vexactsize 1
+       ignorepointer 1
+       Columns 1
+       Rows 2
+       "Size To Content H" 1
+       Padding 0
+       {
+        PanelWidgetClass itemCountPad {
+         size 1 27
+         hexactsize 1
+         vexactsize 1
+         color 0 0 0 0
+         ignorepointer 1
+         style rover_sim_colorable
+        }
+        TextWidgetClass itemCountText {
+         size 1 27
+         hexactsize 1
+         vexactsize 1
+         color 0.6392 0.5725 0.4627 1
+         font "TraderX/datasets/fonts/rajdhanibpx18"
+         ignorepointer 1
+         "exact text" 1
+         "text valign" center
+         "size to text h" 1
+         text "10 items"
+         scriptclass "TextBinding"
+         {
+          ScriptParamsClass {
+           Binding_Expression "{{ item_count }}"
+          }
+         }
+        }
+       }
       }
      }
     }
     PanelWidgetClass dropdownParentPanel {
-     position 0.82 0
+     position 0.10969 1
      hexactpos 0
-     vexactpos 0
-     size 0.18 52
+     vexactpos 1
+     size 0.13711 43
      hexactsize 0
      vexactsize 1
+     halign right_ref
      ignorepointer 1
      {
       ButtonWidgetClass sortByBtn {
-       position 0.1 11
+       position 0 0
        hexactpos 0
-       vexactpos 1
-       size 30 30
-       hexactsize 1
-       vexactsize 1
+       vexactpos 0
+       size 1 1
+       hexactsize 0
+       vexactsize 0
        "text color" 0.9961 0.9961 0.9961 1
-       "text color" 0.8471 0.8235 0.7529 1
-       font "TraderX/datasets/fonts/oswalt14"
-       "exact text" 1
-       style TXBtnIcon
+       style TXBtnDefault
        color 0.9961 0.9961 0.9961 1
        scriptclass "ButtonBinding"
        {
-        ImageWidgetClass croissantIcon {
-         position 0 0
-         hexactpos 0
+        TextWidgetClass sortLabel {
+         position 17 0
+         hexactpos 1
          vexactpos 0
-         size 0.9 0.9
-         hexactsize 0
-         vexactsize 0
-         halign center_ref
-         valign center_ref
-         color 0.8471 0.8235 0.7529 1
+         size 80 43
+         hexactsize 1
+         vexactsize 1
+         color 0.7608 0.7098 0.6118 1
+         font "TraderX/datasets/fonts/rajdhanibpx17"
          ignorepointer 1
-         image0 "set:traderx_icons image:croissant"
+         "exact text" 1
+         "text valign" center
+         text "#tpm_price"
+        }
+        ImageWidgetClass croissantIcon {
+         position 17 0
+         hexactpos 1
+         vexactpos 0
+         size 17 17
+         hexactsize 1
+         vexactsize 1
+         halign right_ref
+         valign center_ref
+         color 0.7608 0.7098 0.6118 1
+         ignorepointer 1
+         image0 "set:traderx_icons image:chevron_down"
          mode blend
          "src alpha" 1
          "stretch mode" stretch_w_h
         }
         ImageWidgetClass decroissantIcon {
-         position 0 0
-         hexactpos 0
+         position 17 0
+         hexactpos 1
          vexactpos 0
-         size 0.9 0.9
-         hexactsize 0
-         vexactsize 0
-         halign center_ref
+         size 17 17
+         hexactsize 1
+         vexactsize 1
+         halign right_ref
          valign center_ref
-         color 0.8471 0.8235 0.7529 1
+         color 0.7608 0.7098 0.6118 1
+         rotation 180
          ignorepointer 1
          visible 0
-         image0 "set:traderx_icons image:decroissant"
+         image0 "set:traderx_icons image:chevron_down"
          mode blend
          "src alpha" 1
          "stretch mode" stretch_w_h
@@ -183,36 +221,17 @@ GridSpacerWidgetClass categoryCard {
        }
       }
       ButtonWidgetClass collapseBtn {
-       position 0.55 11
+       position 0 0
        hexactpos 0
-       vexactpos 1
-       size 30 30
+       vexactpos 0
+       size 1 1
        hexactsize 1
        vexactsize 1
        "text color" 0.9961 0.9961 0.9961 1
-       "text color" 0.8471 0.8235 0.7529 1
-       font "TraderX/datasets/fonts/oswalt16"
-       "exact text" 1
-       style TXBtnIcon
+       visible 0
+       style Empty
        color 0.9961 0.9961 0.9961 1
        scriptclass "ButtonBinding"
-       {
-        ImageWidgetClass collapseBtnIcon {
-         position 0 0
-         hexactpos 0
-         vexactpos 0
-         size 0.55 0.55
-         hexactsize 0
-         vexactsize 0
-         halign center_ref
-         valign center_ref
-         ignorepointer 1
-         image0 "set:traderx_icons image:chevron_down"
-         mode blend
-         "src alpha" 1
-         "stretch mode" stretch_w_h
-        }
-       }
        {
         ScriptParamsClass {
          OnClick "OnCollapseClick"
@@ -221,27 +240,38 @@ GridSpacerWidgetClass categoryCard {
       }
      }
     }
-    PanelWidgetClass licensePanel {
+    PanelWidgetClass licenseDimPanel {
      position 0 0
      hexactpos 0
      vexactpos 0
-     size 1 52
+     size 1 1
      hexactsize 0
-     vexactsize 1
+     vexactsize 0
+     color 0.0588 0.051 0.0392 0.6
      ignorepointer 1
      visible 0
-     style TXErrorBox
-     color 0.9961 0.9961 0.9961 1
+     style rover_sim_colorable
+    }
+    PanelWidgetClass licensePanel {
+     position 0.26508 0
+     hexactpos 0
+     vexactpos 0
+     size 0.38391 60
+     hexactsize 0
+     vexactsize 1
+     halign right_ref
+     ignorepointer 1
+     visible 0
      {
       ImageWidgetClass lockIcon {
-       position 0.34 0
+       position 0 0
        hexactpos 0
        vexactpos 0
-       size 36 36
+       size 18 18
        hexactsize 1
        vexactsize 1
        valign center_ref
-       color 0.8471 0.8235 0.7529 1
+       color 0.8784 0.4784 0.3882 1
        ignorepointer 1
        image0 "set:traderx_icons image:padlock"
        mode blend
@@ -249,20 +279,24 @@ GridSpacerWidgetClass categoryCard {
        "stretch mode" stretch_w_h
       }
       TextWidgetClass lockText {
-       position 0.41 0
-       hexactpos 0
+       position 26 0
+       hexactpos 1
        vexactpos 0
-       size 0.5 1
+       size 0.92857 60
        hexactsize 0
-       vexactsize 0
-       valign center_ref
-       color 0.8471 0.8235 0.7529 1
-       font "TraderX/datasets/fonts/oswalt22"
+       vexactsize 1
+       color 0.8784 0.4784 0.3882 1
+       font "TraderX/datasets/fonts/rajdhanibpx17"
        ignorepointer 1
-       "text valign" center
        "exact text" 1
-       "size to text h" 1
-       text "#tpm_licenses_required"
+       "text valign" center
+       text "Licenses Required: Car Licence"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ license_text }}"
+        }
+       }
       }
      }
     }
@@ -278,7 +312,7 @@ GridSpacerWidgetClass categoryCard {
    "Size To Content V" 1
    Columns 1
    Rows 100
-   Margin 4
+   Padding 5
    scriptclass "ComponentWidgetBinding"
    {
     ScriptParamsClass {
@@ -298,7 +332,7 @@ GridSpacerWidgetClass categoryCard {
    "Size To Content V" 1
    Columns 4
    Rows 100
-   Margin 6
+   Padding 17
    scriptclass "ComponentWidgetBinding"
    {
     ScriptParamsClass {

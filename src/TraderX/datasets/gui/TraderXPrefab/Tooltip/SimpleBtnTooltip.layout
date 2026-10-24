@@ -5,15 +5,15 @@ GridSpacerWidgetClass rootFrame {
  size 160 36
  hexactsize 1
  vexactsize 1
- color 0.0471 0.0549 0.0784 1
+ color 0.0588 0.051 0.0392 1
  priority 999
  ignorepointer 1
  "Size To Content V" 1
  "Size To Content H" 1
  Columns 1
  Rows 1
- Padding 6
- Margin 8
+ Margin 6
+ Padding 8
  style Colorable
  {
   TextWidgetClass TextWidget0 {
@@ -22,8 +22,8 @@ GridSpacerWidgetClass rootFrame {
    vexactsize 1
    halign center_ref
    valign center_ref
-   color 0.949 0.9333 0.8941 1
-   font "TraderX/datasets/fonts/oswalt16"
+   color 0.949 0.9137 0.8471 1
+   font "TraderX/datasets/fonts/rajdhani16"
    ignorepointer 1
    style Bold
    "text valign" center

@@ -540,6 +540,15 @@ class TraderXTransactionService : DayZularService
             }
         }
 
+        // The payout must be possible before the item is taken: a price that the accepted
+        // currencies cannot pay out (too many stacks, missing currency classes) would remove
+        // the item and pay nothing.
+        int payout = transaction.GetTotalPrice().GetAmount();
+        if (!TraderXCurrencyService.GetInstance().CanPayOut(payout, npc.GetCurrenciesAccepted())) {
+            GetTraderXLogger().LogError(string.Format("[TRANSACTION] Sale refused, payout %1 for %2 cannot be paid in the accepted currencies", payout.ToString(), product.className));
+            return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.saleFailedPrefix + "Trader cannot pay this amount");
+        }
+
         int remainingQty = TraderXInventoryManager.RemoveItem(player, itemToRemove, totalSellQty);
         if (remainingQty > 0 && sellMode != TraderXTradeQuantity.SELL_EMPTY) {
             if (!TraderXInventoryManager.RemoveOurProduct(player, product.className, remainingQty, itemState)) {
@@ -553,7 +562,7 @@ class TraderXTransactionService : DayZularService
         }
         
         // Ajout de la monnaie au joueur
-        TraderXCurrencyService.GetInstance().AddMoneyToPlayer(player, transaction.GetTotalPrice().GetAmount(), npc.GetCurrenciesAccepted());
+        TraderXCurrencyService.GetInstance().AddMoneyToPlayer(player, payout, npc.GetCurrenciesAccepted());
         
         return TraderXTransactionResult.CreateSuccess(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), settings.saleSuccessful);
     }

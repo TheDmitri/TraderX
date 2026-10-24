@@ -66,15 +66,15 @@ class TXBeansPromoComponent extends DZlrComponentBase
 		ApplySlide();
 	}
 
-	// Show the current slide, hide the rest; tint the active dot gold and the others grey.
+	// Show the current slide, hide the rest; the active dot is ember, the others muted (Nasdara).
 	protected void ApplySlide()
 	{
 		Widget root = GetRoot();
 		if (!root)
 			return;
 
-		int activeCol = ARGB(255, 212, 164, 76);
-		int idleCol = ARGB(255, 74, 80, 92);
+		int activeCol = ARGB(255, 217, 118, 47);
+		int idleCol = ARGB(255, 74, 64, 52);
 
 		for (int i = 0; i < SLIDE_COUNT; i++)
 		{

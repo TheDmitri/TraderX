@@ -1,74 +1,115 @@
-ButtonWidgetClass viewToggleBtn {
+PanelWidgetClass viewToggleRoot {
  position 0 0
  hexactpos 0
  vexactpos 0
- size 1 1
- hexactsize 0
- vexactsize 0
- "text color" 0.9961 0.9961 0.9961 1
- "text color" 0.8471 0.8235 0.7529 1
- font "TraderX/datasets/fonts/oswalt12"
- "exact text" 1
- "text halign" center
- "text valign" center
- style "TXBtnDefault"
- style Bold
- color 0.9961 0.9961 0.9961 1
- scriptclass "ButtonBinding"
+ size 96 41
+ hexactsize 1
+ vexactsize 1
+ ignorepointer 1
  {
-  ImageWidgetClass gridIcon {
-   position 0.08 0
+  PanelWidgetClass gridBg {
+   position 0 0
    hexactpos 0
    vexactpos 0
-   size 24 24
-   hexactsize 1
-   vexactsize 1
-   valign center_ref
-   color 0.7686 0.6392 0.3529 1
+   size 0.5 1
+   hexactsize 0
+   vexactsize 0
+   color 0.149 0.1255 0.098 1
    ignorepointer 1
-   image0 "set:traderx_icons image:grid"
-   mode blend
-   "src alpha" 1
-   "stretch mode" stretch_w_h
+   style rover_sim_colorable
   }
-  ImageWidgetClass listIcon {
-   position 0.08 0
+  PanelWidgetClass listBg {
+   position 0.5 0
    hexactpos 0
    vexactpos 0
-   size 24 24
-   hexactsize 1
-   vexactsize 1
-   valign center_ref
-   color 0.6039 0.5804 0.5333 1
+   size 0.5 1
+   hexactsize 0
+   vexactsize 0
+   color 0.149 0.1255 0.098 1
    ignorepointer 1
    visible 0
-   image0 "set:traderx_icons image:list"
-   mode blend
-   "src alpha" 1
-   "stretch mode" stretch_w_h
+   style rover_sim_colorable
   }
-  TextWidgetClass viewLabel {
-   position 0.38 0
+  ButtonWidgetClass gridBtn {
+   position 0 0
    hexactpos 0
    vexactpos 0
-   "text color" 0.8471 0.8235 0.7529 1
-   font "TraderX/datasets/fonts/oswalt12"
-   ignorepointer 1
-   style Bold
-   "text valign" center
-   "exact text" 1
-   text "Grid"
-   scriptclass "TextBinding"
+   size 0.5 1
+   hexactsize 0
+   vexactsize 0
+   "text color" 0.9961 0.9961 0.9961 1
+   style Empty
+   color 0.9961 0.9961 0.9961 1
+   scriptclass "ButtonBinding"
+   {
+    ImageWidgetClass gridIcon {
+     position 0 0
+     hexactpos 0
+     vexactpos 0
+     size 19 19
+     hexactsize 1
+     vexactsize 1
+     halign center_ref
+     valign center_ref
+     color 0.949 0.9137 0.8471 1
+     ignorepointer 1
+     image0 "set:traderx_icons image:grid"
+     mode blend
+     "src alpha" 1
+     "stretch mode" stretch_w_h
+    }
+   }
    {
     ScriptParamsClass {
-     Binding_Expression "{{ view_label }}"
+     OnClick "OnGridClick"
     }
    }
   }
- }
- {
-  ScriptParamsClass {
-   OnClick "OnViewToggleClick"
+  ButtonWidgetClass listBtn {
+   position 0.5 0
+   hexactpos 0
+   vexactpos 0
+   size 0.5 1
+   hexactsize 0
+   vexactsize 0
+   "text color" 0.9961 0.9961 0.9961 1
+   style Empty
+   color 0.9961 0.9961 0.9961 1
+   scriptclass "ButtonBinding"
+   {
+    ImageWidgetClass listIcon {
+     position 0 0
+     hexactpos 0
+     vexactpos 0
+     size 19 19
+     hexactsize 1
+     vexactsize 1
+     halign center_ref
+     valign center_ref
+     color 0.6392 0.5725 0.4627 1
+     ignorepointer 1
+     image0 "set:traderx_icons image:list"
+     mode blend
+     "src alpha" 1
+     "stretch mode" stretch_w_h
+    }
+   }
+   {
+    ScriptParamsClass {
+     OnClick "OnListClick"
+    }
+   }
+  }
+  PanelWidgetClass viewToggleFrame {
+   position 0 0
+   hexactpos 0
+   vexactpos 0
+   size 1 1
+   hexactsize 0
+   vexactsize 0
+   ignorepointer 1
+   style TXFrame
+   color 0.9961 0.9961 0.9961 1
   }
  }
 }

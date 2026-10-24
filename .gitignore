@@ -15,3 +15,4 @@ components.manifest.json
 ci/keys/*.biprivatekey
 .traderx-ci.env
 ci/.steam-session/
+__pycache__/

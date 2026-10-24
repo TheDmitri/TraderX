@@ -3,6 +3,9 @@
 // page shell (CustomizePageComponent) only provides the modal overlay surface.
 class TXCustomizePresetsTabComponent extends DZlrComponentBase
 {
+	// Set by CustomizePageComponent.OpenSavePreset: open the name dialog once mounted.
+	static bool s_OpenCreateOnInit;
+
 	private static ref ComponentAutoRegister s_Register = new ComponentAutoRegister("tx-customize-presets", TXCustomizePresetsTabComponent);
 
 	// The tab subscribes to STATIC modal/card events, but the {{ current_tab }} host can
@@ -46,10 +49,18 @@ class TXCustomizePresetsTabComponent extends DZlrComponentBase
 		ModalConfirmationComponent.Event_OnCancelClickCallBack.Insert(OnCancelModal);
 
 		FillPresetList();
+		// Next frame: opening the modal re-runs the page bindings, which must not happen
+		// while the tab host is still mounting this component (it would mount a second tab).
+		if (s_OpenCreateOnInit)
+		{
+			s_OpenCreateOnInit = false;
+			GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(OnNewPresetClick, 1, false);
+		}
 	}
 
 	override void OnDestroy()
 	{
+		GetGame().GetCallQueue(CALL_CATEGORY_GUI).Remove(OnNewPresetClick);
 		if (s_Active == this)
 			s_Active = null;
 
@@ -90,8 +101,16 @@ class TXCustomizePresetsTabComponent extends DZlrComponentBase
 	void OnPresetClick(TraderXPreset preset)
 	{
 		if (!IsActive()) return;
+		ApplyPreset(originalItem, preset);
+	}
+
+	// Put the preset's configuration in the cart (also used by the preset chips of the
+	// attachments tab).
+	static void ApplyPreset(TraderXProduct item, TraderXPreset preset)
+	{
+		if (!item || !preset) return;
 		TraderXSelectionService.GetInstance().DeSelectAllItems();
-		TraderXSelectionService.GetInstance().SelectItem(originalItem);
+		TraderXSelectionService.GetInstance().SelectItem(item);
 
 		map<string, int> attachmentCounts = new map<string, int>();
 		foreach (string attachmentId : preset.attachments)
@@ -110,7 +129,7 @@ class TXCustomizePresetsTabComponent extends DZlrComponentBase
 				TraderXSelectionService.GetInstance().SelectItem(att);
 			}
 		}
-		originalItem.defaultPreset = preset;
+		item.defaultPreset = preset;
 		CustomizeStateService.GetInstance().SetCurrentPreset(preset);
 	}
 

@@ -95,6 +95,9 @@ class oldTraderPlusGarageConfig
         settings.parkInCost       = ParkInCost;
         settings.parkOutCost      = ParkOutCost;
         settings.maxVehicleStored = MaxVehicleStored;
+        settings.receipts.ImportTraderPlus();
+        settings.vehicleMustHaveLock = (VehicleMustHaveLock != 0);
+        settings.saveVehicleLock   = (SaveVehicleLock != 0);
         settings.saveVehicleCargo  = (SaveVehicleCargo != 0);
         settings.saveVehicleHealth = (SaveVehicleHealth != 0);
         settings.saveVehicleFuel   = (SaveVehicleFuel != 0);

@@ -183,11 +183,11 @@ class TXGInsuranceService extends DayZularService
     {
         success = false;
         if (!GetGame().IsServer() || !player || !player.GetIdentity())
-            return "Server error";
+            return "#txg_err_server";
 
         TXGSettings settings = GetTXGConfigService().GetServerSettings();
         if (!settings || !settings.insurance || !settings.insurance.enabled)
-            return "Vehicle insurance is disabled on this server";
+            return "#txg_err_ins_disabled";
 
         TXGInsuranceSettings insCfg = settings.insurance;
         int clampedDays = Math.Clamp(days, insCfg.minDays, insCfg.maxDays);
@@ -196,22 +196,22 @@ class TXGInsuranceService extends DayZularService
         string name = player.GetIdentity().GetName();
 
         if (!GetTXGGarageService().IsAtGarage(player))
-            return "You must be at a garage";
+            return "#txg_err_not_at_garage";
 
         TXGGarageData garage = TXGGarageData.Load(uid, name);
         TXGVehicleData record = garage.FindVehicle(vehicleId);
         if (!record)
-            return "Vehicle not found in your garage";
+            return "#txg_err_not_in_garage";
 
         if (record.holdReason != "")
-            return "Release the hold on this vehicle before insuring it";
+            return "#txg_err_release_hold";
 
         if (!IsClassInsurable(record.className, insCfg))
-            return "This vehicle model is not eligible for insurance";
+            return "#txg_err_not_eligible";
 
         int coveredValue = GetVehicleCatalogValue(record.className);
         if (coveredValue <= 0)
-            return "No catalog value found for this vehicle";
+            return "#txg_err_no_catalog_value";
 
 
         int nowUnix = GetNowUnix();
@@ -222,11 +222,11 @@ class TXGInsuranceService extends DayZularService
         bool isExtension = (existing && existing.status == TXGConstants.POLICY_ACTIVE);
 
         if (!isExtension && playerPolicies.CountActive(nowUnix) >= insCfg.maxActivePoliciesPerPlayer)
-            return "Maximum active policies reached (" + insCfg.maxActivePoliciesPerPlayer.ToString() + ")";
+            return TXGText.Msg("#txg_err_max_policies", insCfg.maxActivePoliciesPerPlayer.ToString());
 
         int premium = ComputePremium(coveredValue, clampedDays, insCfg);
         if (!GetTXGGarageService().ChargeFee(player, premium, TXGConstants.FEE_LABEL_INSURANCE))
-            return "Not enough money for insurance premium (" + premium.ToString() + ")";
+            return TXGText.Msg("#txg_err_no_money_premium", premium.ToString());
 
         int addedSeconds = clampedDays * 86400;
         if (isExtension)
@@ -236,7 +236,7 @@ class TXGInsuranceService extends DayZularService
             playerPolicies.Save();
             GetTXGLog().LogInfo("[TXG INSURANCE] EXTEND owner=" + uid + " policy=" + existing.policyId + " class=" + record.className + " days=+" + clampedDays.ToString() + " premium=" + premium.ToString());
             success = true;
-            return "Insurance extended by " + clampedDays.ToString() + " day(s)";
+            return TXGText.Msg("#txg_msg_ins_extended", clampedDays.ToString());
         }
 
         TXGInsurancePolicy pol = new TXGInsurancePolicy();
@@ -259,7 +259,7 @@ class TXGInsuranceService extends DayZularService
 
         GetTXGLog().LogInfo("[TXG INSURANCE] SUBSCRIBE owner=" + uid + " policy=" + pol.policyId + " class=" + record.className + " value=" + coveredValue.ToString() + " premium=" + premium.ToString() + " deductible=" + ComputeDeductibleFor(record.className, coveredValue, insCfg).ToString());
         success = true;
-        return "Vehicle insured for " + clampedDays.ToString() + " day(s)";
+        return TXGText.Msg("#txg_msg_insured", clampedDays.ToString());
     }
 
     // ============================================================

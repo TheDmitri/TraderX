@@ -5,26 +5,200 @@ PanelWidgetClass PurchasePageView {
  size 1 1
  hexactsize 0
  vexactsize 0
+ color 0.0745 0.0627 0.0471 1
  ignorepointer 1
- style TXContent
- color 0.9961 0.9961 0.9961 1
+ style rover_sim_colorable
  {
-  PanelWidgetClass topBar {
+  PanelWidgetClass CategorySidebar {
    position 0 0
    hexactpos 0
    vexactpos 0
-   size 1 0.06
+   size 0.1625 950
    hexactsize 0
-   vexactsize 0
+   vexactsize 1
    ignorepointer 1
-   style TXSurface
+   style TXSideLeft
    color 0.9961 0.9961 0.9961 1
    {
-    ButtonWidgetClass previewToggleBtn {
-     position 0.31 0.22
+    TextWidgetClass searchLabel {
+     position 24 24
+     hexactpos 1
+     vexactpos 1
+     size 0.84615 18
+     hexactsize 0
+     vexactsize 1
+     color 0.6392 0.5725 0.4627 1
+     font "TraderX/datasets/fonts/rajdhanibpx14"
+     ignorepointer 1
+     "exact text" 1
+     "text valign" center
+     text "#tpm_search_caps"
+    }
+    PanelWidgetClass SearchBarHost {
+     position 24 50
+     hexactpos 1
+     vexactpos 1
+     size 0.84615 48
+     hexactsize 0
+     vexactsize 1
+     scriptclass "ComponentWidgetBinding"
+     {
+      ScriptParamsClass {
+       Component_Selector "tx-search-bar"
+      }
+     }
+    }
+    TextWidgetClass categoriesLabel {
+     position 24 122
+     hexactpos 1
+     vexactpos 1
+     size 0.84615 18
+     hexactsize 0
+     vexactsize 1
+     color 0.6392 0.5725 0.4627 1
+     font "TraderX/datasets/fonts/rajdhanibpx14"
+     ignorepointer 1
+     "exact text" 1
+     "text valign" center
+     text "#tpm_categories_caps"
+    }
+    ScrollWidgetClass scrollNav {
+     position 0 150
+     hexactpos 0
+     vexactpos 1
+     size 0.99679 740
+     hexactsize 0
+     vexactsize 1
+     "Scrollbar V" 1
+     {
+      GridSpacerWidgetClass categoryNavGrid {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 1 0.01
+       hexactsize 0
+       vexactsize 0
+       "Size To Content V" 1
+       Columns 1
+       Rows 100
+       Padding 0
+       scriptclass "ComponentWidgetBinding"
+       {
+        ScriptParamsClass {
+         Component_ForEach "{{ _navCategories }}"
+         Component_Template "tx-category-nav-item"
+         Component_ItemProperty "_inputCategory"
+        }
+       }
+      }
+     }
+    }
+    PanelWidgetClass syncIndicator {
+     position 24 24
+     hexactpos 1
+     vexactpos 1
+     size 0.84615 24
+     hexactsize 0
+     vexactsize 1
+     halign left_ref
+     valign bottom_ref
+     ignorepointer 1
+     {
+      ImageWidgetClass syncIcon {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 18 18
+       hexactsize 1
+       vexactsize 1
+       valign center_ref
+       color 0.851 0.4627 0.1843 1
+       ignorepointer 1
+       image0 "set:traderx_icons image:refresh"
+       mode blend
+       "src alpha" 1
+       "stretch mode" stretch_w_h
+      }
+      TextWidgetClass syncText {
+       position 28 0
+       hexactpos 1
+       vexactpos 0
+       size 0.87121 24
+       hexactsize 0
+       vexactsize 1
+       color 0.6392 0.5725 0.4627 1
+       font "TraderX/datasets/fonts/rajdhanipx16"
+       ignorepointer 1
+       "text valign" center
+       "exact text" 1
+       text "#tpm_syncing"
+      }
+     }
+    }
+   }
+  }
+  ScrollWidgetClass scrollCategory {
+   position 0.1776 24
+   hexactpos 0
+   vexactpos 1
+   size 0.56979 926
+   hexactsize 0
+   vexactsize 1
+   "Scrollbar V" 1
+   {
+    GridSpacerWidgetClass categoryGrid {
+     position 0 0
      hexactpos 0
      vexactpos 0
-     size 0.04 0.56
+     size 1 0.01
+     hexactsize 0
+     vexactsize 0
+     "Size To Content V" 1
+     Columns 1
+     Rows 100
+     Padding 36
+     scriptclass "ComponentWidgetBinding"
+     {
+      ScriptParamsClass {
+       Component_ForEach "{{ _inputCategories }}"
+       Component_Template "tx-category-card"
+       Component_ItemProperty "_inputCategory"
+      }
+     }
+    }
+   }
+  }
+  PanelWidgetClass ViewToggleHost {
+   position 0.2526 28
+   hexactpos 0
+   vexactpos 1
+   size 96 41
+   hexactsize 1
+   vexactsize 1
+   halign right_ref
+   ignorepointer 1
+   scriptclass "ComponentWidgetBinding"
+   {
+    ScriptParamsClass {
+     Component_Selector "tx-view-toggle"
+    }
+   }
+  }
+  PanelWidgetClass previewToggleHost {
+   position 0.40625 27
+   hexactpos 0
+   vexactpos 1
+   size 43 43
+   hexactsize 1
+   vexactsize 1
+   halign right_ref
+   ignorepointer 1
+   {
+    ButtonWidgetClass previewToggleBtn {
+     position 0 0
+     hexactpos 0
+     vexactpos 0
+     size 1 1
      hexactsize 0
      vexactsize 0
      "text color" 0.9961 0.9961 0.9961 1
@@ -33,12 +207,12 @@ PanelWidgetClass PurchasePageView {
      scriptclass "ButtonBinding"
      {
       ImageWidgetClass previewToggleIcon {
-       size 28 28
+       size 19 19
        hexactsize 1
        vexactsize 1
        halign center_ref
        valign center_ref
-       color 0.7686 0.6392 0.3529 1
+       color 0.6392 0.5725 0.4627 1
        ignorepointer 1
        image0 "set:traderx_icons image:person"
        mode blend
@@ -52,135 +226,39 @@ PanelWidgetClass PurchasePageView {
       }
      }
     }
-    PanelWidgetClass SearchBarHost {
-     position 0.36 0.22
-     hexactpos 0
-     vexactpos 0
-     size 0.24 0.56
-     hexactsize 0
-     vexactsize 0
-     scriptclass "ComponentWidgetBinding"
-     {
-      ScriptParamsClass {
-       Component_Selector "tx-search-bar"
-      }
-     }
-    }
-    ButtonWidgetClass toggleExpandBtn {
-     position 0.62 0.22
-     hexactpos 0
-     vexactpos 0
-     size 0.08 0.56
-     hexactsize 0
-     vexactsize 0
-     "text color" 0.9961 0.9961 0.9961 1
-     "text color" 0.8471 0.8235 0.7529 1
-     font "TraderX/datasets/fonts/oswalt12"
-     "exact text" 1
-     visible 0
-     style "TXBtnDefault"
-     style Bold
-     color 0.9961 0.9961 0.9961 1
-     scriptclass "ButtonBinding"
-     {
-      TextWidgetClass toggleExpandText {
-       position 0 0
-       hexactpos 0
-       vexactpos 0
-       size 1 1
-       hexactsize 0
-       vexactsize 0
-       "text color" 0.8471 0.8235 0.7529 1
-       font "TraderX/datasets/fonts/oswalt12"
-       ignorepointer 1
-       "text halign" center
-       "text valign" center
-       "exact text" 1
-       text "#tpm_expand_all"
-      }
-     }
-     {
-      ScriptParamsClass {
-       OnClick "OnToggleExpandClick"
-      }
-     }
-    }
-    PanelWidgetClass syncIndicator {
-     position 0.62 0.22
-     hexactpos 0
-     vexactpos 0
-     size 0.08 0.56
-     hexactsize 0
-     vexactsize 0
-     ignorepointer 1
-     {
-      ImageWidgetClass syncIcon {
-       position 0.02 0.15
-       hexactpos 0
-       vexactpos 0
-       size 24 24
-       hexactsize 1
-       vexactsize 1
-       color 0.7686 0.6392 0.3529 1
-       ignorepointer 1
-       image0 "set:traderx_icons image:refresh"
-       mode blend
-       "src alpha" 1
-       "stretch mode" stretch_w_h
-      }
-      TextWidgetClass syncText {
-       position 0.24 0
-       hexactpos 0
-       vexactpos 0
-       size 0.76 1
-       hexactsize 0
-       vexactsize 0
-       color 0.6039 0.5804 0.5333 1
-       font "TraderX/datasets/fonts/oswalt12"
-       ignorepointer 1
-       "text valign" center
-       "exact text" 1
-       text "#tpm_syncing"
-      }
-     }
-    }
-    PanelWidgetClass ViewToggleHost {
-     position 0.72 0.22
-     hexactpos 0
-     vexactpos 0
-     size 0.08 0.56
-     hexactsize 0
-     vexactsize 0
-     ignorepointer 1
-     scriptclass "ComponentWidgetBinding"
-     {
-      ScriptParamsClass {
-       Component_Selector "tx-view-toggle"
-      }
-     }
-    }
    }
   }
   PanelWidgetClass PlayerPreviewPanel {
-   position 0.01 0.07
+   position 0.1776 94
    hexactpos 0
-   vexactpos 0
-   size 0.19 0.92
+   vexactpos 1
+   size 0.17188 832
    hexactsize 0
-   vexactsize 0
+   vexactsize 1
    ignorepointer 1
+   visible 0
    style TXCard
    color 0.9961 0.9961 0.9961 1
    {
+    PanelWidgetClass previewWellBg {
+     position 1 1
+     hexactpos 1
+     vexactpos 1
+     size 0.99394 760
+     hexactsize 0
+     vexactsize 1
+     color 0.0588 0.051 0.0392 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
     PlayerPreviewWidgetClass playerPreview {
-     position 0 0
+     position 0 12
      hexactpos 0
-     vexactpos 0
-     size 0.94 0.85
+     vexactpos 1
+     size 0.94 0.86
      hexactsize 0
      vexactsize 0
      halign center_ref
-     valign center_ref
      scriptclass "PlayerPreviewBinding"
      {
       ScriptParamsClass {
@@ -191,16 +269,13 @@ PanelWidgetClass PurchasePageView {
     ButtonWidgetClass fittingBtn {
      halign left_ref
      valign bottom_ref
-     position 0.02 0.02
-     hexactpos 0
-     vexactpos 0
-     size 44 44
+     position 14 14
+     hexactpos 1
+     vexactpos 1
+     size 43 43
      hexactsize 1
      vexactsize 1
      "text color" 0.9961 0.9961 0.9961 1
-     "text color" 0.8471 0.8235 0.7529 1
-     font "TraderX/datasets/fonts/oswalt16"
-     "exact text" 1
      style TXBtnIcon
      color 0.9961 0.9961 0.9961 1
      scriptclass "ButtonBinding"
@@ -209,12 +284,12 @@ PanelWidgetClass PurchasePageView {
        position 0 0
        hexactpos 0
        vexactpos 0
-       size 0.55 0.55
-       hexactsize 0
-       vexactsize 0
+       size 19 19
+       hexactsize 1
+       vexactsize 1
        halign center_ref
        valign center_ref
-       color 0.6039 0.5804 0.5333 1
+       color 0.6392 0.5725 0.4627 1
        ignorepointer 1
        image0 "set:traderx_icons image:approved"
        mode blend
@@ -233,16 +308,13 @@ PanelWidgetClass PurchasePageView {
     ButtonWidgetClass stripBtn {
      halign center_ref
      valign bottom_ref
-     position 0.02 0.02
+     position 0 14
      hexactpos 0
-     vexactpos 0
-     size 44 44
+     vexactpos 1
+     size 43 43
      hexactsize 1
      vexactsize 1
      "text color" 0.9961 0.9961 0.9961 1
-     "text color" 0.8471 0.8235 0.7529 1
-     font "TraderX/datasets/fonts/oswalt16"
-     "exact text" 1
      style TXBtnIcon
      color 0.9961 0.9961 0.9961 1
      scriptclass "ButtonBinding"
@@ -251,11 +323,12 @@ PanelWidgetClass PurchasePageView {
        position 0 0
        hexactpos 0
        vexactpos 0
-       size 0.55 0.55
-       hexactsize 0
-       vexactsize 0
+       size 19 19
+       hexactsize 1
+       vexactsize 1
        halign center_ref
        valign center_ref
+       color 0.7608 0.7098 0.6118 1
        ignorepointer 1
        image0 "set:traderx_icons image:person"
        mode blend
@@ -274,16 +347,13 @@ PanelWidgetClass PurchasePageView {
     ButtonWidgetClass resetBtn {
      halign right_ref
      valign bottom_ref
-     position 0.02 0.02
-     hexactpos 0
-     vexactpos 0
-     size 44 44
+     position 14 14
+     hexactpos 1
+     vexactpos 1
+     size 43 43
      hexactsize 1
      vexactsize 1
      "text color" 0.9961 0.9961 0.9961 1
-     "text color" 0.8471 0.8235 0.7529 1
-     font "TraderX/datasets/fonts/oswalt16"
-     "exact text" 1
      style TXBtnIcon
      color 0.9961 0.9961 0.9961 1
      scriptclass "ButtonBinding"
@@ -292,11 +362,12 @@ PanelWidgetClass PurchasePageView {
        position 0 0
        hexactpos 0
        vexactpos 0
-       size 0.55 0.55
-       hexactsize 0
-       vexactsize 0
+       size 19 19
+       hexactsize 1
+       vexactsize 1
        halign center_ref
        valign center_ref
+       color 0.7608 0.7098 0.6118 1
        ignorepointer 1
        image0 "set:traderx_icons image:refresh"
        mode blend
@@ -314,59 +385,14 @@ PanelWidgetClass PurchasePageView {
     }
    }
   }
-  PanelWidgetClass CategoryListPanel {
-   position 0.21 0.07
-   hexactpos 0
-   vexactpos 0
-   size 0.55 0.92
-   hexactsize 0
-   vexactsize 0
-   ignorepointer 1
-   style TXSurface
-   color 0.9961 0.9961 0.9961 1
-   {
-    ScrollWidgetClass scrollCategory {
-     position 0.01 0.01
-     hexactpos 0
-     vexactpos 0
-     size 0.98 0.98
-     hexactsize 0
-     vexactsize 0
-     "Scrollbar V" 1
-     {
-      GridSpacerWidgetClass categoryGrid {
-       position 0 0
-       hexactpos 0
-       vexactpos 0
-       size 1 0.01
-       hexactsize 0
-       vexactsize 0
-       "Size To Content V" 1
-       Columns 1
-       Rows 100
-       Margin 6
-       scriptclass "ComponentWidgetBinding"
-       {
-        ScriptParamsClass {
-         Component_ForEach "{{ _inputCategories }}"
-         Component_Template "tx-category-card"
-         Component_ItemProperty "_inputCategory"
-        }
-       }
-      }
-     }
-    }
-   }
-  }
   PanelWidgetClass CheckoutHost {
-   position 0.77 0.07
+   position 0 0
    hexactpos 0
    vexactpos 0
-   size 0.22 0.92
+   size 0.2375 950
    hexactsize 0
-   vexactsize 0
-   style TXCard
-   color 0.9961 0.9961 0.9961 1
+   vexactsize 1
+   halign right_ref
    scriptclass "ComponentWidgetBinding"
    {
     ScriptParamsClass {

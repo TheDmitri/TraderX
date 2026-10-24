@@ -6,162 +6,157 @@
   <link rel="stylesheet" href="dzml-styles.css">
   <link rel="stylesheet" href="dzml-icons.css">
 </head>
-<body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#1a1a1a;">
+<body data-dzml class="dz-viewport" style="width:1094px; height:80px; background:#13100c;">
 
+<!-- Product row (Nasdara list view, the horizontal twin of the tile): Surface row with a
+     Line rule, preview well, name + stock, price in ember, "sells for", IN CART badge,
+     star and the customize shortcuts. Ember ring when in the cart. -->
 <div data-dz="panel"
     data-name="itemCardView"
-    class="dz-xy-0-0 dz-wh-100-72px dz-noptr">
+    class="dz-xy-0-0 dz-wh-100-80px dz-noptr">
+  <div data-dz="panel"
+      data-name="itemCardBase"
+      class="dz-xy-0-0 dz-wh-full dz-c-1C1813 dz-noptr"></div>
   <button data-dz="button"
       data-name="itemCardMainBtn"
       data-style="TXListRow"
       data-on-click="OnItemCardLeftClick"
-      data-on-rclick="OnItemCardRightClick"
       data-on-dblclick="OnItemCardDoubleClick"
+      data-on-rclick="OnItemCardRightClick"
       class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
   <div data-dz="panel"
-      data-name="itemCardOutline"
-      data-style="TXListRowSelected"
-      class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr"></div>
-  <div data-dz="panel"
       data-name="itemCardContent"
-      class="dz-xy-0-3 dz-wh-99-94 dz-c-00000000 dz-noptr">
-    <button data-dz="button"
-        data-name="volumeBtn"
-        data-style="TXProgressBg"
-        class="dz-xy-0-0 dz-wh-5px-86 dz-align-y-center dz-tc-FE">
-      <progress data-dz="progress"
-          data-name="volumeBar"
-          data-style="TXProgressFill"
-          class="dz-xy-0-40 dz-wh-100-60 dz-c-FE dz-noptr"></progress>
-    </button>
+      class="dz-xy-0-0 dz-wh-full dz-c-00000000 dz-noptr">
     <div data-dz="panel"
         data-name="previewBg"
-        class="dz-xy-1-6 dz-wh-84px-56px dz-c-06070A dz-noptr"></div>
+        class="dz-xy-8px-8px dz-wh-96px-64px dz-c-0F0D0A dz-noptr"></div>
     <div data-dz="preview"
         data-name="itemPreview"
         data-bind-item="{{ preview }}"
-        class="dz-xy-1-6 dz-wh-84px-56px dz-noptr"></div>
+        class="dz-xy-8px-8px dz-wh-96px-64px dz-noptr dz-clip"></div>
+    <button data-dz="button"
+        data-name="volumeBtn"
+        data-style="Default"
+        class="dz-xy-108px-12px dz-wh-4px-56px dz-tc-FE">
+      <progress data-dz="progress"
+          data-name="volumeBar"
+          data-style="TXProgressFill"
+          class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr"></progress>
+    </button>
+    <span data-dz="text"
+        data-name="classNameText"
+        data-bind="{{ itemName }}"
+        class="dz-xy-124px-12px dz-wh-430px-28px dz-c-F2E9D8 dz-font-nbb-20 dz-noptr dz-exact-text dz-text-vc">
+      Item Name
+    </span>
+    <div data-dz="grid"
+        data-name="stockGrid"
+        class="dz-xy-124px-44px dz-wh-200px-22px dz-noptr dz-cols-2 dz-rows-1 dz-gap-6 dz-fit-h">
+      <img data-dz="image"
+        data-name="stockIcon"
+        class="dz-wh-16px-16px dz-c-A39276 dz-noptr"
+        data-image="set:traderx_icons image:stockSimple"
+        data-image-mode="blend"
+        data-image-src-alpha="1"
+        data-image-stretch="stretch_w_h"/>
+      <span data-dz="text"
+          data-name="stockText"
+          data-bind="{{ itemStock }}"
+          class="dz-wh-1px-22px dz-c-A39276 dz-font-nm-16 dz-noptr dz-exact-text dz-text-vc dz-size-to-text-h">
+        0/15
+      </span>
+    </div>
     <img data-dz="image"
         data-name="healthImg"
-        class="dz-xy-1-6 dz-wh-10px-10px dz-c-6B8E5A dz-noptr"
+        class="dz-xy-570px-0 dz-wh-10px-10px dz-align-y-center dz-c-7FA65A dz-noptr"
         data-image="set:traderx_icons image:circle"
         data-image-mode="blend"
         data-image-src-alpha="1"
         data-image-stretch="stretch_w_h"/>
     <span data-dz="text"
-        data-name="classNameText"
-        data-bind="{{ itemName }}"
-        class="dz-xy-13-10 dz-wh-40-44 dz-c-D8D2C0 dz-font-body-14 dz-noptr dz-bold dz-exact-text dz-text-vc">
-    </span>
-    <span data-dz="text"
         data-name="quantityStr"
         data-bind="{{ quantityStr }}"
-        class="dz-xy-13-56 dz-wh-40-36 dz-c-6A6560 dz-font-mono-12 dz-noptr dz-exact-text"></span>
-    <div data-dz="grid"
-        data-name="stockGrid"
-        class="dz-xy-48-0 dz-wh-22-32px dz-noptr dz-cols-2 dz-rows-1 dz-gap-5 dz-pad-3 dz-fit-h dz-fit-v dz-align-y-center">
-      <img data-dz="image"
-          data-name="stockIcon"
-          class="dz-wh-32px-32px dz-c-9A9488 dz-noptr"
-          data-image="set:traderx_icons image:stockSimple"
-          data-image-mode="blend"
-          data-image-src-alpha="1"
-          data-image-stretch="stretch_w_h"/>
-      <span data-dz="text"
-          data-name="stockText"
-          data-bind="{{ itemStock }}"
-          class="dz-c-9A9488 dz-font-mono-16 dz-noptr dz-bold dz-exact-text dz-text-vc dz-size-to-text-h">
-        0/15
-      </span>
-    </div>
-    <div data-dz="grid"
-        data-name="priceGrid"
-        class="dz-xy-58-0 dz-wh-37-32px dz-noptr dz-cols-4 dz-rows-1 dz-gap-5 dz-pad-3 dz-fit-h dz-fit-v dz-align-y-center">
-      <img data-dz="image"
-          data-name="priceIcon"
-          class="dz-wh-32px-32px dz-c-C4A35A dz-noptr"
-          data-image="set:traderx_icons image:simpleCoins"
-          data-image-mode="blend"
-          data-image-src-alpha="1"
-          data-image-stretch="stretch_w_h"/>
-      <span data-dz="text"
-          data-name="priceText"
-          data-bind="{{ itemPrice }}"
-          class="dz-c-C4A35A dz-font-mono-16 dz-noptr dz-bold dz-exact-text dz-text-vc dz-size-to-text-h">
-        1,250
-      </span>
-      <div data-dz="panel"
-          data-name="priceSpacer"
-          class="dz-wh-20px-1px dz-noptr"></div>
-      <span data-dz="text"
-          data-name="sellPriceText"
-          data-bind="{{ itemSellPrice }}"
-          class="dz-c-C8664A dz-c-B0 dz-font-mono-12 dz-noptr dz-exact-text dz-text-vc dz-size-to-text-h">
-        sell 500
-      </span>
-    </div>
+        class="dz-xy-590px-0 dz-wh-90px-80px dz-c-A39276 dz-font-nm-16 dz-noptr dz-exact-text dz-text-vc"></span>
+    <span data-dz="text"
+        data-name="priceText"
+        data-bind="{{ price_display }}"
+        class="dz-xy-440px-0 dz-wh-150px-80px dz-align-x-right dz-c-E8894A dz-font-nm-24 dz-noptr dz-exact-text dz-text-right dz-text-vc">
+      € 1,250
+    </span>
+    <span data-dz="text"
+        data-name="sellPriceText"
+        data-bind="{{ itemSellPrice }}"
+        class="dz-xy-250px-0 dz-wh-176px-80px dz-align-x-right dz-c-A39276 dz-font-nb-17 dz-noptr dz-exact-text dz-text-right dz-text-vc">
+      sells for € 625
+    </span>
+    <img data-dz="image"
+        data-name="unselectedIcon"
+        class="dz-xy-0-0 dz-wh-1px-1px dz-c-00000000 dz-noptr dz-hidden"
+        data-image="set:traderx_icons image:unapproved"
+        data-image-mode="blend"
+        data-image-src-alpha="1"
+        data-image-stretch="stretch_w_h"/>
+    <img data-dz="image"
+        data-name="selectedIcon"
+        class="dz-xy-0-0 dz-wh-1px-1px dz-c-00000000 dz-noptr dz-hidden"
+        data-image="set:traderx_icons image:approved"
+        data-image-mode="blend"
+        data-image-src-alpha="1"
+        data-image-stretch="stretch_w_h"/>
   </div>
+  <div data-dz="panel"
+      data-name="itemCardFrame"
+      data-style="TXRowRule"
+      class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr"></div>
+  <div data-dz="panel"
+      data-name="itemCardOutline"
+      data-style="TXCardSelected"
+      class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr"></div>
+  <div data-dz="panel"
+      data-name="inCartBadge"
+      class="dz-xy-124px-46px dz-wh-124px-22px dz-c-D9762F dz-noptr dz-hidden">
+    <span data-dz="text"
+        data-name="inCartText"
+        data-bind="{{ cart_badge }}"
+        class="dz-xy-0-0 dz-wh-full dz-c-1A0D04 dz-font-nbb-14 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+      IN CART · 2
+    </span>
+  </div>
+  <div data-dz="panel"
+      data-name="licenseDimPanel"
+      class="dz-xy-0-0 dz-wh-full dz-c-0F0D0A99 dz-noptr dz-hidden"></div>
+  <img data-dz="image"
+        data-name="licenseLockIcon"
+        class="dz-xy-16px-0 dz-wh-18px-18px dz-align-y-center dz-c-E07A63 dz-noptr dz-hidden"
+        data-image="set:traderx_icons image:padlock"
+        data-image-mode="blend"
+        data-image-src-alpha="1"
+        data-image-stretch="stretch_w_h"/>
+  <button data-dz="button"
+      data-name="previewHoverBtn"
+      data-style="Empty"
+      data-on-click="OnItemCardLeftClick"
+      data-on-dblclick="OnItemCardDoubleClick"
+      data-on-rclick="OnItemCardRightClick"
+      data-on-mouseenter="OnItemCardMouseEnter"
+      data-on-mouseleave="OnItemCardMouseLeave"
+      class="dz-xy-8px-8px dz-wh-96px-64px dz-c-00000000 dz-tc-FE"></button>
   <button data-dz="button"
       data-name="favBtn"
       data-style="Empty"
       data-on-click="OnItemFavClick"
-      class="dz-xy-92-0 dz-wh-26px-26px dz-align-y-center dz-tc-FE">
+      class="dz-xy-14px-0 dz-wh-38px-38px dz-align-x-right dz-align-y-center dz-tc-FE">
     <img data-dz="image"
         data-name="favIcon"
-        class="dz-xy-0-0 dz-wh-full dz-c-C4A35A dz-noptr"
+        class="dz-xy-0-0 dz-wh-19px-19px dz-align-cc dz-c-E0A33A dz-noptr"
         data-image="set:traderx_icons image:star_full"
         data-image-mode="blend"
         data-image-src-alpha="1"
         data-image-stretch="stretch_w_h"/>
     <img data-dz="image"
         data-name="unfavIcon"
-        class="dz-xy-0-0 dz-wh-full dz-c-9A9488 dz-noptr dz-hidden"
+        class="dz-xy-0-0 dz-wh-19px-19px dz-align-cc dz-c-8C7D66 dz-noptr dz-hidden"
         data-image="set:traderx_icons image:star"
-        data-image-mode="blend"
-        data-image-src-alpha="1"
-        data-image-stretch="stretch_w_h"/>
-  </button>
-  <!-- Transparent hover-catcher over the thumbnail: the description tooltip now shows ONLY
-       when hovering the image, not the whole row. Carries the click handlers too so the
-       image still selects/customizes like the rest of the row. -->
-  <button data-dz="button"
-      data-name="previewHoverBtn"
-      data-style="Empty"
-      data-on-click="OnItemCardLeftClick"
-      data-on-rclick="OnItemCardRightClick"
-      data-on-dblclick="OnItemCardDoubleClick"
-      data-on-mouseenter="OnItemCardMouseEnter"
-      data-on-mouseleave="OnItemCardMouseLeave"
-      class="dz-xy-1-9 dz-wh-84px-56px dz-c-00000000 dz-tc-FE"></button>
-  <!-- Persistent customize affordance (replaces the hover-only variant/attachment hints).
-       Each button raises its own labelled tooltip; the gear also opens customize.
-       Shown/hidden from ItemCardComponent.UpdateCustomizeAffordance(). -->
-  <button data-dz="button"
-      data-name="variantBtn"
-      data-style="Empty"
-      data-on-click="OnVariantClick"
-      data-on-mouseenter="OnVariantEnter"
-      data-on-mouseleave="OnAffordanceLeave"
-      class="dz-xy-76-0 dz-wh-26px-26px dz-align-y-center dz-c-FE dz-tc-FE dz-hidden">
-    <img data-dz="image"
-        data-name="variantIcon"
-        class="dz-xy-0-0 dz-wh-full dz-align-cc dz-c-9ACD32 dz-noptr"
-        data-image="set:traderx_icons image:palette"
-        data-image-mode="blend"
-        data-image-src-alpha="1"
-        data-image-stretch="stretch_w_h"/>
-  </button>
-  <button data-dz="button"
-      data-name="attachBtn"
-      data-style="Empty"
-      data-on-click="OnAttachClick"
-      data-on-mouseenter="OnAttachEnter"
-      data-on-mouseleave="OnAffordanceLeave"
-      class="dz-xy-80-0 dz-wh-26px-26px dz-align-y-center dz-c-FE dz-tc-FE dz-hidden">
-    <img data-dz="image"
-        data-name="attachIcon"
-        class="dz-xy-0-0 dz-wh-full dz-align-cc dz-c-C4A35A dz-noptr"
-        data-image="set:traderx_icons image:wrench"
         data-image-mode="blend"
         data-image-src-alpha="1"
         data-image-stretch="stretch_w_h"/>
@@ -172,17 +167,47 @@
       data-on-click="OnCustomizeClick"
       data-on-mouseenter="OnCustomizeEnter"
       data-on-mouseleave="OnAffordanceLeave"
-      class="dz-xy-84-0 dz-wh-26px-26px dz-align-y-center dz-c-FE dz-tc-FE dz-hidden">
+      class="dz-xy-56px-0 dz-wh-38px-38px dz-align-x-right dz-align-y-center dz-tc-FE dz-hidden">
     <img data-dz="image"
         data-name="customizeIcon"
-        class="dz-xy-0-0 dz-wh-full dz-align-cc dz-c-D8D2C0 dz-noptr"
+        class="dz-xy-0-0 dz-wh-19px-19px dz-align-cc dz-c-C2B59C dz-noptr"
         data-image="set:traderx_icons image:gear"
+        data-image-mode="blend"
+        data-image-src-alpha="1"
+        data-image-stretch="stretch_w_h"/>
+  </button>
+  <button data-dz="button"
+      data-name="attachBtn"
+      data-style="Empty"
+      data-on-click="OnAttachClick"
+      data-on-mouseenter="OnAttachEnter"
+      data-on-mouseleave="OnAffordanceLeave"
+      class="dz-xy-96px-0 dz-wh-38px-38px dz-align-x-right dz-align-y-center dz-tc-FE dz-hidden">
+    <img data-dz="image"
+        data-name="attachIcon"
+        class="dz-xy-0-0 dz-wh-19px-19px dz-align-cc dz-c-C2B59C dz-noptr"
+        data-image="set:traderx_icons image:wrench"
+        data-image-mode="blend"
+        data-image-src-alpha="1"
+        data-image-stretch="stretch_w_h"/>
+  </button>
+  <button data-dz="button"
+      data-name="variantBtn"
+      data-style="Empty"
+      data-on-click="OnVariantClick"
+      data-on-mouseenter="OnVariantEnter"
+      data-on-mouseleave="OnAffordanceLeave"
+      class="dz-xy-136px-0 dz-wh-38px-38px dz-align-x-right dz-align-y-center dz-tc-FE dz-hidden">
+    <img data-dz="image"
+        data-name="variantIcon"
+        class="dz-xy-0-0 dz-wh-19px-19px dz-align-cc dz-c-C2B59C dz-noptr"
+        data-image="set:traderx_icons image:palette"
         data-image-mode="blend"
         data-image-src-alpha="1"
         data-image-stretch="stretch_w_h"/>
   </button>
 </div>
 
-<script src="dzml-runtime.js?v=1780762087338"></script>
+<script src="dzml-runtime.js"></script>
 </body>
 </html>

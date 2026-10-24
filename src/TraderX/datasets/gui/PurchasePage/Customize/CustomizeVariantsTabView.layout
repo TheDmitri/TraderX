@@ -6,17 +6,14 @@ PanelWidgetClass CustomizeVariantsTab {
  hexactsize 0
  vexactsize 0
  ignorepointer 1
- style blank
- color 0.9961 0.9961 0.9961 1
  {
   ScrollWidgetClass variantsScroll {
-   position 0 0
+   position 0 10
    hexactpos 0
-   vexactpos 0
-   size 1 1
+   vexactpos 1
+   size 1 870
    hexactsize 0
-   vexactsize 0
-   ignorepointer 1
+   vexactsize 1
    "Scrollbar V" 1
    {
     GridSpacerWidgetClass variantsGrid {
@@ -26,15 +23,10 @@ PanelWidgetClass CustomizeVariantsTab {
      size 1 0.01
      hexactsize 0
      vexactsize 0
-     halign center_ref
-     ignorepointer 1
      "Size To Content V" 1
-     Columns 4
+     Columns 1
      Rows 100
-     Padding 8
-     Margin 8
-     style Empty
-     color 0.9961 0.9961 0.9961 1
+     Padding 0
      scriptclass "ComponentWidgetBinding"
      {
       ScriptParamsClass {
@@ -47,19 +39,17 @@ PanelWidgetClass CustomizeVariantsTab {
    }
   }
   TextWidgetClass emptyState {
-   position 0 0
+   position 0 60
    hexactpos 0
-   vexactpos 0
-   size 1 1
+   vexactpos 1
+   size 1 30
    hexactsize 0
-   vexactsize 0
-   halign center_ref
-   valign center_ref
-   color 0.5451 0.5608 0.6039 1
-   font "TraderX/datasets/fonts/oswalt16"
+   vexactsize 1
+   color 0.6392 0.5725 0.4627 1
+   font "TraderX/datasets/fonts/rajdhanipx18"
    ignorepointer 1
+   "exact text" 1
    "text halign" center
-   "text valign" center
    scriptclass "TextBinding"
    {
     ScriptParamsClass {

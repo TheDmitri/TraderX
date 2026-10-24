@@ -7,5 +7,9 @@ modded class ActionConstructor
     {
         super.RegisterActions(actions);
         actions.Insert(ActionTXGOpenGarage);
+#ifndef TraderPlus
+        actions.Insert(ActionTXGPackVehicle);
+        actions.Insert(ActionTXGDeployReceipt);
+#endif
     }
 }

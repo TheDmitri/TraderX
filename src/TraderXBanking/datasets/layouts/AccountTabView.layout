@@ -5,143 +5,127 @@ PanelWidgetClass accountPanel {
  size 1 1
  hexactsize 0
  vexactsize 0
- color 0.0314 0.0353 0.0471 0.8196
  ignorepointer 1
- style rover_sim_colorable
  {
   PanelWidgetClass balanceCard {
-   position 0.02 0.02
-   hexactpos 0
-   vexactpos 0
-   size 0.46 0.3
+   position 29 29
+   hexactpos 1
+   vexactpos 1
+   size 0.46875 300
    hexactsize 0
-   vexactsize 0
+   vexactsize 1
    ignorepointer 1
-   style TXCard
+   style TXBCard
    color 0.9961 0.9961 0.9961 1
    {
     PanelWidgetClass balanceLeftStrip {
      position 0 0
      hexactpos 0
      vexactpos 0
-     size 0 1
-     hexactsize 0
-     vexactsize 0
+     size 1 1
+     hexactsize 1
+     vexactsize 1
      ignorepointer 1
-     style TXProgressFill
-     color 0.9961 0.9961 0.9961 1
+     visible 0
     }
     TextWidgetClass balanceLabelText {
-     position 0.05 0.1
-     hexactpos 0
-     vexactpos 0
-     size 0.9 0.08
+     position 38 34
+     hexactpos 1
+     vexactpos 1
+     size 0.66667 20
      hexactsize 0
-     vexactsize 0
-     color 0.6039 0.5804 0.5333 1
-     font "TraderX/datasets/fonts/oswalt12"
+     vexactsize 1
+     color 0.6392 0.5725 0.4627 1
+     font "TraderX/datasets/fonts/rajdhanibpx16"
      ignorepointer 1
      "exact text" 1
-     "text halign" center
      "text valign" center
-     text "CURRENT BALANCE"
+     text "#txb_current_balance"
     }
-    TextWidgetClass bankAmountLabel {
-     position 0.05 0.22
-     hexactpos 0
-     vexactpos 0
-     size 0.9 0.4
+    WrapSpacerWidgetClass balanceRow {
+     position 38 62
+     hexactpos 1
+     vexactpos 1
+     size 0.86667 104
      hexactsize 0
-     vexactsize 0
-     color 0.8314 0.6431 0.298 1
-     font "TraderX/datasets/fonts/jet-brains-mono48"
+     vexactsize 1
      ignorepointer 1
-     "exact text" 1
-     "text halign" center
-     "text valign" center
-     style Bold
-     text "0"
-     scriptclass "TextBinding"
+     Padding 17
      {
-      ScriptParamsClass {
-       Binding_Expression "{{ bankBalanceText }}"
+      TextWidgetClass bankAmountLabel {
+       size 1 104
+       hexactsize 1
+       vexactsize 1
+       color 0.9098 0.5373 0.2902 1
+       font "TraderX/datasets/fonts/monopx86"
+       ignorepointer 1
+       "exact text" 1
+       "text valign" bottom
+       "size to text h" 1
+       text "0"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ bankBalanceText }}"
+        }
+       }
+      }
+      TextWidgetClass balanceUnit {
+       size 1 96
+       hexactsize 1
+       vexactsize 1
+       color 0.7608 0.7098 0.6118 1
+       font "TraderX/datasets/fonts/antonpx29"
+       ignorepointer 1
+       "exact text" 1
+       "text valign" bottom
+       "size to text h" 1
+       text "#txb_roubles_caps"
       }
      }
     }
-    TextWidgetClass balanceUnit {
-     position 0.05 0.64
-     hexactpos 0
-     vexactpos 0
-     size 0.9 0.06
-     hexactsize 0
-     vexactsize 0
-     color 0.8314 0.6431 0.298 1
-     font "TraderX/datasets/fonts/oswalt12"
+    PanelWidgetClass currencyInfoHost {
+     position 29 29
+     hexactpos 1
+     vexactpos 1
+     size 43 43
+     hexactsize 1
+     vexactsize 1
+     halign right_ref
      ignorepointer 1
-     "exact text" 1
-     "text halign" center
-     "text valign" center
-     style Bold
-     text "ROUBLES"
-    }
-    ButtonWidgetClass currencyInfoBtn {
-     position 0.87 0.06
-     hexactpos 0
-     vexactpos 0
-     size 0.09 0.13
-     hexactsize 0
-     vexactsize 0
-     "text color" 0.8314 0.6431 0.298 1
-     font "TraderX/datasets/fonts/oswalt16"
-     "exact text" 1
-     style Bold
-     style TXBtnDefault
-     color 0.9961 0.9961 0.9961 1
-     text "?"
-     scriptclass "ButtonBinding"
      {
-      ScriptParamsClass {
-       OnClick "OnShowCurrencies"
+      ButtonWidgetClass currencyInfoBtn {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 1 1
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.7608 0.7098 0.6118 1
+       font "TraderX/datasets/fonts/antonpx22"
+       "exact text" 1
+       style TXBBtnIcon
+       color 0.9961 0.9961 0.9961 1
+       text "?"
+       scriptclass "ButtonBinding"
+       {
+        ScriptParamsClass {
+         OnClick "OnShowCurrencies"
+        }
+       }
       }
      }
-    }
-    TextWidgetClass progressMinLabel {
-     position 0.05 0.74
-     hexactpos 0
-     vexactpos 0
-     size 0.2 0.05
-     hexactsize 0
-     vexactsize 0
-     color 0.4157 0.3961 0.3765 1
-     font "TraderX/datasets/fonts/oswalt12"
-     ignorepointer 1
-     "exact text" 1
-     text "0"
-    }
-    TextWidgetClass progressMaxLabel {
-     position 0.75 0.74
-     hexactpos 0
-     vexactpos 0
-     size 0.2 0.05
-     hexactsize 0
-     vexactsize 0
-     color 0.4157 0.3961 0.3765 1
-     font "TraderX/datasets/fonts/oswalt12"
-     ignorepointer 1
-     "exact text" 1
-     "text halign" right
-     text "MAX 50,000"
     }
     PanelWidgetClass progressBg {
-     position 0.05 0.82
-     hexactpos 0
-     vexactpos 0
-     size 0.9 0.04
+     position 38 200
+     hexactpos 1
+     vexactpos 1
+     size 0.91556 7
      hexactsize 0
-     vexactsize 0
+     vexactsize 1
+     color 0.0588 0.051 0.0392 1
      ignorepointer 1
-     style TXProgressBg
-     color 0.9961 0.9961 0.9961 1
+     style rover_sim_colorable
      {
       PanelWidgetClass progressFill {
        position 0 0
@@ -150,48 +134,84 @@ PanelWidgetClass accountPanel {
        size 0 1
        hexactsize 0
        vexactsize 0
+       color 0.851 0.4627 0.1843 1
        ignorepointer 1
-       style TXProgressFill
-       color 0.9961 0.9961 0.9961 1
+       style rover_sim_colorable
+      }
+     }
+    }
+    TextWidgetClass progressMinLabel {
+     position 38 216
+     hexactpos 1
+     vexactpos 1
+     size 0.22222 22
+     hexactsize 0
+     vexactsize 1
+     color 0.6392 0.5725 0.4627 1
+     font "TraderX/datasets/fonts/monopx16"
+     ignorepointer 1
+     "exact text" 1
+     "text valign" center
+     text "0"
+    }
+    TextWidgetClass progressMaxLabel {
+     position 38 216
+     hexactpos 1
+     vexactpos 1
+     size 0.44444 22
+     hexactsize 0
+     vexactsize 1
+     halign right_ref
+     color 0.6392 0.5725 0.4627 1
+     font "TraderX/datasets/fonts/monopx16"
+     ignorepointer 1
+     "exact text" 1
+     "text valign" center
+     "text halign" right
+     text "MAX 50,000"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ maxBalanceText }}"
       }
      }
     }
    }
   }
   PanelWidgetClass accountIdSection {
-   position 0.02 0.33
-   hexactpos 0
-   vexactpos 0
-   size 0.46 0.06
+   position 29 345
+   hexactpos 1
+   vexactpos 1
+   size 0.46875 62
    hexactsize 0
-   vexactsize 0
+   vexactsize 1
    ignorepointer 1
-   style TXCard
+   style TXBCard
    color 0.9961 0.9961 0.9961 1
    {
     TextWidgetClass accountIdLabelText {
-     position 0.03 0
-     hexactpos 0
+     position 29 0
+     hexactpos 1
      vexactpos 0
-     size 0.2 1
+     size 0.22222 62
      hexactsize 0
-     vexactsize 0
-     color 0.6039 0.5804 0.5333 1
-     font "TraderX/datasets/fonts/oswalt12"
+     vexactsize 1
+     color 0.6392 0.5725 0.4627 1
+     font "TraderX/datasets/fonts/rajdhanibpx16"
      ignorepointer 1
      "exact text" 1
      "text valign" center
-     text "ACCOUNT ID"
+     text "#txb_account_id_caps"
     }
     TextWidgetClass accountIdValue {
-     position 0.25 0
+     position 0.25556 0
      hexactpos 0
      vexactpos 0
-     size 0.55 1
+     size 0.48889 62
      hexactsize 0
-     vexactsize 0
-     color 0.8314 0.6431 0.298 1
-     font "TraderX/datasets/fonts/oswalt14"
+     vexactsize 1
+     color 0.949 0.9137 0.8471 1
+     font "TraderX/datasets/fonts/monopx20"
      ignorepointer 1
      "exact text" 1
      "text valign" center
@@ -204,19 +224,19 @@ PanelWidgetClass accountPanel {
      }
     }
     ButtonWidgetClass copyIdBtn {
-     position 0.82 0.15
-     hexactpos 0
-     vexactpos 0
-     size 0.15 0.7
+     position 12 10
+     hexactpos 1
+     vexactpos 1
+     size 0.13333 42
      hexactsize 0
-     vexactsize 0
-     "text color" 0.6039 0.5804 0.5333 1
-     font "TraderX/datasets/fonts/oswalt12"
+     vexactsize 1
+     halign right_ref
+     "text color" 0.7608 0.7098 0.6118 1
+     font "TraderX/datasets/fonts/rajdhanibpx17"
      "exact text" 1
-     style Bold
-     style TXBtnDefault
+     style TXBBtnDefault
      color 0.9961 0.9961 0.9961 1
-     text "COPY"
+     text "#txb_copy"
      scriptclass "ButtonBinding"
      {
       ScriptParamsClass {
@@ -227,54 +247,55 @@ PanelWidgetClass accountPanel {
    }
   }
   PanelWidgetClass depositSection {
-   position 0.02 0.4
-   hexactpos 0
-   vexactpos 0
-   size 0.46 0.22
+   position 29 423
+   hexactpos 1
+   vexactpos 1
+   size 0.46875 238
    hexactsize 0
-   vexactsize 0
+   vexactsize 1
    ignorepointer 1
-   style TXCard
+   style TXBCard
    color 0.9961 0.9961 0.9961 1
    {
     TextWidgetClass depositTitle {
-     position 0.03 0.05
-     hexactpos 0
-     vexactpos 0
-     size 0.5 0.12
+     position 29 20
+     hexactpos 1
+     vexactpos 1
+     size 0.55556 37
      hexactsize 0
-     vexactsize 0
-     color 0.8471 0.8235 0.7529 1
-     font "TraderX/datasets/fonts/oswalt14"
+     vexactsize 1
+     color 0.949 0.9137 0.8471 1
+     font "TraderX/datasets/fonts/antonpx26"
      ignorepointer 1
      "exact text" 1
-     style Bold
-     text "DEPOSIT"
+     "text valign" center
+     text "#txb_deposit_caps"
     }
     TextWidgetClass depositAmountLabel {
-     position 0.03 0.22
-     hexactpos 0
-     vexactpos 0
-     size 0.3 0.08
+     position 29 70
+     hexactpos 1
+     vexactpos 1
+     size 0.33333 20
      hexactsize 0
-     vexactsize 0
-     color 0.6039 0.5804 0.5333 1
-     font "TraderX/datasets/fonts/oswalt12"
+     vexactsize 1
+     color 0.6392 0.5725 0.4627 1
+     font "TraderX/datasets/fonts/rajdhanibpx16"
      ignorepointer 1
      "exact text" 1
-     text "AMOUNT"
+     "text valign" center
+     text "#txb_amount_caps"
     }
     EditBoxWidgetClass depositAmountInput {
-     position 0.03 0.32
-     hexactpos 0
-     vexactpos 0
-     size 0.6 0.25
+     position 29 98
+     hexactpos 1
+     vexactpos 1
+     size 0.6 58
      hexactsize 0
-     vexactsize 0
-     "text color" 0.8471 0.8235 0.7529 1
-     font "TraderX/datasets/fonts/oswalt14"
+     vexactsize 1
+     "text color" 0.949 0.9137 0.8471 1
+     font "TraderX/datasets/fonts/monopx24"
      "exact text" 1
-     style TXInputField
+     style TXBInputField
      color 0.9961 0.9961 0.9961 1
      scriptclass "EditBoxBinding"
      {
@@ -287,19 +308,19 @@ PanelWidgetClass accountPanel {
      }
     }
     ButtonWidgetClass depositBtn {
-     position 0.67 0.32
-     hexactpos 0
-     vexactpos 0
-     size 0.3 0.25
+     position 29 98
+     hexactpos 1
+     vexactpos 1
+     size 0.31111 58
      hexactsize 0
-     vexactsize 0
-     "text color" 0.8471 0.8235 0.7529 1
-     font "TraderX/datasets/fonts/oswalt14"
+     vexactsize 1
+     halign right_ref
+     "text color" 0.102 0.051 0.0157 1
+     font "TraderX/datasets/fonts/antonpx24"
      "exact text" 1
-     style Bold
-     style TXBtnPrimary
+     style TXBBtnPrimary
      color 0.9961 0.9961 0.9961 1
-     text "DEPOSIT"
+     text "#txb_deposit_caps"
      scriptclass "ButtonBinding"
      {
       ScriptParamsClass {
@@ -308,17 +329,17 @@ PanelWidgetClass accountPanel {
      }
     }
     TextWidgetClass depositHint {
-     position 0.03 0.63
-     hexactpos 0
-     vexactpos 0
-     size 0.94 0.12
+     position 29 170
+     hexactpos 1
+     vexactpos 1
+     size 0.93333 22
      hexactsize 0
-     vexactsize 0
-     color 0.6039 0.5804 0.5333 1
-     font "TraderX/datasets/fonts/oswalt12"
+     vexactsize 1
+     color 0.6392 0.5725 0.4627 1
+     font "TraderX/datasets/fonts/rajdhanibpx17"
      ignorepointer 1
      "exact text" 1
-     wrap 1
+     "text valign" center
      text "On hand: - R - Fee: -%"
      scriptclass "TextBinding"
      {
@@ -328,17 +349,17 @@ PanelWidgetClass accountPanel {
      }
     }
     TextWidgetClass depositStatus {
-     position 0.03 0.8
-     hexactpos 0
-     vexactpos 0
-     size 0.94 0.16
+     position 29 198
+     hexactpos 1
+     vexactpos 1
+     size 0.93333 22
      hexactsize 0
-     vexactsize 0
-     color 0.7843 0.4 0.2902 1
-     font "TraderX/datasets/fonts/oswalt12"
+     vexactsize 1
+     color 0.8784 0.4784 0.3882 1
+     font "TraderX/datasets/fonts/rajdhanibpx17"
      ignorepointer 1
      "exact text" 1
-     wrap 1
+     "text valign" center
      scriptclass "TextBinding"
      {
       ScriptParamsClass {
@@ -349,54 +370,55 @@ PanelWidgetClass accountPanel {
    }
   }
   PanelWidgetClass withdrawSection {
-   position 0.02 0.63
-   hexactpos 0
-   vexactpos 0
-   size 0.46 0.22
+   position 29 677
+   hexactpos 1
+   vexactpos 1
+   size 0.46875 238
    hexactsize 0
-   vexactsize 0
+   vexactsize 1
    ignorepointer 1
-   style TXCard
+   style TXBCard
    color 0.9961 0.9961 0.9961 1
    {
     TextWidgetClass withdrawTitle {
-     position 0.03 0.05
-     hexactpos 0
-     vexactpos 0
-     size 0.5 0.12
+     position 29 20
+     hexactpos 1
+     vexactpos 1
+     size 0.55556 37
      hexactsize 0
-     vexactsize 0
-     color 0.8471 0.8235 0.7529 1
-     font "TraderX/datasets/fonts/oswalt14"
+     vexactsize 1
+     color 0.949 0.9137 0.8471 1
+     font "TraderX/datasets/fonts/antonpx26"
      ignorepointer 1
      "exact text" 1
-     style Bold
-     text "WITHDRAW"
+     "text valign" center
+     text "#txb_withdraw_caps"
     }
     TextWidgetClass withdrawAmountLabel {
-     position 0.03 0.22
-     hexactpos 0
-     vexactpos 0
-     size 0.3 0.08
+     position 29 70
+     hexactpos 1
+     vexactpos 1
+     size 0.33333 20
      hexactsize 0
-     vexactsize 0
-     color 0.6039 0.5804 0.5333 1
-     font "TraderX/datasets/fonts/oswalt12"
+     vexactsize 1
+     color 0.6392 0.5725 0.4627 1
+     font "TraderX/datasets/fonts/rajdhanibpx16"
      ignorepointer 1
      "exact text" 1
-     text "AMOUNT"
+     "text valign" center
+     text "#txb_amount_caps"
     }
     EditBoxWidgetClass withdrawAmountInput {
-     position 0.03 0.32
-     hexactpos 0
-     vexactpos 0
-     size 0.6 0.25
+     position 29 98
+     hexactpos 1
+     vexactpos 1
+     size 0.6 58
      hexactsize 0
-     vexactsize 0
-     "text color" 0.8471 0.8235 0.7529 1
-     font "TraderX/datasets/fonts/oswalt14"
+     vexactsize 1
+     "text color" 0.949 0.9137 0.8471 1
+     font "TraderX/datasets/fonts/monopx24"
      "exact text" 1
-     style TXInputField
+     style TXBInputField
      color 0.9961 0.9961 0.9961 1
      scriptclass "EditBoxBinding"
      {
@@ -409,19 +431,19 @@ PanelWidgetClass accountPanel {
      }
     }
     ButtonWidgetClass withdrawBtn {
-     position 0.67 0.32
-     hexactpos 0
-     vexactpos 0
-     size 0.3 0.25
+     position 29 98
+     hexactpos 1
+     vexactpos 1
+     size 0.31111 58
      hexactsize 0
-     vexactsize 0
-     "text color" 0.7843 0.4 0.2902 1
-     font "TraderX/datasets/fonts/oswalt14"
+     vexactsize 1
+     halign right_ref
+     "text color" 0.949 0.9137 0.8471 1
+     font "TraderX/datasets/fonts/antonpx24"
      "exact text" 1
-     style Bold
-     style TXBtnDanger
+     style TXBBtnAccent
      color 0.9961 0.9961 0.9961 1
-     text "WITHDRAW"
+     text "#txb_withdraw_caps"
      scriptclass "ButtonBinding"
      {
       ScriptParamsClass {
@@ -430,42 +452,42 @@ PanelWidgetClass accountPanel {
      }
     }
     PanelWidgetClass creditCardWarning {
-     position 0.03 0.63
-     hexactpos 0
-     vexactpos 0
-     size 0.94 0.32
+     position 29 168
+     hexactpos 1
+     vexactpos 1
+     size 0.93556 56
      hexactsize 0
-     vexactsize 0
+     vexactsize 1
      ignorepointer 1
-     style TXWarningBox
+     style TXBWarningBox
      color 0.9961 0.9961 0.9961 1
      {
       TextWidgetClass creditCardTitle {
-       position 0.04 0.15
-       hexactpos 0
-       vexactpos 0
-       size 0.9 0.25
+       position 17 6
+       hexactpos 1
+       vexactpos 1
+       size 0.95012 20
        hexactsize 0
-       vexactsize 0
-       color 0.8314 0.6431 0.298 1
-       font "TraderX/datasets/fonts/oswalt12"
+       vexactsize 1
+       color 0.9098 0.5373 0.2902 1
+       font "TraderX/datasets/fonts/rajdhanibpx16"
        ignorepointer 1
        "exact text" 1
-       style Bold
-       text "CREDIT CARD REQUIRED"
+       "text valign" center
+       text "#txb_credit_card_required"
       }
       TextWidgetClass creditCardBody {
-       position 0.04 0.45
-       hexactpos 0
-       vexactpos 0
-       size 0.92 0.5
+       position 17 28
+       hexactpos 1
+       vexactpos 1
+       size 0.95012 22
        hexactsize 0
-       vexactsize 0
-       color 0.6039 0.5804 0.5333 1
-       font "TraderX/datasets/fonts/oswalt12"
+       vexactsize 1
+       color 0.7608 0.7098 0.6118 1
+       font "TraderX/datasets/fonts/rajdhanipx17"
        ignorepointer 1
        "exact text" 1
-       wrap 1
+       "text valign" center
        text "You must carry a valid credit card to withdraw."
        scriptclass "TextBinding"
        {
@@ -479,46 +501,47 @@ PanelWidgetClass accountPanel {
    }
   }
   GridSpacerWidgetClass statsGrid {
-   position 0.5 0.02
+   position 0.49635 29
    hexactpos 0
-   vexactpos 0
-   size 0.48 0.1
+   vexactpos 1
+   size 0.48854 120
    hexactsize 0
-   vexactsize 0
+   vexactsize 1
    Columns 3
    Rows 1
-   Margin 4
+   Padding 24
    {
     PanelWidgetClass statDepositsCard {
      ignorepointer 1
-     style TXCard
+     style TXBCard
      color 0.9961 0.9961 0.9961 1
      {
       TextWidgetClass statDepositsLabel {
-       position 0.05 0.15
-       hexactpos 0
-       vexactpos 0
-       size 0.9 0.25
+       position 24 20
+       hexactpos 1
+       vexactpos 1
+       size 0.8764 20
        hexactsize 0
-       vexactsize 0
-       color 0.6039 0.5804 0.5333 1
-       font "TraderX/datasets/fonts/oswalt12"
+       vexactsize 1
+       color 0.6392 0.5725 0.4627 1
+       font "TraderX/datasets/fonts/rajdhanibpx16"
        ignorepointer 1
        "exact text" 1
-       text "TOTAL DEPOSITS (30D)"
+       "text valign" center
+       text "#txb_deposits_30d"
       }
       TextWidgetClass statDepositsValue {
-       position 0.05 0.5
-       hexactpos 0
-       vexactpos 0
-       size 0.9 0.4
+       position 24 50
+       hexactpos 1
+       vexactpos 1
+       size 0.8764 46
        hexactsize 0
-       vexactsize 0
-       color 0.6039 0.6902 0.3529 1
-       font "TraderX/datasets/fonts/jet-brains-mono22"
+       vexactsize 1
+       color 0.498 0.651 0.3529 1
+       font "TraderX/datasets/fonts/monopx36"
        ignorepointer 1
        "exact text" 1
-       style Bold
+       "text valign" center
        text "+0"
        scriptclass "TextBinding"
        {
@@ -531,35 +554,36 @@ PanelWidgetClass accountPanel {
     }
     PanelWidgetClass statWithdrawsCard {
      ignorepointer 1
-     style TXCard
+     style TXBCard
      color 0.9961 0.9961 0.9961 1
      {
       TextWidgetClass statWithdrawsLabel {
-       position 0.05 0.15
-       hexactpos 0
-       vexactpos 0
-       size 0.9 0.25
+       position 24 20
+       hexactpos 1
+       vexactpos 1
+       size 0.8764 20
        hexactsize 0
-       vexactsize 0
-       color 0.6039 0.5804 0.5333 1
-       font "TraderX/datasets/fonts/oswalt12"
+       vexactsize 1
+       color 0.6392 0.5725 0.4627 1
+       font "TraderX/datasets/fonts/rajdhanibpx16"
        ignorepointer 1
        "exact text" 1
-       text "TOTAL WITHDRAWALS (30D)"
+       "text valign" center
+       text "#txb_withdrawals_30d"
       }
       TextWidgetClass statWithdrawsValue {
-       position 0.05 0.5
-       hexactpos 0
-       vexactpos 0
-       size 0.9 0.4
+       position 24 50
+       hexactpos 1
+       vexactpos 1
+       size 0.8764 46
        hexactsize 0
-       vexactsize 0
-       color 0.7843 0.4 0.2902 1
-       font "TraderX/datasets/fonts/jet-brains-mono22"
+       vexactsize 1
+       color 0.8784 0.4784 0.3882 1
+       font "TraderX/datasets/fonts/monopx36"
        ignorepointer 1
        "exact text" 1
-       style Bold
-       text "-0"
+       "text valign" center
+       text "−0"
        scriptclass "TextBinding"
        {
         ScriptParamsClass {
@@ -571,34 +595,35 @@ PanelWidgetClass accountPanel {
     }
     PanelWidgetClass statTransfersCard {
      ignorepointer 1
-     style TXCard
+     style TXBCard
      color 0.9961 0.9961 0.9961 1
      {
       TextWidgetClass statTransfersLabel {
-       position 0.05 0.15
-       hexactpos 0
-       vexactpos 0
-       size 0.9 0.25
+       position 24 20
+       hexactpos 1
+       vexactpos 1
+       size 0.8764 20
        hexactsize 0
-       vexactsize 0
-       color 0.6039 0.5804 0.5333 1
-       font "TraderX/datasets/fonts/oswalt12"
+       vexactsize 1
+       color 0.6392 0.5725 0.4627 1
+       font "TraderX/datasets/fonts/rajdhanibpx16"
        ignorepointer 1
        "exact text" 1
-       text "TRANSFERS"
+       "text valign" center
+       text "#txb_transfers_caps"
       }
       TextWidgetClass statTransfersValue {
-       position 0.05 0.5
-       hexactpos 0
-       vexactpos 0
-       size 0.9 0.4
+       position 24 50
+       hexactpos 1
+       vexactpos 1
+       size 0.8764 46
        hexactsize 0
-       vexactsize 0
-       color 0.8471 0.8235 0.7529 1
-       font "TraderX/datasets/fonts/jet-brains-mono22"
+       vexactsize 1
+       color 0.949 0.9137 0.8471 1
+       font "TraderX/datasets/fonts/monopx36"
        ignorepointer 1
        "exact text" 1
-       style Bold
+       "text valign" center
        text "0"
        scriptclass "TextBinding"
        {
@@ -612,69 +637,110 @@ PanelWidgetClass accountPanel {
    }
   }
   PanelWidgetClass recentCard {
-   position 0.5 0.13
+   position 0.49635 173
    hexactpos 0
-   vexactpos 0
-   size 0.48 0.83
+   vexactpos 1
+   size 0.48854 748
    hexactsize 0
-   vexactsize 0
+   vexactsize 1
    ignorepointer 1
-   style TXCard
+   style TXBCard
    color 0.9961 0.9961 0.9961 1
    {
-    TextWidgetClass recentTitle {
-     position 0.03 0.02
+    PanelWidgetClass recentHeader {
+     position 0 0
      hexactpos 0
      vexactpos 0
-     size 0.6 0.05
+     size 1 77
      hexactsize 0
-     vexactsize 0
-     color 0.8471 0.8235 0.7529 1
-     font "TraderX/datasets/fonts/oswalt14"
+     vexactsize 1
      ignorepointer 1
-     "exact text" 1
-     style Bold
-     text "RECENT TRANSACTIONS"
-    }
-    ButtonWidgetClass viewLedgerLink {
-     position 0.8 0.02
-     hexactpos 0
-     vexactpos 0
-     size 0.17 0.05
-     hexactsize 0
-     vexactsize 0
-     "text color" 0.8314 0.6431 0.298 1
-     font "TraderX/datasets/fonts/oswalt12"
-     "exact text" 1
-     style Bold
-     style TXTab
+     style TXBRowRule
      color 0.9961 0.9961 0.9961 1
-     text "VIEW LEDGER >"
-     scriptclass "NavButtonBinding"
      {
-      ScriptParamsClass {
-       TargetSelector "txb-ledger-tab"
+      TextWidgetClass recentTitle {
+       position 29 0
+       hexactpos 1
+       vexactpos 0
+       size 0.53305 77
+       hexactsize 0
+       vexactsize 1
+       color 0.949 0.9137 0.8471 1
+       font "TraderX/datasets/fonts/antonpx29"
+       ignorepointer 1
+       "exact text" 1
+       "text valign" center
+       text "#txb_recent_transactions_caps"
+      }
+      PanelWidgetClass viewLedgerHost {
+       position 17 17
+       hexactpos 1
+       vexactpos 1
+       size 0.15991 43
+       hexactsize 0
+       vexactsize 1
+       halign right_ref
+       ignorepointer 1
+       {
+        ButtonWidgetClass viewLedgerLink {
+         position 0 0
+         hexactpos 0
+         vexactpos 0
+         size 1 1
+         hexactsize 0
+         vexactsize 0
+         "text color" 0.9961 0.9961 0.9961 1
+         style Empty
+         color 0.9961 0.9961 0.9961 1
+         scriptclass "NavButtonBinding"
+         {
+          TextWidgetClass viewLedgerText {
+           position 12 0
+           hexactpos 1
+           vexactpos 0
+           size 0.92 43
+           hexactsize 0
+           vexactsize 1
+           color 0.9098 0.5373 0.2902 1
+           font "TraderX/datasets/fonts/rajdhanibpx18"
+           ignorepointer 1
+           "exact text" 1
+           "text halign" right
+           "text valign" center
+           text "#txb_view_ledger"
+          }
+         }
+         {
+          ScriptParamsClass {
+           TargetSelector "txb-ledger-tab"
+          }
+         }
+        }
+       }
       }
      }
     }
     ScrollWidgetClass recentScroll {
-     position 0.02 0.09
+     position 0 78
      hexactpos 0
-     vexactpos 0
-     size 0.96 0.88
+     vexactpos 1
+     size 1 668
      hexactsize 0
-     vexactsize 0
+     vexactsize 1
      "Scrollbar V" 1
      {
       GridSpacerWidgetClass recentList {
-       size 1 28
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 1 0.01
        hexactsize 0
-       vexactsize 1
+       vexactsize 0
        ignorepointer 1
        "Size To Content V" 1
        Columns 1
-       Rows 10
-       Margin 1
+       Rows 100
+       Padding 0
        scriptclass "ComponentWidgetBinding"
        {
         ScriptParamsClass {
@@ -684,88 +750,91 @@ PanelWidgetClass accountPanel {
         }
        }
       }
-      TextWidgetClass recentEmpty {
-       position 0.05 0.45
-       hexactpos 0
-       vexactpos 0
-       size 0.9 0.1
-       hexactsize 0
-       vexactsize 0
-       color 0.4157 0.3961 0.3765 1
-       font "TraderX/datasets/fonts/oswalt12"
-       ignorepointer 1
-       "exact text" 1
-       "text halign" center
-       "text valign" center
-       text "No transactions yet"
-       scriptclass "TextBinding"
-       {
-        ScriptParamsClass {
-         Binding_Expression "{{ recentEmptyText }}"
-        }
-       }
+     }
+    }
+    TextWidgetClass recentEmpty {
+     position 0 130
+     hexactpos 0
+     vexactpos 1
+     size 1 26
+     hexactsize 0
+     vexactsize 1
+     color 0.6392 0.5725 0.4627 1
+     font "TraderX/datasets/fonts/rajdhanipx18"
+     ignorepointer 1
+     "exact text" 1
+     "text halign" center
+     "text valign" center
+     text "No transactions yet"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ recentEmptyText }}"
       }
      }
     }
    }
   }
   PanelWidgetClass currencyModal {
-   position 0.3 0.16
+   position 0 0
    hexactpos 0
    vexactpos 0
-   size 0.4 0.66
+   size 0.33333 560
    hexactsize 0
-   vexactsize 0
+   vexactsize 1
+   halign center_ref
+   valign center_ref
    visible 0
-   style TXCardElevated
+   priority 50
+   style TXBCardElevated
    color 0.9961 0.9961 0.9961 1
    {
     PanelWidgetClass currencyModalStrip {
      position 0 0
      hexactpos 0
      vexactpos 0
-     size 0 1
+     size 1 3
      hexactsize 0
-     vexactsize 0
+     vexactsize 1
+     color 0.851 0.4627 0.1843 1
      ignorepointer 1
-     style TXProgressFill
-     color 0.9961 0.9961 0.9961 1
+     style rover_sim_colorable
     }
     TextWidgetClass currencyModalTitle {
-     position 0.06 0.04
-     hexactpos 0
-     vexactpos 0
-     size 0.8 0.08
+     position 34 26
+     hexactpos 1
+     vexactpos 1
+     size 0.875 42
      hexactsize 0
-     vexactsize 0
-     color 0.8471 0.8235 0.7529 1
-     font "TraderX/datasets/fonts/oswalt16"
+     vexactsize 1
+     color 0.949 0.9137 0.8471 1
+     font "TraderX/datasets/fonts/antonpx29"
      ignorepointer 1
      "exact text" 1
-     style Bold
-     text "ACCEPTED CURRENCIES"
+     "text valign" center
+     text "#txb_accepted_currencies_caps"
     }
     TextWidgetClass currencyModalSub {
-     position 0.06 0.12
-     hexactpos 0
-     vexactpos 0
-     size 0.88 0.07
+     position 34 72
+     hexactpos 1
+     vexactpos 1
+     size 0.875 24
      hexactsize 0
-     vexactsize 0
-     color 0.6039 0.5804 0.5333 1
-     font "TraderX/datasets/fonts/oswalt12"
+     vexactsize 1
+     color 0.7608 0.7098 0.6118 1
+     font "TraderX/datasets/fonts/rajdhanipx18"
      ignorepointer 1
      "exact text" 1
-     wrap 1
-     text "Deposit any of these Rouble denominations."
+     "text valign" center
+     text "#txb_accepted_currencies_sub"
     }
     ScrollWidgetClass currencyScroll {
-     position 0.06 0.21
-     hexactpos 0
-     vexactpos 0
-     size 0.88 0.64
+     position 34 115
+     hexactpos 1
+     vexactpos 1
+     size 0.89375 340
      hexactsize 0
-     vexactsize 0
+     vexactsize 1
      "Scrollbar V" 1
      {
       RichTextWidgetClass currencyList {
@@ -775,8 +844,8 @@ PanelWidgetClass accountPanel {
        size 1 1
        hexactsize 0
        vexactsize 0
-       color 0.8314 0.6431 0.298 1
-       font "TraderX/datasets/fonts/oswalt14"
+       color 0.9098 0.5373 0.2902 1
+       font "TraderX/datasets/fonts/monopx18"
        ignorepointer 1
        wrap 1
        text "-"
@@ -790,19 +859,20 @@ PanelWidgetClass accountPanel {
      }
     }
     ButtonWidgetClass currencyCloseBtn {
-     position 0.25 0.89
+     position 0 29
      hexactpos 0
-     vexactpos 0
-     size 0.5 0.09
+     vexactpos 1
+     size 0.375 53
      hexactsize 0
-     vexactsize 0
-     "text color" 0.8471 0.8235 0.7529 1
-     font "TraderX/datasets/fonts/oswalt14"
+     vexactsize 1
+     halign center_ref
+     valign bottom_ref
+     "text color" 0.949 0.9137 0.8471 1
+     font "TraderX/datasets/fonts/antonpx22"
      "exact text" 1
-     style Bold
-     style TXBtnDefault
+     style TXBBtnDefault
      color 0.9961 0.9961 0.9961 1
-     text "CLOSE"
+     text "#txb_close_caps"
      scriptclass "ButtonBinding"
      {
       ScriptParamsClass {

@@ -23,6 +23,9 @@ class TXGAppInit
         // Insurance service (server policy lifecycle & EEKilled/EEDelete hooks).
         registry.RegisterService(TXGInsuranceService, new TXGInsuranceService());
 
+        // Vehicle receipts (depends on config + garage + insurance).
+        registry.RegisterService(TXGReceiptService, new TXGReceiptService());
+
         // RPC service (depends on config + garage + insurance).
         registry.RegisterService(TXGRPCService, new TXGRPCService());
 

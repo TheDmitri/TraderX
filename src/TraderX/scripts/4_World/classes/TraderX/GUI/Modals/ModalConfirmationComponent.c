@@ -28,7 +28,7 @@ class ModalConfirmationComponent extends DZlrComponentBase
 	{
 		if (s_PendingTitle != "" || s_PendingContent != "")
 		{
-			title = s_PendingTitle;
+			title = CheckoutComponent.Upper(s_PendingTitle);
 			content = s_PendingContent;
 			MarkForCheck();
 		}
@@ -36,7 +36,7 @@ class ModalConfirmationComponent extends DZlrComponentBase
 
 	void Setup(string modalTitle, string modalContent)
 	{
-		title = modalTitle;
+		title = CheckoutComponent.Upper(modalTitle);
 		content = modalContent;
 		GetRoot().Show(true);
 		MarkForCheck();
@@ -74,7 +74,7 @@ class ModalConfirmationComponent extends DZlrComponentBase
 			return;
 		}
 
-		s_Overlay.title = modalTitle;
+		s_Overlay.title = CheckoutComponent.Upper(modalTitle);
 		s_Overlay.content = modalContent;
 		s_Overlay.MarkForCheck();
 		root.Show(true);

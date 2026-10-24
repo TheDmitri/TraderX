@@ -53,6 +53,9 @@ class TraderXPresetValidationService
         for (int i = 0; i < preset.attachments.Count(); i++)
         {
             string attachmentId = preset.attachments.Get(i);
+            // Parts declared on the main product (free preset-only parts included) come with it.
+            if (IsDeclaredAttachment(preset.productId, attachmentId))
+                continue;
             TraderXTransactionResult attachmentValidation = ValidateProductAvailableFromTrader(attachmentId, npc, transaction);
             
             if (!attachmentValidation.IsSuccess())
@@ -71,6 +74,25 @@ class TraderXPresetValidationService
 
         GetTraderXLogger().LogDebug("ValidatePresetForTrader: All preset items validated successfully for trader " + traderId);
         return TraderXTransactionResult.CreateSuccess(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), "Preset validation successful");
+    }
+
+    // Is attachmentId listed in the attachments of the product (or of one of its variants)?
+    private bool IsDeclaredAttachment(string productId, string attachmentId)
+    {
+        TraderXProduct product = TraderXProductRepository.GetItemById(productId);
+        if (!product)
+            return false;
+        if (product.attachments && product.attachments.Find(attachmentId) != -1)
+            return true;
+        if (!product.variants)
+            return false;
+        foreach (string variantId : product.variants)
+        {
+            TraderXProduct variant = TraderXProductRepository.GetItemById(variantId);
+            if (variant && variant.attachments && variant.attachments.Find(attachmentId) != -1)
+                return true;
+        }
+        return false;
     }
 
     // Validate if a specific product is available from a trader
@@ -145,7 +167,7 @@ class TraderXPresetValidationService
             return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), "Security: Invalid player");
         
         TStringArray acceptedCurrencies = npc.GetCurrenciesAccepted();
-        int playerMoney = TraderXCurrencyService.GetInstance().GetPlayerMoneyFromAllCurrency(player, acceptedCurrencies);
+        int playerMoney = TraderXCurrencyService.GetInstance().GetPlayerSpendableMoney(player, acceptedCurrencies);
         
         if (playerMoney < totalCost)
         {

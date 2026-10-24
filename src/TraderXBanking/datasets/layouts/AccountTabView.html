@@ -16,250 +16,224 @@
     }
   </style>
 </head>
-<body class="dz-viewport">
+<body class="dz-viewport" data-dzml style="width:1920px; height:950px; background:#13100c;">
 
-<!-- AccountTabView - Field Ledger 2-col: balance + actions / stats + recent.
-     Backdrop dz-c-08090CD1 = ~82% opaque (matches mockup rgba(8,9,12,0.82)) - the
-     gaps between cards let the DayZ scene show through subtly. -->
-<div data-dz="panel" data-name="accountPanel"
-     class="dz-xy-0-0 dz-wh-full dz-c-08090CD1 dz-noptr">
+<!-- Bank account (Nasdara, same grid as "Bank · Home"): balance, account id, deposit and
+     withdraw on the left; 30-day stats and recent transactions on the right. -->
+<div data-dz="panel" data-name="accountPanel" class="dz-xy-0-0 dz-wh-full dz-noptr">
 
-  <!-- ════════ LEFT COLUMN (50%) - Balance + Account ID + Deposit + Withdraw ════════ -->
-
-  <!-- Big balance card with left amber accent strip -->
-  <div data-dz="panel" data-name="balanceCard" data-style="TXCard"
-       class="dz-xy-2-2 dz-wh-46-30 dz-c-FE dz-noptr">
-    <!-- Left amber vertical strip -->
-    <div data-dz="panel" data-name="balanceLeftStrip" data-style="TXProgressFill"
-         class="dz-xy-0-0 dz-wh-0.5-100 dz-c-FE dz-noptr"></div>
-
+  <!-- Balance -->
+  <div data-dz="panel" data-name="balanceCard" data-style="TXBCard"
+       class="dz-xy-29px-29px dz-wh-900px-300px dz-c-FE dz-noptr">
+    <div data-dz="panel" data-name="balanceLeftStrip" class="dz-xy-0-0 dz-wh-1px-1px dz-noptr dz-hidden"></div>
     <span data-dz="text" data-name="balanceLabelText"
-          class="dz-xy-5-10 dz-wh-90-8 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-text-center dz-text-vc">
-      CURRENT BALANCE
+          class="dz-xy-38px-34px dz-wh-600px-20px dz-c-A39276 dz-font-nbb-16 dz-noptr dz-exact-text dz-text-vc">
+      #txb_current_balance
     </span>
-    <span data-dz="text" data-name="bankAmountLabel"
-          data-bind="{{ bankBalanceText }}"
-          class="dz-xy-5-22 dz-wh-90-40 dz-c-D4A44C dz-font-mono-48 dz-noptr dz-exact-text dz-text-center dz-text-vc dz-bold">
-      0
-    </span>
-    <span data-dz="text" data-name="balanceUnit"
-          class="dz-xy-5-64 dz-wh-90-6 dz-c-D4A44C dz-font-body-12 dz-noptr dz-exact-text dz-text-center dz-text-vc dz-bold">
-      ROUBLES
-    </span>
-    <!-- Accepted-currencies info trigger -->
-    <button data-dz="button" data-name="currencyInfoBtn"
-            data-style="TXBtnDefault" data-on-click="OnShowCurrencies"
-            class="dz-xy-87-6 dz-wh-9-13 dz-c-FE dz-tc-D4A44C dz-font-body-16 dz-exact-text dz-bold">
-      ?
-    </button>
-
-    <!-- Progress bar with min/max labels -->
+    <div data-dz="wrap" data-name="balanceRow" class="dz-xy-38px-62px dz-wh-780px-104px dz-noptr dz-gap-17">
+      <span data-dz="text" data-name="bankAmountLabel" data-bind="{{ bankBalanceText }}"
+            class="dz-wh-1px-104px dz-c-E8894A dz-font-nm-86 dz-noptr dz-exact-text dz-text-vb dz-size-to-text-h">
+        0
+      </span>
+      <span data-dz="text" data-name="balanceUnit"
+            class="dz-wh-1px-96px dz-c-C2B59C dz-font-nh-29 dz-noptr dz-exact-text dz-text-vb dz-size-to-text-h">
+        #txb_roubles_caps
+      </span>
+    </div>
+    <div data-dz="panel" data-name="currencyInfoHost" class="dz-xy-29px-29px dz-wh-43px-43px dz-align-x-right dz-noptr">
+      <button data-dz="button" data-name="currencyInfoBtn"
+              data-style="TXBBtnIcon" data-on-click="OnShowCurrencies"
+              class="dz-xy-0-0 dz-wh-full dz-c-FE dz-tc-C2B59C dz-font-nh-22 dz-exact-text">
+        ?
+      </button>
+    </div>
+    <div data-dz="panel" data-name="progressBg" class="dz-xy-38px-200px dz-wh-824px-7px dz-c-0F0D0A dz-noptr">
+      <div data-dz="panel" data-name="progressFill" class="dz-xy-0-0 dz-wh-0-100 dz-c-D9762F dz-noptr"></div>
+    </div>
     <span data-dz="text" data-name="progressMinLabel"
-          class="dz-xy-5-74 dz-wh-20-5 dz-c-6A6560 dz-font-body-12 dz-noptr dz-exact-text">
+          class="dz-xy-38px-216px dz-wh-200px-22px dz-c-A39276 dz-font-nm-16 dz-noptr dz-exact-text dz-text-vc">
       0
     </span>
-    <span data-dz="text" data-name="progressMaxLabel"
-          class="dz-xy-75-74 dz-wh-20-5 dz-c-6A6560 dz-font-body-12 dz-noptr dz-exact-text dz-text-right">
+    <span data-dz="text" data-name="progressMaxLabel" data-bind="{{ maxBalanceText }}"
+          class="dz-xy-38px-216px dz-wh-400px-22px dz-align-x-right dz-c-A39276 dz-font-nm-16 dz-noptr dz-exact-text dz-text-vc dz-text-right">
       MAX 50,000
     </span>
-    <div data-dz="panel" data-name="progressBg" data-style="TXProgressBg"
-         class="dz-xy-5-82 dz-wh-90-4 dz-c-FE dz-noptr">
-      <div data-dz="panel" data-name="progressFill" data-style="TXProgressFill"
-           class="dz-xy-0-0 dz-wh-0-100 dz-c-FE dz-noptr"></div>
-    </div>
   </div>
 
-  <!-- Account ID strip -->
-  <div data-dz="panel" data-name="accountIdSection" data-style="TXCard"
-       class="dz-xy-2-33 dz-wh-46-6 dz-c-FE dz-noptr">
+  <!-- Account id -->
+  <div data-dz="panel" data-name="accountIdSection" data-style="TXBCard"
+       class="dz-xy-29px-345px dz-wh-900px-62px dz-c-FE dz-noptr">
     <span data-dz="text" data-name="accountIdLabelText"
-          class="dz-xy-3-0 dz-wh-20-100 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-text-vc">
-      ACCOUNT ID
+          class="dz-xy-29px-0 dz-wh-200px-62px dz-c-A39276 dz-font-nbb-16 dz-noptr dz-exact-text dz-text-vc">
+      #txb_account_id_caps
     </span>
-    <span data-dz="text" data-name="accountIdValue"
-          data-bind="{{ playerIdText }}"
-          class="dz-xy-25-0 dz-wh-55-100 dz-c-D4A44C dz-font-body-14 dz-noptr dz-exact-text dz-text-vc">
+    <span data-dz="text" data-name="accountIdValue" data-bind="{{ playerIdText }}"
+          class="dz-xy-230px-0 dz-wh-440px-62px dz-c-F2E9D8 dz-font-nm-20 dz-noptr dz-exact-text dz-text-vc">
       -
     </span>
     <button data-dz="button" data-name="copyIdBtn"
-            data-style="TXBtnDefault"
-            data-on-click="OnCopyId"
-            class="dz-xy-82-15 dz-wh-15-70 dz-c-FE dz-tc-9A9488 dz-font-body-12 dz-exact-text dz-bold">
-      COPY
+            data-style="TXBBtnDefault" data-on-click="OnCopyId"
+            class="dz-xy-12px-10px dz-wh-120px-42px dz-align-x-right dz-c-FE dz-tc-C2B59C dz-font-nbb-17 dz-exact-text">
+      #txb_copy
     </button>
   </div>
 
-  <!-- DEPOSIT panel -->
-  <div data-dz="panel" data-name="depositSection" data-style="TXCard"
-       class="dz-xy-2-40 dz-wh-46-22 dz-c-FE dz-noptr">
+  <div data-dz="panel" data-name="depositSection" data-style="TXBCard"
+       class="dz-xy-29px-423px dz-wh-900px-238px dz-c-FE dz-noptr">
     <span data-dz="text" data-name="depositTitle"
-          class="dz-xy-3-5 dz-wh-50-12 dz-c-D8D2C0 dz-font-body-14 dz-noptr dz-exact-text dz-bold">
-      DEPOSIT
+          class="dz-xy-29px-20px dz-wh-500px-37px dz-c-F2E9D8 dz-font-nh-26 dz-noptr dz-exact-text dz-text-vc">
+      #txb_deposit_caps
     </span>
     <span data-dz="text" data-name="depositAmountLabel"
-          class="dz-xy-3-22 dz-wh-30-8 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text">
-      AMOUNT
+          class="dz-xy-29px-70px dz-wh-300px-20px dz-c-A39276 dz-font-nbb-16 dz-noptr dz-exact-text dz-text-vc">
+      #txb_amount_caps
     </span>
     <input data-dz="editbox" data-name="depositAmountInput"
-           data-style="TXInputField"
+           data-style="TXBInputField"
            data-bind="{{ depositAmount }}"
            data-two-way="1"
            data-validators="required,integer,min:1"
            data-on-change="OnDepositAmountChanged"
-           class="dz-xy-3-32 dz-wh-60-25 dz-c-FE dz-tc-D8D2C0 dz-font-body-14 dz-exact-text" />
+           class="dz-xy-29px-98px dz-wh-540px-58px dz-c-FE dz-tc-F2E9D8 dz-font-nm-24 dz-exact-text" />
     <button data-dz="button" data-name="depositBtn"
-            data-style="TXBtnPrimary"
+            data-style="TXBBtnPrimary"
             data-on-click="OnDeposit"
-            class="dz-xy-67-32 dz-wh-30-25 dz-c-FE dz-tc-D8D2C0 dz-font-body-14 dz-exact-text dz-bold">
-      DEPOSIT
+            class="dz-xy-29px-98px dz-wh-280px-58px dz-align-x-right dz-c-FE dz-tc-1A0D04 dz-font-nh-24 dz-exact-text">
+      #txb_deposit_caps
     </button>
-    <!-- Cash on hand + fee hint -->
-    <span data-dz="text" data-name="depositHint"
-          data-bind="{{ feesText }}"
-          class="dz-xy-3-63 dz-wh-94-12 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-wrap">
+    <span data-dz="text" data-name="depositHint" data-bind="{{ feesText }}"
+          class="dz-xy-29px-170px dz-wh-840px-22px dz-c-A39276 dz-font-nbb-17 dz-noptr dz-exact-text dz-text-vc">
       On hand: - R - Fee: -%
     </span>
-    <!-- Deposit error / status -->
-    <span data-dz="text" data-name="depositStatus"
-          data-bind="{{ depositStatusText }}"
-          class="dz-xy-3-80 dz-wh-94-16 dz-c-C8664A dz-font-body-12 dz-noptr dz-exact-text dz-wrap">
-    </span>
+    <span data-dz="text" data-name="depositStatus" data-bind="{{ depositStatusText }}"
+          class="dz-xy-29px-198px dz-wh-840px-22px dz-c-E07A63 dz-font-nbb-17 dz-noptr dz-exact-text dz-text-vc"></span>
   </div>
 
-  <!-- WITHDRAW panel -->
-  <div data-dz="panel" data-name="withdrawSection" data-style="TXCard"
-       class="dz-xy-2-63 dz-wh-46-22 dz-c-FE dz-noptr">
+  <div data-dz="panel" data-name="withdrawSection" data-style="TXBCard"
+       class="dz-xy-29px-677px dz-wh-900px-238px dz-c-FE dz-noptr">
     <span data-dz="text" data-name="withdrawTitle"
-          class="dz-xy-3-5 dz-wh-50-12 dz-c-D8D2C0 dz-font-body-14 dz-noptr dz-exact-text dz-bold">
-      WITHDRAW
+          class="dz-xy-29px-20px dz-wh-500px-37px dz-c-F2E9D8 dz-font-nh-26 dz-noptr dz-exact-text dz-text-vc">
+      #txb_withdraw_caps
     </span>
     <span data-dz="text" data-name="withdrawAmountLabel"
-          class="dz-xy-3-22 dz-wh-30-8 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text">
-      AMOUNT
+          class="dz-xy-29px-70px dz-wh-300px-20px dz-c-A39276 dz-font-nbb-16 dz-noptr dz-exact-text dz-text-vc">
+      #txb_amount_caps
     </span>
     <input data-dz="editbox" data-name="withdrawAmountInput"
-           data-style="TXInputField"
+           data-style="TXBInputField"
            data-bind="{{ withdrawAmount }}"
            data-two-way="1"
            data-validators="required,integer,min:1"
            data-on-change="OnWithdrawAmountChanged"
-           class="dz-xy-3-32 dz-wh-60-25 dz-c-FE dz-tc-D8D2C0 dz-font-body-14 dz-exact-text" />
+           class="dz-xy-29px-98px dz-wh-540px-58px dz-c-FE dz-tc-F2E9D8 dz-font-nm-24 dz-exact-text" />
     <button data-dz="button" data-name="withdrawBtn"
-            data-style="TXBtnDanger"
+            data-style="TXBBtnAccent"
             data-on-click="OnWithdraw"
-            class="dz-xy-67-32 dz-wh-30-25 dz-c-FE dz-tc-C8664A dz-font-body-14 dz-exact-text dz-bold">
-      WITHDRAW
+            class="dz-xy-29px-98px dz-wh-280px-58px dz-align-x-right dz-c-FE dz-tc-F2E9D8 dz-font-nh-24 dz-exact-text">
+      #txb_withdraw_caps
     </button>
-    <!-- Credit card required warning (TXWarningBox = amber left strip) -->
-    <div data-dz="panel" data-name="creditCardWarning" data-style="TXWarningBox"
-         class="dz-xy-3-63 dz-wh-94-32 dz-c-FE dz-noptr">
+    <div data-dz="panel" data-name="creditCardWarning" data-style="TXBWarningBox"
+         class="dz-xy-29px-168px dz-wh-842px-56px dz-c-FE dz-noptr">
       <span data-dz="text" data-name="creditCardTitle"
-            class="dz-xy-4-15 dz-wh-90-25 dz-c-D4A44C dz-font-body-12 dz-noptr dz-exact-text dz-bold">
-        CREDIT CARD REQUIRED
+            class="dz-xy-17px-6px dz-wh-800px-20px dz-c-E8894A dz-font-nbb-16 dz-noptr dz-exact-text dz-text-vc">
+        #txb_credit_card_required
       </span>
-      <span data-dz="text" data-name="creditCardBody"
-            data-bind="{{ statusText }}"
-            class="dz-xy-4-45 dz-wh-92-50 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-wrap">
+      <span data-dz="text" data-name="creditCardBody" data-bind="{{ statusText }}"
+            class="dz-xy-17px-28px dz-wh-800px-22px dz-c-C2B59C dz-font-nb-17 dz-noptr dz-exact-text dz-text-vc">
         You must carry a valid credit card to withdraw.
       </span>
     </div>
   </div>
 
-  <!-- ════════ RIGHT COLUMN (50%) - Stats + Recent transactions ════════ -->
-
-  <!-- 30-day stat cards -->
+  <!-- 30-day stats -->
   <div data-dz="grid" data-name="statsGrid"
-       class="dz-xy-50-2 dz-wh-48-10 dz-cols-3 dz-rows-1 dz-gap-4">
-    <div data-dz="panel" data-name="statDepositsCard" data-style="TXCard"
-         class="dz-c-FE dz-noptr">
+       class="dz-xy-953px-29px dz-wh-938px-120px dz-cols-3 dz-rows-1 dz-gap-24">
+    <div data-dz="panel" data-name="statDepositsCard" data-style="TXBCard" class="dz-c-FE dz-noptr">
       <span data-dz="text" data-name="statDepositsLabel"
-            class="dz-xy-5-15 dz-wh-90-25 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text">
-        TOTAL DEPOSITS (30D)
+            class="dz-xy-24px-20px dz-wh-260px-20px dz-c-A39276 dz-font-nbb-16 dz-noptr dz-exact-text dz-text-vc">
+        #txb_deposits_30d
       </span>
-      <span data-dz="text" data-name="statDepositsValue"
-            data-bind="{{ statDepositsText }}"
-            class="dz-xy-5-50 dz-wh-90-40 dz-c-9AB05A dz-font-mono-22 dz-noptr dz-exact-text dz-bold">
+      <span data-dz="text" data-name="statDepositsValue" data-bind="{{ statDepositsText }}"
+            class="dz-xy-24px-50px dz-wh-260px-46px dz-c-7FA65A dz-font-nm-36 dz-noptr dz-exact-text dz-text-vc">
         +0
       </span>
     </div>
-    <div data-dz="panel" data-name="statWithdrawsCard" data-style="TXCard"
-         class="dz-c-FE dz-noptr">
+    <div data-dz="panel" data-name="statWithdrawsCard" data-style="TXBCard" class="dz-c-FE dz-noptr">
       <span data-dz="text" data-name="statWithdrawsLabel"
-            class="dz-xy-5-15 dz-wh-90-25 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text">
-        TOTAL WITHDRAWALS (30D)
+            class="dz-xy-24px-20px dz-wh-260px-20px dz-c-A39276 dz-font-nbb-16 dz-noptr dz-exact-text dz-text-vc">
+        #txb_withdrawals_30d
       </span>
-      <span data-dz="text" data-name="statWithdrawsValue"
-            data-bind="{{ statWithdrawalsText }}"
-            class="dz-xy-5-50 dz-wh-90-40 dz-c-C8664A dz-font-mono-22 dz-noptr dz-exact-text dz-bold">
-        -0
+      <span data-dz="text" data-name="statWithdrawsValue" data-bind="{{ statWithdrawalsText }}"
+            class="dz-xy-24px-50px dz-wh-260px-46px dz-c-E07A63 dz-font-nm-36 dz-noptr dz-exact-text dz-text-vc">
+        −0
       </span>
     </div>
-    <div data-dz="panel" data-name="statTransfersCard" data-style="TXCard"
-         class="dz-c-FE dz-noptr">
+    <div data-dz="panel" data-name="statTransfersCard" data-style="TXBCard" class="dz-c-FE dz-noptr">
       <span data-dz="text" data-name="statTransfersLabel"
-            class="dz-xy-5-15 dz-wh-90-25 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text">
-        TRANSFERS
+            class="dz-xy-24px-20px dz-wh-260px-20px dz-c-A39276 dz-font-nbb-16 dz-noptr dz-exact-text dz-text-vc">
+        #txb_transfers_caps
       </span>
-      <span data-dz="text" data-name="statTransfersValue"
-            data-bind="{{ statTransfersText }}"
-            class="dz-xy-5-50 dz-wh-90-40 dz-c-D8D2C0 dz-font-mono-22 dz-noptr dz-exact-text dz-bold">
+      <span data-dz="text" data-name="statTransfersValue" data-bind="{{ statTransfersText }}"
+            class="dz-xy-24px-50px dz-wh-260px-46px dz-c-F2E9D8 dz-font-nm-36 dz-noptr dz-exact-text dz-text-vc">
         0
       </span>
     </div>
   </div>
 
-  <!-- Recent transactions card -->
-  <div data-dz="panel" data-name="recentCard" data-style="TXCard"
-       class="dz-xy-50-13 dz-wh-48-83 dz-c-FE dz-noptr">
-    <span data-dz="text" data-name="recentTitle"
-          class="dz-xy-3-2 dz-wh-60-5 dz-c-D8D2C0 dz-font-body-14 dz-noptr dz-exact-text dz-bold">
-      RECENT TRANSACTIONS
-    </span>
-    <button data-dz="button" data-name="viewLedgerLink"
-            data-style="TXTab"
-            data-nav-target="txb-ledger-tab"
-            class="dz-xy-80-2 dz-wh-17-5 dz-c-FE dz-tc-D4A44C dz-font-body-12 dz-exact-text dz-bold">
-      VIEW LEDGER >
-    </button>
-    <div data-dz="scroll" data-name="recentScroll"
-         class="dz-xy-2-9 dz-wh-96-88 dz-scroll-v">
+  <!-- Recent transactions -->
+  <div data-dz="panel" data-name="recentCard" data-style="TXBCard"
+       class="dz-xy-953px-173px dz-wh-938px-748px dz-c-FE dz-noptr">
+    <div data-dz="panel" data-name="recentHeader" data-style="TXBRowRule"
+         class="dz-xy-0-0 dz-wh-100-77px dz-c-FE dz-noptr">
+      <span data-dz="text" data-name="recentTitle"
+            class="dz-xy-29px-0 dz-wh-500px-77px dz-c-F2E9D8 dz-font-nh-29 dz-noptr dz-exact-text dz-text-vc">
+        #txb_recent_transactions_caps
+      </span>
+      <div data-dz="panel" data-name="viewLedgerHost" class="dz-xy-17px-17px dz-wh-150px-43px dz-align-x-right dz-noptr">
+        <button data-dz="button" data-name="viewLedgerLink" data-style="Empty" data-nav-target="txb-ledger-tab"
+                class="dz-xy-0-0 dz-wh-full dz-tc-FE">
+          <span data-dz="text" data-name="viewLedgerText"
+                class="dz-xy-12px-0 dz-wh-138px-43px dz-c-E8894A dz-font-nbb-18 dz-noptr dz-exact-text dz-text-right dz-text-vc">
+            #txb_view_ledger
+          </span>
+        </button>
+      </div>
+    </div>
+    <div data-dz="scroll" data-name="recentScroll" class="dz-xy-0-78px dz-wh-100-668px dz-scroll-v">
       <div data-dz="grid" data-name="recentList"
            data-foreach="{{ _recentTransactions }}"
            data-template="txb-ledger-row"
            data-item="_inputEntry"
-           class="dz-wh-100-28px dz-noptr dz-fit-v dz-cols-1 dz-rows-10 dz-gap-1"></div>
-      <span data-dz="text" data-name="recentEmpty"
-            data-bind="{{ recentEmptyText }}"
-            class="dz-xy-5-45 dz-wh-90-10 dz-c-6A6560 dz-font-body-12 dz-noptr dz-exact-text dz-text-center dz-text-vc">
-        No transactions yet
-      </span>
+           class="dz-xy-0-0 dz-wh-100-1 dz-noptr dz-fit-v dz-cols-1 dz-rows-100"></div>
     </div>
+    <span data-dz="text" data-name="recentEmpty" data-bind="{{ recentEmptyText }}"
+          class="dz-xy-0-130px dz-wh-100-26px dz-c-A39276 dz-font-nb-18 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+      No transactions yet
+    </span>
   </div>
 
-  <!-- ════════ ACCEPTED CURRENCIES MODAL (hidden until '?' clicked) ════════ -->
-  <div data-dz="panel" data-name="currencyModal" data-style="TXCardElevated"
-       class="dz-xy-30-16 dz-wh-40-66 dz-c-FE dz-hidden">
-    <div data-dz="panel" data-name="currencyModalStrip" data-style="TXProgressFill"
-         class="dz-xy-0-0 dz-wh-0.5-100 dz-c-FE dz-noptr"></div>
+  <!-- Accepted currencies (hidden until "?" is clicked) -->
+  <div data-dz="panel" data-name="currencyModal" data-style="TXBCardElevated"
+       class="dz-xy-0-0 dz-wh-640px-560px dz-align-cc dz-c-FE dz-hidden dz-priority-50">
+    <div data-dz="panel" data-name="currencyModalStrip" class="dz-xy-0-0 dz-wh-100-3px dz-c-D9762F dz-noptr"></div>
     <span data-dz="text" data-name="currencyModalTitle"
-          class="dz-xy-6-4 dz-wh-80-8 dz-c-D8D2C0 dz-font-body-16 dz-noptr dz-exact-text dz-bold">
-      ACCEPTED CURRENCIES
+          class="dz-xy-34px-26px dz-wh-560px-42px dz-c-F2E9D8 dz-font-nh-29 dz-noptr dz-exact-text dz-text-vc">
+      #txb_accepted_currencies_caps
     </span>
     <span data-dz="text" data-name="currencyModalSub"
-          class="dz-xy-6-12 dz-wh-88-7 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-wrap">
-      Deposit any of these Rouble denominations.
+          class="dz-xy-34px-72px dz-wh-560px-24px dz-c-C2B59C dz-font-nb-18 dz-noptr dz-exact-text dz-text-vc">
+      #txb_accepted_currencies_sub
     </span>
-    <div data-dz="scroll" data-name="currencyScroll" class="dz-xy-6-21 dz-wh-88-64 dz-scroll-v">
-      <span data-dz="richtext" data-name="currencyList"
-            data-bind="{{ acceptedCurrenciesText }}"
-            class="dz-xy-0-0 dz-wh-100-100 dz-c-D4A44C dz-font-body-14 dz-noptr dz-wrap">
+    <div data-dz="scroll" data-name="currencyScroll" class="dz-xy-34px-115px dz-wh-572px-340px dz-scroll-v">
+      <span data-dz="richtext" data-name="currencyList" data-bind="{{ acceptedCurrenciesText }}"
+            class="dz-xy-0-0 dz-wh-100-100 dz-c-E8894A dz-font-nm-18 dz-noptr dz-wrap">
         -
       </span>
     </div>
     <button data-dz="button" data-name="currencyCloseBtn"
-            data-style="TXBtnDefault" data-on-click="OnCloseCurrencies"
-            class="dz-xy-25-89 dz-wh-50-9 dz-c-FE dz-tc-D8D2C0 dz-font-body-14 dz-exact-text dz-bold">
-      CLOSE
+            data-style="TXBBtnDefault" data-on-click="OnCloseCurrencies"
+            class="dz-xy-0-29px dz-wh-240px-53px dz-align-bc dz-c-FE dz-tc-F2E9D8 dz-font-nh-22 dz-exact-text">
+      #txb_close_caps
     </button>
   </div>
 </div>

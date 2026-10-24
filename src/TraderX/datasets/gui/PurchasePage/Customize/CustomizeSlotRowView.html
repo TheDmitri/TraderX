@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../../dzml.css">
+  <link rel="stylesheet" href="../../dzml-styles.css">
+  <link rel="stylesheet" href="../../dzml-icons.css">
+</head>
+<body data-dzml class="dz-viewport" style="width:552px; height:96px; background:#1c1813;">
+
+<!-- Attachment slot row (Nasdara): well, SLOT label, fitted part or "Empty", price,
+     Change (unfolds the slot's options below). -->
+<div data-dz="grid"
+    data-name="slotRow"
+    class="dz-xy-0-0 dz-wh-100-1 dz-noptr dz-fit-v dz-cols-1 dz-rows-100">
+  <div data-dz="panel"
+      data-name="slotMainRow"
+      data-style="TXRowRule"
+      class="dz-xy-0-0 dz-wh-100-96px dz-c-FE dz-noptr">
+    <div data-dz="panel"
+        data-name="slotFittedPreview"
+        data-style="TXInset"
+        class="dz-xy-24px-14px dz-wh-67px-67px dz-c-FE dz-noptr"></div>
+    <div data-dz="preview"
+        data-name="slotFittedItem"
+        data-bind-item="{{ fitted_preview }}"
+        class="dz-xy-26px-16px dz-wh-63px-63px dz-noptr dz-clip"></div>
+    <span data-dz="text"
+        data-name="slotLabel"
+        data-bind="{{ slot_label }}"
+        class="dz-xy-108px-22px dz-wh-200px-18px dz-c-A39276 dz-font-nbb-14 dz-noptr dz-exact-text dz-text-vc">
+      HANDGUARD
+    </span>
+    <span data-dz="text"
+        data-name="fittedName"
+        data-bind="{{ fitted_name }}"
+        class="dz-xy-108px-44px dz-wh-200px-26px dz-c-F2E9D8 dz-font-nbb-20 dz-noptr dz-exact-text dz-text-vc">
+      KA Rail Handguard
+    </span>
+    <span data-dz="text"
+        data-name="emptyName"
+        class="dz-xy-108px-44px dz-wh-200px-26px dz-c-8C7D66 dz-font-nbb-20 dz-noptr dz-exact-text dz-text-vc dz-hidden">
+      #tpm_empty
+    </span>
+    <span data-dz="text"
+        data-name="fittedPrice"
+        data-bind="{{ fitted_price }}"
+        class="dz-xy-136px-0 dz-wh-84px-96px dz-align-x-right dz-c-C2B59C dz-font-nm-18 dz-noptr dz-exact-text dz-text-vc dz-text-right">
+      € 200
+    </span>
+    <div data-dz="panel"
+        data-name="slotChangeHost"
+        class="dz-xy-24px-0 dz-wh-100px-41px dz-align-cr dz-noptr">
+      <button data-dz="button"
+          data-name="slotChangeBtn"
+          data-style="TXBtnDefault"
+          data-on-click="OnChangeClick"
+          class="dz-xy-0-0 dz-wh-full dz-tc-FE">
+        <span data-dz="text"
+            data-name="slotChangeText"
+            class="dz-xy-0-0 dz-wh-full dz-c-C2B59C dz-font-nbb-17 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+          #tpm_change
+        </span>
+      </button>
+    </div>
+  </div>
+  <div data-dz="grid"
+      data-name="slotOptionsGrid"
+      data-foreach="{{ _inputOptions }}"
+      data-template="tx-customize-slot-option"
+      data-item="_inputProduct"
+      class="dz-xy-0-0 dz-wh-100-1 dz-noptr dz-fit-v dz-cols-1 dz-rows-100 dz-hidden"></div>
+</div>
+
+<script src="../../dzml-runtime.js"></script>
+</body>
+</html>

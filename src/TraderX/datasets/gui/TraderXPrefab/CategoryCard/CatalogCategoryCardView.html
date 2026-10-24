@@ -6,94 +6,100 @@
   <link rel="stylesheet" href="dzml-styles.css">
   <link rel="stylesheet" href="dzml-icons.css">
 </head>
-<body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#1a1a1a;">
+<body data-dzml class="dz-viewport" style="width:1406px; height:400px; background:#13100c;">
 
+<!-- Catalog section (Nasdara): a 60 px Surface header (ember icon, name, count, sort,
+     chevron) that expands into rows or tiles. -->
 <div data-dz="grid"
     data-name="categoryCard"
-    class="dz-xy-0-0 dz-wh-100-1 dz-noptr dz-fit-v dz-cols-1 dz-rows-100">
+    class="dz-xy-0-0 dz-wh-100-1 dz-noptr dz-fit-v dz-cols-1 dz-rows-100 dz-gap-5">
   <div data-dz="panel"
       data-name="categoryHeader"
-      class="dz-xy-0-0 dz-wh-100-54px dz-noptr">
+      class="dz-xy-0-0 dz-wh-100-60px dz-noptr">
     <div data-dz="panel"
         data-name="categoryCardPanel"
         data-style="TXCard"
-        class="dz-xy-0-0 dz-wh-100-52px dz-c-FE dz-noptr"></div>
+        class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr"></div>
     <button data-dz="button"
         data-name="categoryBtn"
-        data-style="TXCategoryRow"
+        data-style="Empty"
         data-on-click="OnCategoryCardClick"
-        class="dz-xy-0-0 dz-wh-100-52px dz-tc-FE"></button>
+        class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
     <img data-dz="image"
-        data-name="categoryIcon"
-        class="dz-xy-1-11px dz-wh-30px-30px dz-c-C4A35A dz-noptr"
-        data-image="set:traderx_icons image:grid"
-        data-image-mode="blend"
-        data-image-src-alpha="1"
-        data-image-stretch="stretch_w_h"/>
+      data-name="categoryIcon"
+      class="dz-xy-22px-0 dz-wh-24px-24px dz-align-y-center dz-c-D9762F dz-noptr"
+      data-image="set:traderx_icons image:grid"
+      data-image-mode="blend"
+      data-image-src-alpha="1"
+      data-image-stretch="stretch_w_h"/>
     <span data-dz="text"
         data-name="CategoryName"
         data-bind="{{ category_name }}"
-        class="dz-xy-5-0 dz-wh-50-52px dz-tc-D8D2C0 dz-font-body-16 dz-noptr dz-bold dz-exact-text dz-text-vc">
+        class="dz-xy-65px-0 dz-wh-600px-60px dz-c-F2E9D8 dz-font-nbb-22 dz-noptr dz-exact-text dz-text-vc">
       Category Name
     </span>
     <span data-dz="text"
         data-name="itemCountText"
         data-bind="{{ item_count }}"
-        class="dz-xy-56-0 dz-wh-24-52px dz-tc-6A6560 dz-font-mono-12 dz-noptr dz-exact-text dz-text-vc dz-text-right">
+        class="dz-xy-130px-0 dz-wh-200px-60px dz-align-x-right dz-c-A39276 dz-font-nm-16 dz-noptr dz-exact-text dz-text-vc dz-text-right">
       146 items
     </span>
     <div data-dz="panel"
         data-name="dropdownParentPanel"
-        class="dz-xy-82-0 dz-wh-18-52px dz-noptr">
+        class="dz-xy-14px-0 dz-wh-100px-60px dz-align-x-right dz-noptr">
       <button data-dz="button"
           data-name="sortByBtn"
           data-style="TXBtnIcon"
           data-on-click="OnSortClick"
-          class="dz-xy-10-11px dz-wh-30px-30px dz-tc-FE dz-tc-D8D2C0 dz-font-body-14 dz-exact-text">
+          class="dz-xy-0-0 dz-wh-38px-38px dz-align-y-center dz-tc-FE">
         <img data-dz="image"
-            data-name="croissantIcon"
-            class="dz-xy-0-0 dz-wh-90-90 dz-align-cc dz-c-D8D2C0 dz-noptr"
-            data-image="set:traderx_icons image:croissant"
-            data-image-mode="blend"
-            data-image-src-alpha="1"
-            data-image-stretch="stretch_w_h"/>
+      data-name="croissantIcon"
+      class="dz-xy-0-0 dz-wh-17px-17px dz-align-cc dz-c-C2B59C dz-noptr"
+      data-image="set:traderx_icons image:croissant"
+      data-image-mode="blend"
+      data-image-src-alpha="1"
+      data-image-stretch="stretch_w_h"/>
         <img data-dz="image"
-            data-name="decroissantIcon"
-            class="dz-xy-0-0 dz-wh-90-90 dz-align-cc dz-c-D8D2C0 dz-noptr dz-hidden"
-            data-image="set:traderx_icons image:decroissant"
-            data-image-mode="blend"
-            data-image-src-alpha="1"
-            data-image-stretch="stretch_w_h"/>
+      data-name="decroissantIcon"
+      class="dz-xy-0-0 dz-wh-17px-17px dz-align-cc dz-c-C2B59C dz-noptr dz-hidden"
+      data-image="set:traderx_icons image:decroissant"
+      data-image-mode="blend"
+      data-image-src-alpha="1"
+      data-image-stretch="stretch_w_h"/>
       </button>
       <button data-dz="button"
           data-name="collapseBtn"
           data-style="TXBtnIcon"
           data-on-click="OnCollapseClick"
-          class="dz-xy-55-11px dz-wh-30px-30px dz-tc-FE dz-tc-D8D2C0 dz-font-body-16 dz-exact-text">
+          class="dz-xy-48px-0 dz-wh-38px-38px dz-align-y-center dz-tc-FE">
         <img data-dz="image"
-            data-name="collapseBtnIcon"
-            class="dz-xy-0-0 dz-wh-55-55 dz-align-cc dz-noptr"
-            data-image="set:traderx_icons image:chevron_down"
-            data-image-mode="blend"
-            data-image-src-alpha="1"
-            data-image-stretch="stretch_w_h"/>
+      data-name="collapseBtnIcon"
+      class="dz-xy-0-0 dz-wh-17px-17px dz-align-cc dz-c-C2B59C dz-noptr"
+      data-image="set:traderx_icons image:chevron_down"
+      data-image-mode="blend"
+      data-image-src-alpha="1"
+      data-image-stretch="stretch_w_h"/>
       </button>
     </div>
+    <!-- Licence-locked category: Deep 60% veil + padlock and the licence names in Bad. -->
+    <div data-dz="panel"
+        data-name="licenseDimPanel"
+        class="dz-xy-0-0 dz-wh-full dz-c-0F0D0A99 dz-noptr dz-hidden"></div>
     <div data-dz="panel"
         data-name="licensePanel"
-        data-style="TXErrorBox"
-        class="dz-xy-0-0 dz-wh-100-52px dz-c-FE dz-noptr dz-hidden">
+        class="dz-xy-360px-0 dz-wh-420px-60px dz-align-x-right dz-noptr dz-hidden">
       <img data-dz="image"
-          data-name="lockIcon"
-          class="dz-xy-34-0 dz-wh-36px-36px dz-align-y-center dz-c-D8D2C0 dz-noptr"
-          data-image="set:traderx_icons image:padlock"
-          data-image-mode="blend"
-          data-image-src-alpha="1"
-          data-image-stretch="stretch_w_h"/>
+      data-name="lockIcon"
+      class="dz-xy-0-0 dz-wh-18px-18px dz-align-y-center dz-c-E07A63 dz-noptr"
+      data-image="set:traderx_icons image:padlock"
+      data-image-mode="blend"
+      data-image-src-alpha="1"
+      data-image-stretch="stretch_w_h"/>
       <span data-dz="text"
           data-name="lockText"
-          class="dz-xy-41-0 dz-wh-50-100 dz-align-y-center dz-c-D8D2C0 dz-font-heading-22 dz-noptr dz-text-vc dz-exact-text dz-size-to-text-h">
-        #tpm_licenses_required
+          data-bind="{{ license_text }}"
+          class="dz-xy-26px-0 dz-wh-390px-60px dz-c-E07A63 dz-font-nbb-17 dz-noptr dz-exact-text dz-text-vc">
+        Licenses Required: Car Licence
       </span>
     </div>
   </div>
@@ -102,15 +108,15 @@
       data-foreach="{{ _inputCatalogProducts }}"
       data-template="tx-catalog-item-card"
       data-item="_inputProduct"
-      class="dz-xy-0-0 dz-wh-100-1 dz-fit-v dz-cols-1 dz-rows-100 dz-gap-4"></div>
+      class="dz-xy-0-0 dz-wh-100-1 dz-fit-v dz-cols-1 dz-rows-100 dz-gap-5"></div>
   <div data-dz="grid"
       data-name="itemCardGridTiles"
       data-foreach="{{ _inputCatalogProducts }}"
       data-template="tx-catalog-item-card-grid"
       data-item="_inputProduct"
-      class="dz-xy-0-0 dz-wh-100-1 dz-fit-v dz-cols-4 dz-rows-100 dz-gap-6"></div>
+      class="dz-xy-0-0 dz-wh-100-1 dz-fit-v dz-cols-5 dz-rows-100 dz-gap-17"></div>
 </div>
 
-<script src="dzml-runtime.js?v=1780762084163"></script>
+<script src="dzml-runtime.js"></script>
 </body>
 </html>

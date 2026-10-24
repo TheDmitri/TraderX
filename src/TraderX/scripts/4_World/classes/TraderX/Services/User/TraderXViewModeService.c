@@ -8,7 +8,7 @@ class TraderXViewModeService
     // Invoked with the new mode: true = grid (tiles), false = list (rows).
     static ref ScriptInvoker Event_OnViewModeChangedCallBack = new ScriptInvoker();
 
-    private bool m_isGridView = false;
+    private bool m_isGridView = true; // tiles by default (Nasdara design)
 
     static TraderXViewModeService GetInstance()
     {

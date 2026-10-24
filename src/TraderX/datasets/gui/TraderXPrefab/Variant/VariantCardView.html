@@ -2,55 +2,55 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="dzml.css">
-  <link rel="stylesheet" href="dzml-styles.css">
-  <link rel="stylesheet" href="dzml-icons.css">
+  <link rel="stylesheet" href="../../dzml.css">
+  <link rel="stylesheet" href="../../dzml-styles.css">
+  <link rel="stylesheet" href="../../dzml-icons.css">
 </head>
-<body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#1a1a1a;">
+<body data-dzml class="dz-viewport" style="width:552px; height:96px; background:#1c1813;">
 
+<!-- Variant row (Nasdara): well with the variant, name, price; check when chosen. -->
 <div data-dz="panel"
     data-name="VariantPanel"
-    data-style="blank"
-    class="dz-xy-10px-10px dz-wh-220px-160px dz-c-FE">
+    data-style="TXRowRule"
+    class="dz-xy-0-0 dz-wh-100-96px dz-c-FE dz-noptr">
   <button data-dz="button"
       data-name="ButtonWidget0"
-      data-style="TXBtnDefault"
+      data-style="TXListRow"
       data-on-click="OnVariantClick"
-      class="dz-xy-0-0 dz-wh-full dz-align-cc dz-tc-FE"></button>
-    <div data-dz="panel"
-        data-name="PanelWidget7"
-        data-style="TXCard"
-        class="dz-xy-0-1 dz-wh-100-65 dz-align-x-center dz-c-FE dz-noptr">
-      <div data-dz="preview"
-          data-name="ItemPreviewWidget0"
-          data-bind-item="{{ preview }}"
-          class="dz-xy-0-9 dz-wh-93-81 dz-align-x-center dz-noptr"></div>
-    </div>
-    <span data-dz="text"
-        data-name="TextWidget11"
-        data-bind="{{ variant_price }}"
-        class="dz-xy-0-6 dz-wh-14-11 dz-align-bc dz-c-9ACD32 dz-font-body-16 dz-noptr dz-exact-text dz-size-to-text">
-      Total: 1,850
-    </span>
-    <span data-dz="text"
-        data-name="TextWidget10"
-        data-bind="{{ variant_classname }}"
-        class="dz-xy-0-18 dz-wh-14-18 dz-align-bc dz-c-D8D2C0 dz-font-heading-22 dz-noptr dz-exact-text dz-text-vc dz-size-to-text">
-      Tactical Setup
-    </span>
-    <div data-dz="panel"
-        data-name="selectedBadge"
-        class="dz-xy-84-3 dz-wh-30px-30px dz-c-9ACD32 dz-noptr dz-hidden">
-      <img data-dz="image"
-          data-name="selectedBadgeIcon"
-          class="dz-xy-0-0 dz-wh-full dz-align-cc dz-c-1A1E28 dz-noptr"
-          data-image="set:traderx_icons image:approved"
-          data-image-mode="blend"
+      class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
+  <div data-dz="panel"
+      data-name="PanelWidget7"
+      data-style="TXInset"
+      class="dz-xy-24px-14px dz-wh-67px-67px dz-c-FE dz-noptr"></div>
+  <div data-dz="preview"
+      data-name="ItemPreviewWidget0"
+      data-bind-item="{{ preview }}"
+      class="dz-xy-25px-15px dz-wh-65px-65px dz-noptr dz-clip"></div>
+  <span data-dz="text"
+      data-name="TextWidget10"
+      data-bind="{{ variant_classname }}"
+      class="dz-xy-108px-22px dz-wh-300px-26px dz-c-F2E9D8 dz-font-nbb-20 dz-noptr dz-exact-text dz-text-vc">
+    KA-74
+  </span>
+  <span data-dz="text"
+      data-name="TextWidget11"
+      data-bind="{{ variant_price }}"
+      class="dz-xy-108px-50px dz-wh-300px-22px dz-c-E8894A dz-font-nm-18 dz-noptr dz-exact-text dz-text-vc">
+    € 0
+  </span>
+  <div data-dz="panel"
+      data-name="selectedBadge"
+      class="dz-xy-24px-0 dz-wh-41px-41px dz-align-cr dz-c-D9762F dz-noptr dz-hidden">
+    <img data-dz="image"
+        data-name="selectedBadgeIcon"
+        class="dz-xy-0-0 dz-wh-18px-18px dz-align-cc dz-c-1A0D04 dz-noptr"
+        data-image="set:traderx_icons image:approved"
+        data-image-mode="blend"
           data-image-src-alpha="1"
           data-image-stretch="stretch_w_h"/>
-    </div>
+  </div>
 </div>
 
-<script src="dzml-runtime.js?v=1780762091685"></script>
+<script src="../../dzml-runtime.js"></script>
 </body>
 </html>

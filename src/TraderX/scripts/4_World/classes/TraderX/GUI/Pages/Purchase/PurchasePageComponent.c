@@ -4,6 +4,11 @@ class PurchasePageComponent extends DZlrComponentBase
 
 	string search_keyword;
 	ref array<ref TraderXCategory> _inputCategories = new array<ref TraderXCategory>();
+	// Sidebar (Nasdara): every visible category; the main area shows the selected one.
+	ref array<ref TraderXCategory> _navCategories = new array<ref TraderXCategory>();
+	protected TraderXCategory m_SelectedCategory;
+	// Remembered across tab switches within the session (by name: categories are rebuilt).
+	static string s_SelectedCategoryName;
 	bool m_AllExpanded = false;
 	TextWidget toggleExpandText;
 	ScrollWidget scrollCategory;
@@ -21,9 +26,9 @@ class PurchasePageComponent extends DZlrComponentBase
 	// Preview show/hide toggle (top-bar button). Static so the choice survives page swaps
 	// within the trader session.
 	Widget PlayerPreviewPanel;
-	Widget CategoryListPanel;
 	ImageWidget previewToggleIcon;
-	static bool m_PreviewHidden = false;
+	// The design has no preview column: hidden until the person button asks for it.
+	static bool m_PreviewHidden = true;
 
 	// Hover tooltip shared by the three preview action buttons (only one shows at a time).
 	protected ref NavBtnTooltipComponent previewBtnTooltipComp;
@@ -42,6 +47,7 @@ class PurchasePageComponent extends DZlrComponentBase
 		TraderXSearchBarComponent.Event_OnSearchChangedCallBack.Insert(OnSearchKeyword);
 		TraderXSelectionService.Event_OnItemSelectionChanged.Insert(OnItemSelectionChanged);
 		CategoryCardComponent.Event_OnCategoryCollapsedCallBack.Insert(OnCategoryCollapsed);
+		CategoryNavItemComponent.Event_OnCategoryNavClick.Insert(OnNavCategoryClick);
 		TraderXTradingService.Event_OnTraderXResponseReceived.Insert(OnTradeResponse);
 		// Reflect current stream state on mount (a tab opened after completion shows expand-all).
 		SetSyncing(!TraderXTradingService.GetInstance().IsProductsReady());
@@ -66,7 +72,7 @@ class PurchasePageComponent extends DZlrComponentBase
 		ApplyPreviewVisibility();
 	}
 
-	// Hide/show the preview panel and let the category list reclaim the freed width.
+	// Hide/show the preview column; the tiles take the freed width back (pixels, see layout).
 	void ApplyPreviewVisibility()
 	{
 		bool visible = !m_PreviewHidden;
@@ -74,15 +80,17 @@ class PurchasePageComponent extends DZlrComponentBase
 		if (PlayerPreviewPanel)
 			PlayerPreviewPanel.Show(visible);
 
-		if (CategoryListPanel)
+		if (scrollCategory)
 		{
-			float x, y, w, h;
-			CategoryListPanel.GetPos(x, y);
-			CategoryListPanel.GetSize(w, h);
-			x = DZTernaryFloat.If(visible, 0.21, 0.01);
-			w = DZTernaryFloat.If(visible, 0.55, 0.75);
-			CategoryListPanel.SetPos(x, y);
-			CategoryListPanel.SetSize(w, h);
+			// x/width are fractions of the page (layouts are width-relative, see
+			// scripts/fluid-layouts.py): 341/1094 px of 1920 without the try-on preview,
+			// 695/740 px with it. y/height are kept as read back: script pixel values are
+			// not in the layout's units on scaled displays.
+			float sx, sy, sw, sh;
+			scrollCategory.GetPos(sx, sy);
+			scrollCategory.GetSize(sw, sh);
+			scrollCategory.SetPos(DZTernaryFloat.If(visible, 0.36198, 0.1776), sy);
+			scrollCategory.SetSize(DZTernaryFloat.If(visible, 0.38542, 0.56979), sh);
 		}
 
 		UpdatePreviewToggleVisual();
@@ -91,7 +99,7 @@ class PurchasePageComponent extends DZlrComponentBase
 	void UpdatePreviewToggleVisual()
 	{
 		if (previewToggleIcon)
-			previewToggleIcon.SetColor(DZTernaryInt.If(m_PreviewHidden, ARGB(200, 154, 148, 136), ARGB(255, 196, 163, 90)));
+			previewToggleIcon.SetColor(DZTernaryInt.If(m_PreviewHidden, TraderXTheme.NAV_INACTIVE, TraderXTheme.SLOT_ACTIVE));
 	}
 
 	override void OnDestroy()
@@ -100,6 +108,8 @@ class PurchasePageComponent extends DZlrComponentBase
 		TraderXSearchBarComponent.Event_OnSearchChangedCallBack.Remove(OnSearchKeyword);
 		TraderXSelectionService.Event_OnItemSelectionChanged.Remove(OnItemSelectionChanged);
 		CategoryCardComponent.Event_OnCategoryCollapsedCallBack.Remove(OnCategoryCollapsed);
+		CategoryNavItemComponent.Event_OnCategoryNavClick.Remove(OnNavCategoryClick);
+		GetGame().GetCallQueue(CALL_CATEGORY_GUI).Remove(ExpandSections);
 		TraderXTradingService.Event_OnTraderXResponseReceived.Remove(OnTradeResponse);
 		// Don't leak fitting mode into other pages.
 		TraderXSelectionService.SetFittingMode(false);
@@ -284,14 +294,87 @@ class PurchasePageComponent extends DZlrComponentBase
 
 	void ShowCategoryList()
 	{
-		_inputCategories.Clear();
+		_navCategories.Clear();
+		m_SelectedCategory = null;
 		array<ref TraderXCategory> categories = TraderXTradingService.GetInstance().GetTraderCategories();
 		foreach (TraderXCategory category : categories)
 		{
 			if (!category || !category.isVisible) continue;
-			_inputCategories.Insert(category);
+			_navCategories.Insert(category);
+			if (category.categoryName == s_SelectedCategoryName)
+				m_SelectedCategory = category;
+		}
+		if (!m_SelectedCategory && _navCategories.Count() > 0)
+			m_SelectedCategory = _navCategories[0];
+		ShowSelectedCategory();
+	}
+
+	// Main area = the selected category, expanded (no accordion).
+	void ShowSelectedCategory()
+	{
+		_inputCategories.Clear();
+		if (m_SelectedCategory)
+		{
+			_inputCategories.Insert(m_SelectedCategory);
+			s_SelectedCategoryName = m_SelectedCategory.categoryName;
+		}
+		CategoryNavItemComponent.SetSelected(m_SelectedCategory);
+		MarkForCheck();
+		ExpandSections();
+		// the ForEach may build the section on the next frame
+		GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(ExpandSections, 1, false);
+		ResetCategoryScroll();
+	}
+
+	void ExpandSections()
+	{
+		foreach (DZlrComponentBase child : m_ChildComponents)
+		{
+			CategoryCardComponent card = CategoryCardComponent.Cast(child);
+			if (!card) continue;
+			if (!card.m_AlwaysExpanded)
+				card.ExpandAlways();
+			if (search_keyword != "")
+				card.OnSearch(search_keyword);
+		}
+	}
+
+	void OnNavCategoryClick(TraderXCategory category)
+	{
+		if (!category) return;
+		m_SelectedCategory = category;
+		search_keyword = "";
+		ShowSelectedCategory();
+	}
+
+	// A keyword searches every category: one section per category with matches.
+	void ShowSearchResults()
+	{
+		_inputCategories.Clear();
+		string needle = search_keyword;
+		needle.ToLower();
+		foreach (TraderXCategory category : _navCategories)
+		{
+			// keep the returned array alive while iterating (1.30 frees temporaries)
+			array<ref TraderXProduct> searchProducts = category.GetProducts();
+			foreach (TraderXProduct item : searchProducts)
+			{
+				if (!item || !item.CanBeBought()) continue;
+				string a = item.className;
+				a.ToLower();
+				string b = item.GetDisplayName();
+				b.ToLower();
+				if (a.Contains(needle) || b.Contains(needle))
+				{
+					_inputCategories.Insert(category);
+					break;
+				}
+			}
 		}
 		MarkForCheck();
+		ExpandSections();
+		GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(ExpandSections, 1, false);
+		ResetCategoryScroll();
 	}
 
 	// Snap the category list back to the top — the previous scroll offset is meaningless
@@ -321,20 +404,17 @@ class PurchasePageComponent extends DZlrComponentBase
 	void UpdateFittingVisual()
 	{
 		if (fittingBtnIcon)
-			fittingBtnIcon.SetColor(DZTernaryInt.If(m_FittingMode, ARGB(255, 196, 163, 90), ARGB(200, 154, 148, 136)));
+			fittingBtnIcon.SetColor(DZTernaryInt.If(m_FittingMode, TraderXTheme.SLOT_ACTIVE, TraderXTheme.NAV_INACTIVE));
 	}
 
 	// Debounced keyword pushed up from the embedded tx-search-bar component.
 	void OnSearchKeyword(string keyword)
 	{
 		search_keyword = keyword;
-		foreach (DZlrComponentBase child : m_ChildComponents)
-		{
-			CategoryCardComponent card = CategoryCardComponent.Cast(child);
-			if (card)
-				card.OnSearch(search_keyword);
-		}
-		ResetCategoryScroll();
+		if (search_keyword == "")
+			ShowSelectedCategory();
+		else
+			ShowSearchResults();
 	}
 
 	// Products stream in per-trader on open; hide expand-all + show the sync indicator until

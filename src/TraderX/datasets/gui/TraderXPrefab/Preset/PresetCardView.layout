@@ -2,31 +2,22 @@ PanelWidgetClass presetCardView {
  position 0 0
  hexactpos 0
  vexactpos 0
- size 1 300
+ size 1 96
  hexactsize 0
  vexactsize 1
  ignorepointer 1
+ style TXRowRule
+ color 0.9961 0.9961 0.9961 1
  {
-  PanelWidgetClass presetCardOutline {
+  ButtonWidgetClass presetBtn {
    position 0 0
    hexactpos 0
    vexactpos 0
    size 1 1
    hexactsize 0
    vexactsize 0
-   ignorepointer 1
-   style TXCardElevated
-   color 0.9961 0.9961 0.9961 1
-  }
-  ButtonWidgetClass presetBtn {
-   position 0.01 0.01
-   hexactpos 0
-   vexactpos 0
-   size 0.98 0.98
-   hexactsize 0
-   vexactsize 0
    "text color" 0.9961 0.9961 0.9961 1
-   style Empty
+   style TXListRow
    color 0.9961 0.9961 0.9961 1
    scriptclass "ButtonBinding"
    {
@@ -36,37 +27,34 @@ PanelWidgetClass presetCardView {
    }
   }
   PanelWidgetClass presetCardContent {
-   position 0.01 0.01
+   position 0 0
    hexactpos 0
    vexactpos 0
-   size 0.98 0.98
+   size 1 1
    hexactsize 0
    vexactsize 0
-   color 0 0 0 0
    ignorepointer 1
-   style rover_sim_colorable
    {
     PanelWidgetClass previewWell {
-     position 0.04 0.03
-     hexactpos 0
-     vexactpos 0
-     size 0.92 0.54
-     hexactsize 0
-     vexactsize 0
-     color 0.0235 0.0275 0.0392 1
+     position 24 14
+     hexactpos 1
+     vexactpos 1
+     size 67 67
+     hexactsize 1
+     vexactsize 1
      ignorepointer 1
-     style rover_sim_colorable
+     style TXInset
+     color 0.9961 0.9961 0.9961 1
     }
     ItemPreviewWidgetClass presetPreview {
-     position 0.08 0.05
-     hexactpos 0
-     vexactpos 0
-     size 0.84 0.5
-     hexactsize 0
-     vexactsize 0
+     position 25 15
+     hexactpos 1
+     vexactpos 1
+     size 65 65
+     hexactsize 1
+     vexactsize 1
      ignorepointer 1
      clipchildren 1
-     priority 1
      scriptclass "ItemPreviewBinding"
      {
       ScriptParamsClass {
@@ -74,86 +62,69 @@ PanelWidgetClass presetCardView {
       }
      }
     }
-    PanelWidgetClass infoStrip {
-     position 0 0.58
+    TextWidgetClass presetNameText {
+     position 0.19565 22
      hexactpos 0
-     vexactpos 0
-     size 1 0.42
+     vexactpos 1
+     size 0.47101 26
      hexactsize 0
-     vexactsize 0
+     vexactsize 1
+     color 0.949 0.9137 0.8471 1
+     font "TraderX/datasets/fonts/rajdhanibpx20"
      ignorepointer 1
-     style TXSurface
-     color 0.9961 0.9961 0.9961 1
+     "exact text" 1
+     "text valign" center
+     text "Preset - 2"
+     scriptclass "TextBinding"
      {
-      TextWidgetClass presetNameText {
-       position 0.06 0.06
-       hexactpos 0
-       vexactpos 0
-       size 0.88 0.34
-       hexactsize 0
-       vexactsize 0
-       color 0.8471 0.8235 0.7529 1
-       font "TraderX/datasets/fonts/oswalt16"
+      ScriptParamsClass {
+       Binding_Expression "{{ preset_name }}"
+      }
+     }
+    }
+    WrapSpacerWidgetClass priceGrid {
+     position 0.19565 50
+     hexactpos 0
+     vexactpos 1
+     size 0.47101 22
+     hexactsize 0
+     vexactsize 1
+     ignorepointer 1
+     Padding 10
+     {
+      TextWidgetClass priceText {
+       size 1 22
+       hexactsize 1
+       vexactsize 1
+       color 0.9098 0.5373 0.2902 1
+       font "TraderX/datasets/fonts/monopx18"
        ignorepointer 1
-       style Bold
        "exact text" 1
-       "text halign" center
-       text "Preset Name"
+       "text valign" center
+       "size to text h" 1
+       text "€ 670"
        scriptclass "TextBinding"
        {
         ScriptParamsClass {
-         Binding_Expression "{{ preset_name }}"
+         Binding_Expression "{{ price }}"
         }
        }
       }
-      GridSpacerWidgetClass priceGrid {
-       position 0.28 0.46
-       hexactpos 0
-       vexactpos 0
-       size 0.4 0.32
-       hexactsize 0
-       vexactsize 0
+      TextWidgetClass ownerText {
+       size 1 22
+       hexactsize 1
+       vexactsize 1
+       color 0.6392 0.5725 0.4627 1
+       font "TraderX/datasets/fonts/rajdhanipx16"
        ignorepointer 1
-       Columns 2
-       Rows 1
-       Margin 6
-       "Size To Content H" 1
+       "exact text" 1
+       "text valign" center
+       "size to text h" 1
+       text "server default"
+       scriptclass "TextBinding"
        {
-        ImageWidgetClass priceIcon {
-         position 0.28 0.46
-         hexactpos 0
-         vexactpos 0
-         size 32 32
-         hexactsize 1
-         vexactsize 1
-         color 0.7686 0.6392 0.3529 1
-         ignorepointer 1
-         image0 "set:traderx_icons image:simpleCoins"
-         mode blend
-         "src alpha" 1
-         "stretch mode" stretch_w_h
-        }
-        TextWidgetClass priceText {
-         position 0.38 0.42
-         hexactpos 0
-         vexactpos 0
-         size 0.36 0.4
-         hexactsize 0
-         vexactsize 0
-         color 0.7686 0.6392 0.3529 1
-         font "TraderX/datasets/fonts/jet-brains-mono22"
-         ignorepointer 1
-         style Bold
-         "exact text" 1
-         "text valign" center
-         "size to text h" 1
-         text "1,250"
-         scriptclass "TextBinding"
-         {
-          ScriptParamsClass {
-           Binding_Expression "{{ price }}"
-          }
-         }
+        ScriptParamsClass {
+         Binding_Expression "{{ preset_owner }}"
         }
        }
       }
@@ -161,15 +132,27 @@ PanelWidgetClass presetCardView {
     }
    }
   }
-  ButtonWidgetClass defaultPresetBtn {
-   position 0.04 0.04
+  PanelWidgetClass presetCardOutline {
+   position 0 0
    hexactpos 0
    vexactpos 0
-   size 24 24
+   size 1 1
    hexactsize 1
    vexactsize 1
+   ignorepointer 1
+   visible 0
+  }
+  ButtonWidgetClass defaultPresetBtn {
+   position 0.22101 0
+   hexactpos 0
+   vexactpos 0
+   size 41 41
+   hexactsize 1
+   vexactsize 1
+   halign right_ref
+   valign center_ref
    "text color" 0.9961 0.9961 0.9961 1
-   style Empty
+   style TXBtnIcon
    color 0.9961 0.9961 0.9961 1
    scriptclass "ButtonBinding"
    {
@@ -177,12 +160,14 @@ PanelWidgetClass presetCardView {
      position 0 0
      hexactpos 0
      vexactpos 0
-     size 1 1
-     hexactsize 0
-     vexactsize 0
-     color 0.7451 0.7451 0.7451 0.7843
+     size 18 18
+     hexactsize 1
+     vexactsize 1
+     halign center_ref
+     valign center_ref
+     color 0.7608 0.7098 0.6118 1
      ignorepointer 1
-     image0 "set:traderx_icons image:favFull"
+     image0 "set:traderx_icons image:star_full"
      mode blend
      "src alpha" 1
      "stretch mode" stretch_w_h
@@ -195,14 +180,16 @@ PanelWidgetClass presetCardView {
    }
   }
   ButtonWidgetClass editBtn {
-   position 0.8 0.04
+   position 0.13225 0
    hexactpos 0
    vexactpos 0
-   size 24 24
+   size 41 41
    hexactsize 1
    vexactsize 1
+   halign right_ref
+   valign center_ref
    "text color" 0.9961 0.9961 0.9961 1
-   style Empty
+   style TXBtnIcon
    color 0.9961 0.9961 0.9961 1
    scriptclass "ButtonBinding"
    {
@@ -210,10 +197,12 @@ PanelWidgetClass presetCardView {
      position 0 0
      hexactpos 0
      vexactpos 0
-     size 1 1
-     hexactsize 0
-     vexactsize 0
-     color 0.6039 0.5804 0.5333 1
+     size 18 18
+     hexactsize 1
+     vexactsize 1
+     halign center_ref
+     valign center_ref
+     color 0.7608 0.7098 0.6118 1
      ignorepointer 1
      image0 "set:traderx_icons image:edit"
      mode blend
@@ -228,14 +217,16 @@ PanelWidgetClass presetCardView {
    }
   }
   ButtonWidgetClass deleteBtn {
-   position 0.9 0.04
-   hexactpos 0
+   position 24 0
+   hexactpos 1
    vexactpos 0
-   size 24 24
+   size 41 41
    hexactsize 1
    vexactsize 1
+   halign right_ref
+   valign center_ref
    "text color" 0.9961 0.9961 0.9961 1
-   style Empty
+   style TXBtnIcon
    color 0.9961 0.9961 0.9961 1
    scriptclass "ButtonBinding"
    {
@@ -243,10 +234,12 @@ PanelWidgetClass presetCardView {
      position 0 0
      hexactpos 0
      vexactpos 0
-     size 1 1
-     hexactsize 0
-     vexactsize 0
-     color 0.7686 0.3137 0.3098 1
+     size 18 18
+     hexactsize 1
+     vexactsize 1
+     halign center_ref
+     valign center_ref
+     color 0.8784 0.4784 0.3882 1
      ignorepointer 1
      image0 "set:traderx_icons image:trash"
      mode blend

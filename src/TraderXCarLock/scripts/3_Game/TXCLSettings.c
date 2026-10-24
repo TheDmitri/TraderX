@@ -1,3 +1,9 @@
+// TraderPlusGeneralConfig.json field used to start a TraderPlus server with its own lockpick chance
+class TXCLTraderPlusGeneralConfig
+{
+    float LockPickChance = -1;
+}
+
 // Server-side settings, persisted as JSON under $profile. Synced to clients on connect.
 // passwordLength = 8 is the project requirement (TheLab used 4).
 
@@ -25,8 +31,18 @@ class TXCLSettings
             MakeDirectory(TXCL_CONFIG_ROOT);
     }
 
+    static const string TRADERPLUS_GENERAL_CONFIG = "$profile:TraderPlus/TraderPlusConfig/TraderPlusGeneralConfig.json";
+
     void ApplyDefaults()
     {
+        // First boot on a TraderPlus V1 server: keep its car lockpick chance (TraderPlus lockpicks cars only)
+        if (FileExist(TRADERPLUS_GENERAL_CONFIG))
+        {
+            TXCLTraderPlusGeneralConfig traderPlus = new TXCLTraderPlusGeneralConfig();
+            string error;
+            if (JsonFileLoader<TXCLTraderPlusGeneralConfig>.LoadFile(TRADERPLUS_GENERAL_CONFIG, traderPlus, error) && traderPlus.LockPickChance >= 0)
+                lockpickingSettings.carConfig.lockpickChance = traderPlus.LockPickChance;
+        }
         Save();
     }
 

@@ -30,6 +30,8 @@ class TXCLLockMenuComponent extends DZlrComponentBase
     private bool _suppressChange;   // guard re-entrancy when we SetText the mask
 
     const int PASSWORD_LENGTH = 8;
+    // Unlocking also accepts the 4-digit codes of vehicles locked with TraderPlus V1 CarLock
+    const int MIN_ENTER_LENGTH = 4;
     const string PROMPT_ENTER = "ENTER PASSWORD (8 digits)";
     const string PROMPT_SET = "SET PASSWORD (8 digits)";
     const string PROMPT_CONFIRM = "CONFIRM PASSWORD (8 digits)";
@@ -239,7 +241,7 @@ class TXCLLockMenuComponent extends DZlrComponentBase
         if (_cooldownState && _cooldownState.HasCooldown())
             return;
 
-        if (_code.Length() != PASSWORD_LENGTH)
+        if (_code.Length() != PASSWORD_LENGTH && (_isSettingPassword || _code.Length() < MIN_ENTER_LENGTH))
         {
             message_text = ERR_TOO_SHORT;
             MarkForCheck();

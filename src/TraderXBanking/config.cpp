@@ -5,7 +5,7 @@ class CfgPatches
 		units[]={};
 		weapons[]={};
 		requiredVersion=0.1;
-		requiredAddons[] = {"DZ_Data","DayZular_Script"};
+		requiredAddons[] = {"DZ_Data","TraderX_DayZular"};
 	};
 };
 class CfgMods
@@ -51,7 +51,7 @@ class CfgMods
 				value="";
 				files[]=
 				{
-					"DayZular/scripts/3_Game",
+					"TraderXDayZular/scripts/3_Game",
 					"TraderX/scripts/3_Game",
 					"TraderXBanking/scripts/Common",
 					"TraderXBanking/scripts/3_Game"
@@ -62,7 +62,7 @@ class CfgMods
 				value="";
 				files[]=
 				{
-					"DayZular/scripts/4_World",
+					"TraderXDayZular/scripts/4_World",
 					"TraderX/scripts/4_World",
 					"TraderXBanking/scripts/Common",
 					"TraderXBanking/scripts/4_World"
@@ -73,7 +73,7 @@ class CfgMods
 				value="";
 				files[]=
 				{
-					"DayZular/scripts/5_Mission",
+					"TraderXDayZular/scripts/5_Mission",
 					"TraderX/scripts/5_Mission",
 					"TraderXBanking/scripts/Common",
 					"TraderXBanking/scripts/5_Mission"
@@ -113,3 +113,22 @@ class CfgSoundSets
 	};
 };
 
+class CfgVehicles
+{
+	class Paper;
+	// Bank card required when requireCreditCard is on (model shipped in TraderPlusMoney)
+	class TXBCreditCard: Paper
+	{
+		scope = 2;
+		displayName = "$STR_txb_credit_card";
+		descriptionShort = "$STR_txb_credit_card_des";
+		itemSize[] = {1,1};
+		itemsCargoSize[] = {0,0};
+		model = "TraderPlusMoney\Data\money\Debit_Card.p3d";
+	};
+	// TraderPlus V1 card: players keep it and it still opens the bank
+	class TraderPlusCreditCard: TXBCreditCard
+	{
+		scope = 2;
+	};
+};

@@ -2,51 +2,68 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="dzml.css">
-  <link rel="stylesheet" href="dzml-styles.css">
-  <link rel="stylesheet" href="dzml-icons.css">
+  <link rel="stylesheet" href="../../dzml.css">
+  <link rel="stylesheet" href="../../dzml-styles.css">
+  <link rel="stylesheet" href="../../dzml-icons.css">
 </head>
-<body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#1a1a1a;">
+<body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#13100c;">
 
-<div data-dz="panel"
+<!-- Nasdara modal: Deep 80% backdrop, Surface card with a Line border, Anton title. -->
+<div data-dz="frame"
     data-name="modalRoot"
-    class="dz-xy-0-0 dz-wh-full dz-align-cc dz-priority-999">
+    class="dz-xy-0-0 dz-wh-full dz-align-cc">
   <div data-dz="panel"
       data-name="backdrop"
-      class="dz-xy-0-0 dz-wh-full dz-c-000000C8"></div>
+      class="dz-xy-0-0 dz-wh-full dz-c-0F0D0ACC"></div>
   <div data-dz="panel"
       data-name="modalCard"
       data-style="TXCard"
-      class="dz-xy-0-0 dz-wh-30-30 dz-align-cc dz-c-FE">
+      class="dz-xy-0-0 dz-wh-600px-290px dz-align-cc dz-c-FE">
     <span data-dz="text"
         data-name="title"
         data-bind="{{ title }}"
-        class="dz-xy-0-8 dz-wh-100-16 dz-align-x-center dz-c-D8D2C0 dz-font-heading-22 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+        class="dz-xy-28px-23px dz-wh-544px-42px dz-c-F2E9D8 dz-font-nh-29 dz-noptr dz-exact-text dz-text-vc">
       #tpm_confirmation
     </span>
-    <p data-dz="richtext"
+    <div data-dz="richtext"
         data-name="textContent"
         data-bind="{{ content }}"
-        class="dz-xy-8-34 dz-wh-84-34 dz-c-A8B0A7 dz-font-body-16 dz-noptr dz-wrap dz-exact-text dz-text-center">
-      Are you sure?
-    </p>
-    <button data-dz="button"
-        data-name="cancelBtn"
-        data-style="TXBtnDefault"
-        data-on-click="OnCancelClick"
-        class="dz-xy-7-74 dz-wh-40-18 dz-tc-FE">
-      #tpm_cancel
-    </button>
-    <button data-dz="button"
-        data-name="confirmBtn"
-        data-style="TXBtnPrimary"
-        data-on-click="OnConfirmClick"
-        class="dz-xy-53-74 dz-wh-40-18 dz-tc-FE">
-      #tpm_confirm
-    </button>
+        class="dz-xy-28px-82px dz-wh-544px-100px dz-c-C2B59C dz-font-nb-19 dz-noptr dz-exact-text dz-wrap">
+      Delete this preset?
+    </div>
+    <div data-dz="panel"
+        data-name="confirmBtnHost"
+        class="dz-xy-28px-28px dz-wh-200px-53px dz-align-br dz-noptr">
+      <button data-dz="button"
+          data-name="confirmBtn"
+          data-style="TXBtnPrimary"
+          data-on-click="OnConfirmClick"
+          class="dz-xy-0-0 dz-wh-full dz-tc-FE">
+        <span data-dz="text"
+            data-name="confirmBtnText"
+            class="dz-xy-0-0 dz-wh-full dz-c-1A0D04 dz-font-nh-20 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+          #tpm_confirm
+        </span>
+      </button>
+    </div>
+    <div data-dz="panel"
+        data-name="cancelBtnHost"
+        class="dz-xy-240px-28px dz-wh-200px-53px dz-align-br dz-noptr">
+      <button data-dz="button"
+          data-name="cancelBtn"
+          data-style="TXBtnDefault"
+          data-on-click="OnCancelClick"
+          class="dz-xy-0-0 dz-wh-full dz-tc-FE">
+        <span data-dz="text"
+            data-name="cancelBtnText"
+            class="dz-xy-0-0 dz-wh-full dz-c-C2B59C dz-font-nh-20 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+          #tpm_cancel
+        </span>
+      </button>
+    </div>
   </div>
 </div>
 
-<script src="dzml-runtime.js"></script>
+<script src="../../dzml-runtime.js"></script>
 </body>
 </html>

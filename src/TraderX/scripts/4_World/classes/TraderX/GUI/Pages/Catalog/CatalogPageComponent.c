@@ -29,6 +29,11 @@ class CatalogPageComponent extends DZlrComponentBase
 	override void OnInit()
 	{
 		AutoLoadWidgets();
+		// empty details until an item is picked
+		selected_item_name = "#tpm_select_item_for_details";
+		selected_buy_price = "–";
+		selected_sell_price = "–";
+		selected_description = "";
 		CatalogItemCardComponent.Event_OnCatalogItemCardClickCallBack.Insert(OnCatalogItemCardClick);
 		TraderXSearchBarComponent.Event_OnSearchChangedCallBack.Insert(OnSearchKeyword);
 		CatalogCategoryCardComponent.Event_OnCategoryCollapsedCallBack.Insert(OnCategoryCollapsed);
@@ -148,12 +153,12 @@ class CatalogPageComponent extends DZlrComponentBase
 		selected_preview = itemSelected.GetPreview();
 
 		int sellPrice = TraderXPricingService.GetInstance().GetPricePreview(selected_item.GetProductId(), false, 1, TraderXItemState.PRISTINE);
-		selected_sell_price = sellPrice.ToString();
+		selected_sell_price = TraderXCurrencyService.GetInstance().GetTraderCurrencySymbol() + TraderXQuantityManager.GetFormattedMoneyAmount(sellPrice);
 
 		int buyPrice = TraderXPricingService.GetInstance().GetPricePreview(selected_item.GetProductId(), true, 1, TraderXItemState.PRISTINE);
 		if (selected_item.defaultPreset)
 			buyPrice = TraderXPresetsService.GetInstance().CalculateTotalPricePreset(selected_item.defaultPreset);
-		selected_buy_price = buyPrice.ToString();
+		selected_buy_price = TraderXCurrencyService.GetInstance().GetTraderCurrencySymbol() + TraderXQuantityManager.GetFormattedMoneyAmount(buyPrice);
 
 		selected_stock = TraderXProductStockRepository.GetStockDisplay(selected_item.productId, selected_item.maxStock);
 		selected_description = itemSelected.GetItemDescription();

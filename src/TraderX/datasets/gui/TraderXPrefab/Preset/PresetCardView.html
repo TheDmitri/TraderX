@@ -2,120 +2,101 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="dzml.css">
-  <link rel="stylesheet" href="dzml-styles.css">
-  <link rel="stylesheet" href="dzml-icons.css">
+  <link rel="stylesheet" href="../../dzml.css">
+  <link rel="stylesheet" href="../../dzml-styles.css">
+  <link rel="stylesheet" href="../../dzml-icons.css">
 </head>
-<!-- Preset card — mirrors the item card (tx-item-card-large): elevated card, item
-     preview (built with the preset's attachments in code), name + total price. The
-     full-size presetBtn is the click target → OnPresetClick selects the preset's
-     variant + all attachments. default/edit/delete are overlay buttons on top.
-     data-name contract → AutoLoadWidgets in PresetCardComponent.c:
-       presetBtn, defaultPresetBtn, defaultPresetImg, editBtn, deleteBtn -->
-<body data-dzml class="dz-viewport" style="width:720px; height:300px; background:#1a1a1a;">
+<body data-dzml class="dz-viewport" style="width:552px; height:96px; background:#1c1813;">
 
+<!-- Preset row (Nasdara): well with the configured weapon, name, "€ 670 · yours",
+     set-default / rename / delete. -->
 <div data-dz="panel"
     data-name="presetCardView"
-    class="dz-xy-0-0 dz-wh-100-300px dz-noptr">
-  <div data-dz="panel"
-      data-name="presetCardOutline"
-      data-style="TXCardElevated"
-      class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr"></div>
-
-  <!-- Main click target: select this preset (variant + all attachments) -->
+    data-style="TXRowRule"
+    class="dz-xy-0-0 dz-wh-100-96px dz-c-FE dz-noptr">
   <button data-dz="button"
       data-name="presetBtn"
-      data-style="Empty"
+      data-style="TXListRow"
       data-on-click="OnPresetClick"
-      class="dz-xy-1-1 dz-wh-98-98 dz-tc-FE"></button>
-
-  <!-- Visuals (transparent, clicks fall through to presetBtn) -->
+      class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
   <div data-dz="panel"
       data-name="presetCardContent"
-      class="dz-xy-1-1 dz-wh-98-98 dz-c-00000000 dz-noptr">
+      class="dz-xy-0-0 dz-wh-full dz-noptr">
     <div data-dz="panel"
         data-name="previewWell"
-        class="dz-xy-4-3 dz-wh-92-54 dz-c-06070A dz-noptr"></div>
+        data-style="TXInset"
+        class="dz-xy-24px-14px dz-wh-67px-67px dz-c-FE dz-noptr"></div>
     <div data-dz="preview"
         data-name="presetPreview"
         data-bind-item="{{ preview }}"
-        class="dz-xy-8-5 dz-wh-84-50 dz-noptr dz-clip dz-priority-1"></div>
-    <div data-dz="panel"
-        data-name="infoStrip"
-        data-style="TXSurface"
-        class="dz-xy-0-58 dz-wh-100-42 dz-c-FE dz-noptr">
+        class="dz-xy-25px-15px dz-wh-65px-65px dz-noptr dz-clip"></div>
+    <span data-dz="text"
+        data-name="presetNameText"
+        data-bind="{{ preset_name }}"
+        class="dz-xy-108px-22px dz-wh-260px-26px dz-c-F2E9D8 dz-font-nbb-20 dz-noptr dz-exact-text dz-text-vc">
+      Preset - 2
+    </span>
+    <div data-dz="wrap"
+        data-name="priceGrid"
+        class="dz-xy-108px-50px dz-wh-260px-22px dz-noptr dz-gap-10">
       <span data-dz="text"
-          data-name="presetNameText"
-          data-bind="{{ preset_name }}"
-          class="dz-xy-6-6 dz-wh-88-34 dz-c-D8D2C0 dz-font-body-16 dz-noptr dz-bold dz-exact-text dz-text-center">
-        Preset Name
+          data-name="priceText"
+          data-bind="{{ price }}"
+          class="dz-wh-1px-22px dz-c-E8894A dz-font-nm-18 dz-noptr dz-exact-text dz-text-vc dz-size-to-text-h">
+        € 670
       </span>
-      <div data-dz="grid"
-          data-name="priceGrid"
-          class="dz-xy-28-46 dz-wh-40-32 dz-noptr dz-cols-2 dz-rows-1 dz-gap-6 dz-fit-h">
-        <img data-dz="image"
-            data-name="priceIcon"
-            class="dz-xy-28-46 dz-wh-32px-32px dz-c-C4A35A dz-noptr"
-            data-image="set:traderx_icons image:simpleCoins"
-            data-image-mode="blend"
-            data-image-src-alpha="1"
-            data-image-stretch="stretch_w_h"/>
-        <span data-dz="text"
-            data-name="priceText"
-            data-bind="{{ price }}"
-            class="dz-xy-38-42 dz-wh-36-40 dz-c-C4A35A dz-font-mono-22 dz-noptr dz-bold dz-exact-text dz-text-vc dz-size-to-text-h">
-          1,250
-        </span>
-      </div>
+      <span data-dz="text"
+          data-name="ownerText"
+          data-bind="{{ preset_owner }}"
+          class="dz-wh-1px-22px dz-c-A39276 dz-font-nb-16 dz-noptr dz-exact-text dz-text-vc dz-size-to-text-h">
+        server default
+      </span>
     </div>
   </div>
-
-  <!-- Set-as-default (top-left). Icon recolored by the component. -->
+  <div data-dz="panel"
+      data-name="presetCardOutline"
+      class="dz-xy-0-0 dz-wh-1px-1px dz-noptr dz-hidden"></div>
   <button data-dz="button"
       data-name="defaultPresetBtn"
-      data-style="Empty"
+      data-style="TXBtnIcon"
       data-on-click="OnDefaultPresetClick"
-      class="dz-xy-4-4 dz-wh-24px-24px dz-tc-FE">
+      class="dz-xy-122px-0 dz-wh-41px-41px dz-align-cr dz-tc-FE">
     <img data-dz="image"
         data-name="defaultPresetImg"
-        class="dz-xy-0-0 dz-wh-full dz-c-BEBEBEC8 dz-noptr"
-        data-image="set:traderx_icons image:favFull"
+        class="dz-xy-0-0 dz-wh-18px-18px dz-align-cc dz-c-C2B59C dz-noptr"
+        data-image="set:traderx_icons image:star_full"
         data-image-mode="blend"
-        data-image-src-alpha="1"
-        data-image-stretch="stretch_w_h"/>
+          data-image-src-alpha="1"
+          data-image-stretch="stretch_w_h"/>
   </button>
-
-  <!-- Edit (top-right) -->
   <button data-dz="button"
       data-name="editBtn"
-      data-style="Empty"
+      data-style="TXBtnIcon"
       data-on-click="OnEditPresetClick"
-      class="dz-xy-80-4 dz-wh-24px-24px dz-tc-FE">
+      class="dz-xy-73px-0 dz-wh-41px-41px dz-align-cr dz-tc-FE">
     <img data-dz="image"
         data-name="editIcon"
-        class="dz-xy-0-0 dz-wh-full dz-c-9A9488 dz-noptr"
+        class="dz-xy-0-0 dz-wh-18px-18px dz-align-cc dz-c-C2B59C dz-noptr"
         data-image="set:traderx_icons image:edit"
         data-image-mode="blend"
-        data-image-src-alpha="1"
-        data-image-stretch="stretch_w_h"/>
+          data-image-src-alpha="1"
+          data-image-stretch="stretch_w_h"/>
   </button>
-
-  <!-- Delete (top-right) -->
   <button data-dz="button"
       data-name="deleteBtn"
-      data-style="Empty"
+      data-style="TXBtnIcon"
       data-on-click="OnDeletePresetClick"
-      class="dz-xy-90-4 dz-wh-24px-24px dz-tc-FE">
+      class="dz-xy-24px-0 dz-wh-41px-41px dz-align-cr dz-tc-FE">
     <img data-dz="image"
         data-name="deleteIcon"
-        class="dz-xy-0-0 dz-wh-full dz-c-C4504F dz-noptr"
+        class="dz-xy-0-0 dz-wh-18px-18px dz-align-cc dz-c-E07A63 dz-noptr"
         data-image="set:traderx_icons image:trash"
         data-image-mode="blend"
-        data-image-src-alpha="1"
-        data-image-stretch="stretch_w_h"/>
+          data-image-src-alpha="1"
+          data-image-stretch="stretch_w_h"/>
   </button>
 </div>
 
-<script src="dzml-runtime.js"></script>
+<script src="../../dzml-runtime.js"></script>
 </body>
 </html>

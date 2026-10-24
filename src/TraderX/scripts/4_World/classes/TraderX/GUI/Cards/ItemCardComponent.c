@@ -11,6 +11,10 @@ class ItemCardComponent extends DZlrComponentBase
 	string itemName;
 	string itemPrice;
 	string itemSellPrice;
+	// Nasdara tile: price with the currency symbol, and the "IN CART · n" badge.
+	string price_display;
+	string cart_badge;
+	Widget inCartBadge;
 	string itemStock;
 	string quantityStr;
 	float itemVolume;
@@ -18,8 +22,16 @@ class ItemCardComponent extends DZlrComponentBase
 	int tradeMode;
 	int categoryType;
 	bool selectable;
+	// True when the card is unselectable ONLY because the main item is out of stock (buy mode).
+	// Customize (variants/attachments) stays reachable then: a variant may have its own stock.
+	bool m_OutOfStockOnly;
 	bool isFavable;
 	bool isFav;
+	// Buy mode only: every category of the open trader listing this product requires a licence
+	// the player lacks. The card is greyed (licenseDimPanel + licenseLockIcon) but stays
+	// inspectable (hover tooltip, right-click customize/preview); selecting it for purchase is
+	// refused with a toast. The server enforces the same rule (ValidateCategoryLicenses).
+	bool m_LicenseLocked;
 
 	Widget itemCardOutline;
 	Widget itemCardContent;
@@ -40,6 +52,8 @@ class ItemCardComponent extends DZlrComponentBase
 	ButtonWidget variantBtn;
 	ButtonWidget attachBtn;
 	ButtonWidget customizeBtn;
+	Widget licenseDimPanel;
+	ImageWidget licenseLockIcon;
 	ref SimpleBtnTooltipComponent simpleTooltipComp;
 
 	ref NavBtnTooltipComponent navBtnTooltipComp;
@@ -64,6 +78,8 @@ class ItemCardComponent extends DZlrComponentBase
 		TraderXSelectionService.Event_OnItemSelectionChanged.Insert(OnItemSelectionChanged);
 		TraderXTradingService.Event_OnTraderXResponseReceived.Insert(OnTraderXResponseReceived);
 		TraderXProduct.Event_OnCheckoutPricingChanged.Insert(OnCheckoutPricingChanged);
+		TraderXLicenseService.Event_OnPlayerLicensesChanged.Insert(OnPlayerLicensesChanged);
+		CheckoutCardComponent.Event_OnCartQuantityChanged.Insert(OnCartQuantityChanged);
 		Event_OnDestroyAllTooltips.Insert(DestroyTooltips);
 
 		if (_inputProduct)
@@ -75,6 +91,8 @@ class ItemCardComponent extends DZlrComponentBase
 		TraderXSelectionService.Event_OnItemSelectionChanged.Remove(OnItemSelectionChanged);
 		TraderXTradingService.Event_OnTraderXResponseReceived.Remove(OnTraderXResponseReceived);
 		TraderXProduct.Event_OnCheckoutPricingChanged.Remove(OnCheckoutPricingChanged);
+		TraderXLicenseService.Event_OnPlayerLicensesChanged.Remove(OnPlayerLicensesChanged);
+		CheckoutCardComponent.Event_OnCartQuantityChanged.Remove(OnCartQuantityChanged);
 		Event_OnDestroyAllTooltips.Remove(DestroyTooltips);
 		DestroyTooltips();
 	}
@@ -115,14 +133,34 @@ class ItemCardComponent extends DZlrComponentBase
 
 		CreatePreview();
 		itemPrice = GetPriceFromItem();
+		UpdatePriceDisplay();
 		itemSellPrice = GetSellPriceSuffix();
 		SetItemHealth();
 		UpdateCustomizeAffordance();
+		ApplyLicenseState();
 
 		if (item.isSelected)
 			Event_OnItemCardSelectCallBack.Invoke(this);
 
 		MarkForCheck();
+		OnShow(true);
+	}
+
+	void ApplyLicenseState()
+	{
+		m_LicenseLocked = false;
+		if (tradeMode == ETraderXTradeMode.BUY && _inputProduct)
+			m_LicenseLocked = TraderXLicenseService.GetInstance().IsProductLicenseLocked(_inputProduct);
+
+		if (licenseDimPanel) licenseDimPanel.Show(m_LicenseLocked);
+		if (licenseLockIcon) licenseLockIcon.Show(m_LicenseLocked);
+	}
+
+	// Licence bought (or licences synced late): un-grey live.
+	void OnPlayerLicensesChanged()
+	{
+		if (!_inputProduct) return;
+		ApplyLicenseState();
 		OnShow(true);
 	}
 
@@ -153,6 +191,7 @@ class ItemCardComponent extends DZlrComponentBase
 		// an unstyled transparent holder over the TXListRow row — painting it white
 		// turned the whole row white. Warning state is shown via stockText (red).
 		selectable = true;
+		m_OutOfStockOnly = false;
 
 		if (tradeMode == ETraderXTradeMode.SELL)
 		{
@@ -169,6 +208,7 @@ class ItemCardComponent extends DZlrComponentBase
 			{
 				if (stockText) TextWidget.Cast(stockText).SetColor(TraderXTheme.STOCK_LOW);
 				selectable = false;
+				m_OutOfStockOnly = true;
 			}
 		}
 
@@ -289,7 +329,7 @@ class ItemCardComponent extends DZlrComponentBase
 		if (sellPrice < 0)
 			return string.Empty;
 
-		return "sell " + sellPrice.ToString();
+		return Widget.TranslateString("#tpm_sells_for") + " " + TraderXCurrencyService.GetInstance().GetTraderCurrencySymbol() + TraderXQuantityManager.GetFormattedMoneyAmount(sellPrice);
 	}
 
 	int CalculateAttachmentsPrice()
@@ -350,7 +390,8 @@ class ItemCardComponent extends DZlrComponentBase
 			if (unfavIcon) unfavIcon.Show(!isFav && isFavable);
 			if (selectedIcon) selectedIcon.Show(_inputProduct.isSelected && selectable);
 			if (itemCardOutline) itemCardOutline.SetAlpha(DZTernaryFloat.If(_inputProduct.isSelected, 1.0, 0.0));
-			if (unselectedIcon) unselectedIcon.Show(!_inputProduct.isSelected && selectable);
+			UpdateCartBadge();
+			if (unselectedIcon) unselectedIcon.Show(!_inputProduct.isSelected && selectable && !m_LicenseLocked);
 			if (healthImg) healthImg.Show(tradeMode == ETraderXTradeMode.SELL);
 		}
 		else
@@ -365,6 +406,13 @@ class ItemCardComponent extends DZlrComponentBase
 	void OnItemCardLeftClick()
 	{
 		if (!selectable) return;
+		// Locked by a category licence: explain instead of silently adding it to the cart
+		// (deselecting a card that was somehow selected stays allowed).
+		if (m_LicenseLocked && !_inputProduct.isSelected)
+		{
+			TraderXLicenseService.GetInstance().NotifyIfProductLocked(_inputProduct);
+			return;
+		}
 		if (KeyState(KeyCode.KC_LSHIFT) == 0)
 			SetItemSelected(!_inputProduct.isSelected);
 		Event_OnItemCardClickEventCallBack.Invoke(this, DZTernaryInt.If(KeyState(KeyCode.KC_LSHIFT) != 0, ETraderXClickEvents.SHIFT_LCLICK, ETraderXClickEvents.LCLICK));
@@ -372,13 +420,14 @@ class ItemCardComponent extends DZlrComponentBase
 
 	void OnItemCardRightClick()
 	{
-		if (!selectable) return;
+		if (!selectable && !m_OutOfStockOnly) return;
 		Event_OnItemCardClickEventCallBack.Invoke(this, DZTernaryInt.If(KeyState(KeyCode.KC_LSHIFT) != 0, ETraderXClickEvents.SHIFT_RCLICK, ETraderXClickEvents.RCLICK));
 	}
 
 	void OnItemCardDoubleClick()
 	{
 		if (!selectable) return;
+		if (m_LicenseLocked) return;
 		Event_OnItemCardClickEventCallBack.Invoke(this, ETraderXClickEvents.DOUBLE_CLICK);
 	}
 
@@ -388,7 +437,7 @@ class ItemCardComponent extends DZlrComponentBase
 		if (!_inputProduct.isSelected)
 		{
 			if (itemCardOutline) itemCardOutline.SetAlpha(0.5);
-			if (selectable)
+			if (selectable && !m_LicenseLocked)
 			{
 				if (unselectedIcon) unselectedIcon.Show(false);
 				if (selectedIcon)
@@ -406,7 +455,7 @@ class ItemCardComponent extends DZlrComponentBase
 		if (!_inputProduct.isSelected)
 		{
 			if (itemCardOutline) itemCardOutline.SetAlpha(0.0);
-			if (selectable)
+			if (selectable && !m_LicenseLocked)
 			{
 				if (unselectedIcon) unselectedIcon.Show(true);
 				if (selectedIcon)
@@ -478,7 +527,7 @@ class ItemCardComponent extends DZlrComponentBase
 	// the page components); the target tab is handed to the page via s_PendingTab.
 	void OpenCustomizeOnTab(string tabSelector)
 	{
-		if (!selectable) return;
+		if (!selectable && !m_OutOfStockOnly) return;
 		CustomizePageComponent.s_PendingTab = tabSelector;
 		Event_OnItemCardClickEventCallBack.Invoke(this, ETraderXClickEvents.RCLICK);
 	}
@@ -533,6 +582,34 @@ class ItemCardComponent extends DZlrComponentBase
 		UpdateFav();
 	}
 
+	void UpdatePriceDisplay()
+	{
+		price_display = TraderXCurrencyService.GetInstance().GetTraderCurrencySymbol() + TraderXQuantityManager.GetFormattedMoneyAmount(itemPrice.ToInt());
+	}
+
+	// "IN CART · 2" while the product is in the cart (its multiplier is the cart quantity).
+	void UpdateCartBadge()
+	{
+		if (!_inputProduct) return;
+		bool inCart = _inputProduct.isSelected && selectable;
+		if (inCartBadge) inCartBadge.Show(inCart);
+		cart_badge = AppUpper("#tpm_in_cart") + " · " + _inputProduct.GetMultiplier().ToString();
+		MarkForCheck();
+	}
+
+	static string AppUpper(string key)
+	{
+		string s = Widget.TranslateString(key);
+		s.ToUpper();
+		return s;
+	}
+
+	void OnCartQuantityChanged(TraderXProduct product)
+	{
+		if (_inputProduct && product && _inputProduct.productId == product.productId)
+			UpdateCartBadge();
+	}
+
 	void UpdateFav()
 	{
 		if (unfavIcon) unfavIcon.Show(!isFav);
@@ -544,6 +621,7 @@ class ItemCardComponent extends DZlrComponentBase
 		if (selectedIcon) selectedIcon.Show(_inputProduct.isSelected);
 		if (unselectedIcon) unselectedIcon.Show(!_inputProduct.isSelected);
 		if (itemCardOutline) itemCardOutline.SetAlpha(DZTernaryFloat.If(_inputProduct.isSelected, 1.0, 0.0));
+		UpdateCartBadge();
 		GetRoot().Update();
 	}
 
@@ -562,6 +640,7 @@ class ItemCardComponent extends DZlrComponentBase
 			if (newPrice != itemPrice)
 			{
 				itemPrice = newPrice;
+				UpdatePriceDisplay();
 				MarkForCheck();
 			}
 		}

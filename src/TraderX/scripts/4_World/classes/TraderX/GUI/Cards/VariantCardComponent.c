@@ -36,7 +36,7 @@ class VariantCardComponent extends DZlrComponentBase
 	{
 		_inputProduct = item;
 		variant_classname = item.GetDisplayName();
-		variant_price = TraderXQuantityManager.GetFormattedMoneyAmount(item.buyPrice);
+		variant_price = TraderXCurrencyService.GetInstance().GetTraderCurrencySymbol() + TraderXQuantityManager.GetFormattedMoneyAmount(item.buyPrice);
 		preview = EntityAI.Cast(GetGame().CreateObjectEx(item.className, vector.Zero, ECE_LOCAL|ECE_NOLIFETIME));
 		RefreshSelectedState();
 		MarkForCheck();

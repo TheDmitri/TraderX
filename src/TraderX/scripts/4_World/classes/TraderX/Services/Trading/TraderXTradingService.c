@@ -88,11 +88,19 @@ class TraderXTradingService
 
     int GetNpcId()
     {
-        return DZTernary<int>.If(traderNpc != null, traderNpc.npcId, -1);
+        // No ternary helper here: its arguments are evaluated eagerly, so traderNpc.npcId
+        // would dereference null after the menu closed.
+        if (!traderNpc)
+            return -1;
+        return traderNpc.npcId;
     }
 
     int GetPlayerMoneyAmount(PlayerBase player)
     {
+        // traderNpc is cleared by OnTraderXMenuClose before the menu components are destroyed,
+        // and teardown (DeSelectAllItems -> checkout refresh) still asks for the wallet.
+        if (!traderNpc || !player)
+            return 0;
         TStringArray acceptedCurrencyTypes = traderNpc.GetCurrenciesAccepted();
         return TraderXCurrencyService.GetInstance().GetPlayerMoneyFromAllCurrency(player, acceptedCurrencyTypes);
     }
@@ -180,15 +188,41 @@ class TraderXTradingService
             int resolved = 0;
             foreach (string productId : category.productIds)
             {
-                if (TraderXProductRepository.GetItemById(productId))
+                TraderXProduct listedProduct = TraderXProductRepository.GetItemById(productId);
+                if (listedProduct && HasLinkedProducts(listedProduct))
                     resolved++;
                 else
                 {
-                    GetTraderXLogger().LogDebug("HasNpcProducts: missing product in client repo: " + productId + " (cat " + categoryId + ", productIds=" + pidCount + ", resolved " + resolved + ")");
+                    GetTraderXLogger().LogDebug("HasNpcProducts: missing product (or its variants/attachments) in client repo: " + productId + " (cat " + categoryId + ", productIds=" + pidCount + ", resolved " + resolved + ")");
                     return false;
                 }
             }
             GetTraderXLogger().LogDebug("HasNpcProducts: cat " + categoryId + " productIds=" + pidCount + " all resolved");
+        }
+        return true;
+    }
+
+    // A listed product may already be cached because ANOTHER trader streamed it as a variant or
+    // attachment of one of its own products — that stream did not include this product's own
+    // variants/attachments. Require them too, otherwise the server skips the stream and the
+    // Customize page shows no variants/attachments.
+    bool HasLinkedProducts(TraderXProduct product)
+    {
+        if (product.variants)
+        {
+            foreach (string variantId : product.variants)
+            {
+                if (variantId != "" && !TraderXProductRepository.GetItemById(variantId))
+                    return false;
+            }
+        }
+        if (product.attachments)
+        {
+            foreach (string attachmentId : product.attachments)
+            {
+                if (attachmentId != "" && !TraderXProductRepository.GetItemById(attachmentId))
+                    return false;
+            }
         }
         return true;
     }

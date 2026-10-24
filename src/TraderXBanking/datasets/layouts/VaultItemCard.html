@@ -11,7 +11,7 @@
      Right half: ItemPreview (entity, populated for inventory pseudo-items only).
      Left half: name, health label, qty, footprint.
      Click overlay fires OnCardClicked > Event_OnItemClicked. -->
-<div data-dz="panel" data-name="vaultCardRoot" data-style="TXSurface"
+<div data-dz="panel" data-name="vaultCardRoot" data-style="TXBSurface"
      class="dz-xy-0-0 dz-wh-full dz-c-FE">
 
   <!-- Click overlay -->
@@ -20,7 +20,7 @@
           class="dz-xy-0-0 dz-wh-full dz-c-00000000"></button>
 
   <!-- Left amber accent strip -->
-  <div data-dz="panel" data-name="cardStrip" data-style="TXProgressFill"
+  <div data-dz="panel" data-name="cardStrip" data-style="TXBProgressFill"
        class="dz-xy-0-0 dz-wh-1-100 dz-c-FE dz-noptr"></div>
 
   <!-- Item preview (right 36%, entity-bound - shows for inventory items) -->
@@ -32,28 +32,28 @@
   <!-- Item name (bold, wraps to 2 lines) -->
   <span data-dz="text" data-name="cardName"
         data-bind="{{ displayName }}"
-        class="dz-xy-3-5 dz-wh-57-40 dz-c-D8D2C0 dz-font-body-12 dz-noptr dz-exact-text dz-bold dz-wrap">
+        class="dz-xy-3-5 dz-wh-57-40 dz-c-F2E9D8 dz-font-nbb-16 dz-noptr dz-exact-text dz-wrap">
     -
   </span>
 
   <!-- Qty badge -->
   <span data-dz="text" data-name="cardQty"
         data-bind="{{ qtyText }}"
-        class="dz-xy-3-50 dz-wh-30-18 dz-c-D4A44C dz-font-body-12 dz-noptr dz-exact-text dz-bold">
+        class="dz-xy-3-50 dz-wh-30-18 dz-c-E8894A dz-font-nbb-16 dz-noptr dz-exact-text">
     -
   </span>
 
   <!-- Health label (amber) -->
   <span data-dz="text" data-name="cardHealth"
         data-bind="{{ healthText }}"
-        class="dz-xy-3-70 dz-wh-42-25 dz-c-D4A44C dz-font-body-12 dz-noptr dz-exact-text dz-bold">
+        class="dz-xy-3-70 dz-wh-42-25 dz-c-E8894A dz-font-nbb-16 dz-noptr dz-exact-text">
     -
   </span>
 
   <!-- Footprint (muted, bottom) -->
   <span data-dz="text" data-name="cardFootprint"
         data-bind="{{ footprintText }}"
-        class="dz-xy-44-72 dz-wh-17-22 dz-c-6A6560 dz-font-body-12 dz-noptr dz-exact-text dz-text-right">
+        class="dz-xy-44-72 dz-wh-17-22 dz-c-8C7D66 dz-font-nbb-16 dz-noptr dz-exact-text dz-text-right">
     -
   </span>
 </div>

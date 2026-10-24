@@ -31,6 +31,7 @@ class TXGConfigDTO
     int  insuranceDefaultDays;
     int  insuranceMaxDays;
     bool isAdmin;
+    bool receiptsEnabled;
     ref array<string> npcClasses;
     ref array<int> npcIds;
     ref array<ref TXGNpcSpotDTO> npcSpots;

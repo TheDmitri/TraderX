@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../../dzml.css">
+  <link rel="stylesheet" href="../../dzml-styles.css">
+  <link rel="stylesheet" href="../../dzml-icons.css">
+</head>
+<body data-dzml class="dz-viewport" style="width:246px; height:67px; background:#1c1813;">
+
+<!-- Preset chip: name + price and owner; the active preset gets the ember outline. -->
+<div data-dz="panel"
+    data-name="presetChip"
+    class="dz-xy-0-0 dz-wh-100-67px dz-c-262019 dz-noptr">
+  <button data-dz="button"
+      data-name="presetChipBtn"
+      data-style="Empty"
+      data-on-click="OnChipClick"
+      class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
+  <span data-dz="text"
+      data-name="chipName"
+      data-bind="{{ chip_name }}"
+      class="dz-xy-14px-9px dz-wh-90-24px dz-c-F2E9D8 dz-font-nbb-19 dz-noptr dz-exact-text dz-text-vc">
+    Preset - 2
+  </span>
+  <span data-dz="text"
+      data-name="chipDetail"
+      data-bind="{{ chip_detail }}"
+      class="dz-xy-14px-36px dz-wh-90-20px dz-c-A39276 dz-font-nm-16 dz-noptr dz-exact-text dz-text-vc">
+    € 670 · server default
+  </span>
+  <div data-dz="panel"
+      data-name="chipFrame"
+      data-style="TXFrame"
+      class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr"></div>
+  <div data-dz="panel"
+      data-name="chipActiveFrame"
+      data-style="TXCardSelected"
+      class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr dz-hidden"></div>
+</div>
+
+<script src="../../dzml-runtime.js"></script>
+</body>
+</html>

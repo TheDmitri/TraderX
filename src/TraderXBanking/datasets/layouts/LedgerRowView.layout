@@ -2,10 +2,11 @@ PanelWidgetClass ledgerRowRoot {
  position 0 0
  hexactpos 0
  vexactpos 0
- size 1 1
+ size 1 84
  hexactsize 0
- vexactsize 0
- style TXSurface
+ vexactsize 1
+ ignorepointer 1
+ style TXBRowRule
  color 0.9961 0.9961 0.9961 1
  {
   ButtonWidgetClass rowClickBtn {
@@ -15,7 +16,9 @@ PanelWidgetClass ledgerRowRoot {
    size 1 1
    hexactsize 0
    vexactsize 0
-   color 0 0 0 0
+   "text color" 0.9961 0.9961 0.9961 1
+   style TXBListRow
+   color 0.9961 0.9961 0.9961 1
    scriptclass "ButtonBinding"
    {
     ScriptParamsClass {
@@ -23,39 +26,54 @@ PanelWidgetClass ledgerRowRoot {
     }
    }
   }
-  TextWidgetClass rowDate {
-   position 0.02 0
-   hexactpos 0
+  PanelWidgetClass rowSignBox {
+   position 29 0
+   hexactpos 1
    vexactpos 0
-   size 0.12 1
-   hexactsize 0
-   vexactsize 0
-   color 0.4157 0.3961 0.3765 1
-   font "TraderX/datasets/fonts/oswalt12"
+   size 43 43
+   hexactsize 1
+   vexactsize 1
+   valign center_ref
    ignorepointer 1
-   "exact text" 1
-   "text valign" center
-   text "-"
-   scriptclass "TextBinding"
+   style TXBInset
+   color 0.9961 0.9961 0.9961 1
    {
-    ScriptParamsClass {
-     Binding_Expression "{{ rowDateText }}"
+    TextWidgetClass rowSign {
+     position 0 0
+     hexactpos 0
+     vexactpos 0
+     size 1 1
+     hexactsize 0
+     vexactsize 0
+     color 0.498 0.651 0.3529 1
+     font "TraderX/datasets/fonts/monopx22"
+     ignorepointer 1
+     "exact text" 1
+     "text halign" center
+     "text valign" center
+     text "+"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ rowSignText }}"
+      }
+     }
     }
    }
   }
   TextWidgetClass rowType {
-   position 0.15 0
+   position 0.14263 17
    hexactpos 0
-   vexactpos 0
-   size 0.48 1
+   vexactpos 1
+   size 0.54487 26
    hexactsize 0
-   vexactsize 0
-   color 0.8471 0.8235 0.7529 1
-   font "TraderX/datasets/fonts/oswalt12"
+   vexactsize 1
+   color 0.949 0.9137 0.8471 1
+   font "TraderX/datasets/fonts/rajdhanibpx20"
    ignorepointer 1
    "exact text" 1
    "text valign" center
-   text "-"
+   text "Deposit"
    scriptclass "TextBinding"
    {
     ScriptParamsClass {
@@ -63,21 +81,41 @@ PanelWidgetClass ledgerRowRoot {
     }
    }
   }
-  TextWidgetClass rowAmount {
-   position 0.65 0
+  TextWidgetClass rowDate {
+   position 0.14263 45
    hexactpos 0
-   vexactpos 0
-   size 0.15 1
+   vexactpos 1
+   size 0.54487 22
    hexactsize 0
-   vexactsize 0
-   color 0.8471 0.8235 0.7529 1
-   font "TraderX/datasets/fonts/oswalt12"
+   vexactsize 1
+   color 0.6392 0.5725 0.4627 1
+   font "TraderX/datasets/fonts/rajdhanibpx17"
+   ignorepointer 1
+   "exact text" 1
+   "text valign" center
+   text "10/23 14:02 · balance 1,000"
+   scriptclass "TextBinding"
+   {
+    ScriptParamsClass {
+     Binding_Expression "{{ rowDetailText }}"
+    }
+   }
+  }
+  TextWidgetClass rowAmount {
+   position 29 0
+   hexactpos 1
+   vexactpos 0
+   size 0.25641 84
+   hexactsize 0
+   vexactsize 1
+   halign right_ref
+   color 0.498 0.651 0.3529 1
+   font "TraderX/datasets/fonts/monopx22"
    ignorepointer 1
    "exact text" 1
    "text halign" right
    "text valign" center
-   style Bold
-   text "-"
+   text "+1,000"
    scriptclass "TextBinding"
    {
     ScriptParamsClass {
@@ -86,19 +124,16 @@ PanelWidgetClass ledgerRowRoot {
    }
   }
   TextWidgetClass rowBalance {
-   position 0.82 0
+   position 0 0
    hexactpos 0
    vexactpos 0
-   size 0.15 1
-   hexactsize 0
-   vexactsize 0
-   color 0.4157 0.3961 0.3765 1
-   font "TraderX/datasets/fonts/oswalt12"
+   size 1 1
+   hexactsize 1
+   vexactsize 1
+   color 0 0 0 0
    ignorepointer 1
-   "exact text" 1
-   "text halign" right
-   "text valign" center
-   text "-"
+   visible 0
+   text "500"
    scriptclass "TextBinding"
    {
     ScriptParamsClass {

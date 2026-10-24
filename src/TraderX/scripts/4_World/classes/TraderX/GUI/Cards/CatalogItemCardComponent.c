@@ -24,6 +24,10 @@ class CatalogItemCardComponent extends DZlrComponentBase
 	ButtonWidget variantBtn;
 	ButtonWidget attachBtn;
 	ButtonWidget customizeBtn;
+	// Greyed state for products only reachable through licence-locked categories (browse only).
+	Widget licenseDimPanel;
+	ImageWidget licenseLockIcon;
+	bool m_LicenseLocked;
 	ref SimpleBtnTooltipComponent simpleTooltipComp;
 
 	override protected void RegisterMetadata()
@@ -37,6 +41,7 @@ class CatalogItemCardComponent extends DZlrComponentBase
 	{
 		AutoLoadWidgets();
 		TraderXTradingService.Event_OnTraderXResponseReceived.Insert(OnTraderXResponseReceived);
+		TraderXLicenseService.Event_OnPlayerLicensesChanged.Insert(ApplyLicenseState);
 
 		if (_inputProduct)
 			Setup(_inputProduct, ETraderXCategoryType.NONE);
@@ -45,6 +50,7 @@ class CatalogItemCardComponent extends DZlrComponentBase
 	override void OnDestroy()
 	{
 		TraderXTradingService.Event_OnTraderXResponseReceived.Remove(OnTraderXResponseReceived);
+		TraderXLicenseService.Event_OnPlayerLicensesChanged.Remove(ApplyLicenseState);
 		DestroySimpleTooltip();
 	}
 
@@ -66,7 +72,17 @@ class CatalogItemCardComponent extends DZlrComponentBase
 		CreatePreview();
 		itemPrice = GetSellPrice();
 		UpdateCustomizeAffordance();
+		ApplyLicenseState();
 		MarkForCheck();
+	}
+
+	void ApplyLicenseState()
+	{
+		m_LicenseLocked = false;
+		if (_inputProduct)
+			m_LicenseLocked = TraderXLicenseService.GetInstance().IsProductLicenseLocked(_inputProduct);
+		if (licenseDimPanel) licenseDimPanel.Show(m_LicenseLocked);
+		if (licenseLockIcon) licenseLockIcon.Show(m_LicenseLocked);
 	}
 
 	void UpdateCustomizeAffordance()
@@ -133,7 +149,7 @@ class CatalogItemCardComponent extends DZlrComponentBase
 	string GetSellPrice()
 	{
 		int sellPrice = TraderXPricingService.GetInstance().GetPricePreview(_inputProduct.GetProductId(), false, 1, TraderXItemState.PRISTINE);
-		return sellPrice.ToString();
+		return TraderXCurrencyService.GetInstance().GetTraderCurrencySymbol() + TraderXQuantityManager.GetFormattedMoneyAmount(sellPrice);
 	}
 
 	int GetPrice()

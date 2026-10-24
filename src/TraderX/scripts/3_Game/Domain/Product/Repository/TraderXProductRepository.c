@@ -124,23 +124,25 @@ class TraderXProductRepository
         return tProduct;
     }
 
-    static void LoadAllProducts()
+    // fromCompiled: CSV/COMPILED formats read Compiled/; LEGACY reads the per-file JSON only
+    static void LoadAllProducts(bool fromCompiled)
     {
         GetTraderXLogger().LogInfo("[TraderX] LoadAllProducts - Starting");
-        
-        // Try compiled JSON first (CSV-based system)
-        if (FileExist(TRADERX_COMPILED_PRODUCTS_FILE))
+
+        if (fromCompiled && FileExist(TRADERX_COMPILED_PRODUCTS_FILE))
         {
             GetTraderXLogger().LogInfo("[TraderX] Loading products from compiled config");
             LoadFromCompiledJson();
             return;
         }
-        
-        // Fallback to legacy multi-file JSON
-        GetTraderXLogger().LogWarning("[TraderX] Compiled config not found, using legacy multi-file JSON");
+
+        if (fromCompiled)
+            GetTraderXLogger().LogWarning("[TraderX] Compiled products not found, using legacy multi-file JSON");
+        else if (FileExist(TRADERX_COMPILED_PRODUCTS_FILE))
+            GetTraderXLogger().LogWarning("[TraderX] LEGACY format: ignoring " + TRADERX_COMPILED_PRODUCTS_FILE + " (set preferredFormat to CSV or COMPILED in SourceConfig.json to use it)");
         LoadFromLegacyJson();
     }
-    
+
     // Load products from compiled JSON (CSV-based system)
     private static void LoadFromCompiledJson()
     {

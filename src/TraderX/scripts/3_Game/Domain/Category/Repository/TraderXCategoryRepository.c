@@ -153,23 +153,25 @@ class TraderXCategoryRepository
         TraderXJsonLoader<map<string, ref TraderXCategory>>.SaveToFile(TRADERX_CONFIG_DIR_SERVER + "MapAllCategories.json", s_Categories);
     }
 
-    static void LoadAllCategories()
+    // fromCompiled: CSV/COMPILED formats read Compiled/; LEGACY reads the per-file JSON only
+    static void LoadAllCategories(bool fromCompiled)
     {
         GetTraderXLogger().LogInfo("[TraderX] LoadAllCategories - Starting");
-        
-        // Try compiled JSON first (CSV-based system)
-        if (FileExist(TRADERX_COMPILED_CATEGORIES_FILE))
+
+        if (fromCompiled && FileExist(TRADERX_COMPILED_CATEGORIES_FILE))
         {
             GetTraderXLogger().LogInfo("[TraderX] Loading categories from compiled config");
             LoadFromCompiledJson();
             return;
         }
-        
-        // Fallback to legacy multi-file JSON
-        GetTraderXLogger().LogWarning("[TraderX] Compiled config not found, using legacy multi-file JSON");
+
+        if (fromCompiled)
+            GetTraderXLogger().LogWarning("[TraderX] Compiled categories not found, using legacy multi-file JSON");
+        else if (FileExist(TRADERX_COMPILED_CATEGORIES_FILE))
+            GetTraderXLogger().LogWarning("[TraderX] LEGACY format: ignoring " + TRADERX_COMPILED_CATEGORIES_FILE + " (set preferredFormat to CSV or COMPILED in SourceConfig.json to use it)");
         LoadFromLegacyJson();
     }
-    
+
     // Load categories from compiled JSON (CSV-based system)
     private static void LoadFromCompiledJson()
     {

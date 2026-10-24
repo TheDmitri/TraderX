@@ -10,7 +10,7 @@
 <!-- VaultItemRowView - single slot in the storage grid.
      Clickable button overlay fires selection event. Health dot, qty badge,
      depositor tag (clan only), footprint tag, item name. -->
-<div data-dz="panel" data-name="vaultSlotRoot" data-style="TXSurface"
+<div data-dz="panel" data-name="vaultSlotRoot" data-style="TXBSurface"
      class="dz-xy-0-0 dz-wh-full dz-c-FE">
 
   <!-- Click overlay (covers entire slot) -->
@@ -26,28 +26,28 @@
   <!-- Quantity badge (top-right, only when qty > 1) -->
   <span data-dz="text" data-name="slotQty"
         data-bind="{{ qtyText }}"
-        class="dz-xy-70-5 dz-wh-25-12 dz-tc-D4A44C dz-font-body-12 dz-noptr dz-exact-text dz-text-right dz-bold">
+        class="dz-xy-70-5 dz-wh-25-12 dz-c-E8894A dz-font-nbb-16 dz-noptr dz-exact-text dz-text-right">
     -
   </span>
 
   <!-- Depositor tag (clan only, below qty) -->
   <span data-dz="text" data-name="slotDepositor"
         data-bind="{{ depositorInitials }}"
-        class="dz-xy-70-20 dz-wh-25-12 dz-tc-6A6560 dz-font-body-12 dz-noptr dz-exact-text dz-text-right">
+        class="dz-xy-70-20 dz-wh-25-12 dz-c-8C7D66 dz-font-nbb-16 dz-noptr dz-exact-text dz-text-right">
     -
   </span>
 
   <!-- Footprint badge (bottom-right) -->
   <span data-dz="text" data-name="slotFootprint"
         data-bind="{{ footprintText }}"
-        class="dz-xy-65-82 dz-wh-30-10 dz-tc-6A6560 dz-font-body-12 dz-noptr dz-exact-text dz-text-right">
+        class="dz-xy-65-82 dz-wh-30-10 dz-c-8C7D66 dz-font-nbb-16 dz-noptr dz-exact-text dz-text-right">
     -
   </span>
 
   <!-- Item name (bottom-left, wraps) -->
   <span data-dz="text" data-name="slotName"
         data-bind="{{ displayName }}"
-        class="dz-xy-5-72 dz-wh-60-22 dz-tc-D8D2C0 dz-font-body-12 dz-noptr dz-exact-text dz-bold dz-wrap">
+        class="dz-xy-5-72 dz-wh-60-22 dz-c-F2E9D8 dz-font-nbb-16 dz-noptr dz-exact-text dz-wrap">
     -
   </span>
 </div>

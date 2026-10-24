@@ -41,8 +41,14 @@ class TXBHomeTabComponent extends DZlrComponentBase
 		m_Metadata.templatePath = "TraderXBanking/datasets/layouts/HomeTabView.layout";
 	}
 
+	// Nasdara hero: max balance, fee line and the progress fill
+	string balance_max_text;
+	string fee_hint;
+	Widget balanceBarFill;
+
 	override void OnInit()
 	{
+		AutoLoadWidgets();
 		// Initialize domain objects with empty states
 		heroCard = new TXBHeroCard();
 		balanceCard = new TXBKPIBalanceCard();
@@ -153,6 +159,13 @@ class TXBHomeTabComponent extends DZlrComponentBase
 		TXBAccountData account = GetTXBBankingService().GetClientAccount();
 		int cash = GetPlayerCash();
 		balanceCard = TXBKPIBalanceCard.FromAccount(account, cash, m_TodayDelta);
+		balance_max_text = "";
+		if (account) balance_max_text = Widget.TranslateString("#txb_max") + " " + TXBFormat.Currency(account.maxBalance);
+		if (balanceBarFill) balanceBarFill.SetSize(Math.Clamp(balanceCard.progressRatio, 0.0, 1.0), 1);
+		TXBSettings settings = GetTXBConfigService().GetClientSettings();
+		int feePct = 0;
+		if (settings) feePct = Math.Round(settings.transactionFeePercent * 100);
+		fee_hint = string.Format(Widget.TranslateString("#txb_bank_fee_hint"), feePct);
 	}
 
 	protected void RefreshVaultCard()
@@ -249,10 +262,15 @@ class TXBHomeTabComponent extends DZlrComponentBase
 
 			if (e.timestampUtc < cutoff30) continue;
 
+			// Transfer-out fees are paid on top of the amount -> count them as outflow.
+			int moved = e.amount;
+			if (e.type == TXBLedgerEntryType.TRANSFER_OUT)
+				moved = e.amount + e.fee;
+
 			if (TXBLedgerEntryType.IsInflow(e.type))
-				m_Inflow30 = m_Inflow30 + e.amount;
+				m_Inflow30 = m_Inflow30 + moved;
 			else
-				m_Outflow30 = m_Outflow30 + e.amount;
+				m_Outflow30 = m_Outflow30 + moved;
 
 			if (e.type == TXBLedgerEntryType.TRANSFER_IN || e.type == TXBLedgerEntryType.TRANSFER_OUT)
 				m_TransferCount = m_TransferCount + 1;
@@ -260,9 +278,9 @@ class TXBHomeTabComponent extends DZlrComponentBase
 			if (e.timestampUtc >= cutoffToday)
 			{
 				if (TXBLedgerEntryType.IsInflow(e.type))
-					m_TodayDelta = m_TodayDelta + e.amount;
+					m_TodayDelta = m_TodayDelta + moved;
 				else
-					m_TodayDelta = m_TodayDelta - e.amount;
+					m_TodayDelta = m_TodayDelta - moved;
 			}
 		}
 	}

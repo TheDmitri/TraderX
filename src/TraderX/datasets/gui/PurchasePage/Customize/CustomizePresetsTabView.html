@@ -2,34 +2,36 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="../../dzml.css">
+  <link rel="stylesheet" href="../../dzml-styles.css">
+  <link rel="stylesheet" href="../../dzml-icons.css">
 </head>
-<body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#1a1a1a;">
+<body data-dzml class="dz-viewport" style="width:552px; height:883px; background:#1c1813;">
 
+<!-- Presets tab (Nasdara): "+ Create new preset", then one row per preset. -->
 <div data-dz="panel"
     data-name="CustomizePresetsTab"
-    data-style="blank"
     class="dz-xy-0-0 dz-wh-full dz-noptr">
   <div data-dz="panel"
       data-name="newPresetHost"
       data-component="tx-new-preset-card"
-      class="dz-xy-0-0 dz-wh-14-100"></div>
+      class="dz-xy-24px-24px dz-wh-504px-58px"></div>
   <div data-dz="scroll"
       data-name="presetsScroll"
-      class="dz-xy-15-0 dz-wh-85-100 dz-noptr dz-scroll-v">
+      class="dz-xy-0-102px dz-wh-100-775px dz-scroll-v">
     <div data-dz="grid"
         data-name="presetGrid"
         data-foreach="{{ _inputPresets }}"
         data-template="tx-preset-card"
         data-item="_inputPreset"
-        class="dz-xy-0-0 dz-wh-100-1 dz-fit-v dz-cols-5 dz-rows-100 dz-gap-8"></div>
+        class="dz-xy-0-0 dz-wh-100-1 dz-fit-v dz-cols-1 dz-rows-100"></div>
   </div>
   <span data-dz="text"
       data-name="emptyState"
       data-bind="{{ empty_label }}"
-      class="dz-xy-15-40 dz-wh-85-10 dz-align-x-center dz-c-8B8F9A dz-font-TraderX/datasets/fonts/oswalt16 dz-noptr dz-text-center dz-text-vc"></span>
+      class="dz-xy-0-130px dz-wh-100-30px dz-c-A39276 dz-font-nb-18 dz-noptr dz-exact-text dz-text-center"></span>
 </div>
 
-<script src="dzml-runtime.js?v=1781985766172"></script>
+<script src="../../dzml-runtime.js"></script>
 </body>
 </html>

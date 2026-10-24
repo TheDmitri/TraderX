@@ -6,48 +6,17 @@ PanelWidgetClass CustomizeAttachmentsTab {
  hexactsize 0
  vexactsize 0
  ignorepointer 1
- style blank
- color 0.9961 0.9961 0.9961 1
  {
-  PanelWidgetClass attachTopBar {
-   position 0 0
-   hexactpos 0
-   vexactpos 0
-   size 1 0.08
-   hexactsize 0
-   vexactsize 0
-   ignorepointer 1
-   style TXSurface
-   color 0.9961 0.9961 0.9961 1
-   {
-    PanelWidgetClass ViewToggleHost {
-     position 0.9 0.18
-     hexactpos 0
-     vexactpos 0
-     size 0.08 0.6
-     hexactsize 0
-     vexactsize 0
-     ignorepointer 1
-     scriptclass "ComponentWidgetBinding"
-     {
-      ScriptParamsClass {
-       Component_Selector "tx-view-toggle"
-      }
-     }
-    }
-   }
-  }
   ScrollWidgetClass attachmentsScroll {
-   position 0 0.09
+   position 0 10
    hexactpos 0
-   vexactpos 0
-   size 1 0.91
+   vexactpos 1
+   size 1 700
    hexactsize 0
-   vexactsize 0
-   ignorepointer 1
+   vexactsize 1
    "Scrollbar V" 1
    {
-    GridSpacerWidgetClass attachmentGridList {
+    GridSpacerWidgetClass slotGrid {
      position 0 0
      hexactpos 0
      vexactpos 0
@@ -57,55 +26,118 @@ PanelWidgetClass CustomizeAttachmentsTab {
      "Size To Content V" 1
      Columns 1
      Rows 100
-     Margin 4
+     Padding 0
      scriptclass "ComponentWidgetBinding"
      {
       ScriptParamsClass {
-       Component_ForEach "{{ _inputAttachments }}"
-       Component_Template "tx-item-card-small"
-       Component_ItemProperty "_inputProduct"
-      }
-     }
-    }
-    GridSpacerWidgetClass attachmentGridTiles {
-     position 0 0
-     hexactpos 0
-     vexactpos 0
-     size 1 0.01
-     hexactsize 0
-     vexactsize 0
-     "Size To Content V" 1
-     Columns 5
-     Rows 100
-     Margin 6
-     scriptclass "ComponentWidgetBinding"
-     {
-      ScriptParamsClass {
-       Component_ForEach "{{ _inputAttachments }}"
-       Component_Template "tx-item-card-large"
-       Component_ItemProperty "_inputProduct"
+       Component_ForEach "{{ _inputSlots }}"
+       Component_Template "tx-customize-slot-row"
+       Component_ItemProperty "_inputSlot"
       }
      }
     }
    }
   }
-  TextWidgetClass emptyState {
-   position 0 0.4
+  PanelWidgetClass attachmentGridList {
+   position 0 0
    hexactpos 0
    vexactpos 0
    size 1 1
-   hexactsize 0
-   vexactsize 0
-   halign center_ref
-   color 0.5451 0.5608 0.6039 1
-   font "TraderX/datasets/fonts/oswalt16"
+   hexactsize 1
+   vexactsize 1
    ignorepointer 1
+   visible 0
+  }
+  PanelWidgetClass attachmentGridTiles {
+   position 0 0
+   hexactpos 0
+   vexactpos 0
+   size 1 1
+   hexactsize 1
+   vexactsize 1
+   ignorepointer 1
+   visible 0
+  }
+  TextWidgetClass emptyState {
+   position 0 60
+   hexactpos 0
+   vexactpos 1
+   size 1 30
+   hexactsize 0
+   vexactsize 1
+   color 0.6392 0.5725 0.4627 1
+   font "TraderX/datasets/fonts/rajdhanipx18"
+   ignorepointer 1
+   "exact text" 1
    "text halign" center
-   "text valign" center
    scriptclass "TextBinding"
    {
     ScriptParamsClass {
      Binding_Expression "{{ empty_label }}"
+    }
+   }
+  }
+  PanelWidgetClass presetChipsPanel {
+   position 0 0
+   hexactpos 0
+   vexactpos 0
+   size 1 163
+   hexactsize 0
+   vexactsize 1
+   halign left_ref
+   valign bottom_ref
+   ignorepointer 1
+   {
+    PanelWidgetClass presetChipsRule {
+     position 0 0
+     hexactpos 0
+     vexactpos 0
+     size 1 1
+     hexactsize 0
+     vexactsize 1
+     color 0.2275 0.1922 0.1529 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
+    TextWidgetClass presetChipsLabel {
+     position 24 19
+     hexactpos 1
+     vexactpos 1
+     size 0.54348 18
+     hexactsize 0
+     vexactsize 1
+     color 0.6392 0.5725 0.4627 1
+     font "TraderX/datasets/fonts/rajdhanibpx14"
+     ignorepointer 1
+     "exact text" 1
+     "text valign" center
+     text "YOUR PRESETS"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ presets_label }}"
+      }
+     }
+    }
+    GridSpacerWidgetClass presetChipsGrid {
+     position 24 50
+     hexactpos 1
+     vexactpos 1
+     size 0.91304 1
+     hexactsize 0
+     vexactsize 1
+     "Size To Content V" 1
+     Columns 2
+     Rows 10
+     Padding 12
+     scriptclass "ComponentWidgetBinding"
+     {
+      ScriptParamsClass {
+       Component_ForEach "{{ _inputPresetChips }}"
+       Component_Template "tx-customize-preset-chip"
+       Component_ItemProperty "_inputPreset"
+      }
+     }
     }
    }
   }

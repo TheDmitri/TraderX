@@ -101,6 +101,26 @@ class TraderXCurrencyService : DayZularService
     }
 
     /**
+    * Money a trader purchase can draw on: cash in the accepted currencies plus, when a Banking
+    * provider is registered and usable by this player, the bank balance. Mirrors what
+    * RemoveMoneyWithBankFallback can actually charge, so validators must use this (not cash only).
+    */
+    int GetPlayerSpendableMoney(PlayerBase player, TStringArray acceptedCurrencyTypes)
+    {
+        if (!player)
+            return 0;
+
+        int spendable = GetPlayerMoneyFromAllCurrency(player, acceptedCurrencyTypes);
+        if (!TraderXProviderRegistry.GetInstance().HasBanking())
+            return spendable;
+
+        ITraderXPaymentProvider bankProv = TraderXProviderRegistry.GetInstance().GetBankingProvider();
+        if (bankProv && bankProv.IsAvailable(player))
+            spendable += bankProv.GetBalance(player);
+        return spendable;
+    }
+
+    /**
     * Trader purchase payment: cash first, then the Banking provider (whole amount, or the cash shortfall).
     *
     * @param label Ledger label for the bank debit (e.g. "TRADER_BUY").
@@ -254,7 +274,99 @@ class TraderXCurrencyService : DayZularService
         }
     }
 
-    void AddMoneyToPlayer(PlayerBase player, int amount, TStringArray acceptedCurrencyTypesIn = null)
+    // Payout plan, largest denomination first: how many units of which currency class.
+    // Each class is capped at what one TraderXItemFactory.CreateInInventory call can create
+    // (TRADERX_MAX_PAYOUT_STACKS stacks), and classes that do not exist on this server
+    // (max stack 0, e.g. TraderPlus money without TraderPlus) are skipped.
+    // Returns the part of the amount the plan cannot cover (0 = fully payable).
+    int PlanPayout(int amount, TStringArray acceptedCurrencyTypes, TStringArray outClassNames, TIntArray outQuantities)
+    {
+        if (amount <= 0 || !currencySettings)
+            return 0;
+
+        foreach (TraderXCurrencyType currencyType : currencySettings.currencyTypes)
+        {
+            // Check if currencyName is accepted
+            if (acceptedCurrencyTypes && acceptedCurrencyTypes.Count() > 0 && acceptedCurrencyTypes.Find(currencyType.currencyName) == -1)
+                continue;
+
+            foreach(TraderXCurrency currency: currencyType.currencies)
+            {
+                int value = currency.GetCurrencyValue();
+                if (value <= 0 || value > amount)
+                    continue;
+
+                int maxQuantity = TraderXQuantityManager.GetMaxItemQuantityServer(currency.GetCurrencyClassName());
+                if (maxQuantity <= 0)
+                    continue;
+
+                int amountToAdd = Math.Min(amount / value, TRADERX_MAX_PAYOUT_STACKS * maxQuantity);
+                if (amountToAdd <= 0)
+                    continue;
+
+                if (outClassNames) outClassNames.Insert(currency.GetCurrencyClassName());
+                if (outQuantities) outQuantities.Insert(amountToAdd);
+                amount -= amountToAdd * value;
+                if (amount <= 0)
+                    return 0;
+            }
+        }
+        return amount;
+    }
+
+    int GetCurrencyValueByClassName(string className)
+    {
+        if (!currencySettings)
+            return 0;
+        foreach (TraderXCurrencyType currencyType : currencySettings.currencyTypes)
+        {
+            foreach (TraderXCurrency currency : currencyType.currencies)
+            {
+                if (currency.GetCurrencyClassName() == className)
+                    return currency.GetCurrencyValue();
+            }
+        }
+        return 0;
+    }
+
+    // Display symbol for prices ("€ " / "$ " / "£ "), from the first accepted currency type
+    // whose name starts with a known code (EUR_TX -> €). Empty when none is known.
+    string GetCurrencySymbol(TStringArray acceptedCurrencyTypes = null)
+    {
+        if (!currencySettings)
+            return "";
+        foreach (TraderXCurrencyType currencyType : currencySettings.currencyTypes)
+        {
+            if (acceptedCurrencyTypes && acceptedCurrencyTypes.Count() > 0 && acceptedCurrencyTypes.Find(currencyType.currencyName) == -1)
+                continue;
+            string code = currencyType.currencyName.Substring(0, Math.Min(3, currencyType.currencyName.Length()));
+            code.ToUpper();
+            if (code == "EUR") return "€ ";
+            if (code == "USD") return "$ ";
+            if (code == "GBP") return "£ ";
+            return "";
+        }
+        return "";
+    }
+
+    // Symbol of the open trader's currency (client UI).
+    string GetTraderCurrencySymbol()
+    {
+        TStringArray accepted = null;
+        TraderXNpc npc = GetTraderXModule().GetSettings().GetNpcById(TraderXTradingService.GetInstance().GetNpcId());
+        if (npc) accepted = npc.GetCurrenciesAccepted();
+        return GetCurrencySymbol(accepted);
+    }
+
+    // True when AddMoneyToPlayer can pay the whole amount in the accepted currencies.
+    bool CanPayOut(int amount, TStringArray acceptedCurrencyTypes = null)
+    {
+        return PlanPayout(amount, acceptedCurrencyTypes, null, null) == 0;
+    }
+
+    // Gives the amount as currency items. Returns the amount that could NOT be paid
+    // (0 on success); callers that must not lose value check CanPayOut first.
+    int AddMoneyToPlayer(PlayerBase player, int amount, TStringArray acceptedCurrencyTypesIn = null)
     {
         ref TStringArray acceptedCurrencyTypes = acceptedCurrencyTypesIn;
         if(!acceptedCurrencyTypes)
@@ -263,35 +375,21 @@ class TraderXCurrencyService : DayZularService
         // Check if amount exceeds practical limits and warn
         CheckCurrencyLimitsAndWarn(amount, acceptedCurrencyTypes);
 
-        foreach (TraderXCurrencyType currencyType : currencySettings.currencyTypes)
-        {
-            // Check if currencyName is accepted
-            if (acceptedCurrencyTypes.Count() > 0 && acceptedCurrencyTypes.Find(currencyType.currencyName) == -1)
-                continue;
+        TStringArray classNames = new TStringArray();
+        TIntArray quantities = new TIntArray();
+        int unpaid = PlanPayout(amount, acceptedCurrencyTypes, classNames, quantities);
 
-            foreach(TraderXCurrency currency: currencyType.currencies)
-            {
-                int value = currency.GetCurrencyValue();
-            
-                if (value <= 0 || value > amount)
-                    continue;
-                
-                int amountToAdd = amount / value;
-                
-                // Create a new instance of the currency item to add to the player's inventory
-                ItemBase currencyItem = TraderXItemFactory.CreateInInventory(player, currency.GetCurrencyClassName(), amountToAdd);
-                
-                if (!currencyItem)
-                    continue;
-                
-                // Update the remaining amount to add
-                amount -= amountToAdd * value;
-                
-                // Stop adding money if the desired amount has been reached
-                if (amount <= 0)
-                    break;
-            }
+        for (int i = 0; i < classNames.Count(); i++)
+        {
+            // Create a new instance of the currency item to add to the player's inventory
+            ItemBase currencyItem = TraderXItemFactory.CreateInInventory(player, classNames[i], quantities[i]);
+            if (!currencyItem)
+                unpaid += quantities[i] * GetCurrencyValueByClassName(classNames[i]);
         }
+
+        if (unpaid > 0)
+            GetTraderXLogger().LogError(string.Format("[CURRENCY] Could not pay %1 of %2 to %3", unpaid.ToString(), amount.ToString(), player.ToString()));
+        return unpaid;
     }
 
     /**

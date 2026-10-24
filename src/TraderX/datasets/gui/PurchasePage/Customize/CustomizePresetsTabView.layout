@@ -6,16 +6,14 @@ PanelWidgetClass CustomizePresetsTab {
  hexactsize 0
  vexactsize 0
  ignorepointer 1
- style blank
- color 0.9961 0.9961 0.9961 1
  {
   PanelWidgetClass newPresetHost {
-   position 0 0
-   hexactpos 0
-   vexactpos 0
-   size 0.14 1
+   position 24 24
+   hexactpos 1
+   vexactpos 1
+   size 0.91304 58
    hexactsize 0
-   vexactsize 0
+   vexactsize 1
    scriptclass "ComponentWidgetBinding"
    {
     ScriptParamsClass {
@@ -24,13 +22,12 @@ PanelWidgetClass CustomizePresetsTab {
    }
   }
   ScrollWidgetClass presetsScroll {
-   position 0.15 0
+   position 0 102
    hexactpos 0
-   vexactpos 0
-   size 0.85 1
+   vexactpos 1
+   size 1 775
    hexactsize 0
-   vexactsize 0
-   ignorepointer 1
+   vexactsize 1
    "Scrollbar V" 1
    {
     GridSpacerWidgetClass presetGrid {
@@ -41,9 +38,9 @@ PanelWidgetClass CustomizePresetsTab {
      hexactsize 0
      vexactsize 0
      "Size To Content V" 1
-     Columns 5
+     Columns 1
      Rows 100
-     Margin 8
+     Padding 0
      scriptclass "ComponentWidgetBinding"
      {
       ScriptParamsClass {
@@ -56,18 +53,17 @@ PanelWidgetClass CustomizePresetsTab {
    }
   }
   TextWidgetClass emptyState {
-   position 0.15 0.4
+   position 0 130
    hexactpos 0
-   vexactpos 0
-   size 0.85 0.1
+   vexactpos 1
+   size 1 30
    hexactsize 0
-   vexactsize 0
-   halign center_ref
-   color 0.5451 0.5608 0.6039 1
-   font "TraderX/datasets/fonts/oswalt16"
+   vexactsize 1
+   color 0.6392 0.5725 0.4627 1
+   font "TraderX/datasets/fonts/rajdhanipx18"
    ignorepointer 1
+   "exact text" 1
    "text halign" center
-   "text valign" center
    scriptclass "TextBinding"
    {
     ScriptParamsClass {

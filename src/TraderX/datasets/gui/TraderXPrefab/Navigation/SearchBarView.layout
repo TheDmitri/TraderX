@@ -9,31 +9,44 @@ PanelWidgetClass searchBarRoot {
  color 0.9961 0.9961 0.9961 1
  {
   ImageWidgetClass searchHint {
-   position 0.04 0
-   hexactpos 0
+   position 14 0
+   hexactpos 1
    vexactpos 0
-   size 18 18
+   size 19 19
    hexactsize 1
    vexactsize 1
    valign center_ref
-   color 0.6039 0.5804 0.5333 1
+   color 0.6392 0.5725 0.4627 1
    ignorepointer 1
    image0 "set:traderx_icons image:search"
    mode blend
    "src alpha" 1
    "stretch mode" stretch_w_h
   }
-  EditBoxWidgetClass searchInput {
-   position 0.12 0
-   hexactpos 0
+  TextWidgetClass searchPlaceholder {
+   position 43 0
+   hexactpos 1
    vexactpos 0
-   size 0.86 0.8
+   size 0.8 1
+   hexactsize 0
+   vexactsize 0
+   color 0.549 0.4902 0.4 1
+   font "TraderX/datasets/fonts/rajdhanipx19"
+   ignorepointer 1
+   "exact text" 1
+   "text valign" center
+   text "#tpm_item_name"
+  }
+  EditBoxWidgetClass searchInput {
+   position 43 0
+   hexactpos 1
+   vexactpos 0
+   size 0.8 0.8
    hexactsize 0
    vexactsize 0
    valign center_ref
-   color 0.9961 0.9961 0.9961 1
-   color 0.8471 0.8235 0.7529 1
-   font "TraderX/datasets/fonts/oswalt14"
+   color 0.949 0.9137 0.8471 1
+   font "TraderX/datasets/fonts/rajdhanipx19"
    scriptclass "EditBoxBinding"
    {
     ScriptParamsClass {

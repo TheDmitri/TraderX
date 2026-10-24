@@ -1,855 +1,302 @@
 /**
- * TraderX Configuration Compiler
- * 
- * Responsibility: Orchestrate the compilation of TraderX configuration from source to runtime format.
- * 
- * This class coordinates the following process:
- * 1. Load user preferences (CSV vs JSON)
- * 2. Detect current source format
- * 3. Auto-migrate if needed
- * 4. Load and merge source files
- * 5. Validate configuration
- * 6. Compile to optimized runtime JSON
- * 7. Create backups
- * 
- * Domain Services Used:
- * - TraderXSourceFormatDetector: Detects CSV/JSON format
- * - TraderXFormatMigrator: Handles format migrations
- * - TraderXBitfieldPacker: Packs/unpacks bitfield data
- * - TraderXConfigValidator: Validates configuration rules
- * 
- * @author TraderX Team
- * @since 2.0 (CSV System)
+ * TraderX Configuration Compiler: Source/ (CSV or JSON arrays) -> Compiled/*_compiled.json
+ *
+ * 1. Load every Source/*.csv in alphabetical order; the file name decides the type
+ *    ("product", "categor" or "preset" in the name). A later file overrides rows of an earlier
+ *    one with the same key, so "00_imported_*.csv" packs lose against the admin's own files.
+ *    Without CSV files, Source/products.json + categories.json (arrays of compiled models) are read.
+ * 2. Validate (errors abort, see TraderXLogs/Config/ConfigReport.log).
+ * 3. Write Compiled/Products_compiled.json, Categories_compiled.json and TraderXPresets/presets_<id>.json.
+ * 4. Copy the compiled files to Backup/; on a failed compile the backup is restored (last good catalog).
  */
 class TraderXConfigCompiler
 {
-    // Main compilation entry point
     static bool CompileAndValidate()
     {
         GetTraderXLogger().LogInfo("=== TraderX Configuration Compilation Started ===");
-        
-        // Load user preferences
-        TraderXSourceConfig sourceConfig = TraderXSourceConfigLoader.LoadConfig();
-        
-        // Ensure directories exist
+
         if (!FileExist(TRADERX_CSV_SOURCE_DIR))
-        {
-            GetTraderXLogger().LogWarning("Source directory not found, creating: " + TRADERX_CSV_SOURCE_DIR);
             MakeDirectory(TRADERX_CSV_SOURCE_DIR);
-            return false;
-        }
-        
         if (!FileExist(TRADERX_COMPILED_DIR))
-        {
             MakeDirectory(TRADERX_COMPILED_DIR);
-        }
-        
         if (!FileExist(TRADERX_BACKUP_DIR))
-        {
             MakeDirectory(TRADERX_BACKUP_DIR);
-        }
-        
-        // Use domain services for format detection and migration
-        TraderXSourceFormatDetector formatDetector = new TraderXSourceFormatDetector(TRADERX_CSV_SOURCE_DIR);
-        string currentFormat = formatDetector.DetectFormat();
-        
-        // Check if migration is needed
-        if (sourceConfig.autoMigrate && formatDetector.NeedsMigration(sourceConfig.preferredFormat, currentFormat))
-        {
-            TraderXFormatMigrator migrator = new TraderXFormatMigrator(TRADERX_CSV_SOURCE_DIR);
-            if (!migrator.MigrateToFormat(sourceConfig.preferredFormat))
-            {
-                GetTraderXLogger().LogError("Format migration failed");
-                return false;
-            }
-        }
-        
-        // Warn if mixed formats detected
-        if (formatDetector.HasMixedFormats())
-        {
-            GetTraderXLogger().LogWarning("Both CSV and JSON files found in Source - CSV takes priority");
-        }
-        
-        // Detect source format and load
+
+        TraderXConfigValidator validator = new TraderXConfigValidator();
         array<ref TraderXCsvProduct> products = new array<ref TraderXCsvProduct>;
         array<ref TraderXCsvCategory> categories = new array<ref TraderXCsvCategory>;
         array<ref TraderXCsvPreset> presets = new array<ref TraderXCsvPreset>;
-        
-        bool loadSuccess = LoadSourceFiles(products, categories, presets);
-        
-        if (!loadSuccess)
+
+        if (!LoadSourceFiles(products, categories, presets, validator))
         {
             GetTraderXLogger().LogError("Failed to load source files");
             return RestoreFromBackup();
         }
-        
-        // Validate configuration
-        TraderXConfigValidator validator = new TraderXConfigValidator();
+
+        if (products.Count() == 0)
+        {
+            GetTraderXLogger().LogWarning("[TraderX] Source/ has no product rows yet: nothing to compile. Fill Source/products.csv and Source/categories.csv, then restart.");
+            return false;
+        }
+
         validator.ValidateProducts(products);
         validator.ValidateCategories(categories, products);
         validator.ValidatePresets(presets, products);
         validator.ValidateCrossReferences(products);
-        
-        // Generate validation report
-        string reportPath = TRADERX_CONFIG_REPORT_FILE;
-        validator.GenerateReport(reportPath);
-        
+        validator.GenerateReport(TRADERX_CONFIG_REPORT_FILE);
+
         if (!validator.IsValid())
         {
-            GetTraderXLogger().LogError(string.Format("Configuration validation failed with %1 errors. See report: %2", validator.GetErrorCount(), reportPath));
+            GetTraderXLogger().LogError(string.Format("Configuration validation failed with %1 errors. See report: %2", validator.GetErrorCount(), TRADERX_CONFIG_REPORT_FILE));
             return RestoreFromBackup();
         }
-        
+
         GetTraderXLogger().LogInfo(string.Format("Validation passed. Errors: 0, Warnings: %1", validator.GetWarningCount()));
-        
-        // Compile to JSON
-        bool compileSuccess = CompileToJson(products, categories, presets);
-        
-        if (!compileSuccess)
-        {
-            GetTraderXLogger().LogError("Compilation failed");
-            return RestoreFromBackup();
-        }
-        
-        // Create backup of successful compilation
+
+        CompileToJson(products, categories, presets);
         CreateBackup();
-        
+
         GetTraderXLogger().LogInfo("=== TraderX Configuration Compilation Complete ===");
         return true;
     }
-    
-    // Auto-detect source format and load files
-    private static bool LoadSourceFiles(out array<ref TraderXCsvProduct> products, out array<ref TraderXCsvCategory> categories, out array<ref TraderXCsvPreset> presets)
+
+    static bool HasSourceFiles()
     {
-        GetTraderXLogger().LogInfo("Detecting source format in: " + TRADERX_CSV_SOURCE_DIR);
-        
-        // Check for CSV files first
-        string filename;
-        FileAttr attr;
-        FindFileHandle csvHandle = TraderXFileSystem.Find(TRADERX_CSV_SOURCE_DIR + "*.csv", filename, attr, FindFileFlags.ALL);
-        
-        if (csvHandle != 0)
+        array<string> csvFiles = TraderXCsvLoader.ListFiles(TRADERX_CSV_SOURCE_DIR, "csv");
+        if (csvFiles.Count() > 0)
+            return true;
+        return FileExist(TRADERX_CSV_SOURCE_DIR + "products.json");
+    }
+
+    private static bool LoadSourceFiles(array<ref TraderXCsvProduct> products, array<ref TraderXCsvCategory> categories, array<ref TraderXCsvPreset> presets, TraderXConfigValidator validator)
+    {
+        array<string> csvFiles = TraderXCsvLoader.ListFiles(TRADERX_CSV_SOURCE_DIR, "csv");
+        if (csvFiles.Count() > 0)
         {
-            CloseFindFile(csvHandle);
-            GetTraderXLogger().LogInfo("CSV source files detected - using CSV mode");
-            return LoadCsvPacks(products, categories, presets);
+            if (FileExist(TRADERX_CSV_SOURCE_DIR + "products.json"))
+                GetTraderXLogger().LogWarning("Both CSV and JSON files found in Source - CSV takes priority, products.json is ignored");
+            return LoadCsvPacks(csvFiles, products, categories, presets, validator);
         }
-        
-        // Check for JSON files
-        FindFileHandle jsonHandle = TraderXFileSystem.Find(TRADERX_CSV_SOURCE_DIR + "*.json", filename, attr, FindFileFlags.ALL);
-        
-        if (jsonHandle != 0)
-        {
-            CloseFindFile(jsonHandle);
-            GetTraderXLogger().LogInfo("JSON source files detected - using JSON mode");
-            return LoadJsonSource(products, categories, presets);
-        }
-        
-        GetTraderXLogger().LogError("No CSV or JSON source files found in Source directory");
+
+        if (FileExist(TRADERX_CSV_SOURCE_DIR + "products.json"))
+            return LoadJsonSource(products, categories);
+
+        GetTraderXLogger().LogError("No CSV or JSON source files found in " + TRADERX_CSV_SOURCE_DIR);
         return false;
     }
-    
-    // Load and merge CSV packs (alphabetical order)
-    private static bool LoadCsvPacks(out array<ref TraderXCsvProduct> products, out array<ref TraderXCsvCategory> categories, out array<ref TraderXCsvPreset> presets)
+
+    private static bool LoadCsvPacks(array<string> csvFiles, array<ref TraderXCsvProduct> products, array<ref TraderXCsvCategory> categories, array<ref TraderXCsvPreset> presets, TraderXConfigValidator validator)
     {
-        GetTraderXLogger().LogInfo("Loading CSV packs from: " + TRADERX_CSV_SOURCE_DIR);
-        
-        // Find all CSV files
-        array<ref TraderXCsvPackInfo> packs = new array<ref TraderXCsvPackInfo>;
-        string filename;
-        FileAttr attr;
-        
-        FindFileHandle findHandle = TraderXFileSystem.Find(TRADERX_CSV_SOURCE_DIR + "*.csv", filename, attr, FindFileFlags.ALL);
-        
-        if (findHandle == 0)
-        {
-            GetTraderXLogger().LogError("No CSV files found in source directory");
-            CloseFindFile(findHandle);
-            return false;
-        }
-        
-        // Collect all CSV files
-        packs.Insert(new TraderXCsvPackInfo(filename));
-        
-        while (FindNextFile(findHandle, filename, attr))
-        {
-            packs.Insert(new TraderXCsvPackInfo(filename));
-        }
-        
-        CloseFindFile(findHandle);
-        
-        // Sort packs by priority (alphabetical = priority)
-        SortPacksByPriority(packs);
-        
-        GetTraderXLogger().LogInfo(string.Format("Found %1 CSV pack(s)", packs.Count()));
-        
-        // Load and merge packs
+        GetTraderXLogger().LogInfo(string.Format("Loading %1 CSV file(s) from: %2", csvFiles.Count(), TRADERX_CSV_SOURCE_DIR));
+
         map<string, ref TraderXCsvProduct> productMap = new map<string, ref TraderXCsvProduct>;
         map<string, ref TraderXCsvCategory> categoryMap = new map<string, ref TraderXCsvCategory>;
         map<string, ref TraderXCsvPreset> presetMap = new map<string, ref TraderXCsvPreset>;
-        
-        foreach (TraderXCsvPackInfo pack : packs)
+        array<string> productOrder = new array<string>;
+        array<string> categoryOrder = new array<string>;
+        array<string> presetOrder = new array<string>;
+
+        foreach (string fileName : csvFiles)
         {
-            string filePath = TRADERX_CSV_SOURCE_DIR + pack.fileName;
-            GetTraderXLogger().LogInfo(string.Format("Loading pack: %1 (priority: %2)", pack.fileName, pack.priority));
-            
-            // Determine file type by name
-            string lowerName = pack.fileName;
+            string filePath = TRADERX_CSV_SOURCE_DIR + fileName;
+            string lowerName = fileName;
             lowerName.ToLower();
-            
+
             if (lowerName.Contains("product"))
             {
                 array<ref TraderXCsvProduct> packProducts = TraderXCsvLoader.LoadProductsCsv(filePath);
-                MergeProducts(productMap, packProducts);
+                foreach (TraderXCsvProduct product : packProducts)
+                {
+                    if (product.productKey == "")
+                        continue;
+                    TraderXCsvProduct previousProduct = productMap.Get(product.productKey);
+                    if (previousProduct && previousProduct.sourceFile == product.sourceFile)
+                        validator.AddError(product.sourceFile, product.sourceRow, "productKey", string.Format("Duplicate productKey (first at line %1)", previousProduct.sourceRow), product.productKey);
+                    else if (!previousProduct)
+                        productOrder.Insert(product.productKey);
+                    productMap.Set(product.productKey, product);
+                }
             }
             else if (lowerName.Contains("categor"))
             {
                 array<ref TraderXCsvCategory> packCategories = TraderXCsvLoader.LoadCategoriesCsv(filePath);
-                MergeCategories(categoryMap, packCategories);
+                foreach (TraderXCsvCategory category : packCategories)
+                {
+                    if (category.categoryKey == "")
+                        continue;
+                    TraderXCsvCategory previousCategory = categoryMap.Get(category.categoryKey);
+                    if (previousCategory && previousCategory.sourceFile == category.sourceFile)
+                        validator.AddError(category.sourceFile, category.sourceRow, "categoryKey", string.Format("Duplicate categoryKey (first at line %1)", previousCategory.sourceRow), category.categoryKey);
+                    else if (!previousCategory)
+                        categoryOrder.Insert(category.categoryKey);
+                    categoryMap.Set(category.categoryKey, category);
+                }
             }
             else if (lowerName.Contains("preset"))
             {
                 array<ref TraderXCsvPreset> packPresets = TraderXCsvLoader.LoadPresetsCsv(filePath);
-                MergePresets(presetMap, packPresets);
+                foreach (TraderXCsvPreset preset : packPresets)
+                {
+                    if (preset.presetKey == "")
+                        continue;
+                    TraderXCsvPreset previousPreset = presetMap.Get(preset.presetKey);
+                    if (previousPreset && previousPreset.sourceFile == preset.sourceFile)
+                        validator.AddError(preset.sourceFile, preset.sourceRow, "presetKey", string.Format("Duplicate presetKey (first at line %1)", previousPreset.sourceRow), preset.presetKey);
+                    else if (!previousPreset)
+                        presetOrder.Insert(preset.presetKey);
+                    presetMap.Set(preset.presetKey, preset);
+                }
             }
             else
             {
-                GetTraderXLogger().LogWarning("Unknown CSV file type (name should contain 'product', 'categor', or 'preset'): " + pack.fileName);
+                GetTraderXLogger().LogWarning("Unknown CSV file type (name should contain 'product', 'categor', or 'preset'): " + fileName);
             }
         }
-        
-        // Convert maps to arrays
-        foreach (string prodKey, TraderXCsvProduct product : productMap)
+
+        foreach (string productKey : productOrder)
         {
-            products.Insert(product);
+            products.Insert(productMap.Get(productKey));
         }
-        
-        foreach (string catKey, TraderXCsvCategory category : categoryMap)
+        foreach (string categoryKey : categoryOrder)
         {
-            categories.Insert(category);
+            categories.Insert(categoryMap.Get(categoryKey));
         }
-        
-        foreach (string presetKey, TraderXCsvPreset preset : presetMap)
+        foreach (string presetKey : presetOrder)
         {
-            presets.Insert(preset);
+            presets.Insert(presetMap.Get(presetKey));
         }
-        
+
         GetTraderXLogger().LogInfo(string.Format("Loaded totals - Products: %1, Categories: %2, Presets: %3", products.Count(), categories.Count(), presets.Count()));
-        
-        return products.Count() > 0;
+        return true;
     }
-    
-    // Load JSON source files from Source directory
-    private static bool LoadJsonSource(out array<ref TraderXCsvProduct> products, out array<ref TraderXCsvCategory> categories, out array<ref TraderXCsvPreset> presets)
+
+    // Source/products.json + Source/categories.json: arrays in the compiled format (productId/categoryId + runtime fields)
+    private static bool LoadJsonSource(array<ref TraderXCsvProduct> products, array<ref TraderXCsvCategory> categories)
     {
         GetTraderXLogger().LogInfo("Loading JSON source files from: " + TRADERX_CSV_SOURCE_DIR);
-        
-        // Load products JSON
-        string productsJsonPath = TRADERX_CSV_SOURCE_DIR + "products.json";
-        if (FileExist(productsJsonPath))
+
+        array<ref TraderXCompiledProduct> jsonProducts = new array<ref TraderXCompiledProduct>;
+        JsonFileLoader<array<ref TraderXCompiledProduct>>.JsonLoadFile(TRADERX_CSV_SOURCE_DIR + "products.json", jsonProducts);
+        foreach (TraderXCompiledProduct jsonProduct : jsonProducts)
         {
-            ref array<ref TraderXCompiledProduct> jsonProducts = new array<ref TraderXCompiledProduct>;
-            JsonFileLoader<array<ref TraderXCompiledProduct>>.JsonLoadFile(productsJsonPath, jsonProducts);
-            
-            if (jsonProducts && jsonProducts.Count() > 0)
+            if (!jsonProduct)
+                continue;
+            TraderXCsvProduct csvProduct = TraderXCsvMapper.FromProduct(jsonProduct.productId, jsonProduct);
+            csvProduct.sourceFile = "products.json";
+            products.Insert(csvProduct);
+        }
+
+        string categoriesPath = TRADERX_CSV_SOURCE_DIR + "categories.json";
+        if (FileExist(categoriesPath))
+        {
+            array<ref TraderXCompiledCategory> jsonCategories = new array<ref TraderXCompiledCategory>;
+            JsonFileLoader<array<ref TraderXCompiledCategory>>.JsonLoadFile(categoriesPath, jsonCategories);
+            foreach (TraderXCompiledCategory jsonCategory : jsonCategories)
             {
-                GetTraderXLogger().LogInfo(string.Format("Loaded %1 products from JSON", jsonProducts.Count()));
-                
-                foreach (TraderXCompiledProduct jsonProd : jsonProducts)
-                {
-                    TraderXCsvProduct csvProd = ConvertJsonProductToCsv(jsonProd);
-                    if (csvProd)
-                    {
-                        products.Insert(csvProd);
-                    }
-                }
+                if (!jsonCategory)
+                    continue;
+                TraderXCsvCategory csvCategory = TraderXCsvMapper.FromCategory(jsonCategory.categoryId, jsonCategory);
+                csvCategory.sourceFile = "categories.json";
+                categories.Insert(csvCategory);
             }
         }
-        
-        // Load categories JSON
-        string categoriesJsonPath = TRADERX_CSV_SOURCE_DIR + "categories.json";
-        if (FileExist(categoriesJsonPath))
-        {
-            ref array<ref TraderXCompiledCategory> jsonCategories = new array<ref TraderXCompiledCategory>;
-            JsonFileLoader<array<ref TraderXCompiledCategory>>.JsonLoadFile(categoriesJsonPath, jsonCategories);
-            
-            if (jsonCategories && jsonCategories.Count() > 0)
-            {
-                GetTraderXLogger().LogInfo(string.Format("Loaded %1 categories from JSON", jsonCategories.Count()));
-                
-                foreach (TraderXCompiledCategory jsonCat : jsonCategories)
-                {
-                    TraderXCsvCategory csvCat = ConvertJsonCategoryToCsv(jsonCat);
-                    if (csvCat)
-                    {
-                        categories.Insert(csvCat);
-                    }
-                }
-            }
-        }
-        
-        if (products.Count() == 0 && categories.Count() == 0)
-        {
-            GetTraderXLogger().LogError("No valid JSON data loaded from Source directory");
-            return false;
-        }
-        
+
         GetTraderXLogger().LogInfo(string.Format("Loaded totals - Products: %1, Categories: %2", products.Count(), categories.Count()));
         return true;
     }
-    
-    // Convert JSON product to CSV model (unpack bitfields using domain service)
-    private static TraderXCsvProduct ConvertJsonProductToCsv(TraderXCompiledProduct jsonProd)
+
+    private static void CompileToJson(array<ref TraderXCsvProduct> products, array<ref TraderXCsvCategory> categories, array<ref TraderXCsvPreset> presets)
     {
-        TraderXCsvProduct csvProd = new TraderXCsvProduct();
-        
-        csvProd.productKey = jsonProd.productId;
-        csvProd.className = jsonProd.className;
-        csvProd.buyPrice = jsonProd.buyPrice;
-        csvProd.sellPrice = jsonProd.sellPrice;
-        csvProd.maxStock = jsonProd.maxStock;
-        
-        // Unpack tradeQuantity bitfield using domain service
-        string buyMode;
-        float buyValue;
-        string sellMode;
-        float sellValue;
-        
-        TraderXBitfieldPacker.UnpackTradeQuantity(jsonProd.tradeQuantity, buyMode, buyValue, sellMode, sellValue);
-        
-        csvProd.buyQtyMode = buyMode;
-        csvProd.buyQtyValue = buyValue;
-        csvProd.sellQtyMode = sellMode;
-        csvProd.sellQtyValue = sellValue;
-        
-        // Unpack stockSettings bitfield using domain service
-        float destockCoef;
-        int stockBehavior;
-        
-        TraderXBitfieldPacker.UnpackStockSettings(jsonProd.stockSettings, destockCoef, stockBehavior);
-        
-        csvProd.destockCoefficient = destockCoef;
-        csvProd.stockBehaviorAtRestart = stockBehavior;
-        
-        // Copy arrays
-        csvProd.attachments = jsonProd.attachments;
-        csvProd.variants = jsonProd.variants;
-        
-        return csvProd;
-    }
-    
-    // Convert JSON category to CSV model
-    private static TraderXCsvCategory ConvertJsonCategoryToCsv(TraderXCompiledCategory jsonCat)
-    {
-        TraderXCsvCategory csvCat = new TraderXCsvCategory();
-        
-        csvCat.categoryKey = jsonCat.categoryId;
-        csvCat.categoryName = jsonCat.categoryName;
-        csvCat.icon = jsonCat.icon;
-        csvCat.isVisible = jsonCat.isVisible;
-        csvCat.licensesRequired = jsonCat.licensesRequired;
-        csvCat.productKeys = jsonCat.productIds;
-        
-        return csvCat;
-    }
-    
-    // Compile CSV data to JSON format
-    private static bool CompileToJson(array<ref TraderXCsvProduct> products, array<ref TraderXCsvCategory> categories, array<ref TraderXCsvPreset> presets)
-    {
-        GetTraderXLogger().LogInfo("Compiling CSV to JSON...");
-        
-        // Compile products
-        ref array<ref TraderXCompiledProduct> jsonProducts = new array<ref TraderXCompiledProduct>;
-        
+        array<ref TraderXCompiledProduct> jsonProducts = new array<ref TraderXCompiledProduct>;
         foreach (TraderXCsvProduct csvProduct : products)
         {
-            TraderXCompiledProduct jsonProduct = new TraderXCompiledProduct();
-            
-            jsonProduct.productId = csvProduct.productKey;
-            jsonProduct.className = csvProduct.className;
-            jsonProduct.buyPrice = csvProduct.buyPrice;
-            jsonProduct.sellPrice = csvProduct.sellPrice;
-            jsonProduct.maxStock = csvProduct.maxStock;
-            jsonProduct.coefficient = csvProduct.destockCoefficient;
-            
-            // Pack tradeQuantity bitfield using domain service
-            jsonProduct.tradeQuantity = TraderXBitfieldPacker.PackTradeQuantity(csvProduct.buyQtyMode, csvProduct.buyQtyValue, csvProduct.sellQtyMode, csvProduct.sellQtyValue);
-            
-            // Pack stockSettings bitfield using domain service
-            jsonProduct.stockSettings = TraderXBitfieldPacker.PackStockSettings(csvProduct.destockCoefficient, csvProduct.stockBehaviorAtRestart);
-            
-            // Copy arrays
-            if (csvProduct.attachments)
-            {
-                jsonProduct.attachments = new array<string>;
-                foreach (string att : csvProduct.attachments)
-                {
-                    jsonProduct.attachments.Insert(att);
-                }
-            }
-            
-            if (csvProduct.variants)
-            {
-                jsonProduct.variants = new array<string>;
-                foreach (string var : csvProduct.variants)
-                {
-                    jsonProduct.variants.Insert(var);
-                }
-            }
-            
-            jsonProducts.Insert(jsonProduct);
+            jsonProducts.Insert(TraderXCsvMapper.ToCompiledProduct(csvProduct));
         }
-        
-        // Compile categories
-        ref array<ref TraderXCompiledCategory> jsonCategories = new array<ref TraderXCompiledCategory>;
-        
+
+        array<ref TraderXCompiledCategory> jsonCategories = new array<ref TraderXCompiledCategory>;
         foreach (TraderXCsvCategory csvCategory : categories)
         {
-            TraderXCompiledCategory jsonCategory = new TraderXCompiledCategory();
-            
-            jsonCategory.categoryId = csvCategory.categoryKey;
-            jsonCategory.categoryName = csvCategory.categoryName;
-            jsonCategory.icon = csvCategory.icon;
-            jsonCategory.isVisible = csvCategory.isVisible;
-            
-            // Copy arrays
-            if (csvCategory.licensesRequired)
-            {
-                jsonCategory.licensesRequired = new array<string>;
-                foreach (string lic : csvCategory.licensesRequired)
-                {
-                    jsonCategory.licensesRequired.Insert(lic);
-                }
-            }
-            
-            if (csvCategory.productKeys)
-            {
-                jsonCategory.productIds = new array<string>;
-                foreach (string prodKey : csvCategory.productKeys)
-                {
-                    jsonCategory.productIds.Insert(prodKey);
-                }
-            }
-            
-            jsonCategories.Insert(jsonCategory);
+            jsonCategories.Insert(TraderXCsvMapper.ToCompiledCategory(csvCategory));
         }
-        
-        // Save compiled JSON files
-        string productsPath = TRADERX_COMPILED_PRODUCTS_FILE;
-        string categoriesPath = TRADERX_COMPILED_CATEGORIES_FILE;
-        
-        GetTraderXLogger().LogInfo("Saving compiled products to: " + productsPath);
-        JsonFileLoader<array<ref TraderXCompiledProduct>>.JsonSaveFile(productsPath, jsonProducts);
-        
-        GetTraderXLogger().LogInfo("Saving compiled categories to: " + categoriesPath);
-        JsonFileLoader<array<ref TraderXCompiledCategory>>.JsonSaveFile(categoriesPath, jsonCategories);
-        
-        // Compile presets if any
+
+        GetTraderXLogger().LogInfo("Saving compiled products to: " + TRADERX_COMPILED_PRODUCTS_FILE);
+        JsonFileLoader<array<ref TraderXCompiledProduct>>.JsonSaveFile(TRADERX_COMPILED_PRODUCTS_FILE, jsonProducts);
+        GetTraderXLogger().LogInfo("Saving compiled categories to: " + TRADERX_COMPILED_CATEGORIES_FILE);
+        JsonFileLoader<array<ref TraderXCompiledCategory>>.JsonSaveFile(TRADERX_COMPILED_CATEGORIES_FILE, jsonCategories);
+
         if (presets.Count() > 0)
-        {
-            GetTraderXLogger().LogInfo(string.Format("Compiling %1 presets...", presets.Count()));
             CompilePresets(presets);
-        }
-        
-        GetTraderXLogger().LogInfo("Compilation complete");
-        return true;
     }
-    
-    // Pack tradeQuantity bitfield from CSV fields
-    private static int PackTradeQuantity(string buyMode, float buyValue, string sellMode, float sellValue)
-    {
-        int packed = 0;
-        
-        buyMode.ToUpper();
-        sellMode.ToUpper();
-        
-        // Pack sell mode (bits 0-2)
-        if (sellMode == "NO_MATTER")
-            packed = packed | 0;
-        else if (sellMode == "EMPTY")
-            packed = packed | 1;
-        else if (sellMode == "FULL")
-            packed = packed | 2;
-        else if (sellMode == "COEFFICIENT")
-            packed = packed | 3;
-        else if (sellMode == "STATIC")
-            packed = packed | 4;
-        
-        // Pack buy mode (bits 3-5)
-        if (buyMode == "EMPTY")
-            packed = packed | 8;
-        else if (buyMode == "FULL")
-            packed = packed | 16;
-        else if (buyMode == "COEFFICIENT")
-            packed = packed | 24;
-        else if (buyMode == "STATIC")
-            packed = packed | 32;
-        
-        // Pack values if needed (bits 6-31)
-        if (sellMode == "COEFFICIENT" || sellMode == "STATIC")
-        {
-            int sellValueInt = sellValue * 1000;
-            packed |= (sellValueInt << 6);
-        }
-        
-        if (buyMode == "COEFFICIENT" || buyMode == "STATIC")
-        {
-            int buyValueInt = buyValue * 1000;
-            packed |= (buyValueInt << 16);
-        }
-        
-        return packed;
-    }
-    
-    // Pack stockSettings bitfield from CSV fields
-    private static int PackStockSettings(float destockCoef, int behavior)
-    {
-        int packed = 0;
-        
-        // Pack destock coefficient (bits 0-15, stored as int * 10000)
-        int coefInt = destockCoef * 10000;
-        packed |= (coefInt & 0xFFFF);
-        
-        // Pack stock behavior (bits 16-17)
-        packed |= ((behavior & 0x3) << 16);
-        
-        return packed;
-    }
-    
-    // Compile presets to individual JSON files
+
+    // One TraderXPresets/presets_<productId>.json per product that has preset rows (overwrites that file)
     private static void CompilePresets(array<ref TraderXCsvPreset> presets)
     {
-        // Group presets by productKey
-        ref map<string, ref array<ref TraderXCsvPreset>> presetsByProduct = new map<string, ref array<ref TraderXCsvPreset>>;
-        
-        foreach (TraderXCsvPreset csvPresetItem : presets)
+        map<string, ref TraderXPresets> presetsByProduct = new map<string, ref TraderXPresets>;
+        array<string> productOrder = new array<string>;
+
+        foreach (TraderXCsvPreset csvPreset : presets)
         {
-            ref array<ref TraderXCsvPreset> prodPresets;
-            
-            if (!presetsByProduct.Find(csvPresetItem.productKey, prodPresets))
+            TraderXPresets productPresets = presetsByProduct.Get(csvPreset.productKey);
+            if (!productPresets)
             {
-                prodPresets = new array<ref TraderXCsvPreset>;
-                presetsByProduct.Set(csvPresetItem.productKey, prodPresets);
+                productPresets = new TraderXPresets();
+                productPresets.productId = csvPreset.productKey;
+                presetsByProduct.Set(csvPreset.productKey, productPresets);
+                productOrder.Insert(csvPreset.productKey);
             }
-            
-            prodPresets.Insert(csvPresetItem);
+
+            TraderXPreset preset = new TraderXPreset();
+            preset.presetName = csvPreset.presetName;
+            preset.presetId = csvPreset.presetKey;
+            preset.productId = csvPreset.productKey;
+            preset.attachments = TraderXCsvMapper.CopyList(csvPreset.attachments);
+            productPresets.presets.Insert(preset);
+
+            if (csvPreset.isDefault || productPresets.defaultPresetId == "")
+                productPresets.defaultPresetId = csvPreset.presetKey;
         }
-        
-        // Save presets for each product
-        foreach (string prodKey, ref array<ref TraderXCsvPreset> productPresets : presetsByProduct)
+
+        if (!FileExist(TRADERX_PRESETS))
+            MakeDirectory(TRADERX_PRESETS);
+
+        foreach (string productId : productOrder)
         {
-            TraderXPresets presetsObj = new TraderXPresets();
-            presetsObj.productId = prodKey;
-            presetsObj.presets = new array<ref TraderXPreset>;
-            
-            foreach (TraderXCsvPreset csvPreset : productPresets)
-            {
-                TraderXPreset preset = new TraderXPreset();
-                preset.presetName = csvPreset.presetName;
-                
-                if (csvPreset.attachments)
-                {
-                    preset.attachments = new array<string>;
-                    foreach (string att : csvPreset.attachments)
-                    {
-                        preset.attachments.Insert(att);
-                    }
-                }
-                
-                presetsObj.presets.Insert(preset);
-            }
-            
-            string presetPath = TRADERX_PRESETS + "presets_" + prodKey + ".json";
+            string presetPath = string.Format(TRADERX_PRESETS_FILE, productId);
             string errorMessage;
-            
-            if (!JsonFileLoader<TraderXPresets>.SaveFile(presetPath, presetsObj, errorMessage))
-            {
+            if (!JsonFileLoader<TraderXPresets>.SaveFile(presetPath, presetsByProduct.Get(productId), errorMessage))
                 GetTraderXLogger().LogError("Failed to save preset: " + presetPath + " - " + errorMessage);
-            }
         }
+        GetTraderXLogger().LogInfo(string.Format("Compiled presets for %1 products", productOrder.Count()));
     }
-    
-    // Create backup of compiled files
+
     private static void CreateBackup()
     {
-        GetTraderXLogger().LogInfo("Creating backup of compiled configuration...");
-        
-        string productsSource = TRADERX_COMPILED_PRODUCTS_FILE;
-        string productsBackup = TRADERX_COMPILED_PRODUCTS_BACKUP;
-        
-        string categoriesSource = TRADERX_COMPILED_CATEGORIES_FILE;
-        string categoriesBackup = TRADERX_COMPILED_CATEGORIES_BACKUP;
-        
-        if (FileExist(productsSource))
-        {
-            CopyFile(productsSource, productsBackup);
-        }
-        
-        if (FileExist(categoriesSource))
-        {
-            CopyFile(categoriesSource, categoriesBackup);
-        }
-        
-        // Write timestamp
+        if (FileExist(TRADERX_COMPILED_PRODUCTS_FILE))
+            CopyFile(TRADERX_COMPILED_PRODUCTS_FILE, TRADERX_COMPILED_PRODUCTS_BACKUP);
+        if (FileExist(TRADERX_COMPILED_CATEGORIES_FILE))
+            CopyFile(TRADERX_COMPILED_CATEGORIES_FILE, TRADERX_COMPILED_CATEGORIES_BACKUP);
+
         FileHandle timestampFile = OpenFile(TRADERX_BACKUP_DIR + ".backup_timestamp", FileMode.WRITE);
         if (timestampFile)
         {
             FPrintln(timestampFile, "Backup created at server startup");
             CloseFile(timestampFile);
         }
-        
-        GetTraderXLogger().LogInfo("Backup created successfully");
+        GetTraderXLogger().LogInfo("Backup of the compiled catalog created");
     }
-    
-    // Restore from backup
+
+    // Puts the last good compiled catalog back. Always returns false: this boot's sources were not compiled.
     private static bool RestoreFromBackup()
     {
-        GetTraderXLogger().LogWarning("Attempting to restore from backup...");
-        
-        string productsBackup = TRADERX_COMPILED_PRODUCTS_BACKUP;
-        string categoriesBackup = TRADERX_COMPILED_CATEGORIES_BACKUP;
-        
-        if (!FileExist(productsBackup) || !FileExist(categoriesBackup))
+        if (!FileExist(TRADERX_COMPILED_PRODUCTS_BACKUP) || !FileExist(TRADERX_COMPILED_CATEGORIES_BACKUP))
         {
-            GetTraderXLogger().LogError("No backup available! Server may fail to start.");
+            GetTraderXLogger().LogError("No compiled backup available: the server keeps the current Compiled/ files (if any).");
             return false;
         }
-        
-        string productsTarget = TRADERX_COMPILED_PRODUCTS_FILE;
-        string categoriesTarget = TRADERX_COMPILED_CATEGORIES_FILE;
-        
-        CopyFile(productsBackup, productsTarget);
-        CopyFile(categoriesBackup, categoriesTarget);
-        
-        GetTraderXLogger().LogInfo("Restored from backup successfully. Server will use last known good configuration.");
+
+        CopyFile(TRADERX_COMPILED_PRODUCTS_BACKUP, TRADERX_COMPILED_PRODUCTS_FILE);
+        CopyFile(TRADERX_COMPILED_CATEGORIES_BACKUP, TRADERX_COMPILED_CATEGORIES_FILE);
+        GetTraderXLogger().LogWarning("Restored the last good compiled catalog from Backup/. Fix the errors in ConfigReport.log and restart.");
         return false;
-    }
-    
-    // Helper: Sort packs by priority (alphabetical)
-    private static void SortPacksByPriority(array<ref TraderXCsvPackInfo> packs)
-    {
-        // Simple bubble sort by filename (alphabetical = priority)
-        for (int i = 0; i < packs.Count() - 1; i++)
-        {
-            for (int j = 0; j < packs.Count() - i - 1; j++)
-            {
-                if (packs.Get(j).fileName > packs.Get(j + 1).fileName)
-                {
-                    TraderXCsvPackInfo temp = packs.Get(j);
-                    packs.Set(j, packs.Get(j + 1));
-                    packs.Set(j + 1, temp);
-                }
-            }
-        }
-    }
-    
-    // Helper: Merge products (later overrides earlier)
-    private static void MergeProducts(map<string, ref TraderXCsvProduct> productMap, array<ref TraderXCsvProduct> newProducts)
-    {
-        foreach (TraderXCsvProduct product : newProducts)
-        {
-            if (product.productKey.Length() > 0)
-            {
-                productMap.Set(product.productKey, product);
-            }
-        }
-    }
-    
-    // Helper: Merge categories (later overrides earlier)
-    private static void MergeCategories(map<string, ref TraderXCsvCategory> categoryMap, array<ref TraderXCsvCategory> newCategories)
-    {
-        foreach (TraderXCsvCategory category : newCategories)
-        {
-            if (category.categoryKey.Length() > 0)
-            {
-                categoryMap.Set(category.categoryKey, category);
-            }
-        }
-    }
-    
-    // Check current format and migrate if needed
-    private static void CheckAndMigrateFormat(string preferredFormat)
-    {
-        preferredFormat.ToUpper();
-        
-        string filename;
-        FileAttr attr;
-        
-        // Check what format currently exists
-        bool hasCsv = false;
-        bool hasJson = false;
-        
-        FindFileHandle csvHandle = TraderXFileSystem.Find(TRADERX_CSV_SOURCE_DIR + "*.csv", filename, attr, FindFileFlags.ALL);
-        if (csvHandle != 0)
-        {
-            hasCsv = true;
-            CloseFindFile(csvHandle);
-        }
-        
-        FindFileHandle jsonHandle = TraderXFileSystem.Find(TRADERX_CSV_SOURCE_DIR + "*.json", filename, attr, FindFileFlags.ALL);
-        if (jsonHandle != 0)
-        {
-            hasJson = true;
-            CloseFindFile(jsonHandle);
-        }
-        
-        // Determine if migration is needed
-        if (preferredFormat == "CSV" && hasJson && !hasCsv)
-        {
-            GetTraderXLogger().LogInfo("Preferred format is CSV but only JSON found - migrating JSON to CSV");
-            MigrateJsonToCsv();
-        }
-        else if (preferredFormat == "JSON" && hasCsv && !hasJson)
-        {
-            GetTraderXLogger().LogInfo("Preferred format is JSON but only CSV found - migrating CSV to JSON");
-            MigrateCsvToJson();
-        }
-        else if (hasCsv && hasJson)
-        {
-            GetTraderXLogger().LogWarning("Both CSV and JSON files found in Source - using auto-detection (CSV takes priority)");
-        }
-    }
-    
-    // Migrate JSON source files to CSV format
-    private static void MigrateJsonToCsv()
-    {
-        GetTraderXLogger().LogInfo("Starting JSON to CSV migration...");
-        
-        ref array<ref TraderXCsvProduct> products = new array<ref TraderXCsvProduct>;
-        ref array<ref TraderXCsvCategory> categories = new array<ref TraderXCsvCategory>;
-        ref array<ref TraderXCsvPreset> presets = new array<ref TraderXCsvPreset>;
-        
-        // Load JSON files
-        string productsJsonPath = TRADERX_CSV_SOURCE_DIR + "products.json";
-        if (FileExist(productsJsonPath))
-        {
-            ref array<ref TraderXCompiledProduct> jsonProducts = new array<ref TraderXCompiledProduct>;
-            JsonFileLoader<array<ref TraderXCompiledProduct>>.JsonLoadFile(productsJsonPath, jsonProducts);
-            
-            if (jsonProducts)
-            {
-                foreach (TraderXCompiledProduct jsonProd : jsonProducts)
-                {
-                    TraderXCsvProduct csvProd = ConvertJsonProductToCsv(jsonProd);
-                    if (csvProd)
-                    {
-                        products.Insert(csvProd);
-                    }
-                }
-            }
-        }
-        
-        string categoriesJsonPath = TRADERX_CSV_SOURCE_DIR + "categories.json";
-        if (FileExist(categoriesJsonPath))
-        {
-            ref array<ref TraderXCompiledCategory> jsonCategories = new array<ref TraderXCompiledCategory>;
-            JsonFileLoader<array<ref TraderXCompiledCategory>>.JsonLoadFile(categoriesJsonPath, jsonCategories);
-            
-            if (jsonCategories)
-            {
-                foreach (TraderXCompiledCategory jsonCat : jsonCategories)
-                {
-                    TraderXCsvCategory csvCat = ConvertJsonCategoryToCsv(jsonCat);
-                    if (csvCat)
-                    {
-                        categories.Insert(csvCat);
-                    }
-                }
-            }
-        }
-        
-        // Export to CSV
-        if (products.Count() > 0)
-        {
-            TraderXJsonToCsvConverter.ExportProductsToCSV(products, TRADERX_CSV_SOURCE_DIR + "products.csv");
-            GetTraderXLogger().LogInfo(string.Format("Migrated %1 products to CSV", products.Count()));
-        }
-        
-        if (categories.Count() > 0)
-        {
-            TraderXJsonToCsvConverter.ExportCategoriesToCSV(categories, TRADERX_CSV_SOURCE_DIR + "categories.csv");
-            GetTraderXLogger().LogInfo(string.Format("Migrated %1 categories to CSV", categories.Count()));
-        }
-        
-        GetTraderXLogger().LogInfo("JSON to CSV migration complete");
-    }
-    
-    // Migrate CSV source files to JSON format
-    private static void MigrateCsvToJson()
-    {
-        GetTraderXLogger().LogInfo("Starting CSV to JSON migration...");
-        
-        ref array<ref TraderXCsvProduct> products = new array<ref TraderXCsvProduct>;
-        ref array<ref TraderXCsvCategory> categories = new array<ref TraderXCsvCategory>;
-        ref array<ref TraderXCsvPreset> presets = new array<ref TraderXCsvPreset>;
-        
-        // Load CSV files
-        bool loadSuccess = LoadCsvPacks(products, categories, presets);
-        
-        if (!loadSuccess)
-        {
-            GetTraderXLogger().LogError("Failed to load CSV files for migration");
-            return;
-        }
-        
-        // Convert to JSON format
-        ref array<ref TraderXCompiledProduct> jsonProducts = new array<ref TraderXCompiledProduct>;
-        
-        foreach (TraderXCsvProduct csvProd : products)
-        {
-            TraderXCompiledProduct jsonProd = new TraderXCompiledProduct();
-            jsonProd.productId = csvProd.productKey;
-            jsonProd.className = csvProd.className;
-            jsonProd.buyPrice = csvProd.buyPrice;
-            jsonProd.sellPrice = csvProd.sellPrice;
-            jsonProd.maxStock = csvProd.maxStock;
-            jsonProd.coefficient = csvProd.destockCoefficient;
-            jsonProd.tradeQuantity = PackTradeQuantity(csvProd.buyQtyMode, csvProd.buyQtyValue, csvProd.sellQtyMode, csvProd.sellQtyValue);
-            jsonProd.stockSettings = PackStockSettings(csvProd.destockCoefficient, csvProd.stockBehaviorAtRestart);
-            jsonProd.attachments = csvProd.attachments;
-            jsonProd.variants = csvProd.variants;
-            jsonProducts.Insert(jsonProd);
-        }
-        
-        ref array<ref TraderXCompiledCategory> jsonCategories = new array<ref TraderXCompiledCategory>;
-        
-        foreach (TraderXCsvCategory csvCat : categories)
-        {
-            TraderXCompiledCategory jsonCat = new TraderXCompiledCategory();
-            jsonCat.categoryId = csvCat.categoryKey;
-            jsonCat.categoryName = csvCat.categoryName;
-            jsonCat.icon = csvCat.icon;
-            jsonCat.isVisible = csvCat.isVisible;
-            jsonCat.licensesRequired = csvCat.licensesRequired;
-            jsonCat.productIds = csvCat.productKeys;
-            jsonCategories.Insert(jsonCat);
-        }
-        
-        // Save as JSON
-        if (jsonProducts.Count() > 0)
-        {
-            JsonFileLoader<array<ref TraderXCompiledProduct>>.JsonSaveFile(TRADERX_CSV_SOURCE_DIR + "products.json", jsonProducts);
-            GetTraderXLogger().LogInfo(string.Format("Migrated %1 products to JSON", jsonProducts.Count()));
-        }
-        
-        if (jsonCategories.Count() > 0)
-        {
-            JsonFileLoader<array<ref TraderXCompiledCategory>>.JsonSaveFile(TRADERX_CSV_SOURCE_DIR + "categories.json", jsonCategories);
-            GetTraderXLogger().LogInfo(string.Format("Migrated %1 categories to JSON", jsonCategories.Count()));
-        }
-        
-        GetTraderXLogger().LogInfo("CSV to JSON migration complete");
-    }
-    
-    // Helper: Merge presets (later overrides earlier)
-    private static void MergePresets(map<string, ref TraderXCsvPreset> presetMap, array<ref TraderXCsvPreset> newPresets)
-    {
-        foreach (TraderXCsvPreset preset : newPresets)
-        {
-            if (preset.presetKey.Length() > 0)
-            {
-                presetMap.Set(preset.presetKey, preset);
-            }
-        }
     }
 }

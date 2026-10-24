@@ -5,7 +5,7 @@ class CfgPatches
 		units[]={};
 		weapons[]={};
 		requiredVersion=0.1;
-		requiredAddons[] = {"TraderX_Script","JM_CF_Scripts","DayZular_Script"};
+		requiredAddons[] = {"TraderX_Script","JM_CF_Scripts","TraderX_DayZular"};
 	};
 };
 
@@ -37,7 +37,7 @@ class CfgMods
 				value="";
 				files[]=
 				{
-					"DayZular/scripts/3_Game",
+					"TraderXDayZular/scripts/3_Game",
 					"TraderX/scripts/3_Game",
 					"TraderXSafeZone/scripts/Common",
 					"TraderXSafeZone/scripts/3_Game"
@@ -48,7 +48,7 @@ class CfgMods
 				value="";
 				files[]=
 				{
-					"DayZular/scripts/4_World",
+					"TraderXDayZular/scripts/4_World",
 					"TraderX/scripts/4_World",
 					"TraderXSafeZone/scripts/Common",
 					"TraderXSafeZone/scripts/4_World"

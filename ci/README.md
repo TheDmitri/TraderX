@@ -38,6 +38,21 @@ Env overrides win over the YAML: `MOD_NAME`, `WORKSHOP_ITEM_ID`, `BUILD_SKIP`.
 > Always pass `--user "$(id -u):$(id -g)"` to `docker run`. The image's base runs
 > as root, so without it your `target/` ends up root-owned and unwritable.
 
+## Bundled DayZular (`src/TraderXDayZular`)
+
+TraderX ships its own copy of DayZular so server owners need only CF + TraderX. The copy is
+generated, never edited: `python3 ci/bundle-dayzular.py [path/to/DayZular/src/DayZular]`.
+Every file of it is wrapped in `#ifndef DAYZULAR`; the standalone DayZular mod declares
+`defines[]={"DAYZULAR"}`, so when a server also loads `@DayZular` the copy compiles to nothing
+and the standalone is used. TraderX packages require `TraderX_DayZular` (not `DayZular_Script`)
+and list `TraderXDayZular/scripts/...` in their script modules.
+
+- Regenerate after every DayZular change, and keep the copy equal to the **published** DayZular.
+- **Publish DayZular before TraderX** whenever the copy changes. A server running a standalone
+  DayZular without the define (anything before it was added) next to this TraderX fails to
+  compile with "Multiple declaration of class" (verified in game, 2026-10-23).
+- Verified in game: CF + TraderX alone; CF + DayZular (with define) + TraderX.
+
 ## ⚠️ Signature validity is unproven — read before relying on it
 
 `pack-linux.sh` signs with armake2, but **no Linux tool can authoritatively

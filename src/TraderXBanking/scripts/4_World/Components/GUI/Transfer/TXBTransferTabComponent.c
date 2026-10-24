@@ -14,6 +14,7 @@ class TXBTransferTabComponent extends DZlrComponentBase
 
 	// Summary/display
 	string transferFeesDisplay;
+	string transferFeeLabel;
 	string transferBalanceText;
 	string transferStatusText;
 
@@ -36,6 +37,9 @@ class TXBTransferTabComponent extends DZlrComponentBase
 	protected string m_PlayerUID;
 	protected float m_FeePercent;
 	protected float m_ThrottleTimer;
+	protected bool m_TransferPending;
+	protected float m_PendingTimer;
+	protected const float PENDING_TIMEOUT = 15.0;
 	protected const float THROTTLE_INTERVAL = 1.0;
 
 	override protected void RegisterMetadata()
@@ -56,10 +60,12 @@ class TXBTransferTabComponent extends DZlrComponentBase
 		if (clientSettings)
 			m_FeePercent = clientSettings.transactionFeePercent;
 
+		transferFeeLabel = BuildFeeLabel();
 		ResetForm();
 
 		TXBBankingService.Event_OnAccountUpdated.Insert(OnAccountUpdated);
 		TXBBankingService.Event_OnContactsUpdated.Insert(OnContactsUpdated);
+		TXBBankingService.Event_OnTransactionResult.Insert(OnTransactionResult);
 
 		GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(PeriodicUpdate, 500, true);
 
@@ -72,6 +78,7 @@ class TXBTransferTabComponent extends DZlrComponentBase
 	{
 		TXBBankingService.Event_OnAccountUpdated.Remove(OnAccountUpdated);
 		TXBBankingService.Event_OnContactsUpdated.Remove(OnContactsUpdated);
+		TXBBankingService.Event_OnTransactionResult.Remove(OnTransactionResult);
 		GetGame().GetCallQueue(CALL_CATEGORY_GUI).Remove(PeriodicUpdate);
 	}
 
@@ -163,13 +170,67 @@ class TXBTransferTabComponent extends DZlrComponentBase
 	{
 		TXBAccountData account = GetTXBBankingService().GetClientAccount();
 		if (account)
+		{
 			m_BankBalance = account.balance;
+			if (m_PlayerUID == "" && account.playerUID != "")
+				m_PlayerUID = account.playerUID;
+		}
 	}
 
 	void PeriodicUpdate()
 	{
 		if (m_ThrottleTimer > 0)
 			m_ThrottleTimer -= 0.5;
+
+		// Safety net: never leave the UI stuck in "in progress" if no answer arrives.
+		if (m_TransferPending)
+		{
+			m_PendingTimer -= 0.5;
+			if (m_PendingTimer <= 0)
+			{
+				m_TransferPending = false;
+				SetStatus("No response from the bank server. Check your balance before retrying.", false);
+			}
+		}
+	}
+
+	// Server reported the outcome of a transaction.
+	void OnTransactionResult(int txType, bool success, string message)
+	{
+		if (txType != TXBConstants.TRANSACTION_TRANSFER)
+			return;
+		if (!m_TransferPending)
+			return;
+
+		m_TransferPending = false;
+		SetStatus(message, success);
+		if (success)
+		{
+			transferAmount = "";
+			transferNote = "";
+			OnTransferAmountChanged();
+		}
+	}
+
+	protected string BuildFeeLabel()
+	{
+		float pct = m_FeePercent * 100.0;
+		int pctInt = Math.Round(pct);
+		string pctText = pctInt.ToString();
+		if (Math.AbsFloat(pct - pctInt) > 0.01)
+			pctText = pct.ToString();
+		return "Transfer fee - " + pctText + "%";
+	}
+
+	// Own UID as known by the client (identity first, server-synced account as fallback).
+	protected bool IsOwnAccount(string uid)
+	{
+		if (m_PlayerUID != "" && uid == m_PlayerUID)
+			return true;
+		TXBAccountData account = GetTXBBankingService().GetClientAccount();
+		if (account && account.playerUID != "" && uid == account.playerUID)
+			return true;
+		return false;
 	}
 
 	// --- Form actions ---
@@ -182,6 +243,17 @@ class TXBTransferTabComponent extends DZlrComponentBase
 			return;
 		}
 
+		if (m_TransferPending)
+		{
+			SetStatus("A transfer is already in progress...", false);
+			return;
+		}
+
+		// Refresh fee percent in case settings arrived after the tab opened.
+		TXBSettings clientSettings = GetTXBConfigService().GetClientSettings();
+		if (clientSettings)
+			m_FeePercent = clientSettings.transactionFeePercent;
+
 		int amount = transferAmount.ToInt();
 		if (amount <= 0)
 		{
@@ -189,33 +261,43 @@ class TXBTransferTabComponent extends DZlrComponentBase
 			return;
 		}
 
-		if (destinationAccountId.Length() < 16)
+		string destUID = destinationAccountId;
+		destUID.TrimInPlace();
+		if (destUID.Length() < 16)
 		{
 			SetStatus("Enter a valid recipient account ID.", false);
 			return;
 		}
 
-		if (destinationAccountId == m_PlayerUID)
+		if (IsOwnAccount(destUID))
 		{
 			SetStatus("Cannot transfer to your own account.", false);
 			return;
 		}
 
 		int fees = Math.Round(amount * m_FeePercent);
-		if (amount + fees > m_BankBalance)
+		int total = amount + fees;
+		if (total > m_BankBalance)
 		{
-			SetStatus("Insufficient balance (amount + fees).", false);
+			SetStatus("Insufficient balance: " + amount.ToString() + " + " + fees.ToString() + " fee = " + total.ToString() + ".", false);
 			return;
 		}
 
-		GetDayZularRPCManager().SendRPC(TXBConstants.RPC_NAMESPACE, "RequestTransfer", new Param3<string, int, string>(destinationAccountId, amount, transferNote), true, null);
+		GetDayZularRPCManager().SendRPC(TXBConstants.RPC_NAMESPACE, "RequestTransfer", new Param3<string, int, string>(destUID, amount, transferNote), true, null);
 
-		SetStatus("Transferring " + amount.ToString() + " to " + destinationAccountId + "...", true);
+		SetStatus("Transferring " + amount.ToString() + " to " + destUID + " (fee " + fees.ToString() + ", total " + total.ToString() + ")...", true);
 		m_ThrottleTimer = THROTTLE_INTERVAL;
+		m_TransferPending = true;
+		m_PendingTimer = PENDING_TIMEOUT;
 	}
 
 	void OnTransferAmountChanged()
 	{
+		TXBSettings clientSettings = GetTXBConfigService().GetClientSettings();
+		if (clientSettings)
+			m_FeePercent = clientSettings.transactionFeePercent;
+		transferFeeLabel = BuildFeeLabel();
+
 		int amount = transferAmount.ToInt();
 		if (amount > 0)
 		{

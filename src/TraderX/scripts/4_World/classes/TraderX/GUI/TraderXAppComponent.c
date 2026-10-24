@@ -7,6 +7,14 @@ class TraderXAppComponent extends DZlrComponentBase
 	string trader_name;
 	string trader_role;
 	string wallet_amount;
+	// Header wallet chips (Nasdara): cash and bank shown apart, with the currency symbol.
+	string cash_amount;
+	string bank_amount;
+	// Tab labels, uppercase (Anton caps).
+	string tab_catalog;
+	string tab_purchase;
+	string tab_sell;
+	string tab_favorites;
 	string currentPageSelector;
 	// The page we swapped away from when opening a sub-page (e.g. customize), so
 	// CloseSubPage can return to it. Empty = not in a sub-page.
@@ -20,6 +28,17 @@ class TraderXAppComponent extends DZlrComponentBase
 	ButtonWidget SellBtn;
 	ButtonWidget CatalogBtn;
 	ButtonWidget selectedBtn;
+	// Active tab: cream label + ember underline.
+	TextWidget CatalogLabel;
+	TextWidget PurchaseLabel;
+	TextWidget SellLabel;
+	TextWidget FavoritesLabel;
+	Widget CatalogLine;
+	Widget PurchaseLine;
+	Widget SellLine;
+	Widget FavoritesLine;
+	Widget bankChip;
+	Widget loadingBarFill;
 
 	// Loading overlay shown until the trader's products/stock arrive, so the menu opens
 	// instantly instead of building a half-populated (frozen-looking) view.
@@ -66,6 +85,52 @@ class TraderXAppComponent extends DZlrComponentBase
 		TXBeansPromoComponent.Open();
 	}
 
+	// DayZ Beans Launcher placement 4: a welcome toast on the first trader opened after
+	// joining (once per session; TraderXGeneralSettings.showBeansWelcome = false turns it off).
+	protected static bool s_BeansWelcomeShown;
+
+	void ShowBeansWelcome()
+	{
+		if (s_BeansWelcomeShown || !GetTraderXToastService()) return;
+		TraderXGeneralSettings settings = GetTraderXModule().GetSettings();
+		if (settings && !settings.showBeansWelcome) return;
+		s_BeansWelcomeShown = true;
+		string title = string.Format(Widget.TranslateString("#tpm_welcome_to"), trader_name);
+		GetTraderXToastService().ShowToast(TXNOTIF_BEANS, title, Widget.TranslateString("#tpm_beans_brought_by"));
+	}
+
+	// Header close button. Deferred: closing destroys this component, whose click is
+	// still on the stack (see AddSubPage).
+	void OnCloseClick()
+	{
+		GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(CloseTraderView, 1, false);
+	}
+
+	void CloseTraderView()
+	{
+		if (GetTraderXUIService())
+			GetTraderXUIService().CloseTraderView();
+	}
+
+	static string Upper(string text)
+	{
+		string s = Widget.TranslateString(text);
+		s.ToUpper();
+		return s;
+	}
+
+	// Next/previous top tab (TAB / Q / E while the trader is open).
+	void CyclePage(int dir)
+	{
+		array<ButtonWidget> tabs = {CatalogBtn, PurchaseBtn, SellBtn, favBtn};
+		array<string> pages = {"tx-catalog-page", "tx-purchase-page", "tx-sell-page", "tx-favorite-page"};
+		int i = tabs.Find(selectedBtn);
+		if (i < 0) i = 0;
+		i = (i + dir + tabs.Count()) % tabs.Count();
+		TraderXInventoryManager.PlayMenuSound(ETraderXSounds.QUICK_EVENT);
+		NavigateTo(pages[i], tabs[i]);
+	}
+
 	void Setup()
 	{
 		if (TraderXProviderRegistry.GetInstance().HasBanking())
@@ -74,6 +139,10 @@ class TraderXAppComponent extends DZlrComponentBase
 			if (bankProv)
 				bankProv.RequestBalanceRefresh();
 		}
+		tab_catalog = Upper("#tpm_catalog");
+		tab_purchase = Upper("#tpm_purchase");
+		tab_sell = Upper("#tpm_sell");
+		tab_favorites = Upper("#tpm_favorites");
 		UpdateTraderInfo();
 		UpdateWallet();
 
@@ -107,7 +176,9 @@ class TraderXAppComponent extends DZlrComponentBase
 		int i;
 		for (i = 0; i < m_LoadingDots; i++)
 			dots = dots + ".";
-		loading_text = Widget.TranslateString("#tpm_loading_trader") + dots;
+		loading_text = Widget.TranslateString("#tpm_fetching_stock") + dots;
+		// the bar runs 25% -> 100% while waiting
+		if (loadingBarFill) loadingBarFill.SetSize(0.25 + 0.25 * m_LoadingDots, 1);
 		MarkForCheck();
 		GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(TickLoadingText, 400, false);
 	}
@@ -120,6 +191,7 @@ class TraderXAppComponent extends DZlrComponentBase
 		GetGame().GetCallQueue(CALL_CATEGORY_GUI).Remove(ShowContent);
 		if (loadingOverlay) loadingOverlay.Show(false);
 		NavigateTo("tx-favorite-page", favBtn);
+		ShowBeansWelcome();
 	}
 
 	// Player's spendable money in the active trader's accepted currencies. Recomputed
@@ -132,14 +204,23 @@ class TraderXAppComponent extends DZlrComponentBase
 		int npcId = TraderXTradingService.GetInstance().GetNpcId();
 		TraderXNpc npc = GetTraderXModule().GetSettings().GetNpcById(npcId);
 		if (npc) accepted = npc.GetCurrenciesAccepted();
-		int money = TraderXCurrencyService.GetInstance().GetPlayerMoneyFromAllCurrency(player, accepted);
+		int cash = TraderXCurrencyService.GetInstance().GetPlayerMoneyFromAllCurrency(player, accepted);
+		int bank = 0;
+		bool hasBank = false;
 		if (TraderXProviderRegistry.GetInstance().HasBanking())
 		{
 			ITraderXPaymentProvider bankProv = TraderXProviderRegistry.GetInstance().GetBankingProvider();
 			if (bankProv && bankProv.IsAvailable(player))
-				money += bankProv.GetClientBalance();
+			{
+				bank = bankProv.GetClientBalance();
+				hasBank = true;
+			}
 		}
-		wallet_amount = TraderXQuantityManager.GetFormattedMoneyAmount(money);
+		wallet_amount = TraderXQuantityManager.GetFormattedMoneyAmount(cash + bank);
+		string symbol = TraderXCurrencyService.GetInstance().GetCurrencySymbol(accepted);
+		cash_amount = symbol + TraderXQuantityManager.GetFormattedMoneyAmount(cash);
+		bank_amount = symbol + TraderXQuantityManager.GetFormattedMoneyAmount(bank);
+		if (bankChip) bankChip.Show(hasBank);
 		MarkForCheck();
 	}
 
@@ -173,20 +254,21 @@ class TraderXAppComponent extends DZlrComponentBase
 		ItemCardComponent.DestroyAllTooltips();
 		TraderXSelectionService.GetInstance().DeSelectAllItems();
 
-		if (selectedBtn)
-		{
-			selectedBtn.SetTextColor(TraderXTheme.NAV_INACTIVE);
-			selectedBtn.SetAlpha(0.7);
-		}
 		selectedBtn = newSelectedBtn;
-		if (selectedBtn)
-		{
-			selectedBtn.SetTextColor(TraderXTheme.NAV_ACTIVE);
-			selectedBtn.SetAlpha(1.0);
-		}
+		ApplyTabState(CatalogBtn, CatalogLabel, CatalogLine);
+		ApplyTabState(PurchaseBtn, PurchaseLabel, PurchaseLine);
+		ApplyTabState(SellBtn, SellLabel, SellLine);
+		ApplyTabState(favBtn, FavoritesLabel, FavoritesLine);
 
 		currentPageSelector = pageSelector;
 		MarkForCheck();
+	}
+
+	void ApplyTabState(ButtonWidget btn, TextWidget label, Widget line)
+	{
+		bool active = btn && btn == selectedBtn;
+		if (label) label.SetColor(DZTernaryInt.If(active, TraderXTheme.NAV_ACTIVE, TraderXTheme.NAV_INACTIVE));
+		if (line) line.Show(active);
 	}
 
 	// Swap to the sub-page like any other page so the previous page (and its

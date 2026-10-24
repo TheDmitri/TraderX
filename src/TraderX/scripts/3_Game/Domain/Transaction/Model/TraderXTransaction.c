@@ -25,7 +25,9 @@ class TraderXTransaction
         parentItemId = _parentItemId;
         multiplier = multi;
         unitPrice = price;
-        totalPrice = price.Multiply(multiplier);
+        // The engine constructs deserialised transactions without arguments (price = null).
+        if (price)
+            totalPrice = price.Multiply(multiplier);
         preset = tpPreset;
         if(netId){
             networkId = netId;

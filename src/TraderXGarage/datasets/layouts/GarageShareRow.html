@@ -6,38 +6,25 @@
   <link rel="stylesheet" href="dzml-styles.css">
   <link rel="stylesheet" href="dzml-icons.css">
 </head>
-<body>
-
-<!-- GarageShareRow - one player in the share panel: name, access state, ADD / REMOVE. -->
+<body data-dzml style="width:1122px; height:62px; background:#13100c;">
+<!-- Share row (Nasdara): name, access state, ADD (ember) / REMOVE / CONFIRM? (Bad). -->
 <div data-dz="panel" data-name="shareRowRoot" data-style="TXCard"
-     class="dz-xy-0-0 dz-wh-full dz-c-FE">
-  <span data-dz="text" data-name="sharePlayerName"
-        data-bind="{{ playerNameText }}"
-        class="dz-xy-3-0 dz-wh-50-100 dz-c-D8D2C0 dz-font-body-14 dz-noptr dz-exact-text dz-text-vc dz-bold">
+     class="dz-xy-0-0 dz-wh-100-62px dz-c-FE">
+  <span data-dz="text" data-name="sharePlayerName" data-bind="{{ playerNameText }}"
+        class="dz-xy-24px-0 dz-wh-500px-62px dz-c-F2E9D8 dz-font-nbb-20 dz-noptr dz-exact-text dz-text-vc">
     Survivor
   </span>
-  <span data-dz="text" data-name="shareAccess"
-        data-bind="{{ accessText }}"
-        class="dz-xy-46-0 dz-wh-28-100 dz-c-6A6560 dz-font-mono-11 dz-noptr dz-exact-text dz-text-vc">
+  <span data-dz="text" data-name="shareAccess" data-bind="{{ accessText }}"
+        class="dz-xy-540px-0 dz-wh-300px-62px dz-c-A39276 dz-font-nm-14 dz-noptr dz-exact-text dz-text-vc">
     NEARBY
   </span>
-  <button data-dz="button" data-name="shareAddBtn" data-style="TXBtnPrimary"
-          data-on-click="OnToggle"
-          class="dz-xy-78-15 dz-wh-20-70 dz-c-FE dz-tc-9AB05A dz-font-heading-12 dz-exact-text dz-text-center dz-text-vc dz-bold">
-    ADD
-  </button>
-  <button data-dz="button" data-name="shareRemoveBtn" data-style="TXBtnDefault"
-          data-on-click="OnToggle"
-          class="dz-xy-78-15 dz-wh-20-70 dz-c-FE dz-tc-C8664A dz-font-heading-12 dz-exact-text dz-text-center dz-text-vc dz-bold">
-    REMOVE
-  </button>
-  <button data-dz="button" data-name="shareConfirmBtn" data-style="TXBtnDanger"
-          data-on-click="OnConfirmRemove"
-          class="dz-xy-78-15 dz-wh-20-70 dz-c-FE dz-tc-FFFFFF dz-font-heading-12 dz-exact-text dz-text-center dz-text-vc dz-bold">
-    CONFIRM?
-  </button>
+  <button data-dz="button" data-name="shareAddBtn" data-style="TXBtnPrimary" data-on-click="OnToggle"
+          class="dz-xy-12px-0 dz-wh-180px-43px dz-align-cr dz-c-FE dz-tc-1A0D04 dz-font-nh-20 dz-exact-text dz-text-center dz-text-vc">#txg_add</button>
+  <button data-dz="button" data-name="shareRemoveBtn" data-style="TXBtnDefault" data-on-click="OnToggle"
+          class="dz-xy-12px-0 dz-wh-180px-43px dz-align-cr dz-c-FE dz-tc-E07A63 dz-font-nh-20 dz-exact-text dz-text-center dz-text-vc">#txg_remove</button>
+  <button data-dz="button" data-name="shareConfirmBtn" data-style="TXBtnDanger" data-on-click="OnConfirmRemove"
+          class="dz-xy-12px-0 dz-wh-180px-43px dz-align-cr dz-c-FE dz-tc-F2E9D8 dz-font-nh-20 dz-exact-text dz-text-center dz-text-vc">#txg_confirm_q</button>
 </div>
-
 <script src="dzml-runtime.js"></script>
 </body>
 </html>

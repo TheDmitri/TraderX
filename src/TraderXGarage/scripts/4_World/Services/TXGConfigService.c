@@ -15,6 +15,7 @@ class TXGConfigService extends DayZularService
     protected int  m_ClientInsuranceDefaultDays = 1;
     protected bool m_ClientIsAdmin = false;
     protected int  m_ClientInsuranceMaxDays = 30;
+    protected bool m_ClientReceiptsEnabled = false;
     protected ref TStringArray m_ClientNpcClasses = new TStringArray();
     protected ref array<int> m_ClientNpcIds = new array<int>();
     protected ref array<ref TXGNpcSpotDTO> m_ClientNpcSpots = new array<ref TXGNpcSpotDTO>();
@@ -76,10 +77,12 @@ class TXGConfigService extends DayZularService
     int  GetClientInsuranceDefaultDays() { return m_ClientInsuranceDefaultDays; }
     bool GetClientIsAdmin()              { return m_ClientIsAdmin; }
     int  GetClientInsuranceMaxDays()     { return m_ClientInsuranceMaxDays; }
+    bool GetClientReceiptsEnabled()      { return m_ClientReceiptsEnabled; }
 
-    void SetClientConfig(int parkIn, int parkOut, int maxSlots, array<string> npcClasses, array<int> npcIds = null, array<ref TXGNpcSpotDTO> npcSpots = null, bool enableRepairs = true, bool enableInsurance = false, int insDefaultDays = 1, bool isAdmin = false, int insMaxDays = 30)
+    void SetClientConfig(int parkIn, int parkOut, int maxSlots, array<string> npcClasses, array<int> npcIds = null, array<ref TXGNpcSpotDTO> npcSpots = null, bool enableRepairs = true, bool enableInsurance = false, int insDefaultDays = 1, bool isAdmin = false, int insMaxDays = 30, bool receiptsEnabled = false)
     {
         m_ClientInsuranceMaxDays = insMaxDays;
+        m_ClientReceiptsEnabled = receiptsEnabled;
         m_ClientParkInCost = parkIn;
         m_ClientParkOutCost = parkOut;
         m_ClientMaxSlots = maxSlots;

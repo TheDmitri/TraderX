@@ -2,88 +2,121 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="dzml.css">
-  <link rel="stylesheet" href="dzml-styles.css">
-  <link rel="stylesheet" href="dzml-icons.css">
+  <link rel="stylesheet" href="../dzml.css">
+  <link rel="stylesheet" href="../dzml-styles.css">
+  <link rel="stylesheet" href="../dzml-icons.css">
 </head>
-<body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#1a1a1a;">
+<body data-dzml class="dz-viewport" style="width:1920px; height:950px; background:#13100c;">
 
+<!-- Purchase page (Nasdara, board "Trader · Purchase"): category sidebar 312 px,
+     the selected category's tiles, cart 456 px. The try-on preview is optional
+     (person button) and takes the left of the main area when shown. -->
 <div data-dz="panel"
     data-name="PurchasePageView"
-    data-style="TXContent"
-    class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr">
+    class="dz-xy-0-0 dz-wh-full dz-c-13100C dz-noptr">
+
+  <!-- Sidebar: search + categories -->
   <div data-dz="panel"
-      data-name="topBar"
-      data-style="TXSurface"
-      class="dz-xy-0-0 dz-wh-100-6 dz-c-FE dz-noptr">
-    <button data-dz="button"
-        data-name="previewToggleBtn"
-        data-style="TXBtnIcon"
-        data-on-click="OnPreviewToggleClick"
-        class="dz-xy-31-22 dz-wh-4-56 dz-tc-FE">
-      <img data-dz="image"
-          data-name="previewToggleIcon"
-          class="dz-wh-28px-28px dz-align-cc dz-c-C4A35A dz-noptr"
-          data-image="set:traderx_icons image:person"
-          data-image-mode="blend"
-          data-image-src-alpha="1"
-          data-image-stretch="stretch_w_h"/>
-    </button>
+      data-name="CategorySidebar"
+      data-style="TXSideLeft"
+      class="dz-xy-0-0 dz-wh-312px-950px dz-c-FE dz-noptr">
+    <span data-dz="text"
+        data-name="searchLabel"
+        class="dz-xy-24px-24px dz-wh-264px-18px dz-c-A39276 dz-font-nbb-14 dz-noptr dz-exact-text dz-text-vc">
+      #tpm_search_caps
+    </span>
     <div data-dz="panel"
         data-name="SearchBarHost"
         data-component="tx-search-bar"
-        class="dz-xy-36-22 dz-wh-24-56"></div>
-    <button data-dz="button"
-        data-name="toggleExpandBtn"
-        data-style="Bold"
-        data-on-click="OnToggleExpandClick"
-        class="dz-xy-62-22 dz-wh-8-56 dz-tc-FE dz-tc-D8D2C0 dz-font-body-12 dz-exact-text dz-hidden"
-        data-prop-style="TXBtnDefault">
-      <span data-dz="text"
-          data-name="toggleExpandText"
-          class="dz-xy-0-0 dz-wh-full dz-tc-D8D2C0 dz-font-body-12 dz-noptr dz-text-center dz-text-vc dz-exact-text">
-        #tpm_expand_all
-      </span>
-    </button>
+        class="dz-xy-24px-50px dz-wh-264px-48px"></div>
+    <span data-dz="text"
+        data-name="categoriesLabel"
+        class="dz-xy-24px-122px dz-wh-264px-18px dz-c-A39276 dz-font-nbb-14 dz-noptr dz-exact-text dz-text-vc">
+      #tpm_categories_caps
+    </span>
+    <div data-dz="scroll"
+        data-name="scrollNav"
+        class="dz-xy-0-150px dz-wh-311px-740px dz-scroll-v">
+      <div data-dz="grid"
+          data-name="categoryNavGrid"
+          data-foreach="{{ _navCategories }}"
+          data-template="tx-category-nav-item"
+          data-item="_inputCategory"
+          class="dz-xy-0-0 dz-wh-100-1 dz-fit-v dz-cols-1 dz-rows-100"></div>
+    </div>
     <div data-dz="panel"
         data-name="syncIndicator"
-        class="dz-xy-62-22 dz-wh-8-56 dz-noptr">
+        class="dz-xy-24px-24px dz-wh-264px-24px dz-align-bl dz-noptr">
       <img data-dz="image"
           data-name="syncIcon"
-          class="dz-xy-2-15 dz-wh-24px-24px dz-c-C4A35A dz-noptr"
+          class="dz-xy-0-0 dz-wh-18px-18px dz-align-y-center dz-c-D9762F dz-noptr"
           data-image="set:traderx_icons image:refresh"
           data-image-mode="blend"
           data-image-src-alpha="1"
           data-image-stretch="stretch_w_h"/>
       <span data-dz="text"
           data-name="syncText"
-          class="dz-xy-24-0 dz-wh-76-100 dz-c-9A9488 dz-font-body-12 dz-noptr dz-text-vc dz-exact-text">
+          class="dz-xy-28px-0 dz-wh-230px-24px dz-c-A39276 dz-font-nb-16 dz-noptr dz-text-vc dz-exact-text">
         #tpm_syncing
       </span>
     </div>
-    <div data-dz="panel"
-        data-name="ViewToggleHost"
-        data-component="tx-view-toggle"
-        class="dz-xy-72-22 dz-wh-8-56 dz-noptr"></div>
   </div>
+
+  <!-- Main: the selected category (title row + tiles) -->
+  <div data-dz="scroll"
+      data-name="scrollCategory"
+      class="dz-xy-341px-24px dz-wh-1094px-926px dz-scroll-v">
+    <div data-dz="grid"
+        data-name="categoryGrid"
+        data-foreach="{{ _inputCategories }}"
+        data-template="tx-category-card"
+        data-item="_inputCategory"
+        class="dz-xy-0-0 dz-wh-100-1 dz-fit-v dz-cols-1 dz-rows-100 dz-gap-36"></div>
+  </div>
+  <div data-dz="panel"
+      data-name="ViewToggleHost"
+      data-component="tx-view-toggle"
+      class="dz-xy-485px-28px dz-wh-96px-41px dz-align-x-right dz-noptr"></div>
+  <div data-dz="panel"
+      data-name="previewToggleHost"
+      class="dz-xy-780px-27px dz-wh-43px-43px dz-align-x-right dz-noptr">
+    <button data-dz="button"
+        data-name="previewToggleBtn"
+        data-style="TXBtnIcon"
+        data-on-click="OnPreviewToggleClick"
+        class="dz-xy-0-0 dz-wh-full dz-tc-FE">
+      <img data-dz="image"
+          data-name="previewToggleIcon"
+          class="dz-wh-19px-19px dz-align-cc dz-c-A39276 dz-noptr"
+          data-image="set:traderx_icons image:person"
+          data-image-mode="blend"
+          data-image-src-alpha="1"
+          data-image-stretch="stretch_w_h"/>
+    </button>
+  </div>
+
+  <!-- Optional try-on preview (hidden by default) -->
   <div data-dz="panel"
       data-name="PlayerPreviewPanel"
       data-style="TXCard"
-      class="dz-xy-1-7 dz-wh-19-92 dz-c-FE dz-noptr">
+      class="dz-xy-341px-94px dz-wh-330px-832px dz-c-FE dz-noptr dz-hidden">
+    <div data-dz="panel"
+        data-name="previewWellBg"
+        class="dz-xy-1px-1px dz-wh-328px-760px dz-c-0F0D0A dz-noptr"></div>
     <div data-dz="playerpreview"
         data-name="playerPreview"
         data-enable-rotation="1"
-        class="dz-xy-0-0 dz-wh-94-85 dz-align-cc"></div>
+        class="dz-xy-0-12px dz-wh-94-86 dz-align-x-center"></div>
     <button data-dz="button"
         data-name="fittingBtn"
         data-style="TXBtnIcon"
         data-on-click="OnFittingToggleClick"
         data-on-mouseenter="OnFittingBtnMouseEnter"
         data-on-mouseleave="OnPreviewBtnMouseLeave"
-        class="dz-align-bl dz-xy-2-2 dz-wh-44px-44px dz-tc-FE dz-tc-D8D2C0 dz-font-body-16 dz-exact-text">
+        class="dz-align-bl dz-xy-14px-14px dz-wh-43px-43px dz-tc-FE">
       <img data-dz="image"
           data-name="fittingBtnIcon"
-          class="dz-xy-0-0 dz-wh-55-55 dz-align-cc dz-c-9A9488 dz-noptr"
+          class="dz-xy-0-0 dz-wh-19px-19px dz-align-cc dz-c-A39276 dz-noptr"
           data-image="set:traderx_icons image:approved"
           data-image-mode="blend"
           data-image-src-alpha="1"
@@ -95,10 +128,10 @@
         data-on-click="OnStripClick"
         data-on-mouseenter="OnStripBtnMouseEnter"
         data-on-mouseleave="OnPreviewBtnMouseLeave"
-        class="dz-align-bc dz-xy-2-2 dz-wh-44px-44px dz-tc-FE dz-tc-D8D2C0 dz-font-body-16 dz-exact-text">
+        class="dz-align-bc dz-xy-0-14px dz-wh-43px-43px dz-tc-FE">
       <img data-dz="image"
           data-name="stripBtnIcon"
-          class="dz-xy-0-0 dz-wh-55-55 dz-align-cc dz-noptr"
+          class="dz-xy-0-0 dz-wh-19px-19px dz-align-cc dz-c-C2B59C dz-noptr"
           data-image="set:traderx_icons image:person"
           data-image-mode="blend"
           data-image-src-alpha="1"
@@ -110,38 +143,24 @@
         data-on-click="OnResetClick"
         data-on-mouseenter="OnResetBtnMouseEnter"
         data-on-mouseleave="OnPreviewBtnMouseLeave"
-        class="dz-align-br dz-xy-2-2 dz-wh-44px-44px dz-tc-FE dz-tc-D8D2C0 dz-font-body-16 dz-exact-text">
+        class="dz-align-br dz-xy-14px-14px dz-wh-43px-43px dz-tc-FE">
       <img data-dz="image"
           data-name="resetBtnIcon"
-          class="dz-xy-0-0 dz-wh-55-55 dz-align-cc dz-noptr"
+          class="dz-xy-0-0 dz-wh-19px-19px dz-align-cc dz-c-C2B59C dz-noptr"
           data-image="set:traderx_icons image:refresh"
           data-image-mode="blend"
           data-image-src-alpha="1"
           data-image-stretch="stretch_w_h"/>
     </button>
   </div>
-  <div data-dz="panel"
-      data-name="CategoryListPanel"
-      data-style="TXSurface"
-      class="dz-xy-21-7 dz-wh-55-92 dz-c-FE dz-noptr">
-    <div data-dz="scroll"
-        data-name="scrollCategory"
-        class="dz-xy-1-1 dz-wh-98-98 dz-scroll-v">
-      <div data-dz="grid"
-          data-name="categoryGrid"
-          data-foreach="{{ _inputCategories }}"
-          data-template="tx-category-card"
-          data-item="_inputCategory"
-          class="dz-xy-0-0 dz-wh-100-1 dz-fit-v dz-cols-1 dz-rows-100 dz-gap-6"></div>
-    </div>
-  </div>
+
+  <!-- Cart -->
   <div data-dz="panel"
       data-name="CheckoutHost"
-      data-style="TXCard"
       data-component="tx-checkout"
-      class="dz-xy-77-7 dz-wh-22-92 dz-c-FE"></div>
+      class="dz-xy-0-0 dz-wh-456px-950px dz-align-x-right"></div>
 </div>
 
-<script src="dzml-runtime.js?v=1780762083610"></script>
+<script src="../dzml-runtime.js?v=1780762083610"></script>
 </body>
 </html>

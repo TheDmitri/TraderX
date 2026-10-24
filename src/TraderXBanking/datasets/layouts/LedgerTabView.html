@@ -19,21 +19,21 @@
 <body class="dz-viewport">
 
 <!-- LedgerTabView - Banking transaction history + selection detail (mockup-aligned).
-     Backdrop dz-c-08090CD1 = ~82% opaque - consistent translucent backdrop. -->
+     Backdrop dz-c-0F0D0AD1 = ~82% opaque - consistent translucent backdrop. -->
 <div data-dz="panel" data-name="ledgerPanel"
-     class="dz-xy-0-0 dz-wh-full dz-c-08090CD1 dz-noptr">
+     class="dz-xy-0-0 dz-wh-full dz-c-0F0D0AD1 dz-noptr">
 
   <!-- ════════ TOP TOOLBAR : search + filter pills + export ════════ -->
 
   <!-- Search input (top-left) -->
   <input data-dz="editbox" data-name="ledgerSearchInput"
-         data-style="TXInputField"
+         data-style="TXBInputField"
          data-bind="{{ ledgerSearch }}"
          data-two-way="1"
          data-on-change="OnSearchChanged"
-         class="dz-xy-2-2 dz-wh-20-5 dz-c-FE dz-tc-D8D2C0 dz-font-body-12 dz-exact-text" />
+         class="dz-xy-2-2 dz-wh-20-5 dz-c-FE dz-tc-F2E9D8 dz-font-nbb-16 dz-exact-text" />
   <span data-dz="text" data-name="ledgerSearchHint"
-        class="dz-xy-2.6-2 dz-wh-19-5 dz-c-6A6560 dz-font-body-12 dz-noptr dz-exact-text dz-text-vc">
+        class="dz-xy-2.6-2 dz-wh-19-5 dz-c-8C7D66 dz-font-nbb-16 dz-noptr dz-exact-text dz-text-vc">
     Search name, type or note
   </span>
 
@@ -41,53 +41,53 @@
   <div data-dz="grid" data-name="filterBar"
        class="dz-xy-24-2 dz-wh-48-5 dz-cols-5 dz-rows-1 dz-gap-3">
     <button data-dz="button" data-name="filterAllBtn"
-            data-style="TXTab" data-on-click="OnFilterAll"
-            class="dz-c-FE dz-tc-D4A44C dz-font-body-12 dz-exact-text dz-text-center dz-text-vc dz-bold">
+            data-style="TXBTab" data-on-click="OnFilterAll"
+            class="dz-c-FE dz-tc-E8894A dz-font-nbb-16 dz-exact-text dz-text-center dz-text-vc">
       ALL
     </button>
     <button data-dz="button" data-name="filterDepositBtn"
-            data-style="TXTab" data-on-click="OnFilterDeposit"
-            class="dz-c-FE dz-tc-D8D2C0 dz-font-body-12 dz-exact-text dz-text-center dz-text-vc dz-bold">
+            data-style="TXBTab" data-on-click="OnFilterDeposit"
+            class="dz-c-FE dz-tc-F2E9D8 dz-font-nbb-16 dz-exact-text dz-text-center dz-text-vc">
       DEPOSITS
     </button>
     <button data-dz="button" data-name="filterWithdrawBtn"
-            data-style="TXTab" data-on-click="OnFilterWithdraw"
-            class="dz-c-FE dz-tc-D8D2C0 dz-font-body-12 dz-exact-text dz-text-center dz-text-vc dz-bold">
+            data-style="TXBTab" data-on-click="OnFilterWithdraw"
+            class="dz-c-FE dz-tc-F2E9D8 dz-font-nbb-16 dz-exact-text dz-text-center dz-text-vc">
       WITHDRAWALS
     </button>
     <button data-dz="button" data-name="filterTransferBtn"
-            data-style="TXTab" data-on-click="OnFilterTransfer"
-            class="dz-c-FE dz-tc-D8D2C0 dz-font-body-12 dz-exact-text dz-text-center dz-text-vc dz-bold">
+            data-style="TXBTab" data-on-click="OnFilterTransfer"
+            class="dz-c-FE dz-tc-F2E9D8 dz-font-nbb-16 dz-exact-text dz-text-center dz-text-vc">
       TRANSFERS
     </button>
     <button data-dz="button" data-name="filterTraderBtn"
-            data-style="TXTab" data-on-click="OnFilterTrader"
-            class="dz-c-FE dz-tc-D8D2C0 dz-font-body-12 dz-exact-text dz-text-center dz-text-vc dz-bold">
+            data-style="TXBTab" data-on-click="OnFilterTrader"
+            class="dz-c-FE dz-tc-F2E9D8 dz-font-nbb-16 dz-exact-text dz-text-center dz-text-vc">
       TRADER
     </button>
   </div>
 
   <!-- ════════ MAIN TABLE (left, ~70% width) ════════ -->
 
-  <div data-dz="panel" data-name="tableWrap" data-style="TXCard"
+  <div data-dz="panel" data-name="tableWrap" data-style="TXBCard"
        class="dz-xy-2-9 dz-wh-67-88 dz-c-FE dz-noptr">
     <!-- Table header -->
-    <div data-dz="panel" data-name="tableHeader" data-style="TXSurface"
+    <div data-dz="panel" data-name="tableHeader" data-style="TXBSurface"
          class="dz-xy-0-0 dz-wh-100-5 dz-c-FE dz-noptr">
       <span data-dz="text" data-name="thDate"
-            class="dz-xy-2-0 dz-wh-12-100 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-text-vc dz-bold">
+            class="dz-xy-2-0 dz-wh-12-100 dz-c-A39276 dz-font-nbb-16 dz-noptr dz-exact-text dz-text-vc">
         DATE
       </span>
       <span data-dz="text" data-name="thType"
-            class="dz-xy-15-0 dz-wh-40-100 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-text-vc dz-bold">
+            class="dz-xy-15-0 dz-wh-40-100 dz-c-A39276 dz-font-nbb-16 dz-noptr dz-exact-text dz-text-vc">
         TYPE - COUNTERPARTY
       </span>
       <span data-dz="text" data-name="thAmount"
-            class="dz-xy-65-0 dz-wh-15-100 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-text-right dz-text-vc dz-bold">
+            class="dz-xy-65-0 dz-wh-15-100 dz-c-A39276 dz-font-nbb-16 dz-noptr dz-exact-text dz-text-right dz-text-vc">
         AMOUNT
       </span>
       <span data-dz="text" data-name="thBalance"
-            class="dz-xy-82-0 dz-wh-15-100 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-text-right dz-text-vc dz-bold">
+            class="dz-xy-82-0 dz-wh-15-100 dz-c-A39276 dz-font-nbb-16 dz-noptr dz-exact-text dz-text-right dz-text-vc">
         BALANCE
       </span>
     </div>
@@ -104,7 +104,7 @@
       <!-- Empty-state fallback (shown when _visibleEntries is empty) -->
       <span data-dz="text" data-name="ledgerEmpty"
             data-bind="{{ emptyLedgerText }}"
-            class="dz-xy-5-40 dz-wh-90-10 dz-c-6A6560 dz-font-body-12 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+            class="dz-xy-5-40 dz-wh-90-10 dz-c-8C7D66 dz-font-nbb-16 dz-noptr dz-exact-text dz-text-center dz-text-vc">
         No transactions yet
       </span>
     </div>
@@ -113,116 +113,116 @@
   <!-- ════════ RIGHT DETAIL PANEL (~28% width) ════════ -->
 
   <!-- Shown instead of the detail panel while no transaction is selected -->
-  <div data-dz="panel" data-name="detailEmpty" data-style="TXCardElevated"
+  <div data-dz="panel" data-name="detailEmpty" data-style="TXBCardElevated"
        class="dz-xy-70-9 dz-wh-28-88 dz-c-FE dz-noptr">
     <span data-dz="text" data-name="detailEmptyText"
-          class="dz-xy-8-40 dz-wh-84-20 dz-c-6A6560 dz-font-body-13 dz-noptr dz-exact-text dz-text-center dz-text-vc dz-wrap">
+          class="dz-xy-8-40 dz-wh-84-20 dz-c-8C7D66 dz-font-nbb-17 dz-noptr dz-exact-text dz-text-center dz-text-vc dz-wrap">
       Select a transaction to see its details and receipt.
     </span>
   </div>
 
-  <div data-dz="panel" data-name="detailPanel" data-style="TXCardElevated"
+  <div data-dz="panel" data-name="detailPanel" data-style="TXBCardElevated"
        class="dz-xy-70-9 dz-wh-28-88 dz-c-FE dz-noptr">
 
     <!-- Header strip: amber accent -->
-    <div data-dz="panel" data-name="detailHeader" data-style="TXWarningBox"
+    <div data-dz="panel" data-name="detailHeader" data-style="TXBWarningBox"
          class="dz-xy-0-0 dz-wh-100-16 dz-c-FE dz-noptr">
       <span data-dz="text" data-name="detailHeaderLabel"
-            class="dz-xy-5-10 dz-wh-90-18 dz-c-D4A44C dz-font-body-12 dz-noptr dz-exact-text dz-bold">
+            class="dz-xy-5-10 dz-wh-90-18 dz-c-E8894A dz-font-nbb-16 dz-noptr dz-exact-text">
         TRANSACTION DETAIL
       </span>
       <span data-dz="text" data-name="detailAmount"
             data-bind="{{ selected_amount }}"
-            class="dz-xy-5-30 dz-wh-90-45 dz-c-D4A44C dz-font-mono-28 dz-noptr dz-exact-text dz-bold">
+            class="dz-xy-5-30 dz-wh-90-45 dz-c-E8894A dz-font-nm-31 dz-noptr dz-exact-text">
         -
       </span>
       <span data-dz="text" data-name="detailSubtitle"
             data-bind="{{ selected_type }}"
-            class="dz-xy-5-78 dz-wh-90-18 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-bold">
+            class="dz-xy-5-78 dz-wh-90-18 dz-c-A39276 dz-font-nbb-16 dz-noptr dz-exact-text">
         - - CONFIRMED
       </span>
     </div>
 
     <!-- Detail rows -->
     <span data-dz="text" data-name="detailIdLabel"
-          class="dz-xy-5-19 dz-wh-40-2 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text">
+          class="dz-xy-5-19 dz-wh-40-2 dz-c-A39276 dz-font-nbb-16 dz-noptr dz-exact-text">
       ID
     </span>
     <span data-dz="text" data-name="detailId"
           data-bind="{{ selected_id }}"
-          class="dz-xy-5-21 dz-wh-90-3 dz-c-6A6560 dz-font-body-12 dz-noptr dz-exact-text">
+          class="dz-xy-5-21 dz-wh-90-3 dz-c-8C7D66 dz-font-nbb-16 dz-noptr dz-exact-text">
       -
     </span>
 
     <span data-dz="text" data-name="detailDateLabel"
-          class="dz-xy-5-26 dz-wh-40-2 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text">
+          class="dz-xy-5-26 dz-wh-40-2 dz-c-A39276 dz-font-nbb-16 dz-noptr dz-exact-text">
       DATE
     </span>
     <span data-dz="text" data-name="detailDate"
           data-bind="{{ selected_date }}"
-          class="dz-xy-5-28 dz-wh-90-3 dz-c-D8D2C0 dz-font-body-12 dz-noptr dz-exact-text">
+          class="dz-xy-5-28 dz-wh-90-3 dz-c-F2E9D8 dz-font-nbb-16 dz-noptr dz-exact-text">
       -
     </span>
 
     <span data-dz="text" data-name="detailTypeLabel"
-          class="dz-xy-5-33 dz-wh-40-2 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text">
+          class="dz-xy-5-33 dz-wh-40-2 dz-c-A39276 dz-font-nbb-16 dz-noptr dz-exact-text">
       TYPE
     </span>
     <span data-dz="text" data-name="detailType"
           data-bind="{{ selected_type }}"
-          class="dz-xy-5-35 dz-wh-90-3 dz-c-D8D2C0 dz-font-body-12 dz-noptr dz-exact-text">
+          class="dz-xy-5-35 dz-wh-90-3 dz-c-F2E9D8 dz-font-nbb-16 dz-noptr dz-exact-text">
       -
     </span>
 
     <span data-dz="text" data-name="detailPartyLabel"
-          class="dz-xy-5-40 dz-wh-50-2 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text">
+          class="dz-xy-5-40 dz-wh-50-2 dz-c-A39276 dz-font-nbb-16 dz-noptr dz-exact-text">
       COUNTERPARTY
     </span>
     <span data-dz="text" data-name="detailParty"
           data-bind="{{ selected_counterparty }}"
-          class="dz-xy-5-42 dz-wh-90-3 dz-c-D8D2C0 dz-font-body-12 dz-noptr dz-exact-text">
+          class="dz-xy-5-42 dz-wh-90-3 dz-c-F2E9D8 dz-font-nbb-16 dz-noptr dz-exact-text">
       -
     </span>
 
     <span data-dz="text" data-name="detailFeeLabel"
-          class="dz-xy-5-47 dz-wh-40-2 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text">
+          class="dz-xy-5-47 dz-wh-40-2 dz-c-A39276 dz-font-nbb-16 dz-noptr dz-exact-text">
       FEE
     </span>
     <span data-dz="text" data-name="detailFee"
           data-bind="{{ selected_fee }}"
-          class="dz-xy-5-49 dz-wh-90-3 dz-c-C8664A dz-font-body-12 dz-noptr dz-exact-text">
+          class="dz-xy-5-49 dz-wh-90-3 dz-c-E07A63 dz-font-nbb-16 dz-noptr dz-exact-text">
       -
     </span>
 
     <span data-dz="text" data-name="detailBalanceLabel"
-          class="dz-xy-5-54 dz-wh-40-2 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text">
+          class="dz-xy-5-54 dz-wh-40-2 dz-c-A39276 dz-font-nbb-16 dz-noptr dz-exact-text">
       BALANCE AFTER
     </span>
     <span data-dz="text" data-name="detailBalance"
           data-bind="{{ selected_balance }}"
-          class="dz-xy-5-56 dz-wh-90-4 dz-c-D4A44C dz-font-body-16 dz-noptr dz-exact-text dz-bold">
+          class="dz-xy-5-56 dz-wh-90-4 dz-c-E8894A dz-font-nbb-20 dz-noptr dz-exact-text">
       -
     </span>
 
     <span data-dz="text" data-name="detailNoteLabel"
-          class="dz-xy-5-65 dz-wh-40-2 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text">
+          class="dz-xy-5-65 dz-wh-40-2 dz-c-A39276 dz-font-nbb-16 dz-noptr dz-exact-text">
       NOTE
     </span>
     <span data-dz="text" data-name="detailNote"
           data-bind="{{ selected_note }}"
-          class="dz-xy-5-67 dz-wh-90-6 dz-c-D8D2C0 dz-font-body-12 dz-noptr dz-exact-text dz-wrap">
+          class="dz-xy-5-67 dz-wh-90-6 dz-c-F2E9D8 dz-font-nbb-16 dz-noptr dz-exact-text dz-wrap">
       -
     </span>
 
     <!-- Confirmed alert -->
-    <div data-dz="panel" data-name="confirmedAlert" data-style="TXSuccessBox"
+    <div data-dz="panel" data-name="confirmedAlert" data-style="TXBSuccessBox"
          class="dz-xy-3-77 dz-wh-94-9 dz-c-FE dz-noptr">
       <span data-dz="text" data-name="confirmedTitle"
-            class="dz-xy-4-15 dz-wh-90-35 dz-c-9AB05A dz-font-body-12 dz-noptr dz-exact-text dz-bold">
+            class="dz-xy-4-15 dz-wh-90-35 dz-c-7FA65A dz-font-nbb-16 dz-noptr dz-exact-text">
         TRANSACTION CONFIRMED
       </span>
       <span data-dz="text" data-name="confirmedBody"
-            class="dz-xy-4-55 dz-wh-92-35 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-wrap">
+            class="dz-xy-4-55 dz-wh-92-35 dz-c-A39276 dz-font-nbb-16 dz-noptr dz-exact-text dz-wrap">
         Cleared on server - no dispute window.
       </span>
     </div>
@@ -231,13 +231,13 @@
     <div data-dz="grid" data-name="detailActions"
          class="dz-xy-3-88 dz-wh-94-8 dz-cols-2 dz-rows-1 dz-gap-3">
       <button data-dz="button" data-name="copyTxIdBtn"
-              data-style="TXBtnDefault"
-              class="dz-c-FE dz-tc-D8D2C0 dz-font-body-12 dz-exact-text dz-bold">
+              data-style="TXBBtnDefault"
+              class="dz-c-FE dz-tc-F2E9D8 dz-font-nbb-16 dz-exact-text">
         COPY ID
       </button>
       <button data-dz="button" data-name="receiptBtn"
-              data-style="TXBtnDefault"
-              class="dz-c-FE dz-tc-D8D2C0 dz-font-body-12 dz-exact-text dz-bold">
+              data-style="TXBBtnDefault"
+              class="dz-c-FE dz-tc-F2E9D8 dz-font-nbb-16 dz-exact-text">
         RECEIPT
       </button>
     </div>

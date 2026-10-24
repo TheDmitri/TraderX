@@ -82,6 +82,7 @@ class TraderXToastNotification
             case TXNOTIF_INFO:     return type;
             case TXNOTIF_WARNING:  return type;
             case TXNOTIF_ERROR:    return type;
+            case TXNOTIF_BEANS:    return type;
         }
         return TXNOTIF_INFO;
     }
@@ -90,11 +91,13 @@ class TraderXToastNotification
     // datasets/icons/svg/<type>.svg via scripts/build-icons.sh (traderx_icons).
     string GetIconImageRef()
     {
+        if (ResolvedType() == TXNOTIF_BEANS)
+            return "TraderX/datasets/images/beans_can.edds";
         return "set:traderx_icons image:" + ResolvedType();
     }
 
     // Kicker beside the icon: "<SOURCE> - <STATUS>". The source is the footer field when set
-    // (e.g. "Garage"), else TRADER. The game font has no middle dot, hence " - ".
+    // (e.g. "Garage"), else TRADER.
     string GetKicker()
     {
         string source = "TRADER";
@@ -105,25 +108,26 @@ class TraderXToastNotification
         }
         switch (ResolvedType())
         {
-            case TXNOTIF_PURCHASE: return source + " - PURCHASED";
-            case TXNOTIF_SALE:     return source + " - SOLD";
-            case TXNOTIF_WARNING:  return source + " - PARTIAL";
-            case TXNOTIF_ERROR:    return source + " - FAILED";
+            case TXNOTIF_PURCHASE: return source + " · PURCHASED";
+            case TXNOTIF_SALE:     return source + " · SOLD";
+            case TXNOTIF_WARNING:  return source + " · PARTIAL";
+            case TXNOTIF_ERROR:    return source + " · FAILED";
+            case TXNOTIF_BEANS:    return "DAYZ BEANS LAUNCHER";
         }
         return source;
     }
 
-    // Accent for the left rule / glyph / progress fill (barter theme: gold default,
-    // green confirm, amber partial, red error).
+    // Accent for the left rule / glyph / progress fill (Nasdara: ember default,
+    // good #7FA65A confirm, gold #E0A33A partial, bad #E07A63 error).
     int GetAccentColor()
     {
         switch (ResolvedType())
         {
-            case TXNOTIF_PURCHASE: return ARGB(255, 107, 158, 89);   // green
-            case TXNOTIF_WARNING:  return ARGB(255, 210, 150, 70);   // amber
-            case TXNOTIF_ERROR:    return ARGB(255, 196, 80, 80);    // red
+            case TXNOTIF_PURCHASE: return ARGB(255, 127, 166, 90);
+            case TXNOTIF_WARNING:  return ARGB(255, 224, 163, 58);
+            case TXNOTIF_ERROR:    return ARGB(255, 224, 122, 99);
         }
-        return ARGB(255, 196, 163, 90);   // gold/bronze (sale, info)
+        return ARGB(255, 217, 118, 47);   // ember (sale, info, beans)
     }
 
     // Same accent at low alpha for the progress track behind the fill.
@@ -131,10 +135,10 @@ class TraderXToastNotification
     {
         switch (ResolvedType())
         {
-            case TXNOTIF_PURCHASE: return ARGB(36, 107, 158, 89);
-            case TXNOTIF_WARNING:  return ARGB(36, 210, 150, 70);
-            case TXNOTIF_ERROR:    return ARGB(36, 196, 80, 80);
+            case TXNOTIF_PURCHASE: return ARGB(36, 127, 166, 90);
+            case TXNOTIF_WARNING:  return ARGB(36, 224, 163, 58);
+            case TXNOTIF_ERROR:    return ARGB(36, 224, 122, 99);
         }
-        return ARGB(36, 196, 163, 90);
+        return ARGB(36, 217, 118, 47);
     }
 }

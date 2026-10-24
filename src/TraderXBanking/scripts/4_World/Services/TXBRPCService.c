@@ -34,6 +34,7 @@ class TXBRPCService extends DayZularService
 			GetDayZularRPCManager().AddRPC(TXBConstants.RPC_NAMESPACE, "OnSettingsReceived", this, DayZularRPCType.Client);
 			GetDayZularRPCManager().AddRPC(TXBConstants.RPC_NAMESPACE, "OnLedgerReceived", this, DayZularRPCType.Client);
 			GetDayZularRPCManager().AddRPC(TXBConstants.RPC_NAMESPACE, "OnContactsReceived", this, DayZularRPCType.Client);
+			GetDayZularRPCManager().AddRPC(TXBConstants.RPC_NAMESPACE, "OnTransactionResult", this, DayZularRPCType.Client);
 		}
 	}
 
@@ -92,7 +93,10 @@ class TXBRPCService extends DayZularService
 
 		int amount = data.param1;
 		if (amount <= 0)
+		{
+			GetTXBBankingService().SendTransactionResult(player, TXBConstants.TRANSACTION_DEPOSIT, false, "Deposit failed: invalid amount.");
 			return;
+		}
 
 		GetTXBBankingService().EnqueueTransaction(new TXBTransaction(player, amount, TXBConstants.TRANSACTION_DEPOSIT, "", ""));
 	}
@@ -109,7 +113,10 @@ class TXBRPCService extends DayZularService
 
 		int amount = data.param1;
 		if (amount <= 0)
+		{
+			GetTXBBankingService().SendTransactionResult(player, TXBConstants.TRANSACTION_WITHDRAW, false, "Withdraw failed: invalid amount.");
 			return;
+		}
 
 		GetTXBBankingService().EnqueueTransaction(new TXBTransaction(player, amount, TXBConstants.TRANSACTION_WITHDRAW, "", ""));
 	}
@@ -125,10 +132,24 @@ class TXBRPCService extends DayZularService
 			return;
 
 		string destUID = data.param1;
+		destUID.TrimInPlace();
 		int amount = data.param2;
 		string note = data.param3;
-		if (amount <= 0 || destUID == "" || destUID == sender.GetPlainId())
+		if (destUID == "")
+		{
+			GetTXBBankingService().SendTransactionResult(player, TXBConstants.TRANSACTION_TRANSFER, false, "Transfer failed: no recipient account ID.");
 			return;
+		}
+		if (destUID == sender.GetPlainId())
+		{
+			GetTXBBankingService().SendTransactionResult(player, TXBConstants.TRANSACTION_TRANSFER, false, "Transfer failed: you cannot transfer to your own account.");
+			return;
+		}
+		if (amount <= 0)
+		{
+			GetTXBBankingService().SendTransactionResult(player, TXBConstants.TRANSACTION_TRANSFER, false, "Transfer failed: invalid amount.");
+			return;
+		}
 
 		GetTXBBankingService().EnqueueTransaction(new TXBTransaction(player, amount, TXBConstants.TRANSACTION_TRANSFER, destUID, note));
 	}
@@ -202,6 +223,27 @@ class TXBRPCService extends DayZularService
 			return;
 
 		GetTXBBankingService().SetClientContacts(data.param1);
+	}
+
+	// Client: outcome of a deposit/withdraw/transfer (success or rejection reason).
+	void OnTransactionResult(PlayerIdentity sender, ParamsReadContext ctx)
+	{
+		Param3<int, bool, string> data = new Param3<int, bool, string>(0, false, "");
+		if (!ctx.Read(data))
+			return;
+
+		string title = "Bank";
+		if (data.param1 == TXBConstants.TRANSACTION_DEPOSIT)
+			title = "Bank - Deposit";
+		else if (data.param1 == TXBConstants.TRANSACTION_WITHDRAW)
+			title = "Bank - Withdraw";
+		else if (data.param1 == TXBConstants.TRANSACTION_TRANSFER)
+			title = "Bank - Transfer";
+		else if (data.param1 == TXBConstants.TRANSACTION_TRANSFER_IN)
+			title = "Bank - Transfer received";
+
+		NotificationSystem.AddNotificationExtended(5, title, data.param3, "");
+		TXBBankingService.Event_OnTransactionResult.Invoke(data.param1, data.param2, data.param3);
 	}
 
 	// --- Helpers ---

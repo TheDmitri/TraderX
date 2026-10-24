@@ -26,8 +26,8 @@ PanelWidgetClass presetOptionView {
      size 0.9 1
      hexactsize 0
      vexactsize 0
-     color 0.8471 0.8235 0.7529 1
-     font "TraderX/datasets/fonts/oswalt14"
+     color 0.949 0.9137 0.8471 1
+     font "TraderX/datasets/fonts/rajdhani14"
      ignorepointer 1
      "exact text" 1
      "text valign" center

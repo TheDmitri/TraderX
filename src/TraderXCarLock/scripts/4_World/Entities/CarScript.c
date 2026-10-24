@@ -91,6 +91,11 @@ modded class CarScript
         // Saved by a pre-ModStorage TraderXCarLock build: the lock sits here as raw data.
         if (!m_TXCL_LoadedFromModStorage && m_TXCLLockManager && TXCLStorageMode.ReadsLegacyData())
             m_TXCLLockManager.LoadLegacyData(ctx);
+#ifdef TraderX
+        // Saved by TraderPlus V1: the core read TraderPlus CarLock's state (same owner id scheme, steam64 digits 9-17)
+        else if (!m_TXCL_LoadedFromModStorage && m_TXCLLockManager && m_TraderX_TPLockFound)
+            m_TXCLLockManager.RestoreVehicleLockData(m_TraderX_TPLockOwner, m_TraderX_TPLockPassword, m_TraderX_TPLocked, 0);
+#endif
 
         return true;
     }

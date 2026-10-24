@@ -5,6 +5,9 @@ modded class BoatScript
 
     string m_TraderX_LastDriverID = "";
 
+    // Saved by this build (TraderX ModStorage block present): the raw boat id follows CF's block
+    protected bool m_TraderX_HasStorageBlock;
+
     void BoatScript()
 	  {
       RegisterNetSyncVariableInt("m_boatUniqueId");
@@ -77,10 +80,32 @@ modded class BoatScript
         ctx.Write(data);
      }
 
+    override void CF_OnStoreSave(CF_ModStorageMap storage)
+    {
+        super.CF_OnStoreSave(storage);
+
+        CF_ModStorage ctx = storage.Get(TRADERX_STORAGE_MOD);
+        if (ctx)
+            ctx.Write(m_boatUniqueId);
+    }
+
+    override bool CF_OnStoreLoad(CF_ModStorageMap storage)
+    {
+        if (!super.CF_OnStoreLoad(storage))
+            return false;
+
+        m_TraderX_HasStorageBlock = (storage.Get(TRADERX_STORAGE_MOD) != null);
+        return true;
+    }
+
     override bool OnStoreLoad( ParamsReadContext ctx, int version )
       {
         if ( !super.OnStoreLoad( ctx, version ) )
           return false;
+
+            // Never saved by this build: only an earlier TraderX wrote a boat id (TraderPlus wrote nothing)
+            if (!m_TraderX_HasStorageBlock && TraderXWorldFormat.Get() != TraderXWorldFormat.TRADERX)
+              return true;
 
             Param1<int>data = new Param1<int>(0);
             if (ctx.Read(data))

@@ -1,4 +1,4 @@
-PanelWidgetClass modalRoot {
+FrameWidgetClass modalRoot {
  position 0 0
  hexactpos 0
  vexactpos 0
@@ -7,7 +7,6 @@ PanelWidgetClass modalRoot {
  vexactsize 0
  halign center_ref
  valign center_ref
- priority 999
  {
   PanelWidgetClass backdrop {
    position 0 0
@@ -16,30 +15,29 @@ PanelWidgetClass modalRoot {
    size 1 1
    hexactsize 0
    vexactsize 0
-   color 0 0 0 0.7843
+   color 0.0588 0.051 0.0392 0.8
    style rover_sim_colorable
   }
   PanelWidgetClass modalCard {
    position 0 0
    hexactpos 0
    vexactpos 0
-   size 0.32 0.46
+   size 0.3125 330
    hexactsize 0
-   vexactsize 0
+   vexactsize 1
    halign center_ref
    valign center_ref
    style TXCard
    color 0.9961 0.9961 0.9961 1
    {
     ImageWidgetClass lockIcon {
-     position 0 0.06
-     hexactpos 0
-     vexactpos 0
-     size 56 56
+     position 28 30
+     hexactpos 1
+     vexactpos 1
+     size 29 29
      hexactsize 1
      vexactsize 1
-     halign center_ref
-     color 0.7843 0.4 0.2902 1
+     color 0.8784 0.4784 0.3882 1
      ignorepointer 1
      image0 "set:traderx_icons image:padlock"
      mode blend
@@ -47,20 +45,18 @@ PanelWidgetClass modalRoot {
      "stretch mode" stretch_w_h
     }
     TextWidgetClass title {
-     position 0 0.24
+     position 0.11667 23
      hexactpos 0
-     vexactpos 0
-     size 1 0.12
+     vexactpos 1
+     size 0.83333 42
      hexactsize 0
-     vexactsize 0
-     halign center_ref
-     color 0.8471 0.8235 0.7529 1
-     font "TraderX/datasets/fonts/oswalt22"
+     vexactsize 1
+     color 0.949 0.9137 0.8471 1
+     font "TraderX/datasets/fonts/antonpx29"
      ignorepointer 1
      "exact text" 1
-     "text halign" center
      "text valign" center
-     text "#tpm_licenses_required"
+     text "LICENSES REQUIRED"
      scriptclass "TextBinding"
      {
       ScriptParamsClass {
@@ -69,19 +65,18 @@ PanelWidgetClass modalRoot {
      }
     }
     RichTextWidgetClass textContent {
-     position 0.08 0.38
-     hexactpos 0
-     vexactpos 0
-     size 0.84 0.16
+     position 28 84
+     hexactpos 1
+     vexactpos 1
+     size 0.90667 60
      hexactsize 0
-     vexactsize 0
-     color 0.6588 0.6902 0.6549 1
-     font "TraderX/datasets/fonts/oswalt16"
+     vexactsize 1
+     color 0.7608 0.7098 0.6118 1
+     font "TraderX/datasets/fonts/rajdhanipx19"
      ignorepointer 1
-     wrap 1
      "exact text" 1
-     "text halign" center
-     text "Access restricted."
+     wrap 1
+     text "You don't have the required license to access this trader."
      scriptclass "TextBinding"
      {
       ScriptParamsClass {
@@ -90,20 +85,18 @@ PanelWidgetClass modalRoot {
      }
     }
     RichTextWidgetClass licensesList {
-     position 0.08 0.56
-     hexactpos 0
-     vexactpos 0
-     size 0.84 0.26
+     position 28 150
+     hexactpos 1
+     vexactpos 1
+     size 0.90667 70
      hexactsize 0
-     vexactsize 0
-     color 0.7686 0.6392 0.3529 1
-     font "TraderX/datasets/fonts/oswalt16"
+     vexactsize 1
+     color 0.9098 0.5373 0.2902 1
+     font "TraderX/datasets/fonts/rajdhanibpx19"
      ignorepointer 1
-     wrap 1
-     style Bold
      "exact text" 1
-     "text halign" center
-     text "- Car License"
+     wrap 1
+     text "- Car Licence"
      scriptclass "TextBinding"
      {
       ScriptParamsClass {
@@ -111,21 +104,50 @@ PanelWidgetClass modalRoot {
       }
      }
     }
-    ButtonWidgetClass closeBtn {
-     position 0.3 0.86
-     hexactpos 0
-     vexactpos 0
-     size 0.4 0.1
+    PanelWidgetClass closeBtnHost {
+     position 28 28
+     hexactpos 1
+     vexactpos 1
+     size 0.33333 53
      hexactsize 0
-     vexactsize 0
-     "text color" 0.9961 0.9961 0.9961 1
-     style TXBtnPrimary
-     color 0.9961 0.9961 0.9961 1
-     text "#tpm_close"
-     scriptclass "ButtonBinding"
+     vexactsize 1
+     halign right_ref
+     valign bottom_ref
+     ignorepointer 1
      {
-      ScriptParamsClass {
-       OnClick "OnCloseClick"
+      ButtonWidgetClass closeBtn {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 1 1
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.9961 0.9961 0.9961 1
+       style TXBtnDefault
+       color 0.9961 0.9961 0.9961 1
+       scriptclass "ButtonBinding"
+       {
+        TextWidgetClass closeBtnText {
+         position 0 0
+         hexactpos 0
+         vexactpos 0
+         size 1 1
+         hexactsize 0
+         vexactsize 0
+         color 0.7608 0.7098 0.6118 1
+         font "TraderX/datasets/fonts/antonpx20"
+         ignorepointer 1
+         "exact text" 1
+         "text halign" center
+         "text valign" center
+         text "#tpm_close"
+        }
+       }
+       {
+        ScriptParamsClass {
+         OnClick "OnCloseClick"
+        }
+       }
       }
      }
     }

@@ -1,0 +1,88 @@
+PanelWidgetClass slotOption {
+ position 0 0
+ hexactpos 0
+ vexactpos 0
+ size 1 50
+ hexactsize 0
+ vexactsize 1
+ color 0.0902 0.0784 0.0627 1
+ ignorepointer 1
+ style rover_sim_colorable
+ {
+  ButtonWidgetClass slotOptionBtn {
+   position 0 0
+   hexactpos 0
+   vexactpos 0
+   size 1 1
+   hexactsize 0
+   vexactsize 0
+   "text color" 0.9961 0.9961 0.9961 1
+   style TXListRow
+   color 0.9961 0.9961 0.9961 1
+   scriptclass "ButtonBinding"
+   {
+    ScriptParamsClass {
+     OnClick "OnOptionClick"
+    }
+   }
+  }
+  ImageWidgetClass optionFittedIcon {
+   position 0.13768 0
+   hexactpos 0
+   vexactpos 0
+   size 18 18
+   hexactsize 1
+   vexactsize 1
+   valign center_ref
+   color 0.851 0.4627 0.1843 1
+   ignorepointer 1
+   visible 0
+   image0 "set:traderx_icons image:approved"
+   mode blend
+   "src alpha" 1
+   "stretch mode" stretch_w_h
+  }
+  TextWidgetClass optionName {
+   position 0.19565 0
+   hexactpos 0
+   vexactpos 0
+   size 0.50725 50
+   hexactsize 0
+   vexactsize 1
+   color 0.949 0.9137 0.8471 1
+   font "TraderX/datasets/fonts/rajdhanipx18"
+   ignorepointer 1
+   "exact text" 1
+   "text valign" center
+   text "KA Polymer Handguard"
+   scriptclass "TextBinding"
+   {
+    ScriptParamsClass {
+     Binding_Expression "{{ option_name }}"
+    }
+   }
+  }
+  TextWidgetClass optionPrice {
+   position 0.24275 0
+   hexactpos 0
+   vexactpos 0
+   size 0.18116 50
+   hexactsize 0
+   vexactsize 1
+   halign right_ref
+   color 0.6392 0.5725 0.4627 1
+   font "TraderX/datasets/fonts/monopx16"
+   ignorepointer 1
+   "exact text" 1
+   "text valign" center
+   "text halign" right
+   text "€ 150"
+   scriptclass "TextBinding"
+   {
+    ScriptParamsClass {
+     Binding_Expression "{{ option_price }}"
+    }
+   }
+  }
+ }
+}

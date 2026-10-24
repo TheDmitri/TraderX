@@ -10,6 +10,7 @@ GridSpacerWidgetClass CategoryCardLargeView {
  Rows 2
  disabled 0
  style Colorable
+ Padding 0
  {
   ButtonWidgetClass categoryCardBtn {
    position 0 0
@@ -21,7 +22,7 @@ GridSpacerWidgetClass CategoryCardLargeView {
    halign center_ref
    valign center_ref
    "text color" 0.9961 0.9961 0.9961 1
-   "text color" 0.3333 0.3529 0.3961 1
+   "text color" 0.4353 0.3843 0.3098 1
    userID 252
    disabled 0
    style TXCardElevated
@@ -62,7 +63,7 @@ GridSpacerWidgetClass CategoryCardLargeView {
        valign center_ref
        "text color" 0.9961 0.9961 0.9961 1
        "text color" 0.1137 0.1137 0.1137 1
-       font "TraderX/datasets/fonts/oswalt28"
+       font "TraderX/datasets/fonts/anton28"
        ignorepointer 1
        "text valign" center
        style Normal
@@ -82,8 +83,8 @@ GridSpacerWidgetClass CategoryCardLargeView {
        "Size To Content H" 1
        Columns 2
        Rows 1
-       Padding 10
-       Margin 7
+       Margin 10
+       Padding 7
       }
      }
     }
@@ -99,7 +100,7 @@ GridSpacerWidgetClass CategoryCardLargeView {
    halign right_ref
    valign center_ref
    "text color" 0.9961 0.9961 0.9961 1
-   "text color" 0.251 0.2706 0.302 1
+   "text color" 0.2275 0.1922 0.1529 1
    style TXCardElevated
    color 0.9961 0.9961 0.9961 1
    {
@@ -113,7 +114,7 @@ GridSpacerWidgetClass CategoryCardLargeView {
      valign center_ref
      "text color" 0.9961 0.9961 0.9961 1
      "text color" 0.5569 0.5569 0.5569 1
-     font "TraderX/datasets/fonts/oswalt16"
+     font "TraderX/datasets/fonts/rajdhani16"
      ignorepointer 1
      "text valign" center
      style Normal
@@ -167,6 +168,6 @@ GridSpacerWidgetClass itemCardGrid {
  ignorepointer 1
  "Size To Content V" 1
  Rows 100
- Padding 7
- Margin 5
+ Margin 7
+ Padding 5
 }

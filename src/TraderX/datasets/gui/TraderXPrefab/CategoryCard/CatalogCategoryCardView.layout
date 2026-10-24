@@ -9,12 +9,13 @@ GridSpacerWidgetClass categoryCard {
  "Size To Content V" 1
  Columns 1
  Rows 100
+ Padding 5
  {
   PanelWidgetClass categoryHeader {
    position 0 0
    hexactpos 0
    vexactpos 0
-   size 1 54
+   size 1 60
    hexactsize 0
    vexactsize 1
    ignorepointer 1
@@ -23,9 +24,9 @@ GridSpacerWidgetClass categoryCard {
      position 0 0
      hexactpos 0
      vexactpos 0
-     size 1 52
+     size 1 1
      hexactsize 0
-     vexactsize 1
+     vexactsize 0
      ignorepointer 1
      style TXCard
      color 0.9961 0.9961 0.9961 1
@@ -34,11 +35,11 @@ GridSpacerWidgetClass categoryCard {
      position 0 0
      hexactpos 0
      vexactpos 0
-     size 1 52
+     size 1 1
      hexactsize 0
-     vexactsize 1
+     vexactsize 0
      "text color" 0.9961 0.9961 0.9961 1
-     style TXCategoryRow
+     style Empty
      color 0.9961 0.9961 0.9961 1
      scriptclass "ButtonBinding"
      {
@@ -48,13 +49,14 @@ GridSpacerWidgetClass categoryCard {
      }
     }
     ImageWidgetClass categoryIcon {
-     position 0.01 11
-     hexactpos 0
-     vexactpos 1
-     size 30 30
+     position 22 0
+     hexactpos 1
+     vexactpos 0
+     size 24 24
      hexactsize 1
      vexactsize 1
-     color 0.7686 0.6392 0.3529 1
+     valign center_ref
+     color 0.851 0.4627 0.1843 1
      ignorepointer 1
      image0 "set:traderx_icons image:grid"
      mode blend
@@ -62,16 +64,15 @@ GridSpacerWidgetClass categoryCard {
      "stretch mode" stretch_w_h
     }
     TextWidgetClass CategoryName {
-     position 0.05 0
+     position 0.04623 0
      hexactpos 0
      vexactpos 0
-     size 0.5 52
+     size 0.42674 60
      hexactsize 0
      vexactsize 1
-     "text color" 0.8471 0.8235 0.7529 1
-     font "TraderX/datasets/fonts/oswalt16"
+     color 0.949 0.9137 0.8471 1
+     font "TraderX/datasets/fonts/rajdhanibpx22"
      ignorepointer 1
-     style Bold
      "exact text" 1
      "text valign" center
      text "Category Name"
@@ -83,14 +84,15 @@ GridSpacerWidgetClass categoryCard {
      }
     }
     TextWidgetClass itemCountText {
-     position 0.56 0
+     position 0.09246 0
      hexactpos 0
      vexactpos 0
-     size 0.24 52
+     size 0.14225 60
      hexactsize 0
      vexactsize 1
-     "text color" 0.4157 0.3961 0.3765 1
-     font "TraderX/datasets/fonts/jet-brains-mono12"
+     halign right_ref
+     color 0.6392 0.5725 0.4627 1
+     font "TraderX/datasets/fonts/monopx16"
      ignorepointer 1
      "exact text" 1
      "text valign" center
@@ -104,25 +106,24 @@ GridSpacerWidgetClass categoryCard {
      }
     }
     PanelWidgetClass dropdownParentPanel {
-     position 0.82 0
-     hexactpos 0
+     position 14 0
+     hexactpos 1
      vexactpos 0
-     size 0.18 52
+     size 0.07112 60
      hexactsize 0
      vexactsize 1
+     halign right_ref
      ignorepointer 1
      {
       ButtonWidgetClass sortByBtn {
-       position 0.1 11
+       position 0 0
        hexactpos 0
-       vexactpos 1
-       size 30 30
+       vexactpos 0
+       size 38 38
        hexactsize 1
        vexactsize 1
+       valign center_ref
        "text color" 0.9961 0.9961 0.9961 1
-       "text color" 0.8471 0.8235 0.7529 1
-       font "TraderX/datasets/fonts/oswalt14"
-       "exact text" 1
        style TXBtnIcon
        color 0.9961 0.9961 0.9961 1
        scriptclass "ButtonBinding"
@@ -131,12 +132,12 @@ GridSpacerWidgetClass categoryCard {
          position 0 0
          hexactpos 0
          vexactpos 0
-         size 0.9 0.9
-         hexactsize 0
-         vexactsize 0
+         size 17 17
+         hexactsize 1
+         vexactsize 1
          halign center_ref
          valign center_ref
-         color 0.8471 0.8235 0.7529 1
+         color 0.7608 0.7098 0.6118 1
          ignorepointer 1
          image0 "set:traderx_icons image:croissant"
          mode blend
@@ -147,12 +148,12 @@ GridSpacerWidgetClass categoryCard {
          position 0 0
          hexactpos 0
          vexactpos 0
-         size 0.9 0.9
-         hexactsize 0
-         vexactsize 0
+         size 17 17
+         hexactsize 1
+         vexactsize 1
          halign center_ref
          valign center_ref
-         color 0.8471 0.8235 0.7529 1
+         color 0.7608 0.7098 0.6118 1
          ignorepointer 1
          visible 0
          image0 "set:traderx_icons image:decroissant"
@@ -168,16 +169,14 @@ GridSpacerWidgetClass categoryCard {
        }
       }
       ButtonWidgetClass collapseBtn {
-       position 0.55 11
-       hexactpos 0
-       vexactpos 1
-       size 30 30
+       position 48 0
+       hexactpos 1
+       vexactpos 0
+       size 38 38
        hexactsize 1
        vexactsize 1
+       valign center_ref
        "text color" 0.9961 0.9961 0.9961 1
-       "text color" 0.8471 0.8235 0.7529 1
-       font "TraderX/datasets/fonts/oswalt16"
-       "exact text" 1
        style TXBtnIcon
        color 0.9961 0.9961 0.9961 1
        scriptclass "ButtonBinding"
@@ -186,11 +185,12 @@ GridSpacerWidgetClass categoryCard {
          position 0 0
          hexactpos 0
          vexactpos 0
-         size 0.55 0.55
-         hexactsize 0
-         vexactsize 0
+         size 17 17
+         hexactsize 1
+         vexactsize 1
          halign center_ref
          valign center_ref
+         color 0.7608 0.7098 0.6118 1
          ignorepointer 1
          image0 "set:traderx_icons image:chevron_down"
          mode blend
@@ -206,27 +206,38 @@ GridSpacerWidgetClass categoryCard {
       }
      }
     }
-    PanelWidgetClass licensePanel {
+    PanelWidgetClass licenseDimPanel {
      position 0 0
      hexactpos 0
      vexactpos 0
-     size 1 52
+     size 1 1
      hexactsize 0
-     vexactsize 1
+     vexactsize 0
+     color 0.0588 0.051 0.0392 0.6
      ignorepointer 1
      visible 0
-     style TXErrorBox
-     color 0.9961 0.9961 0.9961 1
+     style rover_sim_colorable
+    }
+    PanelWidgetClass licensePanel {
+     position 0.25605 0
+     hexactpos 0
+     vexactpos 0
+     size 0.29872 60
+     hexactsize 0
+     vexactsize 1
+     halign right_ref
+     ignorepointer 1
+     visible 0
      {
       ImageWidgetClass lockIcon {
-       position 0.34 0
+       position 0 0
        hexactpos 0
        vexactpos 0
-       size 36 36
+       size 18 18
        hexactsize 1
        vexactsize 1
        valign center_ref
-       color 0.8471 0.8235 0.7529 1
+       color 0.8784 0.4784 0.3882 1
        ignorepointer 1
        image0 "set:traderx_icons image:padlock"
        mode blend
@@ -234,20 +245,24 @@ GridSpacerWidgetClass categoryCard {
        "stretch mode" stretch_w_h
       }
       TextWidgetClass lockText {
-       position 0.41 0
-       hexactpos 0
+       position 26 0
+       hexactpos 1
        vexactpos 0
-       size 0.5 1
+       size 0.92857 60
        hexactsize 0
-       vexactsize 0
-       valign center_ref
-       color 0.8471 0.8235 0.7529 1
-       font "TraderX/datasets/fonts/oswalt22"
+       vexactsize 1
+       color 0.8784 0.4784 0.3882 1
+       font "TraderX/datasets/fonts/rajdhanibpx17"
        ignorepointer 1
-       "text valign" center
        "exact text" 1
-       "size to text h" 1
-       text "#tpm_licenses_required"
+       "text valign" center
+       text "Licenses Required: Car Licence"
+       scriptclass "TextBinding"
+       {
+        ScriptParamsClass {
+         Binding_Expression "{{ license_text }}"
+        }
+       }
       }
      }
     }
@@ -263,7 +278,7 @@ GridSpacerWidgetClass categoryCard {
    "Size To Content V" 1
    Columns 1
    Rows 100
-   Margin 4
+   Padding 5
    scriptclass "ComponentWidgetBinding"
    {
     ScriptParamsClass {
@@ -281,9 +296,9 @@ GridSpacerWidgetClass categoryCard {
    hexactsize 0
    vexactsize 0
    "Size To Content V" 1
-   Columns 4
+   Columns 5
    Rows 100
-   Margin 6
+   Padding 17
    scriptclass "ComponentWidgetBinding"
    {
     ScriptParamsClass {

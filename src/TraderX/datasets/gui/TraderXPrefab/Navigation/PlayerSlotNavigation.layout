@@ -6,22 +6,19 @@ PanelWidgetClass PlayerSlotNavigation {
  hexactsize 0
  vexactsize 0
  ignorepointer 1
- style TXSurface
- color 0.9961 0.9961 0.9961 1
  {
   GridSpacerWidgetClass slotNavGrid {
-   position 0.01 0
+   position 0 0
    hexactpos 0
    vexactpos 0
-   size 0.98 1
+   size 1 0.01
    hexactsize 0
    vexactsize 0
-   valign center_ref
    ignorepointer 1
-   "Size To Content H" 1
-   Columns 16
-   Rows 1
-   Margin 8
+   "Size To Content V" 1
+   Columns 5
+   Rows 100
+   Padding 6
    scriptclass "ComponentWidgetBinding"
    {
     ScriptParamsClass {

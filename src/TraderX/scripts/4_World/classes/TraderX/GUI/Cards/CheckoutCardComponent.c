@@ -3,12 +3,21 @@ class CheckoutCardComponent extends DZlrComponentBase
 	private static ref ComponentAutoRegister s_Register = new ComponentAutoRegister("tx-checkout-card", CheckoutCardComponent);
 
 	static ref ScriptInvoker Event_OnPriceChanged = new ScriptInvoker();
+	// (TraderXProduct) the cart quantity of a product changed: item tiles refresh their badge
+	static ref ScriptInvoker Event_OnCartQuantityChanged = new ScriptInvoker();
 
 	ref TraderXProduct _inputProduct;
 
 	string product_name_text;
 	string product_quantity_text;
 	string product_price_text;
+	// "€ 5 each" under the name (Nasdara cart row)
+	string product_unit_text;
+	Widget checkoutMainRow;
+	Widget qtyStepper;
+	Widget productUnit;
+	Widget productName;
+	Widget productPrice;
 
 	// Preset picker (BUY, non-customize, product with presets). The options are shown in a
 	// collapsible list that expands the card downward (a floating dropdown gets clipped by
@@ -42,6 +51,35 @@ class CheckoutCardComponent extends DZlrComponentBase
 		AutoLoadWidgets();
 		if (_inputProduct)
 			Setup(_inputProduct);
+		ApplyCompactRow();
+	}
+
+	// Customize configuration lines: one 58 px line, name + price (no stepper).
+	void ApplyCompactRow()
+	{
+		if (TraderXUINavigationService.GetInstance().GetNavigationId() != ENavigationIds.CUSTOMIZE)
+			return;
+		if (qtyStepper) qtyStepper.Show(false);
+		if (productUnit) productUnit.Show(false);
+		if (!checkoutMainRow) return;
+		// script pixel values are not in the layout's units on scaled displays: scale the
+		// 1080p design values by k, read from the row's own layout height (80)
+		float rw, rh;
+		checkoutMainRow.GetSize(rw, rh);
+		float k = rh / 80.0;
+		checkoutMainRow.SetSize(1, 58 * k);
+		if (productName)
+		{
+			// widths are fractions of the 456 px row (layouts are width-relative)
+			productName.SetPos(24 * k, 0);
+			productName.SetSize(0.6, 58 * k);
+		}
+		if (productPrice)
+		{
+			float pw, ph;
+			productPrice.GetSize(pw, ph);
+			productPrice.SetSize(pw, 58 * k);
+		}
 	}
 
 	void Setup(TraderXProduct item, int qty = 1)
@@ -239,28 +277,18 @@ class CheckoutCardComponent extends DZlrComponentBase
 	void SetQuantity(int qty)
 	{
 		quantity = qty;
-		product_quantity_text = DZTernaryString.If(tradeMode == ETraderXTradeMode.BUY, "+", DZTernaryString.If(tradeMode == ETraderXTradeMode.SELL, "-", "")) + qty.ToString();
+		product_quantity_text = qty.ToString();
+		if (_inputProduct) Event_OnCartQuantityChanged.Invoke(_inputProduct);
 	}
 
 	void SetPrice(int newPrice)
 	{
 		price = newPrice;
-		if (tradeMode == ETraderXTradeMode.SELL)
-		{
-			if (price < 0) price = 0;
-			if (price == 0)
-			{
-				product_price_text = "0";
-			}
-			else
-			{
-				product_price_text = "-" + TraderXQuantityManager.GetFormattedMoneyAmount(price);
-			}
-		}
-		else
-		{
-			product_price_text = TraderXQuantityManager.GetFormattedMoneyAmount(price);
-		}
+		if (tradeMode == ETraderXTradeMode.SELL && price < 0) price = 0;
+		string symbol = TraderXCurrencyService.GetInstance().GetTraderCurrencySymbol();
+		product_price_text = symbol + TraderXQuantityManager.GetFormattedMoneyAmount(price);
+		int unit = price / Math.Max(1, quantity);
+		product_unit_text = symbol + TraderXQuantityManager.GetFormattedMoneyAmount(unit) + " " + Widget.TranslateString("#tpm_each");
 	}
 
 	int GetPrice()
@@ -360,7 +388,12 @@ class CheckoutCardComponent extends DZlrComponentBase
 	{
 		if (tradeMode == ETraderXTradeMode.BUY)
 		{
-			if (_inputProduct.GetMultiplier() == 1) return;
+			// at 1 the minus removes the line (the cart row has no trash button)
+			if (_inputProduct.GetMultiplier() == 1)
+			{
+				OnRemoveClick();
+				return;
+			}
 			_inputProduct.SetMultiplier(_inputProduct.GetMultiplier() - 1);
 			RefreshQuantityAndPrice();
 		}

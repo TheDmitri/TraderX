@@ -2,11 +2,22 @@ PanelWidgetClass itemCardView {
  position 0 0
  hexactpos 0
  vexactpos 0
- size 1 72
+ size 1 80
  hexactsize 0
  vexactsize 1
  ignorepointer 1
  {
+  PanelWidgetClass itemCardBase {
+   position 0 0
+   hexactpos 0
+   vexactpos 0
+   size 1 1
+   hexactsize 0
+   vexactsize 0
+   color 0.1098 0.0941 0.0745 1
+   ignorepointer 1
+   style rover_sim_colorable
+  }
   ButtonWidgetClass itemCardMainBtn {
    position 0 0
    hexactpos 0
@@ -21,50 +32,65 @@ PanelWidgetClass itemCardView {
    {
     ScriptParamsClass {
      OnClick "OnItemCardLeftClick"
-     OnRightClick "OnItemCardRightClick"
      OnDoubleClick "OnItemCardDoubleClick"
+     OnRightClick "OnItemCardRightClick"
     }
    }
   }
-  PanelWidgetClass itemCardOutline {
+  PanelWidgetClass itemCardContent {
    position 0 0
    hexactpos 0
    vexactpos 0
    size 1 1
    hexactsize 0
    vexactsize 0
-   ignorepointer 1
-   style TXListRowSelected
-   color 0.9961 0.9961 0.9961 1
-  }
-  PanelWidgetClass itemCardContent {
-   position 0 0.03
-   hexactpos 0
-   vexactpos 0
-   size 0.99 0.94
-   hexactsize 0
-   vexactsize 0
    color 0 0 0 0
    ignorepointer 1
    style rover_sim_colorable
    {
-    ButtonWidgetClass volumeBtn {
-     position 0 0
-     hexactpos 0
-     vexactpos 0
-     size 5 0.86
+    PanelWidgetClass previewBg {
+     position 8 8
+     hexactpos 1
+     vexactpos 1
+     size 96 64
      hexactsize 1
-     vexactsize 0
-     valign center_ref
+     vexactsize 1
+     color 0.0588 0.051 0.0392 1
+     ignorepointer 1
+     style rover_sim_colorable
+    }
+    ItemPreviewWidgetClass itemPreview {
+     position 8 8
+     hexactpos 1
+     vexactpos 1
+     size 96 64
+     hexactsize 1
+     vexactsize 1
+     ignorepointer 1
+     clipchildren 1
+     scriptclass "ItemPreviewBinding"
+     {
+      ScriptParamsClass {
+       Binding_Item "{{ preview }}"
+      }
+     }
+    }
+    ButtonWidgetClass volumeBtn {
+     position 0.09872 12
+     hexactpos 0
+     vexactpos 1
+     size 4 56
+     hexactsize 1
+     vexactsize 1
      "text color" 0.9961 0.9961 0.9961 1
-     style TXProgressBg
+     style Default
      color 0.9961 0.9961 0.9961 1
      {
       ProgressBarWidgetClass volumeBar {
-       position 0 0.4
+       position 0 0
        hexactpos 0
        vexactpos 0
-       size 1 0.6
+       size 1 1
        hexactsize 0
        vexactsize 0
        ignorepointer 1
@@ -73,59 +99,19 @@ PanelWidgetClass itemCardView {
       }
      }
     }
-    PanelWidgetClass previewBg {
-     position 0.01 0.06
-     hexactpos 0
-     vexactpos 0
-     size 84 56
-     hexactsize 1
-     vexactsize 1
-     color 0.0235 0.0275 0.0392 1
-     ignorepointer 1
-     style rover_sim_colorable
-    }
-    ItemPreviewWidgetClass itemPreview {
-     position 0.01 0.06
-     hexactpos 0
-     vexactpos 0
-     size 84 56
-     hexactsize 1
-     vexactsize 1
-     ignorepointer 1
-     scriptclass "ItemPreviewBinding"
-     {
-      ScriptParamsClass {
-       Binding_Item "{{ preview }}"
-      }
-     }
-    }
-    ImageWidgetClass healthImg {
-     position 0.01 0.06
-     hexactpos 0
-     vexactpos 0
-     size 10 10
-     hexactsize 1
-     vexactsize 1
-     color 0.4196 0.5569 0.3529 1
-     ignorepointer 1
-     image0 "set:traderx_icons image:circle"
-     mode blend
-     "src alpha" 1
-     "stretch mode" stretch_w_h
-    }
     TextWidgetClass classNameText {
-     position 0.13 0.1
+     position 0.11335 12
      hexactpos 0
-     vexactpos 0
-     size 0.4 0.44
+     vexactpos 1
+     size 0.39305 28
      hexactsize 0
-     vexactsize 0
-     color 0.8471 0.8235 0.7529 1
-     font "TraderX/datasets/fonts/oswalt14"
+     vexactsize 1
+     color 0.949 0.9137 0.8471 1
+     font "TraderX/datasets/fonts/rajdhanibpx20"
      ignorepointer 1
-     style Bold
      "exact text" 1
      "text valign" center
+     text "Item Name"
      scriptclass "TextBinding"
      {
       ScriptParamsClass {
@@ -133,45 +119,24 @@ PanelWidgetClass itemCardView {
       }
      }
     }
-    TextWidgetClass quantityStr {
-     position 0.13 0.56
-     hexactpos 0
-     vexactpos 0
-     size 0.4 0.36
-     hexactsize 0
-     vexactsize 0
-     color 0.4157 0.3961 0.3765 1
-     font "TraderX/datasets/fonts/jet-brains-mono12"
-     ignorepointer 1
-     "exact text" 1
-     scriptclass "TextBinding"
-     {
-      ScriptParamsClass {
-       Binding_Expression "{{ quantityStr }}"
-      }
-     }
-    }
     GridSpacerWidgetClass stockGrid {
-     position 0.48 0
+     position 0.11335 44
      hexactpos 0
-     vexactpos 0
-     size 0.22 32
+     vexactpos 1
+     size 0.18282 22
      hexactsize 0
      vexactsize 1
      ignorepointer 1
      Columns 2
      Rows 1
-     Margin 5
-     Padding 3
+     Padding 6
      "Size To Content H" 1
-     "Size To Content V" 1
-     valign center_ref
      {
       ImageWidgetClass stockIcon {
-       size 32 32
+       size 16 16
        hexactsize 1
        vexactsize 1
-       color 0.6039 0.5804 0.5333 1
+       color 0.6392 0.5725 0.4627 1
        ignorepointer 1
        image0 "set:traderx_icons image:stockSimple"
        mode blend
@@ -179,10 +144,12 @@ PanelWidgetClass itemCardView {
        "stretch mode" stretch_w_h
       }
       TextWidgetClass stockText {
-       color 0.6039 0.5804 0.5333 1
-       font "TraderX/datasets/fonts/jet-brains-mono16"
+       size 1 22
+       hexactsize 1
+       vexactsize 1
+       color 0.6392 0.5725 0.4627 1
+       font "TraderX/datasets/fonts/monopx16"
        ignorepointer 1
-       style Bold
        "exact text" 1
        "text valign" center
        "size to text h" 1
@@ -196,82 +163,230 @@ PanelWidgetClass itemCardView {
       }
      }
     }
-    GridSpacerWidgetClass priceGrid {
-     position 0.58 0
+    ImageWidgetClass healthImg {
+     position 0.52102 0
      hexactpos 0
      vexactpos 0
-     size 0.37 32
+     size 10 10
+     hexactsize 1
+     vexactsize 1
+     valign center_ref
+     color 0.498 0.651 0.3529 1
+     ignorepointer 1
+     image0 "set:traderx_icons image:circle"
+     mode blend
+     "src alpha" 1
+     "stretch mode" stretch_w_h
+    }
+    TextWidgetClass quantityStr {
+     position 0.53931 0
+     hexactpos 0
+     vexactpos 0
+     size 90 80
+     hexactsize 1
+     vexactsize 1
+     color 0.6392 0.5725 0.4627 1
+     font "TraderX/datasets/fonts/monopx16"
+     ignorepointer 1
+     "exact text" 1
+     "text valign" center
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ quantityStr }}"
+      }
+     }
+    }
+    TextWidgetClass priceText {
+     position 0.40219 0
+     hexactpos 0
+     vexactpos 0
+     size 0.13711 80
      hexactsize 0
      vexactsize 1
+     halign right_ref
+     color 0.9098 0.5373 0.2902 1
+     font "TraderX/datasets/fonts/monopx24"
      ignorepointer 1
-     Columns 4
-     Rows 1
-     Margin 5
-     Padding 3
-     "Size To Content H" 1
-     "Size To Content V" 1
-     valign center_ref
+     "exact text" 1
+     "text halign" right
+     "text valign" center
+     text "€ 1,250"
+     scriptclass "TextBinding"
      {
-      ImageWidgetClass priceIcon {
-       size 32 32
-       hexactsize 1
-       vexactsize 1
-       color 0.7686 0.6392 0.3529 1
-       ignorepointer 1
-       image0 "set:traderx_icons image:simpleCoins"
-       mode blend
-       "src alpha" 1
-       "stretch mode" stretch_w_h
+      ScriptParamsClass {
+       Binding_Expression "{{ price_display }}"
       }
-      TextWidgetClass priceText {
-       color 0.7686 0.6392 0.3529 1
-       font "TraderX/datasets/fonts/jet-brains-mono16"
-       ignorepointer 1
-       style Bold
-       "exact text" 1
-       "text valign" center
-       "size to text h" 1
-       text "1,250"
-       scriptclass "TextBinding"
-       {
-        ScriptParamsClass {
-         Binding_Expression "{{ itemPrice }}"
-        }
-       }
+     }
+    }
+    TextWidgetClass sellPriceText {
+     position 0.22852 0
+     hexactpos 0
+     vexactpos 0
+     size 0.16088 80
+     hexactsize 0
+     vexactsize 1
+     halign right_ref
+     color 0.6392 0.5725 0.4627 1
+     font "TraderX/datasets/fonts/rajdhanipx17"
+     ignorepointer 1
+     "exact text" 1
+     "text halign" right
+     "text valign" center
+     text "sells for € 625"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ itemSellPrice }}"
       }
-      PanelWidgetClass priceSpacer {
-       size 20 1
-       hexactsize 1
-       vexactsize 1
-       ignorepointer 1
-      }
-      TextWidgetClass sellPriceText {
-       color 0.7843 0.4 0.2902 1
-       color 0.6902 0.6902 0.6902 1
-       font "TraderX/datasets/fonts/jet-brains-mono12"
-       ignorepointer 1
-       "exact text" 1
-       "text valign" center
-       "size to text h" 1
-       text "sell 500"
-       scriptclass "TextBinding"
-       {
-        ScriptParamsClass {
-         Binding_Expression "{{ itemSellPrice }}"
-        }
-       }
+     }
+    }
+    ImageWidgetClass unselectedIcon {
+     position 0 0
+     hexactpos 0
+     vexactpos 0
+     size 1 1
+     hexactsize 1
+     vexactsize 1
+     color 0 0 0 0
+     ignorepointer 1
+     visible 0
+     image0 "set:traderx_icons image:unapproved"
+     mode blend
+     "src alpha" 1
+     "stretch mode" stretch_w_h
+    }
+    ImageWidgetClass selectedIcon {
+     position 0 0
+     hexactpos 0
+     vexactpos 0
+     size 1 1
+     hexactsize 1
+     vexactsize 1
+     color 0 0 0 0
+     ignorepointer 1
+     visible 0
+     image0 "set:traderx_icons image:approved"
+     mode blend
+     "src alpha" 1
+     "stretch mode" stretch_w_h
+    }
+   }
+  }
+  PanelWidgetClass itemCardFrame {
+   position 0 0
+   hexactpos 0
+   vexactpos 0
+   size 1 1
+   hexactsize 0
+   vexactsize 0
+   ignorepointer 1
+   style TXRowRule
+   color 0.9961 0.9961 0.9961 1
+  }
+  PanelWidgetClass itemCardOutline {
+   position 0 0
+   hexactpos 0
+   vexactpos 0
+   size 1 1
+   hexactsize 0
+   vexactsize 0
+   ignorepointer 1
+   style TXCardSelected
+   color 0.9961 0.9961 0.9961 1
+  }
+  PanelWidgetClass inCartBadge {
+   position 0.11335 46
+   hexactpos 0
+   vexactpos 1
+   size 0.11335 22
+   hexactsize 0
+   vexactsize 1
+   color 0.851 0.4627 0.1843 1
+   ignorepointer 1
+   visible 0
+   style rover_sim_colorable
+   {
+    TextWidgetClass inCartText {
+     position 0 0
+     hexactpos 0
+     vexactpos 0
+     size 1 1
+     hexactsize 0
+     vexactsize 0
+     color 0.102 0.051 0.0157 1
+     font "TraderX/datasets/fonts/rajdhanibpx14"
+     ignorepointer 1
+     "exact text" 1
+     "text halign" center
+     "text valign" center
+     text "IN CART · 2"
+     scriptclass "TextBinding"
+     {
+      ScriptParamsClass {
+       Binding_Expression "{{ cart_badge }}"
       }
      }
     }
    }
   }
-  ButtonWidgetClass favBtn {
-   position 0.92 0
+  PanelWidgetClass licenseDimPanel {
+   position 0 0
    hexactpos 0
    vexactpos 0
-   size 26 26
+   size 1 1
+   hexactsize 0
+   vexactsize 0
+   color 0.0588 0.051 0.0392 0.6
+   ignorepointer 1
+   visible 0
+   style rover_sim_colorable
+  }
+  ImageWidgetClass licenseLockIcon {
+   position 16 0
+   hexactpos 1
+   vexactpos 0
+   size 18 18
    hexactsize 1
    vexactsize 1
+   valign center_ref
+   color 0.8784 0.4784 0.3882 1
+   ignorepointer 1
+   visible 0
+   image0 "set:traderx_icons image:padlock"
+   mode blend
+   "src alpha" 1
+   "stretch mode" stretch_w_h
+  }
+  ButtonWidgetClass previewHoverBtn {
+   position 8 8
+   hexactpos 1
+   vexactpos 1
+   size 96 64
+   hexactsize 1
+   vexactsize 1
+   "text color" 0.9961 0.9961 0.9961 1
+   style Empty
+   color 0.9961 0.9961 0.9961 1
+   scriptclass "ButtonBinding"
+   {
+    ScriptParamsClass {
+     OnClick "OnItemCardLeftClick"
+     OnDoubleClick "OnItemCardDoubleClick"
+     OnRightClick "OnItemCardRightClick"
+     OnMouseEnter "OnItemCardMouseEnter"
+     OnMouseLeave "OnItemCardMouseLeave"
+    }
+   }
+  }
+  ButtonWidgetClass favBtn {
+   position 14 0
+   hexactpos 1
+   vexactpos 0
+   size 38 38
+   hexactsize 1
+   vexactsize 1
+   halign right_ref
    valign center_ref
    "text color" 0.9961 0.9961 0.9961 1
    style Empty
@@ -282,10 +397,12 @@ PanelWidgetClass itemCardView {
      position 0 0
      hexactpos 0
      vexactpos 0
-     size 1 1
-     hexactsize 0
-     vexactsize 0
-     color 0.7686 0.6392 0.3529 1
+     size 19 19
+     hexactsize 1
+     vexactsize 1
+     halign center_ref
+     valign center_ref
+     color 0.8784 0.6392 0.2275 1
      ignorepointer 1
      image0 "set:traderx_icons image:star_full"
      mode blend
@@ -296,10 +413,12 @@ PanelWidgetClass itemCardView {
      position 0 0
      hexactpos 0
      vexactpos 0
-     size 1 1
-     hexactsize 0
-     vexactsize 0
-     color 0.6039 0.5804 0.5333 1
+     size 19 19
+     hexactsize 1
+     vexactsize 1
+     halign center_ref
+     valign center_ref
+     color 0.549 0.4902 0.4 1
      ignorepointer 1
      visible 0
      image0 "set:traderx_icons image:star"
@@ -314,34 +433,14 @@ PanelWidgetClass itemCardView {
     }
    }
   }
-  ButtonWidgetClass previewHoverBtn {
-   position 0.01 0.09
-   hexactpos 0
+  ButtonWidgetClass customizeBtn {
+   position 56 0
+   hexactpos 1
    vexactpos 0
-   size 84 56
+   size 38 38
    hexactsize 1
    vexactsize 1
-   "text color" 0.9961 0.9961 0.9961 1
-   style Empty
-   color 0.9961 0.9961 0.9961 1
-   scriptclass "ButtonBinding"
-   {
-    ScriptParamsClass {
-     OnClick "OnItemCardLeftClick"
-     OnRightClick "OnItemCardRightClick"
-     OnDoubleClick "OnItemCardDoubleClick"
-     OnMouseEnter "OnItemCardMouseEnter"
-     OnMouseLeave "OnItemCardMouseLeave"
-    }
-   }
-  }
-  ButtonWidgetClass variantBtn {
-   position 0.76 0
-   hexactpos 0
-   vexactpos 0
-   size 26 26
-   hexactsize 1
-   vexactsize 1
+   halign right_ref
    valign center_ref
    "text color" 0.9961 0.9961 0.9961 1
    visible 0
@@ -349,18 +448,18 @@ PanelWidgetClass itemCardView {
    color 0.9961 0.9961 0.9961 1
    scriptclass "ButtonBinding"
    {
-    ImageWidgetClass variantIcon {
+    ImageWidgetClass customizeIcon {
      position 0 0
      hexactpos 0
      vexactpos 0
-     size 1 1
-     hexactsize 0
-     vexactsize 0
+     size 19 19
+     hexactsize 1
+     vexactsize 1
      halign center_ref
      valign center_ref
-     color 0.6039 0.8039 0.1961 1
+     color 0.7608 0.7098 0.6118 1
      ignorepointer 1
-     image0 "set:traderx_icons image:palette"
+     image0 "set:traderx_icons image:gear"
      mode blend
      "src alpha" 1
      "stretch mode" stretch_w_h
@@ -368,19 +467,20 @@ PanelWidgetClass itemCardView {
    }
    {
     ScriptParamsClass {
-     OnClick "OnVariantClick"
-     OnMouseEnter "OnVariantEnter"
+     OnClick "OnCustomizeClick"
+     OnMouseEnter "OnCustomizeEnter"
      OnMouseLeave "OnAffordanceLeave"
     }
    }
   }
   ButtonWidgetClass attachBtn {
-   position 0.8 0
+   position 0.08775 0
    hexactpos 0
    vexactpos 0
-   size 26 26
+   size 38 38
    hexactsize 1
    vexactsize 1
+   halign right_ref
    valign center_ref
    "text color" 0.9961 0.9961 0.9961 1
    visible 0
@@ -392,12 +492,12 @@ PanelWidgetClass itemCardView {
      position 0 0
      hexactpos 0
      vexactpos 0
-     size 1 1
-     hexactsize 0
-     vexactsize 0
+     size 19 19
+     hexactsize 1
+     vexactsize 1
      halign center_ref
      valign center_ref
-     color 0.7686 0.6392 0.3529 1
+     color 0.7608 0.7098 0.6118 1
      ignorepointer 1
      image0 "set:traderx_icons image:wrench"
      mode blend
@@ -413,13 +513,14 @@ PanelWidgetClass itemCardView {
     }
    }
   }
-  ButtonWidgetClass customizeBtn {
-   position 0.84 0
+  ButtonWidgetClass variantBtn {
+   position 0.12431 0
    hexactpos 0
    vexactpos 0
-   size 26 26
+   size 38 38
    hexactsize 1
    vexactsize 1
+   halign right_ref
    valign center_ref
    "text color" 0.9961 0.9961 0.9961 1
    visible 0
@@ -427,18 +528,18 @@ PanelWidgetClass itemCardView {
    color 0.9961 0.9961 0.9961 1
    scriptclass "ButtonBinding"
    {
-    ImageWidgetClass customizeIcon {
+    ImageWidgetClass variantIcon {
      position 0 0
      hexactpos 0
      vexactpos 0
-     size 1 1
-     hexactsize 0
-     vexactsize 0
+     size 19 19
+     hexactsize 1
+     vexactsize 1
      halign center_ref
      valign center_ref
-     color 0.8471 0.8235 0.7529 1
+     color 0.7608 0.7098 0.6118 1
      ignorepointer 1
-     image0 "set:traderx_icons image:gear"
+     image0 "set:traderx_icons image:palette"
      mode blend
      "src alpha" 1
      "stretch mode" stretch_w_h
@@ -446,8 +547,8 @@ PanelWidgetClass itemCardView {
    }
    {
     ScriptParamsClass {
-     OnClick "OnCustomizeClick"
-     OnMouseEnter "OnCustomizeEnter"
+     OnClick "OnVariantClick"
+     OnMouseEnter "OnVariantEnter"
      OnMouseLeave "OnAffordanceLeave"
     }
    }

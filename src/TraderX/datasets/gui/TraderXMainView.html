@@ -6,35 +6,32 @@
   <link rel="stylesheet" href="dzml-styles.css">
   <link rel="stylesheet" href="dzml-icons.css">
 </head>
-<body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#1a1a1a;">
+<body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#13100c;">
 
+<!-- Nasdara layout (design: TraderX Nasdara Redesign, board "Trader · Purchase"; design px x 1.2).
+     Full screen: header 82 px, content, footer 48 px. -->
 <div data-dz="frame"
     data-name="rootFrame"
     class="dz-xy-0-0 dz-wh-full dz-align-cc">
   <div data-dz="panel"
       data-name="OutlineMainView1"
-      data-style="TXContainer"
-      class="dz-xy-0-0 dz-wh-96-92 dz-align-cc dz-c-FE">
+      class="dz-xy-0-0 dz-wh-full dz-c-13100C">
+
+    <!-- Header -->
     <div data-dz="panel"
         data-name="MainPageHeader"
         data-style="TXHeader"
-        class="dz-xy-0-0 dz-wh-100-10 dz-c-FE dz-noptr">
-      <!-- Solid header fill. TXHeader draws no background of its own and the container
-           center reads through to the world here, so the header strip looked transparent.
-           Plain panel (no data-style) keeps its dark dz-c fill instead of being tinted white. -->
-      <div data-dz="panel"
-          data-name="headerBg"
-          class="dz-xy-0-0 dz-wh-full dz-c-0B0D12 dz-noptr"></div>
+        class="dz-xy-0-0 dz-wh-100-82px dz-c-FE dz-noptr">
       <div data-dz="panel"
           data-name="TraderInfoPanel"
-          class="dz-xy-1-0 dz-wh-22-100 dz-noptr">
+          class="dz-xy-29px-0 dz-wh-400px-82px dz-noptr">
         <div data-dz="panel"
             data-name="TraderIconBox"
             data-style="TXIcon"
-            class="dz-xy-0-0 dz-wh-46px-46px dz-align-y-center dz-c-FE dz-noptr">
+            class="dz-xy-0-0 dz-wh-48px-48px dz-align-y-center dz-c-FE dz-noptr">
           <img data-dz="image"
               data-name="TraderIcon"
-              class="dz-xy-0-0 dz-wh-full dz-align-cc dz-noptr"
+              class="dz-xy-0-0 dz-wh-27px-27px dz-align-cc dz-c-1A0D04 dz-noptr"
               data-image="set:traderx_icons image:market"
               data-image-mode="blend"
               data-image-src-alpha="1"
@@ -42,124 +39,245 @@
         </div>
         <span data-dz="text"
             data-name="TraderNameLabel"
-            data-bind="{{ trader_name }}"
-            class="dz-xy-15--8 dz-wh-84-40 dz-align-y-center dz-tc-C4A35A dz-font-heading-28 dz-noptr dz-bold dz-wrap dz-size-to-text-v">
-          Marie
+            data-bind="{{ trader_name | uppercase }}"
+            class="dz-xy-65px-11px dz-wh-330px-42px dz-c-F2E9D8 dz-font-/home/dmitri/DayZWorkspace/TraderX Projects/TraderX/src/TraderX/datasets/fonts/antonpx14 Projects/TraderX/src/TraderX/datasets/fonts/rajdhani14 Projects/TraderX/src/TraderX/datasets/fonts/anton14 dz-noptr dz-exact-text dz-text-vc">
+          MARIE
         </span>
         <span data-dz="text"
             data-name="TraderRole"
-            data-bind="{{ trader_role }}"
-            class="dz-xy-15-57 dz-wh-80-18 dz-tc-9A9488 dz-font-body-12 dz-noptr dz-exact-text">
+            data-bind="{{ trader_role | uppercase }}"
+            class="dz-xy-65px-50px dz-wh-330px-18px dz-c-A39276 dz-font-nb-16 dz-noptr dz-exact-text dz-text-vc">
           FOOD TRADER
         </span>
       </div>
+
+      <!-- Tabs: Anton caps, cream when active with a 3 px ember underline -->
       <div data-dz="grid"
           data-name="navigationGrid"
-          class="dz-xy-25-22 dz-wh-40-56 dz-noptr dz-cols-5 dz-rows-1 dz-gap-6">
-        <button data-dz="button"
-            data-name="CatalogBtn"
-            data-style="TXTab"
-            data-user-id="232"
-            data-on-click="OnCatalogClick"
-            class="dz-tc-FE dz-tc-D8D2C0 dz-font-body-14">
-          #tpm_catalog
-        </button>
-        <button data-dz="button"
-            data-name="PurchaseBtn"
-            data-style="TXTab"
-            data-user-id="232"
-            data-on-click="OnPurchaseClick"
-            class="dz-tc-FE dz-tc-D8D2C0 dz-font-body-14">
-          #tpm_purchase
-        </button>
-        <button data-dz="button"
-            data-name="SellBtn"
-            data-style="TXTab"
-            data-user-id="232"
-            data-on-click="OnSellClick"
-            class="dz-tc-FE dz-tc-D8D2C0 dz-font-body-14">
-          #tpm_sell
-        </button>
-        <button data-dz="button"
-            data-name="favBtn"
-            data-style="TXTab"
-            data-user-id="232"
-            data-on-click="OnFavoriteClick"
-            class="dz-tc-FE dz-tc-D8D2C0 dz-font-body-14">
-          #tpm_favorites
-        </button>
+          class="dz-xy-0-0 dz-wh-600px-82px dz-align-x-center dz-cols-4 dz-rows-1 dz-gap-5">
+        <div data-dz="panel"
+            data-name="CatalogBtnCell"
+            class="dz-wh-146px-82px dz-noptr">
+          <button data-dz="button"
+              data-name="CatalogBtn"
+              data-style="Empty"
+              data-user-id="232"
+              data-on-click="OnCatalogClick"
+              class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
+          <span data-dz="text"
+              data-name="CatalogLabel"
+              data-bind="{{ tab_catalog }}"
+              class="dz-xy-0-0 dz-wh-full dz-c-A39276 dz-font-nh-20 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+            CATALOG
+          </span>
+          <div data-dz="panel"
+              data-name="CatalogLine"
+              class="dz-xy-0-0 dz-wh-100-3px dz-align-bc dz-c-D9762F dz-noptr dz-hidden"></div>
+        </div>
+        <div data-dz="panel"
+            data-name="PurchaseBtnCell"
+            class="dz-wh-146px-82px dz-noptr">
+          <button data-dz="button"
+              data-name="PurchaseBtn"
+              data-style="Empty"
+              data-user-id="232"
+              data-on-click="OnPurchaseClick"
+              class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
+          <span data-dz="text"
+              data-name="PurchaseLabel"
+              data-bind="{{ tab_purchase }}"
+              class="dz-xy-0-0 dz-wh-full dz-c-A39276 dz-font-nh-20 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+            PURCHASE
+          </span>
+          <div data-dz="panel"
+              data-name="PurchaseLine"
+              class="dz-xy-0-0 dz-wh-100-3px dz-align-bc dz-c-D9762F dz-noptr dz-hidden"></div>
+        </div>
+        <div data-dz="panel"
+            data-name="SellBtnCell"
+            class="dz-wh-146px-82px dz-noptr">
+          <button data-dz="button"
+              data-name="SellBtn"
+              data-style="Empty"
+              data-user-id="232"
+              data-on-click="OnSellClick"
+              class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
+          <span data-dz="text"
+              data-name="SellLabel"
+              data-bind="{{ tab_sell }}"
+              class="dz-xy-0-0 dz-wh-full dz-c-A39276 dz-font-nh-20 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+            SELL
+          </span>
+          <div data-dz="panel"
+              data-name="SellLine"
+              class="dz-xy-0-0 dz-wh-100-3px dz-align-bc dz-c-D9762F dz-noptr dz-hidden"></div>
+        </div>
+        <div data-dz="panel"
+            data-name="favBtnCell"
+            class="dz-wh-146px-82px dz-noptr">
+          <button data-dz="button"
+              data-name="favBtn"
+              data-style="Empty"
+              data-user-id="232"
+              data-on-click="OnFavoriteClick"
+              class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
+          <span data-dz="text"
+              data-name="FavoritesLabel"
+              data-bind="{{ tab_favorites }}"
+              class="dz-xy-0-0 dz-wh-full dz-c-A39276 dz-font-nh-20 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+            FAVORITES
+          </span>
+          <div data-dz="panel"
+              data-name="FavoritesLine"
+              class="dz-xy-0-0 dz-wh-100-3px dz-align-bc dz-c-D9762F dz-noptr dz-hidden"></div>
+        </div>
       </div>
+
+      <!-- Wallet chips + close -->
       <div data-dz="panel"
-          data-name="walletPanel"
-          class="dz-xy-68-0 dz-wh-24-100 dz-noptr">
+          data-name="closeTraderHost"
+          class="dz-xy-29px-0 dz-wh-53px-53px dz-align-cr dz-noptr">
+        <button data-dz="button"
+            data-name="closeTraderBtn"
+            data-style="TXBtnLeave"
+            data-on-click="OnCloseClick"
+            class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
         <img data-dz="image"
-            data-name="walletHeaderIcon"
-            class="dz-xy-52-0 dz-wh-24px-24px dz-align-y-center dz-c-C4A35A dz-noptr"
-            data-image="set:traderx_icons image:wallet"
+            data-name="closeTraderIcon"
+            class="dz-xy-0-0 dz-wh-20px-20px dz-align-cc dz-c-C2B59C dz-noptr"
+            data-image="set:traderx_icons image:close"
             data-image-mode="blend"
             data-image-src-alpha="1"
             data-image-stretch="stretch_w_h"/>
+      </div>
+      <div data-dz="panel"
+          data-name="bankChip"
+          data-style="TXCard"
+          class="dz-xy-94px-0 dz-wh-140px-56px dz-align-cr dz-c-FE dz-noptr">
+        <span data-dz="text"
+            data-name="bankChipLabel"
+            class="dz-xy-17px-7px dz-wh-110px-16px dz-align-x-right dz-c-A39276 dz-font-nbb-13 dz-noptr dz-exact-text dz-text-right">
+          BANK
+        </span>
+        <span data-dz="text"
+            data-name="walletBankAmount"
+            data-bind="{{ bank_amount }}"
+            class="dz-xy-17px-25px dz-wh-110px-25px dz-align-x-right dz-c-F2E9D8 dz-font-nm-20 dz-noptr dz-exact-text dz-text-right">
+          € 1,000
+        </span>
+      </div>
+      <div data-dz="panel"
+          data-name="cashChip"
+          data-style="TXCard"
+          class="dz-xy-246px-0 dz-wh-140px-56px dz-align-cr dz-c-FE dz-noptr">
+        <span data-dz="text"
+            data-name="cashChipLabel"
+            class="dz-xy-17px-7px dz-wh-110px-16px dz-align-x-right dz-c-A39276 dz-font-nbb-13 dz-noptr dz-exact-text dz-text-right">
+          CASH
+        </span>
         <span data-dz="text"
             data-name="walletHeaderAmount"
-            data-bind="{{ wallet_amount }}"
-            class="dz-xy-58-0 dz-wh-38-100 dz-tc-C4A35A dz-font-mono-22 dz-noptr dz-bold dz-exact-text dz-text-vc">
-          0
+            data-bind="{{ cash_amount }}"
+            class="dz-xy-17px-25px dz-wh-110px-25px dz-align-x-right dz-c-F2E9D8 dz-font-nm-20 dz-noptr dz-exact-text dz-text-right">
+          € 500
         </span>
       </div>
     </div>
-    <div data-dz="panel"
-        data-name="HeaderDivider"
-        data-style="TXDivider"
-        class="dz-xy-0-10 dz-wh-100-0 dz-c-FE dz-noptr"></div>
+
+    <!-- Page content -->
     <div data-dz="panel"
         data-name="MainPageContent"
         data-style="TXContent"
         data-component="{{ currentPageSelector }}"
         data-default-page="tx-purchase-page"
-        class="dz-xy-0-10 dz-wh-100-86 dz-c-FE dz-clip"></div>
+        class="dz-xy-0-82px dz-wh-100-950px dz-c-FE dz-clip"></div>
 
-    <!-- Promo footer — DayZ Beans Launcher attribution. The whole bar is a
-         clickable button (OnLauncherClick → OnLauncherExecute → OpenURL); the
-         logo + texts are noptr overlays so the click falls through to it. -->
+    <!-- Footer: DayZ Beans Launcher strip (whole bar opens the promo modal) -->
     <div data-dz="panel"
         data-name="dzbFooter"
-        data-style="TXSurface"
-        class="dz-align-bc dz-wh-100-4 dz-c-FE dz-clip">
+        data-style="TXFooter"
+        class="dz-align-bc dz-wh-100-48px dz-c-FE dz-clip">
       <button data-dz="button"
           data-name="dzbFooterBtn"
           data-style="Empty"
           data-on-click="OnLauncherClick"
           class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
+      <img data-dz="image"
+          data-name="dzbFooterCan"
+          class="dz-xy-24px-0 dz-wh-32px-32px dz-align-y-center dz-c-FF dz-noptr"
+          data-image="TraderX/datasets/images/beans_can.edds"
+          data-image-mode="blend"
+          data-image-src-alpha="1"
+          data-image-stretch="stretch_w_h"/>
+      <div data-dz="wrap"
+          data-name="dzbPromoRow"
+          class="dz-xy-62px-0 dz-wh-1100px-48px dz-noptr">
+        <span data-dz="text"
+            data-name="dzbPromoText"
+            class="dz-wh-1px-48px dz-c-C2B59C dz-font-nb-17 dz-noptr dz-exact-text dz-text-vc dz-size-to-text-h">
+          #tpm_beans_playing_with
+        </span>
+        <span data-dz="text"
+            data-name="dzbPromoBrand"
+            class="dz-wh-1px-48px dz-c-F2E9D8 dz-font-nbb-17 dz-noptr dz-exact-text dz-text-vc dz-size-to-text-h">
+          DayZ Beans Launcher
+        </span>
+        <span data-dz="text"
+            data-name="dzbPromoTagline"
+            class="dz-wh-1px-48px dz-c-C2B59C dz-font-nb-17 dz-noptr dz-exact-text dz-text-vc dz-size-to-text-h">
+          #tpm_beans_tagline
+        </span>
+      </div>
       <span data-dz="text"
-          data-name="dzbPromoText"
-          class="dz-align-cr dz-xy-2-0 dz-wh-16-100 dz-noptr dz-c-C4A35A dz-font-body-12 dz-exact-text dz-text-vc dz-text-right">
-        Sponsored By DayZ Beans Launcher
+          data-name="footerHints"
+          class="dz-xy-29px-0 dz-wh-500px-48px dz-align-x-right dz-c-A39276 dz-font-nb-16 dz-noptr dz-exact-text dz-text-right dz-text-vc">
+        #tpm_footer_hints
       </span>
     </div>
 
-    <!-- Loading overlay: covers the whole menu until the trader's products/stock have
-         arrived, so the menu opens instantly (no frozen/half-built appearance) and reveals
-         content only when it's ready. Shown/hidden from TraderXAppComponent. -->
+    <!-- Loading screen (DayZ Beans Launcher placement 2): over the content until the
+         trader's products/stock arrive. Shown/hidden and animated from TraderXAppComponent. -->
     <div data-dz="panel"
         data-name="loadingOverlay"
-        class="dz-xy-0-0 dz-wh-full dz-c-0A0C10 dz-priority-999 dz-hidden">
+        class="dz-xy-0-82px dz-wh-100-950px dz-c-13100C dz-priority-999 dz-hidden">
       <button data-dz="button"
           data-name="loadingBlocker"
           data-style="Empty"
           class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
-      <img data-dz="image"
-          data-name="loadingIcon"
-          class="dz-xy-0--6 dz-wh-64px-64px dz-align-cc dz-c-C4A35A dz-noptr"
-          data-image="set:traderx_icons image:market"
-          data-image-mode="blend"
-          data-image-src-alpha="1"
-          data-image-stretch="stretch_w_h"/>
-      <span data-dz="text"
-          data-name="loadingText"
-          data-bind="{{ loading_text }}"
-          class="dz-xy-0-6 dz-wh-100-10 dz-align-cc dz-c-D8D2C0 dz-font-heading-22 dz-noptr dz-text-center dz-text-vc">
-        Loading trader
-      </span>
+      <div data-dz="panel"
+          data-name="loadingGroup"
+          class="dz-xy-0-0 dz-wh-620px-180px dz-align-cc dz-noptr">
+        <img data-dz="image"
+            data-name="loadingIcon"
+            class="dz-xy-0-0 dz-wh-180px-180px dz-align-y-center dz-c-FF dz-noptr"
+            data-image="TraderX/datasets/images/beans_can.edds"
+            data-image-mode="blend"
+            data-image-src-alpha="1"
+            data-image-stretch="stretch_w_h"/>
+        <span data-dz="text"
+            data-name="loadingTitle"
+            class="dz-xy-200px-20px dz-wh-400px-45px dz-c-F2E9D8 dz-font-nh-31 dz-noptr dz-exact-text dz-text-vc">
+          #tpm_opening_shop
+        </span>
+        <div data-dz="panel"
+            data-name="loadingBarBg"
+            class="dz-xy-200px-78px dz-wh-360px-7px dz-c-262019 dz-noptr">
+          <div data-dz="panel"
+              data-name="loadingBarFill"
+              class="dz-xy-0-0 dz-wh-62-100 dz-c-D9762F dz-noptr"></div>
+        </div>
+        <span data-dz="text"
+            data-name="loadingText"
+            data-bind="{{ loading_text }}"
+            class="dz-xy-200px-98px dz-wh-400px-22px dz-c-C2B59C dz-font-nb-18 dz-noptr dz-exact-text dz-text-vc">
+          Fetching stock and prices…
+        </span>
+        <span data-dz="text"
+            data-name="loadingBrand"
+            class="dz-xy-200px-130px dz-wh-400px-18px dz-c-A39276 dz-font-nbb-16 dz-noptr dz-exact-text dz-text-vc">
+          DAYZ BEANS LAUNCHER
+        </span>
+      </div>
     </div>
   </div>
 </div>

@@ -161,15 +161,16 @@ class oldTraderXGeneralSettings
 			newSettings.acceptedStates.coefficientBadlyDamaged = AcceptedStates.CoefficientBadlyDamaged;
 		}
 
+		oldTraderXIDsSettings ids = oldTraderXIDsSettings.Load();
+
 		// Convert old currencies to new currency type collection
-		ConvertCurrenciesToNewFormat(newSettings);
+		ConvertCurrenciesToNewFormat(newSettings, ids);
 
         foreach(oldTraderXObject traderObject: TraderObjects)
         {
             newSettings.traderObjects.Insert(new TraderXObject(traderObject.ObjectName, traderObject.Position, traderObject.Orientation));
         }
 
-        oldTraderXIDsSettings ids = oldTraderXIDsSettings.Load();
         foreach(oldTraderXData oldTrader: Traders)
         {
             ConvertTrader(oldTrader, ids, newSettings);
@@ -241,7 +242,9 @@ class oldTraderXGeneralSettings
 
         foreach (string className : classNames)
         {
-            string currencyType = GetCurrencyTypeFromClassName(className);
+            string currencyType = m_CurrencyTypeByClass.Get(className);
+            if (currencyType == string.Empty)
+                currencyType = GetCurrencyTypeFromClassName(className);
             if (types.Find(currencyType) == -1)
                 types.Insert(currencyType);
         }
@@ -256,66 +259,89 @@ class oldTraderXGeneralSettings
             TraderXMigrationReport.Skipped("TraderPlus", "StoreOnlyToPristineState: TraderX stock has no item condition");
         if (LicenceKeyWord != string.Empty)
             TraderXMigrationReport.Approx("TraderPlus", "LicenceKeyWord '" + LicenceKeyWord + "': in TraderX a licence is bought through a product whose class name equals the licence name");
-        TraderXMigrationReport.Approx("TraderPlus", string.Format("LockPickChance %1: set lockpickChance in TraderX/TraderXCarLock/TXCLSettings.json", LockPickChance));
+        TraderXMigrationReport.Info("TraderPlus", string.Format("LockPickChance %1 -> TraderX/TraderXCarLock/TXCLSettings.json lockpickingSettings.carConfig.lockpickChance (set when that file is first created)", LockPickChance));
     }
 
-    private void ConvertCurrenciesToNewFormat(TraderXGeneralSettings newSettings)
+    // currency class name -> TraderX currency type, filled by ConvertCurrenciesToNewFormat
+    protected ref map<string, string> m_CurrencyTypeByClass = new map<string, string>();
+
+    // TraderPlus has one money: every note is accepted everywhere unless a trader lists the class names
+    // it accepts. TraderX accepts whole currency types, so the notes are grouped by name (USD, EUR...)
+    // and, when traders restrict them, split further so that each trader's accepted notes are exactly a
+    // set of types. A class name is never in two types (its money would be counted twice).
+    private void ConvertCurrenciesToNewFormat(TraderXGeneralSettings newSettings, oldTraderXIDsSettings ids)
     {
         if (!Currencies || Currencies.Count() == 0) {
             GetTraderXLogger().LogInfo("No old currencies to convert, using default currency setup");
             return;
         }
-        
-        TraderXCurrencyTypeCollection currencyCollection = new TraderXCurrencyTypeCollection();
-        
-        // Group currencies by value to determine currency types
-        map<int, ref array<string>> currenciesByValue = new map<int, ref array<string>>();
-        
-        foreach(oldTraderXCurrency oldCurrency: Currencies)
+
+        array<ref TStringArray> restrictions = new array<ref TStringArray>();
+        foreach (oldTraderXIDs idEntry : ids.IDs)
         {
-            // Split comma-separated class names
+            if (idEntry && idEntry.Id >= 0 && idEntry.CurrenciesAccepted && idEntry.CurrenciesAccepted.Count() > 0)
+                restrictions.Insert(idEntry.CurrenciesAccepted);
+        }
+
+        TraderXCurrencyTypeCollection currencyCollection = new TraderXCurrencyTypeCollection();
+        map<string, ref TraderXCurrencyType> typesByKey = new map<string, ref TraderXCurrencyType>();
+        array<string> keyOrder = new array<string>();
+        map<string, string> keyByClass = new map<string, string>();
+        map<string, int> groupsPerName = new map<string, int>();
+
+        foreach (oldTraderXCurrency oldCurrency : Currencies)
+        {
             TStringArray classNames = new TStringArray();
             oldCurrency.ClassName.Split(",", classNames);
-            
-            if (!currenciesByValue.Contains(oldCurrency.Value)) {
-                currenciesByValue.Set(oldCurrency.Value, new array<string>());
-            }
-            
-            foreach(string className: classNames)
+            foreach (string className : classNames)
             {
                 className.TrimInPlace();
-                if (className != string.Empty) {
-                    currenciesByValue.Get(oldCurrency.Value).Insert(className);
+                if (className == string.Empty || keyByClass.Contains(className))
+                    continue;
+
+                string baseName = GetCurrencyTypeFromClassName(className);
+                string key = baseName + "|";
+                foreach (TStringArray accepted : restrictions)
+                {
+                    if (accepted.Find(className) != -1)
+                        key += "1";
+                    else
+                        key += "0";
                 }
+
+                if (!typesByKey.Contains(key))
+                {
+                    typesByKey.Set(key, new TraderXCurrencyType(baseName));
+                    keyOrder.Insert(key);
+                    groupsPerName.Set(baseName, groupsPerName.Get(baseName) + 1);
+                }
+                typesByKey.Get(key).AddCurrency(className, oldCurrency.Value);
+                keyByClass.Set(className, key);
             }
         }
-        
-        // Create currency types based on class name patterns
-        map<string, ref TraderXCurrencyType> currencyTypes = new map<string, ref TraderXCurrencyType>();
-        
-        foreach(int value, array<string> clasNames: currenciesByValue)
+
+        // Name the types: the plain name when a name has one group, NAME_2, NAME_3... otherwise
+        map<string, string> nameByKey = new map<string, string>();
+        map<string, int> usedPerName = new map<string, int>();
+        foreach (string typeKey : keyOrder)
         {
-            foreach(string clasName: clasNames)
-            {
-                string currencyTypeName = GetCurrencyTypeFromClassName(clasName);
-                
-                if (!currencyTypes.Contains(currencyTypeName)) {
-                    currencyTypes.Set(currencyTypeName, new TraderXCurrencyType(currencyTypeName));
-                }
-                
-                currencyTypes.Get(currencyTypeName).AddCurrency(clasName, value);
-            }
-        }
-        
-        // Add all currency types to collection
-        foreach(string typeName, TraderXCurrencyType currencyType: currencyTypes)
-        {
+            TraderXCurrencyType currencyType = typesByKey.Get(typeKey);
+            string typeName = currencyType.currencyName;
+            int used = usedPerName.Get(typeName) + 1;
+            usedPerName.Set(typeName, used);
+            if (groupsPerName.Get(typeName) > 1 && used > 1)
+                currencyType.currencyName = typeName + "_" + used.ToString();
+            nameByKey.Set(typeKey, currencyType.currencyName);
             currencyCollection.currencyTypes.Insert(currencyType);
         }
-        
-        // Save the currency collection
+
+        foreach (string mappedClass, string mappedKey : keyByClass)
+        {
+            m_CurrencyTypeByClass.Set(mappedClass, nameByKey.Get(mappedKey));
+        }
+
         TraderXCurrencyRepository.Save(currencyCollection);
-        GetTraderXLogger().LogInfo("Converted " + Currencies.Count() + " old currencies to new format");
+        GetTraderXLogger().LogInfo("Converted " + Currencies.Count() + " old currencies to " + currencyCollection.currencyTypes.Count() + " currency types");
     }
     
     private string GetCurrencyTypeFromClassName(string className)

@@ -210,26 +210,26 @@ class TXGGarageService extends DayZularService
         ownerUid = "";
         sharedGuest = false;
         if (!GetGame().IsServer() || !player || !player.GetIdentity())
-            return "Server error";
+            return "#txg_err_server";
 
         TXGSettings settings = GetTXGConfigService().GetServerSettings();
         if (!settings)
-            return "Garage not configured";
+            return "#txg_err_not_configured";
 
         if (!FindGarageNear(settings, playerPos, -1))
-            return "You must be at a garage";
+            return "#txg_err_not_at_garage";
 
         vehicle = FindNearbyTransport(playerPos, settings.parkRadius);
         if (!vehicle)
-            return "No vehicle within " + Math.Round(settings.parkRadius).ToString() + " m";
+            return TXGText.Msg("#txg_err_no_vehicle_within", Math.Round(settings.parkRadius).ToString());
 
         if (IsTransportOccupied(vehicle))
-            return "The vehicle still has occupants";
+            return "#txg_err_occupied";
 
         // A wreck stays a wreck: storing it would let the garage service rebuild it (and an
         // insurance-claimed wreck would come back as a second vehicle).
         if (vehicle.IsRuined())
-            return "A destroyed vehicle cannot be stored";
+            return "#txg_err_destroyed";
 
         string stampPolicy;
         string stampOwner;
@@ -237,7 +237,7 @@ class TXGGarageService extends DayZularService
         int stampNoResale;
         TXGVehicleStampHelper.ReadStamp(vehicle, stampPolicy, stampOwner, stampState, stampNoResale);
         if (stampState == TXGConstants.STAMP_CLAIMED)
-            return "This vehicle was already replaced by insurance";
+            return "#txg_err_already_replaced";
 
         string uid = player.GetIdentity().GetPlainId();
 
@@ -255,7 +255,7 @@ class TXGGarageService extends DayZularService
 
         TXGGarageData data = TXGGarageData.Load(ownerUid, "");
         if (CountSlotUsage(data, settings) >= settings.maxVehicleStored)
-            return "Garage is full (" + settings.maxVehicleStored.ToString() + " max)";
+            return TXGText.Msg("#txg_err_full", settings.maxVehicleStored.ToString());
 
         return "";
     }
@@ -277,7 +277,7 @@ class TXGGarageService extends DayZularService
             ownerName = "";
 
         if (!ChargeFee(player, settings.parkInCost, TXGConstants.FEE_LABEL_IN))
-            return "Not enough money";
+            return "#txg_err_no_money";
 
         TXGGarageData data = TXGGarageData.Load(ownerUid, ownerName);
         TXGVehicleData record = CaptureVehicleRecord(data, vehicle, ownerUid, settings);
@@ -294,7 +294,7 @@ class TXGGarageService extends DayZularService
             GetTXGLog().LogInfo("[TXG] Park-in: " + name + " stored " + record.className + " (" + record.vehicleId + ")");
 
         success = true;
-        return "Vehicle parked";
+        return "#txg_msg_parked";
     }
 
     // The vehicle next to the player as a list row (isNearby), with the reason it can't be parked.
@@ -369,20 +369,33 @@ class TXGGarageService extends DayZularService
             bool hasLock = lockProv.HasCarLock(vehicle);
             if (settings && settings.vehicleMustHaveLock && !hasLock)
             {
-                errorMsg = "Vehicle must have a CarLock before parking";
+                errorMsg = "#txg_err_need_carlock";
                 return false;
             }
             if (hasLock && !lockProv.IsOwner(vehicle, uid) && !(sharedGuest && !lockProv.IsLocked(vehicle)))
             {
                 if (lockProv.IsLocked(vehicle))
-                    errorMsg = "This vehicle is locked by another player";
+                    errorMsg = "#txg_err_locked_other";
                 else
-                    errorMsg = "You do not own this vehicle";
+                    errorMsg = "#txg_err_not_owner";
                 return false;
             }
         }
 #endif
         return true;
+    }
+
+    // Vehicle receipts (TXGReceiptService): same capture and lock rules as the garage
+    TXGVehicleData CaptureReceiptRecord(EntityAI vehicle, string uid, string receiptId)
+    {
+        TXGVehicleData record = CaptureVehicleRecord(new TXGGarageData(), vehicle, uid, GetTXGConfigService().GetServerSettings());
+        record.vehicleId = receiptId;
+        return record;
+    }
+
+    bool CanPackReceipt(EntityAI vehicle, string uid, out string errorMsg)
+    {
+        return CheckCarLockCanParkIn(vehicle, uid, GetTXGConfigService().GetServerSettings(), false, errorMsg);
     }
 
     protected TXGVehicleData CaptureVehicleRecord(TXGGarageData data, EntityAI vehicle, string uid, TXGSettings settings)
@@ -500,14 +513,14 @@ class TXGGarageService extends DayZularService
     // npcId = the garage attendant the player interacted with; drives spot resolution.
     EntityAI ParkOut(PlayerBase player, string vehicleId, int npcId, vector playerPos, out string status)
     {
-        status = "Server error";
+        status = "#txg_err_server";
         if (!GetGame().IsServer() || !player || !player.GetIdentity())
             return null;
 
         TXGSettings settings = GetTXGConfigService().GetServerSettings();
         if (!settings)
         {
-            status = "Garage not configured";
+            status = "#txg_err_not_configured";
             return null;
         }
 
@@ -517,14 +530,14 @@ class TXGGarageService extends DayZularService
         TXGNpcEntry garage = FindGarageNear(settings, playerPos, npcId);
         if (!garage)
         {
-            status = "You must be at a garage";
+            status = "#txg_err_not_at_garage";
             return null;
         }
 
         string blockedZone = "";
         if (IsInNoRetrieveZone(playerPos, settings, blockedZone))
         {
-            status = "Cannot retrieve vehicles in zone: " + blockedZone;
+            status = TXGText.Msg("#txg_err_zone", blockedZone);
             return null;
         }
 
@@ -538,13 +551,13 @@ class TXGGarageService extends DayZularService
         }
         if (!record)
         {
-            status = "Vehicle not found";
+            status = "#txg_err_vehicle_not_found";
             return null;
         }
 
         if (!IsEntityClassDefined(record.className))
         {
-            status = "Vehicle mod missing on server (" + record.className + ")";
+            status = TXGText.Msg("#txg_err_mod_missing", record.className);
             GetTXGLog().LogWarning("[TXG] Refused park-out of dead vehicle class " + record.className + " for " + name);
             return null;
         }
@@ -555,7 +568,7 @@ class TXGGarageService extends DayZularService
         bool spotOk = ResolveParkSpot(garage, spawnPos, spawnOri);
         if (!spotOk)
         {
-            status = "No free parking spot available";
+            status = "#txg_err_no_spot";
             return null;
         }
 
@@ -572,7 +585,7 @@ class TXGGarageService extends DayZularService
         EntityAI vehicle = CreateVehicle(record, spawnPos, spawnOri, data.ownerUID, skippedItems);
         if (!vehicle)
         {
-            status = "The parking spot is blocked";
+            status = "#txg_err_spot_blocked";
             GetTXGLog().LogWarning("[TXG] Park-out failed to spawn " + record.className + " at " + spawnPos.ToString());
             return null;
         }
@@ -580,7 +593,7 @@ class TXGGarageService extends DayZularService
         if (!ChargeFee(player, feeToCharge, feeLabel))
         {
             GetGame().ObjectDelete(vehicle);
-            status = "Not enough money (" + feeToCharge.ToString() + " required)";
+            status = TXGText.Msg("#txg_err_no_money_required", feeToCharge.ToString());
             return null;
         }
 
@@ -591,9 +604,9 @@ class TXGGarageService extends DayZularService
             GetTXGLog().LogInfo("[TXG] Park-out: " + name + " retrieved " + record.className + " (" + vehicleId + "), skippedItems=" + skippedItems.ToString());
 
         if (skippedItems > 0)
-            status = "Vehicle retrieved (" + skippedItems.ToString() + " missing mod item(s) skipped)";
+            status = TXGText.Msg("#txg_msg_retrieved_skipped", skippedItems.ToString());
         else
-            status = "Vehicle retrieved";
+            status = "#txg_msg_retrieved";
         return vehicle;
     }
 
@@ -769,8 +782,11 @@ class TXGGarageService extends DayZularService
             ItemBase itemBs;
             if (Class.CastTo(itemBs, created))
             {
-                itemBs.SetQuantity(c.quantity);
-                itemBs.SetHealth("", "", c.health);
+                // -1 = unknown (TraderPlus receipt parts): keep what the item spawned with
+                if (c.quantity >= 0)
+                    itemBs.SetQuantity(c.quantity);
+                if (c.health >= 0)
+                    itemBs.SetHealth("", "", c.health);
                 itemBs.SetTemperature(c.temp);
                 itemBs.SetWet(c.wetness);
 
@@ -785,7 +801,7 @@ class TXGGarageService extends DayZularService
                 }
 
                 ComponentEnergyManager em = itemBs.GetCompEM();
-                if (em)
+                if (em && c.energy >= 0)
                     em.SetEnergy(c.energy);
             }
 
@@ -864,7 +880,8 @@ class TXGGarageService extends DayZularService
         if (!settings || settings.saveVehicleHealth)
         {
             vehicle.SetAllowDamage(true);
-            vehicle.SetHealth("", "", record.health);
+            if (record.health >= 0)
+                vehicle.SetHealth("", "", record.health);
             if (record.zones && record.zones.Count() > 0)
             {
                 foreach (TXGZoneHealth zh : record.zones)
@@ -1316,29 +1333,29 @@ class TXGGarageService extends DayZularService
     {
         success = false;
         if (!GetGame().IsServer() || !player || !player.GetIdentity())
-            return "Server error";
+            return "#txg_err_server";
 
         TXGSettings settings = GetTXGConfigService().GetServerSettings();
         if (!settings || !settings.enableRepairs)
-            return "Vehicle service is disabled";
+            return "#txg_err_service_disabled";
 
         string uid = player.GetIdentity().GetPlainId();
         string name = player.GetIdentity().GetName();
 
         if (!IsAtGarage(player))
-            return "You must be at a garage";
+            return "#txg_err_not_at_garage";
 
         TXGGarageData data = TXGGarageData.Load(uid, name);
         TXGVehicleData v = data.FindVehicle(vehicleId);
         if (!v)
-            return "Vehicle not found";
+            return "#txg_err_vehicle_not_found";
 
         int quote = ComputeRepairQuote(v, settings);
         if (quote <= 0)
-            return "Vehicle is already in pristine service condition";
+            return "#txg_err_already_pristine";
 
         if (!ChargeFee(player, quote, TXGConstants.FEE_LABEL_REPAIR))
-            return "Not enough money for service (" + quote.ToString() + " required)";
+            return TXGText.Msg("#txg_err_no_money_service", quote.ToString());
 
         float maxHp = MiscGameplayFunctions.GetTypeMaxGlobalHealth(v.className);
         if (maxHp > 0)
@@ -1374,7 +1391,7 @@ class TXGGarageService extends DayZularService
         data.Save();
         GetTXGLog().LogInfo("[TXG] Repair: " + name + " serviced " + v.className + " (" + vehicleId + ") for " + quote.ToString());
         success = true;
-        return "Vehicle serviced & fluids topped up (" + quote.ToString() + ")";
+        return TXGText.Msg("#txg_msg_serviced", quote.ToString());
     }
 
     // mode: 1 = add, 2 = remove, 0 = toggle.
@@ -1382,23 +1399,23 @@ class TXGGarageService extends DayZularService
     {
         success = false;
         if (!GetGame().IsServer() || !player || !player.GetIdentity())
-            return "Server error";
+            return "#txg_err_server";
 
         targetUid.TrimInPlace();
         if (!IsSteam64(targetUid))
-            return "Enter a valid Steam64 ID (17 digits) to share/unshare";
+            return "#txg_err_steam_id";
 
         if (!IsAtGarage(player))
-            return "You must be at a garage";
+            return "#txg_err_not_at_garage";
 
         string uid = player.GetIdentity().GetPlainId();
         if (targetUid == uid)
-            return "You already own this vehicle";
+            return "#txg_err_own_vehicle";
 
         TXGGarageData data = TXGGarageData.Load(uid, player.GetIdentity().GetName());
         TXGVehicleData v = data.FindVehicle(vehicleId);
         if (!v)
-            return "Only the vehicle owner can manage sharing";
+            return "#txg_err_only_owner_share";
 
         if (!v.sharedWith)
             v.sharedWith = new array<string>();
@@ -1407,26 +1424,26 @@ class TXGGarageService extends DayZularService
         if (mode == 1 && existingIdx != -1)
         {
             success = true;
-            return "Already shared";
+            return "#txg_err_already_shared";
         }
         if (mode == 2 && existingIdx == -1)
         {
             success = true;
-            return "Access already removed";
+            return "#txg_err_access_already_removed";
         }
         if (existingIdx != -1)
         {
             v.sharedWith.RemoveOrdered(existingIdx);
             data.Save();
             success = true;
-            return "Access removed for " + PlayerNameOf(targetUid);
+            return TXGText.Msg("#txg_msg_access_removed", PlayerNameOf(targetUid));
         }
 
         v.sharedWith.Insert(targetUid);
         data.Save();
         ShareIndexAdd(uid, v.sharedWith);
         success = true;
-        return "Access given to " + PlayerNameOf(targetUid);
+        return TXGText.Msg("#txg_msg_access_given", PlayerNameOf(targetUid));
     }
 
     protected bool FindSharedVehicle(string requesterUid, string vehicleId, out TXGGarageData outOwnerData, out TXGVehicleData outRecord)
@@ -1555,7 +1572,7 @@ class TXGGarageService extends DayZularService
             if (m && m.GetIdentity() && m.GetIdentity().GetPlainId() == uid)
                 return m.GetIdentity().GetName();
         }
-        return "Player ..." + uid.Substring(uid.Length() - 4, 4);
+        return "..." + uid.Substring(uid.Length() - 4, 4);
     }
 
     void GetBalances(PlayerBase player, out int bank, out int cash)
@@ -1623,19 +1640,19 @@ class TXGGarageService extends DayZularService
     {
         success = false;
         if (!GetGame().IsServer() || !admin || !admin.GetIdentity())
-            return "Server error";
+            return "#txg_err_server";
 
         string adminUid = admin.GetIdentity().GetPlainId();
         if (!IsPlayerAdmin(adminUid))
-            return "Admin permission required";
+            return "#txg_err_admin_required";
 
         TXGSettings settings = GetTXGConfigService().GetServerSettings();
         if (!settings)
-            return "Garage not configured";
+            return "#txg_err_not_configured";
 
         Transport vehicle = FindNearbyTransport(admin.GetPosition(), settings.parkRadius);
         if (!vehicle)
-            return "No nearby vehicle to impound";
+            return "#txg_err_no_nearby_impound";
 
         string targetOwner = "";
         string stampPol;
@@ -1649,7 +1666,7 @@ class TXGGarageService extends DayZularService
 #endif
         // An ownerless vehicle would land in the admin's own garage: refuse instead.
         if (targetOwner == "")
-            return "This vehicle has no known owner (no garage stamp, no CarLock)";
+            return "#txg_err_no_owner";
 
         TXGGarageData data = TXGGarageData.Load(targetOwner, "");
         TXGVehicleData record = CaptureVehicleRecord(data, vehicle, targetOwner, settings);
@@ -1664,7 +1681,7 @@ class TXGGarageService extends DayZularService
 
         GetTXGLog().LogInfo("[TXG ADMIN] IMPOUND admin=" + adminUid + " owner=" + targetOwner + " class=" + record.className + " fee=" + record.releaseFee.ToString());
         success = true;
-        return "Impounded " + record.className + " into garage of " + targetOwner;
+        return TXGText.Msg("#txg_msg_impounded", record.className, targetOwner);
     }
 
     bool IsInNoRetrieveZone(vector pos, TXGSettings settings, out string zoneName)
@@ -1682,7 +1699,7 @@ class TXGGarageService extends DayZularService
             {
                 zoneName = z.name;
                 if (zoneName == "")
-                    zoneName = "Restricted Zone";
+                    zoneName = "#txg_zone_restricted";
                 return true;
             }
         }
@@ -1734,11 +1751,11 @@ class TXGGarageService extends DayZularService
 
     static string GetHealthLevelText(int level)
     {
-        if (level == TXGConstants.HEALTH_PRISTINE)      return "Pristine";
-        if (level == TXGConstants.HEALTH_WORN)          return "Worn";
-        if (level == TXGConstants.HEALTH_DAMAGED)       return "Damaged";
-        if (level == TXGConstants.HEALTH_BADLY_DAMAGED) return "Badly Damaged";
-        return "Ruined";
+        if (level == TXGConstants.HEALTH_PRISTINE)      return "#txg_health_pristine";
+        if (level == TXGConstants.HEALTH_WORN)          return "#txg_health_worn";
+        if (level == TXGConstants.HEALTH_DAMAGED)       return "#txg_health_damaged";
+        if (level == TXGConstants.HEALTH_BADLY_DAMAGED) return "#txg_health_badly_damaged";
+        return "#txg_health_ruined";
     }
 
     // YYYYMMDDhhmmss UTC stamp as int-ish string-safe int (fits in int up to ~2038 only for date part).

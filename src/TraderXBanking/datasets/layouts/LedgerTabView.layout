@@ -5,7 +5,7 @@ PanelWidgetClass ledgerPanel {
  size 1 1
  hexactsize 0
  vexactsize 0
- color 0.0314 0.0353 0.0471 0.8196
+ color 0.0588 0.051 0.0392 0.8196
  ignorepointer 1
  style rover_sim_colorable
  {
@@ -16,10 +16,10 @@ PanelWidgetClass ledgerPanel {
    size 0.2 0.05
    hexactsize 0
    vexactsize 0
-   "text color" 0.8471 0.8235 0.7529 1
-   font "TraderX/datasets/fonts/oswalt12"
+   "text color" 0.949 0.9137 0.8471 1
+   font "TraderX/datasets/fonts/rajdhanibpx16"
    "exact text" 1
-   style TXInputField
+   style TXBInputField
    color 0.9961 0.9961 0.9961 1
    scriptclass "EditBoxBinding"
    {
@@ -37,8 +37,8 @@ PanelWidgetClass ledgerPanel {
    size 0.19 0.05
    hexactsize 0
    vexactsize 0
-   color 0.4157 0.3961 0.3765 1
-   font "TraderX/datasets/fonts/oswalt12"
+   color 0.549 0.4902 0.4 1
+   font "TraderX/datasets/fonts/rajdhanibpx16"
    ignorepointer 1
    "exact text" 1
    "text valign" center
@@ -53,16 +53,15 @@ PanelWidgetClass ledgerPanel {
    vexactsize 0
    Columns 5
    Rows 1
-   Margin 3
+   Padding 3
    {
     ButtonWidgetClass filterAllBtn {
-     "text color" 0.8314 0.6431 0.298 1
-     font "TraderX/datasets/fonts/oswalt12"
+     "text color" 0.9098 0.5373 0.2902 1
+     font "TraderX/datasets/fonts/rajdhanibpx16"
      "exact text" 1
      "text halign" center
      "text valign" center
-     style Bold
-     style TXTab
+     style TXBTab
      color 0.9961 0.9961 0.9961 1
      text "ALL"
      scriptclass "ButtonBinding"
@@ -73,13 +72,12 @@ PanelWidgetClass ledgerPanel {
      }
     }
     ButtonWidgetClass filterDepositBtn {
-     "text color" 0.8471 0.8235 0.7529 1
-     font "TraderX/datasets/fonts/oswalt12"
+     "text color" 0.949 0.9137 0.8471 1
+     font "TraderX/datasets/fonts/rajdhanibpx16"
      "exact text" 1
      "text halign" center
      "text valign" center
-     style Bold
-     style TXTab
+     style TXBTab
      color 0.9961 0.9961 0.9961 1
      text "DEPOSITS"
      scriptclass "ButtonBinding"
@@ -90,13 +88,12 @@ PanelWidgetClass ledgerPanel {
      }
     }
     ButtonWidgetClass filterWithdrawBtn {
-     "text color" 0.8471 0.8235 0.7529 1
-     font "TraderX/datasets/fonts/oswalt12"
+     "text color" 0.949 0.9137 0.8471 1
+     font "TraderX/datasets/fonts/rajdhanibpx16"
      "exact text" 1
      "text halign" center
      "text valign" center
-     style Bold
-     style TXTab
+     style TXBTab
      color 0.9961 0.9961 0.9961 1
      text "WITHDRAWALS"
      scriptclass "ButtonBinding"
@@ -107,13 +104,12 @@ PanelWidgetClass ledgerPanel {
      }
     }
     ButtonWidgetClass filterTransferBtn {
-     "text color" 0.8471 0.8235 0.7529 1
-     font "TraderX/datasets/fonts/oswalt12"
+     "text color" 0.949 0.9137 0.8471 1
+     font "TraderX/datasets/fonts/rajdhanibpx16"
      "exact text" 1
      "text halign" center
      "text valign" center
-     style Bold
-     style TXTab
+     style TXBTab
      color 0.9961 0.9961 0.9961 1
      text "TRANSFERS"
      scriptclass "ButtonBinding"
@@ -124,13 +120,12 @@ PanelWidgetClass ledgerPanel {
      }
     }
     ButtonWidgetClass filterTraderBtn {
-     "text color" 0.8471 0.8235 0.7529 1
-     font "TraderX/datasets/fonts/oswalt12"
+     "text color" 0.949 0.9137 0.8471 1
+     font "TraderX/datasets/fonts/rajdhanibpx16"
      "exact text" 1
      "text halign" center
      "text valign" center
-     style Bold
-     style TXTab
+     style TXBTab
      color 0.9961 0.9961 0.9961 1
      text "TRADER"
      scriptclass "ButtonBinding"
@@ -150,7 +145,7 @@ PanelWidgetClass ledgerPanel {
    hexactsize 0
    vexactsize 0
    ignorepointer 1
-   style TXCard
+   style TXBCard
    color 0.9961 0.9961 0.9961 1
    {
     PanelWidgetClass tableHeader {
@@ -161,7 +156,7 @@ PanelWidgetClass ledgerPanel {
      hexactsize 0
      vexactsize 0
      ignorepointer 1
-     style TXSurface
+     style TXBSurface
      color 0.9961 0.9961 0.9961 1
      {
       TextWidgetClass thDate {
@@ -171,12 +166,11 @@ PanelWidgetClass ledgerPanel {
        size 0.12 1
        hexactsize 0
        vexactsize 0
-       color 0.6039 0.5804 0.5333 1
-       font "TraderX/datasets/fonts/oswalt12"
+       color 0.6392 0.5725 0.4627 1
+       font "TraderX/datasets/fonts/rajdhanibpx16"
        ignorepointer 1
        "exact text" 1
        "text valign" center
-       style Bold
        text "DATE"
       }
       TextWidgetClass thType {
@@ -186,12 +180,11 @@ PanelWidgetClass ledgerPanel {
        size 0.4 1
        hexactsize 0
        vexactsize 0
-       color 0.6039 0.5804 0.5333 1
-       font "TraderX/datasets/fonts/oswalt12"
+       color 0.6392 0.5725 0.4627 1
+       font "TraderX/datasets/fonts/rajdhanibpx16"
        ignorepointer 1
        "exact text" 1
        "text valign" center
-       style Bold
        text "TYPE - COUNTERPARTY"
       }
       TextWidgetClass thAmount {
@@ -201,13 +194,12 @@ PanelWidgetClass ledgerPanel {
        size 0.15 1
        hexactsize 0
        vexactsize 0
-       color 0.6039 0.5804 0.5333 1
-       font "TraderX/datasets/fonts/oswalt12"
+       color 0.6392 0.5725 0.4627 1
+       font "TraderX/datasets/fonts/rajdhanibpx16"
        ignorepointer 1
        "exact text" 1
        "text halign" right
        "text valign" center
-       style Bold
        text "AMOUNT"
       }
       TextWidgetClass thBalance {
@@ -217,13 +209,12 @@ PanelWidgetClass ledgerPanel {
        size 0.15 1
        hexactsize 0
        vexactsize 0
-       color 0.6039 0.5804 0.5333 1
-       font "TraderX/datasets/fonts/oswalt12"
+       color 0.6392 0.5725 0.4627 1
+       font "TraderX/datasets/fonts/rajdhanibpx16"
        ignorepointer 1
        "exact text" 1
        "text halign" right
        "text valign" center
-       style Bold
        text "BALANCE"
       }
      }
@@ -245,7 +236,7 @@ PanelWidgetClass ledgerPanel {
        "Size To Content V" 1
        Columns 1
        Rows 100
-       Margin 1
+       Padding 1
        scriptclass "ComponentWidgetBinding"
        {
         ScriptParamsClass {
@@ -262,8 +253,8 @@ PanelWidgetClass ledgerPanel {
        size 0.9 0.1
        hexactsize 0
        vexactsize 0
-       color 0.4157 0.3961 0.3765 1
-       font "TraderX/datasets/fonts/oswalt12"
+       color 0.549 0.4902 0.4 1
+       font "TraderX/datasets/fonts/rajdhanibpx16"
        ignorepointer 1
        "exact text" 1
        "text halign" center
@@ -288,7 +279,7 @@ PanelWidgetClass ledgerPanel {
    hexactsize 0
    vexactsize 0
    ignorepointer 1
-   style TXCardElevated
+   style TXBCardElevated
    color 0.9961 0.9961 0.9961 1
    {
     TextWidgetClass detailEmptyText {
@@ -298,8 +289,8 @@ PanelWidgetClass ledgerPanel {
      size 0.84 0.2
      hexactsize 0
      vexactsize 0
-     color 0.4157 0.3961 0.3765 1
-     font "TraderX/datasets/fonts/oswalt13"
+     color 0.549 0.4902 0.4 1
+     font "TraderX/datasets/fonts/rajdhanibpx17"
      ignorepointer 1
      "exact text" 1
      "text halign" center
@@ -317,7 +308,7 @@ PanelWidgetClass ledgerPanel {
    hexactsize 0
    vexactsize 0
    ignorepointer 1
-   style TXCardElevated
+   style TXBCardElevated
    color 0.9961 0.9961 0.9961 1
    {
     PanelWidgetClass detailHeader {
@@ -328,7 +319,7 @@ PanelWidgetClass ledgerPanel {
      hexactsize 0
      vexactsize 0
      ignorepointer 1
-     style TXWarningBox
+     style TXBWarningBox
      color 0.9961 0.9961 0.9961 1
      {
       TextWidgetClass detailHeaderLabel {
@@ -338,11 +329,10 @@ PanelWidgetClass ledgerPanel {
        size 0.9 0.18
        hexactsize 0
        vexactsize 0
-       color 0.8314 0.6431 0.298 1
-       font "TraderX/datasets/fonts/oswalt12"
+       color 0.9098 0.5373 0.2902 1
+       font "TraderX/datasets/fonts/rajdhanibpx16"
        ignorepointer 1
        "exact text" 1
-       style Bold
        text "TRANSACTION DETAIL"
       }
       TextWidgetClass detailAmount {
@@ -352,11 +342,10 @@ PanelWidgetClass ledgerPanel {
        size 0.9 0.45
        hexactsize 0
        vexactsize 0
-       color 0.8314 0.6431 0.298 1
-       font "TraderX/datasets/fonts/jet-brains-mono28"
+       color 0.9098 0.5373 0.2902 1
+       font "TraderX/datasets/fonts/monopx31"
        ignorepointer 1
        "exact text" 1
-       style Bold
        text "-"
        scriptclass "TextBinding"
        {
@@ -372,11 +361,10 @@ PanelWidgetClass ledgerPanel {
        size 0.9 0.18
        hexactsize 0
        vexactsize 0
-       color 0.6039 0.5804 0.5333 1
-       font "TraderX/datasets/fonts/oswalt12"
+       color 0.6392 0.5725 0.4627 1
+       font "TraderX/datasets/fonts/rajdhanibpx16"
        ignorepointer 1
        "exact text" 1
-       style Bold
        text "- - CONFIRMED"
        scriptclass "TextBinding"
        {
@@ -394,8 +382,8 @@ PanelWidgetClass ledgerPanel {
      size 0.4 0.02
      hexactsize 0
      vexactsize 0
-     color 0.6039 0.5804 0.5333 1
-     font "TraderX/datasets/fonts/oswalt12"
+     color 0.6392 0.5725 0.4627 1
+     font "TraderX/datasets/fonts/rajdhanibpx16"
      ignorepointer 1
      "exact text" 1
      text "ID"
@@ -407,8 +395,8 @@ PanelWidgetClass ledgerPanel {
      size 0.9 0.03
      hexactsize 0
      vexactsize 0
-     color 0.4157 0.3961 0.3765 1
-     font "TraderX/datasets/fonts/oswalt12"
+     color 0.549 0.4902 0.4 1
+     font "TraderX/datasets/fonts/rajdhanibpx16"
      ignorepointer 1
      "exact text" 1
      text "-"
@@ -426,8 +414,8 @@ PanelWidgetClass ledgerPanel {
      size 0.4 0.02
      hexactsize 0
      vexactsize 0
-     color 0.6039 0.5804 0.5333 1
-     font "TraderX/datasets/fonts/oswalt12"
+     color 0.6392 0.5725 0.4627 1
+     font "TraderX/datasets/fonts/rajdhanibpx16"
      ignorepointer 1
      "exact text" 1
      text "DATE"
@@ -439,8 +427,8 @@ PanelWidgetClass ledgerPanel {
      size 0.9 0.03
      hexactsize 0
      vexactsize 0
-     color 0.8471 0.8235 0.7529 1
-     font "TraderX/datasets/fonts/oswalt12"
+     color 0.949 0.9137 0.8471 1
+     font "TraderX/datasets/fonts/rajdhanibpx16"
      ignorepointer 1
      "exact text" 1
      text "-"
@@ -458,8 +446,8 @@ PanelWidgetClass ledgerPanel {
      size 0.4 0.02
      hexactsize 0
      vexactsize 0
-     color 0.6039 0.5804 0.5333 1
-     font "TraderX/datasets/fonts/oswalt12"
+     color 0.6392 0.5725 0.4627 1
+     font "TraderX/datasets/fonts/rajdhanibpx16"
      ignorepointer 1
      "exact text" 1
      text "TYPE"
@@ -471,8 +459,8 @@ PanelWidgetClass ledgerPanel {
      size 0.9 0.03
      hexactsize 0
      vexactsize 0
-     color 0.8471 0.8235 0.7529 1
-     font "TraderX/datasets/fonts/oswalt12"
+     color 0.949 0.9137 0.8471 1
+     font "TraderX/datasets/fonts/rajdhanibpx16"
      ignorepointer 1
      "exact text" 1
      text "-"
@@ -490,8 +478,8 @@ PanelWidgetClass ledgerPanel {
      size 0.5 0.02
      hexactsize 0
      vexactsize 0
-     color 0.6039 0.5804 0.5333 1
-     font "TraderX/datasets/fonts/oswalt12"
+     color 0.6392 0.5725 0.4627 1
+     font "TraderX/datasets/fonts/rajdhanibpx16"
      ignorepointer 1
      "exact text" 1
      text "COUNTERPARTY"
@@ -503,8 +491,8 @@ PanelWidgetClass ledgerPanel {
      size 0.9 0.03
      hexactsize 0
      vexactsize 0
-     color 0.8471 0.8235 0.7529 1
-     font "TraderX/datasets/fonts/oswalt12"
+     color 0.949 0.9137 0.8471 1
+     font "TraderX/datasets/fonts/rajdhanibpx16"
      ignorepointer 1
      "exact text" 1
      text "-"
@@ -522,8 +510,8 @@ PanelWidgetClass ledgerPanel {
      size 0.4 0.02
      hexactsize 0
      vexactsize 0
-     color 0.6039 0.5804 0.5333 1
-     font "TraderX/datasets/fonts/oswalt12"
+     color 0.6392 0.5725 0.4627 1
+     font "TraderX/datasets/fonts/rajdhanibpx16"
      ignorepointer 1
      "exact text" 1
      text "FEE"
@@ -535,8 +523,8 @@ PanelWidgetClass ledgerPanel {
      size 0.9 0.03
      hexactsize 0
      vexactsize 0
-     color 0.7843 0.4 0.2902 1
-     font "TraderX/datasets/fonts/oswalt12"
+     color 0.8784 0.4784 0.3882 1
+     font "TraderX/datasets/fonts/rajdhanibpx16"
      ignorepointer 1
      "exact text" 1
      text "-"
@@ -554,8 +542,8 @@ PanelWidgetClass ledgerPanel {
      size 0.4 0.02
      hexactsize 0
      vexactsize 0
-     color 0.6039 0.5804 0.5333 1
-     font "TraderX/datasets/fonts/oswalt12"
+     color 0.6392 0.5725 0.4627 1
+     font "TraderX/datasets/fonts/rajdhanibpx16"
      ignorepointer 1
      "exact text" 1
      text "BALANCE AFTER"
@@ -567,11 +555,10 @@ PanelWidgetClass ledgerPanel {
      size 0.9 0.04
      hexactsize 0
      vexactsize 0
-     color 0.8314 0.6431 0.298 1
-     font "TraderX/datasets/fonts/oswalt16"
+     color 0.9098 0.5373 0.2902 1
+     font "TraderX/datasets/fonts/rajdhanibpx20"
      ignorepointer 1
      "exact text" 1
-     style Bold
      text "-"
      scriptclass "TextBinding"
      {
@@ -587,8 +574,8 @@ PanelWidgetClass ledgerPanel {
      size 0.4 0.02
      hexactsize 0
      vexactsize 0
-     color 0.6039 0.5804 0.5333 1
-     font "TraderX/datasets/fonts/oswalt12"
+     color 0.6392 0.5725 0.4627 1
+     font "TraderX/datasets/fonts/rajdhanibpx16"
      ignorepointer 1
      "exact text" 1
      text "NOTE"
@@ -600,8 +587,8 @@ PanelWidgetClass ledgerPanel {
      size 0.9 0.06
      hexactsize 0
      vexactsize 0
-     color 0.8471 0.8235 0.7529 1
-     font "TraderX/datasets/fonts/oswalt12"
+     color 0.949 0.9137 0.8471 1
+     font "TraderX/datasets/fonts/rajdhanibpx16"
      ignorepointer 1
      "exact text" 1
      wrap 1
@@ -621,7 +608,7 @@ PanelWidgetClass ledgerPanel {
      hexactsize 0
      vexactsize 0
      ignorepointer 1
-     style TXSuccessBox
+     style TXBSuccessBox
      color 0.9961 0.9961 0.9961 1
      {
       TextWidgetClass confirmedTitle {
@@ -631,11 +618,10 @@ PanelWidgetClass ledgerPanel {
        size 0.9 0.35
        hexactsize 0
        vexactsize 0
-       color 0.6039 0.6902 0.3529 1
-       font "TraderX/datasets/fonts/oswalt12"
+       color 0.498 0.651 0.3529 1
+       font "TraderX/datasets/fonts/rajdhanibpx16"
        ignorepointer 1
        "exact text" 1
-       style Bold
        text "TRANSACTION CONFIRMED"
       }
       TextWidgetClass confirmedBody {
@@ -645,8 +631,8 @@ PanelWidgetClass ledgerPanel {
        size 0.92 0.35
        hexactsize 0
        vexactsize 0
-       color 0.6039 0.5804 0.5333 1
-       font "TraderX/datasets/fonts/oswalt12"
+       color 0.6392 0.5725 0.4627 1
+       font "TraderX/datasets/fonts/rajdhanibpx16"
        ignorepointer 1
        "exact text" 1
        wrap 1
@@ -663,23 +649,21 @@ PanelWidgetClass ledgerPanel {
      vexactsize 0
      Columns 2
      Rows 1
-     Margin 3
+     Padding 3
      {
       ButtonWidgetClass copyTxIdBtn {
-       "text color" 0.8471 0.8235 0.7529 1
-       font "TraderX/datasets/fonts/oswalt12"
+       "text color" 0.949 0.9137 0.8471 1
+       font "TraderX/datasets/fonts/rajdhanibpx16"
        "exact text" 1
-       style Bold
-       style TXBtnDefault
+       style TXBBtnDefault
        color 0.9961 0.9961 0.9961 1
        text "COPY ID"
       }
       ButtonWidgetClass receiptBtn {
-       "text color" 0.8471 0.8235 0.7529 1
-       font "TraderX/datasets/fonts/oswalt12"
+       "text color" 0.949 0.9137 0.8471 1
+       font "TraderX/datasets/fonts/rajdhanibpx16"
        "exact text" 1
-       style Bold
-       style TXBtnDefault
+       style TXBBtnDefault
        color 0.9961 0.9961 0.9961 1
        text "RECEIPT"
       }

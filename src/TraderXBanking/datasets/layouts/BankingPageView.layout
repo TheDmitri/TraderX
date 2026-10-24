@@ -12,13 +12,11 @@ FrameWidgetClass rootFrame {
    position 0 0
    hexactpos 0
    vexactpos 0
-   size 0.96 0.92
+   size 1 1
    hexactsize 0
    vexactsize 0
-   halign center_ref
-   valign center_ref
-   style TXContainer
-   color 0.9961 0.9961 0.9961 1
+   color 0.0745 0.0627 0.0471 1
+   style rover_sim_colorable
    {
     PanelWidgetClass bankingRootBg {
      position 0 0
@@ -27,7 +25,7 @@ FrameWidgetClass rootFrame {
      size 1 1
      hexactsize 0
      vexactsize 0
-     color 0.0314 0.0353 0.0471 1
+     color 0.0745 0.0627 0.0471 1
      ignorepointer 1
      style rover_sim_colorable
     }
@@ -35,46 +33,65 @@ FrameWidgetClass rootFrame {
      position 0 0
      hexactpos 0
      vexactpos 0
-     size 1 0.09
+     size 1 82
      hexactsize 0
-     vexactsize 0
+     vexactsize 1
      ignorepointer 1
-     style TXHeader
+     style TXBHeader
      color 0.9961 0.9961 0.9961 1
      {
-      PanelWidgetClass headerBg {
-       position 0 0
-       hexactpos 0
-       vexactpos 0
-       size 1 1
-       hexactsize 0
-       vexactsize 0
-       color 0.0431 0.051 0.0706 1
-       ignorepointer 1
-       style rover_sim_colorable
-      }
       PanelWidgetClass identityPanel {
-       position 0.02 0
-       hexactpos 0
+       position 29 0
+       hexactpos 1
        vexactpos 0
-       size 0.22 1
+       size 0.20833 82
        hexactsize 0
-       vexactsize 0
+       vexactsize 1
        ignorepointer 1
        {
-        TextWidgetClass bankerName {
-         position 0 0.15
+        PanelWidgetClass bankIconBox {
+         position 0 0
          hexactpos 0
          vexactpos 0
-         size 1 0.45
+         size 48 48
+         hexactsize 1
+         vexactsize 1
+         valign center_ref
+         ignorepointer 1
+         style TXBIcon
+         color 0.9961 0.9961 0.9961 1
+         {
+          ImageWidgetClass bankIcon {
+           position 0 0
+           hexactpos 0
+           vexactpos 0
+           size 27 27
+           hexactsize 1
+           vexactsize 1
+           halign center_ref
+           valign center_ref
+           color 0.102 0.051 0.0157 1
+           ignorepointer 1
+           image0 "set:traderx_icons image:bank"
+           mode blend
+           "src alpha" 1
+           "stretch mode" stretch_w_h
+          }
+         }
+        }
+        TextWidgetClass bankerName {
+         position 0.1625 11
+         hexactpos 0
+         vexactpos 1
+         size 0.825 42
          hexactsize 0
-         vexactsize 0
-         "text color" 0.8314 0.6431 0.298 1
-         font "TraderX/datasets/fonts/oswalt28"
+         vexactsize 1
+         color 0.949 0.9137 0.8471 1
+         font "TraderX/datasets/fonts/antonpx29"
          ignorepointer 1
          "exact text" 1
-         style Bold
-         text "Banker"
+         "text valign" center
+         text "BANK"
          scriptclass "TextBinding"
          {
           ScriptParamsClass {
@@ -83,247 +100,409 @@ FrameWidgetClass rootFrame {
          }
         }
         TextWidgetClass bankerRole {
-         position 0 0.6
+         position 0.1625 50
          hexactpos 0
-         vexactpos 0
-         size 1 0.3
+         vexactpos 1
+         size 0.825 18
          hexactsize 0
-         vexactsize 0
-         "text color" 0.6039 0.5804 0.5333 1
-         font "TraderX/datasets/fonts/oswalt12"
+         vexactsize 1
+         color 0.6392 0.5725 0.4627 1
+         font "TraderX/datasets/fonts/rajdhanipx16"
          ignorepointer 1
          "exact text" 1
-         text "BANKING - BANK TELLER"
+         "text valign" center
+         text "TELLER"
+         scriptclass "TextBinding"
+         {
+          ScriptParamsClass {
+           Binding_Expression "{{ bankerRole }}"
+          }
+         }
         }
        }
       }
       GridSpacerWidgetClass tabNavGrid {
-       position 0.22 0.25
+       position 0 0
        hexactpos 0
        vexactpos 0
-       size 0.7 0.5
+       size 0.39062 82
        hexactsize 0
-       vexactsize 0
-       ignorepointer 1
+       vexactsize 1
+       halign center_ref
        Columns 5
        Rows 1
-       Margin 4
+       Padding 5
        {
-        ButtonWidgetClass tabHome {
-         "text color" 0.8471 0.8235 0.7529 1
-         font "TraderX/datasets/fonts/oswalt14"
-         "exact text" 1
-         style Bold
-         style TXTab
-         color 0.9961 0.9961 0.9961 1
-         text "HOME"
-         scriptclass "NavButtonBinding"
+        PanelWidgetClass tabHomeCell {
+         size 146 82
+         hexactsize 1
+         vexactsize 1
+         ignorepointer 1
          {
-          ScriptParamsClass {
-           TargetSelector "banking-home-tab"
+          ButtonWidgetClass tabHome {
+           position 0 0
+           hexactpos 0
+           vexactpos 0
+           size 1 1
+           hexactsize 0
+           vexactsize 0
+           "text color" 0.9961 0.9961 0.9961 1
+           style Empty
+           color 0.9961 0.9961 0.9961 1
+           scriptclass "NavButtonBinding"
+           {
+            ScriptParamsClass {
+             TargetSelector "banking-home-tab"
+            }
+           }
+          }
+          TextWidgetClass tabHomeLabel {
+           position 0 0
+           hexactpos 0
+           vexactpos 0
+           size 1 1
+           hexactsize 0
+           vexactsize 0
+           color 0.6392 0.5725 0.4627 1
+           font "TraderX/datasets/fonts/antonpx20"
+           ignorepointer 1
+           "exact text" 1
+           "text halign" center
+           "text valign" center
+           text "HOME"
+          }
+          PanelWidgetClass homeLine {
+           position 0 0
+           hexactpos 0
+           vexactpos 0
+           size 1 3
+           hexactsize 0
+           vexactsize 1
+           halign center_ref
+           valign bottom_ref
+           color 0.851 0.4627 0.1843 1
+           ignorepointer 1
+           visible 0
+           style rover_sim_colorable
           }
          }
         }
-        ButtonWidgetClass tabAccount {
-         "text color" 0.8471 0.8235 0.7529 1
-         font "TraderX/datasets/fonts/oswalt14"
-         "exact text" 1
-         style Bold
-         style TXTab
-         color 0.9961 0.9961 0.9961 1
-         text "ACCOUNT"
-         scriptclass "NavButtonBinding"
+        PanelWidgetClass tabAccountCell {
+         size 146 82
+         hexactsize 1
+         vexactsize 1
+         ignorepointer 1
          {
-          ScriptParamsClass {
-           TargetSelector "banking-account-tab"
+          ButtonWidgetClass tabAccount {
+           position 0 0
+           hexactpos 0
+           vexactpos 0
+           size 1 1
+           hexactsize 0
+           vexactsize 0
+           "text color" 0.9961 0.9961 0.9961 1
+           style Empty
+           color 0.9961 0.9961 0.9961 1
+           scriptclass "NavButtonBinding"
+           {
+            ScriptParamsClass {
+             TargetSelector "banking-account-tab"
+            }
+           }
+          }
+          TextWidgetClass tabAccountLabel {
+           position 0 0
+           hexactpos 0
+           vexactpos 0
+           size 1 1
+           hexactsize 0
+           vexactsize 0
+           color 0.6392 0.5725 0.4627 1
+           font "TraderX/datasets/fonts/antonpx20"
+           ignorepointer 1
+           "exact text" 1
+           "text halign" center
+           "text valign" center
+           text "ACCOUNT"
+          }
+          PanelWidgetClass accountLine {
+           position 0 0
+           hexactpos 0
+           vexactpos 0
+           size 1 3
+           hexactsize 0
+           vexactsize 1
+           halign center_ref
+           valign bottom_ref
+           color 0.851 0.4627 0.1843 1
+           ignorepointer 1
+           visible 0
+           style rover_sim_colorable
           }
          }
         }
-        ButtonWidgetClass tabVault {
-         "text color" 0.8471 0.8235 0.7529 1
-         font "TraderX/datasets/fonts/oswalt14"
-         "exact text" 1
-         style Bold
-         style TXTab
-         color 0.9961 0.9961 0.9961 1
-         text "VAULT"
-         scriptclass "NavButtonBinding"
+        PanelWidgetClass tabVaultCell {
+         size 146 82
+         hexactsize 1
+         vexactsize 1
+         ignorepointer 1
          {
-          ScriptParamsClass {
-           TargetSelector "banking-vault-tab"
+          ButtonWidgetClass tabVault {
+           position 0 0
+           hexactpos 0
+           vexactpos 0
+           size 1 1
+           hexactsize 0
+           vexactsize 0
+           "text color" 0.9961 0.9961 0.9961 1
+           style Empty
+           color 0.9961 0.9961 0.9961 1
+           scriptclass "NavButtonBinding"
+           {
+            ScriptParamsClass {
+             TargetSelector "banking-vault-tab"
+            }
+           }
+          }
+          TextWidgetClass tabVaultLabel {
+           position 0 0
+           hexactpos 0
+           vexactpos 0
+           size 1 1
+           hexactsize 0
+           vexactsize 0
+           color 0.6392 0.5725 0.4627 1
+           font "TraderX/datasets/fonts/antonpx20"
+           ignorepointer 1
+           "exact text" 1
+           "text halign" center
+           "text valign" center
+           text "VAULT"
+          }
+          PanelWidgetClass vaultLine {
+           position 0 0
+           hexactpos 0
+           vexactpos 0
+           size 1 3
+           hexactsize 0
+           vexactsize 1
+           halign center_ref
+           valign bottom_ref
+           color 0.851 0.4627 0.1843 1
+           ignorepointer 1
+           visible 0
+           style rover_sim_colorable
           }
          }
         }
-        ButtonWidgetClass tabTransfer {
-         "text color" 0.8471 0.8235 0.7529 1
-         font "TraderX/datasets/fonts/oswalt14"
-         "exact text" 1
-         style Bold
-         style TXTab
-         color 0.9961 0.9961 0.9961 1
-         text "TRANSFER"
-         scriptclass "NavButtonBinding"
+        PanelWidgetClass tabTransferCell {
+         size 146 82
+         hexactsize 1
+         vexactsize 1
+         ignorepointer 1
          {
-          ScriptParamsClass {
-           TargetSelector "banking-transfer-tab"
+          ButtonWidgetClass tabTransfer {
+           position 0 0
+           hexactpos 0
+           vexactpos 0
+           size 1 1
+           hexactsize 0
+           vexactsize 0
+           "text color" 0.9961 0.9961 0.9961 1
+           style Empty
+           color 0.9961 0.9961 0.9961 1
+           scriptclass "NavButtonBinding"
+           {
+            ScriptParamsClass {
+             TargetSelector "banking-transfer-tab"
+            }
+           }
+          }
+          TextWidgetClass tabTransferLabel {
+           position 0 0
+           hexactpos 0
+           vexactpos 0
+           size 1 1
+           hexactsize 0
+           vexactsize 0
+           color 0.6392 0.5725 0.4627 1
+           font "TraderX/datasets/fonts/antonpx20"
+           ignorepointer 1
+           "exact text" 1
+           "text halign" center
+           "text valign" center
+           text "TRANSFER"
+          }
+          PanelWidgetClass transferLine {
+           position 0 0
+           hexactpos 0
+           vexactpos 0
+           size 1 3
+           hexactsize 0
+           vexactsize 1
+           halign center_ref
+           valign bottom_ref
+           color 0.851 0.4627 0.1843 1
+           ignorepointer 1
+           visible 0
+           style rover_sim_colorable
           }
          }
         }
-        ButtonWidgetClass tabLedger {
-         "text color" 0.8471 0.8235 0.7529 1
-         font "TraderX/datasets/fonts/oswalt14"
-         "exact text" 1
-         style Bold
-         style TXTab
-         color 0.9961 0.9961 0.9961 1
-         text "LEDGER"
-         scriptclass "NavButtonBinding"
+        PanelWidgetClass tabLedgerCell {
+         size 146 82
+         hexactsize 1
+         vexactsize 1
+         ignorepointer 1
          {
-          ScriptParamsClass {
-           TargetSelector "txb-ledger-tab"
+          ButtonWidgetClass tabLedger {
+           position 0 0
+           hexactpos 0
+           vexactpos 0
+           size 1 1
+           hexactsize 0
+           vexactsize 0
+           "text color" 0.9961 0.9961 0.9961 1
+           style Empty
+           color 0.9961 0.9961 0.9961 1
+           scriptclass "NavButtonBinding"
+           {
+            ScriptParamsClass {
+             TargetSelector "txb-ledger-tab"
+            }
+           }
+          }
+          TextWidgetClass tabLedgerLabel {
+           position 0 0
+           hexactpos 0
+           vexactpos 0
+           size 1 1
+           hexactsize 0
+           vexactsize 0
+           color 0.6392 0.5725 0.4627 1
+           font "TraderX/datasets/fonts/antonpx20"
+           ignorepointer 1
+           "exact text" 1
+           "text halign" center
+           "text valign" center
+           text "LEDGER"
+          }
+          PanelWidgetClass ledgerLine {
+           position 0 0
+           hexactpos 0
+           vexactpos 0
+           size 1 3
+           hexactsize 0
+           vexactsize 1
+           halign center_ref
+           valign bottom_ref
+           color 0.851 0.4627 0.1843 1
+           ignorepointer 1
+           visible 0
+           style rover_sim_colorable
           }
          }
         }
        }
       }
-      ButtonWidgetClass tabLeave {
-       position 0.95 0.25
-       hexactpos 0
+      PanelWidgetClass closeHost {
+       position 29 0
+       hexactpos 1
        vexactpos 0
-       size 0.03 0.5
-       hexactsize 0
-       vexactsize 0
-       "text color" 1 1 1 1
-       font "TraderX/datasets/fonts/oswalt22"
-       "exact text" 1
-       style Bold
-       style TXBtnLeave
-       color 0.9961 0.9961 0.9961 1
-       text "X"
-       scriptclass "ButtonBinding"
-       {
-        ScriptParamsClass {
-         OnClick "OnClose"
-        }
-       }
-      }
-     }
-    }
-    PanelWidgetClass subnav {
-     position 0 0.09
-     hexactpos 0
-     vexactpos 0
-     size 1 0.03
-     hexactsize 0
-     vexactsize 0
-     ignorepointer 1
-     style TXSurface
-     color 0.9961 0.9961 0.9961 1
-     {
-      TextWidgetClass subnavLeft {
-       position 0.02 0
-       hexactpos 0
-       vexactpos 0
-       size 0.6 1
-       hexactsize 0
-       vexactsize 0
-       "text color" 0.6039 0.5804 0.5333 1
-       font "TraderX/datasets/fonts/oswalt12"
+       size 53 53
+       hexactsize 1
+       vexactsize 1
+       halign right_ref
+       valign center_ref
        ignorepointer 1
-       "exact text" 1
-       "text valign" center
-       text "SVETLOYARSK - CENTRAL BANK BRANCH"
-       scriptclass "TextBinding"
        {
-        ScriptParamsClass {
-         Binding_Expression "{{ subnavContext }}"
+        ButtonWidgetClass tabLeave {
+         position 0 0
+         hexactpos 0
+         vexactpos 0
+         size 1 1
+         hexactsize 0
+         vexactsize 0
+         "text color" 0.9961 0.9961 0.9961 1
+         style TXBBtnLeave
+         color 0.9961 0.9961 0.9961 1
+         scriptclass "ButtonBinding"
+         {
+          ImageWidgetClass tabLeaveIcon {
+           position 0 0
+           hexactpos 0
+           vexactpos 0
+           size 20 20
+           hexactsize 1
+           vexactsize 1
+           halign center_ref
+           valign center_ref
+           color 0.7608 0.7098 0.6118 1
+           ignorepointer 1
+           image0 "set:traderx_icons image:close"
+           mode blend
+           "src alpha" 1
+           "stretch mode" stretch_w_h
+          }
+         }
+         {
+          ScriptParamsClass {
+           OnClick "OnClose"
+          }
+         }
         }
        }
       }
       PanelWidgetClass onlinePill {
-       position 0.86 0.2
+       position 0.04896 0
        hexactpos 0
        vexactpos 0
-       size 0.05 0.6
+       size 0.0625 36
        hexactsize 0
-       vexactsize 0
+       vexactsize 1
+       halign right_ref
+       valign center_ref
        ignorepointer 1
-       style TXSuccessBox
+       style TXBFrame
        color 0.9961 0.9961 0.9961 1
        {
-        TextWidgetClass onlinePillText {
-         position 0 0
-         hexactpos 0
+        PanelWidgetClass onlineDot {
+         position 14 0
+         hexactpos 1
          vexactpos 0
-         size 1 1
-         hexactsize 0
-         vexactsize 0
-         "text color" 0.6039 0.6902 0.3529 1
-         font "TraderX/datasets/fonts/oswalt12"
+         size 10 10
+         hexactsize 1
+         vexactsize 1
+         valign center_ref
+         color 0.498 0.651 0.3529 1
          ignorepointer 1
-         "exact text" 1
-         "text halign" center
-         "text valign" center
-         style Bold
-         text "ONLINE"
+         style rover_sim_colorable
         }
-       }
-      }
-      PanelWidgetClass feePill {
-       position 0.92 0.2
-       hexactpos 0
-       vexactpos 0
-       size 0.05 0.6
-       hexactsize 0
-       vexactsize 0
-       ignorepointer 1
-       style TXCardElevated
-       color 0.9961 0.9961 0.9961 1
-       {
-        TextWidgetClass feePillText {
-         position 0 0
-         hexactpos 0
+        TextWidgetClass onlinePillText {
+         position 32 0
+         hexactpos 1
          vexactpos 0
-         size 1 1
-         hexactsize 0
-         vexactsize 0
-         "text color" 0.6039 0.5804 0.5333 1
-         font "TraderX/datasets/fonts/oswalt12"
+         size 80 36
+         hexactsize 1
+         vexactsize 1
+         color 0.498 0.651 0.3529 1
+         font "TraderX/datasets/fonts/rajdhanibpx16"
          ignorepointer 1
          "exact text" 1
-         "text halign" center
          "text valign" center
-         style Bold
-         text "FEE 2%"
-         scriptclass "TextBinding"
-         {
-          ScriptParamsClass {
-           Binding_Expression "{{ feesText }}"
-          }
-         }
+         text "ONLINE"
         }
        }
       }
      }
     }
-    PanelWidgetClass tabDivider {
-     position 0 0.12
-     hexactpos 0
-     vexactpos 0
-     size 1 0
-     hexactsize 0
-     vexactsize 0
-     ignorepointer 1
-     style TXDivider
-     color 0.9961 0.9961 0.9961 1
-    }
     PanelWidgetClass tabContent {
-     position 0 0.13
+     position 0 82
      hexactpos 0
-     vexactpos 0
-     size 1 0.83
+     vexactpos 1
+     size 1 950
      hexactsize 0
-     vexactsize 0
+     vexactsize 1
      clipchildren 1
      scriptclass "ComponentWidgetBinding"
      {
@@ -333,13 +512,12 @@ FrameWidgetClass rootFrame {
      }
     }
     PanelWidgetClass footerBar {
-     position 0 0.96
-     hexactpos 0
-     vexactpos 0
-     size 1 0.04
+     halign center_ref
+     valign bottom_ref
+     size 1 48
      hexactsize 0
-     vexactsize 0
-     style TXSurface
+     vexactsize 1
+     style TXBFooter
      color 0.9961 0.9961 0.9961 1
      {
       ButtonWidgetClass footerLauncherBtn {
@@ -349,7 +527,9 @@ FrameWidgetClass rootFrame {
        size 1 1
        hexactsize 0
        vexactsize 0
-       color 0 0 0 0
+       "text color" 0.9961 0.9961 0.9961 1
+       style Empty
+       color 0.9961 0.9961 0.9961 1
        scriptclass "ButtonBinding"
        {
         ScriptParamsClass {
@@ -357,35 +537,84 @@ FrameWidgetClass rootFrame {
         }
        }
       }
-      TextWidgetClass footerSponsorText {
-       position 0.36 0
-       hexactpos 0
+      ImageWidgetClass footerCan {
+       position 24 0
+       hexactpos 1
        vexactpos 0
-       size 0.16 1
-       hexactsize 0
-       vexactsize 0
-       color 0.4157 0.3961 0.3765 1
-       font "TraderX/datasets/fonts/oswalt12"
+       size 32 32
+       hexactsize 1
+       vexactsize 1
+       valign center_ref
+       color 1 1 1 1
        ignorepointer 1
-       "exact text" 1
-       "text valign" center
-       "text halign" right
-       text "Sponsored by"
+       image0 "TraderX/datasets/images/beans_can.edds"
+       mode blend
+       "src alpha" 1
+       "stretch mode" stretch_w_h
       }
-      TextWidgetClass footerBrandText {
-       position 0.53 0
+      WrapSpacerWidgetClass footerPromoRow {
+       position 0.03229 0
        hexactpos 0
        vexactpos 0
-       size 0.14 1
+       size 0.57292 48
        hexactsize 0
-       vexactsize 0
-       color 0.8314 0.6431 0.298 1
-       font "TraderX/datasets/fonts/oswalt12"
+       vexactsize 1
+       ignorepointer 1
+       Padding 0
+       {
+        TextWidgetClass footerSponsorText {
+         size 1 48
+         hexactsize 1
+         vexactsize 1
+         color 0.7608 0.7098 0.6118 1
+         font "TraderX/datasets/fonts/rajdhanipx17"
+         ignorepointer 1
+         "exact text" 1
+         "text valign" center
+         "size to text h" 1
+         text "#txb_beans_playing_with"
+        }
+        TextWidgetClass footerBrandText {
+         size 1 48
+         hexactsize 1
+         vexactsize 1
+         color 0.949 0.9137 0.8471 1
+         font "TraderX/datasets/fonts/rajdhanibpx17"
+         ignorepointer 1
+         "exact text" 1
+         "text valign" center
+         "size to text h" 1
+         text "DayZ Beans Launcher"
+        }
+        TextWidgetClass footerTagline {
+         size 1 48
+         hexactsize 1
+         vexactsize 1
+         color 0.7608 0.7098 0.6118 1
+         font "TraderX/datasets/fonts/rajdhanipx17"
+         ignorepointer 1
+         "exact text" 1
+         "text valign" center
+         "size to text h" 1
+         text "#txb_beans_tagline"
+        }
+       }
+      }
+      TextWidgetClass footerHints {
+       position 29 0
+       hexactpos 1
+       vexactpos 0
+       size 0.20833 48
+       hexactsize 0
+       vexactsize 1
+       halign right_ref
+       color 0.6392 0.5725 0.4627 1
+       font "TraderX/datasets/fonts/rajdhanipx16"
        ignorepointer 1
        "exact text" 1
+       "text halign" right
        "text valign" center
-       style Bold
-       text "DayZ Beans Launcher"
+       text "#txb_footer_esc_close"
       }
      }
     }

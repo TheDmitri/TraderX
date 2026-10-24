@@ -43,18 +43,18 @@ class TXGVehicleRowComponent extends DZlrComponentBase
         }
 
         rowName = _inputVehicle.displayName;
-        rowHealth = _inputVehicle.healthText + " - Fuel " + _inputVehicle.fuelPercent.ToString() + "% - " + _inputVehicle.attachmentClasses.Count().ToString() + " parts";
+        rowHealth = TXGText.Get("#txg_row_state", TXGText.Localize(_inputVehicle.healthText), _inputVehicle.fuelPercent.ToString(), _inputVehicle.attachmentClasses.Count().ToString());
         if (_inputVehicle.holdReason != "" && _inputVehicle.releaseFee > 0)
-            rowHealth = "Waiting - take out for " + _inputVehicle.releaseFee.ToString();
+            rowHealth = TXGText.Get("#txg_row_waiting", _inputVehicle.releaseFee.ToString());
 
         if (_inputVehicle.holdReason != "")
-            rowBadgeText = _inputVehicle.holdReason;
+            rowBadgeText = TXGGarageComponent.HoldLabel(_inputVehicle.holdReason);
         else if (_inputVehicle.isShared)
-            rowBadgeText = "SHARED";
+            rowBadgeText = TXGText.Localize("#txg_badge_shared");
         else if (_inputVehicle.isInsured)
-            rowBadgeText = "INSURED " + _inputVehicle.insuranceDaysLeft.ToString() + "D";
+            rowBadgeText = TXGText.Get("#txg_badge_insured", _inputVehicle.insuranceDaysLeft.ToString());
         else if (_inputVehicle.hasCarLock)
-            rowBadgeText = "CARLOCK";
+            rowBadgeText = TXGText.Localize("#txg_badge_carlock");
 
         if (rowHealthBar)
             rowHealthBar.SetColor(HealthColor(_inputVehicle.healthLevel));
@@ -75,15 +75,16 @@ class TXGVehicleRowComponent extends DZlrComponentBase
 
     protected static int HealthColor(int level)
     {
+        // Nasdara: Good, Good, Gold, Ember, Bad
         if (level == TXGConstants.HEALTH_PRISTINE)
-            return ARGB(255, 122, 154, 74);
+            return ARGB(255, 127, 166, 90);
         if (level == TXGConstants.HEALTH_WORN)
-            return ARGB(255, 154, 176, 90);
+            return ARGB(255, 127, 166, 90);
         if (level == TXGConstants.HEALTH_DAMAGED)
-            return ARGB(255, 212, 164, 76);
+            return ARGB(255, 224, 163, 58);
         if (level == TXGConstants.HEALTH_BADLY_DAMAGED)
-            return ARGB(255, 200, 102, 74);
-        return ARGB(255, 201, 48, 48);
+            return ARGB(255, 217, 118, 47);
+        return ARGB(255, 224, 122, 99);
     }
 
     void OnVehicleSelected()

@@ -27,12 +27,20 @@ class TraderXModule : CF_ModuleWorld
         super.OnInit();
         EnableMissionStart();
         EnableUpdate();
+
+        // Decide how to read vehicles saved without TraderX before the world (and its vehicles) is loaded
+        if (GetGame().IsDedicatedServer())
+            TraderXWorldFormat.Resolve();
     }
 
     void InitializeModule()
     {
         if(GetGame().IsServer())
         {
+            // A new server has no general settings yet (checked before the importers create them)
+            bool freshInstall = !FileExist(TRADERX_CONFIG_FILE);
+            bool importedThisBoot = false;
+
             // Import TraderPlus V1 configs into an empty TraderX install (never over an existing one)
             if (TraderXLegacyConfigPath.ShouldImport())
             {
@@ -42,18 +50,23 @@ class TraderXModule : CF_ModuleWorld
                 oldTraderPlusVehiclesConfig.ConvertOldConfigToNew();
                 TraderXLegacyConfigPath.MarkImported();
                 TraderXMigrationReport.Write("TraderPlus");
+                importedThisBoot = true;
             }
 
             // Import catalogs from other trader mods (one-shot, sentinel-guarded, non-destructive).
+            bool drJonesDone = TraderXExternalMigration.IsDone("drjones");
+            bool expansionDone = TraderXExternalMigration.IsDone("expansion");
             ConvertDrJonesTrader.ConvertIfPresent();
             ConvertExpansionMarket.ConvertIfPresent();
+            if ((!drJonesDone && TraderXExternalMigration.IsDone("drjones")) || (!expansionDone && TraderXExternalMigration.IsDone("expansion")))
+                importedThisBoot = true;
 
-            // Load user's source format preference
-            TraderXSourceConfig sourceConfig = TraderXSourceConfigLoader.LoadConfig();
-            
+            // Load user's source format preference (a new server starts on CSV)
+            TraderXSourceConfig sourceConfig = TraderXSourceConfigLoader.LoadConfig(freshInstall);
+
             // Initialize configuration using the service (handles all format loading and migration)
-            TraderXConfigurationService.GetInstance().Initialize(sourceConfig);
-            
+            TraderXConfigurationService.GetInstance().Initialize(sourceConfig, importedThisBoot);
+
             generalSettings = TraderXSettingsRepository.Load();
             TraderXPresetsService.GetInstance().GetInstance();
             TraderXNpcService.GetInstance().CreateNpcs();

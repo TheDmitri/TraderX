@@ -58,7 +58,8 @@ class PlayerSlotBtnComponent extends DZlrComponentBase
 			imgBtn.LoadImageFile(0, EPlayerSlotNavigationButton.GetImageForBtnSlot(navBtnId));
 			imgBtn.SetImage(0);
 		}
-		itemCount = string.Empty;
+		// itemCount is left alone: the Sell page fills the badges when it mounts, before
+		// PlayerSlotNavComponent's deferred SetupButtons() reaches this.
 		MarkForCheck();
 
 		if (color != -1)
@@ -70,7 +71,8 @@ class PlayerSlotBtnComponent extends DZlrComponentBase
 
 	void Hide()
 	{
-		if (btnNav) btnNav.Show(false);
+		if (GetRoot()) GetRoot().Show(false);
+		else if (btnNav) btnNav.Show(false);
 	}
 
 	static PlayerSlotBtnComponent GetPlayerSlotsButtonById(int id)

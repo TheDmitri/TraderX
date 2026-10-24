@@ -15,10 +15,9 @@ PanelWidgetClass alertRowRoot {
    size 0.92 0.25
    hexactsize 0
    vexactsize 0
-   font "TraderX/datasets/fonts/oswalt12"
+   font "TraderX/datasets/fonts/rajdhanibpx16"
    ignorepointer 1
    "exact text" 1
-   style Bold
    text "ALERT TITLE"
    scriptclass "TextBinding"
    {
@@ -34,7 +33,7 @@ PanelWidgetClass alertRowRoot {
    size 0.92 0.5
    hexactsize 0
    vexactsize 0
-   font "TraderX/datasets/fonts/oswalt12"
+   font "TraderX/datasets/fonts/rajdhanibpx16"
    ignorepointer 1
    "exact text" 1
    wrap 1
@@ -53,10 +52,9 @@ PanelWidgetClass alertRowRoot {
    size 0.26 0.14
    hexactsize 0
    vexactsize 0
-   font "TraderX/datasets/fonts/oswalt12"
+   font "TraderX/datasets/fonts/rajdhanibpx16"
    "exact text" 1
-   style Bold
-   style TXTab
+   style TXBTab
    color 0.9961 0.9961 0.9961 1
    text "ACTION"
    scriptclass "ButtonBinding"

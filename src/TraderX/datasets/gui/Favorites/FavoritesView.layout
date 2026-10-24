@@ -5,119 +5,92 @@ PanelWidgetClass FavoritesView {
  size 1 1
  hexactsize 0
  vexactsize 0
+ color 0.0745 0.0627 0.0471 1
  ignorepointer 1
- style TXContent
- color 0.9961 0.9961 0.9961 1
+ style rover_sim_colorable
  {
-  PanelWidgetClass topBar {
+  TextWidgetClass favTitle {
    position 0 0
    hexactpos 0
    vexactpos 0
-   size 1 0.06
-   hexactsize 0
-   vexactsize 0
+   size 1 1
+   hexactsize 1
+   vexactsize 1
+   color 0 0 0 0
    ignorepointer 1
-   style TXSurface
-   color 0.9961 0.9961 0.9961 1
+   visible 0
+   text "#tpm_favorites"
+  }
+  ScrollWidgetClass scrollCategory {
+   position 29 24
+   hexactpos 1
+   vexactpos 1
+   size 0.73229 902
+   hexactsize 0
+   vexactsize 1
+   "Scrollbar V" 1
    {
-    PanelWidgetClass SearchBarHost {
-     position 0.36 0.22
+    GridSpacerWidgetClass categoryGrid {
+     position 0 0
      hexactpos 0
      vexactpos 0
-     size 0.26 0.56
+     size 1 0.01
      hexactsize 0
      vexactsize 0
+     "Size To Content V" 1
+     Columns 1
+     Rows 100
+     Padding 36
      scriptclass "ComponentWidgetBinding"
      {
       ScriptParamsClass {
-       Component_Selector "tx-search-bar"
-      }
-     }
-    }
-    PanelWidgetClass ViewToggleHost {
-     position 0.64 0.22
-     hexactpos 0
-     vexactpos 0
-     size 0.08 0.56
-     hexactsize 0
-     vexactsize 0
-     ignorepointer 1
-     scriptclass "ComponentWidgetBinding"
-     {
-      ScriptParamsClass {
-       Component_Selector "tx-view-toggle"
+       Component_ForEach "{{ _inputCategories }}"
+       Component_Template "tx-category-card"
+       Component_ItemProperty "_inputCategory"
       }
      }
     }
    }
   }
-  PanelWidgetClass FavListPanel {
-   position 0 0.07
+  PanelWidgetClass SearchBarHost {
+   position 0.44271 26
    hexactpos 0
-   vexactpos 0
-   size 0.75 0.92
+   vexactpos 1
+   size 0.17708 45
    hexactsize 0
-   vexactsize 0
-   ignorepointer 1
-   style TXSurface
-   color 0.9961 0.9961 0.9961 1
+   vexactsize 1
+   halign right_ref
+   scriptclass "ComponentWidgetBinding"
    {
-    TextWidgetClass favTitle {
-     position 0.01 0.01
-     hexactpos 0
-     vexactpos 0
-     size 0.4 0.04
-     hexactsize 0
-     vexactsize 0
-     "text color" 0.6039 0.5804 0.5333 1
-     font "TraderX/datasets/fonts/oswalt14"
-     ignorepointer 1
-     "exact text" 1
-     text "#tpm_favorites"
+    ScriptParamsClass {
+     Component_Selector "tx-search-bar"
     }
-    ScrollWidgetClass scrollCategory {
-     position 0.01 0.06
-     hexactpos 0
-     vexactpos 0
-     size 0.98 0.93
-     hexactsize 0
-     vexactsize 0
-     ignorepointer 1
-     "Scrollbar V" 1
-     {
-      GridSpacerWidgetClass categoryGrid {
-       position 0 0
-       hexactpos 0
-       vexactpos 0
-       size 1 0.01
-       hexactsize 0
-       vexactsize 0
-       "Size To Content V" 1
-       Columns 1
-       Rows 100
-       Margin 6
-       scriptclass "ComponentWidgetBinding"
-       {
-        ScriptParamsClass {
-         Component_ForEach "{{ _inputCategories }}"
-         Component_Template "tx-category-card"
-         Component_ItemProperty "_inputCategory"
-        }
-       }
-      }
-     }
+   }
+  }
+  PanelWidgetClass ViewToggleHost {
+   position 0.2526 28
+   hexactpos 0
+   vexactpos 1
+   size 96 41
+   hexactsize 1
+   vexactsize 1
+   halign right_ref
+   ignorepointer 1
+   scriptclass "ComponentWidgetBinding"
+   {
+    ScriptParamsClass {
+     Component_Selector "tx-view-toggle"
     }
    }
   }
   PanelWidgetClass CheckoutHost {
-   position 0.76 0.07
+   position 0 0
    hexactpos 0
    vexactpos 0
-   size 0.23 0.92
+   size 0.2375 950
    hexactsize 0
-   vexactsize 0
-   style TXCard
-   color 0.9961 0.9961 0.9961 1
+   vexactsize 1
+   halign right_ref
    scriptclass "ComponentWidgetBinding"
    {
     ScriptParamsClass {

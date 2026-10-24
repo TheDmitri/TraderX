@@ -49,7 +49,7 @@ class TXSafeZoneSettings
     void DefaultSettings()
     {
         version = "1.0.0";
-        locations.Insert(new TXSafeZoneLocation(true, 1, "Test", Vector(0, 0, 0), 10, true, new array<string>));
+        locations.Insert(new TXSafeZoneLocation(false, 1, "Example (inactive)", Vector(0, 0, 0), 10, true, new array<string>));
         adminSteamUIDs.Insert("76561198000000000");
         objectsToDelete.Insert("Paper");
         CheckDirectories();

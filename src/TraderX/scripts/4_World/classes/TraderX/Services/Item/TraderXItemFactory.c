@@ -82,6 +82,12 @@ class TraderXItemFactory
 
       // Get max stack size for this item
       int maxQuantity = TraderXQuantityManager.GetMaxItemQuantityServer(className);
+      // 0 = no such class on this server (e.g. TraderPlus money without TraderPlus)
+      if(maxQuantity <= 0)
+      {
+          GetTraderXLogger().LogError("CreateInInventory: unknown item class " + className);
+          return NULL;
+      }
       if(quantity < 0) quantity = maxQuantity;
 
       // If quantity is more than max stack size, create multiple stacks
@@ -91,7 +97,7 @@ class TraderXItemFactory
           int remainder = quantity % maxQuantity;
           
           // Performance safeguard: limit maximum number of stacks
-          const int MAX_STACKS_ALLOWED = 1000; // Reasonable limit for performance
+          const int MAX_STACKS_ALLOWED = TRADERX_MAX_PAYOUT_STACKS; // Reasonable limit for performance
           const int EFFICIENCY_WARNING_THRESHOLD = 100; // Warn if creating more than 100 stacks
           
           if(fullStacks > MAX_STACKS_ALLOWED)

@@ -19,7 +19,8 @@ class TraderXLicenseModalComponent extends DZlrComponentBase
 
 	void Setup(array<string> requiredLicenses)
 	{
-		title = "#tpm_licenses_required";
+		// Anton caps: translate, then uppercase (the uppercase pipe would only change the key)
+		title = CheckoutComponent.Upper("#tpm_licenses_required");
 		content = "You don't have the required license to access this trader.";
 		licensesList = BuildLicensesList(requiredLicenses);
 		MarkForCheck();

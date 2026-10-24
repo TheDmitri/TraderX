@@ -33,7 +33,7 @@ PanelWidgetClass SellTooltip {
      "Size To Content H" 1
      Columns 2
      Rows 1
-     Margin 0
+     Padding 0
      style Empty
      color 0.9961 0.9961 0.9961 1
      {
@@ -53,8 +53,8 @@ PanelWidgetClass SellTooltip {
          size 0.95 0.14
          hexactsize 0
          vexactsize 0
-         "text color" 0.6039 0.8039 0.1961 1
-         font "TraderX/datasets/fonts/oswalt14"
+         "text color" 0.498 0.651 0.3529 1
+         font "TraderX/datasets/fonts/rajdhani14"
          ignorepointer 1
          "text valign" center
          text "#tpm_product_description"
@@ -77,8 +77,8 @@ PanelWidgetClass SellTooltip {
          size 0.95 0.1
          hexactsize 0
          vexactsize 0
-         "text color" 0.6039 0.8039 0.1961 1
-         font "TraderX/datasets/fonts/oswalt14"
+         "text color" 0.498 0.651 0.3529 1
+         font "TraderX/datasets/fonts/rajdhani14"
          ignorepointer 1
          "text valign" center
          text "#tpm_hierarchy"
@@ -94,8 +94,8 @@ PanelWidgetClass SellTooltip {
        vexactsize 1
        ignorepointer 1
        Columns 1
-       Padding 5
-       Margin 10
+       Margin 5
+       Padding 10
        {
         PanelWidgetClass leftRightClickPanel {
          position 10 10
@@ -128,7 +128,7 @@ PanelWidgetClass SellTooltip {
            vexactsize 0
            halign right_ref
            "text color" 0.702 0.4392 0.5098 1
-           font "TraderX/datasets/fonts/oswalt14"
+           font "TraderX/datasets/fonts/rajdhani14"
            ignorepointer 1
            "text valign" center
            text "#tpm_left_click_select"
@@ -141,8 +141,8 @@ PanelWidgetClass SellTooltip {
            hexactsize 0
            vexactsize 0
            halign right_ref
-           "text color" 0.6039 0.8039 0.1961 1
-           font "TraderX/datasets/fonts/oswalt14"
+           "text color" 0.498 0.651 0.3529 1
+           font "TraderX/datasets/fonts/rajdhani14"
            ignorepointer 1
            "text valign" center
            text "#tpm_right_click_sell_all"
@@ -182,7 +182,7 @@ PanelWidgetClass SellTooltip {
            hexactsize 0
            vexactsize 0
            halign right_ref
-           font "TraderX/datasets/fonts/oswalt12"
+           font "TraderX/datasets/fonts/rajdhani12"
            ignorepointer 1
            wrap 1
            "exact text" 1
@@ -221,7 +221,7 @@ PanelWidgetClass SellTooltip {
            hexactsize 0
            vexactsize 0
            valign center_ref
-           font "TraderX/datasets/fonts/oswalt22"
+           font "TraderX/datasets/fonts/anton22"
            ignorepointer 1
            "text halign" center
            "text valign" center
@@ -248,7 +248,7 @@ PanelWidgetClass SellTooltip {
            hexactsize 0
            vexactsize 0
            halign right_ref
-           font "TraderX/datasets/fonts/oswalt12"
+           font "TraderX/datasets/fonts/rajdhani12"
            ignorepointer 1
            wrap 1
            "exact text" 1
@@ -286,7 +286,7 @@ PanelWidgetClass SellTooltip {
            hexactsize 0
            vexactsize 0
            valign center_ref
-           font "TraderX/datasets/fonts/oswalt22"
+           font "TraderX/datasets/fonts/anton22"
            ignorepointer 1
            "text halign" center
            "text valign" center
@@ -313,7 +313,7 @@ PanelWidgetClass SellTooltip {
            hexactsize 0
            vexactsize 0
            halign right_ref
-           font "TraderX/datasets/fonts/oswalt12"
+           font "TraderX/datasets/fonts/rajdhani12"
            ignorepointer 1
            wrap 1
            "exact text" 1
@@ -340,7 +340,7 @@ PanelWidgetClass SellTooltip {
            vexactsize 0
            halign center_ref
            valign center_ref
-           font "TraderX/datasets/fonts/oswalt12"
+           font "TraderX/datasets/fonts/rajdhani12"
            ignorepointer 1
            wrap 1
            "exact text" 1
@@ -386,7 +386,7 @@ PanelWidgetClass SellTooltip {
        vexactsize 0
        halign center_ref
        valign center_ref
-       font "TraderX/datasets/fonts/oswalt14"
+       font "TraderX/datasets/fonts/rajdhani14"
        ignorepointer 1
        wrap 1
        "exact text" 1

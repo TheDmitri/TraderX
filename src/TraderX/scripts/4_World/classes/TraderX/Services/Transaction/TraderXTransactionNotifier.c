@@ -27,8 +27,9 @@ class TraderXTransactionNotifier
         }
         else if (results.Count() == 1)
         {
-            auto result = results.GetTransactionResults()[0];
-            return DZTernary<string>.If(result.IsSuccess(), "#tpm_transaction_successful", "#tpm_transaction_failed");
+            TraderXTransactionResult titleResult = results.GetTransactionResults()[0];
+            if (!titleResult) return "#tpm_transaction_failed";
+            return DZTernary<string>.If(titleResult.IsSuccess(), "#tpm_transaction_successful", "#tpm_transaction_failed");
         }
         return "#tpm_transaction_notification";
     }
@@ -41,15 +42,17 @@ class TraderXTransactionNotifier
         if (results.Count() > 1)
         {
             int successCount = 0;
-            foreach (auto result : results.GetTransactionResults())
+            array<ref TraderXTransactionResult> bulkResults = results.GetTransactionResults();
+            for (int bi = 0; bi < bulkResults.Count(); bi++)
             {
-                if (result.IsSuccess()) successCount++;
+                TraderXTransactionResult bulkResult = bulkResults[bi];
+                if (bulkResult && bulkResult.IsSuccess()) successCount++;
             }
             return string.Format(settings.bulkTransactionSummary, successCount, results.Count());
         }
         else if (results.Count() == 1)
         {
-            auto rResult = results.GetTransactionResults()[0];
+            TraderXTransactionResult rResult = results.GetTransactionResults()[0];
             if (!rResult) {
                 GetTraderXLogger().LogError("FormatNotificationContent - Transaction result is null");
                 return "Transaction failed - invalid result";
@@ -85,7 +88,8 @@ class TraderXTransactionNotifier
     {
         if (results.Count() == 1)
         {
-            auto rResult = results.GetTransactionResults()[0];
+            TraderXTransactionResult rResult = results.GetTransactionResults()[0];
+            if (!rResult) return ENotificationType.ERROR;
             return DZTernary<int>.If(rResult.IsSuccess(), ENotificationType.SUCCESS, ENotificationType.ERROR);
         }
         
@@ -95,6 +99,7 @@ class TraderXTransactionNotifier
         for(int i = 0; i < results.GetTransactionResults().Count(); i++)
         {
             TraderXTransactionResult result = results.GetTransactionResults()[i];
+            if (!result) continue;
             if (result.IsSuccess()) hasSuccess = true;
             else hasError = true;
         }

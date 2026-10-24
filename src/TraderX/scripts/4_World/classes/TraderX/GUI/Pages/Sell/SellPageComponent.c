@@ -120,22 +120,14 @@ class SellPageComponent extends DZlrComponentBase
 		SetModeBtnState(selectItemsBtn, selected_item_sell);
 	}
 
+	// Active option: ember ring (<btn>Ring) + cream label (<btn>Text); inactive: muted label.
 	void SetModeBtnState(Widget btn, bool selected)
 	{
-		if (!btn) return;
-		// SetColor multiplies the (dark) button style, so it can only darken — a gold
-		// tint reads as muddy brown and looks *less* prominent than an inactive button.
-		// Instead: active = full-bright warm (lit), inactive = dimmed/recessed.
-		if (selected)
-		{
-			btn.SetColor(0xfff2e8cc); // warm cream at full brightness = active
-			btn.SetAlpha(1.0);
-		}
-		else
-		{
-			btn.SetColor(0xff595e66); // dim slate
-			btn.SetAlpha(0.5);
-		}
+		if (!btn || !GetRoot()) return;
+		Widget ring = GetRoot().FindAnyWidget(btn.GetName() + "Ring");
+		if (ring) ring.Show(selected);
+		TextWidget label = TextWidget.Cast(GetRoot().FindAnyWidget(btn.GetName() + "Text"));
+		if (label) label.SetColor(DZTernaryInt.If(selected, ARGB(255, 242, 233, 216), ARGB(255, 163, 146, 118)));
 	}
 
 	void UnSelectAllItems()

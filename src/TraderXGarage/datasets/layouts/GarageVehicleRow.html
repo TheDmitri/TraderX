@@ -6,34 +6,30 @@
   <link rel="stylesheet" href="dzml-styles.css">
   <link rel="stylesheet" href="dzml-icons.css">
 </head>
-<body>
-
-<!-- GarageVehicleRow - one stored vehicle. Background button = selection; overlays are dz-noptr. -->
-<div data-dz="panel" data-name="vehicleRowRoot" data-style="TXSurface"
-     class="dz-xy-0-0 dz-wh-full dz-c-FE">
+<body data-dzml style="width:600px; height:84px; background:#13100c;">
+<!-- Stored vehicle row (Nasdara): Surface card, health dot, name + state, badge in ember;
+     ember ring when selected. Background button = selection; overlays are dz-noptr. -->
+<div data-dz="panel" data-name="vehicleRowRoot" data-style="TXCard"
+     class="dz-xy-0-0 dz-wh-100-84px dz-c-FE">
   <button data-dz="button" data-name="rowClickBtn" data-style="TXListRow"
           data-on-click="OnVehicleSelected"
-          class="dz-xy-0-0 dz-wh-full dz-c-00000000"></button>
-  <div data-dz="panel" data-name="rowSelectedBg"
-       data-style="TXCardElevated" class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr"></div>
+          class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
+  <div data-dz="panel" data-name="rowSelectedBg" data-style="TXCardSelected"
+       class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr"></div>
   <div data-dz="panel" data-name="rowHealthBar"
-       class="dz-xy-3-28 dz-wh-8px-8px dz-c-7A9A4A dz-noptr"></div>
-  <span data-dz="text" data-name="rowName"
-        data-bind="{{ rowName }}"
-        class="dz-xy-6-10 dz-wh-60-45 dz-c-D8D2C0 dz-font-body-16 dz-noptr dz-exact-text dz-text-vc dz-bold">
+       class="dz-xy-24px-0 dz-wh-10px-10px dz-align-y-center dz-c-7FA65A dz-noptr"></div>
+  <span data-dz="text" data-name="rowName" data-bind="{{ rowName }}"
+        class="dz-xy-52px-14px dz-wh-360px-28px dz-c-F2E9D8 dz-font-nbb-20 dz-noptr dz-exact-text dz-text-vc">
     Vehicle
   </span>
-  <span data-dz="text" data-name="rowHealth"
-        data-bind="{{ rowHealth }}"
-        class="dz-xy-6-55 dz-wh-60-35 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-text-vc">
+  <span data-dz="text" data-name="rowHealth" data-bind="{{ rowHealth }}"
+        class="dz-xy-52px-44px dz-wh-360px-24px dz-c-A39276 dz-font-nbb-17 dz-noptr dz-exact-text dz-text-vc">
     Pristine - Fuel 100%
   </span>
-  <span data-dz="text" data-name="rowBadge"
-        data-bind="{{ rowBadgeText }}"
-        class="dz-xy-66-0 dz-wh-31-100 dz-c-D4A44C dz-font-mono-11 dz-noptr dz-exact-text dz-text-right dz-text-vc dz-bold">
+  <span data-dz="text" data-name="rowBadge" data-bind="{{ rowBadgeText }}"
+        class="dz-xy-24px-0 dz-wh-200px-84px dz-align-x-right dz-c-E8894A dz-font-nm-14 dz-noptr dz-exact-text dz-text-right dz-text-vc">
   </span>
 </div>
-
 <script src="dzml-runtime.js"></script>
 </body>
 </html>

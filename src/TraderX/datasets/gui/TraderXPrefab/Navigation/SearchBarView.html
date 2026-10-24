@@ -8,23 +8,30 @@
 </head>
 <body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#1a1a1a;">
 
+<!-- Search field (Nasdara): Deep well, Line border (ember when focused), muted icon,
+     "Item name" hint while empty. -->
 <div data-dz="panel"
     data-name="searchBarRoot"
     data-style="TXInputField"
     class="dz-xy-0-0 dz-wh-full dz-c-FE">
   <img data-dz="image"
       data-name="searchHint"
-      class="dz-xy-4-0 dz-wh-18px-18px dz-align-y-center dz-c-9A9488 dz-noptr"
+      class="dz-xy-14px-0 dz-wh-19px-19px dz-align-y-center dz-c-A39276 dz-noptr"
       data-image="set:traderx_icons image:search"
       data-image-mode="blend"
       data-image-src-alpha="1"
       data-image-stretch="stretch_w_h"/>
+  <span data-dz="text"
+      data-name="searchPlaceholder"
+      class="dz-xy-43px-0 dz-wh-80-100 dz-c-8C7D66 dz-font-nb-19 dz-noptr dz-exact-text dz-text-vc">
+    #tpm_item_name
+  </span>
   <input data-dz="editbox"
       data-name="searchInput"
       data-bind="{{ search_keyword }}"
       data-two-way="1"
       data-on-change="OnSearchChanged"
-      class="dz-xy-12-0 dz-wh-86-80 dz-align-y-center dz-c-FE dz-c-D8D2C0 dz-font-body-14"/>
+      class="dz-xy-43px-0 dz-wh-80-80 dz-align-y-center dz-c-F2E9D8 dz-font-nb-19"/>
 </div>
 
 <script src="dzml-runtime.js"></script>

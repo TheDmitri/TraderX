@@ -24,6 +24,7 @@ class TXBConstants
     static const int TRANSACTION_DEPOSIT = 0;
     static const int TRANSACTION_WITHDRAW = 1;
     static const int TRANSACTION_TRANSFER = 2;
+    static const int TRANSACTION_TRANSFER_IN = 3;   // result-notification only (recipient side)
 
     static const float QUEUE_INTERVAL = 1.0;
 

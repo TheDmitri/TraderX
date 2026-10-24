@@ -39,12 +39,24 @@ class TXBVaultRPCService extends DayZularService
 		Param1<string> p = new Param1<string>("");
 		if (!ctx.Read(p)) return;
 		string ownerKey = p.param1;
-		if (ownerKey == "") ownerKey = "player:" + sender.GetPlainId();
+		ownerKey = ResolveOwnerKey(sender, ownerKey);
+		if (ownerKey == "") return;
 
 		PlayerBase player = PlayerBase.Cast(GetPlayerByIdentity(sender));
 		if (!player) return;
 
 		GetTXBVaultService().SendVaultToClient(player, ownerKey);
+	}
+
+	// The client names the vault it wants; it may only open its own. Clan vaults have no membership
+	// model yet, so any other key is refused (it would let a player read or empty someone else's vault).
+	protected string ResolveOwnerKey(PlayerIdentity sender, string requested)
+	{
+		string own = "player:" + sender.GetPlainId();
+		if (requested == "" || requested == own)
+			return own;
+		GetTXBLog().LogWarning("[Vault] " + sender.GetPlainId() + " requested vault '" + requested + "' that is not theirs: refused");
+		return "";
 	}
 
 	static PlayerBase GetPlayerByIdentity(PlayerIdentity identity)
@@ -65,7 +77,8 @@ class TXBVaultRPCService extends DayZularService
 		if (!ctx.Read(p)) return;
 		string className = p.param1;
 		string ownerKey = p.param2;
-		if (ownerKey == "") ownerKey = "player:" + sender.GetPlainId();
+		ownerKey = ResolveOwnerKey(sender, ownerKey);
+		if (ownerKey == "") return;
 
 		PlayerBase player = PlayerBase.Cast(GetPlayerByIdentity(sender));
 		if (!player) return;
@@ -89,7 +102,8 @@ class TXBVaultRPCService extends DayZularService
 		if (!ctx.Read(p)) return;
 		string itemId = p.param1;
 		string ownerKey = p.param2;
-		if (ownerKey == "") ownerKey = "player:" + sender.GetPlainId();
+		ownerKey = ResolveOwnerKey(sender, ownerKey);
+		if (ownerKey == "") return;
 
 		PlayerBase player = PlayerBase.Cast(GetPlayerByIdentity(sender));
 		if (!player) return;
@@ -112,7 +126,8 @@ class TXBVaultRPCService extends DayZularService
 		Param1<string> p = new Param1<string>("");
 		if (!ctx.Read(p)) return;
 		string ownerKey = p.param1;
-		if (ownerKey == "") ownerKey = "player:" + sender.GetPlainId();
+		ownerKey = ResolveOwnerKey(sender, ownerKey);
+		if (ownerKey == "") return;
 
 		PlayerBase player = PlayerBase.Cast(GetPlayerByIdentity(sender));
 		if (!player) return;

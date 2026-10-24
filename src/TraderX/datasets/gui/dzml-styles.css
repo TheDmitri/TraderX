@@ -5,104 +5,236 @@
 
 /* Style: TXContainer (PanelWidget) */
 [data-style="TXContainer"] {
-  background-color: #0b0e12 !important;
-  background-image: linear-gradient(to bottom, #0b0e12, #090b0f) !important;
-  border: 1px solid #2b3138 !important;
+  background-color: #13100c !important;
+  background-image: linear-gradient(to bottom, #13100c, #100d0a) !important;
+  border: 1px solid #3a3127 !important;
   border-radius: 3px;
 }
 [data-style="TXContainer"]:disabled {
-  background-color: #080b0e !important;
-  background-image: linear-gradient(to bottom, #080b0e, #06090b) !important;
-  border: 1px solid #22272c !important;
+  background-color: #0f0c09 !important;
+  background-image: linear-gradient(to bottom, #0f0c09, #0c0a07) !important;
+  border: 1px solid #2e271f !important;
   border-radius: 3px;
 }
 [data-style="TXContainer"].dz-disabled {
-  background-color: #080b0e !important;
-  background-image: linear-gradient(to bottom, #080b0e, #06090b) !important;
-  border: 1px solid #22272c !important;
+  background-color: #0f0c09 !important;
+  background-image: linear-gradient(to bottom, #0f0c09, #0c0a07) !important;
+  border: 1px solid #2e271f !important;
   border-radius: 3px;
 }
 
 /* Style: TXHeader (PanelWidget) */
 [data-style="TXHeader"] {
-  background-color: #1a1d21 !important;
-  background-image: linear-gradient(to bottom, #1a1d21, #16181c) !important;
+  background-color: #0f0d0a !important;
+  background-image: linear-gradient(to bottom, #0f0d0a, #0c0b08) !important;
   border: none !important;
-  border-bottom: 3px solid #20242a !important;
+  border-bottom: 3px solid #3a3127 !important;
   border-radius: 3px;
 }
 [data-style="TXHeader"]:disabled {
-  background-color: #14171a !important;
-  background-image: linear-gradient(to bottom, #14171a, #111316) !important;
+  background-color: #0c0a08 !important;
+  background-image: linear-gradient(to bottom, #0c0a08, #0a0806) !important;
   border: none !important;
-  border-bottom: 3px solid #20242a !important;
+  border-bottom: 3px solid #3a3127 !important;
   border-radius: 3px;
 }
 [data-style="TXHeader"].dz-disabled {
-  background-color: #14171a !important;
-  background-image: linear-gradient(to bottom, #14171a, #111316) !important;
+  background-color: #0c0a08 !important;
+  background-image: linear-gradient(to bottom, #0c0a08, #0a0806) !important;
   border: none !important;
-  border-bottom: 3px solid #20242a !important;
+  border-bottom: 3px solid #3a3127 !important;
+  border-radius: 3px;
+}
+
+/* Style: TXFooter (PanelWidget) */
+[data-style="TXFooter"] {
+  background-color: #0f0d0a !important;
+  background-image: linear-gradient(to bottom, #0f0d0a, #0c0b08) !important;
+  border: none !important;
+  border-top: 3px solid #3a3127 !important;
+  border-radius: 3px;
+}
+[data-style="TXFooter"]:disabled {
+  background-color: #0c0a08 !important;
+  background-image: linear-gradient(to bottom, #0c0a08, #0a0806) !important;
+  border: none !important;
+  border-top: 3px solid #3a3127 !important;
+  border-radius: 3px;
+}
+[data-style="TXFooter"].dz-disabled {
+  background-color: #0c0a08 !important;
+  background-image: linear-gradient(to bottom, #0c0a08, #0a0806) !important;
+  border: none !important;
+  border-top: 3px solid #3a3127 !important;
+  border-radius: 3px;
+}
+
+/* Style: TXSideLeft (PanelWidget) */
+[data-style="TXSideLeft"] {
+  background-color: #1c1813 !important;
+  background-image: linear-gradient(to bottom, #1c1813, #171410) !important;
+  border: none !important;
+  border-right: 3px solid #3a3127 !important;
+  border-radius: 3px;
+}
+[data-style="TXSideLeft"]:disabled {
+  background-color: #16130f !important;
+  background-image: linear-gradient(to bottom, #16130f, #12100c) !important;
+  border: none !important;
+  border-right: 3px solid #3a3127 !important;
+  border-radius: 3px;
+}
+[data-style="TXSideLeft"].dz-disabled {
+  background-color: #16130f !important;
+  background-image: linear-gradient(to bottom, #16130f, #12100c) !important;
+  border: none !important;
+  border-right: 3px solid #3a3127 !important;
+  border-radius: 3px;
+}
+
+/* Style: TXSideRight (PanelWidget) */
+[data-style="TXSideRight"] {
+  background-color: #1c1813 !important;
+  background-image: linear-gradient(to bottom, #1c1813, #171410) !important;
+  border: none !important;
+  border-left: 3px solid #3a3127 !important;
+  border-radius: 3px;
+}
+[data-style="TXSideRight"]:disabled {
+  background-color: #16130f !important;
+  background-image: linear-gradient(to bottom, #16130f, #12100c) !important;
+  border: none !important;
+  border-left: 3px solid #3a3127 !important;
+  border-radius: 3px;
+}
+[data-style="TXSideRight"].dz-disabled {
+  background-color: #16130f !important;
+  background-image: linear-gradient(to bottom, #16130f, #12100c) !important;
+  border: none !important;
+  border-left: 3px solid #3a3127 !important;
+  border-radius: 3px;
+}
+
+/* Style: TXInset (PanelWidget) */
+[data-style="TXInset"] {
+  background-color: #0f0d0a !important;
+  background-image: linear-gradient(to bottom, #0f0d0a, #0c0b08) !important;
+  border: 1px solid #3a3127 !important;
+  border-radius: 3px;
+}
+[data-style="TXInset"]:disabled {
+  background-color: #0c0a08 !important;
+  background-image: linear-gradient(to bottom, #0c0a08, #0a0806) !important;
+  border: 1px solid #2e271f !important;
+  border-radius: 3px;
+}
+[data-style="TXInset"].dz-disabled {
+  background-color: #0c0a08 !important;
+  background-image: linear-gradient(to bottom, #0c0a08, #0a0806) !important;
+  border: 1px solid #2e271f !important;
+  border-radius: 3px;
+}
+
+/* Style: TXRowRule (PanelWidget) */
+[data-style="TXRowRule"] {
+  background-color: transparent !important;
+  background-image: none !important;
+  border: none !important;
+  border-bottom: 3px solid #2e2720 !important;
+  border-radius: 3px;
+}
+[data-style="TXRowRule"]:disabled {
+  background-color: #16130f !important;
+  background-image: linear-gradient(to bottom, #16130f, #12100c) !important;
+  border: none !important;
+  border-bottom: 3px solid #2e2720 !important;
+  border-radius: 3px;
+}
+[data-style="TXRowRule"].dz-disabled {
+  background-color: #16130f !important;
+  background-image: linear-gradient(to bottom, #16130f, #12100c) !important;
+  border: none !important;
+  border-bottom: 3px solid #2e2720 !important;
+  border-radius: 3px;
+}
+
+/* Style: TXFrame (PanelWidget) */
+[data-style="TXFrame"] {
+  background-color: transparent !important;
+  background-image: none !important;
+  border: 1px solid #3a3127 !important;
+  border-radius: 3px;
+}
+[data-style="TXFrame"]:disabled {
+  background-color: #16130f !important;
+  background-image: linear-gradient(to bottom, #16130f, #12100c) !important;
+  border: 1px solid #2e271f !important;
+  border-radius: 3px;
+}
+[data-style="TXFrame"].dz-disabled {
+  background-color: #16130f !important;
+  background-image: linear-gradient(to bottom, #16130f, #12100c) !important;
+  border: 1px solid #2e271f !important;
   border-radius: 3px;
 }
 
 /* Style: TXContent (PanelWidget) */
 [data-style="TXContent"] {
-  background-color: #0f1215 !important;
-  background-image: linear-gradient(to bottom, #0f1215, #0c0f11) !important;
+  background-color: #13100c !important;
+  background-image: linear-gradient(to bottom, #13100c, #100d0a) !important;
   border: none !important;
   border-radius: 3px;
 }
 [data-style="TXContent"]:disabled {
-  background-color: #0c0e10 !important;
-  background-image: linear-gradient(to bottom, #0c0e10, #0a0b0d) !important;
+  background-color: #0f0c09 !important;
+  background-image: linear-gradient(to bottom, #0f0c09, #0c0a07) !important;
   border: none !important;
   border-radius: 3px;
 }
 [data-style="TXContent"].dz-disabled {
-  background-color: #0c0e10 !important;
-  background-image: linear-gradient(to bottom, #0c0e10, #0a0b0d) !important;
+  background-color: #0f0c09 !important;
+  background-image: linear-gradient(to bottom, #0f0c09, #0c0a07) !important;
   border: none !important;
   border-radius: 3px;
 }
 
 /* Style: TXCard (PanelWidget) */
 [data-style="TXCard"] {
-  background-color: #15181d !important;
-  background-image: linear-gradient(to bottom, #15181d, #111418) !important;
-  border: 1px solid #20242a !important;
+  background-color: #1c1813 !important;
+  background-image: linear-gradient(to bottom, #1c1813, #171410) !important;
+  border: 1px solid #3a3127 !important;
   border-radius: 3px;
 }
 [data-style="TXCard"]:disabled {
-  background-color: #101317 !important;
-  background-image: linear-gradient(to bottom, #101317, #0d1013) !important;
-  border: 1px solid #191c21 !important;
+  background-color: #16130f !important;
+  background-image: linear-gradient(to bottom, #16130f, #12100c) !important;
+  border: 1px solid #2e271f !important;
   border-radius: 3px;
 }
 [data-style="TXCard"].dz-disabled {
-  background-color: #101317 !important;
-  background-image: linear-gradient(to bottom, #101317, #0d1013) !important;
-  border: 1px solid #191c21 !important;
+  background-color: #16130f !important;
+  background-image: linear-gradient(to bottom, #16130f, #12100c) !important;
+  border: 1px solid #2e271f !important;
   border-radius: 3px;
 }
 
 /* Style: TXCardElevated (PanelWidget) */
 [data-style="TXCardElevated"] {
-  background-color: #20242a !important;
-  background-image: linear-gradient(to bottom, #20242a, #1b1e23) !important;
-  border: 1px solid #3a424b !important;
+  background-color: #262019 !important;
+  background-image: linear-gradient(to bottom, #262019, #201b15) !important;
+  border: 1px solid #3a3127 !important;
   border-radius: 3px;
 }
 [data-style="TXCardElevated"]:disabled {
-  background-color: #191c21 !important;
-  background-image: linear-gradient(to bottom, #191c21, #15171c) !important;
-  border: 1px solid #2e343c !important;
+  background-color: #1e1914 !important;
+  background-image: linear-gradient(to bottom, #1e1914, #191511) !important;
+  border: 1px solid #2e271f !important;
   border-radius: 3px;
 }
 [data-style="TXCardElevated"].dz-disabled {
-  background-color: #191c21 !important;
-  background-image: linear-gradient(to bottom, #191c21, #15171c) !important;
-  border: 1px solid #2e343c !important;
+  background-color: #1e1914 !important;
+  background-image: linear-gradient(to bottom, #1e1914, #191511) !important;
+  border: 1px solid #2e271f !important;
   border-radius: 3px;
 }
 
@@ -110,688 +242,688 @@
 [data-style="TXCardSelected"] {
   background-color: transparent !important;
   background-image: none !important;
-  border: 1px solid #c4a35a !important;
+  border: 1px solid #d9762f !important;
   border-radius: 3px;
 }
 [data-style="TXCardSelected"]:disabled {
-  background-color: #101317 !important;
-  background-image: linear-gradient(to bottom, #101317, #0d1013) !important;
-  border: 1px solid #9c8248 !important;
+  background-color: #16130f !important;
+  background-image: linear-gradient(to bottom, #16130f, #12100c) !important;
+  border: 1px solid #ad5e25 !important;
   border-radius: 3px;
 }
 [data-style="TXCardSelected"].dz-disabled {
-  background-color: #101317 !important;
-  background-image: linear-gradient(to bottom, #101317, #0d1013) !important;
-  border: 1px solid #9c8248 !important;
+  background-color: #16130f !important;
+  background-image: linear-gradient(to bottom, #16130f, #12100c) !important;
+  border: 1px solid #ad5e25 !important;
   border-radius: 3px;
 }
 
 /* Style: TXSurface (PanelWidget) */
 [data-style="TXSurface"] {
-  background-color: #1a1d21 !important;
-  background-image: linear-gradient(to bottom, #1a1d21, #16181c) !important;
-  border: 1px solid #20242a !important;
+  background-color: #1c1813 !important;
+  background-image: linear-gradient(to bottom, #1c1813, #171410) !important;
+  border: 1px solid #3a3127 !important;
   border-radius: 3px;
 }
 [data-style="TXSurface"]:disabled {
-  background-color: #14171a !important;
-  background-image: linear-gradient(to bottom, #14171a, #111316) !important;
-  border: 1px solid #191c21 !important;
+  background-color: #16130f !important;
+  background-image: linear-gradient(to bottom, #16130f, #12100c) !important;
+  border: 1px solid #2e271f !important;
   border-radius: 3px;
 }
 [data-style="TXSurface"].dz-disabled {
-  background-color: #14171a !important;
-  background-image: linear-gradient(to bottom, #14171a, #111316) !important;
-  border: 1px solid #191c21 !important;
+  background-color: #16130f !important;
+  background-image: linear-gradient(to bottom, #16130f, #12100c) !important;
+  border: 1px solid #2e271f !important;
   border-radius: 3px;
 }
 
 /* Style: TXDivider (PanelWidget) */
 [data-style="TXDivider"] {
-  background-color: #20242a !important;
-  background-image: linear-gradient(to bottom, #20242a, #1b1e23) !important;
+  background-color: #3a3127 !important;
+  background-image: linear-gradient(to bottom, #3a3127, #312921) !important;
   border: none !important;
   border-radius: 3px;
 }
 [data-style="TXDivider"]:disabled {
-  background-color: #191c21 !important;
-  background-image: linear-gradient(to bottom, #191c21, #15171c) !important;
+  background-color: #2e271f !important;
+  background-image: linear-gradient(to bottom, #2e271f, #27211a) !important;
   border: none !important;
   border-radius: 3px;
 }
 [data-style="TXDivider"].dz-disabled {
-  background-color: #191c21 !important;
-  background-image: linear-gradient(to bottom, #191c21, #15171c) !important;
+  background-color: #2e271f !important;
+  background-image: linear-gradient(to bottom, #2e271f, #27211a) !important;
   border: none !important;
   border-radius: 3px;
 }
 
 /* Style: TXIcon (PanelWidget) */
 [data-style="TXIcon"] {
-  background-color: #1a1d21 !important;
-  background-image: linear-gradient(to bottom, #1a1d21, #16181c) !important;
-  border: 1px solid #2b3138 !important;
+  background-color: #d9762f !important;
+  background-image: linear-gradient(to bottom, #d9762f, #b86427) !important;
+  border: 1px solid #d9762f !important;
   border-radius: 3px;
 }
 [data-style="TXIcon"]:disabled {
-  background-color: #14171a !important;
-  background-image: linear-gradient(to bottom, #14171a, #111316) !important;
-  border: 1px solid #22272c !important;
+  background-color: #ad5e25 !important;
+  background-image: linear-gradient(to bottom, #ad5e25, #934f1f) !important;
+  border: 1px solid #ad5e25 !important;
   border-radius: 3px;
 }
 [data-style="TXIcon"].dz-disabled {
-  background-color: #14171a !important;
-  background-image: linear-gradient(to bottom, #14171a, #111316) !important;
-  border: 1px solid #22272c !important;
+  background-color: #ad5e25 !important;
+  background-image: linear-gradient(to bottom, #ad5e25, #934f1f) !important;
+  border: 1px solid #ad5e25 !important;
   border-radius: 3px;
 }
 
 /* Style: TXTab (ButtonWidget) */
 [data-style="TXTab"] {
-  background-color: #1a1d21 !important;
-  background-image: linear-gradient(to bottom, #1a1d21, #16181c) !important;
+  background-color: #0f0d0a !important;
+  background-image: linear-gradient(to bottom, #0f0d0a, #0c0b08) !important;
   border: none !important;
   border-radius: 3px;
 }
 [data-style="TXTab"]:disabled {
-  background-color: #1a1d21 !important;
-  background-image: linear-gradient(to bottom, #1a1d21, #16181c) !important;
+  background-color: #0f0d0a !important;
+  background-image: linear-gradient(to bottom, #0f0d0a, #0c0b08) !important;
   border: none !important;
   border-radius: 3px;
 }
 [data-style="TXTab"].dz-disabled {
-  background-color: #1a1d21 !important;
-  background-image: linear-gradient(to bottom, #1a1d21, #16181c) !important;
+  background-color: #0f0d0a !important;
+  background-image: linear-gradient(to bottom, #0f0d0a, #0c0b08) !important;
   border: none !important;
   border-radius: 3px;
 }
 [data-style="TXTab"]:hover {
-  background-color: #303337 !important;
-  background-image: linear-gradient(to bottom, #303337, #282b2e) !important;
+  background-color: #272522 !important;
+  background-image: linear-gradient(to bottom, #272522, #211f1c) !important;
   border: none !important;
   border-radius: 3px;
 }
 [data-style="TXTab"]:focus {
-  background-color: #303337 !important;
-  background-image: linear-gradient(to bottom, #303337, #282b2e) !important;
+  background-color: #272522 !important;
+  background-image: linear-gradient(to bottom, #272522, #211f1c) !important;
   border: none !important;
   border-radius: 3px;
 }
 [data-style="TXTab"]:active {
-  background-color: #16181c !important;
-  background-image: linear-gradient(to bottom, #16181c, #121417) !important;
+  background-color: #0c0b08 !important;
+  background-image: linear-gradient(to bottom, #0c0b08, #0a0906) !important;
   border: none !important;
   border-radius: 3px;
 }
 
 /* Style: TXBtnPrimary (ButtonWidget) */
 [data-style="TXBtnPrimary"] {
-  background-color: #1e2a16 !important;
-  background-image: linear-gradient(to bottom, #1e2a16, #192312) !important;
-  border: 1px solid #6b8e5a !important;
+  background-color: #d9762f !important;
+  background-image: linear-gradient(to bottom, #d9762f, #b86427) !important;
+  border: 1px solid #d9762f !important;
   border-radius: 3px;
 }
 [data-style="TXBtnPrimary"]:disabled {
-  background-color: #1e2a16 !important;
-  background-image: linear-gradient(to bottom, #1e2a16, #192312) !important;
-  border: 1px solid #6b8e5a !important;
+  background-color: #d9762f !important;
+  background-image: linear-gradient(to bottom, #d9762f, #b86427) !important;
+  border: 1px solid #d9762f !important;
   border-radius: 3px;
 }
 [data-style="TXBtnPrimary"].dz-disabled {
-  background-color: #1e2a16 !important;
-  background-image: linear-gradient(to bottom, #1e2a16, #192312) !important;
-  border: 1px solid #6b8e5a !important;
+  background-color: #d9762f !important;
+  background-image: linear-gradient(to bottom, #d9762f, #b86427) !important;
+  border: 1px solid #d9762f !important;
   border-radius: 3px;
 }
 [data-style="TXBtnPrimary"]:hover {
-  background-color: #343f2d !important;
-  background-image: linear-gradient(to bottom, #343f2d, #2c3526) !important;
-  border: 1px solid #79996a !important;
+  background-color: #dc8343 !important;
+  background-image: linear-gradient(to bottom, #dc8343, #bb6f38) !important;
+  border: 1px solid #dc8343 !important;
   border-radius: 3px;
 }
 [data-style="TXBtnPrimary"]:focus {
-  background-color: #343f2d !important;
-  background-image: linear-gradient(to bottom, #343f2d, #2c3526) !important;
-  border: 1px solid #79996a !important;
+  background-color: #dc8343 !important;
+  background-image: linear-gradient(to bottom, #dc8343, #bb6f38) !important;
+  border: 1px solid #dc8343 !important;
   border-radius: 3px;
 }
 [data-style="TXBtnPrimary"]:active {
-  background-color: #192312 !important;
-  background-image: linear-gradient(to bottom, #192312, #151d0f) !important;
-  border: 1px solid #5a784c !important;
+  background-color: #b86427 !important;
+  background-image: linear-gradient(to bottom, #b86427, #9c5521) !important;
+  border: 1px solid #b86427 !important;
   border-radius: 3px;
 }
 
 /* Style: TXBtnAccent (ButtonWidget) */
 [data-style="TXBtnAccent"] {
-  background-color: #241d12 !important;
-  background-image: linear-gradient(to bottom, #241d12, #1e180f) !important;
-  border: 1px solid #c4a35a !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: 1px solid #d9762f !important;
   border-radius: 3px;
 }
 [data-style="TXBtnAccent"]:disabled {
-  background-color: #241d12 !important;
-  background-image: linear-gradient(to bottom, #241d12, #1e180f) !important;
-  border: 1px solid #c4a35a !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: 1px solid #d9762f !important;
   border-radius: 3px;
 }
 [data-style="TXBtnAccent"].dz-disabled {
-  background-color: #241d12 !important;
-  background-image: linear-gradient(to bottom, #241d12, #1e180f) !important;
-  border: 1px solid #c4a35a !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: 1px solid #d9762f !important;
   border-radius: 3px;
 }
 [data-style="TXBtnAccent"]:hover {
-  background-color: #393329 !important;
-  background-image: linear-gradient(to bottom, #393329, #302b22) !important;
-  border: 1px solid #c9ac6a !important;
+  background-color: #2a2724 !important;
+  background-image: linear-gradient(to bottom, #2a2724, #23211e) !important;
+  border: 1px solid #dc8343 !important;
   border-radius: 3px;
 }
 [data-style="TXBtnAccent"]:focus {
-  background-color: #393329 !important;
-  background-image: linear-gradient(to bottom, #393329, #302b22) !important;
-  border: 1px solid #c9ac6a !important;
+  background-color: #2a2724 !important;
+  background-image: linear-gradient(to bottom, #2a2724, #23211e) !important;
+  border: 1px solid #dc8343 !important;
   border-radius: 3px;
 }
 [data-style="TXBtnAccent"]:active {
-  background-color: #1e180f !important;
-  background-image: linear-gradient(to bottom, #1e180f, #19140c) !important;
-  border: 1px solid #a68a4c !important;
+  background-color: #100d0a !important;
+  background-image: linear-gradient(to bottom, #100d0a, #0d0b08) !important;
+  border: 1px solid #b86427 !important;
   border-radius: 3px;
 }
 
 /* Style: TXBtnDanger (ButtonWidget) */
 [data-style="TXBtnDanger"] {
-  background-color: #2a1410 !important;
-  background-image: linear-gradient(to bottom, #2a1410, #23110d) !important;
-  border: 1px solid #b0482a !important;
+  background-color: #1c1813 !important;
+  background-image: linear-gradient(to bottom, #1c1813, #171410) !important;
+  border: 1px solid #e07a63 !important;
   border-radius: 3px;
 }
 [data-style="TXBtnDanger"]:disabled {
-  background-color: #2a1410 !important;
-  background-image: linear-gradient(to bottom, #2a1410, #23110d) !important;
-  border: 1px solid #b0482a !important;
+  background-color: #1c1813 !important;
+  background-image: linear-gradient(to bottom, #1c1813, #171410) !important;
+  border: 1px solid #e07a63 !important;
   border-radius: 3px;
 }
 [data-style="TXBtnDanger"].dz-disabled {
-  background-color: #2a1410 !important;
-  background-image: linear-gradient(to bottom, #2a1410, #23110d) !important;
-  border: 1px solid #b0482a !important;
+  background-color: #1c1813 !important;
+  background-image: linear-gradient(to bottom, #1c1813, #171410) !important;
+  border: 1px solid #e07a63 !important;
   border-radius: 3px;
 }
 [data-style="TXBtnDanger"]:hover {
-  background-color: #3f2b27 !important;
-  background-image: linear-gradient(to bottom, #3f2b27, #352421) !important;
-  border: 1px solid #b75a3f !important;
+  background-color: #322f2a !important;
+  background-image: linear-gradient(to bottom, #322f2a, #2a2723) !important;
+  border: 1px solid #e38772 !important;
   border-radius: 3px;
 }
 [data-style="TXBtnDanger"]:focus {
-  background-color: #3f2b27 !important;
-  background-image: linear-gradient(to bottom, #3f2b27, #352421) !important;
-  border: 1px solid #b75a3f !important;
+  background-color: #322f2a !important;
+  background-image: linear-gradient(to bottom, #322f2a, #2a2723) !important;
+  border: 1px solid #e38772 !important;
   border-radius: 3px;
 }
 [data-style="TXBtnDanger"]:active {
-  background-color: #23110d !important;
-  background-image: linear-gradient(to bottom, #23110d, #1d0e0b) !important;
-  border: 1px solid #953d23 !important;
+  background-color: #171410 !important;
+  background-image: linear-gradient(to bottom, #171410, #13110d) !important;
+  border: 1px solid #be6754 !important;
   border-radius: 3px;
 }
 
 /* Style: TXBtnDefault (ButtonWidget) */
 [data-style="TXBtnDefault"] {
-  background-color: #1a1d21 !important;
-  background-image: linear-gradient(to bottom, #1a1d21, #16181c) !important;
-  border: 1px solid #2b3138 !important;
+  background-color: #1c1813 !important;
+  background-image: linear-gradient(to bottom, #1c1813, #171410) !important;
+  border: 1px solid #3a3127 !important;
   border-radius: 3px;
 }
 [data-style="TXBtnDefault"]:disabled {
-  background-color: #1a1d21 !important;
-  background-image: linear-gradient(to bottom, #1a1d21, #16181c) !important;
-  border: 1px solid #2b3138 !important;
+  background-color: #1c1813 !important;
+  background-image: linear-gradient(to bottom, #1c1813, #171410) !important;
+  border: 1px solid #3a3127 !important;
   border-radius: 3px;
 }
 [data-style="TXBtnDefault"].dz-disabled {
-  background-color: #1a1d21 !important;
-  background-image: linear-gradient(to bottom, #1a1d21, #16181c) !important;
-  border: 1px solid #2b3138 !important;
+  background-color: #1c1813 !important;
+  background-image: linear-gradient(to bottom, #1c1813, #171410) !important;
+  border: 1px solid #3a3127 !important;
   border-radius: 3px;
 }
 [data-style="TXBtnDefault"]:hover {
-  background-color: #303337 !important;
-  background-image: linear-gradient(to bottom, #303337, #282b2e) !important;
-  border: 1px solid #40454b !important;
+  background-color: #322f2a !important;
+  background-image: linear-gradient(to bottom, #322f2a, #2a2723) !important;
+  border: 1px solid #4d453c !important;
   border-radius: 3px;
 }
 [data-style="TXBtnDefault"]:focus {
-  background-color: #303337 !important;
-  background-image: linear-gradient(to bottom, #303337, #282b2e) !important;
-  border: 1px solid #40454b !important;
+  background-color: #322f2a !important;
+  background-image: linear-gradient(to bottom, #322f2a, #2a2723) !important;
+  border: 1px solid #4d453c !important;
   border-radius: 3px;
 }
 [data-style="TXBtnDefault"]:active {
-  background-color: #16181c !important;
-  background-image: linear-gradient(to bottom, #16181c, #121417) !important;
-  border: 1px solid #24292f !important;
+  background-color: #171410 !important;
+  background-image: linear-gradient(to bottom, #171410, #13110d) !important;
+  border: 1px solid #312921 !important;
   border-radius: 3px;
 }
 
 /* Style: TXBtnLeave (ButtonWidget) */
 [data-style="TXBtnLeave"] {
-  background-color: #8B0000 !important;
-  background-image: linear-gradient(to bottom, #8B0000, #760000) !important;
-  border: none !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: 1px solid #3a3127 !important;
   border-radius: 3px;
 }
 [data-style="TXBtnLeave"]:disabled {
-  background-color: #8B0000 !important;
-  background-image: linear-gradient(to bottom, #8B0000, #760000) !important;
-  border: none !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: 1px solid #3a3127 !important;
   border-radius: 3px;
 }
 [data-style="TXBtnLeave"].dz-disabled {
-  background-color: #8B0000 !important;
-  background-image: linear-gradient(to bottom, #8B0000, #760000) !important;
-  border: none !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: 1px solid #3a3127 !important;
   border-radius: 3px;
 }
 [data-style="TXBtnLeave"]:hover {
-  background-color: #961919 !important;
-  background-image: linear-gradient(to bottom, #961919, #7f1515) !important;
-  border: none !important;
+  background-color: #2a2724 !important;
+  background-image: linear-gradient(to bottom, #2a2724, #23211e) !important;
+  border: 1px solid #4d453c !important;
   border-radius: 3px;
 }
 [data-style="TXBtnLeave"]:focus {
-  background-color: #961919 !important;
-  background-image: linear-gradient(to bottom, #961919, #7f1515) !important;
-  border: none !important;
+  background-color: #2a2724 !important;
+  background-image: linear-gradient(to bottom, #2a2724, #23211e) !important;
+  border: 1px solid #4d453c !important;
   border-radius: 3px;
 }
 [data-style="TXBtnLeave"]:active {
-  background-color: #760000 !important;
-  background-image: linear-gradient(to bottom, #760000, #640000) !important;
-  border: none !important;
+  background-color: #100d0a !important;
+  background-image: linear-gradient(to bottom, #100d0a, #0d0b08) !important;
+  border: 1px solid #312921 !important;
   border-radius: 3px;
 }
 
 /* Style: TXBtnIcon (ButtonWidget) */
 [data-style="TXBtnIcon"] {
-  background-color: #1a1d21 !important;
-  background-image: linear-gradient(to bottom, #1a1d21, #16181c) !important;
-  border: 1px solid #2b3138 !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: 1px solid #3a3127 !important;
   border-radius: 3px;
 }
 [data-style="TXBtnIcon"]:disabled {
-  background-color: #1a1d21 !important;
-  background-image: linear-gradient(to bottom, #1a1d21, #16181c) !important;
-  border: 1px solid #2b3138 !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: 1px solid #3a3127 !important;
   border-radius: 3px;
 }
 [data-style="TXBtnIcon"].dz-disabled {
-  background-color: #1a1d21 !important;
-  background-image: linear-gradient(to bottom, #1a1d21, #16181c) !important;
-  border: 1px solid #2b3138 !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: 1px solid #3a3127 !important;
   border-radius: 3px;
 }
 [data-style="TXBtnIcon"]:hover {
-  background-color: #303337 !important;
-  background-image: linear-gradient(to bottom, #303337, #282b2e) !important;
-  border: 1px solid #40454b !important;
+  background-color: #2a2724 !important;
+  background-image: linear-gradient(to bottom, #2a2724, #23211e) !important;
+  border: 1px solid #4d453c !important;
   border-radius: 3px;
 }
 [data-style="TXBtnIcon"]:focus {
-  background-color: #303337 !important;
-  background-image: linear-gradient(to bottom, #303337, #282b2e) !important;
-  border: 1px solid #40454b !important;
+  background-color: #2a2724 !important;
+  background-image: linear-gradient(to bottom, #2a2724, #23211e) !important;
+  border: 1px solid #4d453c !important;
   border-radius: 3px;
 }
 [data-style="TXBtnIcon"]:active {
-  background-color: #16181c !important;
-  background-image: linear-gradient(to bottom, #16181c, #121417) !important;
-  border: 1px solid #24292f !important;
+  background-color: #100d0a !important;
+  background-image: linear-gradient(to bottom, #100d0a, #0d0b08) !important;
+  border: 1px solid #312921 !important;
   border-radius: 3px;
 }
 
 /* Style: TXInputField (EditboxWidget) */
 [data-style="TXInputField"] {
-  background-color: #1a1d21 !important;
-  background-image: linear-gradient(to bottom, #1a1d21, #16181c) !important;
-  border: 1px solid #2b3138 !important;
+  background-color: #0f0d0a !important;
+  background-image: linear-gradient(to bottom, #0f0d0a, #0c0b08) !important;
+  border: 1px solid #3a3127 !important;
   border-radius: 3px;
 }
 [data-style="TXInputField"]:focus {
-  background-color: #25282c !important;
-  background-image: linear-gradient(to bottom, #25282c, #1f2225) !important;
-  border: 1px solid #40454b !important;
+  background-color: #1b1916 !important;
+  background-image: linear-gradient(to bottom, #1b1916, #161512) !important;
+  border: 1px solid #4d453c !important;
   border-radius: 3px;
 }
 [data-style="TXInputField"]:disabled {
-  background-color: #14171a !important;
-  background-image: linear-gradient(to bottom, #14171a, #111316) !important;
-  border: 1px solid #22272c !important;
+  background-color: #0c0a08 !important;
+  background-image: linear-gradient(to bottom, #0c0a08, #0a0806) !important;
+  border: 1px solid #2e271f !important;
   border-radius: 3px;
 }
 
 /* Style: TXInfoBox (PanelWidget) */
 [data-style="TXInfoBox"] {
-  background-color: #15181d !important;
-  background-image: linear-gradient(to bottom, #15181d, #111418) !important;
-  border: none !important;
-  border-left: 3px solid #5c8fc7 !important;
+  background-color: #1c1813 !important;
+  background-image: linear-gradient(to bottom, #1c1813, #171410) !important;
+  border: 1px solid #3a3127 !important;
   border-radius: 3px;
 }
 [data-style="TXInfoBox"]:disabled {
-  background-color: #101317 !important;
-  background-image: linear-gradient(to bottom, #101317, #0d1013) !important;
-  border: none !important;
-  border-left: 3px solid #5c8fc7 !important;
+  background-color: #16130f !important;
+  background-image: linear-gradient(to bottom, #16130f, #12100c) !important;
+  border: 1px solid #2e271f !important;
   border-radius: 3px;
 }
 [data-style="TXInfoBox"].dz-disabled {
-  background-color: #101317 !important;
-  background-image: linear-gradient(to bottom, #101317, #0d1013) !important;
-  border: none !important;
-  border-left: 3px solid #5c8fc7 !important;
+  background-color: #16130f !important;
+  background-image: linear-gradient(to bottom, #16130f, #12100c) !important;
+  border: 1px solid #2e271f !important;
   border-radius: 3px;
 }
 
 /* Style: TXSuccessBox (PanelWidget) */
 [data-style="TXSuccessBox"] {
-  background-color: #15181d !important;
-  background-image: linear-gradient(to bottom, #15181d, #111418) !important;
-  border: none !important;
-  border-left: 3px solid #6b8e5a !important;
+  background-color: #1c1813 !important;
+  background-image: linear-gradient(to bottom, #1c1813, #171410) !important;
+  border: 1px solid #7fa65a !important;
   border-radius: 3px;
 }
 [data-style="TXSuccessBox"]:disabled {
-  background-color: #101317 !important;
-  background-image: linear-gradient(to bottom, #101317, #0d1013) !important;
-  border: none !important;
-  border-left: 3px solid #6b8e5a !important;
+  background-color: #16130f !important;
+  background-image: linear-gradient(to bottom, #16130f, #12100c) !important;
+  border: 1px solid #658448 !important;
   border-radius: 3px;
 }
 [data-style="TXSuccessBox"].dz-disabled {
-  background-color: #101317 !important;
-  background-image: linear-gradient(to bottom, #101317, #0d1013) !important;
-  border: none !important;
-  border-left: 3px solid #6b8e5a !important;
+  background-color: #16130f !important;
+  background-image: linear-gradient(to bottom, #16130f, #12100c) !important;
+  border: 1px solid #658448 !important;
   border-radius: 3px;
 }
 
 /* Style: TXWarningBox (PanelWidget) */
 [data-style="TXWarningBox"] {
-  background-color: #15181d !important;
-  background-image: linear-gradient(to bottom, #15181d, #111418) !important;
-  border: none !important;
-  border-left: 3px solid #c4a35a !important;
+  background-color: #1c1813 !important;
+  background-image: linear-gradient(to bottom, #1c1813, #171410) !important;
+  border: 1px solid #e0a33a !important;
   border-radius: 3px;
 }
 [data-style="TXWarningBox"]:disabled {
-  background-color: #101317 !important;
-  background-image: linear-gradient(to bottom, #101317, #0d1013) !important;
-  border: none !important;
-  border-left: 3px solid #c4a35a !important;
+  background-color: #16130f !important;
+  background-image: linear-gradient(to bottom, #16130f, #12100c) !important;
+  border: 1px solid #b3822e !important;
   border-radius: 3px;
 }
 [data-style="TXWarningBox"].dz-disabled {
-  background-color: #101317 !important;
-  background-image: linear-gradient(to bottom, #101317, #0d1013) !important;
-  border: none !important;
-  border-left: 3px solid #c4a35a !important;
+  background-color: #16130f !important;
+  background-image: linear-gradient(to bottom, #16130f, #12100c) !important;
+  border: 1px solid #b3822e !important;
   border-radius: 3px;
 }
 
 /* Style: TXErrorBox (PanelWidget) */
 [data-style="TXErrorBox"] {
-  background-color: #15181d !important;
-  background-image: linear-gradient(to bottom, #15181d, #111418) !important;
-  border: none !important;
-  border-left: 3px solid #c45050 !important;
+  background-color: #1c1813 !important;
+  background-image: linear-gradient(to bottom, #1c1813, #171410) !important;
+  border: 1px solid #e07a63 !important;
   border-radius: 3px;
 }
 [data-style="TXErrorBox"]:disabled {
-  background-color: #101317 !important;
-  background-image: linear-gradient(to bottom, #101317, #0d1013) !important;
-  border: none !important;
-  border-left: 3px solid #c45050 !important;
+  background-color: #16130f !important;
+  background-image: linear-gradient(to bottom, #16130f, #12100c) !important;
+  border: 1px solid #b3614f !important;
   border-radius: 3px;
 }
 [data-style="TXErrorBox"].dz-disabled {
-  background-color: #101317 !important;
-  background-image: linear-gradient(to bottom, #101317, #0d1013) !important;
-  border: none !important;
-  border-left: 3px solid #c45050 !important;
+  background-color: #16130f !important;
+  background-image: linear-gradient(to bottom, #16130f, #12100c) !important;
+  border: 1px solid #b3614f !important;
   border-radius: 3px;
 }
 
 /* Style: TXCategoryRow (ButtonWidget) */
 [data-style="TXCategoryRow"] {
-  background-color: #16191e !important;
-  background-image: linear-gradient(to bottom, #16191e, #121519) !important;
-  border: 1px solid #2b3138 !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: none !important;
   border-radius: 3px;
 }
 [data-style="TXCategoryRow"]:disabled {
-  background-color: #16191e !important;
-  background-image: linear-gradient(to bottom, #16191e, #121519) !important;
-  border: 1px solid #2b3138 !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: none !important;
   border-radius: 3px;
 }
 [data-style="TXCategoryRow"].dz-disabled {
-  background-color: #16191e !important;
-  background-image: linear-gradient(to bottom, #16191e, #121519) !important;
-  border: 1px solid #2b3138 !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: none !important;
   border-radius: 3px;
 }
 [data-style="TXCategoryRow"]:hover {
-  background-color: #2d3034 !important;
-  background-image: linear-gradient(to bottom, #2d3034, #26282c) !important;
-  border: 1px solid #40454b !important;
+  background-color: #322f2a !important;
+  background-image: linear-gradient(to bottom, #322f2a, #2a2723) !important;
+  border: none !important;
   border-radius: 3px;
 }
 [data-style="TXCategoryRow"]:focus {
-  background-color: #2d3034 !important;
-  background-image: linear-gradient(to bottom, #2d3034, #26282c) !important;
-  border: 1px solid #40454b !important;
+  background-color: #322f2a !important;
+  background-image: linear-gradient(to bottom, #322f2a, #2a2723) !important;
+  border: none !important;
   border-radius: 3px;
 }
 [data-style="TXCategoryRow"]:active {
-  background-color: #121519 !important;
-  background-image: linear-gradient(to bottom, #121519, #0f1115) !important;
-  border: 1px solid #24292f !important;
+  background-color: #171410 !important;
+  background-image: linear-gradient(to bottom, #171410, #13110d) !important;
+  border: none !important;
   border-radius: 3px;
 }
 
 /* Style: TXListRow (ButtonWidget) */
 [data-style="TXListRow"] {
-  background-color: #12151a !important;
-  background-image: linear-gradient(to bottom, #12151a, #0f1116) !important;
+  background-color: #1c1813 !important;
+  background-image: linear-gradient(to bottom, #1c1813, #171410) !important;
   border: none !important;
+  border-bottom: 3px solid #2e2720 !important;
   border-radius: 3px;
 }
 [data-style="TXListRow"]:disabled {
-  background-color: #12151a !important;
-  background-image: linear-gradient(to bottom, #12151a, #0f1116) !important;
+  background-color: #1c1813 !important;
+  background-image: linear-gradient(to bottom, #1c1813, #171410) !important;
   border: none !important;
+  border-bottom: 3px solid #2e2720 !important;
   border-radius: 3px;
 }
 [data-style="TXListRow"].dz-disabled {
-  background-color: #12151a !important;
-  background-image: linear-gradient(to bottom, #12151a, #0f1116) !important;
+  background-color: #1c1813 !important;
+  background-image: linear-gradient(to bottom, #1c1813, #171410) !important;
   border: none !important;
+  border-bottom: 3px solid #2e2720 !important;
   border-radius: 3px;
 }
 [data-style="TXListRow"]:hover {
-  background-color: #292c30 !important;
-  background-image: linear-gradient(to bottom, #292c30, #222528) !important;
+  background-color: #322f2a !important;
+  background-image: linear-gradient(to bottom, #322f2a, #2a2723) !important;
   border: none !important;
+  border-bottom: 3px solid #2e2720 !important;
   border-radius: 3px;
 }
 [data-style="TXListRow"]:focus {
-  background-color: #292c30 !important;
-  background-image: linear-gradient(to bottom, #292c30, #222528) !important;
+  background-color: #322f2a !important;
+  background-image: linear-gradient(to bottom, #322f2a, #2a2723) !important;
   border: none !important;
+  border-bottom: 3px solid #2e2720 !important;
   border-radius: 3px;
 }
 [data-style="TXListRow"]:active {
-  background-color: #0f1116 !important;
-  background-image: linear-gradient(to bottom, #0f1116, #0c0e12) !important;
+  background-color: #171410 !important;
+  background-image: linear-gradient(to bottom, #171410, #13110d) !important;
   border: none !important;
+  border-bottom: 3px solid #2e2720 !important;
   border-radius: 3px;
 }
 
 /* Style: TXListRowAlt (ButtonWidget) */
 [data-style="TXListRowAlt"] {
-  background-color: #15181d !important;
-  background-image: linear-gradient(to bottom, #15181d, #111418) !important;
+  background-color: #1c1813 !important;
+  background-image: linear-gradient(to bottom, #1c1813, #171410) !important;
   border: none !important;
+  border-bottom: 3px solid #2e2720 !important;
   border-radius: 3px;
 }
 [data-style="TXListRowAlt"]:disabled {
-  background-color: #15181d !important;
-  background-image: linear-gradient(to bottom, #15181d, #111418) !important;
+  background-color: #1c1813 !important;
+  background-image: linear-gradient(to bottom, #1c1813, #171410) !important;
   border: none !important;
+  border-bottom: 3px solid #2e2720 !important;
   border-radius: 3px;
 }
 [data-style="TXListRowAlt"].dz-disabled {
-  background-color: #15181d !important;
-  background-image: linear-gradient(to bottom, #15181d, #111418) !important;
+  background-color: #1c1813 !important;
+  background-image: linear-gradient(to bottom, #1c1813, #171410) !important;
   border: none !important;
+  border-bottom: 3px solid #2e2720 !important;
   border-radius: 3px;
 }
 [data-style="TXListRowAlt"]:hover {
-  background-color: #2c2f33 !important;
-  background-image: linear-gradient(to bottom, #2c2f33, #25272b) !important;
+  background-color: #322f2a !important;
+  background-image: linear-gradient(to bottom, #322f2a, #2a2723) !important;
   border: none !important;
+  border-bottom: 3px solid #2e2720 !important;
   border-radius: 3px;
 }
 [data-style="TXListRowAlt"]:focus {
-  background-color: #2c2f33 !important;
-  background-image: linear-gradient(to bottom, #2c2f33, #25272b) !important;
+  background-color: #322f2a !important;
+  background-image: linear-gradient(to bottom, #322f2a, #2a2723) !important;
   border: none !important;
+  border-bottom: 3px solid #2e2720 !important;
   border-radius: 3px;
 }
 [data-style="TXListRowAlt"]:active {
-  background-color: #111418 !important;
-  background-image: linear-gradient(to bottom, #111418, #0e1114) !important;
+  background-color: #171410 !important;
+  background-image: linear-gradient(to bottom, #171410, #13110d) !important;
   border: none !important;
+  border-bottom: 3px solid #2e2720 !important;
   border-radius: 3px;
 }
 
 /* Style: TXListRowSelected (ButtonWidget) */
 [data-style="TXListRowSelected"] {
-  background-color: #20242a !important;
-  background-image: linear-gradient(to bottom, #20242a, #1b1e23) !important;
+  background-color: #2e2720 !important;
+  background-image: linear-gradient(to bottom, #2e2720, #27211b) !important;
   border: none !important;
-  border-left: 3px solid #c4a35a !important;
+  border-bottom: 3px solid #2e2720 !important;
   border-radius: 3px;
 }
 [data-style="TXListRowSelected"]:disabled {
-  background-color: #20242a !important;
-  background-image: linear-gradient(to bottom, #20242a, #1b1e23) !important;
+  background-color: #2e2720 !important;
+  background-image: linear-gradient(to bottom, #2e2720, #27211b) !important;
   border: none !important;
-  border-left: 3px solid #c4a35a !important;
+  border-bottom: 3px solid #2e2720 !important;
   border-radius: 3px;
 }
 [data-style="TXListRowSelected"].dz-disabled {
-  background-color: #20242a !important;
-  background-image: linear-gradient(to bottom, #20242a, #1b1e23) !important;
+  background-color: #2e2720 !important;
+  background-image: linear-gradient(to bottom, #2e2720, #27211b) !important;
   border: none !important;
-  border-left: 3px solid #c4a35a !important;
+  border-bottom: 3px solid #2e2720 !important;
   border-radius: 3px;
 }
 [data-style="TXListRowSelected"]:hover {
-  background-color: #36393f !important;
-  background-image: linear-gradient(to bottom, #36393f, #2d3035) !important;
+  background-color: #423c36 !important;
+  background-image: linear-gradient(to bottom, #423c36, #38332d) !important;
   border: none !important;
-  border-left: 3px solid #c4a35a !important;
+  border-bottom: 3px solid #2e2720 !important;
   border-radius: 3px;
 }
 [data-style="TXListRowSelected"]:focus {
-  background-color: #36393f !important;
-  background-image: linear-gradient(to bottom, #36393f, #2d3035) !important;
+  background-color: #423c36 !important;
+  background-image: linear-gradient(to bottom, #423c36, #38332d) !important;
   border: none !important;
-  border-left: 3px solid #c4a35a !important;
+  border-bottom: 3px solid #2e2720 !important;
   border-radius: 3px;
 }
 [data-style="TXListRowSelected"]:active {
-  background-color: #1b1e23 !important;
-  background-image: linear-gradient(to bottom, #1b1e23, #16191d) !important;
+  background-color: #27211b !important;
+  background-image: linear-gradient(to bottom, #27211b, #211c16) !important;
   border: none !important;
-  border-left: 3px solid #c4a35a !important;
+  border-bottom: 3px solid #2e2720 !important;
   border-radius: 3px;
 }
 
 /* Style: TXBadge (PanelWidget) */
 [data-style="TXBadge"] {
-  background-color: #1a1d21 !important;
-  background-image: linear-gradient(to bottom, #1a1d21, #16181c) !important;
+  background-color: #d9762f !important;
+  background-image: linear-gradient(to bottom, #d9762f, #b86427) !important;
   border: none !important;
   border-radius: 3px;
 }
 [data-style="TXBadge"]:disabled {
-  background-color: #14171a !important;
-  background-image: linear-gradient(to bottom, #14171a, #111316) !important;
+  background-color: #ad5e25 !important;
+  background-image: linear-gradient(to bottom, #ad5e25, #934f1f) !important;
   border: none !important;
   border-radius: 3px;
 }
 [data-style="TXBadge"].dz-disabled {
-  background-color: #14171a !important;
-  background-image: linear-gradient(to bottom, #14171a, #111316) !important;
+  background-color: #ad5e25 !important;
+  background-image: linear-gradient(to bottom, #ad5e25, #934f1f) !important;
   border: none !important;
   border-radius: 3px;
 }
 
 /* Style: TXToastCard (PanelWidget) */
 [data-style="TXToastCard"] {
-  background-color: #15181d !important;
-  background-image: linear-gradient(to bottom, #15181d, #111418) !important;
-  border: 1px solid #20242a !important;
+  background-color: #1c1813 !important;
+  background-image: linear-gradient(to bottom, #1c1813, #171410) !important;
+  border: 1px solid #d9762f !important;
   border-radius: 3px;
 }
 [data-style="TXToastCard"]:disabled {
-  background-color: #101317 !important;
-  background-image: linear-gradient(to bottom, #101317, #0d1013) !important;
-  border: 1px solid #191c21 !important;
+  background-color: #16130f !important;
+  background-image: linear-gradient(to bottom, #16130f, #12100c) !important;
+  border: 1px solid #ad5e25 !important;
   border-radius: 3px;
 }
 [data-style="TXToastCard"].dz-disabled {
-  background-color: #101317 !important;
-  background-image: linear-gradient(to bottom, #101317, #0d1013) !important;
-  border: 1px solid #191c21 !important;
+  background-color: #16130f !important;
+  background-image: linear-gradient(to bottom, #16130f, #12100c) !important;
+  border: 1px solid #ad5e25 !important;
   border-radius: 3px;
 }
 
 /* Style: TXProgressBg (PanelWidget) */
 [data-style="TXProgressBg"] {
-  background-color: #1a1d21 !important;
-  background-image: linear-gradient(to bottom, #1a1d21, #16181c) !important;
+  background-color: #0f0d0a !important;
+  background-image: linear-gradient(to bottom, #0f0d0a, #0c0b08) !important;
   border: none !important;
-  border-radius: 2px;
+  border-radius: 3px;
 }
 [data-style="TXProgressBg"]:disabled {
-  background-color: #14171a !important;
-  background-image: linear-gradient(to bottom, #14171a, #111316) !important;
+  background-color: #0c0a08 !important;
+  background-image: linear-gradient(to bottom, #0c0a08, #0a0806) !important;
   border: none !important;
-  border-radius: 2px;
+  border-radius: 3px;
 }
 [data-style="TXProgressBg"].dz-disabled {
-  background-color: #14171a !important;
-  background-image: linear-gradient(to bottom, #14171a, #111316) !important;
+  background-color: #0c0a08 !important;
+  background-image: linear-gradient(to bottom, #0c0a08, #0a0806) !important;
   border: none !important;
-  border-radius: 2px;
+  border-radius: 3px;
 }
 
 /* Style: TXProgressFill (ProgressbarWidget) */
 [data-style="TXProgressFill"] {
-  background-color: #1a1d21 !important;
-  background-image: linear-gradient(to bottom, #1a1d21, #16181c) !important;
+  background-color: #0f0d0a !important;
+  background-image: linear-gradient(to bottom, #0f0d0a, #0c0b08) !important;
   border: none !important;
-  border-radius: 2px;
+  border-radius: 3px;
 }
 [data-style="TXProgressFill"]:disabled {
-  background-color: #14171a !important;
-  background-image: linear-gradient(to bottom, #14171a, #111316) !important;
+  background-color: #0c0a08 !important;
+  background-image: linear-gradient(to bottom, #0c0a08, #0a0806) !important;
   border: none !important;
-  border-radius: 2px;
+  border-radius: 3px;
 }

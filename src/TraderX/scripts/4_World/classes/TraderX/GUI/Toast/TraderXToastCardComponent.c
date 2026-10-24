@@ -33,9 +33,13 @@ class TraderXToastCardComponent extends DZlrComponentBase
     string queue_count;
 
     // --- Widgets bound by name (AutoLoadWidgets) ---
+    protected float m_UiK;
     Widget cardSlot;
     Widget leftRule;
     ImageWidget iconImg;
+    // the beans welcome shows the full-colour can in a bigger well
+    Widget iconWell;
+    Widget headerRow;
     Widget progressTrack;
     Widget progressFill;
     Widget queuePill;
@@ -177,6 +181,19 @@ class TraderXToastCardComponent extends DZlrComponentBase
             return;
         iconImg.LoadImageFile(0, imageRef);
         iconImg.SetImage(0);
+        bool beans = _notif && _notif.ResolvedType() == TXNOTIF_BEANS;
+        // script pixel values are not in the layout's units on scaled displays: scale the
+        // design values by k, read once from the icon well's layout size (34)
+        if (m_UiK <= 0 && iconWell)
+        {
+            float iw, ih;
+            iconWell.GetSize(iw, ih);
+            m_UiK = ih / 34.0;
+        }
+        float k = m_UiK;
+        if (k <= 0) k = 1;
+        if (iconWell) iconWell.SetSize(k * DZTernaryFloat.If(beans, 54, 34), k * DZTernaryFloat.If(beans, 54, 34));
+        if (headerRow) headerRow.SetSize(1, k * DZTernaryFloat.If(beans, 54, 34));
     }
 
     // Left rule / glyph / progress take the type accent (gold, green, amber, red).
@@ -186,7 +203,7 @@ class TraderXToastCardComponent extends DZlrComponentBase
         int track = notif.GetAccentTrackColor();
 
         if (leftRule) leftRule.SetColor(accent);
-        if (iconImg) iconImg.SetColor(accent);
+        if (iconImg) iconImg.SetColor(DZTernaryInt.If(notif.ResolvedType() == TXNOTIF_BEANS, ARGB(255, 255, 255, 255), accent));
         if (progressFill) progressFill.SetColor(accent);
         if (progressTrack) progressTrack.SetColor(track);
     }

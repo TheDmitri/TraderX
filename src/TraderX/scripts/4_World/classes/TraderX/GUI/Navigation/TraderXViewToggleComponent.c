@@ -1,14 +1,14 @@
-// Reusable list/grid view-toggle button. Embed once per page via
-// data-component="tx-view-toggle". Flips the global TraderXViewModeService;
-// every product list reacts on its own. No per-page logic duplication.
+// Reusable list/grid view switch (Nasdara segment: [grid | list], the active half filled).
+// Embed once per page via data-component="tx-view-toggle". Sets the global
+// TraderXViewModeService; every product list reacts on its own.
 class TraderXViewToggleComponent extends DZlrComponentBase
 {
 	private static ref ComponentAutoRegister s_Register = new ComponentAutoRegister("tx-view-toggle", TraderXViewToggleComponent);
 
 	ImageWidget listIcon;
 	ImageWidget gridIcon;
-	ButtonWidget viewToggleBtn;
-	TextWidget viewLabel;
+	Widget gridBg;
+	Widget listBg;
 
 	override protected void RegisterMetadata()
 	{
@@ -29,6 +29,19 @@ class TraderXViewToggleComponent extends DZlrComponentBase
 		TraderXViewModeService.Event_OnViewModeChangedCallBack.Remove(OnViewModeChanged);
 	}
 
+	void OnGridClick()
+	{
+		if (!TraderXViewModeService.GetInstance().IsGridView())
+			TraderXViewModeService.GetInstance().Toggle();
+	}
+
+	void OnListClick()
+	{
+		if (TraderXViewModeService.GetInstance().IsGridView())
+			TraderXViewModeService.GetInstance().Toggle();
+	}
+
+	// Kept for layouts that still use one toggle button.
 	void OnViewToggleClick()
 	{
 		TraderXViewModeService.GetInstance().Toggle();
@@ -42,15 +55,9 @@ class TraderXViewToggleComponent extends DZlrComponentBase
 	void UpdateIcon()
 	{
 		bool grid = TraderXViewModeService.GetInstance().IsGridView();
-		// Show the icon + label of the mode you can switch TO.
-		if (gridIcon) gridIcon.Show(!grid);
-		if (listIcon) listIcon.Show(grid);
-		if (viewLabel)
-		{
-			if (grid)
-				viewLabel.SetText("List");
-			else
-				viewLabel.SetText("Grid");
-		}
+		if (gridBg) gridBg.Show(grid);
+		if (listBg) listBg.Show(!grid);
+		if (gridIcon) gridIcon.SetColor(DZTernaryInt.If(grid, TraderXTheme.NAV_ACTIVE, TraderXTheme.NAV_INACTIVE));
+		if (listIcon) listIcon.SetColor(DZTernaryInt.If(grid, TraderXTheme.NAV_INACTIVE, TraderXTheme.NAV_ACTIVE));
 	}
 }

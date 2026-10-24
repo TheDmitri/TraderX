@@ -11,11 +11,17 @@ class TXGConstants
     static const string CONFIG_DIR  = "$profile:TraderX/TraderXGarage/";
     static const string CONFIG_FILE = "$profile:TraderX/TraderXGarage/TraderXGarageConfig.json";
     static const string DB_DIR      = "$profile:TraderX/TraderXGarage/Database/";
+    static const string RECEIPT_DIR = "$profile:TraderX/TraderXGarage/Receipts/";
     static const string INSURANCE_DIR = "$profile:TraderX/TraderXGarage/Insurance/";
     static const string PLAYER_INDEX_FILE = "$profile:TraderX/TraderXGarage/Database/PlayerIndex.json";
     static const string DEAD_CLASSES_FILE = "$profile:TraderX/TraderXGarage/DeadClasses.txt";
     static const string LOG_DIR     = "$profile:TraderX/TraderXGarage/Logs/";
     static const string LOG_FILE    = "$profile:TraderX/TraderXGarage/Logs/TXG_%1.log";
+
+    // Vehicle receipts: action durations (seconds) and the TraderPlus part lists kept by the TraderX import
+    static const int    RECEIPT_PACK_TIME   = 15;
+    static const int    RECEIPT_DEPLOY_TIME = 10;
+    static const string TRADERPLUS_VEHICLE_PARTS_FILE = "$profile:TraderX/TraderXConfig/TraderXVehiclePartsConfig.json";
 
     static const string CONFIG_VERSION = "2.0";
     static const string DATA_VERSION   = "2.0";

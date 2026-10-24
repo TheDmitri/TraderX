@@ -5,7 +5,7 @@ PanelWidgetClass promoRoot {
  size 1 1
  hexactsize 0
  vexactsize 0
- color 0 0 0 0.902
+ color 0.0588 0.051 0.0392 0.902
  style rover_sim_colorable
  {
   ButtonWidgetClass promoBackdrop {
@@ -15,7 +15,9 @@ PanelWidgetClass promoRoot {
    size 1 1
    hexactsize 0
    vexactsize 0
-   color 0 0 0 0
+   "text color" 0.9961 0.9961 0.9961 1
+   style Empty
+   color 0.9961 0.9961 0.9961 1
    scriptclass "ButtonBinding"
    {
     ScriptParamsClass {
@@ -27,573 +29,785 @@ PanelWidgetClass promoRoot {
    position 0 0
    hexactpos 0
    vexactpos 0
-   size 0.96 0.94
-   hexactsize 0
-   vexactsize 0
+   size 1360 800
+   hexactsize 1
+   vexactsize 1
    halign center_ref
    valign center_ref
-   style TXCardElevated
+   style TXCard
    color 0.9961 0.9961 0.9961 1
    {
-    PanelWidgetClass promoTopBar {
+    PanelWidgetClass promoTopRule {
      position 0 0
      hexactpos 0
      vexactpos 0
-     size 1 0
+     size 1 3
      hexactsize 0
-     vexactsize 0
+     vexactsize 1
+     color 0.851 0.4627 0.1843 1
      ignorepointer 1
-     style TXProgressFill
-     color 0.9961 0.9961 0.9961 1
+     style rover_sim_colorable
     }
     ImageWidgetClass promoLogo {
-     position 0.02 0.02
-     hexactpos 0
-     vexactpos 0
-     size 174 116
+     position 40 32
+     hexactpos 1
+     vexactpos 1
+     size 60 60
      hexactsize 1
      vexactsize 1
      color 1 1 1 1
      ignorepointer 1
-     image0 "TraderX/datasets/images/dzb_launcher_logo.edds"
+     image0 "TraderX/datasets/images/beans_can.edds"
      mode blend
      "src alpha" 1
      "stretch mode" stretch_w_h
     }
-    TextWidgetClass promoTitle1 {
-     position 0.13 0.03
-     hexactpos 0
-     vexactpos 0
-     size 0.6 0.06
-     hexactsize 0
-     vexactsize 0
-     color 0.949 0.949 0.949 1
-     font "TraderX/datasets/fonts/oswalt28"
+    TextWidgetClass promoTitle {
+     position 116 26
+     hexactpos 1
+     vexactpos 1
+     size 700 52
+     hexactsize 1
+     vexactsize 1
+     color 0.949 0.9137 0.8471 1
+     font "TraderX/datasets/fonts/antonpx36"
      ignorepointer 1
      "exact text" 1
-     style Bold
-     text "Stop fighting the launcher."
-    }
-    TextWidgetClass promoTitle2 {
-     position 0.13 0.09
-     hexactpos 0
-     vexactpos 0
-     size 0.6 0.06
-     hexactsize 0
-     vexactsize 0
-     color 0.8314 0.6431 0.298 1
-     font "TraderX/datasets/fonts/oswalt28"
-     ignorepointer 1
-     "exact text" 1
-     style Bold
-     text "Start playing the game."
+     "text valign" center
+     text "DAYZ BEANS LAUNCHER"
     }
     TextWidgetClass promoMaker {
-     position 0.55 0.05
-     hexactpos 0
-     vexactpos 0
-     size 0.43 0.05
-     hexactsize 0
-     vexactsize 0
-     color 0.6039 0.5804 0.5333 1
-     font "TraderX/datasets/fonts/oswalt14"
+     position 116 72
+     hexactpos 1
+     vexactpos 1
+     size 700 24
+     hexactsize 1
+     vexactsize 1
+     color 0.6392 0.5725 0.4627 1
+     font "TraderX/datasets/fonts/rajdhanipx17"
      ignorepointer 1
      "exact text" 1
-     "text halign" right
-     text "Made by Dmitri - for the DayZ community."
+     "text valign" center
+     text "Stop fighting the launcher. Start playing the game. Made by Dmitri for the DayZ community."
     }
-    PanelWidgetClass promoDiv1 {
-     position 0.02 0.17
-     hexactpos 0
-     vexactpos 0
-     size 0.96 0
-     hexactsize 0
-     vexactsize 0
-     ignorepointer 1
-     style TXDivider
+    ButtonWidgetClass promoCloseBtn {
+     position 40 38
+     hexactpos 1
+     vexactpos 1
+     size 44 44
+     hexactsize 1
+     vexactsize 1
+     halign right_ref
+     "text color" 0.9961 0.9961 0.9961 1
+     style TXBtnIcon
      color 0.9961 0.9961 0.9961 1
+     scriptclass "ButtonBinding"
+     {
+      ImageWidgetClass promoCloseIcon {
+       size 18 18
+       hexactsize 1
+       vexactsize 1
+       halign center_ref
+       valign center_ref
+       color 0.7608 0.7098 0.6118 1
+       ignorepointer 1
+       image0 "set:traderx_icons image:close"
+       mode blend
+       "src alpha" 1
+       "stretch mode" stretch_w_h
+      }
+     }
+     {
+      ScriptParamsClass {
+       OnClick "OnCloseClick"
+      }
+     }
+    }
+    PanelWidgetClass promoDivider {
+     position 40 124
+     hexactpos 1
+     vexactpos 1
+     size 1280 1
+     hexactsize 1
+     vexactsize 1
+     color 0.1804 0.149 0.1137 1
+     ignorepointer 1
+     style rover_sim_colorable
     }
     PanelWidgetClass slide0 {
-     position 0.02 0.19
+     position 0 152
      hexactpos 0
-     vexactpos 0
-     size 0.96 0.6
+     vexactpos 1
+     size 1 520
      hexactsize 0
-     vexactsize 0
+     vexactsize 1
      color 0 0 0 0
      ignorepointer 1
      style rover_sim_colorable
      {
       TextWidgetClass s0kick {
-       position 0 0
-       hexactpos 0
-       vexactpos 0
-       size 1 0.05
-       hexactsize 0
-       vexactsize 0
-       color 0.8314 0.6431 0.298 1
-       font "TraderX/datasets/fonts/oswalt16"
+       position 40 16
+       hexactpos 1
+       vexactpos 1
+       size 440 22
+       hexactsize 1
+       vexactsize 1
+       color 0.851 0.4627 0.1843 1
+       font "TraderX/datasets/fonts/rajdhanibpx15"
        ignorepointer 1
        "exact text" 1
-       "text halign" center
-       style Bold
+       "text valign" center
        text "SERVER BROWSER"
       }
-      PanelWidgetClass s0frame {
-       position 0.24 0.06
-       hexactpos 0
-       vexactpos 0
-       size 0.51 0.86
-       hexactsize 0
-       vexactsize 0
+      TextWidgetClass s0head1 {
+       position 40 40
+       hexactpos 1
+       vexactpos 1
+       size 440 70
+       hexactsize 1
+       vexactsize 1
+       color 0.949 0.9137 0.8471 1
+       font "TraderX/datasets/fonts/antonpx48"
        ignorepointer 1
-       clipchildren 1
-       style TXSurface
+       "exact text" 1
+       "text valign" center
+       text "One click."
+      }
+      TextWidgetClass s0head2 {
+       position 40 100
+       hexactpos 1
+       vexactpos 1
+       size 440 70
+       hexactsize 1
+       vexactsize 1
+       color 0.9098 0.5373 0.2902 1
+       font "TraderX/datasets/fonts/antonpx48"
+       ignorepointer 1
+       "exact text" 1
+       "text valign" center
+       text "You're in."
+      }
+      MultilineTextWidgetClass s0body {
+       position 40 190
+       hexactpos 1
+       vexactpos 1
+       size 430 150
+       hexactsize 1
+       vexactsize 1
+       color 0.7608 0.7098 0.6118 1
+       font "TraderX/datasets/fonts/rajdhanipx20"
+       ignorepointer 1
+       "exact text" 1
+       wrap 1
+       text "Pick a server and play. The launcher downloads and syncs its mods for you, no Workshop IDs to copy into Steam."
+      }
+      PanelWidgetClass s0frame {
+       position 520 0
+       hexactpos 1
+       vexactpos 0
+       size 800 500
+       hexactsize 1
+       vexactsize 1
+       ignorepointer 1
+       style TXInset
        color 0.9961 0.9961 0.9961 1
        {
-        ImageWidgetClass shotServers {
-         position 0 0
-         hexactpos 0
-         vexactpos 0
-         size 1 1
-         hexactsize 0
-         vexactsize 0
+        ImageWidgetClass s0shot {
+         position 2 2
+         hexactpos 1
+         vexactpos 1
+         size 796 496
+         hexactsize 1
+         vexactsize 1
          color 1 1 1 1
          ignorepointer 1
-         image0 "TraderX/datasets/images/servers.edds"
+         image0 "TraderX/datasets/images/promo_servers.edds"
          "stretch mode" stretch_w_h
         }
        }
       }
-      TextWidgetClass s0cap {
-       position 0 0.93
-       hexactpos 0
-       vexactpos 0
-       size 1 0.07
-       hexactsize 0
-       vexactsize 0
-       color 0.7843 0.7451 0.6039 1
-       font "TraderX/datasets/fonts/oswalt16"
-       ignorepointer 1
-       "exact text" 1
-       "text halign" center
-       wrap 1
-       text "Click a server - mods sync, you're in. No copying mod IDs into Steam."
-      }
      }
     }
     PanelWidgetClass slide1 {
-     position 0.02 0.19
+     position 0 152
      hexactpos 0
-     vexactpos 0
-     size 0.96 0.6
+     vexactpos 1
+     size 1 520
      hexactsize 0
-     vexactsize 0
+     vexactsize 1
      color 0 0 0 0
      ignorepointer 1
      visible 0
      style rover_sim_colorable
      {
       TextWidgetClass s1kick {
-       position 0 0
-       hexactpos 0
-       vexactpos 0
-       size 1 0.05
-       hexactsize 0
-       vexactsize 0
-       color 0.8314 0.6431 0.298 1
-       font "TraderX/datasets/fonts/oswalt16"
+       position 40 16
+       hexactpos 1
+       vexactpos 1
+       size 440 22
+       hexactsize 1
+       vexactsize 1
+       color 0.851 0.4627 0.1843 1
+       font "TraderX/datasets/fonts/rajdhanibpx15"
        ignorepointer 1
        "exact text" 1
-       "text halign" center
-       style Bold
+       "text valign" center
        text "MOD MANAGER"
       }
-      PanelWidgetClass s1frame {
-       position 0.24 0.06
-       hexactpos 0
-       vexactpos 0
-       size 0.51 0.86
-       hexactsize 0
-       vexactsize 0
+      TextWidgetClass s1head1 {
+       position 40 40
+       hexactpos 1
+       vexactpos 1
+       size 440 70
+       hexactsize 1
+       vexactsize 1
+       color 0.949 0.9137 0.8471 1
+       font "TraderX/datasets/fonts/antonpx48"
        ignorepointer 1
-       clipchildren 1
-       style TXSurface
+       "exact text" 1
+       "text valign" center
+       text "Every mod,"
+      }
+      TextWidgetClass s1head2 {
+       position 40 100
+       hexactpos 1
+       vexactpos 1
+       size 440 70
+       hexactsize 1
+       vexactsize 1
+       color 0.9098 0.5373 0.2902 1
+       font "TraderX/datasets/fonts/antonpx48"
+       ignorepointer 1
+       "exact text" 1
+       "text valign" center
+       text "kept in sync."
+      }
+      MultilineTextWidgetClass s1body {
+       position 40 190
+       hexactpos 1
+       vexactpos 1
+       size 430 150
+       hexactsize 1
+       vexactsize 1
+       color 0.7608 0.7098 0.6118 1
+       font "TraderX/datasets/fonts/rajdhanipx20"
+       ignorepointer 1
+       "exact text" 1
+       wrap 1
+       text "One install for every server. Updates, missing mods and the ones you no longer use are handled for you."
+      }
+      PanelWidgetClass s1frame {
+       position 520 0
+       hexactpos 1
+       vexactpos 0
+       size 800 500
+       hexactsize 1
+       vexactsize 1
+       ignorepointer 1
+       style TXInset
        color 0.9961 0.9961 0.9961 1
        {
-        ImageWidgetClass shotMods {
-         position 0 0
-         hexactpos 0
-         vexactpos 0
-         size 1 1
-         hexactsize 0
-         vexactsize 0
+        ImageWidgetClass s1shot {
+         position 2 2
+         hexactpos 1
+         vexactpos 1
+         size 796 496
+         hexactsize 1
+         vexactsize 1
          color 1 1 1 1
          ignorepointer 1
-         image0 "TraderX/datasets/images/mods.edds"
+         image0 "TraderX/datasets/images/promo_mods.edds"
          "stretch mode" stretch_w_h
         }
        }
       }
-      TextWidgetClass s1cap {
-       position 0 0.93
-       hexactpos 0
-       vexactpos 0
-       size 1 0.07
-       hexactsize 0
-       vexactsize 0
-       color 0.7843 0.7451 0.6039 1
-       font "TraderX/datasets/fonts/oswalt16"
-       ignorepointer 1
-       "exact text" 1
-       "text halign" center
-       wrap 1
-       text "One install. Every server, every mod - managed and auto-synced for you."
-      }
      }
     }
     PanelWidgetClass slide2 {
-     position 0.02 0.19
+     position 0 152
      hexactpos 0
-     vexactpos 0
-     size 0.96 0.6
+     vexactpos 1
+     size 1 520
      hexactsize 0
-     vexactsize 0
+     vexactsize 1
      color 0 0 0 0
      ignorepointer 1
      visible 0
      style rover_sim_colorable
      {
       TextWidgetClass s2kick {
-       position 0 0.16
-       hexactpos 0
-       vexactpos 0
-       size 1 0.06
-       hexactsize 0
-       vexactsize 0
-       color 0.6039 0.5804 0.5333 1
-       font "TraderX/datasets/fonts/oswalt16"
+       position 40 16
+       hexactpos 1
+       vexactpos 1
+       size 440 22
+       hexactsize 1
+       vexactsize 1
+       color 0.851 0.4627 0.1843 1
+       font "TraderX/datasets/fonts/rajdhanibpx15"
        ignorepointer 1
        "exact text" 1
-       "text halign" center
-       style Bold
-       text "FOR PLAYERS"
+       "text valign" center
+       text "SERVER DETAIL"
       }
-      TextWidgetClass s2head {
-       position 0.05 0.28
-       hexactpos 0
-       vexactpos 0
-       size 0.9 0.22
-       hexactsize 0
-       vexactsize 0
-       color 0.8314 0.6431 0.298 1
-       font "TraderX/datasets/fonts/oswalt48"
+      TextWidgetClass s2head1 {
+       position 40 40
+       hexactpos 1
+       vexactpos 1
+       size 440 70
+       hexactsize 1
+       vexactsize 1
+       color 0.949 0.9137 0.8471 1
+       font "TraderX/datasets/fonts/antonpx48"
        ignorepointer 1
        "exact text" 1
-       "text halign" center
-       style Bold
-       text "Free. Actually free."
+       "text valign" center
+       text "Know before"
       }
-      TextWidgetClass s2body {
-       position 0.18 0.58
-       hexactpos 0
-       vexactpos 0
-       size 0.64 0.28
-       hexactsize 0
-       vexactsize 0
-       color 0.7843 0.7451 0.6039 1
-       font "TraderX/datasets/fonts/oswalt22"
+      TextWidgetClass s2head2 {
+       position 40 100
+       hexactpos 1
+       vexactpos 1
+       size 440 70
+       hexactsize 1
+       vexactsize 1
+       color 0.9098 0.5373 0.2902 1
+       font "TraderX/datasets/fonts/antonpx48"
        ignorepointer 1
        "exact text" 1
-       "text halign" center
+       "text valign" center
+       text "you join."
+      }
+      MultilineTextWidgetClass s2body {
+       position 40 190
+       hexactpos 1
+       vexactpos 1
+       size 430 150
+       hexactsize 1
+       vexactsize 1
+       color 0.7608 0.7098 0.6118 1
+       font "TraderX/datasets/fonts/rajdhanipx20"
+       ignorepointer 1
+       "exact text" 1
        wrap 1
-       text "No premium tier. No "pro" features. No banner ads waiting while servers load."
+       text "72 hours of population, time of day and the full mod list, before you spend a minute loading."
+      }
+      PanelWidgetClass s2frame {
+       position 520 0
+       hexactpos 1
+       vexactpos 0
+       size 800 500
+       hexactsize 1
+       vexactsize 1
+       ignorepointer 1
+       style TXInset
+       color 0.9961 0.9961 0.9961 1
+       {
+        ImageWidgetClass s2shot {
+         position 2 2
+         hexactpos 1
+         vexactpos 1
+         size 796 496
+         hexactsize 1
+         vexactsize 1
+         color 1 1 1 1
+         ignorepointer 1
+         image0 "TraderX/datasets/images/promo_detail.edds"
+         "stretch mode" stretch_w_h
+        }
+       }
       }
      }
     }
     PanelWidgetClass slide3 {
-     position 0.02 0.19
+     position 0 152
      hexactpos 0
-     vexactpos 0
-     size 0.96 0.6
+     vexactpos 1
+     size 1 520
      hexactsize 0
-     vexactsize 0
+     vexactsize 1
      color 0 0 0 0
      ignorepointer 1
      visible 0
      style rover_sim_colorable
      {
       TextWidgetClass s3kick {
-       position 0 0.16
-       hexactpos 0
-       vexactpos 0
-       size 1 0.06
-       hexactsize 0
-       vexactsize 0
-       color 0.6039 0.5804 0.5333 1
-       font "TraderX/datasets/fonts/oswalt16"
+       position 40 16
+       hexactpos 1
+       vexactpos 1
+       size 440 22
+       hexactsize 1
+       vexactsize 1
+       color 0.851 0.4627 0.1843 1
+       font "TraderX/datasets/fonts/rajdhanibpx15"
        ignorepointer 1
        "exact text" 1
-       "text halign" center
-       style Bold
-       text "FOR SERVER OWNERS"
+       "text valign" center
+       text "FIND YOUR SERVER"
       }
-      TextWidgetClass s3head {
-       position 0.05 0.28
-       hexactpos 0
-       vexactpos 0
-       size 0.9 0.22
-       hexactsize 0
-       vexactsize 0
-       color 0.8314 0.6431 0.298 1
-       font "TraderX/datasets/fonts/oswalt48"
+      TextWidgetClass s3head1 {
+       position 40 40
+       hexactpos 1
+       vexactpos 1
+       size 440 70
+       hexactsize 1
+       vexactsize 1
+       color 0.949 0.9137 0.8471 1
+       font "TraderX/datasets/fonts/antonpx48"
        ignorepointer 1
        "exact text" 1
-       "text halign" center
-       style Bold
-       text "Transparent pricing."
+       "text valign" center
+       text "Your kind"
       }
-      TextWidgetClass s3body {
-       position 0.16 0.58
-       hexactpos 0
-       vexactpos 0
-       size 0.68 0.28
-       hexactsize 0
-       vexactsize 0
-       color 0.7843 0.7451 0.6039 1
-       font "TraderX/datasets/fonts/oswalt22"
+      TextWidgetClass s3head2 {
+       position 40 100
+       hexactpos 1
+       vexactpos 1
+       size 440 70
+       hexactsize 1
+       vexactsize 1
+       color 0.9098 0.5373 0.2902 1
+       font "TraderX/datasets/fonts/antonpx48"
        ignorepointer 1
        "exact text" 1
-       "text halign" center
+       "text valign" center
+       text "of server."
+      }
+      MultilineTextWidgetClass s3body {
+       position 40 190
+       hexactpos 1
+       vexactpos 1
+       size 430 150
+       hexactsize 1
+       vexactsize 1
+       color 0.7608 0.7098 0.6118 1
+       font "TraderX/datasets/fonts/rajdhanipx20"
+       ignorepointer 1
+       "exact text" 1
        wrap 1
-       text "Every cent disclosed. Buy a boost, get guaranteed visibility time - no auctions, no surprises."
+       text "Filter by ping, perspective, map, mods or fresh wipe. Fake and duplicate servers are filtered out."
+      }
+      PanelWidgetClass s3frame {
+       position 520 0
+       hexactpos 1
+       vexactpos 0
+       size 800 500
+       hexactsize 1
+       vexactsize 1
+       ignorepointer 1
+       style TXInset
+       color 0.9961 0.9961 0.9961 1
+       {
+        ImageWidgetClass s3shot {
+         position 2 2
+         hexactpos 1
+         vexactpos 1
+         size 796 496
+         hexactsize 1
+         vexactsize 1
+         color 1 1 1 1
+         ignorepointer 1
+         image0 "TraderX/datasets/images/promo_filters.edds"
+         "stretch mode" stretch_w_h
+        }
+       }
       }
      }
     }
     PanelWidgetClass slide4 {
-     position 0.02 0.19
+     position 0 152
      hexactpos 0
-     vexactpos 0
-     size 0.96 0.6
+     vexactpos 1
+     size 1 520
      hexactsize 0
-     vexactsize 0
+     vexactsize 1
      color 0 0 0 0
      ignorepointer 1
      visible 0
      style rover_sim_colorable
      {
       TextWidgetClass s4kick {
-       position 0 0
-       hexactpos 0
-       vexactpos 0
-       size 1 0.05
-       hexactsize 0
-       vexactsize 0
-       color 0.8314 0.6431 0.298 1
-       font "TraderX/datasets/fonts/oswalt16"
+       position 40 16
+       hexactpos 1
+       vexactpos 1
+       size 440 22
+       hexactsize 1
+       vexactsize 1
+       color 0.851 0.4627 0.1843 1
+       font "TraderX/datasets/fonts/rajdhanibpx15"
        ignorepointer 1
        "exact text" 1
-       "text halign" center
-       style Bold
+       "text valign" center
        text "BUILT IN PUBLIC"
       }
-      PanelWidgetClass s4frame {
-       position 0.24 0.06
-       hexactpos 0
-       vexactpos 0
-       size 0.51 0.86
-       hexactsize 0
-       vexactsize 0
+      TextWidgetClass s4head1 {
+       position 40 40
+       hexactpos 1
+       vexactpos 1
+       size 440 70
+       hexactsize 1
+       vexactsize 1
+       color 0.949 0.9137 0.8471 1
+       font "TraderX/datasets/fonts/antonpx48"
        ignorepointer 1
-       clipchildren 1
-       style TXSurface
+       "exact text" 1
+       "text valign" center
+       text "Made for the"
+      }
+      TextWidgetClass s4head2 {
+       position 40 100
+       hexactpos 1
+       vexactpos 1
+       size 440 70
+       hexactsize 1
+       vexactsize 1
+       color 0.9098 0.5373 0.2902 1
+       font "TraderX/datasets/fonts/antonpx48"
+       ignorepointer 1
+       "exact text" 1
+       "text valign" center
+       text "community."
+      }
+      MultilineTextWidgetClass s4body {
+       position 40 190
+       hexactpos 1
+       vexactpos 1
+       size 430 150
+       hexactsize 1
+       vexactsize 1
+       color 0.7608 0.7098 0.6118 1
+       font "TraderX/datasets/fonts/rajdhanipx20"
+       ignorepointer 1
+       "exact text" 1
+       wrap 1
+       text "News, creators and a mod showcase built in. Roadmap, bug tracker and Discord are all open."
+      }
+      PanelWidgetClass s4frame {
+       position 520 0
+       hexactpos 1
+       vexactpos 0
+       size 800 500
+       hexactsize 1
+       vexactsize 1
+       ignorepointer 1
+       style TXInset
        color 0.9961 0.9961 0.9961 1
        {
-        ImageWidgetClass shotCommunity {
-         position 0 0
-         hexactpos 0
-         vexactpos 0
-         size 1 1
-         hexactsize 0
-         vexactsize 0
+        ImageWidgetClass s4shot {
+         position 2 2
+         hexactpos 1
+         vexactpos 1
+         size 796 496
+         hexactsize 1
+         vexactsize 1
          color 1 1 1 1
          ignorepointer 1
-         image0 "TraderX/datasets/images/community.edds"
+         image0 "TraderX/datasets/images/promo_news.edds"
          "stretch mode" stretch_w_h
         }
        }
       }
-      TextWidgetClass s4cap {
-       position 0 0.93
-       hexactpos 0
-       vexactpos 0
-       size 1 0.07
-       hexactsize 0
-       vexactsize 0
-       color 0.7843 0.7451 0.6039 1
-       font "TraderX/datasets/fonts/oswalt16"
-       ignorepointer 1
-       "exact text" 1
-       "text halign" center
-       wrap 1
-       text "Roadmap, bug tracker, Discord - all open. Made for the community, not a funnel."
-      }
      }
     }
     PanelWidgetClass slide5 {
-     position 0.02 0.19
+     position 0 152
      hexactpos 0
-     vexactpos 0
-     size 0.96 0.6
+     vexactpos 1
+     size 1 520
      hexactsize 0
-     vexactsize 0
+     vexactsize 1
      color 0 0 0 0
      ignorepointer 1
      visible 0
      style rover_sim_colorable
      {
       TextWidgetClass s5kick {
-       position 0 0.16
-       hexactpos 0
-       vexactpos 0
-       size 1 0.06
-       hexactsize 0
-       vexactsize 0
-       color 0.6039 0.5804 0.5333 1
-       font "TraderX/datasets/fonts/oswalt16"
+       position 40 16
+       hexactpos 1
+       vexactpos 1
+       size 440 22
+       hexactsize 1
+       vexactsize 1
+       color 0.851 0.4627 0.1843 1
+       font "TraderX/datasets/fonts/rajdhanibpx15"
        ignorepointer 1
        "exact text" 1
-       "text halign" center
-       style Bold
-       text "SAFE TO INSTALL"
+       "text valign" center
+       text "FOR SERVER OWNERS"
       }
-      TextWidgetClass s5head {
-       position 0.05 0.28
-       hexactpos 0
-       vexactpos 0
-       size 0.9 0.22
-       hexactsize 0
-       vexactsize 0
-       color 0.8314 0.6431 0.298 1
-       font "TraderX/datasets/fonts/oswalt48"
+      TextWidgetClass s5head1 {
+       position 40 40
+       hexactpos 1
+       vexactpos 1
+       size 440 70
+       hexactsize 1
+       vexactsize 1
+       color 0.949 0.9137 0.8471 1
+       font "TraderX/datasets/fonts/antonpx48"
        ignorepointer 1
        "exact text" 1
-       "text halign" center
-       style Bold
-       text "Verified builds."
+       "text valign" center
+       text "Fair for"
       }
-      TextWidgetClass s5body {
-       position 0.18 0.58
-       hexactpos 0
-       vexactpos 0
-       size 0.64 0.28
-       hexactsize 0
-       vexactsize 0
-       color 0.7843 0.7451 0.6039 1
-       font "TraderX/datasets/fonts/oswalt22"
+      TextWidgetClass s5head2 {
+       position 40 100
+       hexactpos 1
+       vexactpos 1
+       size 440 70
+       hexactsize 1
+       vexactsize 1
+       color 0.9098 0.5373 0.2902 1
+       font "TraderX/datasets/fonts/antonpx48"
        ignorepointer 1
        "exact text" 1
-       "text halign" center
+       "text valign" center
+       text "server owners."
+      }
+      MultilineTextWidgetClass s5body {
+       position 40 190
+       hexactpos 1
+       vexactpos 1
+       size 430 150
+       hexactsize 1
+       vexactsize 1
+       color 0.7608 0.7098 0.6118 1
+       font "TraderX/datasets/fonts/rajdhanipx20"
+       ignorepointer 1
+       "exact text" 1
        wrap 1
-       text "SHA-256 verified. Auto-updates. Works with Steam DayZ on Windows and Linux."
+       text "Transparent pricing, every cent disclosed. A boost buys guaranteed visibility time: no auctions, no surprises."
+      }
+      PanelWidgetClass s5frame {
+       position 520 0
+       hexactpos 1
+       vexactpos 0
+       size 800 500
+       hexactsize 1
+       vexactsize 1
+       ignorepointer 1
+       style TXInset
+       color 0.9961 0.9961 0.9961 1
+       {
+        ImageWidgetClass s5shot {
+         position 2 2
+         hexactpos 1
+         vexactpos 1
+         size 796 496
+         hexactsize 1
+         vexactsize 1
+         color 1 1 1 1
+         ignorepointer 1
+         image0 "TraderX/datasets/images/promo_creators.edds"
+         "stretch mode" stretch_w_h
+        }
+       }
       }
      }
     }
     PanelWidgetClass dot0 {
-     position 0.45 0.81
-     hexactpos 0
-     vexactpos 0
-     size 0 0.01
-     hexactsize 0
-     vexactsize 0
+     position 40 700
+     hexactpos 1
+     vexactpos 1
+     size 26 4
+     hexactsize 1
+     vexactsize 1
+     color 0.851 0.4627 0.1843 1
      ignorepointer 1
-     style TXProgressFill
-     color 0.9961 0.9961 0.9961 1
+     style rover_sim_colorable
     }
     PanelWidgetClass dot1 {
-     position 0.47 0.81
-     hexactpos 0
-     vexactpos 0
-     size 0 0.01
-     hexactsize 0
-     vexactsize 0
+     position 74 700
+     hexactpos 1
+     vexactpos 1
+     size 26 4
+     hexactsize 1
+     vexactsize 1
+     color 0.2902 0.251 0.2039 1
      ignorepointer 1
-     style TXProgressFill
-     color 0.9961 0.9961 0.9961 1
+     style rover_sim_colorable
     }
     PanelWidgetClass dot2 {
-     position 0.49 0.81
-     hexactpos 0
-     vexactpos 0
-     size 0 0.01
-     hexactsize 0
-     vexactsize 0
+     position 108 700
+     hexactpos 1
+     vexactpos 1
+     size 26 4
+     hexactsize 1
+     vexactsize 1
+     color 0.2902 0.251 0.2039 1
      ignorepointer 1
-     style TXProgressFill
-     color 0.9961 0.9961 0.9961 1
+     style rover_sim_colorable
     }
     PanelWidgetClass dot3 {
-     position 0.5 0.81
-     hexactpos 0
-     vexactpos 0
-     size 0 0.01
-     hexactsize 0
-     vexactsize 0
+     position 142 700
+     hexactpos 1
+     vexactpos 1
+     size 26 4
+     hexactsize 1
+     vexactsize 1
+     color 0.2902 0.251 0.2039 1
      ignorepointer 1
-     style TXProgressFill
-     color 0.9961 0.9961 0.9961 1
+     style rover_sim_colorable
     }
     PanelWidgetClass dot4 {
-     position 0.52 0.81
-     hexactpos 0
-     vexactpos 0
-     size 0 0.01
-     hexactsize 0
-     vexactsize 0
+     position 176 700
+     hexactpos 1
+     vexactpos 1
+     size 26 4
+     hexactsize 1
+     vexactsize 1
+     color 0.2902 0.251 0.2039 1
      ignorepointer 1
-     style TXProgressFill
-     color 0.9961 0.9961 0.9961 1
+     style rover_sim_colorable
     }
     PanelWidgetClass dot5 {
-     position 0.54 0.81
-     hexactpos 0
-     vexactpos 0
-     size 0 0.01
-     hexactsize 0
-     vexactsize 0
+     position 210 700
+     hexactpos 1
+     vexactpos 1
+     size 26 4
+     hexactsize 1
+     vexactsize 1
+     color 0.2902 0.251 0.2039 1
      ignorepointer 1
-     style TXProgressFill
-     color 0.9961 0.9961 0.9961 1
+     style rover_sim_colorable
     }
     TextWidgetClass promoUrl {
-     position 0.02 0.86
-     hexactpos 0
-     vexactpos 0
-     size 0.3 0.06
-     hexactsize 0
-     vexactsize 0
-     color 0.8314 0.6431 0.298 1
-     font "TraderX/datasets/fonts/jet-brains-mono16"
+     position 40 724
+     hexactpos 1
+     vexactpos 1
+     size 400 26
+     hexactsize 1
+     vexactsize 1
+     color 0.9098 0.5373 0.2902 1
+     font "TraderX/datasets/fonts/monopx20"
      ignorepointer 1
      "exact text" 1
      "text valign" center
-     style Bold
      text "dayzbeanslauncher.com"
     }
-    ButtonWidgetClass promoLaterBtn {
-     position 0.66 0.86
-     hexactpos 0
-     vexactpos 0
-     size 0.15 0.08
-     hexactsize 0
-     vexactsize 0
-     "text color" 0.6039 0.5804 0.5333 1
-     font "TraderX/datasets/fonts/oswalt16"
+    TextWidgetClass promoFree {
+     position 40 754
+     hexactpos 1
+     vexactpos 1
+     size 560 22
+     hexactsize 1
+     vexactsize 1
+     color 0.6392 0.5725 0.4627 1
+     font "TraderX/datasets/fonts/rajdhanipx16"
+     ignorepointer 1
      "exact text" 1
-     style Bold
+     "text valign" center
+     text "Free for players · No ads · Verified builds · Windows and Linux"
+    }
+    ButtonWidgetClass promoLaterBtn {
+     position 336 712
+     hexactpos 1
+     vexactpos 1
+     size 200 56
+     hexactsize 1
+     vexactsize 1
+     halign right_ref
+     "text color" 0.9961 0.9961 0.9961 1
      style TXBtnDefault
      color 0.9961 0.9961 0.9961 1
-     text "MAYBE LATER"
      scriptclass "ButtonBinding"
      {
       ScriptParamsClass {
@@ -601,26 +815,55 @@ PanelWidgetClass promoRoot {
       }
      }
     }
-    ButtonWidgetClass promoGetBtn {
-     position 0.82 0.86
-     hexactpos 0
-     vexactpos 0
-     size 0.16 0.08
-     hexactsize 0
-     vexactsize 0
-     "text color" 0.8314 0.6431 0.298 1
-     font "TraderX/datasets/fonts/oswalt16"
+    TextWidgetClass promoLaterText {
+     position 336 712
+     hexactpos 1
+     vexactpos 1
+     size 200 56
+     hexactsize 1
+     vexactsize 1
+     halign right_ref
+     color 0.7608 0.7098 0.6118 1
+     font "TraderX/datasets/fonts/antonpx24"
+     ignorepointer 1
      "exact text" 1
-     style Bold
-     style TXBtnAccent
+     "text halign" center
+     "text valign" center
+     text "MAYBE LATER"
+    }
+    ButtonWidgetClass promoGetBtn {
+     position 40 712
+     hexactpos 1
+     vexactpos 1
+     size 280 56
+     hexactsize 1
+     vexactsize 1
+     halign right_ref
+     "text color" 0.9961 0.9961 0.9961 1
+     style TXBtnPrimary
      color 0.9961 0.9961 0.9961 1
-     text "GET THE LAUNCHER"
      scriptclass "ButtonBinding"
      {
       ScriptParamsClass {
        OnClick "OnGetLauncher"
       }
      }
+    }
+    TextWidgetClass promoGetText {
+     position 40 712
+     hexactpos 1
+     vexactpos 1
+     size 280 56
+     hexactsize 1
+     vexactsize 1
+     halign right_ref
+     color 0.102 0.051 0.0157 1
+     font "TraderX/datasets/fonts/antonpx24"
+     ignorepointer 1
+     "exact text" 1
+     "text halign" center
+     "text valign" center
+     text "GET THE LAUNCHER"
     }
    }
   }

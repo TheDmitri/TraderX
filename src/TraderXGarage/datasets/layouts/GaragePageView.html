@@ -44,289 +44,375 @@
     .TXBadge { --bg: #14161e; --radius: 3; }
   </style>
 </head>
-<body class="dz-viewport">
+<body class="dz-viewport" data-dzml style="width:1920px; height:1080px; background:#13100c;">
 
-<!-- GaragePageView - Field Ledger (UX pass 2).
-     One gold action per state. Left: the vehicle at the door (park it right there) + stored list.
-     Right: selected vehicle. Panels (insurance / share) replace the preview; camera view hides the window. -->
-<div data-dz="frame" data-name="rootFrame" class="dz-xy-0-0 dz-wh-full dz-align-cc">
-  <div data-dz="panel" data-name="garageRoot" data-style="TXSurface"
-       class="dz-xy-0-0 dz-wh-72-78 dz-align-cc dz-c-FE">
+<!-- Garage (Nasdara, same shell as "Bank · Home"): header 82 px with the attendant,
+     balance, admin and close; the vehicle at the door and the stored list on the left;
+     the selected vehicle on the right with one ember action; Beans footer strip.
+     Insurance / share panels replace the preview; the camera view hides the window and
+     shows the spot bar. Widget names are the TXGGarageComponent contract. -->
+<div data-dz="frame" data-name="rootFrame" class="dz-xy-0-0 dz-wh-full">
+  <div data-dz="panel" data-name="garageRoot" class="dz-xy-0-0 dz-wh-full dz-c-13100C">
 
-    <!-- ====== HEADER : title - balance - admin - close ====== -->
-    <div data-dz="panel" data-name="headerBar" data-style="TXCard"
-         class="dz-xy-0-0 dz-wh-100-8 dz-c-FE dz-noptr">
-      <img data-dz="image" data-name="headerIcon" data-image="set:traderx_icons image:wrench"
-           class="dz-xy-1.5-0 dz-wh-28px-28px dz-c-D4A44C dz-blend dz-src-alpha dz-align-y-center dz-noptr" />
+    <!-- HEADER -->
+    <div data-dz="panel" data-name="headerBar" data-style="TXHeader"
+         class="dz-xy-0-0 dz-wh-100-82px dz-c-FE dz-noptr">
+      <div data-dz="panel" data-name="headerIconBox" data-style="TXIcon"
+           class="dz-xy-29px-0 dz-wh-48px-48px dz-align-y-center dz-c-FE dz-noptr">
+        <img data-dz="image" data-name="headerIcon" data-image="set:traderx_icons image:wrench"
+             class="dz-xy-0-0 dz-wh-27px-27px dz-align-cc dz-c-1A0D04 dz-blend dz-src-alpha dz-noptr" />
+      </div>
       <span data-dz="text" data-name="headerTitle"
-            class="dz-xy-4.5-0 dz-wh-20-100 dz-c-D4A44C dz-font-heading-26 dz-noptr dz-exact-text dz-text-vc dz-bold">GARAGE</span>
-      <span data-dz="text" data-name="balanceLabel"
-            class="dz-xy-48-0 dz-wh-10-100 dz-c-6A6560 dz-font-body-12 dz-noptr dz-exact-text dz-text-right dz-text-vc">YOU HAVE</span>
-      <span data-dz="text" data-name="balanceValue" data-bind="{{ balanceText }}"
-            class="dz-xy-59-0 dz-wh-25-100 dz-c-D8D2C0 dz-font-mono-14 dz-noptr dz-exact-text dz-text-vc dz-bold">Bank 12 400 - Cash 300</span>
-      <button data-dz="button" data-name="adminMenuBtn" data-style="TXBtnDefault" data-on-click="OnAdminMenu"
-              class="dz-xy-85-22 dz-wh-3-56 dz-c-FE dz-tc-C8664A dz-font-heading-16 dz-exact-text dz-text-center dz-text-vc dz-bold">⋮</button>
-      <button data-dz="button" data-name="leaveBtn" data-style="TXBtnLeave" data-on-click="OnClose"
-              class="dz-xy-89-22 dz-wh-10-56 dz-c-FE dz-tc-FFFFFF dz-font-heading-12 dz-exact-text dz-text-center dz-text-vc dz-bold">CLOSE - ESC</button>
+          class="dz-xy-94px-11px dz-wh-400px-42px dz-c-F2E9D8 dz-font-nh-29 dz-text-vc dz-noptr dz-exact-text">#txg_garage_caps</span>
+      <span data-dz="text" data-name="headerRole"
+          class="dz-xy-94px-50px dz-wh-400px-18px dz-c-A39276 dz-font-nb-16 dz-text-vc dz-noptr dz-exact-text">#txg_vehicle_storage</span>
+      <div data-dz="panel" data-name="balanceChip" data-style="TXFrame"
+           class="dz-xy-108px-0 dz-wh-420px-55px dz-align-cr dz-c-FE dz-noptr">
+        <span data-dz="text" data-name="balanceLabel"
+          class="dz-xy-17px-6px dz-wh-386px-16px dz-c-A39276 dz-font-nbb-14 dz-text-right dz-text-vc dz-noptr dz-exact-text">#txg_you_have</span>
+        <span data-dz="text" data-name="balanceValue" data-bind="{{ balanceText }}"
+          class="dz-xy-17px-24px dz-wh-386px-26px dz-c-F2E9D8 dz-font-nm-20 dz-text-right dz-text-vc dz-noptr dz-exact-text">Bank 12 400  -  Cash 300</span>
+      </div>
+      <div data-dz="panel" data-name="adminHost" class="dz-xy-546px-0 dz-wh-53px-53px dz-align-cr dz-noptr">
+        <button data-dz="button" data-name="adminMenuBtn" data-style="TXBtnIcon" data-on-click="OnAdminMenu"
+                class="dz-xy-0-0 dz-wh-full dz-c-FE dz-tc-E07A63 dz-font-nh-24 dz-exact-text dz-text-center dz-text-vc">⋮</button>
+      </div>
+      <div data-dz="panel" data-name="closeHost" class="dz-xy-29px-0 dz-wh-53px-53px dz-align-cr dz-noptr">
+        <button data-dz="button" data-name="leaveBtn" data-style="TXBtnLeave" data-on-click="OnClose"
+                class="dz-xy-0-0 dz-wh-full dz-tc-FE">
+          <img data-dz="image" data-name="leaveIcon" data-image="set:traderx_icons image:close"
+               class="dz-xy-0-0 dz-wh-20px-20px dz-align-cc dz-c-C2B59C dz-blend dz-src-alpha dz-noptr" />
+        </button>
+      </div>
     </div>
 
-    <!-- ====== LEFT COLUMN ====== -->
-    <div data-dz="panel" data-name="leftColumn" class="dz-xy-1-9.5 dz-wh-35-85.5 dz-noptr">
-
+    <!-- LEFT: at the door + stored vehicles -->
+    <div data-dz="panel" data-name="leftColumn" class="dz-xy-29px-111px dz-wh-600px-892px dz-noptr">
       <span data-dz="text" data-name="nearbyHeader"
-            class="dz-xy-0-0 dz-wh-100-4 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-text-vc dz-bold">AT THE GARAGE DOOR</span>
-
-      <!-- Vehicle at the door: park it right from the card -->
-      <div data-dz="panel" data-name="nearbyCard" data-style="TXCard" class="dz-xy-0-5 dz-wh-100-21 dz-c-FE">
-        <button data-dz="button" data-name="nearbyBtn" data-style="TXListRow" data-on-click="OnSelectNearby"
-                class="dz-xy-0-0 dz-wh-full dz-c-00000000"></button>
-        <div data-dz="panel" data-name="nearbySelectedBg" class="dz-xy-0-0 dz-wh-full dz-c-161A24 dz-noptr"></div>
-        <img data-dz="image" data-name="nearbyIcon" data-image="set:traderx_icons image:wrench"
-             class="dz-xy-4-12 dz-wh-34px-34px dz-c-9A9488 dz-blend dz-src-alpha dz-noptr" />
-        <span data-dz="text" data-name="nearbyName" data-bind="{{ nearbyNameText }}"
-              class="dz-xy-16-8 dz-wh-58-24 dz-c-D8D2C0 dz-font-body-16 dz-noptr dz-exact-text dz-text-vc dz-bold">Ada 4x4</span>
-        <span data-dz="text" data-name="nearbyState" data-bind="{{ nearbyStateText }}"
-              class="dz-xy-16-32 dz-wh-58-18 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-text-vc">Pristine - Fuel 100% - 11 parts</span>
-        <div data-dz="panel" data-name="nearbyChipOk" class="dz-xy-76-10 dz-wh-21-20 dz-c-00000000 dz-noptr">
-          <span data-dz="text" data-name="nearbyChipOkText" class="dz-xy-0-0 dz-wh-100-100 dz-c-9AB05A dz-font-body-11 dz-text-right dz-noptr dz-exact-text dz-text-vc dz-bold">READY</span>
+          class="dz-xy-0-0 dz-wh-100-20px dz-c-A39276 dz-font-nbb-16 dz-text-vc dz-noptr dz-exact-text">#txg_at_door</span>
+      <div data-dz="panel" data-name="nearbyCard" data-style="TXCard" class="dz-xy-0-30px dz-wh-100-160px dz-c-FE">
+        <button data-dz="button" data-name="nearbyBtn" data-style="Empty" data-on-click="OnSelectNearby"
+                class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
+        <div data-dz="panel" data-name="nearbySelectedBg" data-style="TXCardSelected"
+             class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr"></div>
+        <div data-dz="panel" data-name="nearbyIconWell" data-style="TXInset"
+             class="dz-xy-24px-24px dz-wh-56px-56px dz-c-FE dz-noptr">
+          <img data-dz="image" data-name="nearbyIcon" data-image="set:traderx_icons image:wrench"
+               class="dz-xy-0-0 dz-wh-28px-28px dz-align-cc dz-c-E8894A dz-blend dz-src-alpha dz-noptr" />
         </div>
-        <div data-dz="panel" data-name="nearbyChipBlocked" class="dz-xy-76-10 dz-wh-21-20 dz-c-00000000 dz-noptr" style="display:none">
-          <span data-dz="text" data-name="nearbyChipBlockedText" class="dz-xy-0-0 dz-wh-100-100 dz-c-C8664A dz-font-body-11 dz-text-right dz-noptr dz-exact-text dz-text-vc dz-bold">BLOCKED</span>
+        <span data-dz="text" data-name="nearbyName" data-bind="{{ nearbyNameText }}"
+          class="dz-xy-98px-24px dz-wh-330px-30px dz-c-F2E9D8 dz-font-nbb-22 dz-text-vc dz-noptr dz-exact-text">Ada 4x4</span>
+        <span data-dz="text" data-name="nearbyState" data-bind="{{ nearbyStateText }}"
+          class="dz-xy-98px-56px dz-wh-470px-22px dz-c-A39276 dz-font-nbb-17 dz-text-vc dz-noptr dz-exact-text">Pristine - Fuel 100% - 11 parts</span>
+        <div data-dz="panel" data-name="nearbyChipOk" class="dz-xy-24px-26px dz-wh-140px-26px dz-align-x-right dz-noptr">
+          <span data-dz="text" data-name="nearbyChipOkText"
+          class="dz-xy-0-0 dz-wh-100-100 dz-c-7FA65A dz-font-nbb-16 dz-text-right dz-text-vc dz-noptr dz-exact-text">#txg_ready</span>
+        </div>
+        <div data-dz="panel" data-name="nearbyChipBlocked" class="dz-xy-24px-26px dz-wh-140px-26px dz-align-x-right dz-noptr dz-hidden">
+          <span data-dz="text" data-name="nearbyChipBlockedText"
+          class="dz-xy-0-0 dz-wh-100-100 dz-c-E07A63 dz-font-nbb-16 dz-text-right dz-text-vc dz-noptr dz-exact-text">#txg_blocked</span>
         </div>
         <span data-dz="text" data-name="nearbyReason" data-bind="{{ nearbyStatusText }}"
-              class="dz-xy-4-56 dz-wh-50-36 dz-c-C8664A dz-font-body-12 dz-noptr dz-exact-text dz-text-vc dz-wrap" style="display:none">Locked by another player</span>
-        <button data-dz="button" data-name="nearbyParkBtn" data-style="TXBtnPrimary" data-on-click="OnParkNearby"
-                class="dz-xy-56-56 dz-wh-41-34 dz-c-FE dz-tc-9AB05A dz-font-heading-14 dz-exact-text dz-text-center dz-text-vc dz-bold"
-                data-bind="{{ nearbyParkText }}">PARK IN - 100</button>
+          class="dz-hidden dz-xy-24px-24px dz-wh-300px-48px dz-align-bl dz-c-E07A63 dz-font-nbb-17 dz-text-vc dz-wrap dz-noptr dz-exact-text">Locked by another player</span>
+        <div data-dz="panel" data-name="nearbyParkHost" class="dz-xy-24px-24px dz-wh-250px-53px dz-align-br dz-noptr">
+          <button data-dz="button" data-name="nearbyParkBtn" data-style="TXBtnPrimary" data-on-click="OnParkNearby"
+                class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
+          <span data-dz="text" data-name="nearbyParkText" data-bind="{{ nearbyParkText }}"
+                class="dz-xy-0-0 dz-wh-full dz-c-1A0D04 dz-font-nh-22 dz-noptr dz-exact-text dz-text-center dz-text-vc">PARK IN - 100</span>
+        </div>
       </div>
       <span data-dz="text" data-name="nearbyEmpty"
-            class="dz-xy-0-5 dz-wh-100-6 dz-c-6A6560 dz-font-body-12 dz-noptr dz-exact-text dz-text-vc" style="display:none">
-        Drive a vehicle next to the attendant to park it.</span>
+          class="dz-xy-0-30px dz-wh-100-60px dz-c-A39276 dz-font-nb-18 dz-text-vc dz-wrap dz-hidden dz-noptr dz-exact-text">#txg_drive_next</span>
 
       <span data-dz="text" data-name="listHeaderLabel"
-            class="dz-xy-0-28.5 dz-wh-50-4 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-text-vc dz-bold">STORED VEHICLES</span>
+          class="dz-xy-0-218px dz-wh-300px-20px dz-c-A39276 dz-font-nbb-16 dz-text-vc dz-noptr dz-exact-text">#txg_stored_vehicles</span>
       <span data-dz="text" data-name="slotsValue" data-bind="{{ vehicleCountDisplay }}"
-            class="dz-xy-50-28.5 dz-wh-50-4 dz-c-9A9488 dz-font-mono-12 dz-noptr dz-exact-text dz-text-right dz-text-vc">2 / 5</span>
-      <div data-dz="panel" data-name="slotsTrack" class="dz-xy-0-33 dz-wh-100-0.6 dz-c-1A1E28 dz-noptr"></div>
-      <div data-dz="panel" data-name="slotsBar" class="dz-xy-0-33 dz-wh-40-0.6 dz-c-D4A44C dz-noptr"></div>
-
-      <div data-dz="panel" data-name="vehicleListPanel" class="dz-xy-0-35 dz-wh-100-65 dz-noptr">
-        <div data-dz="scroll" data-name="vehicleListScroll" class="dz-xy-0-0 dz-wh-100-100 dz-scroll-v">
+          class="dz-xy-0-218px dz-wh-200px-20px dz-align-x-right dz-c-C2B59C dz-font-nm-16 dz-text-right dz-text-vc dz-noptr dz-exact-text">2 / 5</span>
+      <div data-dz="panel" data-name="slotsTrack" class="dz-xy-0-246px dz-wh-100-5px dz-c-0F0D0A dz-noptr">
+        <div data-dz="panel" data-name="slotsBar" class="dz-xy-0-0 dz-wh-40-100 dz-c-D9762F dz-noptr"></div>
+      </div>
+      <div data-dz="panel" data-name="vehicleListPanel" class="dz-xy-0-265px dz-wh-100-627px dz-noptr">
+        <div data-dz="scroll" data-name="vehicleListScroll" class="dz-xy-0-0 dz-wh-full dz-scroll-v">
           <div data-dz="grid" data-name="vehicleListGrid"
                data-foreach="{{ vehicles }}" data-template="txg-vehicle-row" data-item="_inputVehicle"
-               class="dz-wh-100-64px dz-noptr dz-fit-v dz-cols-1 dz-rows-100 dz-gap-4"></div>
+               class="dz-xy-0-0 dz-wh-100-1 dz-noptr dz-fit-v dz-cols-1 dz-rows-100 dz-gap-10"></div>
         </div>
         <span data-dz="text" data-name="listEmpty"
-              class="dz-xy-5-30 dz-wh-90-20 dz-c-6A6560 dz-font-body-13 dz-noptr dz-exact-text dz-text-center dz-text-vc dz-wrap">
-          Your garage is empty. Park the vehicle at the door to store it with its parts and cargo.</span>
+          class="dz-xy-0-40px dz-wh-100-60px dz-c-A39276 dz-font-nb-18 dz-text-center dz-text-vc dz-wrap dz-noptr dz-exact-text">#txg_empty_garage</span>
       </div>
     </div>
 
-    <!-- ====== RIGHT COLUMN ====== -->
-    <div data-dz="panel" data-name="detailPanel" data-style="TXCardElevated"
-         class="dz-xy-37-9.5 dz-wh-62-85.5 dz-c-FE dz-noptr">
-
-      <span data-dz="text" data-name="selectedName" data-bind="{{ selectedVehicleName }}"
-            class="dz-xy-3-1.5 dz-wh-60-6 dz-c-D8D2C0 dz-font-heading-22 dz-noptr dz-exact-text dz-text-vc dz-bold">Olga 24</span>
+    <!-- RIGHT: selected vehicle -->
+    <div data-dz="panel" data-name="detailPanel" data-style="TXCard"
+         class="dz-xy-653px-111px dz-wh-1238px-892px dz-c-FE dz-noptr">
+      <span data-dz="text" data-name="selectedName" data-bind="{{ selectedVehicleName | uppercase }}"
+          class="dz-xy-29px-17px dz-wh-900px-69px dz-c-F2E9D8 dz-font-nh-48 dz-text-vc dz-noptr dz-exact-text">OLGA 24</span>
       <span data-dz="text" data-name="selectedBadges" data-bind="{{ selectedBadgesText }}"
-            class="dz-xy-3-7.5 dz-wh-94-4 dz-c-D4A44C dz-font-mono-12 dz-noptr dz-exact-text dz-text-vc">INSURED 2D   CARLOCK   SHARED x1</span>
+          class="dz-xy-29px-82px dz-wh-1180px-22px dz-c-E8894A dz-font-nm-16 dz-text-vc dz-noptr dz-exact-text">INSURED 2D   CARLOCK   SHARED x1</span>
 
-      <!-- Preview -->
-      <div data-dz="panel" data-name="previewArea" data-style="TXSurface" class="dz-xy-3-12.5 dz-wh-94-45 dz-c-FE dz-noptr">
+      <div data-dz="panel" data-name="previewArea" data-style="TXInset"
+           class="dz-xy-29px-120px dz-wh-1180px-430px dz-c-FE dz-noptr">
         <span data-dz="text" data-name="previewPlaceholderText"
-              class="dz-xy-0-0 dz-wh-100-100 dz-c-3A4050 dz-font-body-14 dz-noptr dz-exact-text dz-text-center dz-text-vc dz-bold">Choose a vehicle on the left</span>
+          class="dz-xy-0-0 dz-wh-full dz-c-6F624F dz-font-nbb-20 dz-text-center dz-text-vc dz-noptr dz-exact-text">#txg_choose_vehicle</span>
         <div data-dz="preview" data-name="vehiclePreviewWidget" data-bind-item="{{ vehiclePreview }}"
-             data-enable-rotation="1" data-enable-scale="1" class="dz-xy-0-0 dz-wh-100-100 dz-align-cc"></div>
+             data-enable-rotation="1" data-enable-scale="1" class="dz-xy-0-0 dz-wh-94-90 dz-align-cc"></div>
         <span data-dz="text" data-name="previewHint"
-              class="dz-xy-3-88 dz-wh-50-9 dz-c-3A4050 dz-font-body-11 dz-noptr dz-exact-text dz-text-vc">Drag to rotate - scroll to zoom</span>
-        <button data-dz="button" data-name="viewAtSpotBtn" data-style="TXBtnDefault" data-on-click="OnViewAtSpot"
-                class="dz-xy-71-4 dz-wh-26-11 dz-c-FE dz-tc-D8D2C0 dz-font-heading-12 dz-exact-text dz-text-center dz-text-vc dz-bold">VIEW ON PARKING SPOT</button>
-      </div>
-
-      <!-- Condition tiles with bars -->
-      <div data-dz="grid" data-name="tilesGrid" class="dz-xy-3-59.5 dz-wh-94-11 dz-cols-4 dz-rows-1 dz-gap-6 dz-noptr">
-        <div data-dz="panel" data-name="tileBody" data-style="TXSurface" class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr">
-          <span data-dz="text" data-name="tileBodyLabel" class="dz-xy-6-8 dz-wh-60-32 dz-c-6A6560 dz-font-body-11 dz-noptr dz-exact-text dz-text-vc">BODY</span>
-          <span data-dz="text" data-name="tileBodyValue" data-bind="{{ tileBodyText }}" class="dz-xy-6-40 dz-wh-90-34 dz-c-D8D2C0 dz-font-mono-14 dz-noptr dz-exact-text dz-text-vc dz-bold">Damaged</span>
-          <div data-dz="panel" data-name="tileBodyTrack" class="dz-xy-6-80 dz-wh-88-8 dz-c-1A1E28 dz-noptr"></div>
-          <div data-dz="panel" data-name="tileBodyBar" class="dz-xy-6-80 dz-wh-45-8 dz-c-D4A44C dz-noptr"></div>
-        </div>
-        <div data-dz="panel" data-name="tileEngine" data-style="TXSurface" class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr">
-          <span data-dz="text" data-name="tileEngineLabel" class="dz-xy-6-8 dz-wh-60-32 dz-c-6A6560 dz-font-body-11 dz-noptr dz-exact-text dz-text-vc">ENGINE</span>
-          <span data-dz="text" data-name="tileEngineValue" data-bind="{{ tileEngineText }}" class="dz-xy-6-40 dz-wh-90-34 dz-c-D8D2C0 dz-font-mono-14 dz-noptr dz-exact-text dz-text-vc dz-bold">Worn</span>
-          <div data-dz="panel" data-name="tileEngineTrack" class="dz-xy-6-80 dz-wh-88-8 dz-c-1A1E28 dz-noptr"></div>
-          <div data-dz="panel" data-name="tileEngineBar" class="dz-xy-6-80 dz-wh-65-8 dz-c-9AB05A dz-noptr"></div>
-        </div>
-        <div data-dz="panel" data-name="tileFuel" data-style="TXSurface" class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr">
-          <span data-dz="text" data-name="tileFuelLabel" class="dz-xy-6-8 dz-wh-60-32 dz-c-6A6560 dz-font-body-11 dz-noptr dz-exact-text dz-text-vc">FUEL</span>
-          <span data-dz="text" data-name="tileFuelValue" data-bind="{{ tileFuelText }}" class="dz-xy-6-40 dz-wh-90-34 dz-c-D8D2C0 dz-font-mono-14 dz-noptr dz-exact-text dz-text-vc dz-bold">35 %</span>
-          <div data-dz="panel" data-name="tileFuelTrack" class="dz-xy-6-80 dz-wh-88-8 dz-c-1A1E28 dz-noptr"></div>
-          <div data-dz="panel" data-name="tileFuelBar" class="dz-xy-6-80 dz-wh-35-8 dz-c-D4A44C dz-noptr"></div>
-        </div>
-        <div data-dz="panel" data-name="tileParts" data-style="TXSurface" class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr">
-          <span data-dz="text" data-name="tilePartsLabel" class="dz-xy-6-8 dz-wh-60-32 dz-c-6A6560 dz-font-body-11 dz-noptr dz-exact-text dz-text-vc">PARTS / CARGO</span>
-          <span data-dz="text" data-name="tilePartsValue" data-bind="{{ tilePartsText }}" class="dz-xy-6-40 dz-wh-90-34 dz-c-D8D2C0 dz-font-mono-14 dz-noptr dz-exact-text dz-text-vc dz-bold">9 / 4</span>
-          <div data-dz="panel" data-name="tilePartsTrack" class="dz-xy-6-80 dz-wh-88-8 dz-c-1A1E28 dz-noptr"></div>
-          <div data-dz="panel" data-name="tilePartsBar" class="dz-xy-6-80 dz-wh-82-8 dz-c-7A9A4A dz-noptr"></div>
+          class="dz-xy-0-17px dz-wh-100-18px dz-align-bc dz-c-6F624F dz-font-nbb-14 dz-text-center dz-text-vc dz-noptr dz-exact-text">#txg_drag_rotate_zoom</span>
+        <div data-dz="panel" data-name="viewAtSpotHost" class="dz-xy-17px-17px dz-wh-260px-43px dz-align-x-right dz-noptr">
+          <button data-dz="button" data-name="viewAtSpotBtn" data-style="TXBtnDefault" data-on-click="OnViewAtSpot"
+                class="dz-xy-0-0 dz-wh-full dz-c-FE dz-tc-C2B59C dz-font-nbb-17 dz-exact-text dz-text-center dz-text-vc">#txg_view_spot</button>
         </div>
       </div>
 
-      <!-- The one gold action -->
-      <button data-dz="button" data-name="primaryBtn" data-style="TXBtnAccent" data-on-click="OnPrimary"
-              class="dz-xy-3-72.5 dz-wh-94-9 dz-c-FE dz-tc-D4A44C dz-font-heading-18 dz-exact-text dz-text-vc dz-bold"></button>
-      <span data-dz="text" data-name="primaryLabel" data-bind="{{ primaryText }}"
-            class="dz-xy-6-72.5 dz-wh-60-9 dz-c-D4A44C dz-font-heading-18 dz-noptr dz-exact-text dz-text-vc dz-bold">TAKE OUT</span>
-      <span data-dz="text" data-name="primaryPrice" data-bind="{{ primaryPriceText }}"
-            class="dz-xy-66-72.5 dz-wh-28-9 dz-c-D4A44C dz-font-mono-18 dz-noptr dz-exact-text dz-text-right dz-text-vc dz-bold">100</span>
-      <!-- Services : quiet outlined buttons -->
-      <div data-dz="panel" data-name="servicesBar" class="dz-xy-3-84 dz-wh-94-6.5 dz-noptr">
-        <button data-dz="button" data-name="repairBtn" data-style="TXBtnDefault" data-on-click="OnRepair" data-bind="{{ repairBtnText }}"
-                class="dz-xy-0-0 dz-wh-32-100 dz-c-FE dz-tc-9A9488 dz-font-heading-12 dz-exact-text dz-text-center dz-text-vc">SERVICE - 300</button>
-        <button data-dz="button" data-name="insureBtn" data-style="TXBtnDefault" data-on-click="OnOpenInsurance" data-bind="{{ insureBtnText }}"
-                class="dz-xy-34-0 dz-wh-32-100 dz-c-FE dz-tc-9A9488 dz-font-heading-12 dz-exact-text dz-text-center dz-text-vc">INSURANCE - 2 DAYS LEFT</button>
-        <button data-dz="button" data-name="shareBtn" data-style="TXBtnDefault" data-on-click="OnOpenShare" data-bind="{{ shareBtnText }}"
-                class="dz-xy-68-0 dz-wh-32-100 dz-c-FE dz-tc-9A9488 dz-font-heading-12 dz-exact-text dz-text-center dz-text-vc">SHARE ACCESS - 1</button>
+      <div data-dz="grid" data-name="tilesGrid" class="dz-xy-29px-570px dz-wh-1180px-104px dz-cols-4 dz-rows-1 dz-gap-17 dz-noptr">
+        <div data-dz="panel" data-name="tileBody" data-style="TXCard" class="dz-c-FE dz-noptr">
+          <span data-dz="text" data-name="tileBodyLabel"
+          class="dz-xy-24px-18px dz-wh-240px-20px dz-c-A39276 dz-font-nbb-16 dz-text-vc dz-noptr dz-exact-text">#txg_body</span>
+          <span data-dz="text" data-name="tileBodyValue" data-bind="{{ tileBodyText }}"
+          class="dz-xy-24px-42px dz-wh-240px-34px dz-c-F2E9D8 dz-font-nm-24 dz-text-vc dz-noptr dz-exact-text">Damaged</span>
+          <div data-dz="panel" data-name="tileBodyTrack" class="dz-xy-24px-18px dz-wh-240px-5px dz-align-bl dz-c-0F0D0A dz-noptr">
+            <div data-dz="panel" data-name="tileBodyBar" class="dz-xy-0-0 dz-wh-45-100 dz-c-7FA65A dz-noptr"></div>
+          </div>
+        </div>
+        <div data-dz="panel" data-name="tileEngine" data-style="TXCard" class="dz-c-FE dz-noptr">
+          <span data-dz="text" data-name="tileEngineLabel"
+          class="dz-xy-24px-18px dz-wh-240px-20px dz-c-A39276 dz-font-nbb-16 dz-text-vc dz-noptr dz-exact-text">#txg_engine</span>
+          <span data-dz="text" data-name="tileEngineValue" data-bind="{{ tileEngineText }}"
+          class="dz-xy-24px-42px dz-wh-240px-34px dz-c-F2E9D8 dz-font-nm-24 dz-text-vc dz-noptr dz-exact-text">Worn</span>
+          <div data-dz="panel" data-name="tileEngineTrack" class="dz-xy-24px-18px dz-wh-240px-5px dz-align-bl dz-c-0F0D0A dz-noptr">
+            <div data-dz="panel" data-name="tileEngineBar" class="dz-xy-0-0 dz-wh-65-100 dz-c-7FA65A dz-noptr"></div>
+          </div>
+        </div>
+        <div data-dz="panel" data-name="tileFuel" data-style="TXCard" class="dz-c-FE dz-noptr">
+          <span data-dz="text" data-name="tileFuelLabel"
+          class="dz-xy-24px-18px dz-wh-240px-20px dz-c-A39276 dz-font-nbb-16 dz-text-vc dz-noptr dz-exact-text">#txg_fuel</span>
+          <span data-dz="text" data-name="tileFuelValue" data-bind="{{ tileFuelText }}"
+          class="dz-xy-24px-42px dz-wh-240px-34px dz-c-F2E9D8 dz-font-nm-24 dz-text-vc dz-noptr dz-exact-text">35 %</span>
+          <div data-dz="panel" data-name="tileFuelTrack" class="dz-xy-24px-18px dz-wh-240px-5px dz-align-bl dz-c-0F0D0A dz-noptr">
+            <div data-dz="panel" data-name="tileFuelBar" class="dz-xy-0-0 dz-wh-35-100 dz-c-7FA65A dz-noptr"></div>
+          </div>
+        </div>
+        <div data-dz="panel" data-name="tileParts" data-style="TXCard" class="dz-c-FE dz-noptr">
+          <span data-dz="text" data-name="tilePartsLabel"
+          class="dz-xy-24px-18px dz-wh-240px-20px dz-c-A39276 dz-font-nbb-16 dz-text-vc dz-noptr dz-exact-text">#txg_parts_cargo</span>
+          <span data-dz="text" data-name="tilePartsValue" data-bind="{{ tilePartsText }}"
+          class="dz-xy-24px-42px dz-wh-240px-34px dz-c-F2E9D8 dz-font-nm-24 dz-text-vc dz-noptr dz-exact-text">9 / 4</span>
+          <div data-dz="panel" data-name="tilePartsTrack" class="dz-xy-24px-18px dz-wh-240px-5px dz-align-bl dz-c-0F0D0A dz-noptr">
+            <div data-dz="panel" data-name="tilePartsBar" class="dz-xy-0-0 dz-wh-82-100 dz-c-7FA65A dz-noptr"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- the one ember action -->
+      <div data-dz="panel" data-name="primaryHost" class="dz-xy-29px-694px dz-wh-1180px-67px dz-noptr">
+        <button data-dz="button" data-name="primaryBtn" data-style="TXBtnPrimary" data-on-click="OnPrimary"
+                class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
+        <span data-dz="text" data-name="primaryLabel" data-bind="{{ primaryText }}"
+          class="dz-xy-29px-0 dz-wh-700px-67px dz-c-1A0D04 dz-font-nh-29 dz-text-vc dz-noptr dz-exact-text">TAKE OUT</span>
+        <span data-dz="text" data-name="primaryPrice" data-bind="{{ primaryPriceText }}"
+          class="dz-xy-29px-0 dz-wh-300px-67px dz-align-x-right dz-c-1A0D04 dz-font-nm-29 dz-text-right dz-text-vc dz-noptr dz-exact-text">100</span>
+      </div>
+
+      <div data-dz="grid" data-name="servicesBar" class="dz-xy-29px-781px dz-wh-1180px-53px dz-cols-3 dz-rows-1 dz-gap-17 dz-noptr">
+        <div data-dz="panel" data-name="repairBtnHost" class="dz-noptr">
+          <button data-dz="button" data-name="repairBtn" data-style="TXBtnDefault" data-on-click="OnRepair"
+                  class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
+          <span data-dz="text" data-name="repairBtnText" data-bind="{{ repairBtnText }}"
+                class="dz-xy-0-0 dz-wh-full dz-c-C2B59C dz-font-nbb-18 dz-noptr dz-exact-text dz-text-center dz-text-vc"></span>
+        </div>
+        <div data-dz="panel" data-name="insureBtnHost" class="dz-noptr">
+          <button data-dz="button" data-name="insureBtn" data-style="TXBtnDefault" data-on-click="OnOpenInsurance"
+                  class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
+          <span data-dz="text" data-name="insureBtnText" data-bind="{{ insureBtnText }}"
+                class="dz-xy-0-0 dz-wh-full dz-c-C2B59C dz-font-nbb-18 dz-noptr dz-exact-text dz-text-center dz-text-vc"></span>
+        </div>
+        <div data-dz="panel" data-name="shareBtnHost" class="dz-noptr">
+          <button data-dz="button" data-name="shareBtn" data-style="TXBtnDefault" data-on-click="OnOpenShare"
+                  class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
+          <span data-dz="text" data-name="shareBtnText" data-bind="{{ shareBtnText }}"
+                class="dz-xy-0-0 dz-wh-full dz-c-C2B59C dz-font-nbb-18 dz-noptr dz-exact-text dz-text-center dz-text-vc"></span>
+        </div>
       </div>
       <span data-dz="text" data-name="servicesHint" data-bind="{{ servicesHintText }}"
-            class="dz-xy-3-91.5 dz-wh-94-4 dz-c-6A6560 dz-font-body-11 dz-noptr dz-exact-text dz-text-vc">
-        Not enough money? Bank is used first, then cash in your inventory.</span>
+          class="dz-xy-29px-848px dz-wh-1180px-22px dz-c-A39276 dz-font-nbb-17 dz-text-vc dz-noptr dz-exact-text">Not enough money? Bank is used first, then cash in your inventory.</span>
 
-      <!-- ===== INSURANCE PANEL ===== -->
-      <div data-dz="panel" data-name="insurancePanel" data-style="TXSurface" data-visible="{{ previewInsurancePanel }}"
-           class="dz-xy-3-12.5 dz-wh-94-69.5 dz-c-FE dz-noptr">
-        <span data-dz="text" data-name="insTitle" class="dz-xy-3-3 dz-wh-50-8 dz-c-D8D2C0 dz-font-heading-18 dz-noptr dz-exact-text dz-text-vc dz-bold">INSURANCE</span>
+      <!-- INSURANCE -->
+      <div data-dz="panel" data-name="insurancePanel" data-style="TXInset" data-visible="{{ previewInsurancePanel }}"
+           class="dz-xy-29px-120px dz-wh-1180px-641px dz-c-FE dz-noptr">
+        <span data-dz="text" data-name="insTitle"
+          class="dz-xy-29px-18px dz-wh-500px-52px dz-c-F2E9D8 dz-font-nh-36 dz-text-vc dz-noptr dz-exact-text">#txg_insurance_caps</span>
         <span data-dz="text" data-name="insStatus" data-bind="{{ insStatusText }}"
-              class="dz-xy-50-3 dz-wh-47-8 dz-c-9AB05A dz-font-body-13 dz-noptr dz-exact-text dz-text-right dz-text-vc dz-bold">Covered until Oct 18</span>
-
-        <div data-dz="grid" data-name="insSteps" class="dz-xy-3-14 dz-wh-94-16 dz-cols-3 dz-rows-1 dz-gap-6 dz-noptr">
-          <div data-dz="panel" data-name="insStep1" data-style="TXCard" class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr">
-            <span data-dz="text" data-name="insStep1Num" class="dz-xy-5-0 dz-wh-14-100 dz-c-D4A44C dz-font-mono-22 dz-noptr dz-exact-text dz-text-vc dz-bold">1</span>
-            <span data-dz="text" data-name="insStep1Text" class="dz-xy-20-0 dz-wh-76-100 dz-c-D8D2C0 dz-font-body-12 dz-noptr dz-exact-text dz-text-vc dz-wrap">Your vehicle is destroyed</span>
+          class="dz-xy-29px-24px dz-wh-560px-40px dz-align-x-right dz-c-7FA65A dz-font-nbb-19 dz-text-right dz-text-vc dz-noptr dz-exact-text">Covered until Oct 18</span>
+        <div data-dz="grid" data-name="insSteps" class="dz-xy-29px-88px dz-wh-1122px-96px dz-cols-3 dz-rows-1 dz-gap-17 dz-noptr">
+          <div data-dz="panel" data-name="insStep1" data-style="TXCard" class="dz-c-FE dz-noptr">
+            <span data-dz="text" data-name="insStep1Num"
+          class="dz-xy-24px-0 dz-wh-40px-100 dz-c-E8894A dz-font-nm-36 dz-text-vc dz-noptr dz-exact-text">1</span>
+            <span data-dz="text" data-name="insStep1Text"
+          class="dz-xy-72px-0 dz-wh-280px-100 dz-c-F2E9D8 dz-font-nbb-18 dz-text-vc dz-wrap dz-noptr dz-exact-text">#txg_ins_step1</span>
           </div>
-          <div data-dz="panel" data-name="insStep2" data-style="TXCard" class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr">
-            <span data-dz="text" data-name="insStep2Num" class="dz-xy-5-0 dz-wh-14-100 dz-c-D4A44C dz-font-mono-22 dz-noptr dz-exact-text dz-text-vc dz-bold">2</span>
-            <span data-dz="text" data-name="insStep2Text" class="dz-xy-20-0 dz-wh-76-100 dz-c-D8D2C0 dz-font-body-12 dz-noptr dz-exact-text dz-text-vc dz-wrap">A new one waits in this garage</span>
+          <div data-dz="panel" data-name="insStep2" data-style="TXCard" class="dz-c-FE dz-noptr">
+            <span data-dz="text" data-name="insStep2Num"
+          class="dz-xy-24px-0 dz-wh-40px-100 dz-c-E8894A dz-font-nm-36 dz-text-vc dz-noptr dz-exact-text">2</span>
+            <span data-dz="text" data-name="insStep2Text"
+          class="dz-xy-72px-0 dz-wh-280px-100 dz-c-F2E9D8 dz-font-nbb-18 dz-text-vc dz-wrap dz-noptr dz-exact-text">#txg_ins_step2</span>
           </div>
-          <div data-dz="panel" data-name="insStep3" data-style="TXCard" class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr">
-            <span data-dz="text" data-name="insStep3Num" class="dz-xy-5-0 dz-wh-14-100 dz-c-D4A44C dz-font-mono-22 dz-noptr dz-exact-text dz-text-vc dz-bold">3</span>
-            <span data-dz="text" data-name="insStep3Text" class="dz-xy-20-0 dz-wh-76-100 dz-c-D8D2C0 dz-font-body-12 dz-noptr dz-exact-text dz-text-vc dz-wrap">Pay the deductible to take it out</span>
-          </div>
-        </div>
-        <span data-dz="text" data-name="insRules" class="dz-xy-3-32 dz-wh-94-6 dz-c-6A6560 dz-font-body-11 dz-noptr dz-exact-text dz-text-vc">
-          No cash payout - Selling the vehicle or losing it another way cancels the policy</span>
-
-        <div data-dz="grid" data-name="insTiles" class="dz-xy-3-42 dz-wh-94-14 dz-cols-3 dz-rows-1 dz-gap-6 dz-noptr">
-          <div data-dz="panel" data-name="insTileValue" data-style="TXCard" class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr">
-            <span data-dz="text" data-name="insTileValueLabel" class="dz-xy-6-8 dz-wh-90-36 dz-c-6A6560 dz-font-body-11 dz-noptr dz-exact-text dz-text-vc">VEHICLE VALUE</span>
-            <span data-dz="text" data-name="insTileValueText" data-bind="{{ insCoveredText }}" class="dz-xy-6-46 dz-wh-90-46 dz-c-D8D2C0 dz-font-mono-16 dz-noptr dz-exact-text dz-text-vc dz-bold">14 000</span>
-          </div>
-          <div data-dz="panel" data-name="insTilePremium" data-style="TXCard" class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr">
-            <span data-dz="text" data-name="insTilePremiumLabel" class="dz-xy-6-8 dz-wh-90-36 dz-c-6A6560 dz-font-body-11 dz-noptr dz-exact-text dz-text-vc">PRICE PER DAY</span>
-            <span data-dz="text" data-name="insTilePremiumText" data-bind="{{ insPerDayText }}" class="dz-xy-6-46 dz-wh-90-46 dz-c-D8D2C0 dz-font-mono-16 dz-noptr dz-exact-text dz-text-vc dz-bold">280</span>
-          </div>
-          <div data-dz="panel" data-name="insTileDeductible" data-style="TXCard" class="dz-xy-0-0 dz-wh-full dz-c-FE dz-noptr">
-            <span data-dz="text" data-name="insTileDeductibleLabel" class="dz-xy-6-8 dz-wh-90-36 dz-c-6A6560 dz-font-body-11 dz-noptr dz-exact-text dz-text-vc">DEDUCTIBLE</span>
-            <span data-dz="text" data-name="insTileDeductibleText" data-bind="{{ insDeductibleText }}" class="dz-xy-6-46 dz-wh-90-46 dz-c-D8D2C0 dz-font-mono-16 dz-noptr dz-exact-text dz-text-vc dz-bold">3 500</span>
+          <div data-dz="panel" data-name="insStep3" data-style="TXCard" class="dz-c-FE dz-noptr">
+            <span data-dz="text" data-name="insStep3Num"
+          class="dz-xy-24px-0 dz-wh-40px-100 dz-c-E8894A dz-font-nm-36 dz-text-vc dz-noptr dz-exact-text">3</span>
+            <span data-dz="text" data-name="insStep3Text"
+          class="dz-xy-72px-0 dz-wh-280px-100 dz-c-F2E9D8 dz-font-nbb-18 dz-text-vc dz-wrap dz-noptr dz-exact-text">#txg_ins_step3</span>
           </div>
         </div>
-
-        <span data-dz="text" data-name="insDaysLabel" class="dz-xy-3-62 dz-wh-20-10 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-text-vc dz-bold">DURATION</span>
-        <button data-dz="button" data-name="insDaysMinus" data-style="TXBtnDefault" data-on-click="OnInsDaysMinus"
-                class="dz-xy-20-62 dz-wh-6-10 dz-c-FE dz-tc-D8D2C0 dz-font-heading-18 dz-exact-text dz-text-center dz-text-vc dz-bold">-</button>
+        <span data-dz="text" data-name="insRules"
+          class="dz-xy-29px-198px dz-wh-1122px-22px dz-c-A39276 dz-font-nbb-17 dz-text-vc dz-noptr dz-exact-text">#txg_ins_rules</span>
+        <div data-dz="grid" data-name="insTiles" class="dz-xy-29px-238px dz-wh-1122px-104px dz-cols-3 dz-rows-1 dz-gap-17 dz-noptr">
+          <div data-dz="panel" data-name="insTileValue" data-style="TXCard" class="dz-c-FE dz-noptr">
+            <span data-dz="text" data-name="insTileValueLabel"
+          class="dz-xy-24px-18px dz-wh-320px-20px dz-c-A39276 dz-font-nbb-16 dz-text-vc dz-noptr dz-exact-text">#txg_vehicle_value</span>
+            <span data-dz="text" data-name="insTileValueText" data-bind="{{ insCoveredText }}"
+          class="dz-xy-24px-44px dz-wh-320px-40px dz-c-F2E9D8 dz-font-nm-29 dz-text-vc dz-noptr dz-exact-text">14 000</span>
+          </div>
+          <div data-dz="panel" data-name="insTilePremium" data-style="TXCard" class="dz-c-FE dz-noptr">
+            <span data-dz="text" data-name="insTilePremiumLabel"
+          class="dz-xy-24px-18px dz-wh-320px-20px dz-c-A39276 dz-font-nbb-16 dz-text-vc dz-noptr dz-exact-text">#txg_price_per_day</span>
+            <span data-dz="text" data-name="insTilePremiumText" data-bind="{{ insPerDayText }}"
+          class="dz-xy-24px-44px dz-wh-320px-40px dz-c-F2E9D8 dz-font-nm-29 dz-text-vc dz-noptr dz-exact-text">280</span>
+          </div>
+          <div data-dz="panel" data-name="insTileDeductible" data-style="TXCard" class="dz-c-FE dz-noptr">
+            <span data-dz="text" data-name="insTileDeductibleLabel"
+          class="dz-xy-24px-18px dz-wh-320px-20px dz-c-A39276 dz-font-nbb-16 dz-text-vc dz-noptr dz-exact-text">#txg_deductible</span>
+            <span data-dz="text" data-name="insTileDeductibleText" data-bind="{{ insDeductibleText }}"
+          class="dz-xy-24px-44px dz-wh-320px-40px dz-c-F2E9D8 dz-font-nm-29 dz-text-vc dz-noptr dz-exact-text">3 500</span>
+          </div>
+        </div>
+        <span data-dz="text" data-name="insDaysLabel"
+          class="dz-xy-29px-372px dz-wh-200px-53px dz-c-A39276 dz-font-nbb-16 dz-text-vc dz-noptr dz-exact-text">#txg_duration</span>
+        <div data-dz="panel" data-name="insDaysMinusHost" class="dz-xy-180px-372px dz-wh-53px-53px dz-noptr">
+          <button data-dz="button" data-name="insDaysMinus" data-style="TXBtnIcon" data-on-click="OnInsDaysMinus"
+                class="dz-xy-0-0 dz-wh-full dz-c-FE dz-tc-F2E9D8 dz-font-nm-24 dz-exact-text dz-text-center dz-text-vc">−</button>
+        </div>
         <span data-dz="text" data-name="insDaysValue" data-bind="{{ insDaysText }}"
-              class="dz-xy-27-62 dz-wh-14-10 dz-c-D8D2C0 dz-font-mono-16 dz-noptr dz-exact-text dz-text-center dz-text-vc dz-bold">3 DAYS</span>
-        <button data-dz="button" data-name="insDaysPlus" data-style="TXBtnDefault" data-on-click="OnInsDaysPlus"
-                class="dz-xy-42-62 dz-wh-6-10 dz-c-FE dz-tc-D8D2C0 dz-font-heading-18 dz-exact-text dz-text-center dz-text-vc dz-bold">+</button>
+          class="dz-xy-243px-372px dz-wh-160px-53px dz-c-F2E9D8 dz-font-nm-22 dz-text-center dz-text-vc dz-noptr dz-exact-text">3 DAYS</span>
+        <div data-dz="panel" data-name="insDaysPlusHost" class="dz-xy-413px-372px dz-wh-53px-53px dz-noptr">
+          <button data-dz="button" data-name="insDaysPlus" data-style="TXBtnIcon" data-on-click="OnInsDaysPlus"
+                class="dz-xy-0-0 dz-wh-full dz-c-FE dz-tc-F2E9D8 dz-font-nm-24 dz-exact-text dz-text-center dz-text-vc">+</button>
+        </div>
         <span data-dz="text" data-name="insUntil" data-bind="{{ insUntilText }}"
-              class="dz-xy-50-62 dz-wh-47-10 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-text-right dz-text-vc">covered until Oct 21</span>
-
-        <button data-dz="button" data-name="insBackBtn" data-style="TXBtnDefault" data-on-click="OnClosePanels"
-                class="dz-xy-3-80 dz-wh-22-13 dz-c-FE dz-tc-9A9488 dz-font-heading-14 dz-exact-text dz-text-center dz-text-vc dz-bold">BACK</button>
-        <button data-dz="button" data-name="insConfirmBtn" data-style="TXBtnAccent" data-on-click="OnInsure"
-                class="dz-xy-27-80 dz-wh-70-13 dz-c-FE dz-tc-D4A44C dz-font-heading-14 dz-exact-text dz-text-vc dz-bold"></button>
-        <span data-dz="text" data-name="insConfirmLabel" data-bind="{{ insConfirmText }}"
-              class="dz-xy-30-80 dz-wh-40-13 dz-c-D4A44C dz-font-heading-14 dz-noptr dz-exact-text dz-text-vc dz-bold">EXTEND BY 3 DAYS</span>
-        <span data-dz="text" data-name="insConfirmPrice" data-bind="{{ insTotalText }}"
-              class="dz-xy-70-80 dz-wh-25-13 dz-c-D4A44C dz-font-mono-16 dz-noptr dz-exact-text dz-text-right dz-text-vc dz-bold">840</span>
+          class="dz-xy-29px-372px dz-wh-500px-53px dz-align-x-right dz-c-C2B59C dz-font-nbb-18 dz-text-right dz-text-vc dz-noptr dz-exact-text">covered until Oct 21</span>
+        <div data-dz="panel" data-name="insBottom" class="dz-xy-29px-29px dz-wh-1122px-67px dz-align-bl dz-noptr">
+          <button data-dz="button" data-name="insBackBtn" data-style="TXBtnDefault" data-on-click="OnClosePanels"
+                class="dz-xy-0-0 dz-wh-260px-67px dz-c-FE dz-tc-C2B59C dz-font-nh-24 dz-exact-text dz-text-center dz-text-vc">#txg_back</button>
+          <div data-dz="panel" data-name="insConfirmHost" class="dz-xy-0-0 dz-wh-845px-67px dz-align-x-right dz-noptr">
+            <button data-dz="button" data-name="insConfirmBtn" data-style="TXBtnPrimary" data-on-click="OnInsure"
+                    class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
+            <span data-dz="text" data-name="insConfirmLabel" data-bind="{{ insConfirmText }}"
+          class="dz-xy-29px-0 dz-wh-500px-67px dz-c-1A0D04 dz-font-nh-29 dz-text-vc dz-noptr dz-exact-text">EXTEND BY 3 DAYS</span>
+            <span data-dz="text" data-name="insConfirmPrice" data-bind="{{ insTotalText }}"
+          class="dz-xy-29px-0 dz-wh-260px-67px dz-align-x-right dz-c-1A0D04 dz-font-nm-29 dz-text-right dz-text-vc dz-noptr dz-exact-text">840</span>
+          </div>
+        </div>
       </div>
 
-      <!-- ===== SHARE PANEL ===== -->
-      <div data-dz="panel" data-name="sharePanel" data-style="TXSurface" data-visible="{{ previewSharePanel }}"
-           class="dz-xy-3-12.5 dz-wh-94-69.5 dz-c-FE dz-noptr">
-        <span data-dz="text" data-name="shareTitle" class="dz-xy-3-3 dz-wh-60-8 dz-c-D8D2C0 dz-font-heading-18 dz-noptr dz-exact-text dz-text-vc dz-bold">SHARE ACCESS</span>
-        <span data-dz="text" data-name="shareRules" class="dz-xy-3-11 dz-wh-94-7 dz-c-9A9488 dz-font-body-12 dz-noptr dz-exact-text dz-text-vc">
-          They can take this vehicle out and bring it back here. It stays yours.</span>
-        <div data-dz="scroll" data-name="shareScroll" class="dz-xy-3-20 dz-wh-94-56 dz-scroll-v">
+      <!-- SHARE -->
+      <div data-dz="panel" data-name="sharePanel" data-style="TXInset" data-visible="{{ previewSharePanel }}"
+           class="dz-xy-29px-120px dz-wh-1180px-641px dz-c-FE dz-noptr">
+        <span data-dz="text" data-name="shareTitle"
+          class="dz-xy-29px-18px dz-wh-600px-52px dz-c-F2E9D8 dz-font-nh-36 dz-text-vc dz-noptr dz-exact-text">#txg_share_access_caps</span>
+        <span data-dz="text" data-name="shareRules"
+          class="dz-xy-29px-72px dz-wh-1122px-24px dz-c-C2B59C dz-font-nb-18 dz-text-vc dz-noptr dz-exact-text">#txg_share_rules</span>
+        <div data-dz="scroll" data-name="shareScroll" class="dz-xy-29px-114px dz-wh-1122px-400px dz-scroll-v">
           <div data-dz="grid" data-name="shareGrid" data-foreach="{{ sharePlayers }}" data-template="txg-share-row" data-item="_inputPlayer"
-               class="dz-wh-100-44px dz-noptr dz-fit-v dz-cols-1 dz-rows-100 dz-gap-2"></div>
+               class="dz-xy-0-0 dz-wh-100-1 dz-noptr dz-fit-v dz-cols-1 dz-rows-100 dz-gap-5"></div>
         </div>
         <span data-dz="text" data-name="shareEmpty"
-              class="dz-xy-3-40 dz-wh-94-10 dz-c-6A6560 dz-font-body-13 dz-noptr dz-exact-text dz-text-center dz-text-vc dz-wrap">
-          Nobody to add yet. Players near you and people you shared with before appear here.</span>
-        <button data-dz="button" data-name="shareBackBtn" data-style="TXBtnDefault" data-on-click="OnClosePanels"
-                class="dz-xy-3-80 dz-wh-22-13 dz-c-FE dz-tc-9A9488 dz-font-heading-14 dz-exact-text dz-text-center dz-text-vc dz-bold">BACK</button>
-        <span data-dz="text" data-name="shareNote" class="dz-xy-27-80 dz-wh-70-13 dz-c-6A6560 dz-font-body-11 dz-noptr dz-exact-text dz-text-right dz-text-vc">
-          NEARBY = within 50 m - RECENT = shared with before</span>
+          class="dz-xy-29px-200px dz-wh-1122px-60px dz-c-A39276 dz-font-nb-18 dz-text-center dz-text-vc dz-wrap dz-noptr dz-exact-text">#txg_share_nobody</span>
+        <div data-dz="panel" data-name="shareBottom" class="dz-xy-29px-29px dz-wh-1122px-67px dz-align-bl dz-noptr">
+          <button data-dz="button" data-name="shareBackBtn" data-style="TXBtnDefault" data-on-click="OnClosePanels"
+                class="dz-xy-0-0 dz-wh-260px-67px dz-c-FE dz-tc-C2B59C dz-font-nh-24 dz-exact-text dz-text-center dz-text-vc">#txg_back</button>
+          <span data-dz="text" data-name="shareNote"
+          class="dz-xy-0-0 dz-wh-800px-67px dz-align-x-right dz-c-A39276 dz-font-nbb-16 dz-text-right dz-text-vc dz-noptr dz-exact-text">#txg_share_note</span>
+        </div>
       </div>
     </div>
 
-    <!-- ====== FOOTER (dimmed so it never competes with actions) ====== -->
-    <div data-dz="panel" data-name="footerBar" data-style="TXSurface" class="dz-xy-0-96 dz-wh-100-4 dz-c-FE">
-      <button data-dz="button" data-name="footerLauncherBtn" data-on-click="OnLauncher" class="dz-xy-0-0 dz-wh-100-100 dz-c-00000000"></button>
-      <span data-dz="text" data-name="footerSponsorText"
-            class="dz-xy-36-0 dz-wh-16-100 dz-c-4A4640 dz-font-body-11 dz-noptr dz-exact-text dz-text-vc dz-text-right">Sponsored by</span>
-      <span data-dz="text" data-name="footerBrandText"
-            class="dz-xy-53-0 dz-wh-14-100 dz-c-7A6A48 dz-font-body-11 dz-noptr dz-exact-text dz-text-vc">DayZ Beans Launcher</span>
+    <!-- FOOTER: DayZ Beans Launcher strip -->
+    <div data-dz="panel" data-name="footerBar" data-style="TXFooter" class="dz-align-bc dz-wh-100-48px dz-c-FE">
+      <button data-dz="button" data-name="footerLauncherBtn" data-style="Empty" data-on-click="OnLauncher"
+              class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
+      <img data-dz="image" data-name="footerCan"
+           class="dz-xy-24px-0 dz-wh-32px-32px dz-align-y-center dz-c-FF dz-noptr"
+           data-image="TraderX/datasets/images/beans_can.edds"
+           data-image-mode="blend" data-image-src-alpha="1" data-image-stretch="stretch_w_h"/>
+      <div data-dz="wrap" data-name="footerPromoRow" class="dz-xy-62px-0 dz-wh-1100px-48px dz-noptr">
+        <span data-dz="text" data-name="footerSponsorText"
+          class="dz-wh-1px-48px dz-c-C2B59C dz-font-nb-17 dz-text-vc dz-size-to-text-h dz-noptr dz-exact-text">#txg_beans_playing_with</span>
+        <span data-dz="text" data-name="footerBrandText"
+          class="dz-wh-1px-48px dz-c-F2E9D8 dz-font-nbb-17 dz-text-vc dz-size-to-text-h dz-noptr dz-exact-text">DayZ Beans Launcher</span>
+        <span data-dz="text" data-name="footerTagline"
+          class="dz-wh-1px-48px dz-c-C2B59C dz-font-nb-17 dz-text-vc dz-size-to-text-h dz-noptr dz-exact-text">#txg_beans_tagline</span>
+      </div>
+      <span data-dz="text" data-name="footerHints"
+          class="dz-xy-29px-0 dz-wh-400px-48px dz-align-x-right dz-c-A39276 dz-font-nb-16 dz-text-right dz-text-vc dz-noptr dz-exact-text">#txg_footer_esc_close</span>
     </div>
   </div>
 
-  <!-- ====== TOASTS : top centre of the screen ====== -->
-  <div data-dz="panel" data-name="toastSuccess" data-style="TXSuccessBox" data-visible="{{ toastSuccessVisible }}"
-       class="dz-xy-0-6 dz-wh-30-4.5 dz-align-tc dz-c-FE dz-noptr">
+  <!-- TOASTS: top centre -->
+  <div data-dz="panel" data-name="toastSuccess" data-style="TXFrame" data-visible="{{ toastSuccessVisible }}"
+       class="dz-xy-0-100px dz-wh-560px-53px dz-align-tc dz-c-FE dz-noptr dz-priority-20">
+    <div data-dz="panel" data-name="toastSuccessBg" class="dz-xy-0-0 dz-wh-full dz-c-1C1813 dz-noptr"></div>
+    <div data-dz="panel" data-name="toastSuccessRule" class="dz-xy-0-0 dz-wh-3px-100 dz-c-7FA65A dz-noptr"></div>
     <span data-dz="text" data-name="toastSuccessText" data-bind="{{ toastText }}"
-          class="dz-xy-4-0 dz-wh-92-100 dz-c-9AB05A dz-font-body-14 dz-noptr dz-exact-text dz-text-vc dz-bold">Vehicle parked</span>
+          class="dz-xy-24px-0 dz-wh-510px-53px dz-c-7FA65A dz-font-nbb-19 dz-text-vc dz-noptr dz-exact-text">Vehicle parked</span>
   </div>
-  <div data-dz="panel" data-name="toastError" data-style="TXErrorBox" data-visible="{{ toastErrorVisible }}"
-       class="dz-xy-0-6 dz-wh-30-4.5 dz-align-tc dz-c-FE dz-noptr">
+  <div data-dz="panel" data-name="toastError" data-style="TXFrame" data-visible="{{ toastErrorVisible }}"
+       class="dz-xy-0-100px dz-wh-560px-53px dz-align-tc dz-c-FE dz-noptr dz-priority-20">
+    <div data-dz="panel" data-name="toastErrorBg" class="dz-xy-0-0 dz-wh-full dz-c-1C1813 dz-noptr"></div>
+    <div data-dz="panel" data-name="toastErrorRule" class="dz-xy-0-0 dz-wh-3px-100 dz-c-E07A63 dz-noptr"></div>
     <span data-dz="text" data-name="toastErrorText" data-bind="{{ toastText }}"
-          class="dz-xy-4-0 dz-wh-92-100 dz-c-C8664A dz-font-body-14 dz-noptr dz-exact-text dz-text-vc dz-bold">Not enough money (100 required)</span>
+          class="dz-xy-24px-0 dz-wh-510px-53px dz-c-E07A63 dz-font-nbb-19 dz-text-vc dz-noptr dz-exact-text">Not enough money (100 required)</span>
   </div>
 
-  <!-- ====== CAMERA VIEW BAR ====== -->
-  <div data-dz="panel" data-name="spotBar" data-style="TXCardElevated" data-visible="{{ previewSpotBar }}"
-       class="dz-xy-0-4 dz-wh-66-10 dz-align-bc dz-c-FE">
-    <span data-dz="text" data-name="spotTitle" data-bind="{{ selectedVehicleName }}"
-          class="dz-xy-2-8 dz-wh-26-40 dz-c-D8D2C0 dz-font-heading-18 dz-noptr dz-exact-text dz-text-vc dz-bold">Olga 24</span>
-    <div data-dz="panel" data-name="spotChipFree" class="dz-xy-2-56 dz-wh-14-32 dz-c-00000000 dz-noptr">
-      <span data-dz="text" data-name="spotChipFreeText" class="dz-xy-0-0 dz-wh-100-100 dz-c-9AB05A dz-font-body-11 dz-noptr dz-exact-text dz-text-vc dz-bold">SPOT FREE</span>
+  <!-- CAMERA VIEW BAR -->
+  <div data-dz="panel" data-name="spotBar" data-style="TXCard" data-visible="{{ previewSpotBar }}"
+       class="dz-xy-0-48px dz-wh-1260px-110px dz-align-bc dz-c-FE">
+    <span data-dz="text" data-name="spotTitle" data-bind="{{ selectedVehicleName | uppercase }}"
+          class="dz-xy-29px-14px dz-wh-330px-42px dz-c-F2E9D8 dz-font-nh-29 dz-text-vc dz-noptr dz-exact-text">OLGA 24</span>
+    <div data-dz="panel" data-name="spotChipFree" class="dz-xy-29px-62px dz-wh-330px-26px dz-noptr">
+      <span data-dz="text" data-name="spotChipFreeText"
+          class="dz-xy-0-0 dz-wh-full dz-c-7FA65A dz-font-nbb-16 dz-text-vc dz-noptr dz-exact-text">#txg_spot_free</span>
     </div>
-    <div data-dz="panel" data-name="spotChipBlocked" class="dz-xy-2-56 dz-wh-24-32 dz-c-00000000 dz-noptr" style="display:none">
-      <span data-dz="text" data-name="spotChipBlockedText" class="dz-xy-0-0 dz-wh-100-100 dz-c-C8664A dz-font-body-11 dz-noptr dz-exact-text dz-text-vc dz-bold">SPOT BLOCKED BY AN OBJECT</span>
+    <div data-dz="panel" data-name="spotChipBlocked" class="dz-xy-29px-62px dz-wh-330px-26px dz-noptr dz-hidden">
+      <span data-dz="text" data-name="spotChipBlockedText"
+          class="dz-xy-0-0 dz-wh-full dz-c-E07A63 dz-font-nbb-16 dz-text-vc dz-noptr dz-exact-text">#txg_spot_blocked</span>
     </div>
-    <button data-dz="button" data-name="spotLeftBtn" data-style="TXBtnDefault" data-on-click="OnSpotRotateLeft"
-            class="dz-xy-29-18 dz-wh-4.5-50 dz-c-FE dz-tc-D8D2C0 dz-font-heading-18 dz-exact-text dz-text-center dz-text-vc dz-bold">&lt;</button>
-    <button data-dz="button" data-name="spotRightBtn" data-style="TXBtnDefault" data-on-click="OnSpotRotateRight"
-            class="dz-xy-34-18 dz-wh-4.5-50 dz-c-FE dz-tc-D8D2C0 dz-font-heading-18 dz-exact-text dz-text-center dz-text-vc dz-bold">&gt;</button>
-    <button data-dz="button" data-name="spotZoomInBtn" data-style="TXBtnDefault" data-on-click="OnSpotZoomIn"
-            class="dz-xy-39.5-18 dz-wh-4.5-50 dz-c-FE dz-tc-D8D2C0 dz-font-heading-18 dz-exact-text dz-text-center dz-text-vc dz-bold">+</button>
-    <button data-dz="button" data-name="spotZoomOutBtn" data-style="TXBtnDefault" data-on-click="OnSpotZoomOut"
-            class="dz-xy-44.5-18 dz-wh-4.5-50 dz-c-FE dz-tc-D8D2C0 dz-font-heading-18 dz-exact-text dz-text-center dz-text-vc dz-bold">-</button>
+    <div data-dz="grid" data-name="spotControls" class="dz-xy-380px-17px dz-wh-230px-53px dz-cols-4 dz-rows-1 dz-gap-6 dz-noptr">
+      <button data-dz="button" data-name="spotLeftBtn" data-style="TXBtnIcon" data-on-click="OnSpotRotateLeft"
+                class=" dz-c-FE dz-tc-F2E9D8 dz-font-nm-22 dz-exact-text dz-text-center dz-text-vc">&lt;</button>
+      <button data-dz="button" data-name="spotRightBtn" data-style="TXBtnIcon" data-on-click="OnSpotRotateRight"
+                class=" dz-c-FE dz-tc-F2E9D8 dz-font-nm-22 dz-exact-text dz-text-center dz-text-vc">&gt;</button>
+      <button data-dz="button" data-name="spotZoomInBtn" data-style="TXBtnIcon" data-on-click="OnSpotZoomIn"
+                class=" dz-c-FE dz-tc-F2E9D8 dz-font-nm-22 dz-exact-text dz-text-center dz-text-vc">+</button>
+      <button data-dz="button" data-name="spotZoomOutBtn" data-style="TXBtnIcon" data-on-click="OnSpotZoomOut"
+                class=" dz-c-FE dz-tc-F2E9D8 dz-font-nm-22 dz-exact-text dz-text-center dz-text-vc">−</button>
+    </div>
     <span data-dz="text" data-name="spotHint"
-          class="dz-xy-29-72 dz-wh-21-24 dz-c-6A6560 dz-font-body-11 dz-noptr dz-exact-text dz-text-vc">A / D rotate - W / S zoom</span>
-    <button data-dz="button" data-name="spotPrimaryBtn" data-style="TXBtnAccent" data-on-click="OnPrimary"
-            class="dz-xy-51-18 dz-wh-30-64 dz-c-FE dz-tc-D4A44C dz-font-heading-14 dz-exact-text dz-text-vc dz-bold"></button>
-    <span data-dz="text" data-name="spotPrimaryLabel" data-bind="{{ primaryText }}"
-          class="dz-xy-53-18 dz-wh-17-64 dz-c-D4A44C dz-font-heading-14 dz-noptr dz-exact-text dz-text-vc dz-bold">TAKE OUT</span>
-    <span data-dz="text" data-name="spotPrimaryPrice" data-bind="{{ primaryPriceText }}"
-          class="dz-xy-70-18 dz-wh-10-64 dz-c-D4A44C dz-font-mono-16 dz-noptr dz-exact-text dz-text-right dz-text-vc dz-bold">100</span>
-    <button data-dz="button" data-name="spotExitBtn" data-style="TXBtnDefault" data-on-click="OnExitSpotView"
-            class="dz-xy-83-18 dz-wh-15-64 dz-c-FE dz-tc-9A9488 dz-font-heading-12 dz-exact-text dz-text-center dz-text-vc dz-bold">BACK - ESC</button>
+          class="dz-xy-380px-76px dz-wh-300px-20px dz-c-A39276 dz-font-nbb-16 dz-text-vc dz-noptr dz-exact-text">#txg_spot_hint</span>
+    <div data-dz="panel" data-name="spotPrimaryHost" class="dz-xy-229px-0 dz-wh-380px-67px dz-align-cr dz-noptr">
+      <button data-dz="button" data-name="spotPrimaryBtn" data-style="TXBtnPrimary" data-on-click="OnPrimary"
+              class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
+      <span data-dz="text" data-name="spotPrimaryLabel" data-bind="{{ primaryText }}"
+          class="dz-xy-24px-0 dz-wh-220px-67px dz-c-1A0D04 dz-font-nh-26 dz-text-vc dz-noptr dz-exact-text">TAKE OUT</span>
+      <span data-dz="text" data-name="spotPrimaryPrice" data-bind="{{ primaryPriceText }}"
+          class="dz-xy-24px-0 dz-wh-120px-67px dz-align-x-right dz-c-1A0D04 dz-font-nm-24 dz-text-right dz-text-vc dz-noptr dz-exact-text">100</span>
+    </div>
+    <div data-dz="panel" data-name="spotExitHost" class="dz-xy-29px-0 dz-wh-180px-67px dz-align-cr dz-noptr">
+      <button data-dz="button" data-name="spotExitBtn" data-style="TXBtnDefault" data-on-click="OnExitSpotView"
+                class="dz-xy-0-0 dz-wh-full dz-c-FE dz-tc-C2B59C dz-font-nh-22 dz-exact-text dz-text-center dz-text-vc">#txg_back_esc</button>
+    </div>
   </div>
 </div>
-
 <template data-template-id="txg-vehicle-row" data-src="GarageVehicleRow.html"></template>
 <template data-template-id="txg-share-row" data-src="GarageShareRow.html"></template>
-
 <script src="dzml-runtime.js"></script>
 </body>
 </html>

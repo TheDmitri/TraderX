@@ -137,12 +137,29 @@ class TraderXCategoryId
     static string GenerateCategoryId(string catName)
     {
         // Convert category name to a valid filename part (replace invalid chars with underscore)
+        // Only a-z 0-9 and single underscores, the characters the loader accepts in an id
         catName.ToLower();
-        string baseFilename = catName;
-        baseFilename.Replace(" ", "_");
-        baseFilename.Replace("-", "_");
-        baseFilename.Replace(".", "_");
-        
+        string baseFilename = "";
+        bool lastWasUnderscore = true;
+        for (int i = 0; i < catName.Length(); i++)
+        {
+            string c = catName.Get(i);
+            if ((c >= "a" && c <= "z") || (c >= "0" && c <= "9"))
+            {
+                baseFilename += c;
+                lastWasUnderscore = false;
+            }
+            else if (!lastWasUnderscore)
+            {
+                baseFilename += "_";
+                lastWasUnderscore = true;
+            }
+        }
+        if (baseFilename.Length() > 0 && baseFilename.Get(baseFilename.Length() - 1) == "_")
+            baseFilename = baseFilename.Substring(0, baseFilename.Length() - 1);
+        if (baseFilename == "")
+            baseFilename = "category";
+
         // Get current counter for this base filename
         if (!s_CategoryIdCounters.Contains(baseFilename))
         {

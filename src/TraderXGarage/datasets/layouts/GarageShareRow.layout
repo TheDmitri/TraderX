@@ -2,25 +2,24 @@ PanelWidgetClass shareRowRoot {
  position 0 0
  hexactpos 0
  vexactpos 0
- size 1 1
+ size 1 62
  hexactsize 0
- vexactsize 0
+ vexactsize 1
  style TXCard
  color 0.9961 0.9961 0.9961 1
  {
   TextWidgetClass sharePlayerName {
-   position 0.03 0
-   hexactpos 0
+   position 24 0
+   hexactpos 1
    vexactpos 0
-   size 0.5 1
+   size 0.44563 62
    hexactsize 0
-   vexactsize 0
-   color 0.8471 0.8235 0.7529 1
-   font "TraderX/datasets/fonts/oswalt14"
+   vexactsize 1
+   color 0.949 0.9137 0.8471 1
+   font "TraderX/datasets/fonts/rajdhanibpx20"
    ignorepointer 1
    "exact text" 1
    "text valign" center
-   style Bold
    text "Survivor"
    scriptclass "TextBinding"
    {
@@ -30,14 +29,14 @@ PanelWidgetClass shareRowRoot {
    }
   }
   TextWidgetClass shareAccess {
-   position 0.46 0
+   position 0.48128 0
    hexactpos 0
    vexactpos 0
-   size 0.28 1
+   size 0.26738 62
    hexactsize 0
-   vexactsize 0
-   color 0.4157 0.3961 0.3765 1
-   font "TraderX/datasets/fonts/jet-brains-mono11"
+   vexactsize 1
+   color 0.6392 0.5725 0.4627 1
+   font "TraderX/datasets/fonts/monopx14"
    ignorepointer 1
    "exact text" 1
    "text valign" center
@@ -50,21 +49,22 @@ PanelWidgetClass shareRowRoot {
    }
   }
   ButtonWidgetClass shareAddBtn {
-   position 0.78 0.15
-   hexactpos 0
+   position 12 0
+   hexactpos 1
    vexactpos 0
-   size 0.2 0.7
+   size 0.16043 43
    hexactsize 0
-   vexactsize 0
-   "text color" 0.6039 0.6902 0.3529 1
-   font "TraderX/datasets/fonts/oswalt12"
+   vexactsize 1
+   halign right_ref
+   valign center_ref
+   "text color" 0.102 0.051 0.0157 1
+   font "TraderX/datasets/fonts/antonpx20"
    "exact text" 1
    "text halign" center
    "text valign" center
-   style Bold
    style TXBtnPrimary
    color 0.9961 0.9961 0.9961 1
-   text "ADD"
+   text "#txg_add"
    scriptclass "ButtonBinding"
    {
     ScriptParamsClass {
@@ -73,21 +73,22 @@ PanelWidgetClass shareRowRoot {
    }
   }
   ButtonWidgetClass shareRemoveBtn {
-   position 0.78 0.15
-   hexactpos 0
+   position 12 0
+   hexactpos 1
    vexactpos 0
-   size 0.2 0.7
+   size 0.16043 43
    hexactsize 0
-   vexactsize 0
-   "text color" 0.7843 0.4 0.2902 1
-   font "TraderX/datasets/fonts/oswalt12"
+   vexactsize 1
+   halign right_ref
+   valign center_ref
+   "text color" 0.8784 0.4784 0.3882 1
+   font "TraderX/datasets/fonts/antonpx20"
    "exact text" 1
    "text halign" center
    "text valign" center
-   style Bold
    style TXBtnDefault
    color 0.9961 0.9961 0.9961 1
-   text "REMOVE"
+   text "#txg_remove"
    scriptclass "ButtonBinding"
    {
     ScriptParamsClass {
@@ -96,21 +97,22 @@ PanelWidgetClass shareRowRoot {
    }
   }
   ButtonWidgetClass shareConfirmBtn {
-   position 0.78 0.15
-   hexactpos 0
+   position 12 0
+   hexactpos 1
    vexactpos 0
-   size 0.2 0.7
+   size 0.16043 43
    hexactsize 0
-   vexactsize 0
-   "text color" 1 1 1 1
-   font "TraderX/datasets/fonts/oswalt12"
+   vexactsize 1
+   halign right_ref
+   valign center_ref
+   "text color" 0.949 0.9137 0.8471 1
+   font "TraderX/datasets/fonts/antonpx20"
    "exact text" 1
    "text halign" center
    "text valign" center
-   style Bold
    style TXBtnDanger
    color 0.9961 0.9961 0.9961 1
-   text "CONFIRM?"
+   text "#txg_confirm_q"
    scriptclass "ButtonBinding"
    {
     ScriptParamsClass {

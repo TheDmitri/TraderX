@@ -12,7 +12,16 @@
 #   body    → labels / descriptions / most text
 #   mono    → prices, quantities, counts (numeric) — currently same face as body
 fonts:
-  default: "TraderX/datasets/fonts/oswalt"
-  heading: "TraderX/datasets/fonts/oswalt"            # Oswald — titles / labels / most text
-  body: "TraderX/datasets/fonts/oswalt"               # Oswald (condensed, tactical)
-  mono: "TraderX/datasets/fonts/jet-brains-mono"      # JetBrains Mono — prices / quantities / counts
+  # Nasdara theme (baked with dayz-tools/fontbake): Anton titles, Rajdhani UI text,
+  # JetBrains Mono Bold numbers. Sizes: 11 12 13 14 16 18 20 22 24 28 34 40 48 58.
+  default: "TraderX/datasets/fonts/rajdhani"
+  heading: "TraderX/datasets/fonts/anton"           # Anton — titles, tabs, big buttons (uppercase)
+  body: "TraderX/datasets/fonts/rajdhani"           # Rajdhani SemiBold — all UI text
+  bold: "TraderX/datasets/fonts/rajdhanibold"       # Rajdhani Bold — names, emphasis
+  mono: "TraderX/datasets/fonts/monobold"           # JetBrains Mono Bold — prices, quantities, counts
+  # Exact-em families for the Nasdara layouts: dz-font-nh-29 = Anton at a 29 px em
+  # (design px x 1.2). Bake new sizes with dayz-tools/fontbake/bake_traderx.sh (EM_SIZES).
+  nh: "TraderX/datasets/fonts/antonpx"
+  nb: "TraderX/datasets/fonts/rajdhanipx"
+  nbb: "TraderX/datasets/fonts/rajdhanibpx"
+  nm: "TraderX/datasets/fonts/monopx"

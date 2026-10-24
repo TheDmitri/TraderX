@@ -2,6 +2,9 @@ class TraderXLicenseService
 {
     static ref TraderXLicenseService m_instance;
 
+    // Client: fired when the local player's licenses arrive from the server (cards re-apply their locked state).
+    static ref ScriptInvoker Event_OnPlayerLicensesChanged = new ScriptInvoker();
+
     // Client instance: licenses owned by the local player.
     ref TraderXPlayerLicenses playerLicenses;
 
@@ -125,5 +128,93 @@ class TraderXLicenseService
     void OnPlayerLicensesResponse(TraderXPlayerLicenses licenses)
     {
         playerLicenses = licenses;
+        Event_OnPlayerLicensesChanged.Invoke();
+    }
+
+    // Client: the category of the OPEN trader that keeps this product licence-locked, or null.
+    // A product is locked only when every trader category listing it requires a licence the
+    // player lacks (same rule as the server's TraderXTransactionValidator category check).
+    // Variants/attachments not listed directly in a category are never reported locked here;
+    // callers check their parent product instead.
+    TraderXCategory GetLockingCategory(string productId)
+    {
+        if (productId == string.Empty)
+            return null;
+
+        TraderXTradingService trading = TraderXTradingService.GetInstance();
+        if (!trading || !trading.traderNpc || !trading.traderNpc.categoriesId)
+            return null;
+
+        TraderXCategory locking = null;
+        foreach (string categoryId : trading.traderNpc.categoriesId)
+        {
+            TraderXCategory category = TraderXCategoryRepository.GetCategoryById(categoryId);
+            if (!category || !category.ContainsProduct(productId))
+                continue;
+            if (HasLicenses(category.licensesRequired))
+                return null;
+            if (!locking)
+                locking = category;
+        }
+        return locking;
+    }
+
+    bool IsProductLicenseLocked(TraderXProduct product)
+    {
+        if (!product)
+            return false;
+        return GetLockingCategory(product.GetProductId()) != null;
+    }
+
+    // "Car Licence, Boat Licence" — licensesRequired may hold 1.x ids, resolve them to names.
+    static string JoinLicenseNames(array<string> licenseNames)
+    {
+        string result = "";
+        if (!licenseNames)
+            return result;
+
+        foreach (string nameOrId : licenseNames)
+        {
+            if (result != "")
+                result = result + ", ";
+            result = result + GetLicenseDisplayName(nameOrId);
+        }
+        return result;
+    }
+
+    static string GetLicenseDisplayName(string nameOrId)
+    {
+        if (!GetTraderXModule() || !GetTraderXModule().GetSettings() || !GetTraderXModule().GetSettings().licenses)
+            return nameOrId;
+
+        foreach (TraderXLicense license : GetTraderXModule().GetSettings().licenses)
+        {
+            if (license && license.licenseId == nameOrId)
+                return license.licenseName;
+        }
+        return nameOrId;
+    }
+
+    // Client: "Licenses Required: Car Licence" (localized prefix) for card badges and toasts.
+    static string FormatRequiredLabel(array<string> licenseNames)
+    {
+        return Widget.TranslateString("#tpm_licenses_required") + ": " + JoinLicenseNames(licenseNames);
+    }
+
+    // Client: block-with-reason feedback for a buy attempt on a licence-locked product.
+    // Returns true (and shows the toast) when the product is locked.
+    bool NotifyIfProductLocked(TraderXProduct product)
+    {
+        if (!product)
+            return false;
+
+        TraderXCategory locking = GetLockingCategory(product.GetProductId());
+        if (!locking)
+            return false;
+
+        TraderXInventoryManager.PlayMenuSound(ETraderXSounds.ERROR);
+        if (GetTraderXToastService())
+            GetTraderXToastService().ShowToast(TXNOTIF_ERROR, "#tpm_licenses_required", product.GetDisplayName() + " - " + JoinLicenseNames(locking.licensesRequired));
+        return true;
     }
 }

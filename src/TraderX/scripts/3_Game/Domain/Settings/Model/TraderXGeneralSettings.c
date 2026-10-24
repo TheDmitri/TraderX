@@ -10,6 +10,9 @@ class TraderXGeneralSettings {
     // Default ON; admins can set false in the settings JSON. The version bump below writes this
     // field into existing config files on first load after update.
     bool prewarmCatalogInSafeZone = true;
+    // Once per session, the first trader opened after joining shows a short DayZ Beans
+    // Launcher welcome toast. Admins can set false in the settings JSON.
+    bool showBeansWelcome = true;
 
     void TraderXGeneralSettings() {
         licenses = new array<ref TraderXLicense>();

@@ -40,6 +40,7 @@ class TXBAccountTabComponent extends DZlrComponentBase
 	protected int m_PlayerCash;
 	protected string m_PlayerUID;
 	protected float m_FeePercent;
+	protected int m_DepositPreviewAmount;
 	protected float m_ThrottleTimer;
 	protected const float THROTTLE_INTERVAL = 1.0;
 
@@ -62,7 +63,10 @@ class TXBAccountTabComponent extends DZlrComponentBase
 		if (clientSettings)
 			m_FeePercent = clientSettings.transactionFeePercent;
 
-		feesText = "On hand: - R - Fee: " + Math.Round(m_FeePercent * 100).ToString() + "%";
+		// Read the cash now: PeriodicUpdate only runs after 500 ms, and until then the
+		// hint showed "On hand: 0" and a deposit was refused for lack of cash.
+		UpdatePlayerCash();
+		feesText = BuildDepositHint();
 		depositStatusText = "";
 		statusText = "You must carry a valid credit card to withdraw.";
 		recentEmptyText = "No transactions yet";
@@ -154,8 +158,8 @@ class TXBAccountTabComponent extends DZlrComponentBase
 
 	protected void UpdateBalanceTexts()
 	{
-		bankBalanceText = m_BankBalance.ToString();
-		maxBalanceText = "MAX " + m_MaxBalance.ToString();
+		bankBalanceText = TXBFormat.Currency(m_BankBalance);
+		maxBalanceText = "MAX " + TXBFormat.Currency(m_MaxBalance);
 	}
 
 	protected void UpdateProgressBar()
@@ -197,8 +201,50 @@ class TXBAccountTabComponent extends DZlrComponentBase
 		TXBSettings settings = GetTXBConfigService().GetClientSettings();
 		if (!settings) return;
 
+		m_FeePercent = settings.transactionFeePercent;
 		m_PlayerCash = GetTXBBankingService().GetPlayerMoney(player, settings);
-		feesText = "On hand: " + m_PlayerCash.ToString() + " R - Fee: " + Math.Round(m_FeePercent * 100).ToString() + "%";
+		feesText = BuildDepositHint();
+		UpdateCreditCardWarning(player, settings);
+	}
+
+	// "CREDIT CARD REQUIRED" only when the server requires a card and none is in hands
+	// (same rule as ActionTXBOpenBank).
+	protected void UpdateCreditCardWarning(PlayerBase player, TXBSettings settings)
+	{
+		Widget root = GetRoot();
+		if (!root) return;
+		Widget warning = root.FindAnyWidget("creditCardWarning");
+		if (!warning) return;
+
+		bool missingCard = false;
+		if (settings.requireCreditCard)
+		{
+			ItemBase inHands = player.GetItemInHands();
+			missingCard = !inHands || !inHands.IsKindOf("TXBCreditCard");
+		}
+		warning.Show(missingCard);
+	}
+
+	// Fee percent as text: "5" (or "2.5" when not a whole number).
+	protected string FeePercentText()
+	{
+		float pct = m_FeePercent * 100.0;
+		int pctInt = Math.Round(pct);
+		if (Math.AbsFloat(pct - pctInt) > 0.01)
+			return pct.ToString();
+		return pctInt.ToString();
+	}
+
+	// Deposit hint: fee is charged on top of the deposited amount, so show total cash taken.
+	protected string BuildDepositHint()
+	{
+		string onHand = "On hand: " + m_PlayerCash.ToString() + " R";
+		int amount = m_DepositPreviewAmount;
+		if (amount <= 0)
+			return onHand + " - Deposit fee: " + FeePercentText() + "% (paid on top of the amount)";
+		int fee = Math.Round(amount * m_FeePercent);
+		int totalCash = amount + fee;
+		return onHand + " | Deposit " + amount.ToString() + " - fee " + fee.ToString() + " (" + FeePercentText() + "%) - total cash taken " + totalCash.ToString();
 	}
 
 	protected bool CanTransact()
@@ -238,8 +284,17 @@ class TXBAccountTabComponent extends DZlrComponentBase
 			return;
 		}
 
-		int afterFees = amount - Math.Round(amount * m_FeePercent);
-		if (m_BankBalance + afterFees > m_MaxBalance)
+		// Fee is charged on top: credited = amount, cash taken = amount + fee.
+		int fee = Math.Round(amount * m_FeePercent);
+		int totalCash = amount + fee;
+		if (totalCash > m_PlayerCash)
+		{
+			depositStatusText = "Deposit " + amount.ToString() + " needs " + totalCash.ToString() + " cash incl. " + fee.ToString() + " fee.";
+			MarkForCheck();
+			return;
+		}
+
+		if (m_BankBalance + amount > m_MaxBalance)
 		{
 			depositStatusText = "Would exceed max balance of " + m_MaxBalance.ToString() + " R.";
 			MarkForCheck();
@@ -248,8 +303,10 @@ class TXBAccountTabComponent extends DZlrComponentBase
 
 		GetDayZularRPCManager().SendRPC(TXBConstants.RPC_NAMESPACE, "RequestDeposit", new Param1<int>(amount), true, null);
 
-		depositStatusText = "";
+		depositStatusText = "Depositing " + amount.ToString() + " (fee " + fee.ToString() + ", " + totalCash.ToString() + " cash taken)...";
 		depositAmount = "";
+		m_DepositPreviewAmount = 0;
+		feesText = BuildDepositHint();
 		StartThrottle();
 		MarkForCheck();
 	}
@@ -257,16 +314,8 @@ class TXBAccountTabComponent extends DZlrComponentBase
 	void OnDepositAmountChanged(string text)
 	{
 		depositStatusText = "";
-		int amount = text.ToInt();
-		if (amount > 0)
-		{
-			int afterFees = amount - Math.Round(amount * m_FeePercent);
-			feesText = "On hand: " + m_PlayerCash.ToString() + " R - Receive: " + afterFees.ToString() + " (fee " + (amount - afterFees).ToString() + ")";
-		}
-		else
-		{
-			feesText = "On hand: " + m_PlayerCash.ToString() + " R - Fee: " + Math.Round(m_FeePercent * 100).ToString() + "%";
-		}
+		m_DepositPreviewAmount = text.ToInt();
+		feesText = BuildDepositHint();
 		MarkForCheck();
 	}
 
@@ -357,8 +406,8 @@ class TXBAccountTabComponent extends DZlrComponentBase
 			}
 		}
 
-		statDepositsText = "+" + deposits.ToString();
-		statWithdrawalsText = "-" + withdrawals.ToString();
+		statDepositsText = "+" + TXBFormat.Currency(deposits);
+		statWithdrawalsText = "−" + TXBFormat.Currency(withdrawals);
 		statTransfersText = transfers.ToString();
 		recentEmptyText = "";
 		if (_recentTransactions.Count() == 0)

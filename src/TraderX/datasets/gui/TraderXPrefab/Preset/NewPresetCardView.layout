@@ -5,8 +5,7 @@ PanelWidgetClass NewPresetPanel {
  size 1 1
  hexactsize 0
  vexactsize 0
- style blank
- color 0.9961 0.9961 0.9961 1
+ ignorepointer 1
  {
   ButtonWidgetClass newPresetBtn {
    position 0 0
@@ -16,7 +15,7 @@ PanelWidgetClass NewPresetPanel {
    hexactsize 0
    vexactsize 0
    "text color" 0.9961 0.9961 0.9961 1
-   style TXBtnDefault
+   style TXBtnAccent
    color 0.9961 0.9961 0.9961 1
    scriptclass "ButtonBinding"
    {
@@ -26,47 +25,43 @@ PanelWidgetClass NewPresetPanel {
    }
   }
   PanelWidgetClass dashedBox {
-   position 0.04 0.02
+   position 0 0
    hexactpos 0
    vexactpos 0
-   size 0.92 0.96
-   hexactsize 0
-   vexactsize 0
+   size 1 1
+   hexactsize 1
+   vexactsize 1
    ignorepointer 1
-   style dashed
-   color 0.9961 0.9961 0.9961 1
-   {
-    ImageWidgetClass addIcon {
-     position 0 0.36
-     hexactpos 0
-     vexactpos 0
-     size 36 36
-     hexactsize 1
-     vexactsize 1
-     halign center_ref
-     color 0.8471 0.8471 0.8471 1
-     ignorepointer 1
-     image0 "set:traderx_icons image:add"
-     mode blend
-     "src alpha" 1
-     "stretch mode" stretch_w_h
-    }
-    TextWidgetClass newPresetLabel {
-     position 0.04 0.52
-     hexactpos 0
-     vexactpos 0
-     size 0.92 0.3
-     hexactsize 0
-     vexactsize 0
-     halign center_ref
-     color 0.8471 0.8235 0.7529 1
-     font "TraderX/datasets/fonts/oswalt22"
-     ignorepointer 1
-     wrap 1
-     "text halign" center
-     text "#tpm_create_new_preset"
-    }
-   }
+   visible 0
+  }
+  ImageWidgetClass addIcon {
+   position 0.31746 0
+   hexactpos 0
+   vexactpos 0
+   size 17 17
+   hexactsize 1
+   vexactsize 1
+   valign center_ref
+   color 0.851 0.4627 0.1843 1
+   ignorepointer 1
+   image0 "set:traderx_icons image:add"
+   mode blend
+   "src alpha" 1
+   "stretch mode" stretch_w_h
+  }
+  TextWidgetClass newPresetLabel {
+   position 0.37302 0
+   hexactpos 0
+   vexactpos 0
+   size 0.55556 58
+   hexactsize 0
+   vexactsize 1
+   color 0.949 0.9137 0.8471 1
+   font "TraderX/datasets/fonts/rajdhanibpx19"
+   ignorepointer 1
+   "exact text" 1
+   "text valign" center
+   text "#tpm_create_new_preset"
   }
  }
 }

@@ -18,23 +18,23 @@
   <!-- Alert title - color set by component via SetColor() -->
   <span data-dz="text" data-name="alertTitle"
         data-bind="{{ _inputAlert.title }}"
-        class="dz-xy-4-12 dz-wh-92-25 dz-font-body-12 dz-noptr dz-exact-text dz-bold">
+        class="dz-xy-4-12 dz-wh-92-25 dz-font-nbb-16 dz-noptr dz-exact-text">
     ALERT TITLE
   </span>
 
   <!-- Alert body/message - neutral ash color -->
   <span data-dz="text" data-name="alertBody"
         data-bind="{{ _inputAlert.body }}"
-        class="dz-xy-4-40 dz-wh-92-50 dz-font-body-12 dz-noptr dz-exact-text dz-wrap">
+        class="dz-xy-4-40 dz-wh-92-50 dz-font-nbb-16 dz-noptr dz-exact-text dz-wrap">
     Alert message body text goes here.
   </span>
 
   <!-- Action button (shown if alert has action) -->
   <button data-dz="button" data-name="alertActionBtn"
-          data-style="TXTab" data-on-click="OnAlertActionClicked"
+          data-style="TXBTab" data-on-click="OnAlertActionClicked"
           data-bind="{{ _inputAlert.actionLabel }}"
           data-visible="{{ _inputAlert.HasAction() }}"
-          class="dz-xy-70-82 dz-wh-26-14 dz-font-body-12 dz-exact-text dz-bold">
+          class="dz-xy-70-82 dz-wh-26-14 dz-font-nbb-16 dz-exact-text">
     ACTION
   </button>
 </div>

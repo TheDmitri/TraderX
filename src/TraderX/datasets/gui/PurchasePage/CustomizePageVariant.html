@@ -2,217 +2,204 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="dzml.css">
+  <link rel="stylesheet" href="../dzml.css">
+  <link rel="stylesheet" href="../dzml-styles.css">
+  <link rel="stylesheet" href="../dzml-icons.css">
 </head>
-<body data-dzml class="dz-viewport" style="width:1920px; height:1080px; background:#1a1a1a;">
+<body data-dzml class="dz-viewport" style="width:1920px; height:950px; background:#13100c;">
 
+<!-- Customize page (Nasdara, board "Trader · Customize"): preview + product on the left
+     (912 px), tabbed presets / variants / attachments in the middle (552 px), the
+     configuration (tx-checkout) on the right (456 px). -->
 <div data-dz="panel"
     data-name="CustomizePageView"
-    data-style="blank"
-    class="dz-xy-0-0 dz-wh-full dz-align-bc dz-c-FE dz-noptr">
+    class="dz-xy-0-0 dz-wh-full dz-c-13100C dz-noptr">
+
+  <!-- Back + breadcrumb -->
   <div data-dz="panel"
-      data-name="Background"
-      data-style="TXContent"
-      data-disabled="0"
-      class="dz-xy-0-0 dz-wh-full dz-align-bc dz-c-FE dz-noptr">
+      data-name="backHost"
+      class="dz-xy-29px-24px dz-wh-108px-38px dz-noptr">
+    <button data-dz="button"
+        data-name="closeBtn"
+        data-style="TXBtnDefault"
+        data-on-click="OnClose"
+        class="dz-xy-0-0 dz-wh-full dz-tc-FE">
+      <span data-dz="text"
+          data-name="backText"
+          class="dz-xy-0-0 dz-wh-full dz-c-C2B59C dz-font-nbb-17 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+        #tpm_nav_back
+      </span>
+    </button>
+  </div>
+  <div data-dz="wrap"
+      data-name="breadcrumbRow"
+      class="dz-xy-153px-24px dz-wh-730px-38px dz-noptr">
+    <span data-dz="text"
+        data-name="breadcrumbPath"
+        data-bind="{{ breadcrumb_path }}"
+        class="dz-wh-1px-38px dz-c-A39276 dz-font-nbb-18 dz-noptr dz-exact-text dz-text-vc dz-size-to-text-h">
+      Purchase / Assault Rifles /
+    </span>
+    <span data-dz="text"
+        data-name="breadcrumbItem"
+        data-bind="{{ product_classname }}"
+        class="dz-wh-1px-38px dz-c-F2E9D8 dz-font-nbb-18 dz-noptr dz-exact-text dz-text-vc dz-size-to-text-h">
+      KA-74
+    </span>
+  </div>
+
+  <!-- Preview -->
+  <div data-dz="panel"
+      data-name="previewArea"
+      data-style="TXInset"
+      class="dz-xy-29px-77px dz-wh-854px-610px dz-c-FE dz-noptr">
+    <div data-dz="preview"
+        data-name="itemPreview"
+        data-bind-item="{{ preview }}"
+        data-enable-rotation="1"
+        data-enable-scale="1"
+        class="dz-xy-0-0 dz-wh-92-90 dz-align-cc"></div>
+    <span data-dz="text"
+        data-name="previewHint"
+        class="dz-xy-0-17px dz-wh-100-18px dz-align-bc dz-c-6F624F dz-font-nbb-14 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+      #tpm_drag_to_rotate
+    </span>
+  </div>
+
+  <!-- Product -->
+  <span data-dz="text"
+      data-name="TextWidget1"
+      data-bind="{{ product_title }}"
+      class="dz-xy-29px-698px dz-wh-640px-69px dz-c-F2E9D8 dz-font-nh-48 dz-noptr dz-exact-text dz-text-vc">
+    KA-74
+  </span>
+  <div data-dz="multitext"
+      data-name="RichTextWidget0"
+      data-bind="{{ product_description }}"
+      class="dz-xy-29px-768px dz-wh-672px-90px dz-c-C2B59C dz-font-nb-18 dz-noptr dz-exact-text dz-wrap">
+    Selective-fire assault rifle fed from a detachable magazine.
+  </div>
+  <span data-dz="text"
+      data-name="LabelTotal"
+      class="dz-xy-683px-708px dz-wh-200px-18px dz-c-A39276 dz-font-nbb-14 dz-noptr dz-exact-text dz-text-right dz-text-vc">
+    #tpm_base_price_caps
+  </span>
+  <span data-dz="text"
+      data-name="TextWidget3"
+      data-bind="{{ base_price }}"
+      class="dz-xy-583px-728px dz-wh-300px-32px dz-c-F2E9D8 dz-font-nm-26 dz-noptr dz-exact-text dz-text-right dz-text-vc">
+    € 0
+  </span>
+
+  <!-- Middle column: tabs + tab content -->
+  <div data-dz="panel"
+      data-name="tabsColumn"
+      data-style="TXSideRight"
+      class="dz-xy-912px-0 dz-wh-552px-950px dz-c-FE dz-noptr">
     <div data-dz="panel"
-        data-name="LeftPanel"
-        class="dz-xy-0-0 dz-wh-full dz-align-y-center dz-noptr">
+        data-name="tabsRow"
+        data-style="TXRowRule"
+        class="dz-xy-0-0 dz-wh-100-67px dz-c-FE dz-noptr">
       <div data-dz="panel"
-          data-name="SubLeftPanel"
-          class="dz-xy-0-0 dz-wh-75-100 dz-align-y-center dz-noptr">
+          data-name="presetsTab"
+          class="dz-xy-0-0 dz-wh-184px-67px dz-noptr">
         <div data-dz="panel"
-            data-name="tabContent"
-            data-style="TXContent"
-            data-component="{{ current_tab }}"
-            class="dz-xy-0-54 dz-wh-100-46 dz-c-FE dz-clip"></div>
+            data-name="presetsTabBg"
+            class="dz-xy-0-0 dz-wh-full dz-c-262019 dz-noptr dz-hidden"></div>
+        <button data-dz="button"
+            data-name="tabPresetsBtn"
+            data-style="Empty"
+            data-on-click="OnTabPresets"
+            class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
+        <span data-dz="text"
+            data-name="presetsTabTitle"
+            data-bind="{{ tab_presets_title }}"
+            class="dz-xy-0-10px dz-wh-100-27px dz-c-A39276 dz-font-nh-19 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+          PRESETS
+        </span>
+        <span data-dz="text"
+            data-name="TextWidget5"
+            data-bind="{{ tab_presets_sub }}"
+            class="dz-xy-0-37px dz-wh-100-18px dz-c-A39276 dz-font-nbb-16 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+          2 saved
+        </span>
         <div data-dz="panel"
-            data-name="PanelWidget0"
-            data-style="TXCard"
-            class="dz-xy-0-0 dz-wh-100-46 dz-align-x-center dz-c-FE dz-noptr">
-          <div data-dz="panel"
-              data-name="PanelWidget2"
-              data-style="TXSurface"
-              class="dz-xy-0-7 dz-wh-95-73 dz-align-x-center dz-c-FE dz-noptr">
-            <div data-dz="preview"
-                data-name="itemPreview"
-                data-bind-item="{{ preview }}"
-                data-enable-rotation="1"
-                data-enable-scale="1"
-                class="dz-xy-0-0 dz-wh-95-80 dz-align-cc"></div>
-          </div>
-          <span data-dz="text"
-              data-name="TextWidget1"
-              data-bind="{{ product_classname }}"
-              class="dz-xy-0-11 dz-wh-4-12 dz-align-bc dz-tc-D8 dz-font-TraderX/datasets/fonts/oswalt22 dz-noptr dz-exact-text dz-text-center dz-text-vc dz-size-to-text">
-            M4A1 Assault Rifle
-          </span>
-          <span data-dz="text"
-              data-name="LabelTotal"
-              class="dz-xy--3-3 dz-wh-0-7 dz-align-bc dz-tc-D8 dz-font-TraderX/datasets/fonts/oswalt14 dz-noptr dz-text-vc dz-text-right dz-size-to-text-h">
-            #tpm_base_price
-          </span>
-          <span data-dz="text"
-              data-name="TextWidget3"
-              data-bind="{{ base_price }}"
-              class="dz-xy-2-3 dz-wh-9-6 dz-align-bc dz-tc-9ACD32 dz-font-TraderX/datasets/fonts/oswalt14 dz-noptr dz-text-vc dz-size-to-text-h">
-            13,350
-          </span>
-        </div>
-        <div data-dz="grid"
-            data-name="GridSpacerWidget0"
-            class="dz-xy-1-48 dz-wh-77-6 dz-noptr dz-fit-v dz-cols-3 dz-rows-1 dz-pad-5 dz-gap-0">
-          <div data-dz="panel"
-              data-name="presetsTab"
-              class="dz-xy-1-0 dz-wh-32-46px">
-            <button data-dz="button"
-                data-name="tabPresetsBtn"
-                data-style="TXTab"
-                data-on-click="OnTabPresets"
-                class="dz-xy-0-0 dz-wh-full dz-c-FE"></button>
-            <div data-dz="grid"
-                data-name="GridSpacerWidget2"
-                class="dz-xy-0-0 dz-wh-full dz-align-y-center dz-noptr dz-fit-h dz-cols-3 dz-rows-1 dz-pad-8 dz-gap-8">
-              <img data-dz="image"
-                  data-name="ImageWidget0"
-                  class="dz-xy-4-0 dz-wh-32px-32px dz-align-y-center dz-c-FE dz-noptr"
-                  data-image="set:traderx_icons image:star"
-                  data-image-mode="blend"
-                  data-image-src-alpha="1"
-                  data-image-stretch="stretch_w_h"/>
-              <span data-dz="text"
-                  data-name="TextWidget4"
-                  class="dz-xy-14-0 dz-wh-10-66 dz-align-y-center dz-c-D8D2C0 dz-font-TraderX/datasets/fonts/oswalt16 dz-noptr dz-exact-text dz-text-vc dz-size-to-text">
-                #tpm_presets
-              </span>
-              <span data-dz="text"
-                  data-name="TextWidget5"
-                  data-bind="{{ preset_name }}"
-                  class="dz-xy-30-0 dz-wh-10-66 dz-align-y-center dz-c-9ACD32 dz-font-TraderX/datasets/fonts/oswalt14 dz-noptr dz-exact-text dz-text-vc dz-size-to-text">
-                Custom Configuration
-              </span>
-            </div>
-          </div>
-          <div data-dz="panel"
-              data-name="variantsTab"
-              class="dz-xy-1-0 dz-wh-32-46px">
-            <button data-dz="button"
-                data-name="tabVariantsBtn"
-                data-style="TXTab"
-                data-on-click="OnTabVariants"
-                class="dz-xy-0-0 dz-wh-full dz-c-FE"></button>
-            <div data-dz="grid"
-                data-name="GridSpacerWidget3"
-                class="dz-xy-0-0 dz-wh-full dz-align-y-center dz-noptr dz-fit-h dz-cols-3 dz-rows-1 dz-pad-8 dz-gap-8">
-              <img data-dz="image"
-                  data-name="ImageWidget1"
-                  class="dz-xy-4-0 dz-wh-32px-32px dz-align-y-center dz-c-FE dz-noptr"
-                  data-image="set:traderx_icons image:palette"
-                  data-image-mode="blend"
-                  data-image-src-alpha="1"
-                  data-image-stretch="stretch_w_h"/>
-              <span data-dz="text"
-                  data-name="TextWidget6"
-                  class="dz-xy-14-0 dz-wh-10-66 dz-align-y-center dz-c-D8D2C0 dz-font-TraderX/datasets/fonts/oswalt16 dz-noptr dz-exact-text dz-text-vc dz-size-to-text">
-                #tpm_variants
-              </span>
-              <span data-dz="text"
-                  data-name="TextWidget7"
-                  data-bind="{{ variant_name }}"
-                  class="dz-xy-30-0 dz-wh-10-66 dz-align-y-center dz-c-9ACD32 dz-font-TraderX/datasets/fonts/oswalt14 dz-noptr dz-exact-text dz-text-vc dz-size-to-text">
-                Standard Black
-              </span>
-            </div>
-          </div>
-          <div data-dz="panel"
-              data-name="attachmentsTab"
-              class="dz-xy-1-0 dz-wh-32-46px">
-            <button data-dz="button"
-                data-name="tabAttachmentsBtn"
-                data-style="TXTab"
-                data-on-click="OnTabAttachments"
-                class="dz-xy-0-0 dz-wh-full dz-c-FE"></button>
-            <div data-dz="grid"
-                data-name="GridSpacerWidget4"
-                class="dz-xy-0-0 dz-wh-full dz-align-y-center dz-noptr dz-fit-h dz-cols-2 dz-rows-1 dz-pad-8 dz-gap-8">
-              <img data-dz="image"
-                  data-name="ImageWidget2"
-                  class="dz-xy-4-0 dz-wh-32px-32px dz-align-y-center dz-c-FE dz-noptr"
-                  data-image="set:traderx_icons image:wrench"
-                  data-image-mode="blend"
-                  data-image-src-alpha="1"
-                  data-image-stretch="stretch_w_h"/>
-              <span data-dz="text"
-                  data-name="TextWidget8"
-                  class="dz-xy-14-0 dz-wh-10-66 dz-align-y-center dz-c-D8D2C0 dz-font-TraderX/datasets/fonts/oswalt16 dz-noptr dz-exact-text dz-text-vc dz-size-to-text">
-                #tpm_attachments
-              </span>
-              <span data-dz="text"
-                  data-name="TextWidget9"
-                  class="dz-xy-30-0 dz-wh-10-66 dz-align-y-center dz-c-9ACD32 dz-font-TraderX/datasets/fonts/oswalt14 dz-noptr dz-exact-text dz-text-vc dz-size-to-text"></span>
-            </div>
-          </div>
-        </div>
+            data-name="presetsTabLine"
+            class="dz-xy-0-0 dz-wh-100-3px dz-align-bc dz-c-D9762F dz-noptr dz-hidden"></div>
       </div>
       <div data-dz="panel"
-          data-name="MiddlePanel"
-          class="dz-xy-0-0 dz-wh-25-100 dz-align-cr dz-noptr">
+          data-name="variantsTab"
+          class="dz-xy-184px-0 dz-wh-184px-67px dz-noptr">
         <div data-dz="panel"
-            data-name="PanelWidget3"
-            data-style="TXCard"
-            class="dz-xy-0-0 dz-wh-full dz-align-cc dz-c-FE dz-noptr">
-          <div data-dz="grid"
-              data-name="GridSpacerWidget1"
-              class="dz-xy-0-0 dz-wh-99-20 dz-align-x-center dz-noptr dz-fit-v dz-cols-1 dz-pad-10 dz-gap-10">
-            <span data-dz="text"
-                data-name="TextWidget0"
-                class="dz-wh-48px-50px dz-align-x-center dz-font-TraderX/datasets/fonts/oswalt22 dz-noptr dz-text-center dz-text-vc">
-              #tpm_configuration
-            </span>
-            <div data-dz="panel"
-                data-name="PanelWidget1"
-                data-style="blank"
-                class="dz-xy-10px-10px dz-wh-48px-100px dz-c-FE dz-noptr">
-              <span data-dz="text"
-                  data-name="TextWidget2"
-                  class="dz-xy-4-11 dz-wh-92-25 dz-tc-9ACD32 dz-font-TraderX/datasets/fonts/oswalt14 dz-noptr dz-exact-text dz-text-vc">
-                #tpm_product_description
-              </span>
-              <p data-dz="richtext"
-                  data-name="RichTextWidget0"
-                  data-bind="{{ product_description }}"
-                  class="dz-xy-4-34 dz-wh-92-61 dz-tc-D8 dz-font-TraderX/datasets/fonts/oswalt12 dz-noptr dz-wrap dz-exact-text">
-                Kobra Optics system is developped by Staroy Manfactura in relation to best optics design for COB.
-              </p>
-            </div>
-          </div>
-          <div data-dz="panel"
-              data-name="checkoutHost"
-              data-component="tx-checkout"
-              class="dz-xy-1-20 dz-wh-98-78 dz-align-x-center"></div>
-        </div>
+            data-name="variantsTabBg"
+            class="dz-xy-0-0 dz-wh-full dz-c-262019 dz-noptr dz-hidden"></div>
+        <button data-dz="button"
+            data-name="tabVariantsBtn"
+            data-style="Empty"
+            data-on-click="OnTabVariants"
+            class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
+        <span data-dz="text"
+            data-name="variantsTabTitle"
+            data-bind="{{ tab_variants_title }}"
+            class="dz-xy-0-10px dz-wh-100-27px dz-c-A39276 dz-font-nh-19 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+          VARIANTS
+        </span>
+        <span data-dz="text"
+            data-name="TextWidget7"
+            data-bind="{{ variant_name }}"
+            class="dz-xy-0-37px dz-wh-100-18px dz-c-A39276 dz-font-nbb-16 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+          KA-74
+        </span>
+        <div data-dz="panel"
+            data-name="variantsTabLine"
+            class="dz-xy-0-0 dz-wh-100-3px dz-align-bc dz-c-D9762F dz-noptr dz-hidden"></div>
+      </div>
+      <div data-dz="panel"
+          data-name="attachmentsTab"
+          class="dz-xy-368px-0 dz-wh-184px-67px dz-noptr">
+        <div data-dz="panel"
+            data-name="attachmentsTabBg"
+            class="dz-xy-0-0 dz-wh-full dz-c-262019 dz-noptr dz-hidden"></div>
+        <button data-dz="button"
+            data-name="tabAttachmentsBtn"
+            data-style="Empty"
+            data-on-click="OnTabAttachments"
+            class="dz-xy-0-0 dz-wh-full dz-tc-FE"></button>
+        <span data-dz="text"
+            data-name="attachmentsTabTitle"
+            data-bind="{{ tab_attachments_title }}"
+            class="dz-xy-0-10px dz-wh-100-27px dz-c-A39276 dz-font-nh-19 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+          ATTACHMENTS
+        </span>
+        <span data-dz="text"
+            data-name="attachmentsTabSub"
+            data-bind="{{ tab_attachments_sub }}"
+            class="dz-xy-0-37px dz-wh-100-18px dz-c-A39276 dz-font-nbb-16 dz-noptr dz-exact-text dz-text-center dz-text-vc">
+          4 of 5 slots
+        </span>
+        <div data-dz="panel"
+            data-name="attachmentsTabLine"
+            class="dz-xy-0-0 dz-wh-100-3px dz-align-bc dz-c-D9762F dz-noptr dz-hidden"></div>
       </div>
     </div>
+    <div data-dz="panel"
+        data-name="tabContent"
+        data-component="{{ current_tab }}"
+        class="dz-xy-0-67px dz-wh-551px-883px dz-align-x-right dz-clip"></div>
   </div>
-  <button data-dz="button"
-      data-name="closeBtn"
-      data-style="TXBtnIcon"
-      data-on-click="OnClose"
-      class="dz-xy-97-1 dz-wh-32px-32px dz-c-FE dz-tc-D8 dz-font-TraderX/datasets/fonts/oswalt22">
-    <img data-dz="image"
-        data-name="closeBtnIcon"
-        class="dz-xy-0-0 dz-wh-55-55 dz-align-cc dz-noptr"
-        data-image="set:traderx_icons image:close"
-        data-image-mode="blend"
-        data-image-src-alpha="1"
-        data-image-stretch="stretch_w_h"/>
-  </button>
+
+  <!-- Configuration -->
+  <div data-dz="panel"
+      data-name="checkoutHost"
+      data-component="tx-checkout"
+      class="dz-xy-0-0 dz-wh-456px-950px dz-align-x-right"></div>
+
   <div data-dz="panel"
       data-name="modalPanel"
       data-component="{{ current_modal }}"
       class="dz-xy-0-0 dz-wh-full dz-align-cc dz-noptr dz-priority-999"></div>
 </div>
 
-<script src="dzml-runtime.js?v=1781987185754"></script>
+<script src="../dzml-runtime.js"></script>
 </body>
 </html>

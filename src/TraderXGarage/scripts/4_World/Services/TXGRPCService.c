@@ -61,6 +61,7 @@ class TXGRPCService extends DayZularService
             dto.insuranceMaxDays = settings.insurance.maxDays;
         }
         dto.isAdmin = GetTXGGarageService().IsPlayerAdmin(identity.GetPlainId());
+        dto.receiptsEnabled = settings.receipts && settings.receipts.enabled;
         foreach (TXGNpcEntry npc : settings.npcs)
         {
             if (!npc)
@@ -255,6 +256,11 @@ class TXGRPCService extends DayZularService
             return;
 
         TXGVehicleListFile payload = data.param1;
+        foreach (TXGVehicleRowVM nearbyRow : payload.nearby)
+        {
+            if (nearbyRow)
+                nearbyRow.parkInBlockedReason = TXGText.Localize(nearbyRow.parkInBlockedReason);
+        }
         GetTXGGarageService().SetClientExtras(payload.people, payload.bankBalance, payload.cashBalance, payload.nowUnix);
         GetTXGGarageService().SetClientVehicles(payload.vehicles, payload.maxSlots, payload.nearby);
     }
@@ -266,7 +272,7 @@ class TXGRPCService extends DayZularService
             return;
 
         TXGConfigDTO dto = data.param1;
-        GetTXGConfigService().SetClientConfig(dto.parkInCost, dto.parkOutCost, dto.maxSlots, dto.npcClasses, dto.npcIds, dto.npcSpots, dto.enableRepairs, dto.enableInsurance, dto.insuranceDefaultDays, dto.isAdmin, dto.insuranceMaxDays);
+        GetTXGConfigService().SetClientConfig(dto.parkInCost, dto.parkOutCost, dto.maxSlots, dto.npcClasses, dto.npcIds, dto.npcSpots, dto.enableRepairs, dto.enableInsurance, dto.insuranceDefaultDays, dto.isAdmin, dto.insuranceMaxDays, dto.receiptsEnabled);
     }
 
     void OnGarageNotify(PlayerIdentity sender, ParamsReadContext ctx)
@@ -276,7 +282,8 @@ class TXGRPCService extends DayZularService
             return;
 
         TXGNotifyDTO dto = data.param1;
-        TXGGarageService.Event_OnNotify.Invoke(dto.message, dto.success);
+        // the server sends stringtable tokens: show them in the player's language
+        TXGGarageService.Event_OnNotify.Invoke(TXGText.Localize(dto.message), dto.success);
     }
 
     // --- Helpers ---

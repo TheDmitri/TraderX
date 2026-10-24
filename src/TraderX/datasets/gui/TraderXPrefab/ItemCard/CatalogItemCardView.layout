@@ -2,10 +2,12 @@ PanelWidgetClass CatalogItemCardView {
  position 0 0
  hexactpos 0
  vexactpos 0
- size 1 92
+ size 1 80
  hexactsize 0
  vexactsize 1
  ignorepointer 1
+ style TXRowRule
+ color 0.9961 0.9961 0.9961 1
  {
   PanelWidgetClass itemCardOutline {
    position 0 0
@@ -15,7 +17,8 @@ PanelWidgetClass CatalogItemCardView {
    hexactsize 0
    vexactsize 0
    ignorepointer 1
-   style TXCardElevated
+   visible 0
+   style TXCardSelected
    color 0.9961 0.9961 0.9961 1
   }
   ButtonWidgetClass itemCardBtn {
@@ -26,7 +29,7 @@ PanelWidgetClass CatalogItemCardView {
    hexactsize 0
    vexactsize 0
    "text color" 0.9961 0.9961 0.9961 1
-   style Empty
+   style TXListRow
    color 0.9961 0.9961 0.9961 1
    scriptclass "ButtonBinding"
    {
@@ -37,23 +40,23 @@ PanelWidgetClass CatalogItemCardView {
    }
   }
   PanelWidgetClass previewBg {
-   position 0.02 0.12
-   hexactpos 0
-   vexactpos 0
-   size 0.13 0.76
-   hexactsize 0
-   vexactsize 0
-   color 0.0706 0.0784 0.102 1
+   position 12 8
+   hexactpos 1
+   vexactpos 1
+   size 86 64
+   hexactsize 1
+   vexactsize 1
+   color 0.0588 0.051 0.0392 1
    ignorepointer 1
    style rover_sim_colorable
   }
   ItemPreviewWidgetClass itemPreview {
-   position 0.02 0.12
-   hexactpos 0
-   vexactpos 0
-   size 0.13 0.76
-   hexactsize 0
-   vexactsize 0
+   position 12 8
+   hexactpos 1
+   vexactpos 1
+   size 86 64
+   hexactsize 1
+   vexactsize 1
    ignorepointer 1
    clipchildren 1
    scriptclass "ItemPreviewBinding"
@@ -64,16 +67,15 @@ PanelWidgetClass CatalogItemCardView {
    }
   }
   TextWidgetClass itemName {
-   position 0.17 0.14
+   position 0.08393 14
    hexactpos 0
-   vexactpos 0
-   size 0.48 0.4
+   vexactpos 1
+   size 0.42674 28
    hexactsize 0
-   vexactsize 0
-   "text color" 0.8471 0.8235 0.7529 1
-   font "TraderX/datasets/fonts/oswalt16"
+   vexactsize 1
+   color 0.949 0.9137 0.8471 1
+   font "TraderX/datasets/fonts/rajdhanibpx20"
    ignorepointer 1
-   style Bold
    "exact text" 1
    "text valign" center
    text "Item Name"
@@ -85,18 +87,18 @@ PanelWidgetClass CatalogItemCardView {
    }
   }
   TextWidgetClass itemStock {
-   position 0.17 0.56
+   position 0.08393 44
    hexactpos 0
-   vexactpos 0
-   size 0.48 0.32
+   vexactpos 1
+   size 0.42674 22
    hexactsize 0
-   vexactsize 0
-   "text color" 0.6039 0.5804 0.5333 1
-   font "TraderX/datasets/fonts/oswalt12"
+   vexactsize 1
+   color 0.6392 0.5725 0.4627 1
+   font "TraderX/datasets/fonts/monopx14"
    ignorepointer 1
    "exact text" 1
    "text valign" center
-   text "Stock: 12"
+   text "0/15"
    scriptclass "TextBinding"
    {
     ScriptParamsClass {
@@ -104,57 +106,63 @@ PanelWidgetClass CatalogItemCardView {
     }
    }
   }
-  GridSpacerWidgetClass priceGrid {
-   position 0.66 0
+  TextWidgetClass itemPrice {
+   position 0.1138 0
    hexactpos 0
    vexactpos 0
-   size 0.3 1
+   size 0.15647 80
    hexactsize 0
-   vexactsize 0
+   vexactsize 1
+   halign right_ref
+   color 0.9098 0.5373 0.2902 1
+   font "TraderX/datasets/fonts/monopx22"
    ignorepointer 1
-   Columns 2
-   Rows 1
-   Margin 6
-   "Size To Content H" 1
-   "Size To Content V" 1
-   valign center_ref
+   "exact text" 1
+   "text valign" center
+   "text halign" right
+   text "€ 1,250"
+   scriptclass "TextBinding"
    {
-    ImageWidgetClass priceIcon {
-     size 28 28
-     hexactsize 1
-     vexactsize 1
-     color 0.7686 0.6392 0.3529 1
-     ignorepointer 1
-     image0 "set:traderx_icons image:simpleCoins"
-     mode blend
-     "src alpha" 1
-     "stretch mode" stretch_w_h
-    }
-    TextWidgetClass itemPrice {
-     color 0.7686 0.6392 0.3529 1
-     font "TraderX/datasets/fonts/jet-brains-mono22"
-     ignorepointer 1
-     style Bold
-     "exact text" 1
-     "text valign" center
-     "size to text h" 1
-     text "1,250"
-     scriptclass "TextBinding"
-     {
-      ScriptParamsClass {
-       Binding_Expression "{{ itemPrice }}"
-      }
-     }
+    ScriptParamsClass {
+     Binding_Expression "{{ itemPrice }}"
     }
    }
   }
-  ButtonWidgetClass variantBtn {
-   position 0.8 0
+  PanelWidgetClass licenseDimPanel {
+   position 0 0
    hexactpos 0
    vexactpos 0
-   size 24 24
+   size 1 1
+   hexactsize 0
+   vexactsize 0
+   color 0.0588 0.051 0.0392 0.6
+   ignorepointer 1
+   visible 0
+   style rover_sim_colorable
+  }
+  ImageWidgetClass licenseLockIcon {
+   position 18 14
+   hexactpos 1
+   vexactpos 1
+   size 18 18
    hexactsize 1
    vexactsize 1
+   color 0.8784 0.4784 0.3882 1
+   ignorepointer 1
+   visible 0
+   image0 "set:traderx_icons image:padlock"
+   mode blend
+   "src alpha" 1
+   "stretch mode" stretch_w_h
+  }
+  ButtonWidgetClass variantBtn {
+   position 0.06686 0
+   hexactpos 0
+   vexactpos 0
+   size 38 38
+   hexactsize 1
+   vexactsize 1
+   halign right_ref
    valign center_ref
    "text color" 0.9961 0.9961 0.9961 1
    visible 0
@@ -166,12 +174,12 @@ PanelWidgetClass CatalogItemCardView {
      position 0 0
      hexactpos 0
      vexactpos 0
-     size 1 1
-     hexactsize 0
-     vexactsize 0
+     size 19 19
+     hexactsize 1
+     vexactsize 1
      halign center_ref
      valign center_ref
-     color 0.6039 0.8039 0.1961 1
+     color 0.7608 0.7098 0.6118 1
      ignorepointer 1
      image0 "set:traderx_icons image:palette"
      mode blend
@@ -188,12 +196,13 @@ PanelWidgetClass CatalogItemCardView {
    }
   }
   ButtonWidgetClass attachBtn {
-   position 0.86 0
-   hexactpos 0
+   position 54 0
+   hexactpos 1
    vexactpos 0
-   size 24 24
+   size 38 38
    hexactsize 1
    vexactsize 1
+   halign right_ref
    valign center_ref
    "text color" 0.9961 0.9961 0.9961 1
    visible 0
@@ -205,12 +214,12 @@ PanelWidgetClass CatalogItemCardView {
      position 0 0
      hexactpos 0
      vexactpos 0
-     size 1 1
-     hexactsize 0
-     vexactsize 0
+     size 19 19
+     hexactsize 1
+     vexactsize 1
      halign center_ref
      valign center_ref
-     color 0.7686 0.6392 0.3529 1
+     color 0.7608 0.7098 0.6118 1
      ignorepointer 1
      image0 "set:traderx_icons image:wrench"
      mode blend
@@ -227,12 +236,13 @@ PanelWidgetClass CatalogItemCardView {
    }
   }
   ButtonWidgetClass customizeBtn {
-   position 0.92 0
-   hexactpos 0
+   position 14 0
+   hexactpos 1
    vexactpos 0
-   size 24 24
+   size 38 38
    hexactsize 1
    vexactsize 1
+   halign right_ref
    valign center_ref
    "text color" 0.9961 0.9961 0.9961 1
    visible 0
@@ -244,12 +254,12 @@ PanelWidgetClass CatalogItemCardView {
      position 0 0
      hexactpos 0
      vexactpos 0
-     size 1 1
-     hexactsize 0
-     vexactsize 0
+     size 19 19
+     hexactsize 1
+     vexactsize 1
      halign center_ref
      valign center_ref
-     color 0.8471 0.8235 0.7529 1
+     color 0.7608 0.7098 0.6118 1
      ignorepointer 1
      image0 "set:traderx_icons image:gear"
      mode blend

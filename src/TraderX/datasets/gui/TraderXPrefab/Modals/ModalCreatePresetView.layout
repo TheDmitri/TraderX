@@ -1,4 +1,4 @@
-PanelWidgetClass modalRoot {
+FrameWidgetClass modalRoot {
  position 0 0
  hexactpos 0
  vexactpos 0
@@ -7,7 +7,6 @@ PanelWidgetClass modalRoot {
  vexactsize 0
  halign center_ref
  valign center_ref
- priority 999
  {
   PanelWidgetClass backdrop {
    position 0 0
@@ -16,34 +15,32 @@ PanelWidgetClass modalRoot {
    size 1 1
    hexactsize 0
    vexactsize 0
-   color 0 0 0 0.7843
+   color 0.0588 0.051 0.0392 0.8
    style rover_sim_colorable
   }
   PanelWidgetClass modalCard {
    position 0 0
    hexactpos 0
    vexactpos 0
-   size 0.3 0.3
+   size 0.3125 320
    hexactsize 0
-   vexactsize 0
+   vexactsize 1
    halign center_ref
    valign center_ref
    style TXCard
    color 0.9961 0.9961 0.9961 1
    {
     TextWidgetClass title {
-     position 0 0.07
-     hexactpos 0
-     vexactpos 0
-     size 1 0.14
+     position 28 23
+     hexactpos 1
+     vexactpos 1
+     size 0.90667 42
      hexactsize 0
-     vexactsize 0
-     halign center_ref
-     color 0.8471 0.8235 0.7529 1
-     font "TraderX/datasets/fonts/oswalt22"
+     vexactsize 1
+     color 0.949 0.9137 0.8471 1
+     font "TraderX/datasets/fonts/antonpx29"
      ignorepointer 1
      "exact text" 1
-     "text halign" center
      "text valign" center
      text "#tpm_create_new_preset"
      scriptclass "TextBinding"
@@ -54,30 +51,38 @@ PanelWidgetClass modalRoot {
      }
     }
     TextWidgetClass nameLabel {
-     position 0.07 0.27
-     hexactpos 0
-     vexactpos 0
-     size 0.86 0.09
+     position 28 90
+     hexactpos 1
+     vexactpos 1
+     size 0.90667 18
      hexactsize 0
-     vexactsize 0
-     color 0.6039 0.5804 0.5333 1
-     font "TraderX/datasets/fonts/oswalt16"
+     vexactsize 1
+     color 0.6392 0.5725 0.4627 1
+     font "TraderX/datasets/fonts/rajdhanibpx14"
      ignorepointer 1
      "exact text" 1
      "text valign" center
      text "#tpm_choose_preset_name"
     }
-    EditBoxWidgetClass nameInput {
-     position 0.07 0.38
-     hexactpos 0
-     vexactpos 0
-     size 0.86 0.16
+    PanelWidgetClass nameInputBox {
+     position 28 116
+     hexactpos 1
+     vexactpos 1
+     size 0.90667 53
      hexactsize 0
-     vexactsize 0
-     font "TraderX/datasets/fonts/oswalt16"
-     "exact text" 1
+     vexactsize 1
      style TXInputField
      color 0.9961 0.9961 0.9961 1
+    }
+    EditBoxWidgetClass nameInput {
+     position 44 124
+     hexactpos 1
+     vexactpos 1
+     size 0.85333 37
+     hexactsize 0
+     vexactsize 1
+     color 0.949 0.9137 0.8471 1
+     font "TraderX/datasets/fonts/rajdhanipx20"
      scriptclass "EditBoxBinding"
      {
       ScriptParamsClass {
@@ -88,14 +93,14 @@ PanelWidgetClass modalRoot {
      }
     }
     TextWidgetClass errorText {
-     position 0.07 0.57
-     hexactpos 0
-     vexactpos 0
-     size 0.86 0.09
+     position 28 178
+     hexactpos 1
+     vexactpos 1
+     size 0.90667 22
      hexactsize 0
-     vexactsize 0
-     color 0.9412 0.3961 0.2902 1
-     font "TraderX/datasets/fonts/oswalt14"
+     vexactsize 1
+     color 0.8784 0.4784 0.3882 1
+     font "TraderX/datasets/fonts/rajdhanipx17"
      ignorepointer 1
      "exact text" 1
      "text valign" center
@@ -106,39 +111,97 @@ PanelWidgetClass modalRoot {
       }
      }
     }
-    ButtonWidgetClass cancelBtn {
-     position 0.07 0.74
-     hexactpos 0
-     vexactpos 0
-     size 0.4 0.18
+    PanelWidgetClass confirmBtnHost {
+     position 28 28
+     hexactpos 1
+     vexactpos 1
+     size 0.33333 53
      hexactsize 0
-     vexactsize 0
-     "text color" 0.9961 0.9961 0.9961 1
-     style TXBtnDefault
-     color 0.9961 0.9961 0.9961 1
-     text "#tpm_cancel"
-     scriptclass "ButtonBinding"
+     vexactsize 1
+     halign right_ref
+     valign bottom_ref
+     ignorepointer 1
      {
-      ScriptParamsClass {
-       OnClick "OnCancelClick"
+      ButtonWidgetClass confirmBtn {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 1 1
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.9961 0.9961 0.9961 1
+       style TXBtnPrimary
+       color 0.9961 0.9961 0.9961 1
+       scriptclass "ButtonBinding"
+       {
+        TextWidgetClass confirmBtnText {
+         position 0 0
+         hexactpos 0
+         vexactpos 0
+         size 1 1
+         hexactsize 0
+         vexactsize 0
+         color 0.102 0.051 0.0157 1
+         font "TraderX/datasets/fonts/antonpx20"
+         ignorepointer 1
+         "exact text" 1
+         "text halign" center
+         "text valign" center
+         text "#tpm_confirm"
+        }
+       }
+       {
+        ScriptParamsClass {
+         OnClick "OnConfirmClick"
+        }
+       }
       }
      }
     }
-    ButtonWidgetClass confirmBtn {
-     position 0.53 0.74
+    PanelWidgetClass cancelBtnHost {
+     position 0.4 28
      hexactpos 0
-     vexactpos 0
-     size 0.4 0.18
+     vexactpos 1
+     size 0.33333 53
      hexactsize 0
-     vexactsize 0
-     "text color" 0.9961 0.9961 0.9961 1
-     style TXBtnPrimary
-     color 0.9961 0.9961 0.9961 1
-     text "#tpm_confirm"
-     scriptclass "ButtonBinding"
+     vexactsize 1
+     halign right_ref
+     valign bottom_ref
+     ignorepointer 1
      {
-      ScriptParamsClass {
-       OnClick "OnConfirmClick"
+      ButtonWidgetClass cancelBtn {
+       position 0 0
+       hexactpos 0
+       vexactpos 0
+       size 1 1
+       hexactsize 0
+       vexactsize 0
+       "text color" 0.9961 0.9961 0.9961 1
+       style TXBtnDefault
+       color 0.9961 0.9961 0.9961 1
+       scriptclass "ButtonBinding"
+       {
+        TextWidgetClass cancelBtnText {
+         position 0 0
+         hexactpos 0
+         vexactpos 0
+         size 1 1
+         hexactsize 0
+         vexactsize 0
+         color 0.7608 0.7098 0.6118 1
+         font "TraderX/datasets/fonts/antonpx20"
+         ignorepointer 1
+         "exact text" 1
+         "text halign" center
+         "text valign" center
+         text "#tpm_cancel"
+        }
+       }
+       {
+        ScriptParamsClass {
+         OnClick "OnCancelClick"
+        }
+       }
       }
      }
     }

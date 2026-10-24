@@ -5,7 +5,7 @@ PanelWidgetClass vaultCardRoot {
  size 1 1
  hexactsize 0
  vexactsize 0
- style TXSurface
+ style TXBSurface
  color 0.9961 0.9961 0.9961 1
  {
   ButtonWidgetClass cardClickBtn {
@@ -31,7 +31,7 @@ PanelWidgetClass vaultCardRoot {
    hexactsize 0
    vexactsize 0
    ignorepointer 1
-   style TXProgressFill
+   style TXBProgressFill
    color 0.9961 0.9961 0.9961 1
   }
   ItemPreviewWidgetClass cardPreview {
@@ -57,11 +57,10 @@ PanelWidgetClass vaultCardRoot {
    size 0.57 0.4
    hexactsize 0
    vexactsize 0
-   color 0.8471 0.8235 0.7529 1
-   font "TraderX/datasets/fonts/oswalt12"
+   color 0.949 0.9137 0.8471 1
+   font "TraderX/datasets/fonts/rajdhanibpx16"
    ignorepointer 1
    "exact text" 1
-   style Bold
    wrap 1
    text "-"
    scriptclass "TextBinding"
@@ -78,11 +77,10 @@ PanelWidgetClass vaultCardRoot {
    size 0.3 0.18
    hexactsize 0
    vexactsize 0
-   color 0.8314 0.6431 0.298 1
-   font "TraderX/datasets/fonts/oswalt12"
+   color 0.9098 0.5373 0.2902 1
+   font "TraderX/datasets/fonts/rajdhanibpx16"
    ignorepointer 1
    "exact text" 1
-   style Bold
    text "-"
    scriptclass "TextBinding"
    {
@@ -98,11 +96,10 @@ PanelWidgetClass vaultCardRoot {
    size 0.42 0.25
    hexactsize 0
    vexactsize 0
-   color 0.8314 0.6431 0.298 1
-   font "TraderX/datasets/fonts/oswalt12"
+   color 0.9098 0.5373 0.2902 1
+   font "TraderX/datasets/fonts/rajdhanibpx16"
    ignorepointer 1
    "exact text" 1
-   style Bold
    text "-"
    scriptclass "TextBinding"
    {
@@ -118,8 +115,8 @@ PanelWidgetClass vaultCardRoot {
    size 0.17 0.22
    hexactsize 0
    vexactsize 0
-   color 0.4157 0.3961 0.3765 1
-   font "TraderX/datasets/fonts/oswalt12"
+   color 0.549 0.4902 0.4 1
+   font "TraderX/datasets/fonts/rajdhanibpx16"
    ignorepointer 1
    "exact text" 1
    "text halign" right

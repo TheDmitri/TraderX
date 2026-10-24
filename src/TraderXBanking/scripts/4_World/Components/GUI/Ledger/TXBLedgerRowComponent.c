@@ -18,6 +18,9 @@ class TXBLedgerRowComponent extends DZlrComponentBase
 	string rowTypeText;
 	string rowAmountText;
 	string rowBalanceText;
+	// Nasdara row: "+" / "−" box and "10/23 14:02 · balance 500" under the type
+	string rowSignText;
+	string rowDetailText;
 
 	override protected void RegisterMetadata()
 	{
@@ -42,24 +45,27 @@ class TXBLedgerRowComponent extends DZlrComponentBase
 		rowTypeText = BuildTypeLabel(_inputEntry);
 		rowAmountText = BuildAmountLabel(_inputEntry);
 		rowBalanceText = _inputEntry.balanceAfter.ToString();
+		rowSignText = "−";
+		if (TXBLedgerEntryType.IsInflow(_inputEntry.type)) rowSignText = "+";
+		rowDetailText = rowDateText + " · " + Widget.TranslateString("#txb_balance_after") + " " + TXBFormat.Currency(_inputEntry.balanceAfter);
 
 		MarkForCheck();
 		ApplyAmountColor();
 	}
 
-	// Color the amount green for inflow (+) / red for outflow (-) - text color is set in
-	// code because the DZML dz-c-* class is static.
+	// Amount and sign box in Good #7FA65A for inflow, Bad #E07A63 for outflow - text color
+	// is set in code because the DZML dz-c-* class is static.
 	protected void ApplyAmountColor()
 	{
 		Widget root = GetRoot();
 		if (!root) return;
-		TextWidget aw = TextWidget.Cast(root.FindAnyWidget("rowAmount"));
-		if (!aw) return;
-
+		int color = ARGB(255, 224, 122, 99);
 		if (_inputEntry && TXBLedgerEntryType.IsInflow(_inputEntry.type))
-			aw.SetColor(ARGB(255, 154, 176, 90));   // 9AB05A olive/green
-		else
-			aw.SetColor(ARGB(255, 200, 102, 74));    // C8664A rust/red
+			color = ARGB(255, 127, 166, 90);
+		TextWidget aw = TextWidget.Cast(root.FindAnyWidget("rowAmount"));
+		if (aw) aw.SetColor(color);
+		TextWidget sw = TextWidget.Cast(root.FindAnyWidget("rowSign"));
+		if (sw) sw.SetColor(color);
 	}
 
 	void OnRowClicked()
@@ -68,12 +74,18 @@ class TXBLedgerRowComponent extends DZlrComponentBase
 		Event_OnLedgerRowClicked.Invoke(_inputEntry.id);
 	}
 
-	// "Deposit" or "Transfer out - PlayerName"
+	// "Deposit" or "Transfer out - PlayerName (+5 fee)"
 	protected string BuildTypeLabel(TXBLedgerEntry e)
 	{
 		string label = TXBLedgerEntryType.GetLabel(e.type);
 		if (e.counterpartyName != "" && e.type != TXBLedgerEntryType.DEPOSIT && e.type != TXBLedgerEntryType.WITHDRAW)
-			return label + " - " + e.counterpartyName;
+			label = label + " - " + e.counterpartyName;
+		// Transfer fee is charged on top of the sent amount: make it visible in the row.
+		// Deposit fee is paid on top of the deposited amount (amount = credited).
+		if (e.type == TXBLedgerEntryType.DEPOSIT && e.fee > 0)
+			label = label + " (fee " + e.fee.ToString() + ")";
+		if (e.type == TXBLedgerEntryType.TRANSFER_OUT && e.fee > 0)
+			label = label + " (+" + e.fee.ToString() + " fee)";
 		return label;
 	}
 
@@ -81,8 +93,8 @@ class TXBLedgerRowComponent extends DZlrComponentBase
 	protected string BuildAmountLabel(TXBLedgerEntry e)
 	{
 		if (TXBLedgerEntryType.IsInflow(e.type))
-			return "+" + e.amount.ToString();
-		return "-" + e.amount.ToString();
+			return "+" + TXBFormat.Currency(e.amount);
+		return "−" + TXBFormat.Currency(e.amount);
 	}
 
 	// Epoch seconds -> "MM-DD HH:MM"

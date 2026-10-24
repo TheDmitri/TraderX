@@ -1,11 +1,12 @@
 PanelWidgetClass VariantPanel {
- position 10 10
- hexactpos 1
- vexactpos 1
- size 220 160
- hexactsize 1
+ position 0 0
+ hexactpos 0
+ vexactpos 0
+ size 1 96
+ hexactsize 0
  vexactsize 1
- style blank
+ ignorepointer 1
+ style TXRowRule
  color 0.9961 0.9961 0.9961 1
  {
   ButtonWidgetClass ButtonWidget0 {
@@ -15,10 +16,8 @@ PanelWidgetClass VariantPanel {
    size 1 1
    hexactsize 0
    vexactsize 0
-   halign center_ref
-   valign center_ref
    "text color" 0.9961 0.9961 0.9961 1
-   style TXBtnDefault
+   style TXListRow
    color 0.9961 0.9961 0.9961 1
    scriptclass "ButtonBinding"
    {
@@ -28,75 +27,45 @@ PanelWidgetClass VariantPanel {
    }
   }
   PanelWidgetClass PanelWidget7 {
-   position 0 0.01
-   hexactpos 0
-   vexactpos 0
-   size 1 0.65
-   hexactsize 0
-   vexactsize 0
-   halign center_ref
+   position 24 14
+   hexactpos 1
+   vexactpos 1
+   size 67 67
+   hexactsize 1
+   vexactsize 1
    ignorepointer 1
-   style TXCard
+   style TXInset
    color 0.9961 0.9961 0.9961 1
-   {
-    ItemPreviewWidgetClass ItemPreviewWidget0 {
-     position 0 0.09
-     hexactpos 0
-     vexactpos 0
-     size 0.93 0.81
-     hexactsize 0
-     vexactsize 0
-     halign center_ref
-     ignorepointer 1
-     scriptclass "ItemPreviewBinding"
-     {
-      ScriptParamsClass {
-       Binding_Item "{{ preview }}"
-      }
-     }
-    }
-   }
   }
-  TextWidgetClass TextWidget11 {
-   position 0 0.06
-   hexactpos 0
-   vexactpos 0
-   size 0.14 0.11
-   hexactsize 0
-   vexactsize 0
-   halign center_ref
-   valign bottom_ref
-   color 0.6039 0.8039 0.1961 1
-   font "TraderX/datasets/fonts/oswalt16"
+  ItemPreviewWidgetClass ItemPreviewWidget0 {
+   position 25 15
+   hexactpos 1
+   vexactpos 1
+   size 65 65
+   hexactsize 1
+   vexactsize 1
    ignorepointer 1
-   "exact text" 1
-   "size to text h" 1
-   "size to text v" 1
-   text "Total: 1,850"
-   scriptclass "TextBinding"
+   clipchildren 1
+   scriptclass "ItemPreviewBinding"
    {
     ScriptParamsClass {
-     Binding_Expression "{{ variant_price }}"
+     Binding_Item "{{ preview }}"
     }
    }
   }
   TextWidgetClass TextWidget10 {
-   position 0 0.18
+   position 0.19565 22
    hexactpos 0
-   vexactpos 0
-   size 0.14 0.18
+   vexactpos 1
+   size 0.54348 26
    hexactsize 0
-   vexactsize 0
-   halign center_ref
-   valign bottom_ref
-   color 0.8471 0.8235 0.7529 1
-   font "TraderX/datasets/fonts/oswalt22"
+   vexactsize 1
+   color 0.949 0.9137 0.8471 1
+   font "TraderX/datasets/fonts/rajdhanibpx20"
    ignorepointer 1
    "exact text" 1
    "text valign" center
-   "size to text h" 1
-   "size to text v" 1
-   text "Tactical Setup"
+   text "KA-74"
    scriptclass "TextBinding"
    {
     ScriptParamsClass {
@@ -104,14 +73,36 @@ PanelWidgetClass VariantPanel {
     }
    }
   }
-  PanelWidgetClass selectedBadge {
-   position 0.84 0.03
+  TextWidgetClass TextWidget11 {
+   position 0.19565 50
    hexactpos 0
+   vexactpos 1
+   size 0.54348 22
+   hexactsize 0
+   vexactsize 1
+   color 0.9098 0.5373 0.2902 1
+   font "TraderX/datasets/fonts/monopx18"
+   ignorepointer 1
+   "exact text" 1
+   "text valign" center
+   text "€ 0"
+   scriptclass "TextBinding"
+   {
+    ScriptParamsClass {
+     Binding_Expression "{{ variant_price }}"
+    }
+   }
+  }
+  PanelWidgetClass selectedBadge {
+   position 24 0
+   hexactpos 1
    vexactpos 0
-   size 30 30
+   size 41 41
    hexactsize 1
    vexactsize 1
-   color 0.6039 0.8039 0.1961 1
+   halign right_ref
+   valign center_ref
+   color 0.851 0.4627 0.1843 1
    ignorepointer 1
    visible 0
    style rover_sim_colorable
@@ -120,12 +111,12 @@ PanelWidgetClass VariantPanel {
      position 0 0
      hexactpos 0
      vexactpos 0
-     size 1 1
-     hexactsize 0
-     vexactsize 0
+     size 18 18
+     hexactsize 1
+     vexactsize 1
      halign center_ref
      valign center_ref
-     color 0.102 0.1176 0.1569 1
+     color 0.102 0.051 0.0157 1
      ignorepointer 1
      image0 "set:traderx_icons image:approved"
      mode blend
