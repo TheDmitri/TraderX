@@ -1,55 +1,57 @@
-# Discord post: TraderX release (2026-10)
+# Discord post: TraderX release (2026-10-24)
 
-Discord caps a message at 2000 characters, so the post is split into 2 messages. Attach the screenshots to message 1 and the video to message 2.
-
----
-
-## Message 1
-
-# 🛒 TraderX: big update is live
-
-**New look, Garage v2, banking, CSV catalog, DayZ 1.30, and near 100% TraderPlus compatibility.**
-
-**🎨 New interface**
-Trader, bank and garage fully redesigned: category sidebar, item tiles with "sells for", a cart column with totals, try-on preview, and attachment/preset customization. Works on 16:10 and ultrawide screens.
-
-**🚗 Garage v2**
-Park a vehicle and get it back exactly as it was (attachments, cargo, fluids, damage, lock). 3D preview, repair, sharing with friends, and insurance.
-
-**🏦 Banking**
-Player-to-player transfers, contacts, a full ledger, and you can pay at traders with your bank balance.
-
-**📊 Catalog in a spreadsheet**
-New servers start with `products.csv` / `categories.csv` / `presets.csv`. Edit them in Excel or Google Sheets and restart. Errors are reported with file and line number.
-
-**⚙️ Simpler setup**
-Needs **only CF** now. DabsFramework is no longer required and DayZular is built in. If you already run @DayZular, keep it and update it.
-
-**🔒 Security**
-Several exploits that let modified clients get items or money for free are fixed. **Update recommended.**
+Message 1 is for TraderX users. Message 2 is for TraderPlus users. Each is under Discord's 2000-character limit.
+Attach the 6 screenshots from `release-screens/discord/` to message 1.
 
 ---
 
-## Message 2
+## Message 1 (TraderX users)
 
-## 🔄 TraderPlus → TraderX: time to migrate
+Hey everyone! 👋
 
-TraderX now imports a TraderPlus server **almost 100%**:
-• config, traders, categories, stock, licences and bank accounts
-• vehicles and **CarLock locks** (owner, code, locked state)
-• the **cash players already hold**, bank cards, wrench and lockpick
-• **vehicle receipts**: receipts players already have still deploy their car (parts, cargo, lock code)
+I'm really excited to release the **new TraderX update**. It's the biggest one so far, it's **fully compatible with DayZ 1.30**, and it's live now on both TraderX and TraderX Experimental.
 
-Your TraderPlus files are never modified, and a `MigrationReport` explains what was imported.
+It's a big update, so there may be a few bugs. If you find one, tell me in #bug-reports (your `TraderXLogs` folder helps a lot) and I'll fix it quickly.
 
-👉 **If you're on TraderPlus, now is the right moment to switch over the coming weeks.** As always, **test on a test server first**: drop TraderX in, boot, check the report, then move your live server.
+**Highlights**
+- **Brand new interface** for the trader, bank and garage. It has a proper cart, buy and sell prices on every item, and weapon customization with attachments and presets.
+- **Garage v2**: your vehicle comes back exactly as you parked it. You also get a 3D preview, servicing, insurance and vehicle sharing.
+- **Banking**: transfers between players, a full history, and paying traders from your bank.
+- **Spreadsheet catalog** for new servers (Excel or Google Sheets).
+- **Security fixes** and **no more freeze** when you open a trader.
 
-## 🤖 Faster fixes from now on
-Builds, deployments and fixes are now AI-assisted. Expect **many more fixes, much faster**, and steady development. Report bugs in #bug-reports with your `TraderXLogs` and they'll get picked up quickly.
+The full changelog is on the Workshop page: https://steamcommunity.com/sharedfiles/filedetails/?id=3560310973
 
-📦 **TraderX:** https://steamcommunity.com/sharedfiles/filedetails/?id=3560310973
-🧪 **TraderX Experimental:** https://steamcommunity.com/sharedfiles/filedetails/?id=3760962576
-📦 **DayZular** (optional, update it if you run it): https://steamcommunity.com/sharedfiles/filedetails/?id=3686232711
-⚠️ Updating an existing server: **back up your profile folder first**. Your config, catalog and parked vehicles are kept. You can drop DabsFramework if nothing else needs it.
+**Server owners, please read before updating**
+As some of you know, DabsFramework caused a few problems. TraderX **no longer needs it**. It now ships with our own framework (DayZular) built in, which makes it much easier to maintain.
+1. Back up your profile folder. Your config, catalog and parked vehicles are kept.
+2. Keep **CF + TraderX**. You can remove DabsFramework if no other mod uses it.
+3. If you also load **@DayZular**, keep it updated (it was updated today too).
+
+Enjoy, and if you need help, just ask! ❤️
+
+---
+
+## Message 2 (TraderPlus users)
+
+**To everyone still on TraderPlus 👋**
+
+I know a lot of you are still running TraderPlus, and that's totally fine with me. But I want you to know that **most of what was missing in TraderX is now there**:
+- **Banking is back**: accounts, ATMs, bank cards, and transfers between players.
+- **The garage is back**, and it's better: vehicles come back exactly as parked, with insurance and sharing.
+- **Vehicle receipts are supported**: pack a car with the wrench and deploy it from the receipt. The receipts your players already hold still work.
+- **A new CarLock**: your existing TraderPlus locks and 4-digit codes are kept.
+- **Safe zones**, licences, and stock are all included.
+
+**Migrating is easy.** TraderX imports your TraderPlus server for you: config, traders, stock, licences, bank accounts, vehicles and their locks, and even the TraderPlus money your players carry. Your TraderPlus files are never touched, and a report tells you exactly what was imported.
+
+So give it a try on a **test server**: add TraderX, boot it, read the report, and see how it feels. If it works for you, move your live server over in the coming weeks.
+
+From now on I build, test and ship TraderX with the help of AI. That means many more fixes, delivered faster, and development that keeps moving.
+
+TraderX: https://steamcommunity.com/sharedfiles/filedetails/?id=3560310973
+TraderX Experimental (gets new builds first): https://steamcommunity.com/sharedfiles/filedetails/?id=3760962576
+
+Questions about migrating? Ask here, I'm happy to help!
 
 @everyone
