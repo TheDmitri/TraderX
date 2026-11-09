@@ -111,11 +111,14 @@ class TXBBankingComponent extends DZlrComponentBase
 	}
 
 	// Close button handler (X in the header).
+	// Deferred on the service: closing destroys this component while its click handler is
+	// still on the stack (use-after-free -> native CTD). The call must target the service,
+	// never a method of this component.
 	void OnClose()
 	{
 		TXBUIService svc = GetTXBUIService();
 		if (svc)
-			svc.CloseBankingMenu();
+			GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(svc.CloseBankingMenu, 1, false);
 	}
 
 	// Open the shared DayZ Beans Launcher promo (defined in TraderX core).

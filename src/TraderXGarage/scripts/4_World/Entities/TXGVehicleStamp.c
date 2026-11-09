@@ -157,6 +157,84 @@ modded class BoatScript
     }
 }
 
+// CF_OnStoreSave/CF_OnStoreLoad on motorbikes are provided by CF (1.30+).
+modded class MotorbikeScript
+{
+    string m_TXG_PolicyId = "";
+    string m_TXG_OwnerUid = "";
+    int    m_TXG_StampState = 0;
+    int    m_TXG_NoResaleUntil = 0;
+    string m_TXG_SharedWith = "";   // comma-separated Steam64 ids (storage v2)
+    bool   m_TXG_GarageRemoval = false;
+    bool   m_TXG_KilledHandled = false;
+
+    override void CF_OnStoreSave(CF_ModStorageMap storage)
+    {
+        super.CF_OnStoreSave(storage);
+
+        CF_ModStorage ctx = storage.Get(TXGConstants.STORAGE_MOD);
+        if (!ctx)
+            return;
+
+        ctx.Write(m_TXG_PolicyId);
+        ctx.Write(m_TXG_OwnerUid);
+        ctx.Write(m_TXG_StampState);
+        ctx.Write(m_TXG_NoResaleUntil);
+        ctx.Write(m_TXG_SharedWith);
+    }
+
+    override bool CF_OnStoreLoad(CF_ModStorageMap storage)
+    {
+        if (!super.CF_OnStoreLoad(storage))
+            return false;
+
+        CF_ModStorage ctx = storage.Get(TXGConstants.STORAGE_MOD);
+        if (!ctx)
+            return true;
+
+        string polId = "";
+        string ownUid = "";
+        int stState = 0;
+        int noResale = 0;
+        if (ctx.Read(polId) && ctx.Read(ownUid) && ctx.Read(stState) && ctx.Read(noResale))
+        {
+            m_TXG_PolicyId = polId;
+            m_TXG_OwnerUid = ownUid;
+            m_TXG_StampState = stState;
+            m_TXG_NoResaleUntil = noResale;
+        }
+        string shared = "";
+        if (ctx.GetVersion() >= 2 && ctx.Read(shared))
+            m_TXG_SharedWith = shared;
+        return true;
+    }
+
+    override void EEKilled(Object killer)
+    {
+        super.EEKilled(killer);
+        if (!GetGame().IsServer() || m_TXG_KilledHandled)
+            return;
+        m_TXG_KilledHandled = true;
+        TXGInsuranceService ins = GetTXGInsuranceService();
+        if (ins)
+            ins.OnVehicleDestroyed(this);
+    }
+
+    override void EEDelete(EntityAI parent)
+    {
+        if (GetGame() && GetGame().IsServer())
+        {
+            if (m_TXG_StampState == TXGConstants.STAMP_INSURED && !m_TXG_GarageRemoval && !m_TXG_KilledHandled && !TXGVehicleStampHelper.s_ServerShuttingDown)
+            {
+                TXGInsuranceService ins = GetTXGInsuranceService();
+                if (ins)
+                    ins.OnVehicleDeletedExternally(this);
+            }
+        }
+        super.EEDelete(parent);
+    }
+}
+
 class TXGVehicleStampHelper
 {
     // Set when the mission ends: the engine then deletes every entity, which must not be read as
@@ -171,6 +249,10 @@ class TXGVehicleStampHelper
         BoatScript boat = BoatScript.Cast(vehicle);
         if (boat)
             return boat.m_TXG_SharedWith;
+
+        MotorbikeScript bike = MotorbikeScript.Cast(vehicle);
+        if (bike)
+            return bike.m_TXG_SharedWith;
         return "";
     }
 
@@ -220,6 +302,10 @@ class TXGVehicleStampHelper
         BoatScript boat = BoatScript.Cast(vehicle);
         if (boat)
             boat.m_TXG_SharedWith = raw;
+
+        MotorbikeScript bike = MotorbikeScript.Cast(vehicle);
+        if (bike)
+            bike.m_TXG_SharedWith = raw;
     }
 
     static void ApplyStamp(EntityAI vehicle, string policyId, string ownerUid, int stampState, int noResaleUntil)
@@ -241,6 +327,16 @@ class TXGVehicleStampHelper
             boat.m_TXG_OwnerUid = ownerUid;
             boat.m_TXG_StampState = stampState;
             boat.m_TXG_NoResaleUntil = noResaleUntil;
+            return;
+        }
+
+        MotorbikeScript bike = MotorbikeScript.Cast(vehicle);
+        if (bike)
+        {
+            bike.m_TXG_PolicyId = policyId;
+            bike.m_TXG_OwnerUid = ownerUid;
+            bike.m_TXG_StampState = stampState;
+            bike.m_TXG_NoResaleUntil = noResaleUntil;
             return;
         }
     }
@@ -272,6 +368,16 @@ class TXGVehicleStampHelper
             return true;
         }
 
+        MotorbikeScript bike = MotorbikeScript.Cast(vehicle);
+        if (bike)
+        {
+            policyId = bike.m_TXG_PolicyId;
+            ownerUid = bike.m_TXG_OwnerUid;
+            stampState = bike.m_TXG_StampState;
+            noResaleUntil = bike.m_TXG_NoResaleUntil;
+            return true;
+        }
+
         return false;
     }
 
@@ -288,6 +394,13 @@ class TXGVehicleStampHelper
         if (boat)
         {
             boat.m_TXG_GarageRemoval = removing;
+            return;
+        }
+
+        MotorbikeScript bike = MotorbikeScript.Cast(vehicle);
+        if (bike)
+        {
+            bike.m_TXG_GarageRemoval = removing;
             return;
         }
     }

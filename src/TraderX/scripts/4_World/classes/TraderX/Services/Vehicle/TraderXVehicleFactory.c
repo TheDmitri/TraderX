@@ -157,7 +157,20 @@ class TraderXVehicleFactory
             car.Fill(CarFluid.COOLANT, 1.0 * car.GetFluidCapacity(CarFluid.COOLANT));
             
             GetTraderXLogger().LogDebug("Set vehicle fuel level to: " + (fuelLevel * 100).ToString() + "%");
+            return;
         }
+
+        // Boats and motorbikes only have a fuel tank.
+        BoatScript boat = BoatScript.Cast(vehicle);
+        if (boat)
+        {
+            boat.Fill(BoatFluid.FUEL, fuelLevel * boat.GetFluidCapacity(BoatFluid.FUEL));
+            return;
+        }
+
+        MotorbikeScript bike = MotorbikeScript.Cast(vehicle);
+        if (bike)
+            bike.FillScript(ETransportFluid.FUEL, fuelLevel * bike.GetFluidCapacity(ETransportFluid.FUEL));
     }
     
     // Configure vehicle locks (remove existing locks, make it unlocked)

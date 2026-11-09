@@ -41,14 +41,12 @@ class TraderXLicenseModalComponent extends DZlrComponentBase
 		return result;
 	}
 
+	// Deferred on the service, never on this component: CloseLicenseModal deletes
+	// this component, so a method running on `this` would return into freed memory.
 	void OnCloseClick()
 	{
-		GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(DeferredClose, 1, false);
-	}
-
-	void DeferredClose()
-	{
-		if (GetTraderXUIService())
-			GetTraderXUIService().CloseLicenseModal();
+		TraderXUIService uiService = GetTraderXUIService();
+		if (uiService)
+			GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(uiService.CloseLicenseModal, 1, false);
 	}
 }

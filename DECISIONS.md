@@ -99,3 +99,8 @@ Une décision annulée est taguée `[ANNULÉ]` — jamais supprimée. Une `D-XXX
   7. **God mode 30 s du core** : la restauration de santé/zones lève temporairement `SetAllowDamage` (sinon un véhicule abîmé ressortait neuf).
   8. **NPC de service** : le core ne spawn plus 125 quand TraderXGarage est chargé (le garage spawn son propre NPC dans tous les modes) — fin des NPC en double. 126 (ATM) reste spawné par le core : TraderXBanking s'appuie dessus en mode TraderX.
   9. **Véhicule de remplacement** : pièces du preset par défaut du produit (4 roues = 4 entrées), plus la liste brute des attachments autorisés.
+
+## D-014 — Motos : CarLock / garage / trader, persistance via le hook CF ModStorage (2026-10-27)
+- **Contexte** : Les motos DayZ 1.30 (`MotorbikeScript : Motorbike : Transport`) n'étaient gérées ni par CarLock, ni par le tampon garage, ni par la vente trader. CarLock et le garage persistent leurs données véhicule via CF ModStorage.
+- **Choix** : on s'appuie sur le hook `MotorbikeScript` de CF (présent dans le build Workshop de CF, `#ifndef DAYZ_1_29`, absent du dépôt GitHub au commit `0763e7e`). CarLock (`TXCLMotorbikeLockManager`) et le garage (`modded class MotorbikeScript` dans `TXGVehicleStamp.c`) surchargent `CF_OnStoreSave`/`CF_OnStoreLoad` comme pour les bateaux. Le core n'ajoute que le dernier conducteur et la protection de spawn.
+- **Historique** : une copie locale du hook CF avait d'abord été ajoutée au core sur la foi du dépôt GitHub ; le build Workshop la définit déjà (« Overriding function 'CF_OnStoreSave' but not marked as 'override' » au premier démarrage), elle a été retirée. Toujours vérifier le PBO Workshop de CF, pas seulement GitHub.

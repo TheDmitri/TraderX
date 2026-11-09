@@ -51,8 +51,19 @@ class TXBRPCService extends DayZularService
 
 		TXBExpansionAtmImport.TryImport(identity, settings);
 
-		// Send relevant config to the client (fee percent, credit card requirement)
-		GetDayZularRPCManager().SendRPC( TXBConstants.RPC_NAMESPACE, "OnSettingsReceived", new Param2<float, bool>(settings.transactionFeePercent, settings.requireCreditCard), true, identity );
+		SendSettingsToClient(identity);
+	}
+
+	// Send the client the config its UI needs: fee percent, credit card requirement and the
+	// currencies. Without the currencies the client kept its built-in Ruble defaults and
+	// showed 0 cash for any other configured money, while the server used the right one.
+	void SendSettingsToClient(PlayerIdentity identity)
+	{
+		TXBSettings settings = GetTXBConfigService().GetServerSettings();
+		if (!settings || !identity)
+			return;
+
+		GetDayZularRPCManager().SendRPC( TXBConstants.RPC_NAMESPACE, "OnSettingsReceived", new Param3<float, bool, ref array<ref TXBCurrencyEntry>>(settings.transactionFeePercent, settings.requireCreditCard, settings.currencies), true, identity );
 	}
 
 	// --- Server RPC Handlers ---
@@ -65,6 +76,10 @@ class TXBRPCService extends DayZularService
 		PlayerBase player = PlayerBase.Cast(GetPlayerByIdentity(sender));
 		if (!player)
 			return;
+
+		// Re-sync the config on every open: the join-time send can arrive before the client
+		// registered its handlers.
+		SendSettingsToClient(sender);
 
 		TXBBankingService bankService = GetTXBBankingService();
 		TXBAccountData account = bankService.GetOrCreateAccount(player);
@@ -192,7 +207,7 @@ class TXBRPCService extends DayZularService
 
 	void OnSettingsReceived(PlayerIdentity sender, ParamsReadContext ctx)
 	{
-		Param2<float, bool> data;
+		Param3<float, bool, ref array<ref TXBCurrencyEntry>> data = new Param3<float, bool, ref array<ref TXBCurrencyEntry>>(0, false, null);
 		if (!ctx.Read(data))
 			return;
 
@@ -201,6 +216,8 @@ class TXBRPCService extends DayZularService
 		{
 			clientSettings.transactionFeePercent = data.param1;
 			clientSettings.requireCreditCard = data.param2;
+			if (data.param3 && data.param3.Count() > 0)
+				clientSettings.currencies = data.param3;
 		}
 
 		GetTXBLog().LogInfo("[TXB] Client received server settings (fees: " + data.param1 + ")");

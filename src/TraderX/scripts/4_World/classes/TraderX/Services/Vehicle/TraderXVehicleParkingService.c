@@ -47,10 +47,10 @@ class TraderXVehicleParkingService
     TraderXVehicleParkingPosition FindAvailableParkingPosition(string traderId)
     {
         TraderXVehicleParkingCollection collection = TraderXVehicleParkingRepository.GetParkingCollection(traderId);
-        if (!collection)
+        if (!collection || !collection.positions || collection.positions.Count() == 0)
         {
-            GetTraderXLogger().LogWarning("No parking collection found for trader: " + traderId);
-            return null;
+            GetTraderXLogger().LogWarning("No parking spots configured for trader " + traderId + " (expected " + string.Format(TRADERX_VEHICLE_PARKING_FILE, traderId) + "), searching a free spot around the trader instead");
+            return FindFallbackPositionNearNpc(traderId);
         }
         
         // Get currently occupied positions for this trader
@@ -66,7 +66,52 @@ class TraderXVehicleParkingService
             }
         }
         
-        GetTraderXLogger().LogWarning("No available parking positions for trader: " + traderId);
+        GetTraderXLogger().LogWarning("No available parking positions for trader: " + traderId + ", searching a free spot around the trader instead");
+        return FindFallbackPositionNearNpc(traderId);
+    }
+
+    // Last resort when the trader has no parking file or every spot is taken: look for a
+    // free, dry spot on rings around the trader NPC, starting in front of it.
+    TraderXVehicleParkingPosition FindFallbackPositionNearNpc(string traderId)
+    {
+        TraderXNpc npc = GetTraderXModule().GetSettings().GetNpcById(traderId.ToInt());
+        if (!npc)
+            return null;
+
+        vector npcPos = npc.GetPosition();
+        float npcYaw = npc.GetOrientation()[0];
+        vector size = "3 2 6";
+        array<float> radii = {8.0, 12.0, 16.0, 20.0};
+        int steps = 12;
+
+        foreach (float radius : radii)
+        {
+            for (int i = 0; i < steps; i++)
+            {
+                // 0, +30, -30, +60, -60 ... degrees from the direction the trader faces
+                int k = (i + 1) / 2;
+                if (i % 2 == 1)
+                    k = -k;
+                float yaw = npcYaw + k * (360.0 / steps);
+                vector candidate = npcPos + vector.YawToVector(yaw) * radius;
+                candidate[1] = GetGame().SurfaceY(candidate[0], candidate[2]);
+
+                if (GetGame().SurfaceIsSea(candidate[0], candidate[2]) || GetGame().SurfaceIsPond(candidate[0], candidate[2]))
+                    continue;
+
+                // Box raised so it tests the volume of the vehicle, not the ground it stands on.
+                vector boxCenter = candidate;
+                boxCenter[1] = boxCenter[1] + size[1] * 0.5 + 0.2;
+                vector rotation = Vector(yaw + 90.0, 0, 0);
+                if (!IsParkingAvailable(boxCenter, rotation, size))
+                    continue;
+
+                GetTraderXLogger().LogInfo("Fallback parking spot for trader " + traderId + " at " + candidate.ToString());
+                return new TraderXVehicleParkingPosition(candidate, rotation, size);
+            }
+        }
+
+        GetTraderXLogger().LogWarning("No free fallback parking spot found around trader: " + traderId);
         return null;
     }
     
@@ -76,6 +121,10 @@ class TraderXVehicleParkingService
         vector positionVec = position.position;
         vector rotationVec = position.rotation;
         vector sizeVec = position.size;
+
+        // size "0 0 0" = no collision check (same convention as TraderXGarage parkSpots)
+        if (sizeVec == vector.Zero)
+            return true;
         
         return IsParkingAvailable(positionVec, rotationVec, sizeVec);
     }
@@ -306,6 +355,10 @@ class TraderXVehicleParkingService
             if(boatScript && !boatScript.IsLastDriver(player))
                 continue;
 
+            MotorbikeScript bikeScript = MotorbikeScript.Cast(vehicle);
+            if(bikeScript && !bikeScript.IsLastDriver(player))
+                continue;
+
             // Find matching product in trader categories
             TraderXProduct vehicleProduct = FindVehicleProductOnServer(vehicle, traderCategories);
             if (!vehicleProduct) {
@@ -346,6 +399,12 @@ class TraderXVehicleParkingService
         // Check if vehicle is in use (engine running)
         CarScript carScript = CarScript.Cast(vehicle);
         if (carScript && carScript.EngineIsOn()) {
+            GetTraderXLogger().LogDebug("Vehicle engine is running");
+            return false;
+        }
+
+        MotorbikeScript bikeScript = MotorbikeScript.Cast(vehicle);
+        if (bikeScript && bikeScript.EngineIsOn()) {
             GetTraderXLogger().LogDebug("Vehicle engine is running");
             return false;
         }

@@ -22,6 +22,9 @@ class TXBBankNpcService extends DayZularService
 		// Only spawn NPCs in standalone mode (when TraderX is not present)
 #ifdef TraderX
 		GetTXBLog().LogInfo("[TXB] Bank NPC service: TraderX detected, using TraderX NPC system");
+		TXBSettings settings = GetTXBConfigService().GetServerSettings();
+		if (settings && settings.bankNpcs && settings.bankNpcs.Count() > 0)
+			GetTXBLog().LogWarning("[TXB] bankNpcs in TraderXBankingConfig.json are ignored when TraderX is loaded: add the ATM/bank objects to TraderXGeneralSettings.json instead");
 		return;
 #else
 		SpawnBankNpcs();

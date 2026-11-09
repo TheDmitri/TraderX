@@ -20,6 +20,9 @@ class TXCLVehicleTypeHelper
         if (entity.IsInherited(BoatScript))
             return ETXCLVehicleType.BOAT;
 
+        if (entity.IsInherited(MotorbikeScript))
+            return ETXCLVehicleType.MOTORBIKE;
+
         if (entity.IsInherited(CarScript))
         {
             if (typeName.Contains("heli") || typeName.Contains("helicopter"))
@@ -40,6 +43,8 @@ class TXCLVehicleTypeHelper
                 return "Boat";
             case ETXCLVehicleType.HELI:
                 return "Helicopter";
+            case ETXCLVehicleType.MOTORBIKE:
+                return "Motorbike";
             default:
                 return "Unknown";
         }

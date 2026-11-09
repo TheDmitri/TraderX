@@ -107,7 +107,15 @@ class TXBSettings
 		if (FileExist(TXBConstants.CONFIG_FILE))
 		{
 			settings = new TXBSettings();
+			// Drop the built-in Ruble defaults so the file's currencies are the only ones;
+			// they come back below if the file lists none.
+			settings.currencies.Clear();
 			JsonFileLoader<TXBSettings>.JsonLoadFile(TXBConstants.CONFIG_FILE, settings);
+			if (!settings.currencies || settings.currencies.Count() == 0)
+			{
+				TXBSettings defaults = new TXBSettings();
+				settings.currencies = defaults.currencies;
+			}
 			GetTXBLog().LogInfo("[TXB] Config loaded from " + TXBConstants.CONFIG_FILE);
 
 			if (settings.version != TXBConstants.CONFIG_VERSION)

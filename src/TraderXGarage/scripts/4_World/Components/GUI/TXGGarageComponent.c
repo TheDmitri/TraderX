@@ -765,11 +765,14 @@ class TXGGarageComponent extends DZlrComponentBase
         m_AdminArmed = false;
     }
 
+    // Deferred on the service: closing destroys this component while its click handler is
+    // still on the stack (use-after-free -> native CTD). The call must target the service,
+    // never a method of this component.
     void OnClose()
     {
         TXGUIService svc = GetTXGUIService();
         if (svc)
-            svc.CloseGarageMenu();
+            GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(svc.CloseGarageMenu, 1, false);
     }
 
     // ================================================================== helpers

@@ -2,12 +2,20 @@
 
 ## Unreleased
 
+### Added
+- **Motorbikes (DayZ 1.29) in CarLock, Garage and the trader.** `MotorbikeScript` vehicles can now be locked/unlocked/lockpicked (lockpick settings use the car config), parked with insurance stamps / sharing in the garage, bought and sold at traders (last-driver check, engine-running check, fuel filled on purchase). Lock and garage data persist through CF's own MotorbikeScript ModStorage hook (CF workshop build, DayZ 1.30+). Vehicle receipts remain car-only.
+
 ### Changed
 - **Purchase sidebar hides sell-only categories.** Categories with nothing to buy no longer show in the purchase list (once the trader's catalog has fully arrived). Sell, Catalog and Favorites are unchanged.
 
 ### Fixed
 - **Category after a sell-only one showed no items.** On the purchase page, clicking a category with nothing to buy left the section stuck "collapsed", so the next category showed its name and count but an empty list until a third click.
 - **DayZ Beans Launcher promo drew mixed with the trader / stayed open.** The trader's 3D item and player previews rendered through the promo; the host menu (trader, banking, garage) is now hidden while the promo shows. Closing the host menu (ESC, close button) now closes the promo too instead of leaving it on screen.
+- **Clicking the X closed the game.** The trader, license modal, banking and garage close buttons freed their own component while its click handler was still running (heap corruption `0xc0000374`, CTD with `Class: 'TraderXAppComponent'`). Closing is now deferred on the UI service.
+- **Random crash on purchase (no-space confirm).** The "not enough space" confirm modal freed itself from inside its own Confirm/Cancel click. Its release is now deferred one frame; same fix for the Beans Launcher promo modal.
+- **Banking currency stuck on Rubles client-side.** The client never received the server's currencies, so the bank UI counted cash in Rubles (0 for any other money) while withdrawals used the configured one. The server now sends its currencies on join and on every bank open; the config file's currencies also replace the built-in Ruble defaults instead of being merged with them.
+- **Vehicle purchase: "No parking available".** Without a `TraderXVehicleParking/parkings_<npcId>.json` (or with every spot taken) the purchase now looks for a free, dry spot around the trader NPC. A spot `size` of `0 0 0` skips the collision check (same as TraderXGarage). Spawn bounds use the real world size instead of a hardcoded 15360 (Deer Isle is 16384).
+- **Banking `bankNpcs` silently ignored with TraderX.** A warning now points to `TraderXGeneralSettings.json`, which is where bank objects are configured when TraderX is loaded.
 
 ## 1.1
 

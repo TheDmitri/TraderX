@@ -29,7 +29,7 @@ class TraderXVehicleTransactionService
             return false;
         if (GetGame().IsKindOf(className, "Transport"))
             return true;
-        if (GetGame().IsKindOf(className, "CarScript") || GetGame().IsKindOf(className, "BoatScript"))
+        if (GetGame().IsKindOf(className, "CarScript") || GetGame().IsKindOf(className, "BoatScript") || GetGame().IsKindOf(className, "MotorbikeScript"))
             return true;
         return false;
     }
@@ -38,7 +38,8 @@ class TraderXVehicleTransactionService
     
     private bool IsValidSpawnPosition(vector position)
     {
-        if (position[0] < 0 || position[0] > 15360 || position[2] < 0 || position[2] > 15360) {
+        float worldSize = GetGame().GetWorld().GetWorldSize();
+        if (position[0] < 0 || position[0] > worldSize || position[2] < 0 || position[2] > worldSize) {
             GetTraderXLogger().LogError("Spawn position out of world bounds: " + position.ToString());
             return false;
         }
@@ -111,6 +112,11 @@ class TraderXVehicleTransactionService
         BoatScript boatScript = BoatScript.Cast(vehicle);
         if (boatScript) {
             return boatScript.EngineIsOn();
+        }
+
+        MotorbikeScript bikeScript = MotorbikeScript.Cast(vehicle);
+        if (bikeScript) {
+            return bikeScript.EngineIsOn();
         }
         
         return false;
@@ -293,7 +299,10 @@ class TraderXVehicleTransactionService
             DecreasePresetAttachmentStock(preset);
         }
         
-        GetTraderXLogger().LogInfo("Vehicle purchased successfully: " + product.className + " by player: " + player.GetIdentity().GetName());
+        string buyerName = "?";
+        if (player.GetIdentity())
+            buyerName = player.GetIdentity().GetName();
+        GetTraderXLogger().LogInfo("Vehicle purchased successfully: " + product.className + " by player: " + buyerName);
         return TraderXTransactionResult.CreateSuccess(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), "Vehicle purchase successful");
     }
     
@@ -343,6 +352,11 @@ class TraderXVehicleTransactionService
 
             BoatScript boat = BoatScript.Cast(vehicleToSell);
             if(boat && !boat.IsLastDriver(player)){
+                return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), "Vehicle sale failed: Vehicle is not owned by player");
+            }
+
+            MotorbikeScript bike = MotorbikeScript.Cast(vehicleToSell);
+            if(bike && !bike.IsLastDriver(player)){
                 return TraderXTransactionResult.CreateFailure(transaction.GetTransactionId(), transaction.GetProductId(), transaction.GetTransactionType(), "Vehicle sale failed: Vehicle is not owned by player");
             }
         }

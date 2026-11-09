@@ -1,6 +1,6 @@
 #ifndef CarLock
 // TraderPlus V1 defines "CarLock" and owns the CarLock item: TraderX CarLock stands down when it is loaded (see TXCLTraderPlusNotice).
-// Composition wrapper around any Transport (Car/Boat). Owns a TXCLVehicleLockComponent and
+// Composition wrapper around any Transport (Car/Boat/Motorbike). Owns a TXCLVehicleLockComponent and
 // bridges it to the vehicle's net-sync variables. Resolved via TXCLVehicleLockManager.Get(entity).
 
 class TXCLVehicleLockManager
@@ -25,6 +25,10 @@ class TXCLVehicleLockManager
 
         if (Class.CastTo(boat, entity))
             return boat.GetTXCLLockManager();
+
+        MotorbikeScript bike;
+        if (Class.CastTo(bike, entity))
+            return bike.GetTXCLLockManager();
 
         return null;
     }
@@ -300,6 +304,47 @@ class TXCLCarLockManager : TXCLVehicleLockManagerT<CarScript>
 class TXCLBoatLockManager : TXCLVehicleLockManagerT<BoatScript>
 {
     void TXCLBoatLockManager(BoatScript vehicle)
+    {
+    }
+
+    override void Init()
+    {
+        m_Vehicle.RegisterNetSyncVariableBool("m_TXCL_IsLocked");
+        m_Vehicle.RegisterNetSyncVariableInt("m_TXCL_Owner");
+        m_Vehicle.RegisterNetSyncVariableInt("m_TXCL_Password");
+        m_Vehicle.RegisterNetSyncVariableInt("m_TXCL_Timestamp");
+        m_Vehicle.RegisterNetSyncVariableInt("m_TXCL_Sound");
+    }
+
+    override void SyncFromComponent()
+    {
+        if (m_LockComponent)
+        {
+            m_Vehicle.m_TXCL_IsLocked = m_LockComponent.GetIsLocked();
+            m_Vehicle.m_TXCL_Owner = m_LockComponent.GetLockOwner();
+            m_Vehicle.m_TXCL_Password = m_LockComponent.GetLockPassword();
+            m_Vehicle.m_TXCL_Timestamp = m_LockComponent.GetLockTimestamp();
+            m_Vehicle.m_TXCL_Sound = m_LockComponent.GetSoundToPlay();
+            m_Vehicle.SetSynchDirty();
+        }
+    }
+
+    override void SyncToComponent()
+    {
+        if (m_LockComponent)
+        {
+            m_LockComponent.SetIsLocked(m_Vehicle.m_TXCL_IsLocked);
+            m_LockComponent.SetLockOwner(m_Vehicle.m_TXCL_Owner);
+            m_LockComponent.SetLockPassword(m_Vehicle.m_TXCL_Password);
+            m_LockComponent.SetLockTimestamp_NoSync(m_Vehicle.m_TXCL_Timestamp);
+            m_LockComponent.SetSoundToPlayDirect(m_Vehicle.m_TXCL_Sound);
+        }
+    }
+}
+
+class TXCLMotorbikeLockManager : TXCLVehicleLockManagerT<MotorbikeScript>
+{
+    void TXCLMotorbikeLockManager(MotorbikeScript vehicle)
     {
     }
 

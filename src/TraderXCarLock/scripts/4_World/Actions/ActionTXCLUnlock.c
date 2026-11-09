@@ -5,6 +5,7 @@
 class ActionTXCLUnlock : ActionSingleUseBase
 {
     bool m_IsBoat;
+    bool m_IsMotorbike;
 
     void ActionTXCLUnlock()
     {
@@ -22,6 +23,8 @@ class ActionTXCLUnlock : ActionSingleUseBase
     {
         if (m_IsBoat)
             return "Unlock Boat";
+        if (m_IsMotorbike)
+            return "Unlock Motorbike";
         return "Unlock Car";
     }
 
@@ -37,6 +40,10 @@ class ActionTXCLUnlock : ActionSingleUseBase
         m_IsBoat = false;
         if (BoatScript.Cast(targetObject))
             m_IsBoat = true;
+
+        m_IsMotorbike = false;
+        if (MotorbikeScript.Cast(targetObject))
+            m_IsMotorbike = true;
 
         TXCLVehicleLockManager manager = TXCLVehicleLockManager.Get(targetObject);
         if (manager && player.CanInteractWithTXCLLock(manager) && manager.IsVehicleLocked())

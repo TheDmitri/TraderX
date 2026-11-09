@@ -101,16 +101,15 @@ class TraderXAppComponent extends DZlrComponentBase
 	}
 
 	// Header close button. Deferred: closing destroys this component, whose click is
-	// still on the stack (see AddSubPage).
+	// still on the stack (see AddSubPage). The deferred call MUST target the service,
+	// not a method of this component: CloseTraderView releases the menu, which deletes
+	// this component, so a method running on `this` would return into freed memory
+	// (heap corruption 0xc0000374, CTD with "Class: 'TraderXAppComponent'").
 	void OnCloseClick()
 	{
-		GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(CloseTraderView, 1, false);
-	}
-
-	void CloseTraderView()
-	{
-		if (GetTraderXUIService())
-			GetTraderXUIService().CloseTraderView();
+		TraderXUIService uiService = GetTraderXUIService();
+		if (uiService)
+			GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(uiService.CloseTraderView, 1, false);
 	}
 
 	static string Upper(string text)

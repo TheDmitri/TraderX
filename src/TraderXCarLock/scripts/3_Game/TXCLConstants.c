@@ -34,5 +34,6 @@ enum ETXCLVehicleType
     UNKNOWN = 0,
     CAR,
     BOAT,
-    HELI
+    HELI,
+    MOTORBIKE
 }

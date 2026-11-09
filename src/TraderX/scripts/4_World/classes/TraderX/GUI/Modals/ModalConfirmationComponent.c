@@ -81,14 +81,33 @@ class ModalConfirmationComponent extends DZlrComponentBase
 		GetGame().GetUIManager().ShowUICursor(true);
 	}
 
+	// Close() is usually reached from the overlay's own Confirm/Cancel click (through the
+	// callbacks), so the overlay must not be freed now: hide it, keep a reference, and
+	// release it next frame from a static function (use-after-free -> native CTD otherwise).
+	protected static ref array<ref ModalConfirmationComponent> s_Closing = new array<ref ModalConfirmationComponent>();
+
 	static void Close()
 	{
 		s_PendingTitle = "";
 		s_PendingContent = "";
 		if (s_Overlay)
 		{
-			s_Overlay.Destroy();
+			Widget root = s_Overlay.GetRoot();
+			if (root)
+				root.Show(false);
+			s_Closing.Insert(s_Overlay);
 			s_Overlay = null;
+			GetGame().GetCallQueue(CALL_CATEGORY_GUI).CallLater(ReleaseClosed, 1, false);
 		}
+	}
+
+	protected static void ReleaseClosed()
+	{
+		foreach (ModalConfirmationComponent closed : s_Closing)
+		{
+			if (closed)
+				closed.Destroy();
+		}
+		s_Closing.Clear();
 	}
 }
