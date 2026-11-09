@@ -110,7 +110,7 @@ class TXGGarageComponent extends DZlrComponentBase
     void OnLauncher()
     {
 #ifdef TraderX
-        TXBeansPromoComponent.Open();
+        TXBeansPromoComponent.Open(GetRoot());
 #endif
     }
 
@@ -144,6 +144,9 @@ class TXGGarageComponent extends DZlrComponentBase
         GetGame().GetCallQueue(CALL_CATEGORY_GUI).Remove(DisarmAdmin);
         StopSpotCamera();
         ClearVehiclePreview();
+#ifdef TraderX
+        TXBeansPromoComponent.Dismiss();
+#endif
     }
 
     // ================================================================== data

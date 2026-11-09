@@ -99,7 +99,10 @@ class CategoryCardComponent extends DZlrComponentBase
 			return;
 
 		bool wasCollapsed = isExpanded; // isExpanded == true means collapsed (see HandleCollapse)
-		SetCategoryCardData(_inputCategory, itemCardViewSize, !wasCollapsed, categoryType);
+		// Always-expanded sections must reopen even when the previous category was empty: the
+		// empty branch below leaves isExpanded = true, and HandleCollapse would then refuse to
+		// expand (purchase page: the category after a sell-only one showed no items).
+		SetCategoryCardData(_inputCategory, itemCardViewSize, m_AlwaysExpanded || !wasCollapsed, categoryType);
 
 		// HandleCollapse ignores empty categories, so drop the old item cards here.
 		if (GetDisplayableProductCount() == 0)

@@ -7,6 +7,8 @@ class PurchasePageComponent extends DZlrComponentBase
 	// Sidebar (Nasdara): every visible category; the main area shows the selected one.
 	ref array<ref TraderXCategory> _navCategories = new array<ref TraderXCategory>();
 	protected TraderXCategory m_SelectedCategory;
+	// True once the sidebar was built from the complete catalog (empty categories hidden).
+	protected bool m_NavFiltered;
 	// Remembered across tab switches within the session (by name: categories are rebuilt).
 	static string s_SelectedCategoryName;
 	bool m_AllExpanded = false;
@@ -296,10 +298,14 @@ class PurchasePageComponent extends DZlrComponentBase
 	{
 		_navCategories.Clear();
 		m_SelectedCategory = null;
+		// Mid-stream a category can still be missing its products: only hide the empty
+		// (sell-only) ones once the catalog is complete — OnTradeResponse rebuilds then.
+		m_NavFiltered = TraderXTradingService.GetInstance().IsProductsReady();
 		array<ref TraderXCategory> categories = TraderXTradingService.GetInstance().GetTraderCategories();
 		foreach (TraderXCategory category : categories)
 		{
 			if (!category || !category.isVisible) continue;
+			if (m_NavFiltered && !HasBuyableProducts(category)) continue;
 			_navCategories.Insert(category);
 			if (category.categoryName == s_SelectedCategoryName)
 				m_SelectedCategory = category;
@@ -307,6 +313,19 @@ class PurchasePageComponent extends DZlrComponentBase
 		if (!m_SelectedCategory && _navCategories.Count() > 0)
 			m_SelectedCategory = _navCategories[0];
 		ShowSelectedCategory();
+	}
+
+	// Nothing to buy in a sell-only category: the purchase sidebar skips it.
+	static bool HasBuyableProducts(TraderXCategory category)
+	{
+		array<ref TraderXProduct> products = category.GetProducts();
+		if (!products) return false;
+		foreach (TraderXProduct item : products)
+		{
+			if (item && item.CanBeBought())
+				return true;
+		}
+		return false;
 	}
 
 	// Main area = the selected category, expanded (no accordion).
@@ -422,8 +441,12 @@ class PurchasePageComponent extends DZlrComponentBase
 	// marks completion).
 	void OnTradeResponse(int response, TraderXTransactionResultCollection results = null)
 	{
-		if (response == ETraderXResponse.ALL_STOCK_RECEIVED)
-			SetSyncing(false);
+		if (response != ETraderXResponse.ALL_STOCK_RECEIVED) return;
+		SetSyncing(false);
+		// Stock updates after each trade fire this too: rebuild the sidebar only the first
+		// time, when it was built mid-stream with the empty categories still in it.
+		if (!m_NavFiltered && search_keyword == "")
+			ShowCategoryList();
 	}
 
 	void SetSyncing(bool syncing)

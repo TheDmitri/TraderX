@@ -1,5 +1,14 @@
 # TraderX Changelog
 
+## Unreleased
+
+### Changed
+- **Purchase sidebar hides sell-only categories.** Categories with nothing to buy no longer show in the purchase list (once the trader's catalog has fully arrived). Sell, Catalog and Favorites are unchanged.
+
+### Fixed
+- **Category after a sell-only one showed no items.** On the purchase page, clicking a category with nothing to buy left the section stuck "collapsed", so the next category showed its name and count but an empty list until a third click.
+- **DayZ Beans Launcher promo drew mixed with the trader / stayed open.** The trader's 3D item and player previews rendered through the promo; the host menu (trader, banking, garage) is now hidden while the promo shows. Closing the host menu (ESC, close button) now closes the promo too instead of leaving it on screen.
+
 ## 1.1
 
 ### Added

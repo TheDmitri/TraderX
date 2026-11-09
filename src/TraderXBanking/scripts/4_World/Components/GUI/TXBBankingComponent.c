@@ -79,6 +79,9 @@ class TXBBankingComponent extends DZlrComponentBase
 	override void OnDestroy()
 	{
 		TXBHomeTabComponent.Event_OnNavigateRequest.Remove(SelectComponent);
+#ifdef TraderX
+		TXBeansPromoComponent.Dismiss();
+#endif
 	}
 
 	// Called by NavButtonBinding when a tab / home nav card is clicked.
@@ -119,7 +122,7 @@ class TXBBankingComponent extends DZlrComponentBase
 	void OnLauncher()
 	{
 #ifdef TraderX
-		TXBeansPromoComponent.Open();
+		TXBeansPromoComponent.Open(GetRoot());
 #endif
 	}
 }

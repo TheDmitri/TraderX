@@ -76,13 +76,14 @@ class TraderXAppComponent extends DZlrComponentBase
 		GetGame().GetCallQueue(CALL_CATEGORY_GUI).Remove(ShowContent);
 		TraderXTradingService.Event_OnTraderXResponseReceived.Remove(OnTraderXResponseReceived);
 		TraderXSelectionService.GetInstance().DeSelectAllItems();
+		TXBeansPromoComponent.Dismiss();
 		m_Instance = null;
 	}
 
 	// Footer "Sponsored By DayZ Beans Launcher" -> open the shared promo modal.
 	void OnLauncherClick()
 	{
-		TXBeansPromoComponent.Open();
+		TXBeansPromoComponent.Open(GetRoot());
 	}
 
 	// DayZ Beans Launcher placement 4: a welcome toast on the first trader opened after
