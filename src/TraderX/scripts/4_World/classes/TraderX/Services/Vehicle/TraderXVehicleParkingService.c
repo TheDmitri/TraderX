@@ -316,9 +316,11 @@ class TraderXVehicleParkingService
     {
         GetTraderXLogger().LogDebug("GetVehiclesFromParkingSpots for npcId: " + npcId);
 
-        // Get vehicles in parking spots for this trader
+        // Get vehicles in parking spots for this trader: the ones this trader spawned (in memory)
+        // plus any vehicle actually parked near one of its parking spots (found on the map,
+        // retrieved from a garage, bought before a restart...)
         TraderXVehicleParkingService parkingService = TraderXVehicleParkingService.GetInstance();
-        array<EntityAI> occupiedVehicles = parkingService.GetOccupiedVehicles(npcId.ToString());
+        array<EntityAI> occupiedVehicles = parkingService.GetSellCandidateVehicles(npcId.ToString());
 
         // Get trader's categories to match vehicles against sellable products
         TraderXNpc npc = GetTraderXModule().GetSettings().GetNpcById(npcId);
@@ -347,16 +349,8 @@ class TraderXVehicleParkingService
                 continue;
             }
 
-            CarScript carScript = CarScript.Cast(vehicle);
-            if(carScript && !carScript.IsLastDriver(player))
-                continue;
-
-            BoatScript boatScript = BoatScript.Cast(vehicle);
-            if(boatScript && !boatScript.IsLastDriver(player))
-                continue;
-
-            MotorbikeScript bikeScript = MotorbikeScript.Cast(vehicle);
-            if(bikeScript && !bikeScript.IsLastDriver(player))
+            // Same ownership rule as ProcessVehicleSellTransaction: CarLock owner, or last driver when unlocked
+            if (!CanPlayerSellVehicle(vehicle, player))
                 continue;
 
             // Find matching product in trader categories
@@ -376,6 +370,67 @@ class TraderXVehicleParkingService
             
             GetTraderXLogger().LogDebug("Added sellable vehicle: " + vehicle.GetType() + " (networkId: " + highId + "," + lowId + ")");
         }
+    }
+
+    static const float SELL_SCAN_RADIUS = 15.0;
+
+    // Vehicles reserved by this trader + vehicles physically parked near its parking spots
+    array<EntityAI> GetSellCandidateVehicles(string traderId)
+    {
+        array<EntityAI> result = new array<EntityAI>();
+        foreach (EntityAI reserved : GetOccupiedVehicles(traderId))
+        {
+            if (reserved)
+                result.Insert(reserved);
+        }
+
+        TraderXVehicleParkingCollection collection = TraderXVehicleParkingRepository.GetParkingCollection(traderId);
+        if (!collection || !collection.positions)
+            return result;
+
+        foreach (TraderXVehicleParkingPosition spot : collection.positions)
+        {
+            if (!spot)
+                continue;
+            array<Object> nearby = new array<Object>();
+            GetGame().GetObjectsAtPosition3D(spot.position, SELL_SCAN_RADIUS, nearby, null);
+            foreach (Object obj : nearby)
+            {
+                if (!Transport.Cast(obj))
+                    continue;
+                EntityAI vehicle = EntityAI.Cast(obj);
+                if (vehicle && result.Find(vehicle) == -1)
+                    result.Insert(vehicle);
+            }
+        }
+        return result;
+    }
+
+    // Mirrors the ownership checks of TraderXVehicleTransactionService.ProcessVehicleSellTransaction
+    bool CanPlayerSellVehicle(EntityAI vehicle, PlayerBase player)
+    {
+        if (!vehicle || !player || !player.GetIdentity())
+            return false;
+
+        if (TraderXProviderRegistry.GetInstance().HasCarLock()) {
+            ITraderXCarLockProvider lockProv = TraderXProviderRegistry.GetInstance().GetCarLockProvider();
+            if (lockProv && lockProv.HasCarLock(vehicle))
+                return lockProv.IsOwner(vehicle, player.GetIdentity().GetPlainId());
+        }
+
+        CarScript carScript = CarScript.Cast(vehicle);
+        if (carScript && !carScript.IsLastDriver(player))
+            return false;
+
+        BoatScript boatScript = BoatScript.Cast(vehicle);
+        if (boatScript && !boatScript.IsLastDriver(player))
+            return false;
+
+        MotorbikeScript bikeScript = MotorbikeScript.Cast(vehicle);
+        if (bikeScript && !bikeScript.IsLastDriver(player))
+            return false;
+
+        return true;
     }
 
     bool IsVehicleSellableOnServer(EntityAI vehicle, PlayerBase player)
